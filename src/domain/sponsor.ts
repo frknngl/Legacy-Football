@@ -19,7 +19,7 @@
  */
 
 /** Bu esigin altinda sponsorluk geliri YOKTUR. */
-export const SPONSOR_FLOOR = 35;
+export const SPONSOR_FLOOR = 20;
 
 /**
  * Haftalik sponsorluk geliri.
@@ -42,8 +42,52 @@ export function sponsorIncome(
   const trust = (relation - SPONSOR_FLOOR) / (100 - SPONSOR_FLOOR);
   // Sohret carpani: cirak neredeyse hicbir sey, ikon tam pay.
   const fame = Math.max(0, Math.min(1, fameIndex));
-  // Skandal bir isim markayi kacirir; 50 notr.
-  const media = 0.5 + Math.max(0, Math.min(100, mediaStanding)) / 200;
+  // Skandal bir isim markayi kacirir -- ama bu bir CARPAN, kapi degil.
+  //
+  // Ilk kalibrasyonda `0.5 + media/200` idi. `medya_itibari` medyani 15
+  // oldugu icin (o bayrak da tek yonlu: icerik net -851 yaziyor) bu
+  // carpani 0.575'e kilitliyor ve sponsorluk gelirini maasin %0,3'une
+  // dusuruyordu -- yani bayragi gelire baglamak hicbir sey degistirmiyordu.
+  const media = 0.6 + Math.max(0, Math.min(100, mediaStanding)) / 250;
 
-  return Math.round(wage * 0.33 * trust * fame * media);
+  // Katsayi olculerek secildi. Hedef gradyan:
+  //   taninmayan oyuncu (sohret 0.4, iliski 33, medya 15) -> maasin ~%2,6'si
+  //   efsane (sohret 1, iliski 65, medya 50)              -> maasin ~%27'si
+  // Sponsorluk bir YILDIZ gelirdir; cirak icin sifira yakin olmasi dogru.
+  return Math.round(wage * 0.6 * trust * fame * media);
+}
+
+/**
+ * SPONSOR ILISKISININ HEDEFI.
+ *
+ * OLCULEN SORUN: `iliski_sponsor` 50'den basliyor, icerik ona net -62
+ * yaziyor (4 pozitif / 8 negatif) ve TOPARLANMA yoktu. Alti kariyerlik
+ * olcumde medyani 24 cikti -- yani bayrak tek yonlu bir mandaldi ve
+ * gelire baglamak tek basina onu canlandirmiyordu. Moralde de aynen bu
+ * olmustu.
+ *
+ * Cozum ayni: bayrak bir HEDEFE dogru kayar. Hedef sohret ve medya
+ * itibarindan turer -- markalar unlu ve temiz oyuncunun pesinden
+ * kendiliginden kosar, taninmayan oyuncuyu aramaz.
+ *
+ * Boylece 12 icerik efekti hedefin ETRAFINDA sok olarak calisir:
+ * "cekimde surat astin" gercekten para kaybettirir, ama kariyeri
+ * boyunca cezalandirmaz.
+ */
+export function sponsorTarget(fameIndex: number, mediaStanding: number): number {
+  const fame = Math.max(0, Math.min(1, fameIndex));
+  const media = Math.max(0, Math.min(100, mediaStanding));
+  return Math.max(10, Math.min(90, 20 + fame * 50 + (media - 50) * 0.3));
+}
+
+/**
+ * Hedefe dogru haftalik kayma -- boslugun onda biri, en cok 2 puan.
+ *
+ * Moraldeki toparlanmadan YAVAS: sponsorluk iliskisi haftalik ruh hali
+ * degil, yillik bir itibar meselesidir.
+ */
+export function sponsorDrift(current: number, target: number): number {
+  const gap = target - current;
+  if (Math.abs(gap) < 1) return 0;
+  return Math.max(-2, Math.min(2, gap / 10));
 }

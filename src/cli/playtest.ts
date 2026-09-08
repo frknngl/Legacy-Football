@@ -61,6 +61,11 @@ const TRACKED = [
   // Moral hedefinin girdisi: soyunma odasi huzuru. Moral dipteyken
   // sebebin burada mi yoksa icerikte mi oldugunu ancak bu ayirir.
   'iliski_takim',
+  // Ikisi de artik SONUCA bagli: `iliski_aile` moral hedefini,
+  // `iliski_sponsor` sponsorluk gelirini besliyor. Nerede durduklarini
+  // gormeden ikisinin de katsayisi ayarlanamaz.
+  'iliski_aile',
+  'iliski_sponsor',
   // Stature formulunun en agir girdisi (agirlik 25) ve en agir ikincisi.
   // Ikisi de motor tarafindan yazilir; kablolari cekilmezse sessizce 0
   // kalirlar ve `superstar`/`icon`/`legend` kademelerini ULASILAMAZ yapar.

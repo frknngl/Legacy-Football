@@ -112,7 +112,7 @@ import { valuePlayer } from '../domain/transfer.js';
 import { STATURES, statureIndex } from '../domain/axes.js';
 import { DEFAULT_THRESHOLD, latePenalty, loanOffers, type LoanOffer, type LoanState } from '../domain/loan.js';
 import { pressureAfterSack, sackChance, sackPressure } from './ManagerTenure.js';
-import { sponsorIncome } from '../domain/sponsor.js';
+import { sponsorDrift, sponsorIncome, sponsorTarget } from '../domain/sponsor.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -1174,8 +1174,8 @@ export class GameEngine {
           // cunku IKI kez rakibe gecmek bir kez gecmekten baska bir seydir:
           // birincisi ihanet, ikincisi karakter.
           this.state.flags['mem_rakibe_transfer'] = true;
-          this.state.flags['rakip_kulup_gecmisi'] =
-            numberFlag(this.state.flags, 'rakip_kulup_gecmisi') + 1;
+          this.state.flags['mem_rakip_kulup_gecmisi'] =
+            numberFlag(this.state.flags, 'mem_rakip_kulup_gecmisi') + 1;
 
           // Taraftar destegi COKUYOR, medya baskisi patliyor. Bu ceza
           // olaya degil KARARA bagli: icerik bunu hafifletemez, yalnizca
@@ -1728,13 +1728,24 @@ export class GameEngine {
 
     // --- SPONSORLUK
     //
+    // Once ILISKI hedefine kayar: bayrak tek yonlu bir mandaldi (icerik
+    // net -62 yaziyor, toparlanma yoktu) ve medyani 24'e oturuyordu.
+    // Markalar unlu ve temiz oyuncunun pesinden kendiliginden kosar.
+    const fameIndex = statureIndex(this.state.stature) / (STATURES.length - 1);
+    const sponsorNow = numberFlag(f, 'iliski_sponsor');
+    const drift = sponsorDrift(
+      sponsorNow,
+      sponsorTarget(fameIndex, numberFlag(f, 'medya_itibari')),
+    );
+    if (drift !== 0) f['iliski_sponsor'] = clamp100(sponsorNow + drift);
+    //
     // `iliski_sponsor` bayragini 12 icerik olayi yaziyordu ve NE icerik
     // NE motor okuyordu. Burasi o bayragi bir gelire bagliyor -- ama bir
     // HEDIYE degil bir KAPI olarak: iliskisi bozuk oyuncuya marka para
     // vermez (esik altinda gelir sifir).
     const sponsor = sponsorIncome(
       numberFlag(f, 'iliski_sponsor'),
-      statureIndex(this.state.stature) / (STATURES.length - 1),
+      fameIndex,
       numberFlag(f, 'medya_itibari'),
       wage,
     );
