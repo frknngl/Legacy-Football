@@ -110,9 +110,49 @@ toparlanmasız bir oyun için ölçeklenmiş. Motor artık doğru; 503 negatif
 efektin yeniden ölçeklenmesi ayrı bir karar. Bu yapılmadan moral gerçek
 bandının (≈14–34) dışına çıkmadığı için sahadaki etkisi de dar kalır.
 
+### Faz 2 — `ValueRef` ilkeli ✅ (2026-09-08)
+
+Efekt değeri artık çalışma zamanında bir bayraktan okunabiliyor:
+`flags[ref] * (mul ?? 1) + (add ?? 0)`. Özel bir "kumar" mekaniği yerine
+**genel** bir ilkel seçildi — aynı şey kredi taksitini, sponsorluk
+yüzdesini ve "borcun yarısını kapat"ı da yazıyor.
+
+`ValueRefRule` severity `error`: ilkel yeni, grandfather edilecek ihlal
+yok. Denetlediği üç şey — bayrak tanımlı mı, sayısal mı, çarpan makul mü.
+Sessiz sıfır en kötü sonuç olurdu.
+
+### Faz 3 — cüzdan omurgası ✅ (2026-09-08)
+
+**3a — defter.** `domain/wallet.ts` (veri) + `runtime/WalletLedger.ts`
+(durum) + `:cuzdan` masası. 200 satır sınırlı, ama kariyer toplamları
+sınırdan bağımsız birikir. Kritik test: defterdeki toplam, servetteki
+değişimi **tam** açıklamalı — eşleşmezse bir para yolu bağlanmamış
+demektir.
+
+> Faz 0'daki katman testi ilk denemede işe yaradı: tipleri `runtime`'a
+> koymuştum, `domain → runtime` import'u kural ihlaliydi ve test yakaladı.
+
+Ölçüldü (901 turluk kariyer): maaş 3,3M giriş · olaylar 8,8M giriş /
+1,9M çıkış. **Not: içerik maaştan daha çok para veriyor** — ayrı bir
+denge sorusu.
+
+**3b — kredi.** İki alacaklı; ayrım faiz değil *bedelin türü*: banka
+ucuz ama ödenmezse basın, tefeci pahalı ama ödenmezse insanlar gelir.
+Kapasite mevcut borçla düşer; banka bitince geriye tefeci kalır.
+
+**Ölü içeriği canlandırıyor — yeni sahne yazmadan:**
+
+| Ölü kapı | Nasıl açıldı |
+|---|---|
+| `evt_dark_betting_offer` (`borc >= 40000`) | Borçlanmak eşiği geçiriyor |
+| `evt_legal_mafia_collects` (`mem_mafia_favor_owed`) | Tefeciye temerrüt bu izi yazıyor — ölçümde **hiç** dolmuyordu |
+
+Not: simülasyon botu kredi çekmediği için bu iki sahne `npm run simulate`
+çıktısında hâlâ ölü görünür; **oyuncu için** erişilebilir oldular.
+
 ### Sırada
 
-Faz 2 — `ValueRef` ilkeli (`domain/effects.ts`).
+Faz 4 — isyan ve tepkisel senaryolar (yeni `WorldEvent` turu + `manager` slotunun yeniden dokumu). Agirlikli olarak YAZIM isi.
 
 ---
 
