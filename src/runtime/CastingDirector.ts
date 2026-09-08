@@ -109,6 +109,40 @@ export class CastingDirector {
     }
   }
 
+  /**
+   * TEK bir slotu bosaltip yeniden doker.
+   *
+   * `castScope` tum kulup slotlarini yeniden dokuyor; teknik direktor
+   * kovuldugunda kaptan ve yildiz oyuncunun da degismesi YANLIS olurdu --
+   * onlarla kurulan iliski kariyerin kendisidir. Tek slotluk dokum bu
+   * yuzden ayri bir kapi.
+   *
+   * Eski aktor SILINMEZ, arsive gider: kovulan hoca yillar sonra baska
+   * bir kulupte karsina cikabilir (`ReunionDirector`).
+   */
+  recastSlot(state: GameState, slotId: string, ctx: CastingContext, rng: Rng): boolean {
+    const slot = this.slots.get(slotId);
+    if (!slot) return false;
+
+    // GIDEN KISI DISLANIR. Kulup kadrosunda o role uygun tek kisi
+    // olabilir (mock dunyada tam olarak boyle); dislanmazsa kovulan hoca
+    // ayni hafta geri gelir ve kovulma anlamsizlasir. Kimse kalmazsa
+    // `createActor` prosedurel bir isim uretir -- disaridan gelen yeni
+    // hoca da gercek bir sonuctur.
+    const outgoingSource = state.actors[state.casting[slotId] ?? '']?.sourceId;
+    const taken = new Set<string>();
+    for (const [otherSlot, actorId] of Object.entries(state.casting)) {
+      if (otherSlot === slotId) continue;
+      const source = state.actors[actorId]?.sourceId;
+      if (source !== undefined) taken.add(source);
+    }
+    if (outgoingSource !== undefined) taken.add(outgoingSource);
+
+    this.unbindSlot(state, slotId);
+    this.bind(state, slot, ctx, rng, taken);
+    return state.casting[slotId] !== undefined;
+  }
+
   /** Bir slotu belirli bir aktore baglar -- `ReunionDirector` bunu kullanir. */
   bindActor(state: GameState, slotId: string, actor: ActorState): void {
     state.casting[slotId] = actor.id;

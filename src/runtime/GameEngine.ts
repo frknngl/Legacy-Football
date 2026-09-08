@@ -15,7 +15,7 @@
  */
 
 import type { Archetype, ClubTier, Era, LifeState, MediaEra, Stature } from '../domain/axes.js';
-import { POSITIONS, slotChemistryFlag, type Position } from '../domain/actors.js';
+import { POSITIONS, slotBoundFlag, slotChemistryFlag, type Position } from '../domain/actors.js';
 import type { RosterProvider, WorldFeed, WorldProvider } from '../domain/roster.js';
 import type { ScaleContext } from '../domain/effects.js';
 import {
@@ -111,6 +111,7 @@ import type { ActorState } from '../domain/actors.js';
 import { valuePlayer } from '../domain/transfer.js';
 import { STATURES, statureIndex } from '../domain/axes.js';
 import { DEFAULT_THRESHOLD, latePenalty, loanOffers, type LoanOffer, type LoanState } from '../domain/loan.js';
+import { pressureAfterSack, sackChance, sackPressure } from './ManagerTenure.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -881,6 +882,7 @@ export class GameEngine {
     this.tickBonds();
     this.tickEconomy();
     this.tickLoan();
+    this.tickManager();
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
@@ -1640,6 +1642,72 @@ export class GameEngine {
       f['medya_baskisi'] = clamp100(numberFlag(f, 'medya_baskisi') + 12);
       this.notices.push('Bankaya olan borcun basina sizdi.');
     }
+  }
+
+
+  /**
+   * TEKNIK DIREKTORUN KOVULMASI.
+   *
+   * `yonetim_baskisi` bayragini 17 icerik olayi yaziyordu ve motor onu
+   * HIC okumuyordu -- "hocayla atistin, yonetim rahatsiz" yazan her
+   * sahne sessizce etkisizdi. Burasi o baskiyi bir sonuca bagliyor.
+   *
+   * Yeni bir "isyan" mekanigi DEGIL: hoca kotu sezonda ve dagilmis
+   * soyunma odasinda da gider. Isyan yalnizca sureci hizlandirir --
+   * kasitli kotu oynamak formu, takim arkadaslarini kiskirtmak huzuru
+   * dusurur ve ikisi de bu formulun girdisi.
+   *
+   * Yalnizca `manager` slotu yeniden dokulur. Kaptanin ve yildiz
+   * oyuncunun da degismesi yanlis olurdu: onlarla kurulan iliski
+   * kariyerin kendisidir.
+   */
+  private tickManager(): void {
+    if (!this.casting) return;
+    const f = this.state.flags;
+    if (f[slotBoundFlag('manager')] !== true) return;
+
+    const relations = new Map<string, number>();
+    for (const [slotId, actorId] of Object.entries(this.state.casting)) {
+      const actor = this.state.actors[actorId];
+      if (actor) relations.set(slotId, actor.relation);
+    }
+
+    const pressure = sackPressure({
+      boardPressure: numberFlag(f, 'yonetim_baskisi'),
+      harmony: dressingRoomHarmony(relations),
+      form: numberFlag(f, 'form'),
+    });
+
+    const chance = sackChance(pressure);
+    if (chance <= 0) return;
+    if (this.rng.next() >= chance) {
+      this.state.rngCursor = this.rng.position;
+      return;
+    }
+    this.state.rngCursor = this.rng.position;
+
+    // --- KOVULDU
+    const outgoing = this.state.actors[this.state.casting['manager'] ?? '']?.name;
+    const replaced = this.casting.recastSlot(
+      this.state,
+      'manager',
+      this.castingContext(),
+      this.rng,
+    );
+    this.state.rngCursor = this.rng.position;
+    if (!replaced) return;
+
+    f['yonetim_baskisi'] = pressureAfterSack(pressure);
+    // Icerik bu izi okuyabilir: "senin yuzunden mi gitti?"
+    f['mem_hoca_kovuldu'] = true;
+    this.state.flagSetTurn['mem_hoca_kovuldu'] = this.state.turn;
+
+    const incoming = this.state.actors[this.state.casting['manager'] ?? '']?.name;
+    this.notices.push(
+      outgoing === undefined
+        ? 'Teknik direktor gorevden alindi.'
+        : `${outgoing} gorevden alindi. Yerine ${incoming ?? 'yeni bir isim'} geldi.`,
+    );
   }
 
   private tickEconomy(): void {
