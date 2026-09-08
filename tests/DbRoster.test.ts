@@ -33,7 +33,7 @@ CREATE TABLE competition(id INTEGER PRIMARY KEY, name_masked TEXT, level INTEGER
   promoted INTEGER DEFAULT 0, relegated INTEGER DEFAULT 0, matches_per_club INTEGER);
 CREATE TABLE club(id INTEGER PRIMARY KEY, name_real TEXT, name_masked TEXT, short_masked TEXT,
   city TEXT DEFAULT '', stadium TEXT DEFAULT '', tier TEXT, competition_id INTEGER,
-  country_id INTEGER, reputation INTEGER);
+  country_id INTEGER, reputation INTEGER, rival_club_id INTEGER);
 CREATE TABLE player(id INTEGER PRIMARY KEY, first_real TEXT, last_real TEXT,
   first_masked TEXT, last_masked TEXT, birth_year INTEGER, nationality TEXT,
   position TEXT, height_cm INTEGER, club_id INTEGER);
@@ -48,8 +48,8 @@ const open = (): any => {
   db.exec(`
     INSERT INTO country VALUES (1,'England','Albion');
     INSERT INTO competition VALUES (1,'Premier Division',1,0,3,38);
-    INSERT INTO club VALUES (1,'Manchester City','Manchester Blue','MAN BLU','','','elite',1,1,96);
-    INSERT INTO club VALUES (2,'Tiny FC','Tiny Crown','TIN CRO','','','lower',1,1,30);
+    INSERT INTO club VALUES (1,'Manchester City','Manchester Blue','MAN BLU','','','elite',1,1,96,2);
+    INSERT INTO club VALUES (2,'Tiny FC','Tiny Crown','TIN CRO','','','lower',1,1,30,1);
   `);
 
   // Manchester Blue: 20 gercek oyuncu. Tiny Crown: yalnizca 5 -> tamamlanmali.
@@ -170,5 +170,36 @@ describe('DbRosterProvider', () => {
     expect(leagues).toHaveLength(1);
     expect(leagues[0]!.label).toBe('Premier Division');
     expect(leagues[0]!.relegated).toBe(3);
+  });
+});
+
+describe('Ezeli rakiplik', () => {
+  /**
+   * OLCULEN SORUN: `toClubInfo` `rivalId` alanini HIC doldurmuyordu ve
+   * `rival_club_id` sorguya bile alinmiyordu. Veritabaninda deger
+   * 300/303 kulupte DOLUYDU (`pipeline/rivalries.ts` ozellikle onu
+   * kurmak icin yazilmis) ama motora hic ulasmiyordu.
+   *
+   * Sonuc sessizdi ve buyuktu: `play.ts` transferde
+   * `club?.rivalId === target.id` diye bakiyor ve bu HER ZAMAN false
+   * donuyordu. Yani ezeli rakibe transfer OYUNCU icin de imkansizdi;
+   * `mem_rakibe_transfer` hic yazilmiyor, `rakip_kulup_gecmisi` hic
+   * artmiyor ve `evt_transfer_rakibe_gecis_hesaplasma` hep olu
+   * goruluyordu.
+   */
+  it('rivalId DB`den motora ulasiyor', () => {
+    const roster = provider(5);
+    const city = roster.club('1');
+    const tiny = roster.club('2');
+
+    expect(city?.rivalId).toBe('2');
+    expect(tiny?.rivalId).toBe('1');
+  });
+
+  it('rakipsiz kulupte alan YOK -- undefined, bos metin degil', () => {
+    const db = open();
+    db.exec('UPDATE club SET rival_club_id = NULL WHERE id = 2');
+    const roster = new DbRosterProvider({ db, names: NAMES, slots: SLOTS, seed: 5 });
+    expect(roster.club('2')?.rivalId).toBeUndefined();
   });
 });

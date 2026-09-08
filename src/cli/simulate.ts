@@ -22,6 +22,7 @@ import { EligibilityFilter, type RejectReason } from '../selection/EligibilityFi
 import { Rng } from '../selection/Rng.js';
 import { randomOpenChoice, runSimulatedMatch } from './runMatch.js';
 import { selectWorld } from './world.js';
+import { botTurn } from './bot.js';
 
 const NATIONAL_WEEKS = new Set([5, 11, 17, 26, 33]);
 
@@ -94,6 +95,10 @@ async function playCareer(
     byCategory.set(p.category, (byCategory.get(p.category) ?? 0) + 1);
   };
 
+  // Bot kararlari motorun RNG'sinden AYRI bir akista: boylece bot
+  // davranisi degistiginde kariyerin kendi rastgeleligi kaymiyor.
+  const botRng = new Rng(seed ^ 0x5eed);
+
   engine.start(archetype);
 
   for (let i = 0; i < maxTurns; i += 1) {
@@ -117,6 +122,13 @@ async function playCareer(
         engine.reportWorldEvent({ kind: 'national_call', matches: 2 });
       }
     }
+    // --- BOT KARARLARI (menajer, transfer, kredi)
+    //
+    // Eskiden `simulate` bunlarin HICBIRINI yapmiyordu; transfer ve borc
+    // koluna bagli icerik bu yuzden "olu" raporlaniyordu -- olu degildi,
+    // OLCULMEMISTI.
+    botTurn(engine, sim.roster, botRng, report.week);
+
     note(report);
 
     // Her turda TUM havuzu tara: hangi olay neden elendi?

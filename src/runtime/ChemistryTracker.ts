@@ -72,11 +72,28 @@ export function harmonyMoraleDrift(harmony: number | undefined): number {
  * Neden `form` girdisi: iyi oynayan mutlu olur. Bu, kariyerin kendi
  * dongusunu kapatir -- moral sahayi, saha morali etkiler.
  */
-export function moraleTarget(harmony: number | undefined, form: number): number {
+export function moraleTarget(
+  harmony: number | undefined,
+  form: number,
+  /**
+   * AILE ILISKISI -- `iliski_aile`.
+   *
+   * OLCULEN SORUN: bu bayragi dort icerik olayi yaziyordu ve NE icerik NE
+   * motor okuyordu. "Babanla konustun, arayi duzelttin" yazan sahnenin
+   * hicbir sonucu yoktu.
+   *
+   * Aile moralin ZEMINI: soyunma odasi ve form haftalik dalgalanmadir,
+   * aile arkada durur. Katkisi bu yuzden huzurdan kucuk ama sifir degil.
+   */
+  family = 70,
+): number {
   const harmonyPart = harmony === undefined ? 0 : (harmony - 50) * 0.4;
   const formPart = (form - 50) * 0.3;
+  // Varsayilan 70 oldugu icin referans da 70: ailesi normal olan oyuncu
+  // ne prim alir ne ceza yer.
+  const familyPart = (family - 70) * 0.25;
   // 15-85 bandi: ne tam mutsuzluk ne tam huzur kalici olabilir.
-  return Math.max(15, Math.min(85, 50 + harmonyPart + formPart));
+  return Math.max(15, Math.min(85, 50 + harmonyPart + formPart + familyPart));
 }
 
 /**

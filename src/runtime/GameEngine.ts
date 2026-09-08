@@ -112,6 +112,7 @@ import { valuePlayer } from '../domain/transfer.js';
 import { STATURES, statureIndex } from '../domain/axes.js';
 import { DEFAULT_THRESHOLD, latePenalty, loanOffers, type LoanOffer, type LoanState } from '../domain/loan.js';
 import { pressureAfterSack, sackChance, sackPressure } from './ManagerTenure.js';
+import { sponsorIncome } from '../domain/sponsor.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -1724,6 +1725,23 @@ export class GameEngine {
     const wage = numberFlag(f, 'haftalik_gelir');
     f['servet'] = numberFlag(f, 'servet') + wage;
     WalletLedger.record(this.state, wage, 'maas', 'Haftalik maas');
+
+    // --- SPONSORLUK
+    //
+    // `iliski_sponsor` bayragini 12 icerik olayi yaziyordu ve NE icerik
+    // NE motor okuyordu. Burasi o bayragi bir gelire bagliyor -- ama bir
+    // HEDIYE degil bir KAPI olarak: iliskisi bozuk oyuncuya marka para
+    // vermez (esik altinda gelir sifir).
+    const sponsor = sponsorIncome(
+      numberFlag(f, 'iliski_sponsor'),
+      statureIndex(this.state.stature) / (STATURES.length - 1),
+      numberFlag(f, 'medya_itibari'),
+      wage,
+    );
+    if (sponsor > 0) {
+      f['servet'] = numberFlag(f, 'servet') + sponsor;
+      WalletLedger.record(this.state, sponsor, 'sponsor', 'Sponsorluk geliri');
+    }
   }
 
   /**
@@ -1884,7 +1902,11 @@ export class GameEngine {
     // artik durumun (huzur + form) yankisi: soklar sert kalir, ama zamanla
     // gercek duruma doner.
     const morale = numberFlag(this.state.flags, 'moral');
-    const target = moraleTarget(harmony, numberFlag(this.state.flags, 'form'));
+    const target = moraleTarget(
+      harmony,
+      numberFlag(this.state.flags, 'form'),
+      numberFlag(this.state.flags, 'iliski_aile'),
+    );
     const recovery = moraleRecovery(morale, target);
     if (recovery !== 0) {
       this.state.flags['moral'] = clamp100(morale + recovery);

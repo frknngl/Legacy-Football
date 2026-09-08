@@ -33,6 +33,8 @@ export const WALLET_KINDS = [
   'kredi',
   /** Ev, araba, arsa: alis (-) ve haftalik gider (-). */
   'varlik',
+  /** Sponsorluk geliri. */
+  'sponsor',
   /** Icerigin yazdigi her sey -- rusvet, hediye, ceza, aile. */
   'olay',
 ] as const;
@@ -47,6 +49,7 @@ export const WALLET_LABELS: Readonly<Record<WalletKind, string>> = {
   bahis: 'Kumar ve bahis',
   kredi: 'Kredi',
   varlik: 'Varlik',
+  sponsor: 'Sponsorluk',
   olay: 'Olaylar',
 };
 

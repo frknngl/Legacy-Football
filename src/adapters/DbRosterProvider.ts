@@ -85,6 +85,7 @@ interface ClubRow {
   tier: string;
   competition_id: number | null;
   reputation: number;
+  rival_club_id: number | null;
 }
 
 interface PlayerRow {
@@ -149,7 +150,8 @@ export class DbRosterProvider implements RosterProvider {
 
     const rows = opts.db
       .prepare(
-        `SELECT id, name_masked, short_masked, city, stadium, tier, competition_id, reputation
+        `SELECT id, name_masked, short_masked, city, stadium, tier, competition_id, reputation,
+                rival_club_id
          FROM club ORDER BY reputation DESC`,
       )
       .all() as unknown as ClubRow[];
@@ -446,6 +448,18 @@ function toClubInfo(row: ClubRow): ClubInfo {
     tier,
     league: String(row.competition_id ?? 0),
     reputation: row.reputation,
+    // EZELI RAKIP.
+    //
+    // OLCULEN SORUN: bu alan HIC doldurulmuyordu. Veritabaninda
+    // `rival_club_id` 300/303 kulupte doluydu (`pipeline/rivalries.ts`
+    // ozellikle onu kurmak icin yazilmis) ama sorguya bile alinmiyordu.
+    //
+    // Sonuc sessizdi ve buyuktu: `play.ts` transferde
+    // `club?.rivalId === target.id` diye bakiyor, bu her zaman false
+    // donuyordu. Yani EZELI RAKIBE TRANSFER oyuncu icin de imkansizdi;
+    // `mem_rakibe_transfer` hic yazilmiyor ve
+    // `evt_transfer_rakibe_gecis_hesaplasma` hep olu goruluyordu.
+    ...(row.rival_club_id === null ? {} : { rivalId: String(row.rival_club_id) }),
     // Yabanci orani kadronun kendisinden turer; ayri bir alan tutmaya gerek yok.
     foreignRatio: 0,
   };

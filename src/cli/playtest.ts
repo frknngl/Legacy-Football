@@ -34,6 +34,7 @@ import { GameEngine, type TurnReport } from '../runtime/GameEngine.js';
 import { Rng } from '../selection/Rng.js';
 import { randomOpenChoice, runSimulatedMatch } from './runMatch.js';
 import { selectWorld } from './world.js';
+import { botTurn } from './bot.js';
 
 function numberOf(value: unknown): number {
   return typeof value === 'number' ? value : 0;
@@ -105,6 +106,11 @@ interface CareerMeasure {
   readonly gaps: Map<string, number[]>;
   readonly agentSigned: number;
   readonly agentQuit: number;
+  /** Kac kez gercekten kulup degistirildi. */
+  readonly transfers: number;
+  /** Bunlarin kaci EZELI RAKIBE -- `mem_rakibe_transfer` bunu yaziyor. */
+  readonly rivalTransfers: number;
+  readonly loansTaken: number;
   /** Tum secenekleri kilitli dugum sayisi -- icerik hatasi gostergesi. */
   readonly deadlocks: number;
   /** Kadro rekabeti: ilk 11 / yedek dagilimi. */
@@ -176,6 +182,9 @@ async function measure(
   let choicesShown = 0;
   let choicesLocked = 0;
   let agentSigned = 0;
+  let transfers = 0;
+  let rivalTransfers = 0;
+  let loansTaken = 0;
   let agentQuit = 0;
   let turns = 0;
   let deadlocks = 0;
@@ -344,41 +353,22 @@ async function measure(
     }
 
 
-    // --- MENAJER DONGUSU
+    // --- BOT KARARLARI (menajer, transfer, kredi)
     //
-    // Bot her pencerede menajer arar ve gelen her teklifi %50 kabul eder.
-    // Hep kabul eden bir bot memnuniyet dususunu, hep reddeden bir bot da
-    // transferi hic olcemezdi.
-    const before = engine.currentAgent();
-    if (before === undefined) {
-      const options = engine.agentOptions(4);
-      const pick = options[Math.floor(rng.next() * options.length)];
-      if (pick && engine.signAgent(pick.id)) agentSigned += 1;
-    } else {
-      // TEKLIF GERCEKTEN GELIRSE bildir -- her tur degil.
-      //
-      // Ilk yazimda bot her tur %50 olasilikla "teklif reddedildi"
-      // diyordu. Gercek bir oyuncu bu sikliktan cok daha nadir teklif
-      // alir; olcum 600 turda 108 imza / 102 birakma gibi anlamsiz bir
-      // tablo uretiyordu ve memnuniyet dongusu hakkinda hicbir sey
-      // soylemiyordu.
-      //
-      // Artik motorun kendi olasiligi (`rollAgentOffer`) soruluyor ve
-      // yalnizca teklif ciktiginda karar veriliyor.
-      const club = world.roster.club(engine.snapshot().clubId);
-      const offered = engine.rollAgentOffer({
-        clubReputation: (club?.reputation ?? 50) + 8,
-        currentClubReputation: club?.reputation ?? 50,
-        playingChance: 55,
-        form: numberOf(engine.snapshot().flags['form']),
-        seasonGoals: 0,
-        windowOpen: report.week <= 3 || (report.week >= 20 && report.week <= 22),
-      });
-      if (offered) {
-        engine.reportAgentOutcome(rng.next() < 0.5 ? 'offer_rejected' : 'transfer_done');
-        if (engine.currentAgent() === undefined) agentQuit += 1;
-      }
-    }
+    // Eskiden burada yalnizca menajer dongusu vardi ve bot menajere
+    // "transfer oldu" dedigi halde kulubu DEGISTIRMIYORDU. Bu yuzden
+    // `mem_rakibe_transfer` hic yazilmiyor, rakibe transfer sahnesi hep
+    // olu goruluyordu. Kredi kolu da hic denenmiyordu.
+    //
+    // Karar mantigi artik `cli/bot.ts`te ve `simulate` ile PAYLASILIYOR --
+    // iki olcum araci ayni oyuncuyu taklit etmeli, yoksa sayilar
+    // karsilastirilamaz.
+    const botOut = botTurn(engine, world.roster, rng, report.week);
+    if (botOut.agentSigned) agentSigned += 1;
+    if (botOut.agentQuit) agentQuit += 1;
+    if (botOut.transferred) transfers += 1;
+    if (botOut.toRival) rivalTransfers += 1;
+    if (botOut.loanTaken) loansTaken += 1;
 
     // --- SAHNE VE SECIM
     const sawStory = drain(report.turn);
@@ -458,6 +448,9 @@ async function measure(
     gaps,
     agentSigned,
     agentQuit,
+    transfers,
+    rivalTransfers,
+    loansTaken,
     deadlocks,
     started,
     benched,
@@ -738,6 +731,12 @@ async function main(): Promise<void> {
   // --- 6. MENAJER
   console.log('\nMENAJER');
   console.log(`  Imzalanan (ort)          : ${avg(runs.map((r) => r.agentSigned))}`);
+  console.log(`  Transfer (ort)           : ${avg(runs.map((r) => r.transfers))}`);
+  console.log(
+    `  ...ezeli rakibe (ort)    : ${avg(runs.map((r) => r.rivalTransfers))}` +
+      `  ${runs.some((r) => r.rivalTransfers > 0) ? '' : '  <- HIC OLMADI (mem_rakibe_transfer olu kalir)'}`,
+  );
+  console.log(`  Kredi cekildi (ort)      : ${avg(runs.map((r) => r.loansTaken))}`);
   console.log(`  Birakan   (ort)          : ${avg(runs.map((r) => r.agentQuit))}`);
 
   // --- 7. SAGLIK
