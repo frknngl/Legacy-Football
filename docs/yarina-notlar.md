@@ -46,7 +46,48 @@ En çok tekrar eden 3: `evt_match_ref_dispute` 736× · `evt_match_free_kick`
 
 ---
 
-## 2. Kod açıkları — bilerek bırakıldı
+## 2. Kod açıkları — **KAPATILDI (9 Eylül 2026)**
+
+> Bu bölümde yedi açık yazmıştım. Taze ölçünce **üçü geçersiz çıktı** —
+> notları hafızadan yazmışım, ölçerek değil:
+>
+> - `piyasa_degeri` **zaten** `derived` ve onu yazan içerik kalmamış
+> - `is_captain`'ı `evt_match_captain_armband` **veriyor** (ölü listesinde yok)
+> - "İçerik maaştan çok para veriyor" — o sonda **hep ilk seçeneği**
+>   seçiyordu. Rastgele seçimle oran **1,09×**, yani denge sağlıklı
+>
+> Kalan dördü gerçekti ve kapatıldı:
+
+| Açık | Ne yapıldı |
+|---|---|
+| `iliski_aile` (4 sahne, okuyan yok) | Moral hedefinin üçüncü girdisi oldu |
+| `iliski_sponsor` (12 sahne, okuyan yok) | Sponsorluk geliri + hedefe kayma |
+| Ölçüm botu transfer/kredi yapmıyordu | `cli/bot.ts` — simulate + playtest paylaşıyor |
+| `rakip_kulup_gecmisi` adı | → `mem_rakip_kulup_gecmisi` |
+
+**Bonus — sessiz ve büyük bir hata bulundu.** `DbRosterProvider` `rivalId`
+alanını **hiç doldurmuyordu** ve `rival_club_id` sorguya bile
+alınmıyordu; oysa veritabanında 300/303 kulüpte doluydu. Sonuç: `play.ts`
+transferde `club?.rivalId === target.id` diye bakıyor ve bu **her zaman
+false** dönüyordu — yani ezeli rakibe transfer **oyuncu için de
+imkânsızdı.**
+
+Ölçüldü: ölü olay **11 → 9**, kapsama **%93 → %95**. Playtest artık
+transfer / ezeli rakibe / kredi sayaçlarını basıyor: **28 / 4 / 12**.
+
+İki tuzak da aynı desendi ve ikisi de yorumlandı: *bir bayrağı sonuca
+bağlamak tek başına yetmiyor — bayrak tek yönlü bir mandalsa (içerik
+sürekli negatif yazıyor, toparlanma yok) sonuç yine ölü kalıyor.*
+
+### Hâlâ açık
+
+- `medya_itibari` tek yönlü: içerik net **−851** yazıyor, medyanı **15**.
+  Moral ve sponsor ilişkisiyle aynı tuzak, henüz kapatılmadı.
+- `mem_hoca_kovuldu` — motor yazıyor, okuyan içerik yok (Faz 4b bekliyor).
+
+---
+
+## 2b. Eski liste (referans)
 
 ### 2.1 Yazılıyor ama kimse okumuyor (bugün ikisini kapattım, ikisi kaldı)
 
