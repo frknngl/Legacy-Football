@@ -1,0 +1,206 @@
+{
+  "id": "evt_legacy_former_teammate_itiraf",
+  "family": "fam_legacy_itiraf",
+  "category": "legacy",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "trigger": {
+    "flag": "mem_legacy_itiraf_former_teammate",
+    "op": "notIn",
+    "value": [
+      true
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Geçmişin Gölgesi",
+      "kind": "branch",
+      "text": "Odanın içindeki hava, {actor.former_teammate.name} ile paylaştığın o eski, tozlu günlerden daha ağır. {actor.former_teammate.name} önündeki masaya boş bir zarf bıraktı. Yıllardır kimseye bahsetmediğin, sahadaki o son dakikalarla ilgili belgeler artık sadece senin zihninde değil. {actor.former_teammate.name} sessizce bekliyor. Gözleri, {actor.mentor.name} ile sana her zaman söylenen sadakat öğretisini değil, artık bitmesi gereken bir yükü sorguluyor. Sessizlik, odadaki saatten daha yüksek bir ritimle ilerliyor.",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "Zarfı al ve gözlerinin önünde yak. Sessizliği ödemen gereken bir bedel var.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Zarfı {actor.former_teammate.name} uzat. Her şeyi olduğu gibi anlatıp üzerine düşeni yapmasını söyle.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_former_teammate",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Belgeleri al ve medyaya kendin sızdır. Hikayeyi senin dilinden duysunlar.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 7
+          }
+        },
+        {
+          "id": "c_stat",
+          "text": "Ona oturmasını söyle. Her şeyi detaylarıyla baştan sona, nedenleriyle anlat. Bu yükü tek başına taşıma.",
+          "target": "n_outcome_stat",
+          "effects": [
+            {
+              "flag": "iliski_former_teammate",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "requires": {
+            "flag": "mental_dayaniklilik",
+            "op": "gte",
+            "value": 55
+          },
+          "lockLabel": "[Mental Dayanıklılık 55]"
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Bedeli Ödendi",
+      "kind": "outcome",
+      "text": "Küller çöp kutusunda birleşirken, {actor.former_teammate.name} bakışındaki o ifadeyi asla unutmayacaksın. Kazandın belki ama bir şeylerin eksildiği kesin.",
+      "onEnter": [
+        {
+          "flag": "mem_legacy_itiraf_former_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Doğru Olan",
+      "kind": "outcome",
+      "text": "Zarf masadan kalktı. {actor.former_teammate.name} ile göz göze geldiniz. Bu profesyonel bir veda mı yoksa bir dostluğun sonu mu, cevabı zaman verecek.",
+      "onEnter": [
+        {
+          "flag": "mem_legacy_itiraf_former_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Kaosun Başlangıcı",
+      "kind": "outcome",
+      "text": "Telefonun çalmaya başladı bile. Sınırları aştın. Bundan sonra sahada değil, manşetlerde olacaksın.",
+      "onEnter": [
+        {
+          "flag": "mem_legacy_itiraf_former_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_stat": {
+      "title": "Ağırlığın Paylaşımı",
+      "kind": "outcome",
+      "text": "Saatler süren konuşma bittiğinde omuzlarındaki ağırlığın bir kısmının {actor.former_teammate.name} geçtiğini hissettin. Bu dürüstlüğün yorgunluğu, her şeyden daha ağır.",
+      "onEnter": [
+        {
+          "flag": "mem_legacy_itiraf_former_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

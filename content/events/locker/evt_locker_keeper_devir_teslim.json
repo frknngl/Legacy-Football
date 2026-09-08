@@ -1,0 +1,148 @@
+{
+  "id": "evt_locker_keeper_devir_teslim",
+  "family": "fam_locker_devir_teslim",
+  "category": "locker",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_locker_devir_teslim_keeper",
+    "op": "notIn",
+    "value": [
+      true
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eldivenin Mirası",
+      "kind": "branch",
+      "text": "{actor.keeper.name}, dolabındaki son eşyaları toplarken {actor.youngster.name} sessizce kapı eşiğinde bekliyor. Kendi kramponlarını bağlamıyor bile; sadece o meşhur, yıpranmış deri eldivenlerin bir sonraki sahibini arıyor. {actor.assistant.name} araya girip hazırlık maçının kadrosunu fısıldıyor. {actor.keeper.name} eldivenleri avucunda sıkıyor. Oda sessiz. Herkes bir sonraki hamleyi bekliyor.",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "Eldivenleri masanın üzerine bırakıp {actor.youngster.name} ile göz göze gelmeden odadan çık.",
+          "target": "n_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "durus": -4
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Eldivenleri {actor.youngster.name} kucağına fırlat, 'Bunlar artık senin, altında kalma,' diye bağır.",
+          "target": "n_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Gidip eldivenleri {actor.youngster.name} ellerine kendin giydir ve yavaşça sık, 'Beni utandırma,' diye fısılda.",
+          "target": "n_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_keeper",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "sadakat": 5
+          }
+        }
+      ]
+    },
+    "n_gri": {
+      "title": "Sessiz Çıkış",
+      "kind": "outcome",
+      "text": "Arkanı dönüp giderken {actor.youngster.name} eldivenlere bakışını görmüyorsun. Oda bir anda soğuyor. Artık buraya ait değilsin.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_devir_teslim_keeper",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_riskli": {
+      "title": "Ağır Bir Miras",
+      "kind": "outcome",
+      "text": "{actor.youngster.name} şaşkınlıkla geri çekiliyor. Soyunma odasındaki diğerleri sana bakıyor. Bir efsanenin vedası, bir sonraki felaketin başlangıcı gibi yankılanıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_devir_teslim_keeper",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_guvenli": {
+      "title": "Sancılı Devir",
+      "kind": "outcome",
+      "text": "{actor.youngster.name} başını sallıyor, gözlerinde korku ve kararlılık var. Yükün artık onun omuzlarında. {actor.assistant.name} başını onaylayarak çeviriyor.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_devir_teslim_keeper",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

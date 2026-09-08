@@ -1,0 +1,203 @@
+{
+  "id": "evt_fandom_fan_leader_zafer_bedeli",
+  "family": "fam_fandom_zafer_bedeli",
+  "category": "fandom",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 12
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "lifeStates": [
+    "playing",
+    "suspended"
+  ],
+  "trigger": {
+    "flag": "mem_fandom_zafer_bedeli_fan_leader",
+    "op": "notIn",
+    "value": [
+      true
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tribünlerin Gölgesi",
+      "kind": "branch",
+      "text": "{actor.fan_leader.name}, antrenman çıkışında aracının kapısına yaslanmış bekliyor. Gözleri doğrudan senin gözlerinde; ne bir gülümseme ne de bir tehdit var yüzünde. Sadece, taraftarın senin için neler feda ettiğini hatırlatan o ağır sessizlik. Arkada {actor.journalist.name} ve {actor.pundit.name} uzaktan sizi izliyor, objektifleri şimdiden odaklanmış durumda. Şehirdeki huzursuzluğu bitirmek ya da onu kendi lehine derinleştirmek arasında tek bir an var. {actor.fan_leader.name} elindeki meşaleyi söndürüp çöp kutusuna atıyor, yanına yaklaşıyor ve tek bir fısıltıyla şunları söylüyor: 'Sahadaki başarının rengi, bizim sokaktaki terimizle aynı olsun istiyoruz.'",
+      "choices": [
+        {
+          "id": "c_riskli",
+          "text": "Ona göz kırpıp kulüp içindeki gizli bir stratejiyi çıtlatmak. Bu, tribünleri sana bağlar ama yarın gazete manşetlerinde bir 'köstebek' olarak anılırsın.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_ahlaki_gri",
+          "text": "Sessizce cebinden çıkardığın bir miktar parayı kulübün resmi olmayan bağış fonu adına ona uzatmak. Görünürde bir şey yok, sadece vicdanında bir sızı.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": -8
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Ona profesyonel bir mesafeyle bakıp, 'Ben sadece işimi yaparım, sahada görüşürüz' diyerek arabana binip gitmek.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_stat_kilitli",
+          "text": "Ona bir sonraki maçın primini taraftar organizasyonuna bağışlayacağına dair söz vermek. Yorucu bir sezon seni bekliyor.",
+          "target": "n_outcome_kilitli",
+          "effects": [
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "requires": {
+            "flag": "taraftar_destegi",
+            "op": "gte",
+            "value": 60
+          },
+          "lockLabel": "[Taraftar Desteği 60+]"
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Sırrın Bedeli",
+      "kind": "outcome",
+      "text": "O akşam {actor.journalist.name} köşesinde senden bahsetmeye başladı. İtibarın zedelendi ama tribünler her topa dokunuşunda adını haykırıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_zafer_bedeli_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Kirli Bir Anlaşma",
+      "kind": "outcome",
+      "text": "{actor.fan_leader.name} parayı aldı ve hiçbir şey olmamış gibi arkasını döndü. Elin artık biraz daha boş, vicdanın ise biraz daha ağır.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_zafer_bedeli_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Soğuk Mesafe",
+      "kind": "outcome",
+      "text": "{actor.fan_leader.name} sadece başını salladı. O an aranızdaki o görünmez bağ koptu; artık sadece sahada bir yabancısın.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_zafer_bedeli_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_kilitli": {
+      "title": "Fedakarlık",
+      "kind": "outcome",
+      "text": "Verdiğin söz tüm camiaya yayıldı. Sahada daha çok koşman gerekecek, ama artık şehrin anahtarı sende.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_zafer_bedeli_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

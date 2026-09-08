@@ -1,0 +1,155 @@
+{
+  "id": "evt_tactics_rival_teammate_taninma",
+  "family": "fam_tactics_taninma",
+  "category": "tactics",
+  "tier": "minor",
+  "weight": 5,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "injured",
+    "loaned"
+  ],
+  "trigger": {
+    "flag": "mem_tactics_taninma_rival_teammate",
+    "op": "ne",
+    "value": true
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Taktik Tahtası Başında",
+      "kind": "branch",
+      "text": "Soyunma odasının loş ışığında, {actor.manager.name} çoktan gitmiş. Taktik tahtası üzerinde mıknatıslar kaymış durumda. {actor.rival_teammate.name} elinde bir kalemle, sadece senin görebileceğin bir boşluğu işaretliyor. Göz göze geliyorsunuz. O meşhur kibrin altında, ilk defa bir adam seni gerçekten görüyor. 'Sahadaki gölgeni nasıl sildiğini biliyorum,' diyor sesi çatallanarak. 'Ama o gölgeyi yöneten zihni kimse fark etmiyor. İstersen bu sistemi beraber kırarız, istersen ikimiz de yedek kulübesinde çürürüz.'",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "Sessizce onay ver. Yarınki raporlarda sorumluluğu ona yık, kendi yerini garantiye al.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": -8
+          }
+        },
+        {
+          "id": "c_risk",
+          "text": "Kalemi al ve sistemi boz. Tüm sorumluluğu üstüne alıp taraftarın diline düşmeyi göze al.",
+          "target": "n_outcome_risk",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Kalemi yerine bırak ve çık. Risk almadan sadece denileni yap, profesyonel kal.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "iliski_rival_teammate",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Karanlık Mutabakat",
+      "kind": "outcome",
+      "text": "Gözlerini kaçırdın. {actor.rival_teammate.name} bir şeylerin değiştiğini anladı. İkiniz de aynı yalanın parçası oldunuz.",
+      "onEnter": [
+        {
+          "flag": "mem_tactics_taninma_rival_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_risk": {
+      "title": "Kırılma Noktası",
+      "kind": "outcome",
+      "text": "Tahtadaki dizilişi tamamen sildin. {actor.rival_teammate.name} sana ilk defa bir oyuncu gibi değil, bir ortak gibi baktı.",
+      "onEnter": [
+        {
+          "flag": "mem_tactics_taninma_rival_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Görünmezlik Zırhı",
+      "kind": "outcome",
+      "text": "Odadan çıktın. {actor.rival_teammate.name} arkanda sessizce bekliyor. Kimse seni görmedi, kimse seni anlamadı.",
+      "onEnter": [
+        {
+          "flag": "mem_tactics_taninma_rival_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

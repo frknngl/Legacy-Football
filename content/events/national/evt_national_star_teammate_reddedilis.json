@@ -1,0 +1,160 @@
+{
+  "id": "evt_national_star_teammate_reddedilis",
+  "family": "fam_national_reddedilis",
+  "category": "national",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "injured",
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "mem_national_reddedilis_star_teammate",
+    "op": "ne",
+    "value": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kaptanlık Pazubandı",
+      "kind": "branch",
+      "text": "Milli takım kampının yemekhanesi sessiz. {actor.star_teammate.name}, pencere kenarında kahvesini yudumlarken gözlerini senden kaçırıyor. Yan masada {actor.rival_teammate.name} bir şeyler mırıldanıyor, gülüşmeler yükseliyor. {actor.journalist.name} kapı aralığında, elinde not defteriyle seni bekliyor. Kaptanlık bandı için teknik direktörün odasından yeni çıktın. Kapı yüzüne kapandı, karar verilmiş; o bandı {actor.star_teammate.name} takacak. Masasına yaklaşıyorsun. Bakışları hala uzaklarda.",
+      "choices": [
+        {
+          "id": "c_risk",
+          "text": "Masasına sertçe vurup herkesin duyacağı şekilde adaletsizliği haykır.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Sessizce yanına otur, bir sponsorluk teklifini onunla paylaşarak konuyu kapat.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": -5
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Ona başarılar dileyip antrenman sahasına tek başına dön.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "İsyanın Bedeli",
+      "kind": "outcome",
+      "text": "Sesin yemekhanede yankılandı. {actor.star_teammate.name} ayağa kalktı, yüzünde acı bir gülümseme var. İpler koptu. Yarın gazetelerde senin öfken konuşulacak.",
+      "onEnter": [
+        {
+          "flag": "mem_national_reddedilis_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Sessiz Anlaşma",
+      "kind": "outcome",
+      "text": "Zarfı masanın altına ittin. {actor.star_teammate.name} sana baktı, gözlerinde suçlulukla karışık bir rahatlama var. Paranın soğukluğu, gururunun yerini aldı.",
+      "onEnter": [
+        {
+          "flag": "mem_national_reddedilis_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Profesyonel Mesafe",
+      "kind": "outcome",
+      "text": "Tek kelime etmeden arkanı döndün. Çimlerin kokusu zihnini berraklaştırıyor. Sahada kanıtlayacağın çok şey var, ama o kapı artık senin için kilitli.",
+      "onEnter": [
+        {
+          "flag": "mem_national_reddedilis_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    }
+  }
+}

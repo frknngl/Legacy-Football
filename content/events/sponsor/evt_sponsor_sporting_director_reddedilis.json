@@ -1,0 +1,112 @@
+{
+  "id": "evt_sponsor_sporting_director_reddedilis",
+  "family": "fam_sponsor_reddedilis",
+  "category": "sponsor",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_sponsor_reddedilis_sporting_director",
+    "op": "ne",
+    "value": true
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kapanan Kapılar",
+      "kind": "branch",
+      "text": "{actor.sporting_director.name} masadaki dosyayı yavaşça kapatıyor. Odadaki hava ağır, dışarıdaki antrenman sesleri camın arkasında boğuk. {actor.agent.name} bir şeyler söylemek için ağzını açıyor ama {actor.sporting_director.name} elini kaldırıp susturuyor onu. 'Kararımız kesin,' diyor yönetici, gözlerini doğrudan senin gözlerine dikerek. 'Bu marka senin vizyonunla uyuşmuyor. İmzayı atmanı engelliyorum.' {actor.star_teammate.name} yan koltukta huzursuzca kıpırdanıyor, bakışlarını yere indirmiş.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Başını sallayıp ayağa kalk. Kulübe olan bağlılığını bozma.",
+          "target": "n_son",
+          "effects": [
+            {
+              "flag": "iliski_sporting_director",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "sadakat": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Dosyayı masaya fırlat. İzin almadan kararlarını kendin vereceğini söyle.",
+          "target": "n_son",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 7
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Sessizce onay ver, {actor.agent.name} ile dışarıda telafi etmeyi planla.",
+          "target": "n_son",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_son": {
+      "title": "Sonuç",
+      "kind": "outcome",
+      "text": "Oda boşaldığında sadece senin nefes sesin kalıyor. İmzalanmayan her kağıt, geleceğinden çalınmış birer parça gibi hissettiriyor.",
+      "onEnter": [
+        {
+          "flag": "mem_sponsor_reddedilis_sporting_director",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

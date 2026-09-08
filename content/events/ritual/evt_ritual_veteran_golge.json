@@ -1,0 +1,156 @@
+{
+  "id": "evt_ritual_veteran_golge",
+  "family": "fam_ritual_golge",
+  "category": "ritual",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "loaned",
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "mem_ritual_golge_veteran",
+    "op": "isSet",
+    "value": false
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gölgenin Ağırlığı",
+      "kind": "branch",
+      "text": "Antrenman sahasının köşesinde {actor.keeper.name} ile top toplayıcıların yanından geçiyorsun. {actor.physio.name}, sahadaki genç oyuncuyu işaret edip gülümsüyor. 'Görüyor musun?' diyor kısık sesle. 'Seni ilk geldiğin gün hatırlatıyor. Aynı hırs, aynı kontrolsüz enerji.' Genç oyuncu sert bir şut çekip kaleye gönderiyor. Kaleci eldivenlerini düzeltirken bakışları bir anlığına sana takılıyor. Sahada yerini dolduracak birinin heyecanı, senin omuzlarındaki yorgunluğu daha da belirginleştiriyor. İkisi de sessizce cevabını bekliyor.",
+      "choices": [
+        {
+          "id": "c_1",
+          "text": "Ona başarılar dile, kendi yoluna git.",
+          "target": "n_outcome_prof",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_2",
+          "text": "Gençle göz göze gel, ona saha içinde sert bir ders ver.",
+          "target": "n_outcome_risk",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_3",
+          "text": "Menajere dön, çocuğun transfer değerini övüp aradan çekil.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "sadakat": -8
+          }
+        }
+      ]
+    },
+    "n_outcome_prof": {
+      "title": "Sessiz Kabulleniş",
+      "kind": "outcome",
+      "text": "Başınla selam verip uzaklaşıyorsun. {actor.physio.name} arkandan bakıyor. Kendi mirasını başkasına devretmenin hafifliği ve ağırlığı aynı anda içinde.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_golge_veteran",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_risk": {
+      "title": "Son Gösteri",
+      "kind": "outcome",
+      "text": "Sahaya iniyorsun. İlk pozisyonda genç oyuncuyu gölgede bırakacak bir manevra yapıyorsun. Herkes susuyor. {actor.keeper.name} durumu anlıyor; bu senin sahan, senin zamanın.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_golge_veteran",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Pazarlık Masası",
+      "kind": "outcome",
+      "text": "Geleceğin paraya dönüştüğü o kısa an. {actor.physio.name} bir şey söylemiyor ama bakışlarındaki hayal kırıklığı, aldığın paranın değerini düşürüyor.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_golge_veteran",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

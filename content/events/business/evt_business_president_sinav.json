@@ -1,0 +1,162 @@
+{
+  "id": "evt_business_president_sinav",
+  "family": "fam_business_sinav",
+  "category": "business",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "trigger": {
+    "flag": "mem_business_sinav_president",
+    "op": "notIn",
+    "value": [
+      true
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Masadaki Teklif",
+      "kind": "branch",
+      "text": "{actor.president.name} masanın diğer ucunda, elinde bir kontratla bekliyor. Dışarıda antrenman sahasının sesi duyuluyor ama içerisi bir mezarlık kadar sessiz. İmzayı atarsan kulübün çehresi değişecek, atmazsan geleceğin bir belirsizliğe gömülecek. {actor.president.name} kalemi sana doğru uzatıyor, gözlerinde ise sadece rakamların soğuk ışıltısı var. Şimdi vereceğin karar, sadece bir kontrat değil; kulüp içindeki pozisyonunun ve kişisel sınırlarının resmi olacak.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Kontratı incele ve tüm maddeleri sözleşmeye uygun şekilde revize etmesini iste.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Kalemi al ve şartları kendi lehine, taraftarın sesini kullanarak dikte et.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "durus": 7
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Rakamlara bakmadan imzayı bas ve el sıkışarak odadan ayrıl.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Sınavı Geçtin",
+      "kind": "outcome",
+      "text": "{actor.president.name} kağıtları geri çekerken hafifçe gülümsüyor. Bu hamleyle ona boyun eğmeyeceğini, kurallara sadık kaldığını kanıtladın. Saygısını kazandın ama belki de elindeki gerçek gücü masada bıraktın.",
+      "onEnter": [
+        {
+          "flag": "mem_business_sinav_president",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Otoriteyi Sarsmak",
+      "kind": "outcome",
+      "text": "{actor.president.name} kaşlarını çatıyor. Kalemi sertçe bırakıyorsun. İstediklerini aldın ama artık yönetim katında her adımın izleniyor olacak. Bu, bir oyuncu için tehlikeli bir oyun.",
+      "onEnter": [
+        {
+          "flag": "mem_business_sinav_president",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Karanlık Mutabakat",
+      "kind": "outcome",
+      "text": "Kalem kâğıt üzerinde hızlıca hareket etti. {actor.president.name} arkasına yaslanıyor, tatmin olmuş görünüyor. Banka hesabın dolacak ancak bu odada bıraktığın şey, belki de kariyerinin en değerli varlığı olan iradendi.",
+      "onEnter": [
+        {
+          "flag": "mem_business_sinav_president",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

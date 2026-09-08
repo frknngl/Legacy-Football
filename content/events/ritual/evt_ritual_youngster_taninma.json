@@ -1,0 +1,159 @@
+{
+  "id": "evt_ritual_youngster_taninma",
+  "family": "fam_ritual_taninma",
+  "category": "ritual",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "mem_ritual_taninma_youngster",
+    "op": "isSet",
+    "value": false
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Görülme Anı",
+      "kind": "branch",
+      "text": "Otel lobisinin en ücra köşesinde, antrenman yorgunluğuyla çayını yudumluyorsun. Yan masada {actor.keeper.name}, telefonuna bakmadan, doğrudan senin gözlerinin içine bakarak konuşuyor. 'Kimsenin fark etmediği o pası gördüm,' diyor. Sesi kısık ama odadaki herkesi susturacak bir ağırlığı var. İlk kez bir teknik adam ya da menajer değil, seninle aynı çamuru çiğneyen biri seni gerçekten görüyor. Masadaki boş sandalyeyi işaret ediyor. Önünde iki yol var: Ya bu anın yarattığı ağırlığı kabul edip masaya oturacaksın ya da sadece bir maç arkadaşı gibi mesafeni koruyacaksın.",
+      "choices": [
+        {
+          "id": "c_risk",
+          "text": "Sokağın dilini masaya taşımak, ona arkanı yaslamak.",
+          "target": "n_outcome_risk",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_safe",
+          "text": "Sadece bir selam verip, profesyonel mesafeyle odana çekilmek.",
+          "target": "n_outcome_safe",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 7
+          }
+        },
+        {
+          "id": "c_grey",
+          "text": "Teklifini dinleyip, gelecekteki olası bir ortaklık için kartını bırakmak.",
+          "target": "n_outcome_grey",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_risk": {
+      "title": "İttifak Kuruldu",
+      "kind": "outcome",
+      "text": "{actor.keeper.name} gülümseyerek arkasına yaslandı. Artık sadece bir takım arkadaşı değilsiniz; koridorlarda konuşulacak bir ortaklığın içindesiniz. Bu bağın bedeli ağır olacak.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_taninma_youngster",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_safe": {
+      "title": "Mesafe Korundu",
+      "kind": "outcome",
+      "text": "Kafanı hafifçe eğip odana doğru yürüdün. Arkanda, o masada kalan beklenti hayal kırıklığıyla soğudu. Doğru olanı yaptın ama yalnızlık biraz daha ağırlaştı.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_taninma_youngster",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_grey": {
+      "title": "Sessiz Ortaklık",
+      "kind": "outcome",
+      "text": "Masadan kalktığında cebinde artık bir kartvizit var. {actor.keeper.name} bakışındaki o derinlik, bir futbol maçından daha fazlasını teklif ediyor. Kazandın, ama neyi feda ettiğini henüz bilmiyorsun.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_taninma_youngster",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

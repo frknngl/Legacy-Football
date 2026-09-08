@@ -1,0 +1,190 @@
+{
+  "id": "evt_transfer_rival_club_manager_geri_donus",
+  "family": "fam_transfer_geri_donus",
+  "category": "transfer",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_transfer_geri_donus_rival_club_manager",
+    "op": "ne",
+    "value": true
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Hesaplar",
+      "kind": "branch",
+      "text": "Ofisin havası ağır. {actor.sporting_director.name} masanın ucunda duruyor. {actor.agent.name} ise pencere kenarında, telefonun ekranına bakarak sigarasını içiyor. Masanın üzerinde duran kontrat, en büyük rakibin forması. {actor.rival_club_manager.name} az önce kapıdan çıktı. Geri döndü. Tam da kariyerinin gün batımında, taraftarın sana 'hain' diyeceği o imzayı istiyor. İmzayı atarsan formanın hakkını vermek için değil, bir zamanlar ayağını kıranlara karşı son kozunu oynamak için gideceksin. {actor.sporting_director.name} başını kaldırıp sana bakıyor. Karar senin.",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "Sayıları oku. Bu yaştan sonra romantizmin karnımı doyurmayacağını ikimiz de biliyoruz.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 500000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Oraya gidip o formayı giyeceğim. Tribünlerin ne diyeceği umrumda değil, onları içeriden yıkacağım.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Kabul etmiyorum. Başka bir teklif bul. Bu kulübün tarihinde başka bir leke daha açamam.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_stat",
+          "text": "O adamla geçmişte kalanları masaya yatıracağız. Sadece futbola odaklanacağım, gerisi teferruat.",
+          "target": "n_outcome_4",
+          "effects": [
+            {
+              "flag": "iliski_rival_club_manager",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "requires": {
+            "flag": "moral",
+            "op": "gte",
+            "value": 80
+          },
+          "lockLabel": "[Moral 80 gereklidir]"
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Soğuk İmzalar",
+      "kind": "outcome",
+      "text": "Kalemin mürekkebi kağıda değdiğinde odadaki ses kesildi. Artık o formanın ağırlığını taşıyacaksın.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_rival_club_manager",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Ateşin İçine",
+      "kind": "outcome",
+      "text": "Kalem elinde titredi ama imzaladın. Şimdi taraftarın ıslıkları eşliğinde sahaya çıkma vakti.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_rival_club_manager",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Eski Dostlar",
+      "kind": "outcome",
+      "text": "{actor.agent.name} omuz silkti ve dosyaları çantasına attı. Sadakatin fiyatı, huzursuz bir sessizlik oldu.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_rival_club_manager",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_4": {
+      "title": "Zoraki Uzlaşma",
+      "kind": "outcome",
+      "text": "Büyük bir risk aldın. İki düşman kamp arasında köprü kurmak, kendi sonunu hızlandırabilir.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_rival_club_manager",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

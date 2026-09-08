@@ -1,0 +1,138 @@
+{
+  "id": "evt_sponsor_sporting_director_sinav",
+  "family": "fam_sponsor_sinav",
+  "category": "sponsor",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_sponsor_sinav_sporting_director",
+    "op": "notIn",
+    "value": [
+      true
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Masadaki Sözleşme",
+      "kind": "branch",
+      "text": "{actor.sporting_director.name} ofisin camlarını kapattı. Dışarıda antrenman sahasının gürültüsü kesildi, oda ağır bir sessizliğe gömüldü. Masanın üzerinde yeni bir sponsorluk dosyası duruyor. Yanında {actor.agent.name} gözlerini kaçırıyor. Yönetici, dosyayı parmağıyla hafifçe itip bana bakıyor. Sadece futbolu değil, kulübün kimliğini, benim mirasını ve bu imza karşılığında neleri feda edeceğimi sorgulayan bir sessizlik bu. Şirket, saha dışındaki duruşumun, sahadaki performansımın önüne geçmesini istiyor.",
+      "choices": [
+        {
+          "id": "c_riskli",
+          "text": "Sponsorun etik kurallarını reddet, bu formayı pazarlamalarına izin verme.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Şirketin tüm şartlarını kabul et, hesabına yatan rakamın üzerini ört.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Sözleşmeyi imzala ama sadece saha içi performansına odaklanacağını belirt.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 2
+          }
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Tercihlerin Bedeli",
+      "kind": "outcome",
+      "text": "{actor.sporting_director.name} başını hafifçe salladı. Saygı mıydı bu, yoksa bir uyarı mı? Odadan çıkarken arkamda bıraktığım o boş kağıt, gelecek sezonun finansal dengelerini sarsacak ama tribünlerin dilinde adım yankılanacak.",
+      "onEnter": [
+        {
+          "flag": "mem_sponsor_sinav_sporting_director",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Sessiz Bir Mutabakat",
+      "kind": "outcome",
+      "text": "Kalem ucunu kağıda bastırdım. Mürekkep, geleceğimi karartan o imzayı attı. {actor.agent.name} rahat bir nefes aldı. Cüzdanım ağırlaştı ama aynadaki yansımam artık biraz daha yabancı.",
+      "onEnter": [
+        {
+          "flag": "mem_sponsor_sinav_sporting_director",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Orta Yolun Çöküşü",
+      "kind": "outcome",
+      "text": "Şartları kabul ettim ancak sınırları çizdim. {actor.sporting_director.name} gözlerini kırpmadan kağıdı aldı. Profesyonel bir mesafe korudum belki ama içten içe bu pazarlığın ruhumdan eksilttiği parçayı hissediyorum.",
+      "onEnter": [
+        {
+          "flag": "mem_sponsor_sinav_sporting_director",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

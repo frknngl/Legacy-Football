@@ -1,0 +1,151 @@
+{
+  "id": "evt_social_star_teammate_kirilma",
+  "family": "fam_social_kirilma",
+  "category": "social",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "transfer_listed"
+  ],
+  "trigger": {
+    "flag": "mem_social_kirilma_star_teammate",
+    "op": "lt",
+    "value": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kırılma Noktası",
+      "kind": "branch",
+      "text": "Antrenman sahasının çıkışında, {actor.star_teammate.name} siyah bir sedanın gölgesinde bekliyor. Kapısı aralık, içi dumanlı. Elinde bir dosya var; kulübün senin hakkındaki gizli fesih şartlarını içeren o dosya. {actor.fixer.name} ise aracın hemen yanında, telefonuna bakarak zamanı öldürüyor. {actor.star_teammate.name} dosyayı sana doğru uzatıyor, gözlerinde bir açıklama ya da özür yok. Sadece yorgun bir beklenti var. Kulüp seni gözden çıkardı, onlar ise bu bataktan bir çıkış yoluyla bekliyorlar.",
+      "choices": [
+        {
+          "id": "c_riskli",
+          "text": "Dosyayı alıp medyaya sızdırmak. Herkes yansın.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": -15
+            }
+          ]
+        },
+        {
+          "id": "c_gri",
+          "text": "Dosyayı sessizce kabul edip {actor.fixer.name} ile yeni sözleşme şartlarını görüşmek.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Dosyayı geri çevirmek, {actor.star_teammate.name} ile vedalaşıp takımdan sessizce ayrılmak.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Savaş İlanı",
+      "kind": "outcome",
+      "text": "Dosya elinde, kameraların önüne çıkıyorsun. Kulübün sessizce bitirmek istediği kariyerin, şimdi büyük bir gürültüyle çatırdıyor. Herkesin gözü sende.",
+      "onEnter": [
+        {
+          "flag": "mem_social_kirilma_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Sessiz Anlaşma",
+      "kind": "outcome",
+      "text": "{actor.fixer.name} yanına yaklaşıyor, elini omzuna koyuyor. Para hesapta, vicdan ise kapının dışında kaldı. Kendi yoluna bakıyorsun.",
+      "onEnter": [
+        {
+          "flag": "mem_social_kirilma_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Onurlu Çıkış",
+      "kind": "outcome",
+      "text": "Arabanın kapısı kapanıyor. {actor.star_teammate.name} arkasına bakmadan uzaklaşıyor. Cebin boş, ama başın dik. Yarın yeni bir sayfa açmak için artık çok geç.",
+      "onEnter": [
+        {
+          "flag": "mem_social_kirilma_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    }
+  }
+}
