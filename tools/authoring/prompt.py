@@ -427,3 +427,74 @@ def build_retry(brief: Brief, previous: str, errors: list[str]) -> str:
             "yeniden yazma. Duzeltilmis tam JSON'u dondur.",
         ]
     )
+
+
+# --------------------------------------------------------------- zenginlestirme
+
+_ENRICH_RULES = """KURALLAR
+1. SADECE metni degistir. Dugum kimligi, secenek, efekt, yapi AYNEN kalir --
+   zaten yalnizca metinleri geri gonderiyorsun.
+2. Anlami DEGISTIRME. Ayni sey olsun, daha iyi gorunsun. Sonucu tersine
+   cevirme, yeni bir olay ekleme, yeni bir karakter uydurma.
+3. Uzunluk: her metin en az {floor} kelime, ideali {ideal} kelime. Su an
+   hepsi cok kisa -- tek cumlelik bir kapanis okuyucuyu sahneden atiyor.
+4. NASIL zenginlestirilir (dolgu DEGIL):
+   - bir DUYU: ses, koku, isik, sicaklik, dokunma
+   - bir NPC tepkisi: kim ne yapti, nereye bakti, ne demedi
+   - bir SONUC kirintisi: bu karar bir seyi degistirdi, onu goster
+   - kapanista bir CUMLE: yargi degil gozlem
+5. Sifat yigmak zenginlestirme degildir. "Buyuk, muhtesem, inanilmaz bir an"
+   yerine "Kimse alkislamadi" yaz.
+6. Kisilerden {actor.<slot>.name} ile bahset. Turkce ek gerekiyorsa
+   YALNIZCA su filtreler var: :gen :acc :dat :loc :abl :ins :plu
+   Baska bir filtre (ornegin :nom) UYDURMA -- sahneyi reddettirir.
+   Yalin hal icin filtre yazma, sadece {actor.<slot>.name} kullan.
+   Elle yazilan ek ("'in") de sahneyi reddettirir.
+7. Ikinci tekil sahis, gecmis zaman. Su anki metinlerin uslubunu koru.
+8. Klise yok: "kader", "yazgi", "hayat bazen", "o an anladim ki"."""
+
+
+def build_enrich(event: dict, node_ids: list[str], floor: int, ideal: int) -> str:
+    """Kisa `outcome` metinlerini zenginlestirme istegi.
+
+    NEDEN SADECE METIN: modele tum olayi geri yazdirmak yapinin sessizce
+    kaymasina yol acar (efekt kaybi, secenek id degisimi). Yalnizca metin
+    istenir ve cagiran onlari orijinalin USTUNE koyar; boylece yapinin
+    degismesi YAPISAL olarak imkansizdir.
+    """
+    import json as _json
+
+    lines = [
+        "Bir futbol kariyer oyununun sahne metinlerini zenginlestiriyorsun.",
+        "",
+        f"OLAY: {event.get('id')}  (tier: {event.get('tier')})",
+        "",
+        "SAHNENIN ACILISI (baglam -- bunu DEGISTIRME, sadece oku):",
+    ]
+    root = event.get("nodes", {}).get(event.get("rootNode", ""), {})
+    lines.append(f"  {root.get('text', '')[:600]}")
+    lines.append("")
+    lines.append("ZENGINLESTIRILECEK METINLER:")
+
+    pool = dict(event.get("nodes", {}))
+    for variant in event.get("variants", []):
+        pool.update(variant.get("nodes", {}))
+
+    for nid in node_ids:
+        node = pool.get(nid, {})
+        lines.append(f'  [{nid}] baslik: "{node.get("title", "")}"')
+        lines.append(f'      su anki metin: "{node.get("text", "")}"')
+
+    lines.append("")
+    # DIKKAT: `.format` KULLANILMAZ -- kurallarin icinde {actor.x.name}
+    # gibi susluler var ve format onlari alan sanip patliyor.
+    lines.append(
+        _ENRICH_RULES.replace("{floor}", str(floor)).replace("{ideal}", str(ideal))
+    )
+    lines.append("")
+    lines.append("CIKTI: yalnizca su bicimde JSON, baska hicbir sey yok.")
+    lines.append(_json.dumps({nid: "zenginlestirilmis metin" for nid in node_ids}, ensure_ascii=False, indent=2))
+    return NEWLINE.join(lines)
+
+
+NEWLINE = "\n"

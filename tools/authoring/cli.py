@@ -29,7 +29,7 @@ from .flags import prune_unused
 from .gate import QualityGate, extract_json
 from .ledger import SceneLedger, _primary_slot
 from .planner import Planner, PlannerError, PROFILES
-from .prompt import build, build_retry
+from .prompt import build, build_enrich, build_retry
 from .providers.base import NullProvider, Provider, ProviderError, load_dotenv
 from .providers.gemini import GeminiProvider
 
@@ -599,6 +599,124 @@ def cmd_ingest(args, root: Path) -> int:
 
 class _IngestRejected(Exception):
     """Ic kontrol akisi -- geri alma yolunu tek yerde toplar."""
+
+
+# ------------------------------------------------------------------- enrich
+
+# Tier basina EN AZ kelime (validator ile ayni) ve HEDEF uzunluk.
+#
+# Esigi kil payi gecirmek dolgu yazdirmaktir; hedef bilerek daha yukarida
+# tutuluyor cunku asil is metni okunur kilmak, uyariyi susturmak degil.
+_ENRICH_FLOOR = {"minor": 12, "major": 18, "epic": 20}
+_ENRICH_IDEAL = {"minor": 30, "major": 45, "epic": 55}
+
+
+def _short_outcomes(event: dict) -> list[str]:
+    """Tier esiginin ALTINDA kalan `outcome` dugumlerinin kimlikleri."""
+    floor = _ENRICH_FLOOR.get(event.get("tier", "minor"), 12)
+    pool: dict[str, dict] = dict(event.get("nodes", {}))
+    for variant in event.get("variants", []):
+        pool.update(variant.get("nodes", {}))
+    return [
+        nid
+        for nid, node in pool.items()
+        if node.get("kind") == "outcome" and len(node.get("text", "").split()) < floor
+    ]
+
+
+def _splice_texts(event: dict, texts: dict[str, str]) -> dict:
+    """Yalnizca METINLERI orijinalin ustune koyar.
+
+    Modele tum olayi geri yazdirmak yapinin sessizce kaymasina yol acar
+    (efekt kaybi, secenek id degisimi, kaybolan kilit). Burada yapinin
+    degismesi YAPISAL olarak imkansiz: yalnizca `text` alanlari degisir.
+    """
+    out = json.loads(json.dumps(event))
+    for nid, text in texts.items():
+        if not isinstance(text, str) or not text.strip():
+            continue
+        if nid in out.get("nodes", {}):
+            out["nodes"][nid]["text"] = text.strip()
+        for variant in out.get("variants", []):
+            if nid in variant.get("nodes", {}):
+                variant["nodes"][nid]["text"] = text.strip()
+    return out
+
+
+def cmd_enrich(args, root: Path) -> int:
+    """Kisa `outcome` metinlerini zenginlestirir.
+
+    Olay basina TEK model cagrisi yapilir (dugum basina degil): 401 kisa
+    dugum yalnizca 108 olayda toplaniyor, yani dort kat daha az kota.
+    """
+    _setup(root)
+    gate = QualityGate(root)
+    provider = _provider(args.provider)
+    if not provider.available:
+        print(f"HATA: '{args.provider}' saglayicisi kullanilamiyor.", file=sys.stderr)
+        return 1
+
+    events_dir = root / "content" / "events"
+    targets: list[tuple[Path, dict, list[str]]] = []
+    for path in sorted(events_dir.rglob("*.json")):
+        event = json.loads(path.read_text(encoding="utf-8"))
+        if args.category and event.get("category") != args.category:
+            continue
+        short = _short_outcomes(event)
+        if short:
+            targets.append((path, event, short))
+
+    if not targets:
+        print("Zenginlestirilecek kisa metin yok.")
+        return 0
+
+    print(f"{len(targets)} olayda kisa metin var; {args.count} tanesi islenecek.\n")
+    done = 0
+    for path, event, short in targets[: args.count]:
+        tier = event.get("tier", "minor")
+        print(f">> {event['id']}  ({len(short)} kisa dugum, tier {tier})")
+
+        prompt = build_enrich(
+            event, short, _ENRICH_FLOOR.get(tier, 12), _ENRICH_IDEAL.get(tier, 30)
+        )
+        ok = False
+        for attempt in range(1, MAX_RETRIES + 1):
+            try:
+                raw = provider.generate(prompt)
+            except ProviderError as err:
+                print(f"   saglayici hatasi: {err}")
+                return 1
+            try:
+                texts = extract_json(raw)
+            except (ValueError, json.JSONDecodeError) as err:
+                print(f"   deneme {attempt}: gecersiz JSON ({err})")
+                continue
+
+            candidate = _splice_texts(event, texts)
+            still = _short_outcomes(candidate)
+            if still:
+                print(f"   deneme {attempt}: hala kisa: {', '.join(still)}")
+                continue
+
+            result = gate.check(candidate, event["category"])
+            if not result.ok:
+                print(f"   deneme {attempt}: {result.summary()}")
+                if args.verbose:
+                    for e in result.errors[:4]:
+                        print(f"      {e}")
+                continue
+
+            gate.commit(candidate, event["category"])
+            print(f"   zenginlestirildi ({len(short)} dugum)")
+            ok = True
+            done += 1
+            break
+
+        if not ok:
+            print("   atlandi")
+
+    print(f"\n{done}/{min(args.count, len(targets))} olay zenginlestirildi.")
+    return 0
 
 
 # ------------------------------------------------------------------- selftest
@@ -1263,6 +1381,14 @@ def main(argv: list[str] | None = None) -> int:
         "path", nargs="+", help="Bir ya da daha COK olay dosyasi; birlikte dogrulanir"
     )
 
+    p_enrich = sub.add_parser(
+        "enrich", help="Kisa outcome metinlerini zenginlestir", parents=[common]
+    )
+    p_enrich.add_argument("--count", type=int, default=5)
+    p_enrich.add_argument("--category", default=None)
+    p_enrich.add_argument("--provider", default="gemini")
+    p_enrich.add_argument("--verbose", action="store_true")
+
     p_self = sub.add_parser("selftest", help="Hattin kendi testleri", parents=[common])
     p_self.add_argument(
         "--hizli", action="store_true", help="Validator calistiran yavas testi atla"
@@ -1321,6 +1447,7 @@ def main(argv: list[str] | None = None) -> int:
         "write": cmd_write,
         "arc": cmd_arc,
         "ingest": cmd_ingest,
+        "enrich": cmd_enrich,
         "selftest": cmd_selftest,
         "variant": cmd_variant,
         "unvariant": cmd_unvariant,
