@@ -71,6 +71,51 @@ stat      11   pressure  6   resource  5   relation 4   persona 4
 
 ---
 
+## İlerleme
+
+### Faz 0 — katman korkuluğu ✅ (2026-09-08)
+
+`tests/Layering.test.ts`. Rütbe tablosu + üç sert kural (`domain` saf,
+`simulation` yalnızca `domain`+`Rng`, `src` asla `tools`). Aynı rütbeli
+tek kenar (`adapters → testing`) gerekçesiyle listede. Kanıt: `domain`'e
+sahte bir `runtime` import'u eklenince iki test düşüyor.
+
+### Faz 1 — moral/performans bağı ✅ (2026-09-08)
+
+Denetimde "moral %6 etkiliyor" yazmıştım. **Ölçünce sıfır çıktı.**
+
+| Katman | Sorun |
+|---|---|
+| Çarpan | `dayFactor` yalnızca `quality`ye uygulanıyordu; simülasyon `attributes` okuyor (`computeLines`, `pickShooter`, `pickAssister`). 500 maçta moral 0 ile 100 arası fark: **106/28/6.258 — bire bir aynı** |
+| Reyting | Herkes 6.0'dan başlıyor, üstüne sadece olaylar ekleniyordu. "Bugün nasıl oynadığın" oyuncunun gördüğü sayıya hiç yansımıyordu |
+| Moralin kendisi | İçerik 93 pozitif (+850) / 503 negatif (−5329) yazıyor, toparlanma yok → **medyan 0** (p25 0, p75 8) |
+
+Yapılanlar: çarpan niteliklere taşındı · `heroBaseRating` eklendi ·
+`moraleTarget`/`moraleRecovery` (hedefe kayma) · `softFloor` (softCap'in
+aynası — tabana yaklaşınca azalışlar sönümlenir) · `isCaptain` bağlandı.
+
+Ölçüldü (6 tohum × 1000 tur):
+
+| | Önce | Sonra |
+|---|---|---|
+| moral medyanı | 0 | **23.2** (bant 0.8–90.5) |
+| moral → reyting (500 maç) | 0.000 | **0.518** |
+| form medyanı | 45 | 48 (ölüm sarmalı yok) |
+
+`playtest` artık her bayrak için p25/medyan/p75 basıyor — min-max ve son
+değer yanıltıyordu.
+
+**Kalan iş (içerik tarafı):** moral yazımları 5.4:1 negatif ve
+toparlanmasız bir oyun için ölçeklenmiş. Motor artık doğru; 503 negatif
+efektin yeniden ölçeklenmesi ayrı bir karar. Bu yapılmadan moral gerçek
+bandının (≈14–34) dışına çıkmadığı için sahadaki etkisi de dar kalır.
+
+### Sırada
+
+Faz 2 — `ValueRef` ilkeli (`domain/effects.ts`).
+
+---
+
 ## Riskler
 
 - **Proje git deposu değil.** Üç büyük modül eklenirken geri alma yok.
