@@ -199,6 +199,7 @@ def _generate_with_gate(
     gate: QualityGate,
     verbose: bool = False,
     avoid: list[dict] | None = None,
+    pending_traces: frozenset[str] = frozenset(),
 ) -> dict | None:
     """Uret -> denetle -> hatalari geri besle. En fazla `MAX_RETRIES` deneme."""
     prompt = build(brief, avoid=avoid)
@@ -221,7 +222,7 @@ def _generate_with_gate(
 
         event = _enforce_contract(event, brief)
         violations = _contract_violations(event, brief)
-        result = gate.check(event, brief.category)
+        result = gate.check(event, brief.category, pending_traces)
         errors = violations + result.errors
         print(f"   deneme {attempt}: {result.summary()}" + (
             f", {len(violations)} sozlesme ihlali" if violations else ""
@@ -443,6 +444,19 @@ def cmd_arc(args, root: Path) -> int:
     cache_dir.mkdir(parents=True, exist_ok=True)
     written: list[Path] = []
 
+    # ZINCIRIN ILAN ETTIGI IZLER.
+    #
+    # Tohum izi yazmak ZORUNDA (brief sozlesmesi) ama o izi okuyan odeme
+    # sahneleri henuz uretilmemis. `OrphanMemoryFlagRule` bu yuzden tohumu
+    # her denemede reddediyordu ve HICBIR zincir uretilemiyordu -- kapi
+    # kendi kendini kilitliyordu.
+    #
+    # Bu adlar ARA adimlarda tolere edilir; zincir bittiginde toleransSIZ
+    # tam dogrulama yapilir.
+    pending = frozenset(
+        flag for brief in arc.all_briefs() for flag in brief.writes_memory
+    )
+
     for brief in arc.all_briefs():
         print(f"\n>> {brief.event_id}  [{brief.tier}/{brief.beat}]")
         cached = cache_dir / f"{brief.event_id}.json"
@@ -451,7 +465,9 @@ def cmd_arc(args, root: Path) -> int:
         if event is not None:
             print("   onbellekten alindi (API cagrisi yok)")
         else:
-            event = _generate_with_gate(brief, provider, gate, verbose=args.verbose)
+            event = _generate_with_gate(
+                brief, provider, gate, verbose=args.verbose, pending_traces=pending
+            )
 
         if event is None:
             for path in written:
@@ -470,6 +486,24 @@ def cmd_arc(args, root: Path) -> int:
         )
         written.append(gate.commit(event, brief.category))
         print(f"   yazildi: {written[-1].relative_to(root)}")
+
+    # SON DENETIM -- toleransSIZ.
+    #
+    # Ara adimlarda zincirin izleri hos goruldu; simdi hepsi diskte ve
+    # okuyucularin GERCEKTEN var olmasi gerekiyor. Gecmezse zincir geri
+    # alinir: yarim zincir, faturasi hic gelmeyen bir karar demektir.
+    final = gate.check_corpus()
+    if not final.ok:
+        for path in written:
+            path.unlink(missing_ok=True)
+        core.write_text(core_snapshot, encoding="utf-8")
+        print(
+            f"\nZINCIR GERI ALINDI: son denetim {len(final.errors)} hata verdi.",
+            file=sys.stderr,
+        )
+        for line in final.errors[:6]:
+            print(f"   {line}", file=sys.stderr)
+        return 1
 
     for brief in arc.all_briefs():
         ledger.register(brief)
@@ -1172,6 +1206,11 @@ def main(argv: list[str] | None = None) -> int:
     p_write.add_argument("--count", type=int, default=3)
     p_write.add_argument("--category", default=None)
     p_write.add_argument("--life-state", default=None, help="Sahneyi bu hayat durumuna kapila")
+    # `plan`da vardi, `write`ta YOKTU -- yani bosluga nisan alarak uretmek
+    # mumkun degildi. Kategori x cag matrisinde sifir hucreler var
+    # (`sponsor` uc cagda hic yok, `dark` cirak ve alacakaranlikta yok);
+    # onlari doldurmak icin cag secilebilmeli.
+    p_write.add_argument("--era", default=None, help="Sahne bu cagi MUTLAKA kapsasin")
     p_write.add_argument("--seed", type=int, default=0)
     p_write.add_argument("--provider", default="gemini")
     p_write.add_argument("--verbose", action="store_true")

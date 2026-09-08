@@ -1,0 +1,195 @@
+{
+  "id": "evt_social_fixer_ayartma",
+  "family": "fam_social_ayartma",
+  "category": "social",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Teklif",
+      "kind": "branch",
+      "text": "{actor.fixer.name} elindeki tableti masaya bıraktı. Ekranda ameliyat raporunun sızdırılmış taslakları duruyor. Pencerenin ötesinde, {actor.partner.name} ve {actor.childhood_friend.name} hastane koridorunun sessizliğinde sigara molasında. Doktorlar iyileşme sürecinin aylar süreceğini söylüyor, o ise saniyeleri. {actor.fixer.name} bir zarfı size doğru itti. İçinde, rehabilitasyonu gizli tutacak bir klinik raporu ve reddedilemeyecek miktarda nakit var. Kendi gerçekliğiniz, masanın üzerindeki bu kağıt yığınıyla ikiye bölünüyor.",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "Zarfı al ve çantana at. Kimse bilmeyecek.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 150000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -8
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Raporu geri çevir. İyileşme sürecini basına olduğu gibi açıkla.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Basına farklı bir sakatlık haberi sızdır, taraftarın sana olan öfkesini dindir.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_stat",
+          "text": "Klinik yerine özel fizyoterapistini çağır, iyileşmeyi hızlandır.",
+          "target": "n_outcome_stat",
+          "effects": [
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "requires": {
+            "flag": "profesyonellik",
+            "op": "gte",
+            "value": 80
+          },
+          "lockLabel": "[Profesyonellik 80]"
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Sessizlik Satın Alındı",
+      "kind": "outcome",
+      "text": "{actor.fixer.name} başını hafifçe sallayıp odadan çıktı. Artık gerçeklerin bir fiyatı var ve sen o parayı kabul ettin. Vicdanındaki boşluk, banka hesabındaki artışla örtülüyor.",
+      "onEnter": [
+        {
+          "flag": "mem_social_ayartma_fixer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Zor Karar",
+      "kind": "outcome",
+      "text": "Sessizlik çöktü. {actor.partner.name} sana bakıyor, gözlerinde bir hayal kırıklığı var. Profesyonel olmanın bedeli, bazen en sevdiklerinin sana olan hayranlığından feragat etmektir.",
+      "onEnter": [
+        {
+          "flag": "mem_social_ayartma_fixer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Oyun İçinde Oyun",
+      "kind": "outcome",
+      "text": "Taraftar tribunlerde ismini haykırıyor. Ama yalanın üzerine kurulu bu destek, ilk tökezleyişinde bir cellada dönüşecek. {actor.childhood_friend.name} durumun ciddiyetini anlayıp uzaklaştı.",
+      "onEnter": [
+        {
+          "flag": "mem_social_ayartma_fixer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_stat": {
+      "title": "Sınırları Zorlamak",
+      "kind": "outcome",
+      "text": "Vücudun çığlık atıyor ama {actor.fixer.name} işini halletti. Hızlı dönüşün bir bedeli olacak; kemiklerin ve ruhun bu tempoyu ne kadar taşıyabilir?",
+      "onEnter": [
+        {
+          "flag": "mem_social_ayartma_fixer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

@@ -65,6 +65,61 @@ RULES = """KURALLAR (ihlali sahneyi reddettirir):
    yasak. Sahnedeki herkes bir slot yer tutucusudur: {actor.<slot>.name}."""
 
 
+# CAGIN SESI.
+#
+# OLCULEN SORUN: prompt cagi yalnizca LISTELIYORDU ("Kariyer evresi:
+# rookie, rise"). Model bunu bir kapi olarak okuyup sahneyi yine kidemli
+# agziyla yaziyordu: `evt_national_star_teammate_sadakat_sinavi` cirak
+# cagina acikken hero milli takim soyunma odasina hukmediyordu ve
+# `SeniorVoiceRule` onu yakaladi.
+#
+# Cag bir kapi degil bir SES. On alti yasindaki cocuk odaya giremez,
+# kapida bekler; otuz bes yasindaki adam odanin kendisidir.
+_ERA_VOICE = {
+    "rookie": (
+        "CIRAK (16-19). Hero burada COCUK. Odaya giremez, kapida bekler. "
+        "Kimseye emir veremez, kimse ona danismaz; izler, dinler, yanlis "
+        "anlar. Korkusu 'kesilmek', umudu 'bir sans'. Otoriteye (hoca, "
+        "baskan, kaptan) akran gibi konusamaz. Para kucuktur, ev uzaktir, "
+        "aile yakindir."
+    ),
+    "rise": (
+        "YUKSELIS (20-23). Adi duyulmaya basladi. Artik odada ama en arkada. "
+        "Ilk kez biri onu KULLANMAK istiyor: menajer, marka, eski arkadas. "
+        "Kendine guveni yeni ve kirilgan; abartili tepkiler verir."
+    ),
+    "prime": (
+        "ZIRVE (24-29). Soz sahibi. Odada konustugunda susulur. "
+        "Kararlarinin bedeli baskalarina da doker. Kaybedecek seyi var."
+    ),
+    "veteran": (
+        "TECRUBELI (30-34). Beden yavaslamis, akil hizlanmis. Gencler ona "
+        "'abi' diyor. Her yeni sezon bir pazarlik. Gelecek kisaliyor."
+    ),
+    "twilight": (
+        "ALACAKARANLIK (35+). Son perdeler. Sahada gecirdigi sure azaliyor, "
+        "adi hala buyuk. Sonrasini dusunmek zorunda: ne yapacak, kim kalacak, "
+        "ne hatirlanacak."
+    ),
+}
+
+
+def _era_voice(eras) -> str:
+    """Brief'in cagi icin SES talimati -- kapi degil, ton."""
+    picked = [e for e in (eras or ()) if e in _ERA_VOICE]
+    if not picked:
+        return ""
+    lines = ["", "CAGIN SESI (sahne bu tonda yazilmali):"]
+    for e in picked:
+        lines.append(f"  - {_ERA_VOICE[e]}")
+    if len(picked) > 1:
+        lines.append(
+            "  Sahne bu caglarin HEPSINDE cikabilir; en GENC olanina gore "
+            "yaz, yoksa cocuga kidemli replik verirsin."
+        )
+    return "\n".join(lines)
+
+
 def _cell_lines(brief: Brief) -> str:
     c = brief.cell
     rows = [
@@ -73,9 +128,10 @@ def _cell_lines(brief: Brief) -> str:
         ("Kulup seviyesi", c.club_tier),
         ("Hayat durumu", c.life_state),
     ]
-    return "\n".join(
+    head = "\n".join(
         f"  {label:16}: {', '.join(v) if v else 'hepsi'}" for label, v in rows
     )
+    return head + _era_voice(c.era)
 
 
 def _choice_lines(brief: Brief) -> str:

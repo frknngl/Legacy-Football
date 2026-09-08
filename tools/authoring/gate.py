@@ -39,7 +39,12 @@ class QualityGate:
         self.root = project_root
         self.events_dir = events_dir or (project_root / "content" / "events")
 
-    def check(self, event: dict, category: str) -> GateResult:
+    def check(
+        self,
+        event: dict,
+        category: str,
+        pending_traces: frozenset[str] = frozenset(),
+    ) -> GateResult:
         """Olayi GECICI olarak yazar, dogrular, sonra her seyi geri alir.
 
         Yeni `mem_*` izleri denetimden ONCE registry'ye kaydedilir; aksi halde
@@ -64,13 +69,23 @@ class QualityGate:
             json.dumps(event, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
         try:
-            return self._run_validator()
+            return self._run_validator(pending_traces)
         finally:
             core.write_text(core_backup, encoding="utf-8")
             if backup is not None:
                 target.write_text(backup, encoding="utf-8")
             elif target.exists():
                 target.unlink()
+
+    def check_corpus(self) -> GateResult:
+        """Diskteki korpusu OLDUGU GIBI dogrular -- hicbir sey yazmadan.
+
+        Zincir uretiminin son adimi. Ara adimlarda zincirin kendi izleri
+        hos gorulur (okuyuculari henuz yazilmamistir); burada tolerans
+        YOKTUR. Yarim zincir, oyuncunun verdigi bir kararin faturasinin
+        hic gelmemesi demektir.
+        """
+        return self._run_validator()
 
     def commit(self, event: dict, category: str) -> Path:
         """Kapidan gecmis olayi kalici olarak yazar ve izlerini beyan eder."""
@@ -88,7 +103,7 @@ class QualityGate:
 
     # ------------------------------------------------------------ ic isleyis
 
-    def _run_validator(self) -> GateResult:
+    def _run_validator(self, pending_traces: frozenset[str] = frozenset()) -> GateResult:
         proc = subprocess.run(
             ["npm", "run", "validate", "--silent", "--", "--warnings"],
             cwd=self.root,
@@ -100,7 +115,34 @@ class QualityGate:
         )
         output = (proc.stdout or "") + (proc.stderr or "")
         errors = _collect(output, "HATA")
-        if proc.returncode != 0 and not errors:
+
+        # ZINCIR KILIDI.
+        #
+        # Bir zincirin TOHUMU izi yazmak zorundadir (brief sozlesmesi) ama
+        # o izi okuyan ODEME sahneleri henuz uretilmemistir. Sonuc:
+        # `OrphanMemoryFlagRule` tohumu her denemede reddediyordu ve HICBIR
+        # zincir uretilemiyordu -- kapi kendi kendini kilitliyordu.
+        #
+        # `pending_traces` zincirin ILAN ETTIGI izlerdir. Yalnizca o adlari
+        # tasiyan yetim hatalari tolere edilir; baska her sey aynen gecerli.
+        # Guvenli olmasinin sebebi zincirin ya butun halinde girmesi ya da
+        # hic girmemesi ve SONUNDA tam dogrulama yapilmasidir.
+        if pending_traces:
+            errors = [
+                e
+                for e in errors
+                if not (
+                    "OrphanMemoryFlagRule" in e
+                    and any(f'"{t}"' in e for t in pending_traces)
+                )
+            ]
+        # DIKKAT: bu yedek, yukaridaki tolerans filtresinden SONRA gelir.
+        # `pending_traces` verildiginde filtre `errors`i bosaltabilir ve
+        # cikis kodu yine 1'dir (dogrulayici yetimi hala hata sayar); yedegi
+        # kosulsuz calistirmak o durumda listeyi UYARI satirlariyla
+        # dolduruyordu ve model "8 hata" gorup ayni sahneyi bosuna yeniden
+        # yaziyordu. Tolerans varken yedek devreye girmemeli.
+        if proc.returncode != 0 and not errors and not pending_traces:
             # Validator kurallara HIC gelemeden dusmus olabilir (ayristirma
             # hatasi, eksik orkestratör dosyasi): o satirlar "HATA" ile
             # baslamaz. Bos hata listesi dondurmek modele "reddedildin ama
@@ -108,7 +150,9 @@ class QualityGate:
             errors = [line.strip() for line in output.splitlines() if line.strip()][-8:]
 
         return GateResult(
-            ok=proc.returncode == 0,
+            # Tolere edilen yetimler kalmissa cikis kodu 1 olsa da GECER;
+            # baska hata varsa yine duser.
+            ok=proc.returncode == 0 or (bool(pending_traces) and not errors),
             errors=errors,
             warnings=_collect(output, "UYARI"),
         )

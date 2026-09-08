@@ -1,0 +1,170 @@
+{
+  "id": "evt_social_childhood_friend_borc_yakin",
+  "family": "fam_arc_fixer_ayartma",
+  "category": "social",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_social_ayartma_fixer",
+        "op": "turnsSince",
+        "value": 20
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Bir Hesap",
+      "kind": "branch",
+      "text": "Antrenman sahasından uzakta, revirin loş ışığında tek başınasın. {actor.childhood_friend.name} kapıda belirdiğinde, yirmi hafta önce o karanlık kulüp odasında {actor.fixer.name} ile kurduğun kirli pazarlığı hatırlıyorsun. Masadaki o zarf, o gün attığın imza; kariyerini kurtaran o hamlenin tek bir faturası vardı. Arkadaşın konuşmuyor, sadece o günkü mutabakatın kağıda dökülmüş suretini yatağının ucuna bırakıyor. Gözleri, sakat bacağında değil, alması gereken payda.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Banka hesabına erişim ver. Faturayı öde, konuyu kapat.",
+          "target": "n_outcome_pay",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "İnkar et. Kapıdan çıkıp gitmesini söyle. Bu işin sonu iyi bitmeyecek.",
+          "target": "n_outcome_deny",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": -8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Yeni bir borç senedi imzala. Parayı başkasından alıp buraya aktar.",
+          "target": "n_outcome_borrow",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_childhood_friend",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_pay": {
+      "title": "Hesap Kapatıldı",
+      "kind": "outcome",
+      "text": "Sessizce onaylıyorsun. Rakamlar ekranında hareket ederken, o günkü pazarlığın yükü omuzlarından kalkıyor ama hesabındaki boşluk canını yakıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_social_ayartma_fixer_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_deny": {
+      "title": "Gerilim Tırmanıyor",
+      "kind": "outcome",
+      "text": "{actor.childhood_friend.name} gülümsüyor, kapıdan çıkarken omuzuna sertçe çarpıyor. Yarın sabah gazetelerde isminin geçeceğini ikiniz de biliyorsunuz.",
+      "onEnter": [
+        {
+          "flag": "mem_social_ayartma_fixer_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_borrow": {
+      "title": "Zincirleme Reaksiyon",
+      "kind": "outcome",
+      "text": "Yeni bir sözleşme, yeni bir yükümlülük. {actor.childhood_friend.name} kağıdı alıp gidiyor, ancak zihninde bu yeni borcun ağırlığı birikmeye başlıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_social_ayartma_fixer_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  },
+  "once": true
+}

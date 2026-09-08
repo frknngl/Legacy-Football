@@ -1,0 +1,140 @@
+{
+  "id": "evt_dark_childhood_friend_ihanet",
+  "family": "fam_dark_ihanet",
+  "category": "dark",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_dark_ihanet_childhood_friend",
+    "op": "isSet",
+    "value": false
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Defterler",
+      "kind": "branch",
+      "text": "Stadyumun otoparkında, ışıklar cızırdayarak yanıp sönüyor. {actor.childhood_friend.name} kaputun üzerine yaslanmış, elinde senin antrenman dosyalarının bir kopyasını tutuyor. {actor.prosecutor.name} tarafından yürütülen soruşturmanın belgeleri bunlar. {actor.fixer.name} ise birkaç metre ötede, elleri ceplerinde sigara içiyor. Arkadaşın sana bakmıyor, gözleri karşıdaki beton duvarda. Elindeki dosyayı sana doğru uzatıyor; dudaklarında hafif, buruk bir tebessüm var. Bu kağıtlar ya senin kariyerini bitirecek ya da onun kurtuluşu olacak.",
+      "choices": [
+        {
+          "id": "c_riskli",
+          "text": "Dosyayı ondan al ve {actor.fixer.name} ile yüzleş. Her şeyi göze alıp yakarak inkar et.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Çantandaki parayı ona ver. Gözlerine bakmadan, arkana bile bakmadan oradan uzaklaş.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Polis merkezinin yolunu tut. Olanı biteni yetkililere anlat ve kendini kurtar.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Karanlık Sadakat",
+      "kind": "outcome",
+      "text": "Dosyalar küle dönüştü. {actor.childhood_friend.name} artık ne bir dost ne de bir düşman. Sadece susması için ödediğin bedel, gelecekteki bir gölge gibi peşinde.",
+      "onEnter": [
+        {
+          "flag": "mem_dark_ihanet_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Bedel Ödendi",
+      "kind": "outcome",
+      "text": "Sessizlik satın alındı. Banka hesabın doldu, vicdanın ise o otoparkın soğuk asfaltında kaldı. Kimse öğrenmeyecek, ama sen her sahaya çıktığında o anı hatırlayacaksın.",
+      "onEnter": [
+        {
+          "flag": "mem_dark_ihanet_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Soğuk İtiraf",
+      "kind": "outcome",
+      "text": "Kendi ismini temize çıkardın. {actor.childhood_friend.name} artık senin için bir yabancıdan farksız, belki de çok daha kötüsü. Kariyerin temiz ama elin kanlı.",
+      "onEnter": [
+        {
+          "flag": "mem_dark_ihanet_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

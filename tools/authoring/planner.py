@@ -49,10 +49,29 @@ from .vocab import Vocabulary
 #   life        -- cag degil SLOT listesi engel: cellmate/guard/prison_mentor/
 #                  rehab_counselor cirak icin anlamsiz. Once slot listesi
 #                  ikiye ayrilmali (gunluk hayat / kapali kurum), sonra cag.
+# CAG KAPSAMASI -- 9 Eylul 2026'de olculerek genisletildi.
+#
+# Kategori x cag matrisinde SIFIR hucreler vardi: `sponsor` uc cagda hic
+# yok, `dark` alacakaranlikta yok, `transfer` ve `locker` alacakaranlikta
+# yok, `business` yukselis caginda yok, `national` cirak caginda yok.
+# Bunlarin cogu kaza; savunulabilir olanlar acildi:
+#
+#   sponsor  + rookie/twilight -- ilk krampon anlasmasi / veda kampanyasi
+#   social   + rookie/twilight -- ilk gece hayati / eski aliskanliklar
+#   dark     + twilight        -- borclarin yetismesi, son ayartma
+#   business + rise            -- yukselisin ticari isleri
+#   transfer + twilight        -- son transfer, bonservissiz gecis
+#   locker   + twilight        -- odada yaslanmak; gencler seni tanimiyor
+#   national + rookie          -- genc milli takim daveti
+#
+# BILEREK KAPALI birakilanlar: `legacy` yalnizca prime+ (on alti yasindaki
+# oyuncunun mirasi olmaz), `legal` yalnizca prime+ (dosya acilmasi icin
+# once kariyer gerekir), `dark` cirak caginda yok (kategori agir; genc
+# oyuncuya sucla temas ayri bir tasarim karari).
 PROFILES: dict[str, dict] = {
     "dark": {
         "slots": ("fixer", "agent", "childhood_friend", "lawyer", "prosecutor"),
-        "eras": ("rise", "prime", "veteran"),
+        "eras": ("rise", "prime", "veteran", "twilight"),
         "life_states": ("playing", "loaned", "transfer_listed"),
         "beats": ("ayartma", "borc", "suc_ortakligi", "ihanet", "yuzlesme", "kirilma"),
         "tier_mix": ("major", "major", "epic"),
@@ -62,7 +81,7 @@ PROFILES: dict[str, dict] = {
             "captain", "rival_teammate", "veteran", "youngster",
             "keeper", "manager", "assistant", "star_teammate",
         ),
-        "eras": ("rookie", "rise", "prime", "veteran"),
+        "eras": ("rookie", "rise", "prime", "veteran", "twilight"),
         "life_states": ("playing", "loaned"),
         "beats": ("sadakat_sinavi", "golge", "devir_teslim", "yuzlesme", "taninma", "reddedilis"),
         "tier_mix": ("minor", "major", "major"),
@@ -90,7 +109,7 @@ PROFILES: dict[str, dict] = {
     },
     "transfer": {
         "slots": ("agent", "sporting_director", "president", "rival_club_manager", "captain"),
-        "eras": ("rookie", "rise", "prime", "veteran"),
+        "eras": ("rookie", "rise", "prime", "veteran", "twilight"),
         "life_states": ("playing", "transfer_listed", "loaned"),
         "beats": ("sadakat_sinavi", "ayartma", "reddedilis", "terk_edilis", "geri_donus"),
         "tier_mix": ("major", "major", "epic"),
@@ -107,7 +126,7 @@ PROFILES: dict[str, dict] = {
             "agent", "lawyer", "president", "childhood_friend",
             "sporting_director", "mother",
         ),
-        "eras": ("rookie", "prime", "veteran", "twilight"),
+        "eras": ("rookie", "rise", "prime", "veteran", "twilight"),
         "life_states": ("playing", "transfer_listed", "retired"),
         "beats": ("ayartma", "kayip", "borc", "sinav", "devir_teslim"),
         "tier_mix": ("minor", "major", "major"),
@@ -136,7 +155,7 @@ PROFILES: dict[str, dict] = {
         ),
         # Cirak yok: on alti yasinda A milli takim gercekci degil.
         # Umit millisi hikayesi `locker`/`personal`den anlatilir.
-        "eras": ("rise", "prime", "veteran", "twilight"),
+        "eras": ("rookie", "rise", "prime", "veteran", "twilight"),
         "life_states": ("playing", "national_duty", "injured"),
         "beats": ("taninma", "reddedilis", "sadakat_sinavi", "devir_teslim", "zafer_bedeli", "yuzlesme"),
         "tier_mix": ("major", "major", "epic"),
@@ -182,14 +201,14 @@ PROFILES: dict[str, dict] = {
     "social": {
         "slots": ("star_teammate", "childhood_friend", "partner", "fixer", "cousin"),
         # Cirak YOK: on alti yasindaki cocugu kumarhaneye sokmak ucuz olur.
-        "eras": ("rise", "prime", "veteran"),
+        "eras": ("rookie", "rise", "prime", "veteran", "twilight"),
         "life_states": ("playing", "injured", "suspended", "transfer_listed"),
         "beats": ("ayartma", "borc", "kirilma", "sadakat_sinavi", "maske_dusmesi"),
         "tier_mix": ("minor", "major", "epic"),
     },
     "sponsor": {
         "slots": ("agent", "journalist", "sporting_director", "star_teammate"),
-        "eras": ("rise", "prime", "veteran"),
+        "eras": ("rookie", "rise", "prime", "veteran", "twilight"),
         "life_states": ("playing", "injured", "transfer_listed", "retired"),
         "beats": ("ayartma", "sinav", "reddedilis", "maske_dusmesi", "zafer_bedeli"),
         "tier_mix": ("minor", "minor", "major"),

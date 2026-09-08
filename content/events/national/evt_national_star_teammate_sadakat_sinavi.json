@@ -1,0 +1,206 @@
+{
+  "id": "evt_national_star_teammate_sadakat_sinavi",
+  "family": "fam_national_sadakat_sinavi",
+  "category": "national",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "injured",
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "mem_national_sadakat_sinavi_star_teammate",
+    "op": "eq",
+    "value": 0
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Milli Kampın Sessizliği",
+      "kind": "branch",
+      "text": "Otel koridorunun sonundaki oda. Kapı hafif aralık. İçeride {actor.star_teammate.name} bir bavulu hızla topluyor, yüzünde antrenmandaki o sahte gülümsemeden eser yok. {actor.national_captain.name} ise kapının pervazına yaslanmış, gözleri duvarda asılı duran milli formaya kilitli. Masada, {actor.rival_teammate.name} tarafından sızdırıldığı belli olan ve takım içindeki hiyerarşiyi yerle bir edecek o yazışmaların dökümü duruyor. {actor.star_teammate.name} durup sana bakıyor. Bir cevap bekliyor. Ya bu sırrı kaptana bildirip düzeni koruyacaksın ya da yanındaki adama sadakatini gösterip her şeyi gömeceksin.",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "Masadaki kağıtları alıp çantana at. \"Bunu ben hallederim,\" de ve karşılığında bir zarf uzatmasını bekle.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 150000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -8
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Odaya gir. Dökümleri gösterip, \"Bunun burada yeri yok,\" diye mırıldan.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Odayı sessizce terk et. Bir hamle ile bu bilgiyi bir pazarlık kozuna dönüştür.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": 7
+          }
+        },
+        {
+          "id": "c_stat",
+          "text": "Omzuna elini koy. \"Kimse bir yere gitmiyor, yarınki maça odaklanıyoruz,\" diyerek tüm sorumluluğu üstlen.",
+          "target": "n_outcome_stat",
+          "effects": [
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "sadakat": 12
+          },
+          "requires": {
+            "flag": "iliski_takim",
+            "op": "gte",
+            "value": 55
+          },
+          "lockLabel": "[Yüksek Takım Sadakati]"
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Sessizlik Bedeli",
+      "kind": "outcome",
+      "text": "Cüzdanın ağırlaştı ama aynadaki aksin artık sana yabancı. O odadan çıkarken duyduğun tek şey, kapının ardında kırılan bir kadeh sesiydi.",
+      "onEnter": [
+        {
+          "flag": "mem_national_sadakat_sinavi_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Doğru Yolun Yükü",
+      "kind": "outcome",
+      "text": "Otorite sarsılmadı, disiplin yerini buldu. Ancak arkadaşının sana bakışlarındaki nefret, sahada kuracağınız tüm bağları temelinden sarstı.",
+      "onEnter": [
+        {
+          "flag": "mem_national_sadakat_sinavi_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Karanlık Bir Oyun",
+      "kind": "outcome",
+      "text": "Artık herkesin elinde bir koz var. Sokaklar bu hamleni cesur bulsa da, teknik heyetin şüpheci gözleri artık sürekli üzerinde.",
+      "onEnter": [
+        {
+          "flag": "mem_national_sadakat_sinavi_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_outcome_stat": {
+      "title": "Kalkan Olmak",
+      "kind": "outcome",
+      "text": "Kendi enerjini tükettin ama takımın parçalanmasını engelledin. Herkesin üzerindeki yükü kendi omuzlarına almanın ağırlığını, yarınki antrenmanda bacaklarında hissedeceksin.",
+      "onEnter": [
+        {
+          "flag": "mem_national_sadakat_sinavi_star_teammate",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ]
+}
