@@ -1,6 +1,7 @@
 import { FlagRegistry, type FlagDefinition } from '../src/domain/flags.js';
 import type { MutableFlagState, EffectSource } from '../src/evaluation/EffectApplier.js';
 import type { ScaleContext } from '../src/domain/effects.js';
+import type { WalletState } from '../src/domain/wallet.js';
 
 export const TEST_FLAGS: FlagDefinition[] = [
   { key: 'servet', kind: 'resource', type: 'number', default: 0, label: 'Servet', shortfallTo: 'borc' },
@@ -22,13 +23,18 @@ export function testRegistry(extra: FlagDefinition[] = []): FlagRegistry {
   return FlagRegistry.from([...TEST_FLAGS, ...extra]);
 }
 
-export function testState(overrides: Partial<MutableFlagState> = {}): MutableFlagState {
+export function testState(
+  overrides: Partial<MutableFlagState & WalletState> = {},
+): MutableFlagState & WalletState {
   const registry = testRegistry();
   return {
     flags: registry.defaults(),
     flagSetTurn: {},
     flagSource: {},
     turn: 1,
+    // Cuzdan defteri: `WalletLedger` bu dilimi bekliyor.
+    wallet: [],
+    walletTotals: {},
     ...overrides,
   };
 }

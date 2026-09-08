@@ -48,6 +48,10 @@ export class SaveGame {
     // properties of undefined" ile oyunu cokertiyordu. Kanitlandi.
     state.categoryCooldowns ??= {};
     state.formerAgents ??= [];
+    // Cuzdan defteri: eski kayitlarda yok. Bos dizi dogru anlamdir --
+    // gecmis hareketler kaydedilmemis, ama bundan sonrakiler yazilir.
+    state.wallet ??= [];
+    state.walletTotals ??= {};
     state.ratingHistory ??= [];
     state.availability ??= { available: true, matchesRemaining: 0 };
     // v1 -> v2: kimlik katmani. Eski kayitta kadro yoktur; bos baslar ve

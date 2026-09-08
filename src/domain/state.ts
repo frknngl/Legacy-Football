@@ -7,6 +7,7 @@ import type { ActorState, Casting, NemesisResolution } from './actors.js';
 import type { FlagValue } from './flags.js';
 import type { PlayerAvailability } from './match.js';
 import type { AgentState } from './agent.js';
+import type { WalletEntry, WalletTotals } from './wallet.js';
 
 /** Kuyruga alinmis, vadesi gelince calisacak olay. */
 export interface ScheduledEvent {
@@ -161,6 +162,17 @@ export interface GameState {
    * degistiren oyuncuya piyasa soguk bakar.
    */
   formerAgents: number[];
+
+  /**
+   * CUZDAN DEFTERI -- son N para hareketi (`WalletLedger.LIMIT`).
+   *
+   * `servet` tek bir sayiydi ve "para nereye gitti" sorusu
+   * cevaplanamiyordu. Kumar/kredi/varlik mekaniklerinin onkosulu budur:
+   * kaybin gorunmedigi bir ekonomide risk almak karar degil gurultudur.
+   */
+  wallet: WalletEntry[];
+  /** Tur bazinda kariyer TOPLAMLARI -- defter sinirindan bagimsiz. */
+  walletTotals: WalletTotals;
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

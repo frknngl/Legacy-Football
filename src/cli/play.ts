@@ -34,6 +34,7 @@ import { GameEngine, type TurnReport } from '../runtime/GameEngine.js';
 import { runSimulatedMatch } from './runMatch.js';
 import { selectWorld, describeWorld, type GameWorld } from './world.js';
 import { windowAt } from '../domain/transfer.js';
+import { WalletLedger, WALLET_KINDS, WALLET_LABELS } from '../runtime/WalletLedger.js';
 
 const SAVE_PATH = '.saves/play.json';
 
@@ -329,6 +330,66 @@ async function agentTurn(
  * `play.ts` yalnizca IMZA ve TEKLIF akisini bagliyordu; arketiplerin
  * farki (super_agent sabirsiz, family sadik) oyuncuya hic ulasmiyordu.
  */
+/**
+ * CUZDAN MASASI.
+ *
+ * OLCULEN SORUN: `servet` tek bir sayiydi. Kariyer boyunca 2,5 binden
+ * 10,5 milyona cikiyordu ama "para nereye gitti" HIC gorunmuyordu.
+ * Kumar ve kredi gelmeden once bu gorunur olmali -- kaybin okunmadigi
+ * bir ekonomide risk almak bir karar degil, gurultudur.
+ */
+function walletDesk(engine: GameEngine): void {
+  const state = engine.snapshot();
+  const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
+
+  console.log('');
+  console.log(c.bold('CUZDAN'));
+  console.log(
+    `  Bakiye ${c.bold(money(Number(state.flags['servet'] ?? 0)) + ' TL')}` +
+      c.grey(`   haftalik maas ${money(Number(state.flags['haftalik_gelir'] ?? 0))} TL`),
+  );
+
+  const borc = Number(state.flags['borc'] ?? 0);
+  if (borc > 0) console.log(c.red(`  Borc   ${money(borc)} TL`));
+
+  const weekly = WalletLedger.weeklyNet(state, 40);
+  if (weekly !== 0) {
+    const arrow = weekly > 0 ? c.green('+') : c.red('');
+    console.log(c.grey(`  Son sezon haftalik net: ${arrow}${money(weekly)} TL`));
+  }
+
+  // --- KATEGORI OZETI (kariyer boyu, defter sinirindan bagimsiz)
+  const rows = WALLET_KINDS.map((kind) => ({
+    kind,
+    label: WALLET_LABELS[kind],
+    net: WalletLedger.net(state, kind),
+  })).filter((r) => r.net !== 0);
+
+  if (rows.length > 0) {
+    console.log('');
+    console.log(c.grey('  Kariyer boyunca'));
+    for (const r of rows.sort((a, b) => Math.abs(b.net) - Math.abs(a.net))) {
+      const sign = r.net > 0 ? c.green(`+${money(r.net)}`) : c.red(money(r.net));
+      console.log(`    ${r.label.padEnd(20)} ${sign} TL`);
+    }
+  }
+
+  // --- SON HAREKETLER
+  const recent = WalletLedger.recent(state, 12);
+  if (recent.length === 0) {
+    console.log(c.grey('\n  Henuz hareket yok.'));
+    return;
+  }
+  console.log('');
+  console.log(c.grey('  Son hareketler'));
+  for (const e of recent) {
+    const sign = e.amount > 0 ? c.green(`+${money(e.amount)}`) : c.red(money(e.amount));
+    console.log(
+      `    ${c.grey(`t${String(e.turn).padStart(4)}`)} ${sign.padEnd(22)} ${c.grey(e.label)}`,
+    );
+  }
+}
+
 async function agentDesk(engine: GameEngine, ask: (q: string) => Promise<string>): Promise<void> {
   const current = engine.currentAgent();
   if (current === undefined) {
@@ -647,12 +708,17 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
 
     if (input === ':q') break;
+
+    if (input === ':cuzdan') {
+      walletDesk(engine);
+      continue;
+    }
 
     if (input === ':menajer') {
       await agentDesk(engine, ask);

@@ -71,6 +71,7 @@ import { ProgressionTracker } from './ProgressionTracker.js';
 import { ReunionDirector } from './ReunionDirector.js';
 import { RollResolver } from './RollResolver.js';
 import { SaveGame } from './SaveGame.js';
+import { WalletLedger } from './WalletLedger.js';
 import { SuspensionTracker } from './SuspensionTracker.js';
 import { TurnScheduler } from './TurnScheduler.js';
 import {
@@ -457,6 +458,8 @@ export class GameEngine {
       // Kariyer MENAJERSIZ baslar. Kimse ilk sozlesmesini menajerle
       // imzalamaz; menajer bulmak ilk sezonun kendi hikayesi.
       formerAgents: [],
+      wallet: [],
+      walletTotals: {},
       rngSeed: seed,
       rngCursor: 0,
     };
@@ -646,6 +649,7 @@ export class GameEngine {
       // Komisyon imza aninda kesilir -- menajerin parasi buradan gelir.
       const cut = Math.round(offer.weeklyWage * 52 * offer.seasons * agent.state.commission);
       f['servet'] = Math.max(0, numberFlag(f, 'servet') - cut);
+      WalletLedger.record(this.state, -cut, 'komisyon', `${agent.profile.name} komisyonu`);
       this.reportAgentOutcome('transfer_done');
       this.notices.push(`Sozlesme yenilendi. Menajer komisyonu: ${cut}`);
     } else {
@@ -1534,7 +1538,9 @@ export class GameEngine {
       // Alt lig cirak ~2.500, elit yildiz ~250.000 bandinda.
       f['haftalik_gelir'] = Math.round(2_500 + clubRep * 120 * (0.4 + fame * 4));
     }
-    f['servet'] = numberFlag(f, 'servet') + numberFlag(f, 'haftalik_gelir');
+    const wage = numberFlag(f, 'haftalik_gelir');
+    f['servet'] = numberFlag(f, 'servet') + wage;
+    WalletLedger.record(this.state, wage, 'maas', 'Haftalik maas');
   }
 
   /**
@@ -2008,6 +2014,13 @@ export class GameEngine {
     );
 
     for (const change of changes) {
+      // CUZDAN: icerigin yazdigi her para hareketi deftere gecer. Bu
+      // dongu zaten tum degisiklikleri geziyor, yani ek maliyet yok.
+      if (change.flag === 'servet') {
+        const before = typeof change.before === 'number' ? change.before : 0;
+        const after = typeof change.after === 'number' ? change.after : 0;
+        WalletLedger.record(this.state, after - before, 'olay', source.eventId);
+      }
       if (change.shortfall) {
         this.notices.push(
           `Paran yetmedi: ${change.shortfall.amount.toLocaleString('tr-TR')} TL borclandin.`,
