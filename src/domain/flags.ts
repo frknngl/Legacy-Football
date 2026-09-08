@@ -83,6 +83,24 @@ export interface FlagDefinition {
    * Verilmezse sonum yok; bu alan opt-in.
    */
   readonly softCap?: number;
+  /**
+   * YUMUSAK TABAN -- `softCap`in aynadaki karsiligi, AZALISLAR icin.
+   *
+   *   Dizin ustunde azalislar tam uygulanir. Altinda kalan bosluga gore
+   *   olceklenir: `delta * (current - min) / (softFloor - min)`.
+   *
+   * NEDEN GEREKLI (olculdu): `moral`e icerik 93 pozitif (+850) karsilik
+   * 503 negatif (-5329) efekt yaziyor. Tabansiz bir bayrak boyle bir
+   * baskida 0'a oturur ve OKUMASI ANLAMSIZ hale gelir -- 6 kariyerlik
+   * olcumde moralin medyani 0 cikmisti.
+   *
+   * `softCap`ten farkli olmasinin sebebi turlerin farkli olmasi:
+   * `taraftar_destegi` gibi INSA EDILEN bir degeri korumak bir secim
+   * olmali, ama `moral` bir ruh halidir -- sonsuz kotulesemez.
+   *
+   * Verilmezse sonum yok; bu alan da opt-in.
+   */
+  readonly softFloor?: number;
 }
 
 /** Icerigin dogrudan yazmasi YASAK olan turler. */
@@ -154,11 +172,25 @@ export class FlagRegistry {
    */
   dampen(key: string, current: number, delta: number): number {
     const d = this.defs.get(key);
-    if (!d || d.softCap === undefined || delta <= 0) return delta;
-    const { max } = this.bounds(key);
-    if (max === undefined || current <= d.softCap || max <= d.softCap) return delta;
-    const headroom = Math.max(0, max - current) / (max - d.softCap);
-    return delta * headroom;
+    if (!d) return delta;
+
+    if (delta > 0) {
+      if (d.softCap === undefined) return delta;
+      const { max } = this.bounds(key);
+      if (max === undefined || current <= d.softCap || max <= d.softCap) return delta;
+      const headroom = Math.max(0, max - current) / (max - d.softCap);
+      return delta * headroom;
+    }
+
+    if (delta < 0) {
+      if (d.softFloor === undefined) return delta;
+      const { min } = this.bounds(key);
+      if (min === undefined || current >= d.softFloor || min >= d.softFloor) return delta;
+      const room = Math.max(0, current - min) / (d.softFloor - min);
+      return delta * room;
+    }
+
+    return delta;
   }
 
   /** Sayisal sinirlar: tanimda yoksa kind varsayilani. */

@@ -57,6 +57,9 @@ const TRACKED = [
   'taraftar_destegi',
   'medya_baskisi',
   'form',
+  // Moral hedefinin girdisi: soyunma odasi huzuru. Moral dipteyken
+  // sebebin burada mi yoksa icerikte mi oldugunu ancak bu ayirir.
+  'iliski_takim',
   // Stature formulunun en agir girdisi (agirlik 25) ve en agir ikincisi.
   // Ikisi de motor tarafindan yazilir; kablolari cekilmezse sessizce 0
   // kalirlar ve `superstar`/`icon`/`legend` kademelerini ULASILAMAZ yapar.
@@ -507,8 +510,16 @@ function describeTrajectory(t: Trajectory): string {
   if (bounded && last >= 97) flags.push('TAVANDA');
   if (bounded && last <= 3 && max > 10) flags.push('DIPTE');
 
+  // MEDYAN sart: min-max ve son deger yaniltir. Emekli olan oyuncunun
+  // morali 0'dir, ama bu "moral hep 0" demek degildir. Bir bayragin
+  // kariyer boyunca NEREDE durdugunu yalnizca dagilim soyler -- ve
+  // denge ayari (ornegin moralin sahaya etkisi) buna gore yapilir.
+  const sorted = [...s].sort((a, b) => a - b);
+  const at = (q: number): number => sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * q))]!;
+
   return (
     `${String(min).padStart(3)} - ${String(max).padStart(3)}  son ${String(last).padStart(3)}` +
+    `  [p25 ${String(at(0.25)).padStart(3)} | med ${String(at(0.5)).padStart(3)} | p75 ${String(at(0.75)).padStart(3)}]` +
     (flags.length > 0 ? `   ${flags.join(', ')}` : '')
   );
 }

@@ -43,7 +43,7 @@ import { assistWeightFactor } from '../domain/chemistry.js';
 import type { Fixture, SeasonSchedule } from './SeasonCalendar.js';
 import { defaultTactic, tacticProfile } from './Tactics.js';
 import { buildTimeline, type TimelineEvent } from './Timeline.js';
-import { buildTeam, heroAsFieldPlayer, type FieldPlayer, type TeamSquad } from './TeamModel.js';
+import { buildTeam, heroAsFieldPlayer, heroBaseRating, type FieldPlayer, type TeamSquad } from './TeamModel.js';
 
 /** Simulatorun her adimda dondurdugu sey. */
 export type SimStep =
@@ -379,7 +379,8 @@ export class MatchSimulator implements MatchHost {
       heroYellow: 0,
       heroRed: false,
       heroInjuryWeeks: 0,
-      heroRating: 6,
+      // Sabit 6 DEGIL: gunun formu tabani belirler (heroBaseRating).
+      heroRating: heroBaseRating(hero),
       usedMoments: new Set(),
       referee,
       grudge: referee ? (this.deps.grudgeFor?.(referee.id) ?? 0) : 0,

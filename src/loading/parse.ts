@@ -614,5 +614,7 @@ export function parseFlagDefinition(
   if (shortfallTo !== undefined) out['shortfallTo'] = shortfallTo;
   const softCap = num(v['softCap']);
   if (softCap !== undefined) out['softCap'] = softCap;
+  const softFloor = num(v['softFloor']);
+  if (softFloor !== undefined) out['softFloor'] = softFloor;
   return out as unknown as FlagDefinition;
 }

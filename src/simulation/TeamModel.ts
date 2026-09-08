@@ -76,6 +76,41 @@ function toFieldPlayer(p: RosterPerson, chemistry?: number): FieldPlayer {
 }
 
 /**
+ * GUNUN FORMU -- Hero'nun niteliklerine binen carpan (0.86 - 1.16).
+ *
+ * form 50 + moral 50 = tam 1.00, yani notr.
+ */
+export function heroDayFactor(hero: HeroProfile): number {
+  return (
+    0.86 +
+    (hero.form / 100) * 0.16 +
+    (hero.morale / 100) * 0.12 +
+    // Pazuband kucuk ama gercek bir fark: sorumluluk sahada karsilik bulur.
+    // Bu alan daha once simulasyonda HIC okunmuyordu.
+    (hero.isCaptain ? 0.02 : 0)
+  );
+}
+
+/**
+ * MAC ONCESI TABAN REYTING.
+ *
+ * OLCULEN SORUN: reyting sabit 6.0'dan basliyor ve yalnizca OLAYLARLA
+ * (gol +, asist +0.6, kart -0.3) degisiyordu. Yani moralsiz bir oyuncuyla
+ * mutlu bir oyuncunun golsuz maci ayni 6.0'i aliyordu.
+ *
+ * Bu, moralin gorunmez kalmasinin asil sebebiydi: oyuncunun her mac
+ * sonunda GORDUGU sayi gunun formundan tamamen bagimsizdi -- ve `form`
+ * bayragi da bu reytinglerden turedigi icin dongu hic kapanmiyordu.
+ *
+ * Katsayi olculerek secildi: taban 5.4 - 6.6 bandinda oynar, yani olaylar
+ * (bir gol ~+1.0) hala baskin kalir. Reyting bir PERFORMANS olcusudur,
+ * ruh hali olcusu degil.
+ */
+export function heroBaseRating(hero: HeroProfile): number {
+  return 6 + (heroDayFactor(hero) - 1) * 4;
+}
+
+/**
  * Hero'yu sahadaki bir oyuncuya cevirir.
  *
  * Nitelikleri `HeroProfile` OZETINDEN turetilir; simulator motorun flag
@@ -90,24 +125,43 @@ export function heroAsFieldPlayer(hero: HeroProfile, name: string): FieldPlayer 
     physical: hero.physical,
     goalkeeping: hero.position === 'GK' ? hero.technical : 5,
   };
+  // GUNUN FORMU -- niteliklerin TAMAMINA binder.
+  //
+  // OLCULEN SORUN: bu carpan eskiden yalnizca `quality`ye uygulaniyordu.
+  // Ama simulasyonun okudugu alan `quality` degil `attributes`:
+  //   - `computeLines`  -> goalkeeping / defending / passing / shooting
+  //   - `pickShooter`   -> attributes.shooting
+  //   - `pickAssister`  -> attributes.passing
+  // `quality` yalnizca `composure` olarak tek bir yerde okunuyordu ve
+  // orada da agirligi %30-40 idi.
+  //
+  // Sonuc olculdu: 500 macta moral 0 ile 100 ARASINDA HICBIR FARK YOKTU
+  // (106 gol / 28 asist / 6.258 reyting, bire bir ayni). Form icin de
+  // ayni. Yani "moral %6 etkiliyor" bile degil, sifir etkiliyordu.
+  //
+  // Carpan artik niteliklere uygulaniyor ve `quality` OLCEKLENMIS
+  // niteliklerden turetiliyor -- tek uygulama, cift sayim yok.
+  const dayFactor = heroDayFactor(hero);
+
   const clamped = Object.fromEntries(
-    Object.entries(attributes).map(([k, v]) => [k, Math.max(1, Math.min(99, Math.round(v)))]),
+    Object.entries(attributes).map(([k, v]) => [
+      k,
+      Math.max(1, Math.min(99, Math.round(v * dayFactor))),
+    ]),
   ) as unknown as PlayerAttributes;
 
-  // Form ve moral gunluk dalgalanmadir; nitelige degil KALITEYE binder.
   const weights = POSITION_WEIGHTS[hero.position];
   let base = 0;
   for (const [key, weight] of Object.entries(weights)) {
     base += clamped[key as keyof PlayerAttributes] * weight;
   }
-  const dayFactor = 0.88 + (hero.form / 100) * 0.16 + (hero.morale / 100) * 0.06;
 
   return {
     sourceId: 'hero',
     name,
     position: hero.position,
     attributes: clamped,
-    quality: Math.max(1, Math.min(99, Math.round(base * dayFactor))),
+    quality: Math.max(1, Math.min(99, Math.round(base))),
     aggression: 50,
     isHero: true,
   };

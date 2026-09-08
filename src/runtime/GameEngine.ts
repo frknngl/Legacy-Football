@@ -85,7 +85,8 @@ import {
   chemistryDecay,
   chemistryGain,
   dressingRoomHarmony,
-  harmonyMoraleDrift,
+  moraleTarget,
+  moraleRecovery,
 } from './ChemistryTracker.js';
 import {
   AGENT_START_SATISFACTION,
@@ -1685,12 +1686,19 @@ export class GameEngine {
       if (actor) relations.set(slotId, actor.relation);
     }
     const harmony = dressingRoomHarmony(relations);
-    if (harmony !== undefined) {
-      this.state.flags['iliski_takim'] = harmony;
-      const drift = harmonyMoraleDrift(harmony);
-      if (drift !== 0) {
-        this.state.flags['moral'] = clamp100(numberFlag(this.state.flags, 'moral') + drift);
-      }
+    if (harmony !== undefined) this.state.flags['iliski_takim'] = harmony;
+
+    // --- MORAL: HEDEFE DOGRU KAYMA
+    //
+    // Icerik moral'e 93 pozitif karsilik 503 negatif efekt yaziyor; bir
+    // toparlanma olmadan moralin MEDYANI 0'a oturuyordu (olculdu). Moral
+    // artik durumun (huzur + form) yankisi: soklar sert kalir, ama zamanla
+    // gercek duruma doner.
+    const morale = numberFlag(this.state.flags, 'moral');
+    const target = moraleTarget(harmony, numberFlag(this.state.flags, 'form'));
+    const recovery = moraleRecovery(morale, target);
+    if (recovery !== 0) {
+      this.state.flags['moral'] = clamp100(morale + recovery);
     }
   }
 

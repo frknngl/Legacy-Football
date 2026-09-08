@@ -53,3 +53,41 @@ export function harmonyMoraleDrift(harmony: number | undefined): number {
   if (harmony > 70) return 1;
   return 0;
 }
+
+/**
+ * MORAL HEDEFI -- moral bir SAYAC degil, durumun yankisidir.
+ *
+ * OLCULEN SORUN: moral tek yonlu bir mandaldi.
+ *   - Icerik 93 pozitif (+850) karsilik 503 negatif (-5329) efekt yaziyor
+ *   - Motorun tek duzeltmesi de asimetrikti (uyum<35 -> -2, uyum>70 -> +1)
+ *   - Hicbir TOPARLANMA yoktu
+ * Sonuc: 6 kariyerlik olcumde moralin MEDYANI 0 cikti (p25 0, p75 8).
+ * Yani moral bir sinyal degil, sabitti -- ve sahaya baglanmasi anlamsizdi.
+ *
+ * Cozum: her hafta moral bir HEDEFE dogru kayar. Hedef oyuncunun gercek
+ * durumundan turer: soyunma odasi huzuru ve son maclardaki form. Icerik
+ * soklari (bir olay -15 yazar) hala aninda ve serttir; fark, zamanla
+ * toparlanabilmesidir.
+ *
+ * Neden `form` girdisi: iyi oynayan mutlu olur. Bu, kariyerin kendi
+ * dongusunu kapatir -- moral sahayi, saha morali etkiler.
+ */
+export function moraleTarget(harmony: number | undefined, form: number): number {
+  const harmonyPart = harmony === undefined ? 0 : (harmony - 50) * 0.4;
+  const formPart = (form - 50) * 0.3;
+  // 15-85 bandi: ne tam mutsuzluk ne tam huzur kalici olabilir.
+  return Math.max(15, Math.min(85, 50 + harmonyPart + formPart));
+}
+
+/**
+ * Hedefe dogru haftalik kayma. Boslugun beste biri, en cok 5 puan.
+ *
+ * Yavas OLMALI: tek haftada hedefe sicrasaydi icerigin yazdigi -15'lik
+ * sok bir sonraki hafta silinir ve kararlarin agirligi kaybolurdu.
+ */
+export function moraleRecovery(current: number, target: number): number {
+  const gap = target - current;
+  if (Math.abs(gap) < 1) return 0;
+  const step = gap / 5;
+  return Math.max(-5, Math.min(5, step));
+}
