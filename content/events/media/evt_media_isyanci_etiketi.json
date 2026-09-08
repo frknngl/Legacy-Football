@@ -1,0 +1,167 @@
+{
+  "id": "evt_media_isyanci_etiketi",
+  "family": "fam_media_etiket",
+  "category": "media",
+  "tier": "major",
+  "weight": 26,
+  "cooldown": {
+    "self": 70,
+    "family": 18
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "trigger": {
+    "anyOf": [
+      {
+        "flag": "mem_isyani_sahiplendi",
+        "op": "turnsSince",
+        "value": 40
+      },
+      {
+        "flag": "mem_odayi_satti",
+        "op": "turnsSince",
+        "value": 40
+      },
+      {
+        "flag": "mem_hesabi_savusturdu",
+        "op": "turnsSince",
+        "value": 40
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dosyadaki Cümle",
+      "kind": "branch",
+      "text": "{actor.journalist.name} kayıt cihazını masaya koydu ama açmadı. Önce dosyayı açtı. \"{actor.manager.name} öncesindeki hoca değişikliğinin ardından,\" diye okudu, \"soyunma odasındaki asıl belirleyici isim olarak siz gösterilmişsiniz.\" Kaç yıl geçti, hatırlamıyorsun bile; ama bu cümle her kulüpte senden önce odaya giriyor. Yeni transferler seni tanımadan önce bunu duyuyor. {actor.journalist.name} kaydı şimdi açtı. \"Bu etiketi taşımak nasıl bir şey?\"",
+      "choices": [
+        {
+          "id": "c_omuzla",
+          "text": "\"Doğru. Ve gerekirse yine yaparım.\"",
+          "target": "n_out_omuzla",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_basin",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_yumusat",
+          "text": "\"O odada herkes konuşuyordu. Sadece benim adım kaldı.\"",
+          "target": "n_out_yumusat",
+          "effects": [
+            {
+              "flag": "iliski_basin",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "durus": -6,
+            "mizac": 4
+          }
+        },
+        {
+          "id": "c_kes",
+          "text": "Kayıt cihazına uzan, durdur. \"Sonraki soru.\"",
+          "target": "n_out_kes",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_basin",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": 6
+          }
+        }
+      ]
+    },
+    "n_out_omuzla": {
+      "title": "Manşet",
+      "kind": "outcome",
+      "text": "Röportaj iki gün sonra tam sayfa çıktı ve o cümle başlık oldu. Taraftar sevdi; markalar sevmedi. İki sponsor görüşmesi \"takvim sorunu\" diye ertelendi. Ama o hafta antrenmanda üç genç oyuncu ayrı ayrı yanına geldi — söyleyecek bir şeyleri yoktu, sadece yanında durmak istediler. Bazı etiketleri taşımak pahalıdır ve tam olarak bu yüzden birileri sana bakar."
+    },
+    "n_out_yumusat": {
+      "title": "Ortada Bir Yer",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} cevabı beğendi; ölçülüydü, alıntılanabilirdi, kimseyi yakmıyordu. Basın ertesi gün \"olgunlaşmış\" diye yazdı. Sen o kelimeyi okuyunca içinden bir şey çekildi. O odada konuşan sendin, riski alan sendin; şimdi kalabalığın arkasına saklandın ve karşılığında iyi bir manşet aldın. Doğru olan buydu belki. Ama akşam kendi cümleni tekrar okuduğunda pek inandırıcı gelmedi."
+    },
+    "n_out_kes": {
+      "title": "Sessiz Kayıt",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} bir an durdu, sonra gülümseyip devam etti. Ama röportajın kalanı buz gibiydi ve ertesi gün çıkan yazının başlığı senin durdurduğun soruydu. Basında \"cevap veremedi\" diye geçti. Susmak bazen en dürüst tepkidir ve neredeyse hiçbir zaman öyle okunmaz; bunu bilerek yaptın, bedelini de bilerek ödedin."
+    }
+  }
+}

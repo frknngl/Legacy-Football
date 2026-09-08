@@ -1,0 +1,222 @@
+{
+  "id": "evt_dark_tefeci_kapida",
+  "family": "fam_dark_tefeci",
+  "category": "dark",
+  "tier": "epic",
+  "weight": 34,
+  "cooldown": {
+    "self": 50,
+    "family": 16
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "transfer_listed",
+    "injured"
+  ],
+  "trigger": {
+    "anyOf": [
+      {
+        "flag": "borc",
+        "op": "gte",
+        "value": 60000
+      },
+      {
+        "flag": "mem_mafia_favor_owed",
+        "op": "isSet"
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Apartman Girişi",
+      "kind": "branch",
+      "text": "Antrenmandan döndüğünde araba boş yerde değil, tam senin yerinde park etmiş. {actor.fixer.name} inmiyor bile; camı indiriyor, dirseğini kapıya dayıyor. Yanındaki adam hiç konuşmuyor, sadece telefonuna bakıyor. \"Rakam büyüdü,\" diyor {actor.fixer.name}, sanki hava durumundan bahsediyor. \"Faiz işliyor, sen oynuyorsun, ikisi de duruyor mu sanıyorsun?\" Apartman kapısı üç adım ötede. Üst katta ışık yanıyor; {actor.partner.name} evde.",
+      "choices": [
+        {
+          "id": "c_ode",
+          "text": "\"Bu hafta kapatırım.\" Ne kadar acıtacaksa acıtsın.",
+          "requires": {
+            "flag": "servet",
+            "op": "gte",
+            "value": 120000
+          },
+          "lockLabel": "Servet 120.000",
+          "target": "n_out_ode",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -120000
+            },
+            {
+              "flag": "borc",
+              "op": "add",
+              "value": -60000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "mem_tefeciye_odedi",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": 8,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_sure",
+          "text": "\"Sezon sonuna kadar süre ver.\" Onun şartlarını dinle.",
+          "target": "n_out_sure",
+          "effects": [
+            {
+              "flag": "borc",
+              "op": "add",
+              "value": 25000
+            },
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "sadakat": -6,
+            "mizac": -4
+          }
+        },
+        {
+          "id": "c_kov",
+          "text": "\"Bir daha bu sokakta görmeyeyim.\" Camın kenarına vur, geç.",
+          "requires": {
+            "flag": "mental_dayaniklilik",
+            "op": "gte",
+            "value": 62
+          },
+          "lockLabel": "Mental dayanıklılık 62",
+          "target": "n_out_kov",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "borc",
+              "op": "add",
+              "value": 15000
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "mem_tefeciye_kafa_tuttu",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_kulup",
+          "text": "İçeri girmeden {actor.sporting_director.name:acc} ara. Kulübe anlat.",
+          "target": "n_out_kulup",
+          "effects": [
+            {
+              "flag": "borc",
+              "op": "add",
+              "value": -40000
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "mem_borcu_kulube_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": 10,
+            "durus": -8
+          }
+        }
+      ]
+    },
+    "n_out_ode": {
+      "title": "Kapanan Hesap",
+      "kind": "outcome",
+      "text": "Para perşembe günü el değiştirdi ve {actor.fixer.name} bir daha o sokağa gelmedi. Hesabın kapandı; hesabın kapandığını bilmenin rahatlığını da yalnızca bu işi bir kez yaşayan anlar. Yine de bir şey kaldı: artık o rakamın ne kadar hızlı büyüdüğünü biliyorsun, ve bir daha asla \"sadece bu sefer\" demeyeceksin. Üst kattaki ışık hâlâ yanıyordu; içeri girdiğinde hiçbir şey söylemedin."
+    },
+    "n_out_sure": {
+      "title": "Yeni Şartlar",
+      "kind": "outcome",
+      "text": "{actor.fixer.name} camı kapatmadan önce tek cümle söyledi: \"Sezon sonu değil, ben ne dersem o.\" Süre aldın ama artık borcun tutar değil, bir bağ. Bu tür bağlar bir gün mutlaka bir iyilik olarak geri döner ve o iyiliği reddetme lüksün olmaz. Gece uyuyamadın; sabah antrenmanda ayakların ağırdı ve {actor.manager.name} bunu fark etti."
+    },
+    "n_out_kov": {
+      "title": "Cama Vuruş",
+      "kind": "outcome",
+      "text": "Araba on saniye daha durdu, sonra sessizce gitti. Kimse bağırmadı, kimse tehdit etmedi — ve bu, bağırmalarından daha kötüydü. Ertesi hafta iki genç adam antrenman çıkışında seni bekledi, sadece baktılar. Mahallede \"kafa tuttu\" diye anlatıldı ve saygı gördün. Saygı burada işe yarar; ama faiz saygıya bakmaz, işlemeye devam ediyor."
+    },
+    "n_out_kulup": {
+      "title": "Kulübün Avukatı",
+      "kind": "outcome",
+      "text": "{actor.sporting_director.name} telefonu kapatmadan avukatı aradı. Kulüp borcun bir kısmını kapattı ve karşılığında maaşından kesinti başladı. Sorun çözüldü — ve aynı gün üç kişi daha öğrendi. Bir hafta içinde bir sponsor toplantısı sessizce iptal oldu. Kurumsal bir yapıya sığınmak seni tefeciden korur, ama kurumun hafızası tefecininkinden uzundur."
+    }
+  }
+}

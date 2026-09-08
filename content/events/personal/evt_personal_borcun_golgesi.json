@@ -1,0 +1,168 @@
+{
+  "id": "evt_personal_borcun_golgesi",
+  "family": "fam_personal_golge",
+  "category": "personal",
+  "tier": "major",
+  "weight": 24,
+  "cooldown": {
+    "self": 60,
+    "family": 16
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "trigger": {
+    "anyOf": [
+      {
+        "flag": "mem_tefeciye_odedi",
+        "op": "turnsSince",
+        "value": 60
+      },
+      {
+        "flag": "mem_tefeciye_kafa_tuttu",
+        "op": "turnsSince",
+        "value": 60
+      },
+      {
+        "flag": "mem_borcu_kulube_soyledi",
+        "op": "turnsSince",
+        "value": 60
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Mutfakta Bir Zarf",
+      "kind": "branch",
+      "text": "{actor.partner.name} zarfı mutfak masasına bıraktı ve karşına oturdu. Eski bir ödeme dekontu; üstünde o yılın tarihi ve senin imzan var. \"Bunu temizlik yaparken buldum,\" dedi. Sesi kızgın değil, daha kötüsü: sakin. \"O yaz bana hiçbir şey anlatmadın. Ben sadece uyumadığını biliyordum.\" Buzdolabının motoru çalışıyor, başka ses yok. {actor.cousin.name} salonda televizyon izliyor, sesini kısmış — o da dinliyor.",
+      "choices": [
+        {
+          "id": "c_anlat",
+          "text": "Hepsini anlat. Rakamı da, korkuyu da.",
+          "target": "n_out_anlat",
+          "effects": [
+            {
+              "flag": "iliski_aile",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "npc_partner_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "dogruluk": 12,
+            "durus": -4
+          }
+        },
+        {
+          "id": "c_kucult",
+          "text": "\"Küçük bir işti, hallettim.\" Zarfı katla, çekmeceye koy.",
+          "target": "n_out_kucult",
+          "effects": [
+            {
+              "flag": "iliski_aile",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "npc_partner_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "dogruluk": -10,
+            "sadakat": 4
+          }
+        },
+        {
+          "id": "c_ofkelen",
+          "text": "\"Eşyalarımı mı karıştırıyorsun?\" Masadan kalk.",
+          "target": "n_out_ofkelen",
+          "effects": [
+            {
+              "flag": "iliski_aile",
+              "op": "add",
+              "value": -18
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "npc_partner_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "mizac": -14,
+            "durus": 4
+          }
+        }
+      ]
+    },
+    "n_out_anlat": {
+      "title": "Buzdolabının Sesi",
+      "kind": "outcome",
+      "text": "Anlatması yarım saat sürdü ve bitince ikiniz de yorgundunuz. {actor.partner.name} bir şey söylemedi, sadece elini masanın üstünden uzattı. Salondaki televizyonun sesi yeniden açıldı; {actor.cousin.name} duyduklarını duymamış gibi yaptı ve bu da bir tür şefkat. O gece yıllardır ilk kez ışığı kapatır kapatmaz uyudun. Bazı borçlar ödendikten sonra bile taşınır, ta ki birine anlatılana kadar."
+    },
+    "n_out_kucult": {
+      "title": "Çekmece",
+      "kind": "outcome",
+      "text": "Zarf çekmecede, konu kapandı. {actor.partner.name} ısrar etmedi — ısrar etmemek de bir cevaptır. O günden sonra evde bazı konular yavaşça dolaşıma girmemeye başladı: para, gelecek, o yaz. Ev sessiz ve düzenli. Sen de öyle görünüyorsun. İnsan bir şeyi yeterince uzun süre küçültürse gerçekten küçülüyor mu, yoksa sadece adı mı kalmıyor, bilmiyorsun."
+    },
+    "n_out_ofkelen": {
+      "title": "Kapanan Kapı",
+      "kind": "outcome",
+      "text": "Kalktığında sandalye devrildi ve sen onu kaldırmadın. {actor.partner.name} arkandan seslenmedi. {actor.cousin.name} televizyonu kapattı, o da odasına gitti. Öfke o an haklı hissettirdi; iki saat sonra arabada otururken hiçbir şeyi savunmadığını, sadece anlatmaktan kaçtığını fark ettin. Ertesi sabah kimse konuyu açmadı ve bu, kavga etmekten daha uzun sürdü."
+    }
+  }
+}

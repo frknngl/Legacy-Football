@@ -540,32 +540,65 @@ def _reuse(path: Path, brief: Brief, gate: QualityGate) -> dict | None:
 
 
 def cmd_ingest(args, root: Path) -> int:
+    """Elle yazilmis sahneleri kapiya sokar.
+
+    BIRDEN COK DOSYA birlikte alinabilir ve BIRLIKTE dogrulanir. Sebebi
+    zincir uretimindekiyle ayni: bir sahne iz birakiyorsa (`mem_*`) o izi
+    OKUYAN sahne de ayni anda korpusa girmeli, yoksa `OrphanMemoryFlagRule`
+    tohumu reddeder ve elle zincir yazmak imkansizlasir.
+
+    Ya hepsi girer ya hicbiri: yarim zincir, oyuncunun verdigi bir kararin
+    faturasinin hic gelmemesi demektir.
+    """
     v, ledger = _setup(root)
     gate = QualityGate(root)
 
-    path = Path(args.path)
-    raw = path.read_text(encoding="utf-8")
+    events: list[tuple[dict, str]] = []
+    for raw_path in args.path:
+        path = Path(raw_path)
+        try:
+            event = extract_json(path.read_text(encoding="utf-8"))
+        except (ValueError, json.JSONDecodeError) as err:
+            print(f"HATA: {path} icinde gecerli JSON yok: {err}", file=sys.stderr)
+            return 1
+        category = event.get("category")
+        if category not in v.categories:
+            print(f"HATA: {path}: gecersiz kategori: {category}", file=sys.stderr)
+            return 1
+        events.append((event, category))
+
+    core = root / CORE
+    core_snapshot = core.read_text(encoding="utf-8")
+    written: list[Path] = []
+
+    # Once HEPSINI yaz, sonra TEK SEFERDE dogrula. Tek tek dogrulamak
+    # zinciri kirar: tohum okuyucusundan once gelir ve yetim gorunur.
     try:
-        event = extract_json(raw)
-    except (ValueError, json.JSONDecodeError) as err:
-        print(f"HATA: {path} icinde gecerli JSON yok: {err}", file=sys.stderr)
+        for event, category in events:
+            written.append(gate.commit(event, category))
+
+        result = gate.check_corpus()
+        print(result.summary())
+        if not result.ok:
+            for e in result.errors:
+                print(f"  {e}")
+            raise _IngestRejected()
+    except _IngestRejected:
+        for path in written:
+            path.unlink(missing_ok=True)
+        core.write_text(core_snapshot, encoding="utf-8")
+        print(
+            f"GERI ALINDI: {len(written)} sahne yazilmadi.", file=sys.stderr
+        )
         return 1
 
-    category = event.get("category")
-    if category not in v.categories:
-        print(f"HATA: gecersiz kategori: {category}", file=sys.stderr)
-        return 1
-
-    result = gate.check(event, category)
-    print(result.summary())
-    if not result.ok:
-        for e in result.errors:
-            print(f"  {e}")
-        return 1
-
-    target = gate.commit(event, category)
-    print(f"yazildi: {target.relative_to(root)}")
+    for path in written:
+        print(f"yazildi: {path.relative_to(root)}")
     return 0
+
+
+class _IngestRejected(Exception):
+    """Ic kontrol akisi -- geri alma yolunu tek yerde toplar."""
 
 
 # ------------------------------------------------------------------- selftest
@@ -1226,7 +1259,9 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     p_ingest = sub.add_parser("ingest", help="Disardan gelen olayi kapiya sok", parents=[common])
-    p_ingest.add_argument("path")
+    p_ingest.add_argument(
+        "path", nargs="+", help="Bir ya da daha COK olay dosyasi; birlikte dogrulanir"
+    )
 
     p_self = sub.add_parser("selftest", help="Hattin kendi testleri", parents=[common])
     p_self.add_argument(
