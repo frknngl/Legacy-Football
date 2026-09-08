@@ -1,0 +1,179 @@
+{
+  "id": "evt_business_president_kayip_orta",
+  "family": "fam_arc_agent_zafer_bedeli",
+  "category": "business",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "twilight"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_money_zafer_bedeli_agent",
+        "op": "turnsSince",
+        "value": 45
+      },
+      {
+        "flag": "mem_money_zafer_bedeli_agent_yakin",
+        "op": "turnsSince",
+        "value": 45
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Son Fatura",
+      "kind": "branch",
+      "text": "{actor.president.name} ofisin loş ışığında, masanın üzerindeki kalın dosyayı işaret ediyor. Masanın köşesinde, o karanlık gecede imzalanan gizli sözleşmenin bir kopyası duruyor. O gün, {actor.agent.name} ile kurduğun o zehirli bağı, kariyerinin yükselişi için ödenen bedeli hatırlıyorsun. 45 hafta önce, sahada parlamak için imzaladığın o kağıt, bugün kulüp başkanının masasında bir yıkım aracına dönüştü. {actor.president.name} gözlerini gözlerinden ayırmıyor. Sessizlik, bir kararın ağırlığıyla odadaki havayı tüketiyor.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Sessizce başını salla ve o dosyayı imzala. Bedelini ödeyip konuyu kapat.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -200000
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Masadan kalk ve hiçbir şey olmamış gibi arkana bakmadan çık git.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -8
+          }
+        },
+        {
+          "id": "c_ahlaki_gri",
+          "text": "Teklifi kabul et, bir borcun altına daha girip sessizliği satın al.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 100000
+            },
+            {
+              "flag": "iliski_president",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Kapanış",
+      "kind": "outcome",
+      "text": "Mürekkep kururken her şeyin bittiğini anlıyorsun. Artık o temsilciyle olan bağın koptu, ancak bu bedeli ödemek seni sessizliğe mahkum etti.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "İnkar",
+      "kind": "outcome",
+      "text": "Arkanı dönüp gitmek, fırtınayı durdurmadı. Sadece kapıyı biraz daha sert kapattın. Yarın manşetlerde kendi adını görmek kaçınılmaz.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        },
+        {
+          "flag": "skandal_seviyesi",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Yeni Bir Borç",
+      "kind": "outcome",
+      "text": "El sıkışıyorsunuz. Başkan gülümsüyor ama bu gülümseme bir kelepçe gibi. Artık sadece sahada değil, ofisin koridorlarında da rehin kaldın.",
+      "onEnter": [
+        {
+          "flag": "lifeState",
+          "op": "set",
+          "value": "suspended"
+        }
+      ]
+    }
+  },
+  "once": true
+}

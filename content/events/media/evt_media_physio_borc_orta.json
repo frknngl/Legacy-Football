@@ -1,0 +1,165 @@
+{
+  "id": "evt_media_physio_borc_orta",
+  "family": "fam_arc_physio_ayartma",
+  "category": "media",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "twilight"
+  ],
+  "stature": [
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_mind_ayartma_physio",
+        "op": "turnsSince",
+        "value": 54
+      },
+      {
+        "flag": "mem_mind_ayartma_physio_yakin",
+        "op": "turnsSince",
+        "value": 54
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Son Fatura",
+      "kind": "branch",
+      "text": "Antrenman tesislerinin arka çıkışında, loş bir ışıkta {actor.physio.name} seni bekliyor. Bir yıl önce, saha dışı performansını kurtarmak için kapısını çaldığın o geceyi ikiniz de hatırlıyorsunuz. O günkü gizli müdahalesinin karşılığını şimdi istiyor. Elindeki dijital dosyayı senin için tutuyor; bu dosya senin kariyerinin son dönemine ait, kimsenin bilmemesi gereken o detayları içeriyor. Gözleri yorgun ama kararlı. Sessizlik, bir tehditten daha ağır.",
+      "choices": [
+        {
+          "id": "c_odeme",
+          "text": "İstediği meblağı hesabına aktar. Dosyayı yak ve bir daha karşılaşmayın.",
+          "target": "n_kapanis_guvenli",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "id": "c_inkar",
+          "text": "Ona kimsenin senin sözüne karşı onun sözünü ciddiye almayacağını söyle ve yanından geçip git.",
+          "target": "n_kapanis_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 20
+            }
+          ]
+        },
+        {
+          "id": "c_yeni_borc",
+          "text": "Başka bir kanaldan borç alarak onu sustur. Bu dosya şimdilik kapanmalı.",
+          "target": "n_kapanis_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "iliski_physio",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ]
+        }
+      ]
+    },
+    "n_kapanis_guvenli": {
+      "title": "Temiz Bir Sayfa",
+      "kind": "outcome",
+      "text": "Zararı cebinden ödedin. {actor.physio.name} dosyayı sildi. Artık omuzlarındaki yük hafifledi, ancak banka hesabındaki o boşluk, verdiğin kararın bedeli olarak kalacak.",
+      "onEnter": [
+        {
+          "flag": "npc_physio_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_kapanis_riskli": {
+      "title": "Buz Üstünde Yürümek",
+      "kind": "outcome",
+      "text": "Arkanı dönüp yürüdüğünde arkandan gelen o sesi duydun: 'Bu burada bitmez'. Bir hafta içinde sızıntılar başladı. Kariyerinin sonbaharında, saha dışı gürültü oyununu gölgelemeye başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_physio_arc",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_kapanis_gri": {
+      "title": "Karanlık Bir Anlaşma",
+      "kind": "outcome",
+      "text": "Yeni bir borç, eskiyi kapattı. {actor.physio.name} gülümsedi ve gitti. Ancak artık sadece birine değil, çok daha tehlikeli bir yapıya bağlısın. Bu ipin ucu artık senin elinde değil.",
+      "onEnter": [
+        {
+          "flag": "npc_physio_arc",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    }
+  },
+  "once": true
+}

@@ -1,0 +1,204 @@
+{
+  "id": "evt_mind_physio_ayartma",
+  "family": "fam_mind_ayartma",
+  "category": "mind",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Oda",
+      "kind": "branch",
+      "text": "Antrenman sahası boşalmış, ışıklar kısılmıştı. {actor.physio.name} masanın üzerindeki bir şişeyi yavaşça kenara çekti. Gözleri kapının girişinde, senin üzerindeydi. 'Bu geceki maçın yükü kaslarında büyük bir düğüm yaratmış,' dedi. Elindeki küçük kutuyu işaret etti; üzerinde markasız, etiketsiz, parlak bir sıvı vardı. {actor.doctor.name} kapıdan kafasını uzatıp koridorun boş olduğunu kontrol etti ve hızla uzaklaştı. {actor.physio.name} kutuyu senin avucuna bıraktı. 'Hızlı bir dönüş, sahada sanki hiç sakatlanmamış gibi hissedeceksin. Ama yarın kasların seni asla affetmez. Seçim senin, ya bugün parlayıp yarın başkasına güveneceksin ya da kendi temponda yavaşça tükeneceksin.'",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Kutuyu masaya bırakıp sadece buz torbasını alıyorum.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_ahlaki_gri",
+          "text": "Avucumdaki kutuyu yavaşça çantama atıyorum. Sözleşme yenileme yaklaşıyor.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Kutuyu hemen orada kullanıyorum. Taraftarın sabrı kalmadı, sahada olmam lazım.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "durus": -4
+          }
+        },
+        {
+          "id": "c_stat_kilitli",
+          "text": "Bunu çöpe at {actor.physio.name}, bu kariyere kendi gücümle başladım.",
+          "target": "n_outcome_stat",
+          "effects": [
+            {
+              "flag": "iliski_physio",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -2
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "requires": {
+            "flag": "profesyonellik",
+            "op": "gte",
+            "value": 74
+          },
+          "lockLabel": "[Profesyonellik 74]",
+          "persona": {
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Kendi Yolunda",
+      "kind": "outcome",
+      "text": "Sessizce odadan çıktın. {actor.physio.name} arkandan sadece omuz silkti. Gelecek sezonu düşünmek, bugün sahaya çıkmaktan daha önemliydi.",
+      "onEnter": [
+        {
+          "flag": "mem_mind_ayartma_physio",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Sessiz Anlaşma",
+      "kind": "outcome",
+      "text": "Çanta kapandı. {actor.physio.name} ile göz göze geldin; aranızda artık sadece bir tedavi süreci değil, saklı bir borç var.",
+      "onEnter": [
+        {
+          "flag": "mem_mind_ayartma_physio",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Kısa Vadeli Zafer",
+      "kind": "outcome",
+      "text": "Damarlarında dolaşan o yabancı maddeyle aynaya baktın. Gözlerin parlıyor ama bedenin kendi kendine ihanet etmeye başlıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_mind_ayartma_physio",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_stat": {
+      "title": "Dik Bir Duruş",
+      "kind": "outcome",
+      "text": "Kapıyı sertçe kapattın. {actor.physio.name} şaşkınlıkla arkandan bakakaldı. İhtiyacın olan şey daha fazla yük değil, kendine olan sadakatti.",
+      "onEnter": [
+        {
+          "flag": "mem_mind_ayartma_physio",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

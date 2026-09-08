@@ -1,0 +1,169 @@
+{
+  "id": "evt_fandom_pundit_reddedilis_yakin",
+  "family": "fam_arc_journalist_taninma",
+  "category": "fandom",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_media_taninma_journalist",
+        "op": "turnsSince",
+        "value": 26
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kapanan Kapılar",
+      "kind": "branch",
+      "text": "{actor.pundit.name}, stüdyo ışıklarının altında geriye yaslanmış. Altı ay önce o loş otel lobisinde, {actor.journalist.name} ile kurduğun o gizli anlaşmayı hatırlıyor olmalısın. Medyanın gücünü arkana alıp yükselmek için verdiğin o sözler, şimdi {actor.pundit.name}’in önündeki ekranda birer birer tersine dönüyor. Bugün, tüm kapılar yüzüne kapandı. {actor.pundit.name} ağır bir sessizlikle telefonunu kenara itiyor; sana bakmıyor bile.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Faturaları kabul et. Sessizce masadaki tazminat evrakını imzala.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Masadan kalk ve tüm iddiaları reddet. Herkesin üzerine yürü.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 30
+            }
+          ],
+          "persona": {
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Başka bir menajerle masaya otur, durumu düzeltmek için yeni bir borcun altına gir.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_pundit",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Bedeli Ödemek",
+      "kind": "outcome",
+      "text": "İmzalar atıldı. Kariyerin bir süreliğine gölgeye çekildi, ama en azından profesyonel saygınlığın kağıt üzerinde kurtuldu.",
+      "onEnter": [
+        {
+          "flag": "mem_media_taninma_journalist_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "İnkâr",
+      "kind": "outcome",
+      "text": "Kayıt cihazlarını dağıttın. Sokak seni kahraman ilan etti ama medya artık bir avcı gibi peşinde.",
+      "onEnter": [
+        {
+          "flag": "mem_media_taninma_journalist_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Yeni Bir Zincir",
+      "kind": "outcome",
+      "text": "Borç silindi, kapılar tekrar açıldı. Ancak {actor.pundit.name} ile olan bağın artık sadece paradan ibaret.",
+      "onEnter": [
+        {
+          "flag": "mem_media_taninma_journalist_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  },
+  "once": true
+}

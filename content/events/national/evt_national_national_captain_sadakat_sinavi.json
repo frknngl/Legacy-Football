@@ -1,0 +1,165 @@
+{
+  "id": "evt_national_national_captain_sadakat_sinavi",
+  "family": "fam_national_sadakat_sinavi",
+  "category": "national",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_national_sadakat_sinavi_national_captain",
+    "op": "eq",
+    "value": 0
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Takım Otobüsünde Sessizlik",
+      "kind": "branch",
+      "text": "Otobüsün arka koltukları karanlık. {actor.national_captain.name}, elinde telefonla sana bakıyor. Hemen yanında {actor.rival_teammate.name} duruyor; dişleri sıkılı, bakışları otobüsün zemininde. Kaptan, takımın içindeki huzursuzluğu yönetmek için senin tarafını seçmeni bekliyor. {actor.star_teammate.name} camdan dışarıyı izliyor, kimin yanında duracağını tartıyor. Dışarıda taraftar sesleri, içeride ise ağırlığı omuzlarına çöken bir sessizlik var. Herkes senin ağzından çıkacak tek bir cümleye bakıyor. İki taraf da seni yanında istiyor. Sessizliği bozman gerek.",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "Kaptanın yanına otur. Sesini alçaltıp, 'Huzurumuz için gerekeni yaparım' de.",
+          "target": "n_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Sadece başını salla ve kulaklığını tak. 'Ben sadece işimi yapmaya geldim' diye mırıldan.",
+          "target": "n_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "{actor.rival_teammate.name} yanına geç. 'Yanındayım, kimse bizi buraya gömemez' de.",
+          "target": "n_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_gri": {
+      "title": "Kaptanla Uzlaşma",
+      "kind": "outcome",
+      "text": "Kaptan başıyla onaylıyor. Yerine oturuyorsun. Cebine giren primin ağırlığını hissediyorsun ama arkanda bıraktığın o bakışlar, yolun geri kalanında seni rahat bırakmayacak.",
+      "onEnter": [
+        {
+          "flag": "mem_national_sadakat_sinavi_national_captain",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_guvenli": {
+      "title": "Mesafeli Duruş",
+      "kind": "outcome",
+      "text": "Müzik sesini yükseltiyorsun. Kimse sana bir şey söyleyemiyor ama otobüsteki hava buz kesiyor. Profesyonelsin, fakat artık bir müttefikin yok.",
+      "onEnter": [
+        {
+          "flag": "mem_national_sadakat_sinavi_national_captain",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    },
+    "n_riskli": {
+      "title": "Sokağın Tercihi",
+      "kind": "outcome",
+      "text": "Otobüsün içindeki gerginlik bir anda patlıyor. Kaptan sana bakmıyor bile. Sokağın desteğini kazandın ama takımın içinde artık bir isyancısın.",
+      "onEnter": [
+        {
+          "flag": "mem_national_sadakat_sinavi_national_captain",
+          "op": "set",
+          "value": 1
+        }
+      ]
+    }
+  }
+}

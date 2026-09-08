@@ -1,0 +1,140 @@
+{
+  "id": "evt_ritual_veteran_sadakat_sinavi",
+  "family": "fam_ritual_sadakat_sinavi",
+  "category": "ritual",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "loaned",
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "mem_ritual_sadakat_sinavi_veteran",
+    "op": "notIn",
+    "value": [
+      true
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Oda",
+      "kind": "branch",
+      "text": "Soyunma odasının ışıkları kısılmış. {actor.veteran.name} masanın ucunda oturuyor, parmak uçlarıyla masaya ritmik bir şekilde vuruyor. Karşısında {actor.keeper.name} ve {actor.youngster.name} duruyor. İkisi de aynı disiplin suçuyla itham ediliyor ancak ikisi de suçsuz olduğunu iddia ediyor. {actor.veteran.name} başını kaldırıp sana bakıyor. Sessizlik, odadaki havanın ağırlığıyla birleşiyor. Tek bir karar, odadaki dengeleri sonsuza dek bozacak. Hangisinin elini bırakacağını seçmelisin.",
+      "choices": [
+        {
+          "id": "c_gri",
+          "text": "{actor.keeper.name} tecrübeli, o bu yükü taşır. {actor.youngster.name} kenara çekilsin, kariyeri henüz taze.",
+          "target": "n_outcome",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "sadakat": -8
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Kurallar neyse o. İkisini de yönetime rapor et, kimse benim üzerimden oyun kuramaz.",
+          "target": "n_outcome",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Kapıyı kilitle. Kimsenin dışarı çıkmasına gerek yok, bu meseleyi aramızda çözeriz.",
+          "target": "n_outcome",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 5
+          }
+        }
+      ]
+    },
+    "n_outcome": {
+      "title": "Karar Kesinleşti",
+      "kind": "outcome",
+      "text": "Odanın kapısı ardına kadar açıldı. Kararın etkileri henüz görünmese de, bakışlarda artık eski güven yok. İnsanlar artık senin tarafını biliyor.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_sadakat_sinavi_veteran",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

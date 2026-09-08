@@ -1,0 +1,185 @@
+{
+  "id": "evt_fandom_pundit_maske_dusmesi",
+  "family": "fam_fandom_maske_dusmesi",
+  "category": "fandom",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "suspended"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Stüdyo Işıkları Sönerken",
+      "kind": "branch",
+      "text": "Stüdyodaki tüm kameralar kapandı. {actor.pundit.name}, elindeki tableti masaya sertçe bırakıyor. Az önce yayında senin hakkında kurduğu cümleler, kurgu odasındaki ekrana yansıyor. Seni yerden yere vuran o sert, küçümseyici ses tonu şimdi yerini derin bir sessizliğe bıraktı. {actor.pundit.name} sana bakmıyor, gözleri masadaki soğumuş kahvede. Yayın çıkışında seni beklemesi için bir neden yoktu ama burada. Ekranın arkasındaki o 'uzman' maskesi, stüdyonun floresan ışıkları altında çatlamış gibi görünüyor. Uzattığı el, senin vereceğin tepkiyi bekliyor.",
+      "choices": [
+        {
+          "id": "c_a",
+          "text": "Elini sık, cebine sıkıştırılan zarfı al ve sus. Yarın hakkındaki övgü dolu manşetleri oku.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ]
+        },
+        {
+          "id": "c_b",
+          "text": "Ona bakmadan arkandan kapıyı kapat. Seni parçalamasına izin veren o adama bir daha asla güvenme.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "id": "c_c",
+          "text": "Yüzüne tükür ve stüdyodan çıkarken tüm güvenlik kameralarının seni kaydettiğinden emin ol.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "id": "c_d",
+          "text": "Kamerayı işaret et; yayında söylediklerini tek tek geri aldırana kadar buradan kıpırdama.",
+          "target": "n_outcome_4",
+          "effects": [
+            {
+              "flag": "iliski_pundit",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "requires": {
+            "flag": "medya_itibari",
+            "op": "gte",
+            "value": 74
+          },
+          "lockLabel": "[Medya İtibarı 74]"
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Satın Alınmış Bir Huzur",
+      "kind": "outcome",
+      "text": "Zarf ağır, vicdanın ise her zamankinden daha hafif. {actor.pundit.name} başını hafifçe eğerek sana veda ediyor. Artık ekranlarda senin koruyucu meleğin olacak.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_pundit",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Sessiz Bir Kırılma",
+      "kind": "outcome",
+      "text": "Arkanı dönüp gitmek, bir tartışmadan daha ağır. {actor.pundit.name} arkandan bir şeyler söylemeye çalışıyor ama sesini duymuyorsun. Kendi yolunu kendin çizeceksin.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_pundit",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Kamuoyu Önünde Hesaplaşma",
+      "kind": "outcome",
+      "text": "Stüdyo bir anda karışıyor. {actor.pundit.name} şaşkınlıkla geri çekiliyor. Yarın sabah tüm manşetlerde bu görüntü olacak, ama artık kimse sana 'korkak' diyemeyecek.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_pundit",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_4": {
+      "title": "Gücün Sınırı",
+      "kind": "outcome",
+      "text": "Gözlerinin içine bakıyorsun. {actor.pundit.name} titreyen elleriyle özür metnini hazırlarken, aslında kimin kimi yönettiğini ikiniz de anlıyorsunuz. Bu zafer, çok uzun bir uykusuz geceye mal olacak.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_pundit",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

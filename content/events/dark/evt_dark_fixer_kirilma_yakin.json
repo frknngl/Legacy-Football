@@ -1,0 +1,166 @@
+{
+  "id": "evt_dark_fixer_kirilma_yakin",
+  "family": "fam_arc_agent_suc_ortakligi",
+  "category": "dark",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "loaned",
+    "transfer_listed"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_dark_suc_ortakligi_agent",
+        "op": "turnsSince",
+        "value": 27
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hesaplaşma Vakti",
+      "kind": "branch",
+      "text": "{actor.fixer.name} antrenman tesislerinin çıkışında, gölgelerin arasında duruyor. Yüzünde, o karanlık gecede imzalanan anlaşmanın soğukluğu var. Yirmi yedi hafta önce, {actor.agent.name} ile birlikte o yasak dosyayı temizlediğinizde her şeyin bittiğini sanıyordun. Ama belgeler geri döndü. Şantajın kokusu otoparkın rutubetine siniyor. {actor.fixer.name} cebinden katlanmış bir zarf çıkarıyor. İçinde senin imzanın sahtesiyle süslenmiş bir disiplin soruşturması dosyası var. Sesini çıkarmıyor, sadece bekliyor. Ödemeyi yapmazsan, bu sessizlik yarın sabah manşetlerde çığlığa dönüşecek.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Zarfı al ve bedelini öde. Kariyerim bu lekeyi kaldırmaz.",
+          "target": "n_outcome_odeme",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Gözlerinin içine bak ve her şeyi inkar edeceğini söyle. Hodri meydan.",
+          "target": "n_outcome_inkar",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 7
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Başka bir yol bul. {actor.agent.name} ile yeni bir borç anlaşması yap.",
+          "target": "n_outcome_yeni_borc",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_odeme": {
+      "title": "Bedel Ödendi",
+      "kind": "outcome",
+      "text": "Cüzdanın hafifledi, vicdanın biraz daha karardı. {actor.fixer.name} zarfı yavaşça imha etti. Artık güvendesin ama bu iz, attığın her adımda ensende soğuk bir nefes gibi kalacak.",
+      "onEnter": [
+        {
+          "flag": "mem_dark_suc_ortakligi_agent_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_inkar": {
+      "title": "Rest",
+      "kind": "outcome",
+      "text": "{actor.fixer.name} sadece gülümsedi ve arkasını dönüp gitti. Şimdilik sessizler, ama bunun bir erteleme olduğunu biliyorsun. Kendi yarattığın fırtınanın merkezindesin.",
+      "onEnter": [
+        {
+          "flag": "mem_dark_suc_ortakligi_agent_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_yeni_borc": {
+      "title": "Daha Derin Bir Bağ",
+      "kind": "outcome",
+      "text": "Eski borcu kapatmak için yeni bir zincir taktın boynuna. Artık sadece {actor.fixer.name} ve {actor.agent.name} ile değil, kendi korkularınla da ortaklığın var.",
+      "onEnter": [
+        {
+          "flag": "mem_dark_suc_ortakligi_agent_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  },
+  "once": true
+}

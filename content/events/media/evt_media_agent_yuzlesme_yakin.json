@@ -1,0 +1,171 @@
+{
+  "id": "evt_media_agent_yuzlesme_yakin",
+  "family": "fam_arc_cousin_terk_edilis",
+  "category": "media",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_personal_terk_edilis_cousin",
+        "op": "turnsSince",
+        "value": 27
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Hesaplar",
+      "kind": "branch",
+      "text": "Lüks otelin lobi barında, loş bir köşede {actor.agent.name} ile görüşürken, kapıdan giren {actor.cousin.name} ile göz göze geliyorsun. Altı ay önce, o zorlu transfer döneminde arkanda bıraktığın o bakış, şimdi masana kadar taşınmış. {actor.cousin.name} duraksıyor, elindeki dosyayı sıkıyor. {actor.agent.name} ise durumu fark edip önündeki viski bardağına odaklanıyor. O gün, o kapıyı üzerine kilitlediğinde ne yaşandığını ikisi de biliyor. Şimdi, odadaki hava ağır; telafisi olmayan bir geçmiş, masanın üzerine çökmüş durumda.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Faturayı öde. {actor.cousin.name} ile kısa bir an yalnız kal ve sessizce özür dile.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Hiçbir şey olmamış gibi {actor.agent.name} ile sohbete devam et, {actor.cousin.name}’i yok say.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": -8
+          }
+        },
+        {
+          "id": "c_ahlaki_gri",
+          "text": "{actor.agent.name}’e göz kırp, {actor.cousin.name} için bir zarf hazırla ve bu meseleyi tamamen göm.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Yüzleşme",
+      "kind": "outcome",
+      "text": "Gözlerinin içine bakarak sadece başını salladın. O anki ağırlık, tüm kariyerini bir saniyede özetledi. Borç kapandı ama izi kaldı.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_terk_edilis_cousin_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Soğuk Savaş",
+      "kind": "outcome",
+      "text": "Bakışlarını kaçırdın. {actor.cousin.name} arkanı döndü ve çıktı. Sessizlik, bir haykırıştan daha yüksek sesle odayı doldurdu.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_terk_edilis_cousin_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Bedeli Ödendi",
+      "kind": "outcome",
+      "text": "Zarf masanın altında el değiştirdi. Kirli bir oyunun son perdesi kapandı, ancak bu vicdan azabı artık senin gölgen gibi hareket edecek.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_terk_edilis_cousin_yakin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  },
+  "once": true
+}

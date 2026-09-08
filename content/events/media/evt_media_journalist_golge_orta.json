@@ -1,0 +1,177 @@
+{
+  "id": "evt_media_journalist_golge_orta",
+  "family": "fam_arc_journalist_taninma",
+  "category": "media",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "twilight"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_media_taninma_journalist",
+        "op": "turnsSince",
+        "value": 58
+      },
+      {
+        "flag": "mem_media_taninma_journalist_yakin",
+        "op": "turnsSince",
+        "value": 58
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Borcun Vadesi",
+      "kind": "branch",
+      "text": "Otoparkın loş ışığında, camı yarıya kadar inmiş siyah bir sedan bekliyor. {actor.journalist.name} direksiyonun başında, gözlerini dikiz aynasından ayırmıyor. Bir yıl önce o otel odasında verdiğin söz, masanın üzerine bırakılan bir zarfın içinde sessizce duruyor. Herkes yükselişini konuşurken, o senin düşüşündeki detayları elinde tutuyor. Bir başkasının başarılarını senin isminle parlatma anlaşması artık sona erdi. Gölgeler uzadı, kramponlar çamurlandı ve geriye sadece bu son hesaplaşma kaldı.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Zarfı kabul et. Kariyerin huzurla kapanması için bu son bedel olsun.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Zarfı görmezden gel. İnsanlar kimin gerçek kimin sahte olduğunu sahada gördü.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Ona bir sonraki büyük hikayeyi ver; bu dosyayı sonsuza dek yakması şartıyla.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "iliski_journalist",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -8
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Sessizlik Satın Alındı",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} zarfı almanı izliyor. Camı kapatıyor. Sedan, ardında bir toz bulutu bırakarak karanlığa karışıyor. Artık sadece eski bir profesyonelsin.",
+      "onEnter": [
+        {
+          "flag": "npc_journalist_arc",
+          "op": "add",
+          "value": 1
+        },
+        {
+          "flag": "lifeState",
+          "op": "set",
+          "value": "retired"
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "İtibarın Bedeli",
+      "kind": "outcome",
+      "text": "Arkana bakmadan yürüyorsun. {actor.journalist.name} arkandan bir fotoğraf çekiyor. Yarın manşetlerde senin isminle değil, geçmişindeki bir hatayla anılacaksın.",
+      "onEnter": [
+        {
+          "flag": "npc_journalist_arc",
+          "op": "add",
+          "value": 5
+        },
+        {
+          "flag": "lifeState",
+          "op": "set",
+          "value": "retired"
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Yeni Bir Kirli Sayfa",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} başıyla onaylıyor. Yeni bir borç, eskisini siliyor. Bir başkasının hayatını satarak kendi emekliliğini finanse ediyorsun.",
+      "onEnter": [
+        {
+          "flag": "npc_journalist_arc",
+          "op": "add",
+          "value": -2
+        },
+        {
+          "flag": "lifeState",
+          "op": "set",
+          "value": "retired"
+        }
+      ]
+    }
+  },
+  "once": true
+}

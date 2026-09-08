@@ -1,0 +1,153 @@
+{
+  "id": "evt_legal_fixer_itiraf_orta",
+  "family": "fam_arc_agent_suc_ortakligi",
+  "category": "legal",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "twilight"
+  ],
+  "lifeStates": [
+    "loaned",
+    "transfer_listed"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_dark_suc_ortakligi_agent",
+        "op": "turnsSince",
+        "value": 55
+      },
+      {
+        "flag": "mem_dark_suc_ortakligi_agent_yakin",
+        "op": "turnsSince",
+        "value": 55
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Son Fatura",
+      "kind": "branch",
+      "text": "Odanın içi rutubet ve ucuz sigara kokuyor. {actor.fixer.name} karşı koltukta, bir zamanlar avucunun içine sıkıştırdığın o kirli zarfın dijital kopyasını tablet ekranında gösteriyor. Bir yıl önceydi. {actor.agent.name} ile o karanlık ofiste imzaladığın belgeler, şimdi başkalarının masasında. Artık kaçış yok, mızrak çuvala sığmıyor. Pencereden dışarı bakıyorsun; sahadaki son ışıklar da sönmek üzere. {actor.fixer.name} sadece bekliyor. Sessizlik, bir mahkeme salonundaki yemin kadar ağır.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Tüm belgeleri imzala ve suçu üstlen. Kariyerim zaten bitti, en azından dürüst bir adam gibi çekileyim.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50
+            },
+            {
+              "op": "lifeState",
+              "to": "retired"
+            }
+          ]
+        },
+        {
+          "id": "c_riskli",
+          "text": "Ekrandakileri reddet. {actor.agent.name} ile hiçbir bağım olmadığını, hepsinin bir kumpas olduğunu söyleyeceğim.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 40
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 50
+            },
+            {
+              "op": "suspend",
+              "matches": 10,
+              "reason": "sorusturma"
+            }
+          ]
+        },
+        {
+          "id": "c_gri",
+          "text": "Bu işi kapatmak için gereken parayı öde. {actor.fixer.name}, yeni bir borçlanma anlaşması hazırla.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100
+            },
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Perde Kapanıyor",
+      "kind": "outcome",
+      "text": "İmzanla birlikte her şey bitti. Sahaya artık sadece bir seyirci olarak dönebilirsin. Sessizlik, bir özgürlük gibi."
+    },
+    "n_outcome_2": {
+      "title": "Karanlıkta Kaçış",
+      "kind": "outcome",
+      "text": "Gürültüyle kapıyı çarpıp çıkıyorsun. Kameraların flaşları karanlıkta bıçak gibi parlıyor. Artık sadece kaçıyorsun."
+    },
+    "n_outcome_3": {
+      "title": "İkinci Bir Zincir",
+      "kind": "outcome",
+      "text": "{actor.fixer.name} gülümseyerek yeni dosyayı uzatıyor. Borç azaldı belki ama ruhun artık bir başka elin avucunda."
+    }
+  },
+  "once": true
+}

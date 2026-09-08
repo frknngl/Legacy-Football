@@ -1,0 +1,157 @@
+{
+  "id": "evt_money_agent_zafer_bedeli",
+  "family": "fam_money_zafer_bedeli",
+  "category": "money",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Masadaki Zarf",
+      "kind": "branch",
+      "text": "Odanın içi ağır bir puro dumanıyla puslu. {actor.agent.name} deri koltuğuna gömülmüş, masanın üzerindeki dosyayı tırnaklarıyla hafifçe tıklatıyor. Pencerenin ötesinde antrenman sahasındaki ışıklar sönmek üzere. {actor.agent.name} elindeki kalemi uzatıyor. 'Bu imza sadece bir transferin değil, bir dönemin kapanışı,' diyor. Yanında duran {actor.lawyer.name} gözlerini dosyadan ayırmadan sessizce bekliyor. Sözleşmenin altındaki rakamlar, sahadaki emeğin ötesine geçiyor. Bir tarafta unutulmaz bir miras, diğer tarafta sessiz bir teslimiyet var.",
+      "choices": [
+        {
+          "id": "c_riskli",
+          "text": "Sözleşmeyi geri çevir. Oynamaya devam etmek, parayı reddetmek demek.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_guvenli",
+          "text": "Şartları kabul et. Profesyonelce, duyguları kapının dışında bırakarak.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_ahlaki_gri",
+          "text": "Rakamı yükseltmelerini iste. Bu kadar yıllık emeğin bir karşılığı olmalı.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          },
+          "requires": {
+            "flag": "servet",
+            "op": "gte",
+            "value": 0
+          },
+          "lockLabel": "Ekonomik beklenti"
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Kendi Yolun",
+      "kind": "outcome",
+      "text": "{actor.agent.name} şaşkınlıkla geri çekiliyor. {actor.lawyer.name} ise ilk kez başını kaldırıp sana bakıyor. Kapıdan çıkarken arkanda bıraktığın sadece para değil, güvenli bir gelecek. Sokaktaki çocukların sana olan bakışındaki o pırıltı, bu kaybın tek ödülü.",
+      "onEnter": [
+        {
+          "flag": "mem_money_zafer_bedeli_agent",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Sessiz Kabulleniş",
+      "kind": "outcome",
+      "text": "İmza atılıyor. Mürekkep, kağıdın üzerinde bir leke gibi kuruyor. {actor.agent.name} rahatlamış bir nefes veriyor, {actor.lawyer.name} ise dosyayı hızla topluyor. Artık daha zenginsin ama sahadaki o eski tutku, imzayla birlikte yavaşça odanın köşesine sinip kayboluyor.",
+      "onEnter": [
+        {
+          "flag": "mem_money_zafer_bedeli_agent",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Karanlık Pazarlık",
+      "kind": "outcome",
+      "text": "Odadaki hava değişiyor. {actor.agent.name} dudaklarında belirsiz bir gülümsemeyle masanın altına eğiliyor. İstediğin rakam, masanın üzerine konuyor. Başardın, kazandın; fakat bu paranın ağırlığı, antrenmanlarda artık omuzlarında görünmez bir yük gibi taşınacak.",
+      "onEnter": [
+        {
+          "flag": "mem_money_zafer_bedeli_agent",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}
