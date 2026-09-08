@@ -1,0 +1,135 @@
+{
+  "id": "evt_personal_father_kayip",
+  "family": "fam_personal_kayip",
+  "category": "personal",
+  "tier": "minor",
+  "weight": 50,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Son veda",
+      "kind": "branch",
+      "text": "Evin kapısı aralık. İçeriden gelen rutubet ve ucuz tütün kokusu sinmiş duvarlara. {actor.father.name}, masanın üzerine bir zarf ve yıpranmış bir krampon bırakmış. Eşyalarının çoğu gitmiş. Televizyonun üzerindeki toz tabakasında, az önce kalktığı yerin izi duruyor. Masa lambası titreyerek yanıyor. Yan odada bir valiz fermuarının kapanma sesi duyuluyor, sonra sessizlik. {actor.father.name}, bir daha geri dönmeyeceğinin ağırlığını odanın dört bir yanına asmış gibi.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Kapıyı sessizce kapat ve antrenmana git. O yokmuş gibi davran.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Kapıyı tekmele, bağırmaktan sesin kısılsın. Herkes duysun bu terk edilişi.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Zarfı al. İçindeki parayı alıp borçları kapat, odayı karanlıkta bırak.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 5000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "sadakat": -5
+          }
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "İz bırakan sessizlik",
+      "kind": "outcome",
+      "text": "Antrenman sahasına vardığında çimlerin kokusu genzini yakıyor. Hiçbir şey olmamış gibi topa vurdun. İçindeki o boşluk, artık oyunun bir parçası.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_kayip_father",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Gürültülü terk ediliş",
+      "kind": "outcome",
+      "text": "Mahalleli pencerelere çıktı. {actor.father.name} arkasına bile bakmadan sokağın köşesinden döndü. Artık herkes senin kimin çocuğu olduğunu ve nasıl bırakıldığını biliyor.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_kayip_father",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Bedeli ödenmiş bir veda",
+      "kind": "outcome",
+      "text": "Para elinde soğuk bir ağırlık. Kapıyı üzerine kilitledin. Artık hiçbir borcun kalmadı, ancak evin içindeki o çürük koku uzun süre odalarından çıkmayacak.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_kayip_father",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

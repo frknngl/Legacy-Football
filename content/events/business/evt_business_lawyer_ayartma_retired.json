@@ -1,0 +1,336 @@
+{
+  "id": "evt_business_lawyer_ayartma_retired",
+  "family": "fam_business_ayartma",
+  "category": "business",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "lifeStates": [
+    "playing",
+    "retired"
+  ],
+  "trigger": {
+    "flag": "liderlik",
+    "op": "gte",
+    "value": 0
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Teklif",
+          "kind": "branch",
+          "text": "{actor.lawyer.name} deri koltuğuna gömülmüş, masanın üzerindeki dosyayı parmağıyla hafifçe ittiriyor. Yanında {actor.agent.name} sessizce dikiliyor, bakışları duvar saati ile kadehini dolduran buz küpleri arasında gidip geliyor. Ofis penceresinden şehrin ışıkları buzlu bir camın ardındaymış gibi görünüyor. Dosyanın içeriği, birkaç imzayla yıllardır sahada ter dökerek kazandığından fazlasını bir gecede hesabına geçirecek türden. Şartlar net, sorumluluk bulanık.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bu işin içinde yer almam mümkün değil, etik sınırlarımı biliyorum.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Gerekirse tüm köprüleri yakarım, bu parayı hemen şimdi istiyorum.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Kalemi al ve sayfayı çevir. Detayları yarın konuşuruz.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_lider",
+              "text": "Siz ikiniz ne çevirdiğinizi sanıyorsunuz? Bu operasyonu durdurun.",
+              "target": "n_sonuc_lider",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Doğru Olan",
+          "kind": "outcome",
+          "text": "Gözlerinin içine bakarak reddediyorsun. Odayı terk ederken arkanda bıraktığın sessizlik, hayatındaki en pahalı boşluklardan biri olarak kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Sert Bir Karar",
+          "kind": "outcome",
+          "text": "Kağıdı imzalarken elin titremiyor. Odayı terk ederken {actor.agent.name:gen} sana bakışındaki o hayal kırıklığını görmezden gelmeyi öğreniyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Gri Bölge",
+          "kind": "outcome",
+          "text": "Dosyayı çantana atıyorsun. Artık bu oyunda masanın hangi tarafında oturduğunu biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_lider": {
+          "title": "İrade Gösterisi",
+          "kind": "outcome",
+          "text": "Sesindeki ton ikisinin de duraksamasına neden oluyor. Odayı terk ederken arkandan duyduğun fısıltılar, kararın bedelini sana hatırlatan ilk işaretler oluyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahildeki Sessizlik",
+          "kind": "branch",
+          "text": "Dalgalar mendireği dövüyor. {actor.lawyer.name} sırtı denize dönük, kıyıdaki bankta oturuyor. Elindeki deri çanta dizlerinin üzerinde titriyor. Kimsenin olmadığı bu saatte, rüzgar tek bir ismi fısıldıyor: Geçmiş. Avukatın parmakları çantanın kilidini aralarken, içinden saçılan belgeler ıslak kuma düşüyor. Sözleşmenin altında senin imzan var, sahte bir geçmişin silinmesi karşılığında geleceğin tüm haklarını devrettiğin o gün. Oraya geri dönemezsin, ancak o an orada, o belgelerin arasında duruyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Belgeleri al, denize fırlat. İtibarımı temizlemek için kimsenin bilmediği o parayı ödeyeceğim.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Çantayı {actor.lawyer.name}’e geri uzat. Her şeyi hukuka bırak, ne kadar yakarsa yaksın.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Fotoğrafları çek ve {actor.lawyer.name}’i tehdit et. Bu sır benim sigortam olsun.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Temizlik",
+          "kind": "outcome",
+          "text": "Kağıtlar suyla birleşip çamura dönüşüyor. {actor.lawyer.name} sadece bakıyor. Bir şeyler eksildi, ama artık özgürsün.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk Hukuk",
+          "kind": "outcome",
+          "text": "{actor.lawyer.name} başını sallıyor, çantasını kapatıyor. Uzaklaşırken arkasında sadece tuzlu bir rüzgar kalıyor. Bedeli ağır olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tehlikeli Ortaklık",
+          "kind": "outcome",
+          "text": "{actor.lawyer.name}’in gözlerinde korkuyu görüyorsun. Bu an, sahadaki tüm kupalardan daha ağır bir yük bindiriyor sırtına.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

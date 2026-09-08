@@ -1,0 +1,381 @@
+{
+  "id": "evt_tactics_manager_mevki",
+  "family": "fam_tactics_mevki",
+  "category": "tactics",
+  "tier": "major",
+  "weight": 55,
+  "cooldown": {
+    "self": 34,
+    "family": 16
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tahtadaki Ok",
+          "kind": "branch",
+          "text": "Taktik tahtasında on bir mıknatıs var. Seninki her zaman aynı yerde durdu.\n\n{actor.manager.name} bugün onu aldı ve otuz metre geriye koydu.\n\n\"Bu hafta burada oynuyorsun.\"\n\nOda sessiz. Kimse sana bakmıyor, ki bu bakmaktan beter.\n\n\"Sorusu olan?\"\n\nSorusu olan sensin. Ama bu odada soru sormak, itiraz etmekle aynı şey sayılıyor ve ikisinin de bedeli var. {actor.assistant.name} defterine bir şey yazıyor — ne yazdığını hiç öğrenemeyeceksin.",
+          "choices": [
+            {
+              "id": "c_kabul",
+              "text": "Başını salla. Antrenmanda o mevkide koş.",
+              "target": "n_kabul",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -13
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 7
+              }
+            },
+            {
+              "id": "c_sor",
+              "text": "\"Kaç hafta?\" diye sor. Sadece bunu.",
+              "target": "n_sor",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_itiraz",
+              "text": "\"Ben orada oynamam.\" Odanın önünde söyle.",
+              "target": "n_itiraz",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -22
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -7
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 12
+              }
+            },
+            {
+              "id": "c_sonra",
+              "text": "Şimdi bir şey deme. Antrenmandan sonra odasına git.",
+              "target": "n_sonra",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "durus": 9,
+                "dogruluk": 4
+              }
+            }
+          ]
+        },
+        "n_kabul": {
+          "title": "Otuz Metre Geride",
+          "kind": "outcome",
+          "text": "O mevkide oynadın. İlk maç kötüydü, ikincisi idare eder, üçüncüsü iyiydi.\n\nDördüncüsünden sonra {actor.manager.name} bir röportajda \"Zaten hep oranın oyuncusuydu,\" dedi.\n\nHiç öyle bir şey söylemedin. Kimse de sormadı.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_degisti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sor": {
+          "title": "Kaç Hafta",
+          "kind": "outcome",
+          "text": "\"Kaç hafta?\"\n\n{actor.manager.name} mıknatısa baktı, sonra sana. \"Bilmiyorum,\" dedi. Dürüsttü ve dürüst olduğu için daha kötüydü.\n\n{actor.assistant.name} defterine bir şey daha yazdı.\n\nO gece uyumadan önce ilk kez şunu düşündün: *bu kulüpte benim yerim tam olarak neresi?*",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_sorgulandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_itiraz": {
+          "title": "Odanın Önünde",
+          "kind": "outcome",
+          "text": "\"Ben orada oynamam.\"\n\nOn kişi duydu. {actor.manager.name} hiç sesini yükseltmedi — sadece mıknatısı tahtadan aldı ve cebine koydu.\n\nO hafta kadroda yoktun. Ertesi hafta da.\n\nÜçüncü hafta yine o mevkide oynadın; hiçbir şey değişmemişti, sadece iki maç kaybetmiştin.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_itiraz_etti",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_hocaya_karsi_geldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonra": {
+          "title": "Kapalı Kapı Ardında",
+          "kind": "outcome",
+          "text": "Antrenmandan sonra kapısını çaldın. İçeride yirmi dakika kaldın.\n\nNe konuştuğunuzu kimse duymadı ve ikiniz de anlatmadınız. Ertesi gün mıknatıs yine eski yerindeydi — ama üç hafta sonra tekrar geriye gitti ve bu sefer sen şaşırmadın.\n\nBazı konuşmalar kararı değiştirmez, sadece kararın sana açıklanmasını sağlar. Bu da bir şeydir.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_konusuldu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İsmini Sessizlikte Duymak",
+          "kind": "branch",
+          "text": "Antrenman sahasının en uzak köşesinde, tek başına duruyorsun. {actor.manager.name} yanına geliyor. Elinde taktik dosyası yok. Bir kahve bardağı bile yok. Sadece sana bakıyor. Gözleri sahanın genelini değil, doğrudan senin duruşunu, omzundaki o yorgunluğu tartıyor. {actor.manager.name} seni az önce herkesin içinde durdurdu. Diğerleri soyunma odasına girerken sen, sahanın ortasında, onun senin hakkında kurduğu cümleyi düşünüyorsun. 'Seni yanlış konumlandırmışım,' diyor. 'Asıl hünerin topu sürmen değil, o boşluğu bir cerrah gibi açman.' İlk kez, birinin seni sadece bir veri kümesi, sadece bir saha içi işlev değil, bir fikir olarak gördüğünü hissediyorsun.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Başını hafifçe salla ve yeni görevine odaklan. Takım için en iyisi bu.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Bu yeni mevkinin mali getirisini ve sözleşme uzatma olasılığını sorgula. Şeffaf ol.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -2
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 2
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ona itiraz et. Bu değişikliğin sahada yaratacağı kaosu yüzüne vur.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Tüm taktiksel eksiklerini tartış. Bu mevki değişimini bir ortaklık seviyesine taşı.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[İtibar yeterli değil]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Kabul",
+          "kind": "outcome",
+          "text": "Kabul ediyorsun. İçindeki huzursuzluk geçmiyor ama profesyonelliğin zırhı daha ağır basıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_degisti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Dürüstlüğün bir bedeli var; ancak senin için bu bedel, hesabındaki rakamla dengeleniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_konusuldu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İtiraz",
+          "kind": "outcome",
+          "text": "Sesin, sahanın boş tribünlerinde yankılanıyor. O, sadece sana bakmaya devam ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_itiraz_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Derin Analiz",
+          "kind": "outcome",
+          "text": "Saatlerce konuştunuz. Zihnin yorgun, bedenin tükenmiş ama sonunda birbirinizin dilini çözdünüz.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_sorgulandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

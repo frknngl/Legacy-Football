@@ -1,0 +1,379 @@
+{
+  "id": "evt_media_pundit_taninma_injured",
+  "family": "fam_media_taninma",
+  "category": "media",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stüdyo Işıkları",
+          "kind": "branch",
+          "text": "Stüdyonun ağır, klimalı havası ciğerlerine doluyor. {actor.pundit.name}, reklam arasının bitmesine saniyeler kala masaya eğiliyor. Gözlerinde, tüm medyanın aksine, skor tabelasını veya sakatlığın yarattığı kaosu görmeyen bir ifade var. {actor.journalist.name} köşede not defterine gömülmüş, {actor.agent.name} ise arka planda telefon trafiğini yönetiyor. {actor.pundit.name} bir anlığına duraksıyor, ışıkların altında parlayan yüzündeki o yorgun ifadeyle sana doğrudan bakıyor. \"Sahadaki o hareketin, dizinin kırılmasından daha derin bir yara açtı,\" diyor sessizce. \"Çünkü sadece sahada var olan değil, bir insan olarak neden kaçtığını biliyorum.\"",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Omuz silkip kameralara dönmek, kariyerin üzerine kurulu o kusursuz maskeyi takınmak.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Maskeyi düşürüp stüdyoda tüm gerçekleri, taraftarın duymak istediği o ham hikayeyi anlatmak.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Gülümseyip reklam tekliflerini tartışmak, hikayenin pazarlanabilir kısmına odaklanmak.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "{actor.pundit.name} ile baş başa kalıp, bu sakatlığın ardından takımı nasıl toparlayacağını dürüstçe konuşmak.",
+              "target": "n_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Profesyonellik",
+          "kind": "outcome",
+          "text": "Kameranın kırmızı ışığı yanıyor. Kusursuz bir basın bülteni gibi konuşuyorsun. İnsanlar bir futbolcu görüyor, bir robot. İçindeki boşluğu kimse fark etmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Maske Düşüyor",
+          "kind": "outcome",
+          "text": "Stüdyoda bir anlık sessizlik oluyor. İçin boşalıyor, bir yük kalkıyor ama yarınki gazetelerin manşetleri şimdiden belli. Bu gerçeklik, kariyerinin en büyük çatlağı olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Ticari Yüz",
+          "kind": "outcome",
+          "text": "Banka hesabın kabarıyor. {actor.agent.name} memnuniyetle başını sallıyor. {actor.pundit.name} ise sadece sana bakıyor; az önce gördüğü insanı, paranın altına gömdüğünü fark ederek.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_liderlik": {
+          "title": "Gerçek Bir Yüzleşme",
+          "kind": "outcome",
+          "text": "Sakatlığın acısını unutup, stüdyonun gölgelerinde omuz omuza veriyorsunuz. İlk defa biri seni sadece sahaya hapsolmuş bir figür olarak değil, bir lider olarak görüyor. Bu yük ağır, ama artık yalnız değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Havalimanı Bekleme Salonu",
+          "kind": "branch",
+          "text": "Fizyoterapi çıkışı, özel uçuş terminalinin loş köşesinde oturuyorsun. Bacağındaki ağır sargı, zemine uzattığın ayağında nabız gibi atıyor. Kapı açılıyor. {actor.pundit.name} içeri giriyor. Göz göze geliyorsunuz. O, aylardır senin performansını yerden yere vuran, sakatlığını ise bir 'kariyer bitişi' olarak manşetlere taşıyan kişi. Yanındaki valizini bir kenara itip, tam karşındaki koltuğa yorgunlukla çöküyor. Bakışlarını kaçırmıyor. Sessizlik, odadaki uğultuyu bastırıyor. Havada metalik bir koku ve yılların biriktirdiği o soğuk mesafe var.",
+          "choices": [
+            {
+              "id": "c_guzel_oyun",
+              "text": "Sessizce çantandan bir kalem çıkarıp, yanındaki dergiye anlamsız karalamalar yapmaya devam et. Hiçbir şey olmamış gibi.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_pazarlik",
+              "text": "Gözlerinin içine bakarak, \"Bu sakatlık geçecek, ama senin hakkımdaki yazıların artık satmıyor,\" de. Masadaki boş cüzdanı ona doğru kaydır.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_tehdit",
+              "text": "Ayağa kalk, bacağındaki acıyı umursamadan tam önünde dikil. \"Adımı bir daha o köşenize yazarken iki kere düşün,\" diye fısılda.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_yuzlesme",
+              "text": "Sakat bacağını gösterip, \"Gördüğün şey sadece bir kırık mı, yoksa vicdanının ağırlığı mı?\" diye sor.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Bir Kalkan",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} bir an duraksıyor, cevap bekliyor ama sen bakmıyorsun bile. Odadan ayrılırken arkasında bıraktığı gerilim, senin profesyonel mesafenin altında eziliyor. İçin yanıyor belki ama kimse bir şey görmüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın Alınmış Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} cüzdana bakıyor. Gözlerinde küçümseme değil, tanıdık bir kabulleniş var. Yarınki yazısı değişecek. Cebin dolacak ama aynada kendine bakarken o tanıdık ağırlık biraz daha artacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kısa Süreli Zafer",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} sarsılıyor. Bir şey demiyor, sadece uzaklaşıyor. Yarınki manşetler seni yerden yere vuracak, taraftar ise bu dik duruşu alkışlayacak. Bedelini sonra ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Açık Hesap",
+          "kind": "outcome",
+          "text": "Sözlerin odada yankılanıyor. {actor.pundit.name} ilk defa yere bakıyor. Bu hesaplaşma seni yoruyor ama artık aranızda sahte bir saygı var. İkiniz de yorgunsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

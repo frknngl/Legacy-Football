@@ -1,0 +1,339 @@
+{
+  "id": "evt_match_var_against",
+  "family": "fam_match_var",
+  "category": "match",
+  "tier": "major",
+  "momentType": "var_review_against",
+  "weight": 18,
+  "cooldown": {
+    "self": 8,
+    "family": 5
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ekranın başında",
+      "kind": "branch",
+      "text": "{minute}. dakikada attığın golü kutlarken hakem kulağına götürdü elini. Şimdi kenardaki ekranın başında, iki dakikadır. {opponent} savunması çevresinde toplanmış, biri gülüyor. Skor {scoreline} olacaktı. Hakem geri dönüyor, iki kolunu da açıyor: gol iptal. {actor.captain.name} seni omzundan tutup geri çekmeye çalışıyor ama sen çoktan yürümeye başladın.",
+      "onEnter": [
+        {
+          "flag": "inc_goal_disallowed",
+          "op": "set",
+          "value": true
+        }
+      ],
+      "choices": [
+        {
+          "id": "c_walk",
+          "text": "Hakemin üstüne yürü. \"Neye baktın sen? NEYE BAKTIN?\"",
+          "target": "n_roll_ref",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "mizac": 8,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_turn",
+          "text": "Sırtını dön. Orta yuvarlağa yürü, hiçbir şey söyleme.",
+          "target": "n_silent",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": -6,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_rally",
+          "text": "Takımı topla. \"Bir tane daha atarız. Bakmayın oraya.\"",
+          "target": "n_rally",
+          "requires": {
+            "flag": "liderlik",
+            "op": "gte",
+            "value": 70
+          },
+          "lockLabel": "[Liderlik 70]",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "sadakat": 6,
+            "mizac": -3
+          }
+        },
+        {
+          "id": "c_clap",
+          "text": "Hakemin yüzüne bakarak alaycı alaycı alkışla.",
+          "target": "n_roll_ref",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "mizac": 6,
+            "durus": 7
+          }
+        }
+      ]
+    },
+    "n_roll_ref": {
+      "title": "Cebe giden el",
+      "kind": "roll",
+      "text": "Hakem geri adım atıyor, eli cebine gidiyor. Hangi cep olduğunu göremiyorsun.",
+      "outcomes": [
+        {
+          "target": "n_yellow",
+          "weight": {
+            "base": 60,
+            "modifiers": [
+              {
+                "flag": "profesyonellik",
+                "scale": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_red",
+          "weight": {
+            "base": 20,
+            "modifiers": [
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.5
+              },
+              {
+                "flag": "persona_mizac",
+                "scale": 0.15
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_nothing",
+          "weight": {
+            "base": 25,
+            "modifiers": [
+              {
+                "flag": "medya_itibari",
+                "scale": 0.2
+              },
+              {
+                "flag": "disiplin_sicili",
+                "scale": -0.3
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_yellow": {
+      "title": "Sarı",
+      "kind": "outcome",
+      "text": "Sarı kart. Hakem adını deftere yazarken sen hâlâ konuşuyorsun, o yazmayı bitirene kadar susmuyorsun. Dördüncü hakem araya giriyor. Maç devam ediyor ama sen bu maçta artık yoksun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": -0.3,
+          "incident": "inc_var_against"
+        },
+        {
+          "op": "match",
+          "incident": "inc_argued_ref"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 12
+        }
+      ]
+    },
+    "n_red": {
+      "title": "Kırmızı",
+      "kind": "outcome",
+      "text": "Kırmızı. Tünele yürürken tribün ayakta, adını bağırıyorlar — bu alkış mı, teselli mi, ayıramıyorsun. Soyunma odası kapısında {actor.manager.name:gen} asistanı bekliyor ve hiçbir şey söylemiyor. En kötüsü bu.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCard": true,
+          "rating": -2,
+          "incident": "inc_var_against"
+        },
+        {
+          "op": "match",
+          "incident": "inc_red_card"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 25
+        },
+        {
+          "flag": "disiplin_sicili",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "iliski_manager",
+          "op": "add",
+          "value": -12
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_nothing": {
+      "title": "Uyarı",
+      "kind": "outcome",
+      "text": "Hakem eli cebinden boş çıkıyor. \"Yeter,\" diyor, \"gerçekten yeter.\" Bir saniye bakışıyorsunuz. Geri dönerken bacakların titriyor ve bunun öfkeden mi korkudan mı olduğunu bilmiyorsun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.1,
+          "incident": "inc_var_against"
+        },
+        {
+          "op": "match",
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 8
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_silent": {
+      "title": "Orta yuvarlak",
+      "kind": "outcome",
+      "text": "Orta yuvarlakta tek başına duruyorsun. Kamera yüzünü buluyor ve otuz saniye orada kalıyor. Hiçbir şey yapmıyorsun. Yarın bu görüntünün altına \"ruhsuz\" yazacaklar; bugün ise takımın en akıllı adamı sensin.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.2,
+          "incident": "inc_var_against"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_rally": {
+      "title": "Halka",
+      "kind": "outcome",
+      "text": "Sekiz kişiyi orta sahada topluyorsun. {actor.captain.first} konuşmuyor, sana bırakıyor — bunu ikiniz de fark ediyorsunuz. Kalan yarım saatte takım koşuyor. Kazanır mısınız bilinmez ama bu on saniye kadronun içinde bir yer değiştirdi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.6,
+          "incident": "inc_var_against"
+        },
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": 8
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  }
+}

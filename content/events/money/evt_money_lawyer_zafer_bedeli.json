@@ -1,0 +1,352 @@
+{
+  "id": "evt_money_lawyer_zafer_bedeli",
+  "family": "fam_money_zafer_bedeli",
+  "category": "money",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Belge",
+          "kind": "branch",
+          "text": "Odanın içi ağır bir tütün ve eski deri kokusuyla yüklü. {actor.lawyer.name} masanın üzerindeki dosyayı parmak ucuyla ittiriyor. Yanında {actor.agent.name} camdan dışarı bakıyor, elleri ceplerinde. Dışarıda taraftarların uğultusu uzaktan bir dalga gibi geliyor. Masadaki imza, geçmişte bırakılan tüm doğruları bir anda silebilir ya da hepsini geçersiz kılabilir. {actor.lawyer.name} gözlerini gözlerinden ayırmıyor. Sessizlik, bir kararın ağırlığıyla odadaki havayı tüketiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı reddet. Kendi kurallarımla oynayacağım.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sokaktakilerin duymasını bekle. Bu riski alıyorum.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Kalemi al ve imzala. Kimse ne olduğunu sormayacak.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_liderlik",
+              "text": "İpleri eline al. {actor.lawyer.name} ile yeni şartları görüş.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Temiz Bir Vicdan",
+          "kind": "outcome",
+          "text": "{actor.lawyer.name} dosyayı alıp yavaşça çantasına koyuyor. Kapıdan çıkarken bakışları soğuk. Odadaki ağırlık dağılsa da, kazandığın tek şey kendi aynana bakabilme lüksü.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sokakların Sesi",
+          "kind": "outcome",
+          "text": "İmza atmadın ama attığın her adım artık bir gösteri. {actor.agent.name} başını sallıyor, bu yolun sonunun nereye çıktığını ikiniz de biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Bedeli Ödenmiş Zafer",
+          "kind": "outcome",
+          "text": "İmza atıldı. Kağıt üzerindeki mürekkep kurumadan, {actor.lawyer.name} gülümseyerek odadan ayrılıyor. Hesapta artan rakamlar, odadaki vicdan boşluğunu doldurmaya yetmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Kontrolün Bedeli",
+          "kind": "outcome",
+          "text": "Görüşme saatler sürdü. Masadan kalktığında yorgunluktan dizlerin titriyor ancak herkesin sınırlarını belirledin. {actor.lawyer.name} artık sadece bir danışman değil, senin kurallarına göre hareket etmek zorunda olan biri.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin Faturası",
+          "kind": "branch",
+          "text": "Antrenman sahasının otoparkında, sisli bir sabah. {actor.lawyer.name} aracının kapısına yaslanmış, elinde parlayan metal bir anahtarlıkla oynuyor. Söylenmeyen her şey, sabahın soğuk havasında asılı kalıyor. {actor.lawyer.name}, başıyla yan koltuğu işaret ediyor. Bir dosya değil; yalnızca yüzündeki o tanıdık, tavizsiz ifade var. Borç, faiziyle birlikte kapıya dayanmış durumda. Etrafta kimse yok, sadece uzaklardan gelen saha görevlisinin çim biçme makinesinin cılız sesi duyuluyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Sessizce arabaya bin. 'Stadyum çıkışında konuşalım' de. Kalabalığın gölgesine sığın.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Doğrudan gözlerinin içine bak. 'Ödeme planını avukatımla görüş' diyerek arkanı dön.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebinden çıkardığın nakit dolu zarfı ona uzat. Tek kelime etme.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kendi özel hesabından transferi başlatmasını söyle. Bu meseleyi bugün tamamen göm.",
+              "target": "n_sonuc_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Servet 74]"
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Sokakların Desteği",
+          "kind": "outcome",
+          "text": "Kalabalık arasında kaybolmak seni güvende hissettiriyor ama gözlerin artık sürekli arkanda.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Kurallarını korudun ama {actor.lawyer.name} o çarpık gülüşü, bu işin burada bitmediğini anlatıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Zarf gitti, ağırlığı azaldı ama vicdanındaki o boşluk artık daha büyük.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_kilitli": {
+          "title": "Satın Alınmış Huzur",
+          "kind": "outcome",
+          "text": "Bankadaki haneler azaldı, ruhundaki yorgunluk arttı ama en azından bir daha ismini anmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "evt_rival_private_dinner",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 8 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Iki dusman bir masa",
+      "kind": "branch",
+      "text": "Davet bir mesajla geliyor, iki cumle: \"Sehirdeyim. Yemek yiyelim.\"\n\nOn dort yildir bu adamla konusmadin. Onunla ilgili her seyi biliyorsun: sag ayagini nasil kapattigini, hangi dakikada yoruldugunu, karisinin adini.\n\nRestoranin arka salonu bos. Oturuyorsunuz. Ilk on dakika futbol konusmuyorsunuz.\n\nSonra {actor.nemesis.name} bardagi biraktiyor ve soruyor: \"Sen olmasaydin ben bu kadar iyi olur muydum?\"\n\nCevabini biliyorsun. Sorunun asil hali su: sen onsuz kim olurdun?",
+      "choices": [
+        {
+          "id": "c_honest",
+          "text": "\"Hayir. Ve ben de senin sayende buradayim.\"",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 8 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 30 },
+            { "flag": "moral", "op": "add", "value": 12 },
+            { "flag": "sokak_itibari", "op": "add", "value": -12 },
+            { "flag": "mem_rival_shook_hands", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": 12, "mizac": -4 }
+        },
+        {
+          "id": "c_cold",
+          "text": "\"Sen benim sayemde varsin. Tersi degil.\"",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 8 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -25 },
+            { "flag": "mem_rival_humiliated", "op": "set", "value": true },
+            { "flag": "moral", "op": "add", "value": 5 }
+          ],
+          "persona": { "mizac": 10, "durus": 8, "dogruluk": -5 }
+        },
+        {
+          "id": "c_confess",
+          "text": "Ona en cok utandigin seyi anlat.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 8 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 22 },
+            { "flag": "mental_dayaniklilik", "op": "add", "value": 10 },
+            { "flag": "skandal_seviyesi", "op": "add", "value": 8 },
+            { "flag": "mem_rival_shook_hands", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": 14, "durus": 6 }
+        },
+        {
+          "id": "c_leave",
+          "text": "Hesabi ode ve kalk. Bu konusma icin gec.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 8 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -8 },
+            { "flag": "servet", "op": "add", "value": -3000 },
+            { "flag": "moral", "op": "add", "value": -6 }
+          ],
+          "persona": { "mizac": -6, "durus": -4 }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://legacy-football/schema/core.schema.json",
+  "title": "Flag registry (core.json)",
+  "description": "src/domain/flags.ts ve src/loading/parseOrchestrator.ts'ten turetilmistir. Burada beyan edilmeyen flag'e yazilamaz; validator build'de reddeder.",
+  "type": "object",
+  "required": ["schemaVersion", "flags"],
+  "additionalProperties": false,
+  "patternProperties": {
+    "^_": { "description": "Alt cizgi ile baslayan alanlar yazar notudur." }
+  },
+  "properties": {
+    "$schema": { "type": "string" },
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "flags": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/flag" }
+    }
+  },
+  "definitions": {
+    "flag": {
+      "type": "object",
+      "required": ["key", "kind", "type", "default", "label"],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^_": { "description": "Yazar notu." }
+      },
+      "properties": {
+        "key": { "type": "string", "pattern": "^[a-zA-Z][a-zA-Z0-9_]*$" },
+        "kind": {
+          "description": "Etiket degil DAVRANIS: stat/pressure/relation/persona 0-100 clamp'lenir, inc_* her mac basinda silinir, mem_* zaman damgalanir, derived ve match icerige kapalidir.",
+          "enum": [
+            "stat",
+            "resource",
+            "pressure",
+            "incident",
+            "relation",
+            "persona",
+            "memory",
+            "match",
+            "system",
+            "derived"
+          ]
+        },
+        "type": { "enum": ["number", "boolean", "string"] },
+        "default": { "type": ["number", "boolean", "string"] },
+        "label": { "type": "string", "minLength": 1 },
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "writableBy": {
+          "type": "array",
+          "items": { "enum": ["content", "engine", "host"] }
+        },
+        "shortfallTo": {
+          "type": "string",
+          "description": "YETERSIZLIK POLITIKASI: cikarma min'in altina itecekse flag min'e kirpilir, acik bu flag'e yazilir."
+        },
+        "softCap": {
+          "type": "number",
+          "description": "AZALAN GETIRI DIZI: bu degerin ustundeki ARTISLAR kalan bosluga gore sonumlenir; azalislar sonumlenmez."
+        }
+      }
+    }
+  }
+}

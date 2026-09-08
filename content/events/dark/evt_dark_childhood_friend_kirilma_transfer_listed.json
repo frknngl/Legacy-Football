@@ -1,0 +1,374 @@
+{
+  "id": "evt_dark_childhood_friend_kirilma_transfer_listed",
+  "family": "fam_dark_kirilma",
+  "category": "dark",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "lifeStates": [
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borç",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışındaki gölgede {actor.childhood_friend.name} seni bekliyor. Yüzü çökük, parmakları titriyor. Kulüp seni kadro dışı bırakmış, eşyaların bir çöp poşetinde. {actor.childhood_friend.name}, seninle omuz omuza büyüdüğü mahalledeki eski defterleri açıyor. Bir imza, bir kefalet, belki biraz nakit. İstemediğin bir dünyanın içine çekiliyorsun. Gözlerinde, çocukken paylaştığınız o kırık oyuncakların hayal kırıklığı var. Sessizlik, sahadaki uğultudan daha ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Arkanı dön ve sessizce uzaklaş. Profesyonelce davranmak, arkadaşlığın üzerindeki tek yoldur.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Onun elindeki kağıtları al ve imzala. Kimin ne dediği önemli değil, sadece o günleri hatırla.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarftan çıkan parayı ona uzat. Tek bir şartın var: Bir daha asla görünmemesi.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Omzuna elini koy. Onu bu bataklıktan çekip çıkaracak bir plan yapmaya söz ver.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Bir Veda",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gittiğinde arkandan sadece rüzgarın sesi geliyor. Bu tercih kariyerini kurtardı ama o günkü {actor.childhood_friend.name} artık yok.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokakların Sadakati",
+          "kind": "outcome",
+          "text": "İmza bittiğinde {actor.childhood_friend.name} derin bir nefes alıyor. Kulüp koridorlarında bu ilişkinin söylentisi hızla yayılıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Vicdanın Bedeli",
+          "kind": "outcome",
+          "text": "Para el değiştirdiğinde aranızdaki bağ da çözülüyor. Boş bir kağıdı imzalamış kadar yabancısınız artık birbirinize.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Büyük Yük",
+          "kind": "outcome",
+          "text": "Gözlerinde gördüğün parıltı, kendi omuzlarına binen ağırlığın ilk habercisi. Kendi kariyerin bir yana, artık onun geleceği de sende.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Soğuk Bir Garajda Hesaplaşma",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin uzak köşesindeki otoparkta, {actor.childhood_friend.name} bir aracın kaputuna yaslanmış seni bekliyor. Eline tutuşturulan transfer listesi haberi daha kurumadan, o gelmiş. Yanında sadece sana uzattığı bir dosya ve içinde senin imzanı bekleyen, kariyerini bir başka kulübe alelacele satacak o karmaşık sözleşme duruyor. Gözlerinde ne dostluğun kırıntısı var ne de pişmanlık. Sadece bitmesi gereken bir işin soğukkanlılığı. Uzaktaki güvenlik kulübesinin ışığı periyodik olarak üzerinize vuruyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sözleşmeyi al ve imzala. Menajerlik komisyonunu paylaşacağımızı söyle, yeter ki bu kâbus bitsin.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Belgeleri yırtıp yere at. Kulübün oyununa gelmektense, boşta kalmayı göze al.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Onu tehdit et. Eğer bu transfer gerçekleşirse, sokaktaki eski hikayelerin hepsini basına anlatacağını söyle.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bak ve sadece 'neden' diye fısılda. Onu vicdanıyla yüzleşmeye zorla.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın Alınmış Bir Gelecek",
+          "kind": "outcome",
+          "text": "İmza atıldı. {actor.childhood_friend.name} dosyayı toplayıp arkasına bile bakmadan uzaklaştı. Cebine giren para, omuzlarındaki o ağır yükü hafifletmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Onurlu Bir Yalnızlık",
+          "kind": "outcome",
+          "text": "Kâğıtlar asfaltın üzerinde savruluyor. {actor.childhood_friend.name} yüzündeki o donuk ifadeyle seni süzüyor ve sessizce arabasına binip gidiyor. Artık tamamen yalnızsın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tehlikeli Bir Oyun",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} korkuyla geri çekiliyor. Bir köşeye sıkıştırdın onu ama aranızdaki o görünmez bağ artık tamamen koptu.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Kırılan Aynalar",
+          "kind": "outcome",
+          "text": "Cevap vermedi. Sadece başını eğip uzaklaştı. Bu sorunun cevabı, ikinizin de bildiği o eski karanlıkta saklı kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

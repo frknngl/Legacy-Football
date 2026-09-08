@@ -1,0 +1,338 @@
+{
+  "id": "evt_business_agent_borc",
+  "family": "fam_business_borc",
+  "category": "business",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "trigger": {
+    "flag": "age",
+    "op": "gte",
+    "value": 20
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışındaki gölgeli köşede {actor.agent.name} bekliyor. Kapüşonu düşük, elinde yıpranmış bir deri çanta. Yanındaki lüks arabanın kaputuna yaslanmış, sanki birini beklemiyormuş gibi tırnaklarını inceliyor. Yanına yaklaştığında gözlerini yoldan ayırmadan konuşuyor. 'Hatırlıyor musun?' diyor, sesi soğuk bir asfalt gibi. 'O günlerde cebinde beş kuruş yokken kimin yanındaydın? {actor.childhood_friend.name} ile harcadığın o borcun vakti geldi de geçiyor bile. Faiziyle ödemenin zamanı, ya da başka bir yolla kapatırız.' Etrafta kimse yok. Sadece uzaklardan gelen stadyum ışıklarının vızıltısı duyuluyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Resmi prosedürü izle. Avukatına yönlendir.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "İmza priminden bir kısmını elden ver, konuyu kapat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Bir sonraki transferde pay alması için sözleşmeye gizli madde ekle.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_lider",
+              "text": "Gözlerinin içine bak ve borcu reddet. Seni artık korkutamaz.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Hesap Kapatıldı",
+          "kind": "outcome",
+          "text": "{actor.agent.name} başını hafifçe sallayıp arabasına bindi. Arkasında bıraktığı toz bulutu, saha çıkışının sessizliğinde ağır ağır dağılıyor. Bu mesele kapandı ama kimin kazandığı hiç belli değil.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Altındaki Sessizlik",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları çoktan söndü. Koridordaki beton zemin, {actor.agent.name}’in yavaş adımlarıyla yankılanıyor. Duruyor. Elindeki kalın zarfı, soyunma odasının kapısındaki paslı dolabın üzerine bırakıyor. Zarfın içinden taşan birkaç tomar banknot, loş ışıkta gri bir parıltı yayıyor. {actor.agent.name} tek kelime etmiyor; sadece dolabın üzerindeki tozlu bir çerçeveyi düzeltiyor. Gözleri, dolabın gölgesinde bir cevap bekliyor. Kapıdan sızan hava soğuk, rutubetli ve ağır.",
+          "choices": [
+            {
+              "id": "c_ayartma_gri",
+              "text": "Zarfı çantanın gizli bölmesine at. Bu paranın kaynağını sorma, sadece devam et.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_ayartma_guvenli",
+              "text": "Zarfı elinin tersiyle it. Her şeyin kayıt altına alınmasını, kurallar dahilinde ilerlemesini talep et.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_ayartma_riskli",
+              "text": "Zarfı al ve {actor.agent.name}’in elini sıkıca kavra. Yarın antrenman sahasında bunu telafi edeceğine dair söz ver.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_ayartma_kilitli",
+              "text": "Sözleşmenin tüm detaylarını incelemeyi teklif et. Agent ile ortak bir strateji belirle.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Zarf artık senin. {actor.agent.name} arkasına bakmadan yürüyor. Bu ağırlık, attığın her adımda biraz daha artacak.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sert Dönüş",
+          "kind": "outcome",
+          "text": "Zarf yere düşüyor. İçindeki paralar beton zemine saçılıyor. {actor.agent.name}’in yüzündeki o donuk bakış, köprülerin yandığını haber veriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tehlikeli Oyun",
+          "kind": "outcome",
+          "text": "Göz göze geliyorsunuz. {actor.agent.name} gülümsemiyor. Artık birbirinize bağlısınız, bu bir ortaklık değil, bir esaret.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Profesyonel Bedel",
+          "kind": "outcome",
+          "text": "Saatlerce süren tartışma sonunda ikiniz de bitkin düşüyorsunuz. Kağıt üzerindeki başarı, zihnindeki yorgunluğu gizleyemiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

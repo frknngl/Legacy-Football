@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# SIZINTI KANCASI -- API anahtari deponun gecmisine girerse geri alinamaz.
+#
+# NEDEN VAR: `.env` gitignore'da, ama tek bir `git add -f`, yanlis bir
+# kopyala-yapistir ya da log dosyasi anahtari kalici olarak gecmise
+# yazabilir. Gecmisten sir silmek tum commit'leri yeniden yazmak demek;
+# onlemek bir saniye, temizlemek bir gun.
+#
+# Kancayi devreye almak icin (klon sonrasi bir kez):
+#   git config core.hooksPath tools/githooks
+
+fail=0
+
+# 1) .env dosyalarinin kendisi asla stage'e girmemeli.
+# `.env.example` / `.sample` / `.template` MESRU sablonlardir ve
+# commit'lenmelidir -- yalnizca gercek deger tasiyan dosyalar engellenir.
+ENVPAT='(^|/)\.env($|\.(local|development|production|test))'
+# DIKKAT: `git diff --cached` HEAD'e gore FARK gosterir; dosya zaten
+# commit'liyse ve degismemisse listelenmez. Dosya adi kontrolu bu yuzden
+# index'in TAMAMINA (`ls-files`) bakar -- yoksa bir kez sizan .env
+# sonraki commit'lerde sessizce gecer.
+if git ls-files --cached | grep -qE "$ENVPAT"; then
+  echo "COMMIT DURDURULDU: bir .env dosyasi index'te."
+  git ls-files --cached | grep -E "$ENVPAT" | sed 's/^/  /'
+  echo "  Cozum: git restore --staged <dosya>"
+  fail=1
+fi
+
+# 2) Stage'lenen ICERIKTE anahtar deseni var mi?
+#    Yalnizca eklenen satirlara bakilir; mevcut gecmis taranmaz.
+leaks=$(git diff --cached --diff-filter=ACM -U0 \
+  | grep -E '^\+' \
+  | grep -nE 'AIza[0-9A-Za-z_\-]{35}|(GEMINI|OPENAI|ANTHROPIC)_API_KEY[[:space:]]*=[[:space:]]*[A-Za-z0-9_\-]{16,}')
+
+if [ -n "$leaks" ]; then
+  echo "COMMIT DURDURULDU: eklenen satirlarda API anahtari deseni var."
+  echo "$leaks" | head -5 | sed 's/^/  /'
+  echo "  Anahtari .env icine tasiyin; .env.example yalnizca BOS sablon tutar."
+  fail=1
+fi
+
+exit $fail

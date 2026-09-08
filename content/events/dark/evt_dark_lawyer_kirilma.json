@@ -1,0 +1,354 @@
+{
+  "id": "evt_dark_lawyer_kirilma",
+  "family": "fam_dark_kirilma",
+  "category": "dark",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Avukatın Ofisi",
+          "kind": "branch",
+          "text": "{actor.lawyer.name} deri koltuğunda geriye yaslandı. Masanın üzerindeki kağıtlar, bir kariyeri tek bir imza ile bitirebilecek ya da zirveye taşıyacak türdendi. Kapının önünde bekleyen {actor.childhood_friend.name}, dışarıdan gelen uğultuyu duymuyor; sadece senin kararını bekliyordu. Ortamdaki ağır tütün kokusu nefes almayı zorlaştırıyor. Odanın ışığı tek bir noktaya, o imza alanına odaklanmış. Avukat gözlerini ayırmadan elindeki kalemi sana doğru uzatıyor. Dışarıda taraftarın adını haykırdığı o ses, bu odanın sessizliğiyle kıyaslandığında artık bir anlam ifade etmiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sözleşmeyi reddet, kurallara bağlı kal.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Mahalledeki çocukları dahil et, riski üzerine al.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfları al, suskunluğunu koru.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Avukatı köşeye sıkıştır, kontrolü tamamen ele al.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Doğru Yol",
+          "kind": "outcome",
+          "text": "Avukatın yüzündeki o çarpık gülümseme silindi. Odanın kapısını kapatıp çıktığında, sadece kendi vicdanının sesi yankılanıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokakların Borcu",
+          "kind": "outcome",
+          "text": "İmza atıldı. Artık geri dönüş yok. Sokakların sesi kulaklarında çınlarken, avukat sadece onaylayarak başını salladı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Ağırlık artık cüzdanında değil, omuzlarında. {actor.childhood_friend.name} odaya girdiğinde senin gözlerine bakamadı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Hakimiyet",
+          "kind": "outcome",
+          "text": "Avukat kalemi masaya bırakıp geri çekildi. Artık o sadece bir araç, asıl karar verici sensin. Ancak bu otoritenin bedeli ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Arka Sokaklarda Sessizlik",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları uzakta birer nokta gibi titriyor. {actor.childhood_friend.name}, arabanın paspasındaki çamurlu ayakkabı izlerine bakıyor. Torpido gözünde duran ve seninle hiçbir ilgisi olmayan o sahte makbuzlar, sessizliği bir bıçak gibi kesiyor. Polis devriyesi köşeyi döndü, farlar üzerinizde bir saniye durup geçti. {actor.childhood_friend.name} terli ellerini direksiyona yaslamış, senin tek bir kelime etmeni bekliyor. Bu suçun ağırlığı, henüz üzerine binmemiş olsa da, o evrakların varlığı bile yeterli.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Evrakları al, pencereyi aç ve rüzgara bırak.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Torpido gözünü kilitle ve olanları unutmuş gibi yap.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Bu paket için teklif edilen parayı çantandan çıkar, sakince kabullen.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Direksiyona geç, aracı sürmeye devam et, yükü kendin üstlen.",
+              "target": "n_outcome_locked",
+              "effects": [
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı 74]"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Geride Kalanlar",
+          "kind": "outcome",
+          "text": "Kağıtlar sokak lambalarının altında uçuşarak karanlığa karıştı. Arkanızda bıraktığınız boşluk, arabanın içindeki gerginliği dindirdi ancak dostluğunuzdaki ilk çatlağı da mühürledi.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Tehlikeli Sessizlik",
+          "kind": "outcome",
+          "text": "Torpido gözünün tok sesi kapandı. Artık o evrakların parçasısın, bilginin ağırlığı omuzlarında. Sokaklar seni artık farklı bir gözle görecek; bu, oyunun bir parçası.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Bedeli Ödenmiş Vicdan",
+          "kind": "outcome",
+          "text": "Çanta ağır, ruhun hafifliyor ama aynadaki yansımada gördüğün kişi artık o değil. Bu parayı harcarken, kariyerinin üzerine düşen gölgeyi asla unutmayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_locked": {
+          "title": "Sadakatin Yükü",
+          "kind": "outcome",
+          "text": "Direksiyonu sıkıca kavradın. Yorgunluk kemiklerine işliyor ama en azından bir şeyi korumayı başardın. Yarınki idmana çıkacak gücün kalmadı belki, ama kimse arkanda kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

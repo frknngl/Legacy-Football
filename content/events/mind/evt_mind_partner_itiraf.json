@@ -1,0 +1,304 @@
+{
+  "id": "evt_mind_partner_itiraf",
+  "family": "fam_mind_itiraf",
+  "category": "mind",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yüzleşme",
+          "kind": "branch",
+          "text": "Odanın havası ağır. {actor.doctor.name} kapıyı sessizce kapatıp çıktığından beri sadece {actor.partner.name}’in nefes alışverişi duyuluyor. Masanın üzerinde duran rapor, tüm o saklı gecelerin kanıtı gibi parlıyor. {actor.partner.name}’in gözleri, raporla senin yüzün arasında gidip geliyor; bir cevap beklemiyor, sadece bir itirafın ağırlığını görmek istiyor. Dışarıda antrenman sahasından gelen top sesleri çok uzak bir dünyadanmış gibi yankılanıyor. Burada, bu beyaz duvarların arasında, artık hiçbir yalanın arkasına sığınamazsın. {actor.partner.name} sessizliği bozduğunda sesi titriyor ama gözleri çelik gibi keskin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Tüm gerçekleri anlat, hayatımın kontrolünü artık başkasına bırakıyorum.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sadece bir kısmını kabul et, dışarıdaki imajımı korumak zorundayım.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sus, susmak her zaman bir çıkış yolu bırakır.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Sorumluluğu üstlen, hem kendin hem de onun için bir gelecek kur.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome": {
+          "title": "Yeni Bir Başlangıç",
+          "kind": "outcome",
+          "text": "Kararın odadaki havayı değiştirdi. {actor.partner.name} arkasını dönüp yavaş adımlarla uzaklaşırken, arkasında bıraktığı boşluk, hayatının geri kalanını nasıl yaşayacağının ilk cevabı oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ayna Kırığı",
+          "kind": "branch",
+          "text": "Stadyumun otoparkında, yağmurun metale vurduğu o ritmik ses. {actor.partner.name} arabanın farlarını kapatıyor. Sadece içerideki zayıf turuncu ışık yanıyor. Torpido gözünde duran ve aylardır kimseye göstermediğin o kalın zarfı, {actor.partner.name} çoktan bulmuş. Parmaklarının arasında tuttuğu zarfı bana değil, önündeki dikiz aynasına bakarak aralıyor. Sessizlik, sahadaki tüm tezahüratlardan daha sağır edici. Ne bir suçlama var ne de bir soru. Sadece maskenin düştüğü o an; bir insanın başka bir insana bakarken aslında kendi hayal kırıklığını izlediği o soğuk saniye.",
+          "choices": [
+            {
+              "id": "c_servet_odakli",
+              "text": "Zarfı elinden alıp içindeki ödemeyi masaya koymak. Bu parayla hepimizi temizlerim.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8,
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli_yol",
+              "text": "Ona doğru dönüp hiçbir şey söylemeden sadece elini tutmak. Bu sırrı ikimiz gömeceğiz.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_guvenli_yol",
+              "text": "Zarfı yırtıp pencereden dışarı savurmak. Şimdi ikimiz de hiçbir şey görmedik.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Gözlerindeki o bakış, arabanın içindeki havayı ağırlaştırıyor. Artık parayı değil, aradaki mesafeyi konuşuyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Elini çekmiyor ama bakışları hala uzaklarda. Bu el tutuş bir kabullenme mi, yoksa bir esaretin başlangıcı mı belli değil.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Kül Olmuş Sırlar",
+          "kind": "outcome",
+          "text": "Kağıt parçaları yağmurda erirken içerideki gerilim boşalıyor. İkimiz de sustuk, ancak bir daha asla eski haline dönemeyecek olan o şeffaflık çoktan uçup gitti.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,342 @@
+{
+  "id": "evt_life_youngster_devir_teslim_rehab_clinic",
+  "family": "fam_life_devir_teslim",
+  "category": "life",
+  "tier": "epic",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Klinikteki Ayna",
+          "kind": "branch",
+          "text": "Rehabilitasyon kliniğinin beyaz, steril ışıkları {actor.rehab_counselor.name} arkasında vızıldıyor. {actor.youngster.name} kapı eşiğinde, omuzları çökmüş, gözleri zeminde. {actor.youngster.name}, senin bir zamanlar attığın adımları takip ettiğini söylemişti. Şimdi, senin düştüğün bu cam kırıklarıyla dolu odada, o da kendi yolunu arıyor. Önünde seçenekler var.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Kendi hatalarını bir bir anlat. Dürüstlük, en ağır kefaret biçimidir.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Ona 'sistemi nasıl atlatacağını' fısılda. Kuralları değil, kazananın gözünü öğret.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Gömleğinin iç cebinden çıkardığın desteği sessizce ona uzat. İyileşmek değil, hayatta kalmak önemli.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Omuzlarından tut, gözlerinin içine bak ve profesyonel kalmanın tek yolunu anlat.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Dürüstlüğün Bedeli",
+          "kind": "outcome",
+          "text": "Zor olanı yaptın. Kendi karanlığını onun önünden çektin. Artık sadece kendi ışığıyla ilerlemek zorunda.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Eski Oyun",
+          "kind": "outcome",
+          "text": "Kulağına fısıldadığın o cümle, birinin hayatını kurtarabilir ya da tamamen bitirebilir. Sen sadece meşaleyi devrettin.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Sessiz Destek",
+          "kind": "outcome",
+          "text": "Zarflar el değiştirdi. O, bu parayla ayağa kalkacak ama vicdanındaki ağırlığı asla tam olarak atamayacak. Tıpkı senin gibi.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Mentor",
+          "kind": "outcome",
+          "text": "Sözlerin odada yankılandı. O dinledi, sen ise bir parçanı daha bu dört duvar arasında bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İtirafların Ağırlığı",
+          "kind": "branch",
+          "text": "Klinik bahçesinin arka duvarında, dikenli tellerin gölgesi {actor.youngster.name} üzerine düşüyor. Elinde buruşturulmuş bir makbuz ve hastane raporu var. Rüzgar, kurumuş yaprakları beton zeminde sürüklüyor. Karşında duran denetimli serbestlik memuru, bakışlarını elindeki kağıtlara dikmiş, cevabını bekliyor. Sessizlik, bir stadyumun son dakikasındaki gerilimden daha ağır. İçindeki boşluğu doldurmak için gerçeğin ağırlığını ya kabulleneceksin ya da üzerini örteceksin.",
+          "choices": [
+            {
+              "id": "c_saf_itiraf",
+              "text": "Her şeyi anlat. Sadece gerçek, bu bataktan kurtarır.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_sessiz_odeme",
+              "text": "Dosyayı imzala, gerisini halledeceklerine dair başını salla.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 10000
+              },
+              "lockLabel": "[Maddi Kaynak Yeterli]"
+            },
+            {
+              "id": "c_riskli_yalan",
+              "text": "Kendi hikayeni uydur, kimsenin kimseyi bulamayacağı kadar karmaşık.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kefaret",
+          "kind": "outcome",
+          "text": "Gerçek, boğazında bir düğüm gibi. Memur not alıyor, kaleminin sesi bahçede yankılanıyor. Artık saklanacak bir şey yok, sadece önünde uzanan uzun ve yorucu bir rehabilitasyon süreci var.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın Alınmış Gelecek",
+          "kind": "outcome",
+          "text": "Kağıtlar çantaya giriyor. Kimse hiçbir şey görmedi. Hesaplar kapandı ama aynaya baktığında göreceğin o yabancı, artık daha tanıdık gelecek.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Zehirli Kurgu",
+          "kind": "outcome",
+          "text": "Yalan, bir zırh gibi. Şimdilik güvendesin ama her hikaye elbet çürür. Bugün kurtardığın itibar, yarın kendi altında kalacağın bir enkaz hazırlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

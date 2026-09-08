@@ -1,0 +1,385 @@
+{
+  "id": "evt_media_ilk_roportaj",
+  "family": "fam_media_ilk_roportaj",
+  "category": "media",
+  "tier": "major",
+  "weight": 65,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 18
+  },
+  "eras": [
+    "rookie"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "On Dakika",
+          "kind": "branch",
+          "text": "Basın odası değil; kantinin yan tarafındaki depo. İki sandalye, bir masa, masanın üstünde küçük bir kayıt cihazı. Kırmızı ışık yanıyor.\n\n{actor.journalist.name} yerel gazeteden. \"On dakikam var,\" dedi ama on beş dakikadır oturuyorsunuz.\n\nİlk iki soru kolaydı.\n\n— *Kaç yaşındasın?*\n— On altı.\n\n— *Ailen ne diyor?*\n— Seviniyorlar.\n\nSonra defterini kapattı. Kapatınca soru daha ciddi geliyor:\n\n— *Sözleşmeni okudun mu?*\n\nKoridorda annen bekliyor. Kayıt cihazının kırmızı ışığı hâlâ yanıyor.",
+          "choices": [
+            {
+              "id": "c_durust",
+              "text": "\"Tam anlamadım açıkçası.\" Bildiğin kadarını söyle.",
+              "target": "n_durust",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -7
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_kacamak",
+              "text": "\"O benim işim değil.\" Soruyu kulübe havale et.",
+              "target": "n_kacamak",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_madde",
+              "text": "\"Bir maddeyi sordum, açıkladılar.\" Sorduğun o tek soruyu anlat.",
+              "target": "n_madde",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              },
+              "requires": {
+                "flag": "mem_ilk_sozlesme_soru_sordu",
+                "op": "eq",
+                "value": true
+              },
+              "lockLabel": "[Sözleşmede soru sormuştun]"
+            },
+            {
+              "id": "c_yalan",
+              "text": "\"Baştan sona okudum.\" Okumadığını sadece sen biliyorsun.",
+              "target": "n_yalan",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              },
+              "requires": {
+                "flag": "mem_ilk_sozlesme_acele_etti",
+                "op": "eq",
+                "value": true
+              },
+              "lockLabel": "[Sözleşmeyi okumadan imzalamıştın]"
+            }
+          ]
+        },
+        "n_durust": {
+          "title": "Bildiğin Kadarı",
+          "kind": "outcome",
+          "text": "\"Tam anlamadım,\" dedin. \"Uzundu.\"\n\n{actor.journalist.name} güldü. Alay değildi.\n\nDefterini tekrar açtı, tek satır yazdı. Çıkarken o satırı görmedin ama ertesi gün gazetede şöyle çıktı: *\"Uzundu, diyor. On altı yaşında ve yalan söylemiyor.\"*\n\nKulüpten kimse aramadı. Aramamaları iyiye işaret.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_durust_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kacamak": {
+          "title": "Havale",
+          "kind": "outcome",
+          "text": "\"O benim işim değil,\" dedin. Cümleyi birinden duymuştun, doğru yerde kullandın.\n\n{actor.journalist.name} başını salladı ve kayıt cihazını kapattı. Kırmızı ışık söndü.\n\n\"Tamam,\" dedi. \"Sağ ol.\"\n\nOn beş dakikaydı, on dakikaya inmişti. Röportaj küçük çıktı, üçüncü sayfada.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_kacamak_yapti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_madde": {
+          "title": "Dokuzuncu Maddenin Devamı",
+          "kind": "outcome",
+          "text": "O maddeyi anlattın. Ne dediğini değil, sorduğunu anlattın.\n\n{actor.journalist.name} kalemini bıraktı. \"On altı yaşında soru soran birine az rastlıyorum,\" dedi.\n\nHaber manşetten çıktı. İyi bir haberdi ve tam da bu yüzden kulüpte birileri okudu. Sportif direktörün odasından çıkan cümle şuydu: *\"Bu çocuk konuşmayı seviyor.\"*\n\nİyi ya da kötü değil. Sadece artık dosyanda böyle bir satır var.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_durust_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_yalan": {
+          "title": "Kırmızı Işık",
+          "kind": "outcome",
+          "text": "\"Baştan sona okudum.\"\n\nÇok rahat söyledin. Kendi sesinin ne kadar rahat çıktığı, sonradan aklına takılan şey oldu.\n\n{actor.journalist.name} not aldı, teşekkür etti, gitti. Kimse bir şey fark etmedi.\n\nAnnenle arabaya bindiniz. \"Ne sordu?\" dedi. \"Bir şey sormadı,\" dedin. İkinci yalan ilkinden kolaydı.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_yalan_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Otoparkta Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışındaki otoparkta, aracına yaslanmış bekliyor. Yağmur, eski ceketinin omuzlarını koyulaştırıyor. {actor.journalist.name} elindeki ses kayıt cihazını sanki bir suç aletiymiş gibi tutuyor. Geçen hafta soyunma odasında paylaştığın o sırlar, yarın sabahki manşetin ana malzemesi olacak. Göz göze geldiğinizde yutkunuyor, bakışlarını yere indiriyor. \"Bunu yapmak zorundaydım,\" diye fısıldıyor motorun gürültüsü arasında.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Yarın sabahki manşetleri değil, antrenmandaki performansımı konuşalım.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bir daha karşıma çıkma. Seni burada gören kimse olmamış gibi davran.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Bu haberi durdurursan, bir sonraki özel röportajı sadece sana vereceğim.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 2000
+                }
+              ],
+              "persona": {
+                "sadakat": -12
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Her şeyi olduğu gibi anlat; ne eksik ne fazla. Kimse gerçeği senden saklamamı bekleyemez.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]",
+              "persona": {
+                "dogruluk": 12
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Sırtını dönüp uzaklaşıyorsun. {actor.journalist.name} arkandan bir şey söylemek istiyor ama vazgeçiyor. Yarınki manşeti gördüğünde, aranızdaki bağın çoktan koptuğunu anlayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_kacamak_yapti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Tehdit",
+          "kind": "outcome",
+          "text": "Sesin o kadar soğuk ki otoparktaki diğer oyuncular bile dönüp size bakıyor. {actor.journalist.name} titreyen elleriyle cihazını çantasına atıp hızlı adımlarla oradan uzaklaşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_yalan_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Kayıt cihazını kapatıyor. Gözlerindeki o mahcubiyet, bir anda hırslı bir pırıltıya dönüşüyor. İkiniz de bu kararın ağırlığını biliyorsunuz. Yarınki huzurun bedeli, kulüp içindeki saygınlığın olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_yalan_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Dürüstlük",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} şaşkınlıkla sana bakıyor. Bir futbolcunun kendi sonunu bu kadar net bir şekilde haberleştirmesini beklemiyordu. Bu dürüstlüğün taraftarlar nezdinde saygını artıracak ama kulüp binasında seni zor günler bekliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_durust_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

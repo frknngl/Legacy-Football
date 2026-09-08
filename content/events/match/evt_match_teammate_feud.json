@@ -1,0 +1,337 @@
+{
+  "id": "evt_match_teammate_feud",
+  "family": "fam_match_locker",
+  "category": "match",
+  "tier": "major",
+  "momentType": "teammate_feud",
+  "weight": 12,
+  "cooldown": {
+    "self": 18,
+    "family": 8
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kendi sahanda",
+      "kind": "branch",
+      "text": "{minute}. dakika, skor {scoreline}. Bos pozisyondaydin ve {actor.rival_teammate.name} topu vermedi. Ucuncu kez.\n\nBu sefer vurdu, top auta gitti ve o hicbir sey olmamis gibi geri kosuyor.\n\nOnun onune geciyorsun. Otuz bin kisinin onunde iki takim arkadasi burun buruna.\n\n{actor.captain.name} kosarak geliyor ama daha on metre uzakta.",
+      "choices": [
+        {
+          "id": "c_shove",
+          "text": "Gogsunden it. Herkes gorsun.",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_rival_teammate",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "target": "n_roll_shove",
+          "persona": {
+            "mizac": 12,
+            "sadakat": -8
+          }
+        },
+        {
+          "id": "c_talk",
+          "text": "Tek cumle soyle ve don: bir daha bakarsin.",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_rival_teammate",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "target": "n_talked",
+          "persona": {
+            "durus": 6,
+            "mizac": -3
+          }
+        },
+        {
+          "id": "c_swallow",
+          "text": "Yut. Geri kos, hicbir sey olmamis gibi yap.",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -14
+            }
+          ],
+          "target": "n_swallowed",
+          "persona": {
+            "mizac": -9,
+            "durus": -6
+          }
+        },
+        {
+          "id": "c_captain",
+          "text": "{actor.captain.first} gelene kadar bekle. Sorunu ona goster.",
+          "effects": [
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "iliski_rival_teammate",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "target": "n_captain_handled",
+          "persona": {
+            "sadakat": 8,
+            "mizac": -4
+          }
+        }
+      ]
+    },
+    "n_roll_shove": {
+      "title": "Itis",
+      "kind": "roll",
+      "text": "Elin gogsune degiyor. Adam abartili bir sekilde geri gidiyor.",
+      "outcomes": [
+        {
+          "target": "n_both_booked",
+          "weight": {
+            "base": 50,
+            "modifiers": [
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.4
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_teammate_hurt",
+          "weight": {
+            "base": 25,
+            "modifiers": [
+              {
+                "flag": "fizik",
+                "scale": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_defused",
+          "weight": {
+            "base": 35,
+            "modifiers": [
+              {
+                "flag": "liderlik",
+                "scale": 0.35
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_both_booked": {
+      "title": "Ikinize de",
+      "kind": "outcome",
+      "text": "{actor.referee.name} ikinize de sari gosteriyor. Ayni takimdan iki oyuncu, ayni anda.\n\nBu goruntu bu sezonun ozetinde yer alacak.\n\nSoyunma odasinda kimse konusmuyor. {actor.manager.name} kapiyi bir kez vuruyor ve ciziyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": -0.8,
+          "incident": "inc_fought_opponent"
+        },
+        {
+          "flag": "yonetim_baskisi",
+          "op": "add",
+          "value": 15
+        },
+        {
+          "flag": "mem_betrayed_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_teammate_hurt": {
+      "title": "Dizi bukuldu",
+      "kind": "outcome",
+      "text": "Geri giderken ayagi takiliyor ve dizi yanlis donuyor.\n\nYerde kaliyor. Gercekten kaliyor.\n\nSedye geliyor. Sen ceza sahasinin kenarinda duruyorsun ve kimse sana bakmiyor -- herkes ona bakiyor, sen de ona bakiyorsun.\n\nUc hafta yok.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -1.2,
+          "incident": "inc_injured_teammate"
+        },
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": -25
+        },
+        {
+          "flag": "iliski_rival_teammate",
+          "op": "add",
+          "value": -35
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "mem_betrayed_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_defused": {
+      "title": "Araya girdiler",
+      "kind": "outcome",
+      "text": "Uc kisi araya giriyor. {actor.captain.name} seni belinden kavrayip geri goturuyor.\n\nKart yok. Kamera yakaladi ama yayin baska yere gecti.\n\nDevre arasinda ikinizi de duvara diziyorlar ve otuz saniye kimse konusmuyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.3,
+          "incident": "inc_fought_opponent"
+        },
+        {
+          "flag": "iliski_captain",
+          "op": "add",
+          "value": 5
+        },
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": -6
+        }
+      ]
+    },
+    "n_talked": {
+      "title": "Bir cumle",
+      "kind": "outcome",
+      "text": "Bir cumle soyluyorsun ve donuyorsun. Ne dedigini kimse duymuyor.\n\nSonraki pozisyonda top sana geliyor.\n\nGolu atmiyorsun ama top sana geldi ve mesele buydu.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.4,
+          "incident": "inc_stood_up"
+        },
+        {
+          "flag": "liderlik",
+          "op": "add",
+          "value": 4
+        },
+        {
+          "flag": "mem_saved_teammate",
+          "op": "set",
+          "value": false
+        }
+      ]
+    },
+    "n_swallowed": {
+      "title": "Yuttun",
+      "kind": "outcome",
+      "text": "Geri kosuyorsun. Yuzunde hicbir sey yok.\n\nKalan yarim saatte topa alti kez dokunuyorsun.\n\nGece uyuyamiyorsun ve bunun sebebinin o pozisyon olmadigini, yuttugun sey oldugunu biliyorsun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.5,
+          "incident": "inc_substituted_angry"
+        },
+        {
+          "flag": "tukenmislik",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "mem_reads_own_criticism",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_captain_handled": {
+      "title": "Kaptanin isi",
+      "kind": "outcome",
+      "text": "Bekliyorsun. {actor.captain.name} geliyor, once ona sonra sana bakiyor.\n\nOna ne dedigini duymuyorsun ama adam basini onune egiyor.\n\nMac sonu kaptan yanina geliyor: bunu bana birakman dogruydu, diyor. Sonra ekliyor: bir daha birakma, kendin hallet.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.3,
+          "incident": "inc_stood_up"
+        },
+        {
+          "flag": "liderlik",
+          "op": "add",
+          "value": 5
+        },
+        {
+          "flag": "mem_saved_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

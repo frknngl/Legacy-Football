@@ -1,0 +1,400 @@
+{
+  "id": "evt_fandom_pundit_yuzlesme",
+  "family": "fam_fandom_yuzlesme",
+  "category": "fandom",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "suspended"
+  ],
+  "trigger": {
+    "flag": "age",
+    "op": "gte",
+    "value": 18
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stüdyo Koridoru",
+          "kind": "branch",
+          "text": "Kanalın dar koridorunda, ışıklar titrek. {actor.pundit.name} duvardaki aynaya bakıyor, kravatını düzeltiyor. Dönüşü yok. Yan taraftaki odadan {actor.fan_leader.name} çıkıyor. Aranızdaki mesafe üç adım. Sessizlik ağır, klimaların uğultusunu bastırıyor. Göz göze geliyorsunuz. {actor.pundit.name} başını hafifçe eğiyor, dudaklarında alaycı, ince bir çizgi. Köşeye sıkıştın.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğip yanından geç, hiçbir şey söyleme.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Duraksayıp {actor.pundit.name} ile yüzleş, sesini yükselt.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Gülümse ve elini {actor.pundit.name} omzuna koy, sessizce bir zarf uzat.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bak, otoriteni koy; o susacak, sen konuşacaksın.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Omuz omuza geçiyorsunuz. Bakışlar kaçırılıyor. Koridorun sonunda yalnızsın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Gerilim",
+          "kind": "outcome",
+          "text": "Sesler yükseliyor. {actor.fan_leader.name} şaşkın, {actor.pundit.name} geri adım atıyor. Yarın manşetler belli.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı elinde. {actor.pundit.name} bakışlarını kaçırıyor. Sessizliğin bedeli bu.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Otorite",
+          "kind": "outcome",
+          "text": "Tek bir kelime etmeden karşında küçülüyor. İpler artık senin elinde.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Otoparkın en uç köşesi. Park halindeki aracının camı yansıtıyor. Arkanda motoru çalışmayan bir otomobilin kaputu üzerinde {actor.pundit.name} oturuyor. Ekranda senin hakkında kurduğu cümlelerin yankısı hala zihninde. Elinde tuttuğu mikrofonun kablosu yere dolanmış. Seni gördüğünde irkilmiyor, sadece sigarasını yere atıp eziyor. Aramızdaki mesafe bir gölge boyu. Sessizlik, sahadaki ıslıklardan daha ağır. Bu adamın yüzündeki o yarı hüzünlü, yarı kibirli ifade, senin hakkındaki tüm 'profesyonel' analizlerinin aslında ne kadar kişisel bir hesaplaşma olduğunu ele veriyor. Maske, bu beton yığınları arasında ilk kez bu kadar çıplak bir şekilde parçalanıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Görmezden gel, arabanın anahtarını çevir ve oradan uzaklaş.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebinden çıkardığın zarfı, bir şey demeden otomobilin kaputuna bırak.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Eline uzan, mikrofonu tuttuğu elini sıkıca kavra ve sadece kulağına doğru eğil.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bakarak sadece tek bir isim ver; o, bu adamın kirli geçmişinden bir parça.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]",
+              "persona": {
+                "sadakat": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Çekiliş",
+          "kind": "outcome",
+          "text": "Motor gürültüsü aranızdaki gerilimi boğuyor. O, arkandan bakmaya devam ederken dikiz aynasından yüzünün nasıl solgunlaştığını görüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Zarf kaputun üzerinde hafifçe kayıyor. {actor.pundit.name} zarfı açmadan eliyle üzerine bastırıyor. Göz göze gelmiyorsunuz. Yarınki yayında tonu değişecek.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sokak Dili",
+          "kind": "outcome",
+          "text": "Bileği elinin altında titriyor. Söylediğin tek bir cümle, adamın tüm o entelektüel savunmasını yerle bir ediyor. Korkuyu, göz bebeklerinde görüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Güç Gösterisi",
+          "kind": "outcome",
+          "text": "Söylediğin isim havayı buz gibi donduruyor. {actor.pundit.name} artık bir eleştirmen değil, köşeye sıkışmış bir av. Bu zafer, kariyerinin en yorucu ve zehirli anı olarak kalacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

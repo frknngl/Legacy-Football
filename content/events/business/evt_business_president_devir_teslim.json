@@ -1,0 +1,338 @@
+{
+  "id": "evt_business_president_devir_teslim",
+  "family": "fam_business_devir_teslim",
+  "category": "business",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "retired"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Mühür Değişimi",
+          "kind": "branch",
+          "text": "{actor.president.name} masanın üzerindeki dosyayı itiyor. Deri koltuğun gıcırtısı odadaki sessizliği yırtıyor. Karşıdaki boş koltuğa bakıyor. {actor.agent.name} camın kenarında, dışarıdaki boş stadyuma bakarak sigarasını yakıyor. Kulübün tüm borçları, bekleyen sözleşmeler ve ödenmemiş primler artık bir kağıt yığınına dönüşmüş. Masa artık senin değil, ancak anahtarlar hala elinde. Yeni gelenin mirası nasıl devralacağı sana bağlı. {actor.president.name} gözlerini sana dikiyor, cevabını bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyaları düzenle, tüm borçları şeffaf bir şekilde listele ve teslim et.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyaları yak. Yeni gelen, fırtınayı tek başına göğüslesin.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kasa anahtarını al, içerideki küçük meblağı şahsi hesabına aktar.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Giden tüm kadroyla vedalaş, onları yeni yönetime zorluk çıkarmamaları için ikna et.",
+              "target": "n_sonuc_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 7
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "{actor.president.name} uzattığın şeffaf raporu alırken yüzündeki o ince tebessümü gizleyemiyor. Kulübün geleceği için en dürüst yolu seçtin. Dışarı çıkarken arkanda ne bir dedikodu ne de bir pişmanlık bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_business_devir_teslim_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Kül ve Enkaz",
+          "kind": "outcome",
+          "text": "Kibritin sesi odada yankılanıyor. {actor.agent.name} başını hafifçe eğiyor, senin bu sert tavrını onaylıyor. Yarın stadyumun önünde toplanacak taraftarların ne tepki vereceğini bilmeden, arkana bakmadan odadan çıkıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_devir_teslim_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "{actor.president.name} telefona bakarken sen hızlıca kasanın üzerindeki nakiti çantana alıyorsun. Kimse görmüyor, kimse sormuyor. Kapıdan çıkarken kazandığın para omuzlarındaki ağırlığı hafifletmiyor, aksine adımlarını ağırlaştırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_devir_teslim_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_liderlik": {
+          "title": "Son Hizmet",
+          "kind": "outcome",
+          "text": "Herkesle tek tek konuştun. Stadyumun koridorlarında yankılanan son seslerin yerini tam bir sessizlik aldı. {actor.president.name} elini omzuna koyuyor. Görevin bitti, ancak bir lider olarak ağırlığın hala kulübün duvarlarında hissediliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_devir_teslim_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Ofis",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları sönmüş. {actor.president.name} koridorun sonundaki odada, tek bir masa lambasının altında duruyor. Masanın üzerinde imzalanmamış tasfiye belgeleri ve yarısı boş bir kadeh var. Kulübün amblemi duvardan indirilmiş, geride bıraktığı soluk iz duvarda bir yara gibi duruyor. Dışarıda, rüzgarın tribünlerdeki teneke çatıları dövüşü duyuluyor. {actor.president.name} sana bakmıyor bile, sadece boşluğa konuşuyor: \"Burası artık senin değil, hiçbir zaman da olmadı.\"",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Resmi mühürleri teslim et, usulüne uygun şekilde köşene çekil.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Stadyumun anahtarını masaya bırak, kapıyı dışarıdan kilitleyip arkana bile bakma.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Masadaki nakit çantayı al, sessizliği satın almanın tek yolu bu.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Veda",
+          "kind": "outcome",
+          "text": "Mühürler çekmecede kalıyor. İçeriden çıkan soğuk hava yüzüne çarpıyor. Dönüş yok.",
+          "onEnter": [
+            {
+              "flag": "mem_business_devir_teslim_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sıfır Noktası",
+          "kind": "outcome",
+          "text": "Metal anahtarın masaya düşme sesi boş koridorda yankılanıyor. Kapıyı çektiğinde kilit mekanizması bir veda gibi tık ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_devir_teslim_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Paranın ağırlığı vicdanını bastırıyor. Artık bu kulüpteki izin sadece kağıt üzerindeki bir rakamdan ibaret.",
+          "onEnter": [
+            {
+              "flag": "mem_business_devir_teslim_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

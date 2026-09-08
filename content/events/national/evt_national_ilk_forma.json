@@ -1,0 +1,301 @@
+{
+  "id": "evt_national_ilk_forma",
+  "family": "fam_national_ilk_forma",
+  "category": "national",
+  "tier": "epic",
+  "weight": 100,
+  "once": true,
+  "cooldown": {
+    "self": 60,
+    "family": 24
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "national_duty",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünelde Doksan Saniye",
+          "kind": "branch",
+          "text": "Formayı öğleden sonra verdiler. Numarası sana ait değil; bu kamp için ödünç.\n\nTünelde sıra var. Önünde {actor.national_captain.name}, arkanda on yedi yaşında görünen bir çocuk — o da ilk kez.\n\nSağ tarafta bir görevli sayıyor. Solda kameraman geri geri yürüyor.\n\n{actor.national_captain.name} arkasına dönmüyor ama konuşuyor:\n\n\"Marşta ne yaparsan yap. Ama ne yaparsan onu bir daha her maçta yapacaksın. On iki yıldır aynı yere bakıyorum ben.\"\n\nKapı açılıyor. Ses geliyor.",
+          "choices": [
+            {
+              "id": "c_soyle",
+              "text": "Marşı söyle. Yüksek sesle, kameraya bakmadan.",
+              "target": "n_soyle",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_sessiz",
+              "text": "Söyleme. Gözlerini kapat ve bekle.",
+              "target": "n_sessiz",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -9
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 9
+                }
+              ],
+              "persona": {
+                "durus": 9
+              }
+            },
+            {
+              "id": "c_cocuk",
+              "text": "Arkana dön ve o çocuğa bir şey söyle.",
+              "target": "n_cocuk",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_national_captain",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              }
+            }
+          ]
+        },
+        "n_soyle": {
+          "title": "Bir Daha Her Maçta",
+          "kind": "outcome",
+          "text": "Söyledin. Sesin ikinci mısrada titredi, üçüncüde oturdu.\n\nErtesi gün o kare her yerdeydi. Altına yazılanların çoğu iyiydi, bir kısmı değildi, hepsi seninle ilgiliydi ve hiçbiri futbolla ilgili değildi.\n\n{actor.national_captain.name} haklıydı: bir sonraki maçta da söyledin. Söylememek artık bir haber olurdu.",
+          "onEnter": [
+            {
+              "flag": "mem_marsi_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sessiz": {
+          "title": "Kapalı Gözler",
+          "kind": "outcome",
+          "text": "Söylemedin. Gözlerin kapalıydı ve doksan saniye çok uzun sürdü.\n\nKimse bir şey demedi. Ertesi gün bir yorumcu dedi, sonra üç kişi daha dedi, sonra bir hafta boyunca bu konuşuldu.\n\nSen hiç açıklama yapmadın. Açıklama yapmamak da bir cevaptır ve onu da bir daha her maçta vermen gerekecek.",
+          "onEnter": [
+            {
+              "flag": "mem_marsi_sussmayi_secti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_cocuk": {
+          "title": "Arkandaki",
+          "kind": "outcome",
+          "text": "Arkana döndün. Çocuk sana bakıyordu, bakmamaya çalışarak.\n\n\"Ellerin titriyor,\" dedin. \"Benimki de.\"\n\nGüldü. Marşta ikiniz de söylediniz, ikiniz de yarısını unuttunuz.\n\nO çocuk dokuz yıl sonra bu takımın kaptanı oldu ve bir röportajda bu anı anlattı. Senin adını vermedi; \"biri\" dedi. Yeterliydi.",
+          "onEnter": [
+            {
+              "flag": "mem_tunelde_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Arka Kapısı",
+          "kind": "branch",
+          "text": "Milli marşın cızırtılı kaydı stadın hoparlörlerinden dışarıdaki boş otoparka taşıyor. {actor.national_captain.name} kapının eşiğinde durmuş, elindeki ağır deri çantayı bagaja fırlatıyor. Yüzünde, kameralara verdiği o sahte gülümsemeden eser yok. Çantanın fermuarı açık kalmış, içinden sadece bu ülkenin değil, bir başka sponsorun renklerini taşıyan iki farklı forma takımı görünüyor. Sana bakmıyor ama varlığını hissediyor. 'Bu geceki otobüs bizi ayıracak,' diyor soğuk bir tonla. 'Ya bu formayı şerefinle taşırsın ya da o çantadaki diğerini giyip yarına kaybolursun. Kararını ver.'",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Formaların içinden o kutsal olanı çıkarıp sessizce öp ve çantaya koy.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_national_captain",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı arabanın içine itip paraya ve huzura bak, başını eğ.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Formayı eline al ve stadyumun duvarına fırlatarak oradan uzaklaş.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 40
+              },
+              "lockLabel": "[İtibar yeterli değil]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Sadakat",
+          "kind": "outcome",
+          "text": "Eğildin, dokundun, kabul ettin. O an, bir daha asla geri dönüşü olmayan bir yola girdiğini biliyordun. {actor.national_captain.name} sana ilk kez omuz attı, bu bir onaydı. Ama içindeki boşluk, formanın ağırlığından daha fazlaydı.",
+          "onEnter": [
+            {
+              "flag": "mem_marsi_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Gölgedeki Anlaşma",
+          "kind": "outcome",
+          "text": "Sessizlik, bir suç ortaklığı gibi aranızda büyüdü. Paranın soğukluğunu, kumaşın sıcaklığına tercih ettin. Kimse seni görmedi, ama sen her gece kendi yansımana bakarken o çantayı hatırlayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_marsi_sussmayi_secti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "İplerin Kopuşu",
+          "kind": "outcome",
+          "text": "O duvarın önünde yankılanan ses, kariyerinin tüm kariyerinden daha yüksekti. {actor.national_captain.name} arkandan bir şey bağırdı ama duymadın. Artık hiçbir şey eskisi gibi olmayacak, ama en azından aynada kendine bakabiliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_tunelde_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

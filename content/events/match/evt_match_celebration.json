@@ -1,0 +1,202 @@
+{
+  "id": "evt_match_celebration",
+  "family": "fam_match_celebration",
+  "category": "match",
+  "tier": "minor",
+  "momentType": "celebration_choice",
+  "weight": 15,
+  "cooldown": {
+    "self": 12,
+    "family": 6
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gol sevinci",
+      "kind": "branch",
+      "text": "Attın. {opponent} deplasmanında, {minute}. dakikada, skoru {scoreline} yapan gol.\n\nKoşuyorsun ve nereye koştuğunu henüz seçmedin. Solda kendi tribünün, üç yüz kişi, deplasman bloğu. Sağda ev sahibi tribünü, otuz bin kişi ve sana küfrediyorlar. Karşında kamera.\n\nİki saniyen var.",
+      "choices": [
+        {
+          "id": "c_fans",
+          "text": "Deplasman bloğuna koş. Üç yüz kişinin önünde diz çök.",
+          "effects": [
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": false
+            }
+          ],
+          "persona": {
+            "sadakat": 8
+          }
+        },
+        {
+          "id": "c_provoke",
+          "text": "Ev sahibi tribünün önüne git. Parmağını dudağına götür.",
+          "target": "n_provoked",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sosyal_medya_takipci",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_nothing",
+          "text": "Hiçbir şey yapma. Topu al, orta yuvarlağa yürü.",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "mizac": -8,
+            "durus": -4
+          }
+        },
+        {
+          "id": "c_teammate",
+          "text": "Pası veren çocuğu bul. Onu havaya kaldır.",
+          "target": "n_teammate",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sosyal_medya_takipci",
+              "op": "add",
+              "value": -2000
+            }
+          ],
+          "persona": {
+            "sadakat": 9,
+            "mizac": -3
+          }
+        }
+      ]
+    },
+    "n_provoked": {
+      "title": "Otuz bin kişi",
+      "kind": "outcome",
+      "text": "Parmağını dudağına götürüyorsun ve otuz bin kişi bir anda susmuyor — daha da bağırıyor. Ama o fotoğraf çekildi ve o fotoğraf artık senin.\n\nHakem sarı kart gösteriyor. Çeyrek saat sonra tribünden bir çakmak sahaya iniyor.\n\n{actor.agent.name} maçtan sonra tek cümle yazıyor: \"Bunun faturası gelecek, hazır ol.\"",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": 0.3,
+          "incident": "inc_celebrated_provocatively"
+        },
+        {
+          "op": "match",
+          "incident": "inc_object_thrown"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "iliski_agent",
+          "op": "add",
+          "value": -8
+        }
+      ]
+    },
+    "n_teammate": {
+      "title": "On sekiz yaşında",
+      "kind": "outcome",
+      "text": "Pası veren çocuk on sekiz yaşında ve bu onun üçüncü profesyonel maçı. {actor.youngster.first:acc} belinden tutup kaldırıyorsun ve kamera ikinizi buluyor.\n\nO gece o görüntü senin golünden daha çok paylaşılıyor.\n\nErtesi gün idmanda çocuk yanına gelip bir şey söylemek istiyor, beceremiyor, gidiyor. Bunu bir daha denemeyecek ama unutmayacak.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.4,
+          "incident": "inc_scored_winner"
+        },
+        {
+          "flag": "iliski_youngster",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  }
+}

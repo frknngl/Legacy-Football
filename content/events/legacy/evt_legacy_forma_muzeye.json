@@ -1,0 +1,414 @@
+{
+  "id": "evt_legacy_forma_muzeye",
+  "family": "fam_legacy_muze",
+  "category": "legacy",
+  "tier": "epic",
+  "weight": 92,
+  "once": true,
+  "cooldown": {
+    "self": 60,
+    "family": 24
+  },
+  "trigger": {
+    "flag": "kariyer_mac_sayisi",
+    "op": "gte",
+    "value": 220
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured",
+    "retired"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Camekân",
+          "kind": "branch",
+          "text": "Kulüp müzesi pazartesileri kapalı. Bugün pazartesi ve kapı senin için açıldı.\n\n{actor.president.name} boş bir camekânın önünde duruyor. İçinde bir askı var, üstünde bir kart: adın ve iki tarih. İkincisi henüz boş.\n\n\"Formanı istiyoruz,\" diyor. \"Hangisini verirsen.\"\n\nÜç tane var. Biri kupa finalinden — hiç giymedin, yedektin. Biri ilk maçından, o zaman numaran otuz dörttü. Biri geçen ay, çamurlu, yıkanmamış.\n\nİki camekân ötede {actor.fan_leader.name} duruyor. Kimse çağırmamış. Nasıl girdiğini kimse sormamış.",
+          "choices": [
+            {
+              "id": "c_final",
+              "text": "Kupa finali formasını ver. Müzelik olan odur.",
+              "target": "n_final",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_ilk",
+              "text": "İlk maç formasını ver. Otuz dört numarayı.",
+              "target": "n_ilk",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 19
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 10,
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_camurlu",
+              "text": "Geçen ayın çamurlu formasını ver. Yıkatma.",
+              "target": "n_camurlu",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 17
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -13
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 9
+                }
+              ],
+              "persona": {
+                "mizac": 9,
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ret",
+              "text": "\"Daha bitmedim.\" Camekânı boş bırak.",
+              "target": "n_ret",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -16
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 13
+                }
+              ],
+              "persona": {
+                "durus": 12
+              }
+            }
+          ]
+        },
+        "n_final": {
+          "title": "Giyilmemiş",
+          "kind": "outcome",
+          "text": "Kupa finali forması camekâna girdi. Temiz, ütülü, kusursuz.\n\nAçılışta {actor.president.name} konuştu, fotoğraf çekildi, iyi bir gündü.\n\nÜç ay sonra bir çocuk babasına sordu: \"Bu maçta oynamış mı?\"\n\nBaba cevabı bilmiyordu. Kart da yazmıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_final_formasi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ilk": {
+          "title": "Otuz Dört",
+          "kind": "outcome",
+          "text": "Otuz dört numaralı forma camekâna girdi. Küçüktü — o zaman altmış üç kiloydun.\n\n{actor.fan_leader.name} camekâna uzun uzun baktı, sonra çıktı, hiçbir şey demedi.\n\nErtesi hafta tribünde otuz dört numaralı formalar belirdi. Kulüp mağazasında o numara satılmıyordu; kendileri yazdırmışlardı.\n\nBu, hiçbir kupa töreninde olmayan bir şeydi.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_ilk_forma",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_taraftarla_baglandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_camurlu": {
+          "title": "Yıkanmamış",
+          "kind": "outcome",
+          "text": "\"Bunu. Ve yıkamayın.\"\n\n{actor.president.name} bir şey söylemedi ama yüzü söyledi. Müze görevlisi iki gün itiraz etti, sonra vazgeçti.\n\nCamekânda çamurlu bir forma duruyor ve ziyaretçilerin yarısı bunu bir hata sanıyor.\n\nDiğer yarısı ne demek olduğunu anlıyor ve o yarı, senin için gelenler.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_camurlu_forma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ret": {
+          "title": "Boş Camekân",
+          "kind": "outcome",
+          "text": "\"Daha bitmedim.\"\n\n{actor.president.name} gülümsedi ama gözleri gülmedi. \"Tabii,\" dedi. \"Bekleriz.\"\n\nCamekân boş kaldı. Kart da orada durdu, ikinci tarih hâlâ boş.\n\nO camekânın önünden her geçişinde aynı şeyi düşündün: *ne zaman bitmiş sayılırım?*\n\nCevabı bilen kimse yoktu. En azından kendin seçmiştin.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeyi_reddetti",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_baskanla_gerildi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Depo",
+          "kind": "branch",
+          "text": "Kulübün bodrum katındaki tozlu arşiv odasındasınız. {actor.president.name}, elinde bir kutuyla loş ışığın altında bekliyor. Rafın köşesinde, kariyerinin ilk günlerinden kalma, yıpranmış bir antrenman forması duruyor. Başkan, kutuyu açıp boş bir sergi alanını işaret ediyor. Havada rutubet ve eskimiş bir deri kokusu var. Sessizlik, bir kararın ağırlığıyla ağırlaşmış durumda. Buraya geri dönmek, sadece bir forma bırakmak değil; geçmişin, bugünü nasıl yutacağını seçmek anlamına geliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Orijinal, temiz formayı rafa yerleştir. Herkesin hatırladığı gibi kalsın.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Üzerindeki, kan ve ter izleri silinmemiş maç formasını çiviye as.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Formaları boşver, {actor.president.name} ile sözleşme uzatmanın pazarlığını yap.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Efsanevi formayı müzeye değil, kendi evine götürmek için izin iste.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Moral]",
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "{actor.president.name} memnuniyetle başını sallar. Tarih, üzerine toz konulmasına izin verilmeyecek kadar kusursuz bir şekilde duvardaki yerini alır.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_ilk_forma",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_taraftarla_baglandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İz Bırakmak",
+          "kind": "outcome",
+          "text": "Lekeler belirgin. {actor.president.name} bakışlarını kaçırır. Bu, sadece bir forma değil; müze koridorlarında yankılanacak bir isyanın ilanıdır.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_camurlu_forma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Ticari Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Müze boş kalır. {actor.president.name} cüzdanına uzanırken, odadaki ruhun bir kısmı, imzalanan kağıtların arasına gömülür.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeyi_reddetti",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_baskanla_gerildi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Kişisel Koleksiyon",
+          "kind": "outcome",
+          "text": "{actor.president.name} biraz tereddüt etse de, ona olan borcunu hatırlar. Forma seninle eve gider; halkın değil, sadece senin hafızanın bir parçası olur.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_final_formasi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "id": "evt_media_pundit_yuzlesme_injured",
+  "category": "media",
+  "tier": "epic",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "family": "fam_media_yuzlesme",
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stüdyo Koridoru",
+          "kind": "branch",
+          "text": "Kanal binasının dar koridorunda yürüdüğünde, {actor.pundit.name} ile burun buruna geliyorsun. Sakatlığın nedeniyle koltuk değneklerini sürüklerken, adamın seni aylardır ekranlarda 'tükenmiş' ve 'bitmiş' ilan eden o küçümseyici gülümsemesiyle karşılaşıyorsun. {actor.journalist.name} elinde kayıt cihazıyla bir adım geride, ikinizin arasında yaşanacak bir patlamayı bekliyor. Stüdyo ışıklarının sıcaklığı ve koridorun soğuk metali, üzerindeki baskıyı artırıyor. {actor.pundit.name} hafifçe kenara çekilip senin geçmene izin veriyor; ancak o an, aranızdaki husumeti herkesin önünde nihayete erdirmek için bir fırsat.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerinin içine bakmadan geçip git. Profesyonelce, sessizce.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Omzuna hafifçe çarp ve 'Daha çok beklersin' diye fısılda.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Yanından geçerken ceketine küçük bir zarf iliştir. Susması karşılığında bir miktar para.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Dur, {actor.journalist.name}’e dön ve {actor.pundit.name} hakkında net, ağır bir açıklama yap.",
+              "target": "n_sonuc_liderlik",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -2
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Sessizce geçip gidiyorsun. Arkandan gelen kısık sesli gülüşü duymazdan geliyorsun. İtibarın korunuyor ama o an kendine verdiğin sözü çiğnemenin ağırlığı zihnini kemiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Gerilim",
+          "kind": "outcome",
+          "text": "Yaptığın küçük hamle, yarın manşetlerde 'saldırganlık' olarak yer alacak. Taraftarların gözünde bir kahramansın, ama medyanın sana olan bakışı artık geri dönüşü olmayan bir düşmanlığa evrildi.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Zarfı hiç bakmadan alıyor. Aranızdaki bu gizli anlaşma, stüdyo koridorunda bir sis gibi ağırlaşıyor. Artık ona karşı bir kozun var, ama vicdanın o zarfın ağırlığıyla eziliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_liderlik": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Kelimelerini bir kılıç gibi kullanıyorsun. {actor.pundit.name} şaşkınlıkla susuyor, {actor.journalist.name} ise aradığını bulmuş bir ifadeyle not alıyor. Takım lideri olarak duruşun net; ancak bu tartışmanın yorgunluğu sakat bacağından daha fazla canını yakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Otoparkın en loş köşesinde, asfaltın üzerinde tek bacağınla dengede durmaya çalışıyorsun. {actor.pundit.name}, arabasının kaputuna yaslanmış, elindeki dijital ses kayıt cihazını bir tespih gibi çeviriyor. Işıklar uzaktan gelen bir ambulansın sirenleriyle titriyor. Adam başını kaldırıyor. Gözlerinde ne bir düşmanlık ne de bir hayranlık var; sadece keskin, soğuk bir tanıma duygusu. Ekrandaki o gürültülü, abartılı karakter gitmiş; yerini sessiz, avını bekleyen bir gözlemci bırakmış. Sessizliği sadece uzaktaki siren bozuyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sessizce yanına yaklaş, ceketinin iç cebinden çıkardığın zarfı avucuna bırak. 'Yarınki yayında başkalarından bahset.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini kaçır, topallayarak arabanın yanından geçip git. 'Hakkımdaki yalanlarına verilecek tek bir yanıtım yok.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kaydını tuttuğu cihazı elinden kap ve yere fırlat. 'Beni izlemeye devam et, sahalara nasıl döndüğümü en ön sıradan göreceksin.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} zarfı açmadan ceketine atıyor. Bir anlığına, ilk kez, seni gerçekten gördüğünü fark ediyorsun; bu sessiz anlaşma, senin zayıflığını nakde çevirdiğin bir utanç abidesi olarak zihnine kazınıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk İnziva",
+          "kind": "outcome",
+          "text": "Arkanı dönüp uzaklaşırken, arkandan gelen alaycı bir gülüş duyuyorsun. Sessizliğin, profesyonelliğin maskesi altında seni daha da ağır bir yalnızlığa sürüklüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kırılan Sesler",
+          "kind": "outcome",
+          "text": "Cihazın plastik gövdesi asfalt üzerinde paramparça oluyor. {actor.pundit.name} karakterinin yüzündeki şaşkınlık, sahne ışıklarının altındaki o soğuk maskeyi düşürüyor. Bir an için kazandın, ama yarın manşetlerde ne yazacağını biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

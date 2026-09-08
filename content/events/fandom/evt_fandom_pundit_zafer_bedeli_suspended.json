@@ -1,0 +1,333 @@
+{
+  "id": "evt_fandom_pundit_zafer_bedeli_suspended",
+  "family": "fam_fandom_zafer_bedeli",
+  "category": "fandom",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "suspended"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Yayın",
+          "kind": "branch",
+          "text": "Stüdyo ışıkları soğuk. {actor.pundit.name} karşında, elinde tuttuğu tabletin ekranı yüzüne mavi bir gölge düşürüyor. {actor.fan_leader.name} dışarıda, kapının önünde toplanan kalabalığı yönetiyor; uğultuları yalıtımlı duvarları titretiyor. {actor.journalist.name} ise köşede, not defterini kapatmış, bir avcı gibi bekliyor. {actor.pundit.name} yayına girmek için sana bakıyor. Bir cümlelik itiraf veya bir yalanla kariyerini, taraftarın sana olan o tehlikeli sevgisini yeniden tanımlayacaksın. Sessizlik ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Olanları olduğu gibi anlat; disiplinsizliği kabullen ve özür dile.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kulübü ve yönetimi suçla; tribüne oynamaya devam et.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessiz kal, zarfı al ve yayın başlamadan stüdyodan çık.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_lider",
+              "text": "Yayını devral; {actor.fan_leader.name} ile masaya oturup kontrolü ele al.",
+              "target": "n_outcome_lider",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sınırlar Çizildi",
+          "kind": "outcome",
+          "text": "Kelimelerin yayından sonra stüdyoda yankılanmıyor. {actor.pundit.name} memnuniyetsizce başını sallıyor. Güvenli taraftasın, ama tribünlerin o ateşli desteği artık bir hatıra.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İkinci Bir Yuva",
+          "kind": "outcome",
+          "text": "Tribünlerin sesi dışarıdan içeri doluyor. Kendi adını bağırıyorlar. {actor.pundit.name} gülümsüyor; bu reyting demek. Kendi köprünü yaktın, artık sahada yalnızsın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Boş Koltuk",
+          "kind": "outcome",
+          "text": "Işıklar sönüyor. {actor.pundit.name} masanın üzerindeki boşluğu izliyor. Kimse ne olduğunu anlamadı, herkes sadece bir cevabın gelmesini bekledi. O cevap hiçbir zaman gelmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lider": {
+          "title": "Masadaki Güç",
+          "kind": "outcome",
+          "text": "Söylediğin her kelime bir anlaşmanın parçası. {actor.fan_leader.name} sakinleşti, {actor.pundit.name} ise notlarını sildi. Bir anlık galibiyet, uzun süreli bir yorgunluk getirdi.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stüdyo Dışı Otopark",
+          "kind": "branch",
+          "text": "Otoparkın beton zemininde motor yağı kokusu var. {actor.pundit.name}, elinde sönmüş bir sigarayla bagaj kapağına yaslanmış. Televizyon yayını başlamadan beş dakika önce, üzerine dikilen kameralardan uzakta, şehrin en karanlık köşesinde yüz yüzesiniz. {actor.pundit.name} gözleri yorgun, yüzündeki o bildik alaycı ifade yerini saf bir bıkkınlığa bırakmış. Elindeki dijital kayıt cihazını yavaşça aranızdaki metal çöp konteynerinin üzerine bırakıyor. 'Dışarıdakiler benden bir kahraman, senin gibi bir günah keçisi bekliyor,' diyor sesi titreyerek. 'Bunu bugün bitirebiliriz. Ya bu cihazı sana veririm, içindeki ses kayıtlarıyla her şeyi aklarsın ya da tüm şehir senin düşüşünü ekranlardan izler.'",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kayıt cihazını al ve dosyayı federasyona teslim et; dürüstlük tek çıkış yolu.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Cihazı çöpe at ve mikrofona geçip tüm gerçeği taraftarın önünde haykır.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cihazı geri çevir, ödemeyi kabul et ve sessizce şehri terk et.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 0
+              },
+              "lockLabel": "Sessizlik Bedeli"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Doğrunun Bedeli",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} başını sallıyor, bakışları donuk. Dosyaları teslim ettiğinde kariyerin kurtulabilir ama o sokakların sana olan güveni, yerini soğuk bir mesafeye bırakıyor. Yalnızsın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tribünün Sesi",
+          "kind": "outcome",
+          "text": "Işıkların altına çıktığında, {actor.pundit.name} arkada elleri ceplerinde seni izliyor. Kalabalık coşkuyla bağırıyor, medya ise cellat gibi hazır bekliyor. Bu zafer, kariyerinin sonunu getirecek bir yangın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Gölgede Kayboluş",
+          "kind": "outcome",
+          "text": "Zarfı alıyorsun. {actor.pundit.name} arkasını dönüp gidiyor. Kimse seni bir daha o stadyumda görmeyecek. Banka hesabındaki rakamlar artarken, aynadaki suretin yavaşça yabancılaşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

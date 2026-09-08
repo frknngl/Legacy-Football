@@ -1,0 +1,447 @@
+{
+  "id": "evt_life_prison_cell",
+  "family": "fam_life_prison",
+  "category": "life",
+  "tier": "major",
+  "weight": 60,
+  "cooldown": {
+    "self": 10,
+    "family": 3
+  },
+  "lifeStates": [
+    "incarcerated"
+  ],
+  "variants": [
+    {
+      "id": "v_cellmate",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Hücre arkadaşı",
+          "kind": "branch",
+          "text": "Hücre arkadaşın {actor.cellmate.first}. Kimse soyadını söylemiyor, herkes lakabını kullanıyor. Elli beş yaşında, eski boksör, on bir yıldır burada.\n\nİlk üç gün seninle hiç konuşmadı. Dördüncü gün alt ranzadan seslendi:\n\n\"Sen o futbolcusun.\"\n\nBeşinci gün bir teklif geldi: \"Burada bir lig var. Ayda bir maç. Kazanan koğuş bir hafta ekstra avlu alıyor. Bizim koğuşun kalecisi yok, forveti de yok.\"\n\nSonra ekliyor: \"Ama sen oynarsan başka koğuşlar bahis açar. Bunu da bilerek karar ver.\"",
+          "choices": [
+            {
+              "id": "c_play",
+              "text": "\"Oynarım.\"",
+              "effects": [
+                {
+                  "flag": "iliski_cellmate",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "npc_cellmate_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "sadakat": 6,
+                "dogruluk": -4
+              }
+            },
+            {
+              "id": "c_refuse",
+              "text": "\"Ben burada futbolcu değilim.\"",
+              "effects": [
+                {
+                  "flag": "iliski_cellmate",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5,
+                "mizac": -6
+              }
+            },
+            {
+              "id": "c_condition",
+              "text": "\"Oynarım. Ama bahis olan maçta oynamam.\"",
+              "effects": [
+                {
+                  "flag": "iliski_cellmate",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "mem_refused_fixing",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "npc_cellmate_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "dogruluk": 10,
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_teach",
+              "text": "\"Oynamam ama çalıştırırım. Kalecinizi ben yetiştiririm.\"",
+              "effects": [
+                {
+                  "flag": "iliski_cellmate",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "mem_prison_mentored",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "flag": "npc_cellmate_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "sadakat": 8,
+                "dogruluk": 6
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_visit",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ziyaret",
+          "kind": "branch",
+          "text": "Cam bölme. Telefon ahizesi. Kırk dakika.\n\n{actor.journalist.name} karşında oturuyor ve kaydedicisini masaya koymuyor — ilk kez getirmemiş.\n\n\"Kimse gelmiyor değil mi?\" diye soruyor. Cevap vermiyorsun; cevap gerekmiyor.\n\n\"Bir kitap yazıyorum,\" diyor. \"Senin hakkında değil. Bu ligin hakkında. Sen bir bölümsün.\"\n\nAhizeyi bir elinden diğerine alıyor.\n\n\"İki seçeneğin var: ya bölümü sen anlatırsın, ya başkaları anlatır. İkisinde de yazacağım.\"",
+          "choices": [
+            {
+              "id": "c_talk",
+              "text": "\"Anlatırım. Ama her şeyi anlatırım.\"",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "npc_journalist_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "dogruluk": 12,
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_refuse",
+              "text": "Ahizeyi yerine koy. Görüşme bitti.",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": -8,
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_condition",
+              "text": "\"Bir şartla: babamı yazmayacaksın.\"",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "npc_journalist_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "sadakat": 9,
+                "dogruluk": 6
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İtirafın Eşiği",
+          "kind": "branch",
+          "text": "Hücrenin rutubetli duvarları, {actor.cellmate.name} ile arandaki sessizliği ağırlaştırıyor. O, ranzanın altından sana bakıyor. Gözlerinde, sahada rakip defans hattını okurkenki o keskinlik var. Dosyalar, şahitler, yalanlar... Hepsi birer birer dökülüyor. Olanları reddetmek artık imkansız. Söylenen her kelime, dışarıdaki hayatından bir tuğlayı daha yerinden söküyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Gerçeği savcıya anlatıp iş birliği yapacağını söyle. Kendi hayatını kurtar.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bunu asla yapmadığını, her şeyin bir kumpas olduğunu {actor.cellmate.name} ile yüksek sesle tartış.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessiz kal. Susmanın bedelini ödeyen başkaları varken, cebindeki saklı tutarın yerini değiştir.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Her şeyi {actor.cellmate.name} ile paylaş. Kendi hatalarının sorumluluğunu üstlen ve ona rehberlik et.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_cellmate",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İş Birliği",
+          "kind": "outcome",
+          "text": "İfade tutanağını imzaladığında, üzerine çöken yük bir nebze hafifledi. Artık temiz bir sayfa açabilirsin, ancak bu sayfanın bedeli, kariyerine bir daha asla dönmemek üzerine kurulu.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Red",
+          "kind": "outcome",
+          "text": "Hücrenin soğuk duvarlarına çarpan sesin, dışarıdaki sokaklarda bir efsaneye dönüşüyor. İnsanlar senin masumiyetine inanıyor, ancak hukuk sisteminin çarkları senin aksine dönmeye devam ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfların yeri değişti, ancak vicdanındaki sızı daha da derinleşti. Kimse gerçeği tam olarak bilmeyecek; sen ise bu sessizliğin tutsağı olarak yaşamaya devam edeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": false
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Yol Gösterici",
+          "kind": "outcome",
+          "text": "{actor.cellmate.name}, gözlerinde o ilk günkü şüpheyi taşımıyor artık. Hatalarını kabullenmen, burada bile bir saygınlık uyandırdı. Bu hücre, senin yeni oyun alanın.",
+          "onEnter": [
+            {
+              "flag": "mem_prison_mentored",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

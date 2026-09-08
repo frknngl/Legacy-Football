@@ -1,0 +1,391 @@
+{
+  "id": "evt_mind_physio_kirilma",
+  "family": "fam_mind_kirilma",
+  "category": "mind",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "trigger": {
+    "flag": "lifeState",
+    "op": "eq",
+    "value": "injured"
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kırılma Noktası",
+          "kind": "branch",
+          "text": "Odanın içi yoğun bir antiseptik kokusuyla dolu. {actor.physio.name}, dirseğini masaya yaslamış, MR sonuçlarına bakıyor. Ekranın ışığı yüzünde soğuk, gri bir yansıma bırakmış. {actor.mentor.name} köşede, kollarını göğsünde kavuşturmuş bekliyor. {actor.psychologist.name} ise elinde bir not defteriyle sandalyesinde hafifçe öne eğilmiş. Sessizlik, bir kemiğin çatlama sesi kadar keskin. {actor.physio.name} kağıtları yavaşça masaya bırakıyor, bakışlarını sana dikiyor. 'Bu sezon geri dönmen, sadece bir mucize değil, hayat boyu taşıyacağın bir yük olur,' diyor. {actor.mentor.name} gözlerini kaçırıyor. Duvar saatinin tik-takları, odadaki tek gerçeklik. İçinde bir şeylerin geri dönülemez şekilde koptuğunu hissediyorsun. Karar senin; ya vücudun ya da kariyerin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Doktorun tavsiyesine uy, sezonu kapatıp uzun vadeli iyileşmeye odaklan.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Riskli bir tedavi yöntemi için ısrar et, bir sonraki maça yetişeceğini söyle.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kulübün sigorta ödemelerini göz ardı et, sahte raporla sözleşmeni koru.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_lider",
+              "text": "Physio ile özel bir anlaşma yap, kendi sınırlarını zorlayarak takıma dön.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "durus": 7
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Güvenli Liman",
+          "kind": "outcome",
+          "text": "Sessizce onaylıyorsun. Çıktığında saha ışıkları artık sana ait değilmiş gibi hissettiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Karanlık Bahis",
+          "kind": "outcome",
+          "text": "Masadan kalkıyorsun. Kapıdan çıkarken, arkandan gelen fısıltıların ağırlığını omuzlarında hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessiz Kazanç",
+          "kind": "outcome",
+          "text": "Zarfları imzalıyorsun. Artık kimseye bakamıyorsun, aynalar bile yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Son Fedakarlık",
+          "kind": "outcome",
+          "text": "İkna ediyorsun. {actor.physio.name} başını sallıyor, ancak ikinizin de bildiği o büyük bedel artık zihninde.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta İtiraf",
+          "kind": "branch",
+          "text": "Antrenman sahasının dışındaki otoparkta, {actor.physio.name} aracının kapısını aralık bırakmış bekliyor. Yağmur, aracın tavanında ritmik ve sinir bozucu bir ses çıkarıyor. {actor.physio.name} elindeki tabletin ekranını kapatıp doğrudan gözlerinin içine bakıyor. Hastane raporlarının sahteliği artık bir sır değil, sadece aranızdaki bir yük. Gerçeği yönetim kuruluna sızdırmakla tehdit etmiyor, sadece sessizliğinin bedelini bekliyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Cüzdanındaki tüm nakiti torpido gözüne bırak. 'Bu, ortaklığımızın son taksiti olsun.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Arabanın kapısını sertçe kapat. 'Eğer bu ağzından çıkarsa, senin sicilini benden önce yakarlar.'",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğ. 'Yarın sabah kulübe gidip sakatlığımın gerçek boyutlarını kendi ağzımla açıklayacağım.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Elinle omuzlarını sık. 'İkimiz de bu kariyeri inşa etmek için neleri göze aldığımızı biliyoruz. Sessiz kal, tedaviye devam et.'",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Zihinsel Dayanıklılık 68+]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Satın Alındı",
+          "kind": "outcome",
+          "text": "{actor.physio.name} paraya bakmıyor bile, sadece başını hafifçe sallıyor. Artık bu gizli ortaklık, sadece cüzdanına değil ruhuna da ağır bir ipotek koydu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Tehdit Havada Asılı",
+          "kind": "outcome",
+          "text": "Gözleri korkuyla irileşiyor. {actor.physio.name} arkasına yaslanıyor, artık sana mecbur olduğunu biliyor ama bu nefret, saha dışında sana her an ihanet edebilir.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sonun Başlangıcı",
+          "kind": "outcome",
+          "text": "{actor.physio.name} rahatlamış bir nefes veriyor. İstifa mektubunu yırtıp atacağını biliyorsun; artık kendi doğrularınla yüzleşme vakti.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Zorunlu İttifak",
+          "kind": "outcome",
+          "text": "{actor.physio.name} bir an tereddüt etse de elini omzuna koyuyor. Bu sadece bir tedavi değil, bir suç ortaklığı. Yorgunsun ama en azından oyunun içindesin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

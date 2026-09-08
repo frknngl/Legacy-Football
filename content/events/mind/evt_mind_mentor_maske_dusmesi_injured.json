@@ -1,0 +1,389 @@
+{
+  "id": "evt_mind_mentor_maske_dusmesi_injured",
+  "family": "fam_mind_maske_dusmesi",
+  "category": "mind",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kırılma Anı",
+          "kind": "branch",
+          "text": "Antrenman sahasının revir odasında, alçıdan kurtulmaya çalışan bacağının ağırlığı zihnini eziyor. Kapı yavaşça açılıyor. {actor.mentor.name} içeri giriyor. Gözlerindeki o tanıdık, tavizsiz otorite maskesi, odanın steril ışığı altında ilk kez titriyor. Yanında {actor.psychologist.name} var; elindeki dosyayı masaya bırakıyor. {actor.mentor.name} odadaki ağır sessizliği bozmadan, sandalyeyi sana yaklaştırıyor. Dizlerini aralayıp sana doğru eğildiğinde, üzerindeki o ağır disiplin zırhının altında yorgun, hatta belki de yenilmiş bir adamın nefes alışverişini duyuyorsun. 'Bu sakatlık sadece sahadaki yerini değil, sistemdeki yerini de sorgulatıyor,' diyor. Sesi titremiyor ama gözlerindeki o mutlak hükümranlık kaybolmuş. Bir cevap bekliyor; ama aslında senden beklediği, maskesini tekrar takması için gereken o yalan.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "'Haklısın. İyileşme sürecimi hızlandırıp takıma en kısa sürede dönmek için her türlü fedakarlığa hazırım.'",
+              "target": "n_out_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "'Sistem zaten işlemiyor. Doktorları ikna edip sahaya çıkmam lazım, yoksa her şey biter.'",
+              "target": "n_out_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "'Sakatlığımın ne kadar süreceğini basına farklı yansıtalım. Kontrat yenileme görüşmelerinde kozumuz olur.'",
+              "target": "n_out_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "'Burada kimsenin masum olmadığını ikimiz de biliyoruz. Oyunun kuralı buysa, birlikte kuralları yeniden yazalım.'",
+              "target": "n_out_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_out_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} başını hafifçe sallıyor. Maske geri geliyor. Odayı terk ederken aranızda bir uçurum açıldığını biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_riskli": {
+          "title": "Kumar",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} sana bakıyor, gülümsüyor ama bu gülümseme soğuk. Kendi oyununu oynamaya başladığını ikiniz de anlıyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_gri": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} önündeki kağıtları topluyor. {actor.mentor.name} sadece bakıyor. Artık ikiniz de aynı suçun ortağısınız.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_liderlik": {
+          "title": "İttifak",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} ayağa kalkıp elini omzuna koyuyor. Bu bir akıl hocalığı değil, bir ittifak antlaşması.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Fısıltı",
+          "kind": "branch",
+          "text": "Kulüp binasının bodrum katındaki otoparkta, arabanın içindesin. Sağ bacağındaki korse direksiyona çarpıyor. {actor.mentor.name} yolcu koltuğuna oturuyor. Dışarıdaki yağmur camları dövüyor. Mentorun, elindeki zarfı vites kolunun üzerine bırakıyor. Sessizlik, motorun fan sesiyle bölünüyor. Bakışları, saha dışındaki dünyayı yöneten o soğuk gri tonda. 'Bu sakatlık kariyerinin sonu olabilir veya yeni bir başlangıç,' diyor. Sesindeki tını, öğüt vermekten çok, bir satış konuşmasını andırıyor.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Zarfı hiç açmadan torpidoya at. 'Ne kadar sürecek bu oyun?'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı geri it. 'Tedavi protokolüne sadık kalacağım, başka yolu yok.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı al, flaşların önüne çıkıp sakatlığın abartıldığını söyleyeceğini ima et.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Mentorun gözlerinin içine bak. 'Seni deşifre ederim, sakın beni bu bataklığa çekme.'",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Profesyonellik 74]",
+              "persona": {
+                "sadakat": -10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} arabadan iniyor. Arkasına bakmıyor. Cebindeki ağırlık, attığın her adımda vicdanını sorgulatacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Soğuk Mesafe",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} acı bir tebessümle arabadan iniyor. Kapı sertçe kapanıyor. Doğru olanı yaptın, ama etrafındaki herkes seni birer yabancı olarak görecek.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Gözü Kara",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} başıyla onaylıyor. Yarın her şey farklı olacak. Kaosun içine kendi isteğinle adım atıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Köprüler Yandı",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} yüzündeki maskeyi indiriyor. Gözlerindeki nefret, her şeyin bittiğinin kanıtı. Artık tamamen yalnızsın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

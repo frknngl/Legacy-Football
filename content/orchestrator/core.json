@@ -1,0 +1,2291 @@
+{
+  "$schema": "../../schema/core.schema.json",
+  "schemaVersion": 1,
+  "_note": "FLAG REGISTRY -- TEK DOGRULUK KAYNAGI. Burada beyan edilmeyen flag'e yazilamaz; validator build'de reddeder. kind alani sadece etiket degil, motorun davranisidir.",
+  "_notDeclaredHere": "KISIYE BAGLI ILISKILER BURADA YOK. iliski_captain, iliski_manager, npc_agent_arc... roles.json'daki slotlardan TURETILIR. Buradaki iliski_* flag'leri bir KISI degil, bir TOPLULUK ya da kurumla iliskiyi tasir. mem_* ve inc_* de burada zorunlu degildir: icerigin oz sozlugudur, ContentLoader otomatik beyan eder.",
+  "flags": [
+    {
+      "key": "liderlik",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Liderlik",
+      "softCap": 70
+    },
+    {
+      "key": "profesyonellik",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Profesyonellik",
+      "softCap": 72
+    },
+    {
+      "key": "sokak_itibari",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Sokak itibari",
+      "softCap": 72
+    },
+    {
+      "key": "taraftar_destegi",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Taraftar destegi",
+      "softCap": 72
+    },
+    {
+      "key": "medya_itibari",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Medya itibari",
+      "softCap": 72
+    },
+    {
+      "key": "form",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Form"
+    },
+    {
+      "key": "moral",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Moral"
+    },
+    {
+      "key": "kondisyon",
+      "kind": "stat",
+      "type": "number",
+      "default": 70,
+      "label": "Kondisyon"
+    },
+    {
+      "key": "teknik",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Teknik",
+      "softCap": 75
+    },
+    {
+      "key": "fizik",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Fizik",
+      "softCap": 75
+    },
+    {
+      "key": "mental_dayaniklilik",
+      "kind": "stat",
+      "type": "number",
+      "default": 50,
+      "label": "Mental dayaniklilik",
+      "softCap": 72
+    },
+    {
+      "key": "servet",
+      "kind": "resource",
+      "type": "number",
+      "default": 0,
+      "label": "Servet",
+      "shortfallTo": "borc",
+      "_note": "YETERSIZLIK POLITIKASI: eksiye dusmez; acik borc'a yazilir."
+    },
+    {
+      "key": "borc",
+      "kind": "resource",
+      "type": "number",
+      "default": 0,
+      "label": "Borc"
+    },
+    {
+      "key": "haftalik_gelir",
+      "kind": "resource",
+      "type": "number",
+      "default": 5000,
+      "label": "Haftalik gelir"
+    },
+    {
+      "key": "sosyal_medya_takipci",
+      "kind": "resource",
+      "type": "number",
+      "default": 1000,
+      "label": "Sosyal medya takipcisi"
+    },
+    {
+      "key": "piyasa_degeri",
+      "kind": "derived",
+      "type": "number",
+      "default": 50000,
+      "label": "Piyasa degeri"
+    },
+    {
+      "key": "skandal_seviyesi",
+      "kind": "pressure",
+      "type": "number",
+      "default": 0,
+      "label": "Skandal seviyesi"
+    },
+    {
+      "key": "medya_baskisi",
+      "kind": "pressure",
+      "type": "number",
+      "default": 0,
+      "label": "Medya baskisi",
+      "softCap": 75
+    },
+    {
+      "key": "tukenmislik",
+      "kind": "pressure",
+      "type": "number",
+      "default": 0,
+      "label": "Tukenmislik"
+    },
+    {
+      "key": "sakatlik_riski",
+      "kind": "pressure",
+      "type": "number",
+      "default": 10,
+      "label": "Sakatlik riski"
+    },
+    {
+      "key": "yonetim_baskisi",
+      "kind": "pressure",
+      "type": "number",
+      "default": 0,
+      "label": "Yonetim baskisi"
+    },
+    {
+      "key": "disiplin_sicili",
+      "kind": "pressure",
+      "type": "number",
+      "default": 0,
+      "label": "Disiplin sicili",
+      "_note": "Kariyer boyu BIRIKIMLI. Tekrarlayan suclu sonraki PFDK roll'unde daha sert ceza alir."
+    },
+    {
+      "key": "iliski_takim",
+      "kind": "relation",
+      "type": "number",
+      "default": 50,
+      "label": "Takim arkadaslariyla iliski"
+    },
+    {
+      "key": "iliski_aile",
+      "kind": "relation",
+      "type": "number",
+      "default": 70,
+      "label": "Aileyle iliski"
+    },
+    {
+      "key": "iliski_sponsor",
+      "kind": "relation",
+      "type": "number",
+      "default": 50,
+      "label": "Sponsorlarla iliski"
+    },
+    {
+      "key": "iliski_basin",
+      "kind": "relation",
+      "type": "number",
+      "default": 50,
+      "label": "Basinla iliski"
+    },
+    {
+      "key": "persona_sadakat",
+      "kind": "persona",
+      "type": "number",
+      "default": 50,
+      "label": "Sadakat (parali asker <-> kulup efsanesi)"
+    },
+    {
+      "key": "persona_mizac",
+      "kind": "persona",
+      "type": "number",
+      "default": 50,
+      "label": "Mizac (buz gibi <-> ates topu)"
+    },
+    {
+      "key": "persona_durus",
+      "kind": "persona",
+      "type": "number",
+      "default": 50,
+      "label": "Durus (suskun <-> sozunu esirgemeyen)"
+    },
+    {
+      "key": "persona_dogruluk",
+      "kind": "persona",
+      "type": "number",
+      "default": 50,
+      "label": "Dogruluk (kirli <-> tertemiz)"
+    },
+    {
+      "key": "inc_scored_penalty",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Penalti golu attin"
+    },
+    {
+      "key": "inc_missed_penalty",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Penalti kacirdin"
+    },
+    {
+      "key": "inc_refused_penalty",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Penaltiyi baskasina biraktin"
+    },
+    {
+      "key": "inc_scored_winner",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Galibiyet golu attin"
+    },
+    {
+      "key": "inc_hattrick",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Hat-trick yaptin"
+    },
+    {
+      "key": "inc_missed_sitter",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Bos kaleye atamadin"
+    },
+    {
+      "key": "inc_own_goal",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Kendi kaleene gol attin"
+    },
+    {
+      "key": "inc_saved_point",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Takimi beraberlige tasidin"
+    },
+    {
+      "key": "inc_red_card",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Kirmizi kart gordun"
+    },
+    {
+      "key": "inc_dived",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Dalis yaptin"
+    },
+    {
+      "key": "inc_fought_opponent",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Rakiple kavga ettin"
+    },
+    {
+      "key": "inc_argued_ref",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Hakemle tartistin"
+    },
+    {
+      "key": "inc_substituted_angry",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Sinirli oyundan ciktin"
+    },
+    {
+      "key": "inc_injured_in_match",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Macta sakatlandin"
+    },
+    {
+      "key": "inc_injured_teammate",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Takim arkadasini sakatladin"
+    },
+    {
+      "key": "inc_racist_abuse",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Irkci tezahurata maruz kaldin"
+    },
+    {
+      "key": "inc_celebrated_provocatively",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Provokatif sevindin"
+    },
+    {
+      "key": "inc_gave_armband",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Pazubandi devrettin"
+    },
+    {
+      "key": "inc_var_against",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "VAR aleyhine karar verdi"
+    },
+    {
+      "key": "inc_var_for",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "VAR lehine karar verdi"
+    },
+    {
+      "key": "inc_goal_disallowed",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Golun iptal edildi"
+    },
+    {
+      "key": "inc_ghost_goal",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Cizgiyi gecti mi tartismasi"
+    },
+    {
+      "key": "inc_marginal_offside",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Milimetrik ofsayt"
+    },
+    {
+      "key": "inc_ref_conflict",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Hakemle catisma"
+    },
+    {
+      "key": "inc_object_thrown",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Sahaya cisim atildi"
+    },
+    {
+      "key": "inc_stood_up",
+      "kind": "incident",
+      "type": "boolean",
+      "default": false,
+      "label": "Sahada tavir aldin"
+    },
+    {
+      "key": "inc_minute",
+      "kind": "incident",
+      "type": "number",
+      "default": 0,
+      "label": "Olayin dakikasi",
+      "min": 0,
+      "max": 120
+    },
+    {
+      "key": "inc_scoreline",
+      "kind": "incident",
+      "type": "string",
+      "default": "",
+      "label": "Olay anindaki skor"
+    },
+    {
+      "key": "inc_opponent",
+      "kind": "incident",
+      "type": "string",
+      "default": "",
+      "label": "Olay anindaki rakip"
+    },
+    {
+      "key": "mem_bribed_police",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Polise rusvet verdin"
+    },
+    {
+      "key": "mem_refused_fixing",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Sike teklifini reddettin"
+    },
+    {
+      "key": "mem_reported_fixing",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Sikeyi ihbar ettin"
+    },
+    {
+      "key": "mem_accepted_fixing",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Sike teklifini kabul ettin"
+    },
+    {
+      "key": "mem_turned_informant",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Itirafci oldun"
+    },
+    {
+      "key": "mem_mafia_favor_owed",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yeraltina borclusun"
+    },
+    {
+      "key": "mem_used_federation_contact",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Federasyon tanidigini kullandin"
+    },
+    {
+      "key": "mem_gambling_debt",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kumar borcun oldu"
+    },
+    {
+      "key": "mem_betrayed_captain",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kaptani sattin"
+    },
+    {
+      "key": "mem_took_injection",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Igne vurdurup oynadin"
+    },
+    {
+      "key": "mem_hid_injury",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Sakatligini gizledin"
+    },
+    {
+      "key": "mem_media_war",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Medyayla savasa girdin"
+    },
+    {
+      "key": "mem_public_apology",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kameralar onunde ozur diledin"
+    },
+    {
+      "key": "mem_refused_to_apologize",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ozur dilemeyi reddettin"
+    },
+    {
+      "key": "mem_missed_final_penalty",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Finalde penalti kacirdin"
+    },
+    {
+      "key": "mem_scored_final_penalty",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Finalde penalti golu attin"
+    },
+    {
+      "key": "mem_gave_up_penalty",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Penaltiyi arkadasina biraktin"
+    },
+    {
+      "key": "mem_saved_teammate",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Takim arkadasini kurtardin"
+    },
+    {
+      "key": "mem_fought_coach",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Hocayla kapistin"
+    },
+    {
+      "key": "mem_sold_derby",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Derbi sattin"
+    },
+    {
+      "key": "mem_stood_against_racism",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Irkciliga karsi durdun"
+    },
+    {
+      "key": "mem_stayed_silent_racism",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Irkcilik karsisinda sustun"
+    },
+    {
+      "key": "mem_justice_shirt",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "ADALET tisortu giydin"
+    },
+    {
+      "key": "mem_attacked_tff",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "TFF'ye acikca yuklendin"
+    },
+    {
+      "key": "mem_was_incarcerated",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Hapis yattin"
+    },
+    {
+      "key": "mem_prison_mentored",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Hapiste bir gence mentorluk ettin"
+    },
+    {
+      "key": "mem_refused_escape",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Firar teklifini reddettin"
+    },
+    {
+      "key": "mem_missed_fathers_death",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Babanin olumune yetisemedin"
+    },
+    {
+      "key": "mem_reads_own_criticism",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kendi elestirilerini okuyorsun"
+    },
+    {
+      "key": "mem_dated_journalist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Gazeteciyle iliskin oldu"
+    },
+    {
+      "key": "mem_tax_evasion",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Vergi kacirdin"
+    },
+    {
+      "key": "mem_secret_child",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Gizli cocugun var"
+    },
+    {
+      "key": "mem_left_academy_friend",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Akademi arkadasini geride biraktin"
+    },
+    {
+      "key": "last_match_result",
+      "kind": "match",
+      "type": "string",
+      "default": "none",
+      "label": "Son mac sonucu"
+    },
+    {
+      "key": "last_match_rating",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Son mac reytingi",
+      "min": 0,
+      "max": 10
+    },
+    {
+      "key": "last_match_goals",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Son macta gol"
+    },
+    {
+      "key": "last_match_assists",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Son macta asist"
+    },
+    {
+      "key": "last_match_minutes",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Son macta dakika",
+      "min": 0,
+      "max": 120
+    },
+    {
+      "key": "last_match_cards",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Son macta kart"
+    },
+    {
+      "key": "match_importance",
+      "kind": "match",
+      "type": "string",
+      "default": "league",
+      "label": "Mac onemi"
+    },
+    {
+      "key": "is_starter",
+      "kind": "match",
+      "type": "boolean",
+      "default": true,
+      "label": "Ilk 11'de mi"
+    },
+    {
+      "key": "season_goals",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Sezon golu"
+    },
+    {
+      "key": "season_assists",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Sezon asisti"
+    },
+    {
+      "key": "season_apps",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Sezon maci"
+    },
+    {
+      "key": "team_league_position",
+      "kind": "match",
+      "type": "number",
+      "default": 10,
+      "label": "Takimin lig sirasi"
+    },
+    {
+      "key": "unbeaten_streak",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Yenilmezlik serisi"
+    },
+    {
+      "key": "scoreless_streak",
+      "kind": "match",
+      "type": "number",
+      "default": 0,
+      "label": "Gol atamama serisi"
+    },
+    {
+      "key": "opponent_name",
+      "kind": "match",
+      "type": "string",
+      "default": "",
+      "label": "Rakip takim"
+    },
+    {
+      "key": "currentTurn",
+      "kind": "system",
+      "type": "number",
+      "default": 1,
+      "label": "Tur"
+    },
+    {
+      "key": "player_name",
+      "kind": "system",
+      "type": "string",
+      "default": "Sen",
+      "label": "Oyuncunun adi"
+    },
+    {
+      "key": "age",
+      "kind": "system",
+      "type": "number",
+      "default": 16,
+      "label": "Yas"
+    },
+    {
+      "key": "season",
+      "kind": "system",
+      "type": "number",
+      "default": 1,
+      "label": "Sezon"
+    },
+    {
+      "key": "week",
+      "kind": "system",
+      "type": "number",
+      "default": 1,
+      "label": "Hafta"
+    },
+    {
+      "key": "archetype",
+      "kind": "system",
+      "type": "string",
+      "default": "street",
+      "label": "Arketip"
+    },
+    {
+      "key": "position",
+      "kind": "system",
+      "type": "string",
+      "default": "MF",
+      "label": "Mevki",
+      "_note": "Arketipin startPosition degerinden yazilir. Icerik OKUR (santrfor/stoper dallari), motor yazar."
+    },
+    {
+      "key": "lifeState",
+      "kind": "system",
+      "type": "string",
+      "default": "playing",
+      "label": "Hayat durumu"
+    },
+    {
+      "key": "is_injured",
+      "kind": "system",
+      "type": "boolean",
+      "default": false,
+      "label": "Sakat mi"
+    },
+    {
+      "key": "injury_weeks",
+      "kind": "system",
+      "type": "number",
+      "default": 0,
+      "label": "Sakatlik haftasi"
+    },
+    {
+      "key": "is_suspended",
+      "kind": "system",
+      "type": "boolean",
+      "default": false,
+      "label": "Cezali mi"
+    },
+    {
+      "key": "suspension_matches",
+      "kind": "system",
+      "type": "number",
+      "default": 0,
+      "label": "Kalan ceza maci"
+    },
+    {
+      "key": "is_captain",
+      "kind": "system",
+      "type": "boolean",
+      "default": false,
+      "label": "Kaptan mi"
+    },
+    {
+      "key": "retired",
+      "kind": "system",
+      "type": "boolean",
+      "default": false,
+      "label": "Emekli mi"
+    },
+    {
+      "key": "sentence_weeks",
+      "kind": "system",
+      "type": "number",
+      "default": 0,
+      "label": "Kalan hukum haftasi"
+    },
+    {
+      "key": "npc_father_alive",
+      "kind": "system",
+      "type": "boolean",
+      "default": true,
+      "label": "Baba hayatta mi"
+    },
+    {
+      "key": "stature",
+      "kind": "derived",
+      "type": "string",
+      "default": "nobody",
+      "label": "Sohret"
+    },
+    {
+      "key": "club_tier",
+      "kind": "derived",
+      "type": "string",
+      "default": "lower",
+      "label": "Kulup seviyesi"
+    },
+    {
+      "key": "media_era",
+      "kind": "derived",
+      "type": "string",
+      "default": "press",
+      "label": "Medya cagi"
+    },
+    {
+      "key": "nemesis_stature",
+      "kind": "derived",
+      "type": "string",
+      "default": "nobody",
+      "label": "Rakibin sohreti"
+    },
+    {
+      "key": "nemesis_arc",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Rakip arki asamasi"
+    },
+    {
+      "key": "kupa_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Kupa sayisi"
+    },
+    {
+      "key": "milli_mac_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Milli mac sayisi"
+    },
+    {
+      "key": "mem_mind_kirilma_psychologist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind kirilma psychologist -- evt_mind_psychologist_kirilma"
+    },
+    {
+      "key": "mem_mind_kirilma_psychologist_yakin",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind kirilma psychologist yakin -- evt_personal_child_geri_donus_yakin"
+    },
+    {
+      "key": "mem_mind_kirilma_psychologist_orta",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind kirilma psychologist orta -- evt_media_agent_devir_teslim_orta"
+    },
+    {
+      "key": "mem_dark_suc_ortakligi_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark suc ortakligi lawyer -- evt_dark_lawyer_suc_ortakligi"
+    },
+    {
+      "key": "mem_dark_ihanet_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark ihanet lawyer -- evt_dark_lawyer_ihanet"
+    },
+    {
+      "key": "mem_dark_borc_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark borc lawyer -- evt_dark_lawyer_borc"
+    },
+    {
+      "key": "mem_dark_yuzlesme_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark yuzlesme lawyer -- evt_dark_lawyer_yuzlesme"
+    },
+    {
+      "key": "mem_dark_kirilma_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark kirilma lawyer -- evt_dark_lawyer_kirilma"
+    },
+    {
+      "key": "mem_dark_ihanet_fixer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark ihanet fixer -- evt_dark_fixer_ihanet"
+    },
+    {
+      "key": "mem_dark_borc_agent",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark borc agent -- evt_dark_agent_borc"
+    },
+    {
+      "key": "mem_dark_yuzlesme_childhood_friend",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark yuzlesme childhood friend -- evt_dark_childhood_friend_yuzlesme"
+    },
+    {
+      "key": "mem_dark_ayartma_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark ayartma lawyer -- evt_dark_lawyer_ayartma"
+    },
+    {
+      "key": "mem_dark_kirilma_prosecutor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark kirilma prosecutor -- evt_dark_prosecutor_kirilma"
+    },
+    {
+      "key": "mem_dark_suc_ortakligi_fixer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark suc ortakligi fixer -- evt_dark_fixer_suc_ortakligi"
+    },
+    {
+      "key": "mem_locker_devir_teslim_assistant",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker devir teslim assistant -- evt_locker_assistant_devir_teslim"
+    },
+    {
+      "key": "mem_locker_golge_veteran",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker golge veteran -- evt_locker_veteran_golge"
+    },
+    {
+      "key": "mem_locker_sadakat_sinavi_rival_teammate",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker sadakat sinavi rival teammate -- evt_locker_rival_teammate_sadakat_sinavi"
+    },
+    {
+      "key": "mem_locker_taninma_keeper",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker taninma keeper -- evt_locker_keeper_taninma"
+    },
+    {
+      "key": "mem_locker_yuzlesme_captain",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker yuzlesme captain -- evt_locker_captain_yuzlesme"
+    },
+    {
+      "key": "mem_locker_reddedilis_manager",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker reddedilis manager -- evt_locker_manager_reddedilis"
+    },
+    {
+      "key": "mem_locker_reddedilis_youngster",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker reddedilis youngster -- evt_locker_youngster_reddedilis"
+    },
+    {
+      "key": "mem_locker_golge_star_teammate",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker golge star teammate -- evt_locker_star_teammate_golge"
+    },
+    {
+      "key": "mem_personal_terk_edilis_partner",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal terk edilis partner -- evt_personal_partner_terk_edilis"
+    },
+    {
+      "key": "mem_personal_itiraf_mother",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal itiraf mother -- evt_personal_mother_itiraf"
+    },
+    {
+      "key": "mem_personal_sadakat_sinavi_cousin",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal sadakat sinavi cousin -- evt_personal_cousin_sadakat_sinavi"
+    },
+    {
+      "key": "mem_personal_kayip_father",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal kayip father -- evt_personal_father_kayip"
+    },
+    {
+      "key": "mem_personal_geri_donus_sibling",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal geri donus sibling -- evt_personal_sibling_geri_donus"
+    },
+    {
+      "key": "mem_personal_borc_childhood_friend",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal borc childhood friend -- evt_personal_childhood_friend_borc"
+    },
+    {
+      "key": "mem_mind_kirilma_physio",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind kirilma physio -- evt_mind_physio_kirilma"
+    },
+    {
+      "key": "mem_mind_itiraf_mentor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind itiraf mentor -- evt_mind_mentor_itiraf"
+    },
+    {
+      "key": "mem_mind_ayartma_partner",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind ayartma partner -- evt_mind_partner_ayartma"
+    },
+    {
+      "key": "mem_mind_maske_dusmesi_doctor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind maske dusmesi doctor -- evt_mind_doctor_maske_dusmesi"
+    },
+    {
+      "key": "mem_mind_sinav_psychologist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind sinav psychologist -- evt_mind_psychologist_sinav"
+    },
+    {
+      "key": "mem_mind_itiraf_partner",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind itiraf partner -- evt_mind_partner_itiraf"
+    },
+    {
+      "key": "mem_mind_kirilma_partner",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind kirilma partner -- evt_mind_partner_kirilma"
+    },
+    {
+      "key": "mem_money_ayartma_sporting_director",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "money ayartma sporting director -- evt_money_sporting_director_ayartma"
+    },
+    {
+      "key": "mem_money_zafer_bedeli_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "money zafer bedeli lawyer -- evt_money_lawyer_zafer_bedeli"
+    },
+    {
+      "key": "mem_money_borc_agent",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "money borc agent -- evt_money_agent_borc"
+    },
+    {
+      "key": "mem_money_sinav_president",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "money sinav president -- evt_money_president_sinav"
+    },
+    {
+      "key": "mem_money_borc_president",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "money borc president -- evt_money_president_borc"
+    },
+    {
+      "key": "mem_money_sinav_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "money sinav lawyer -- evt_money_lawyer_sinav"
+    },
+    {
+      "key": "mem_transfer_terk_edilis_rival_club_manager",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "transfer terk edilis rival club manager -- evt_transfer_rival_club_manager_terk_edilis"
+    },
+    {
+      "key": "mem_transfer_reddedilis_sporting_director",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "transfer reddedilis sporting director -- evt_transfer_sporting_director_reddedilis"
+    },
+    {
+      "key": "mem_transfer_ayartma_president",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "transfer ayartma president -- evt_transfer_president_ayartma"
+    },
+    {
+      "key": "mem_transfer_sadakat_sinavi_agent",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "transfer sadakat sinavi agent -- evt_transfer_agent_sadakat_sinavi"
+    },
+    {
+      "key": "mem_transfer_geri_donus_captain",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "transfer geri donus captain -- evt_transfer_captain_geri_donus"
+    },
+    {
+      "key": "mem_transfer_terk_edilis_president",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "transfer terk edilis president -- evt_transfer_president_terk_edilis"
+    },
+    {
+      "key": "mem_fandom_maske_dusmesi_fan_leader",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "fandom maske dusmesi fan leader -- evt_fandom_fan_leader_maske_dusmesi"
+    },
+    {
+      "key": "mem_fandom_zafer_bedeli_journalist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "fandom zafer bedeli journalist -- evt_fandom_journalist_zafer_bedeli"
+    },
+    {
+      "key": "mem_fandom_yuzlesme_pundit",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "fandom yuzlesme pundit -- evt_fandom_pundit_yuzlesme"
+    },
+    {
+      "key": "mem_fandom_taninma_fan_leader",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "fandom taninma fan leader -- evt_fandom_fan_leader_taninma"
+    },
+    {
+      "key": "mem_fandom_reddedilis_journalist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "fandom reddedilis journalist -- evt_fandom_journalist_reddedilis"
+    },
+    {
+      "key": "mem_business_kayip_childhood_friend",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "business kayip childhood friend -- evt_business_childhood_friend_kayip"
+    },
+    {
+      "key": "mem_business_borc_agent",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "business borc agent -- evt_business_agent_borc"
+    },
+    {
+      "key": "mem_business_devir_teslim_president",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "business devir teslim president -- evt_business_president_devir_teslim"
+    },
+    {
+      "key": "mem_business_sinav_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "business sinav lawyer -- evt_business_lawyer_sinav"
+    },
+    {
+      "key": "mem_business_ayartma_lawyer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "business ayartma lawyer -- evt_business_lawyer_ayartma"
+    },
+    {
+      "key": "mem_media_yuzlesme_pundit",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "media yuzlesme pundit -- evt_media_pundit_yuzlesme_injured"
+    },
+    {
+      "key": "mem_media_taninma_journalist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "media taninma journalist -- evt_media_journalist_taninma_injured"
+    },
+    {
+      "key": "mem_media_maske_dusmesi_agent",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "media maske dusmesi agent -- evt_media_agent_maske_dusmesi_injured"
+    },
+    {
+      "key": "mem_media_taninma_pundit",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "media taninma pundit -- evt_media_pundit_taninma_injured"
+    },
+    {
+      "key": "mem_mind_ayartma_psychologist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind ayartma psychologist -- evt_mind_psychologist_ayartma_injured"
+    },
+    {
+      "key": "mem_mind_maske_dusmesi_mentor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind maske dusmesi mentor -- evt_mind_mentor_maske_dusmesi_injured"
+    },
+    {
+      "key": "mem_mind_kirilma_doctor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind kirilma doctor -- evt_mind_doctor_kirilma_injured"
+    },
+    {
+      "key": "mem_mind_itiraf_physio",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "mind itiraf physio -- evt_mind_physio_itiraf_injured"
+    },
+    {
+      "key": "mem_personal_kayip_childhood_friend",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal kayip childhood friend -- evt_personal_childhood_friend_kayip_injured"
+    },
+    {
+      "key": "mem_personal_terk_edilis_father",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal terk edilis father -- evt_personal_father_terk_edilis_injured"
+    },
+    {
+      "key": "mem_personal_borc_sibling",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal borc sibling -- evt_personal_sibling_borc_injured"
+    },
+    {
+      "key": "mem_personal_geri_donus_partner",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal geri donus partner -- evt_personal_partner_geri_donus_injured"
+    },
+    {
+      "key": "mem_life_terk_edilis_rehab_counselor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "life terk edilis rehab counselor -- evt_life_rehab_counselor_terk_edilis_rehab_clinic"
+    },
+    {
+      "key": "mem_life_geri_donus_mentor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "life geri donus mentor -- evt_life_mentor_geri_donus_rehab_clinic"
+    },
+    {
+      "key": "mem_life_devir_teslim_youngster",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "life devir teslim youngster -- evt_life_youngster_devir_teslim_rehab_clinic"
+    },
+    {
+      "key": "mem_life_itiraf_mentor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "life itiraf mentor -- evt_life_mentor_itiraf_rehab_clinic"
+    },
+    {
+      "key": "mem_personal_borc_cousin",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal borc cousin -- evt_personal_cousin_borc_retired"
+    },
+    {
+      "key": "mem_personal_terk_edilis_childhood_friend",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "personal terk edilis childhood friend -- evt_personal_childhood_friend_terk_edilis_retired"
+    },
+    {
+      "key": "mem_business_kayip_agent",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "business kayip agent -- evt_business_agent_kayip_retired"
+    },
+    {
+      "key": "mem_money_zafer_bedeli_sporting_director",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "money zafer bedeli sporting director -- evt_money_sporting_director_zafer_bedeli_retired"
+    },
+    {
+      "key": "mem_dark_kirilma_childhood_friend",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "dark kirilma childhood friend -- evt_dark_childhood_friend_kirilma_transfer_listed"
+    },
+    {
+      "key": "mem_transfer_ayartma_captain",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "transfer ayartma captain -- evt_transfer_captain_ayartma_transfer_listed"
+    },
+    {
+      "key": "mem_legal_itiraf_fixer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "legal itiraf fixer -- evt_legal_fixer_itiraf_suspended"
+    },
+    {
+      "key": "mem_fandom_yuzlesme_journalist",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "fandom yuzlesme journalist -- evt_fandom_journalist_yuzlesme_suspended"
+    },
+    {
+      "key": "mem_fandom_zafer_bedeli_pundit",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "fandom zafer bedeli pundit -- evt_fandom_pundit_zafer_bedeli_suspended"
+    },
+    {
+      "key": "mem_life_geri_donus_guard",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "life geri donus guard -- evt_life_guard_geri_donus_incarcerated"
+    },
+    {
+      "key": "mem_life_terk_edilis_prison_mentor",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "life terk edilis prison mentor -- evt_life_prison_mentor_terk_edilis_incarcerated"
+    },
+    {
+      "key": "mem_life_itiraf_cellmate",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "life itiraf cellmate -- evt_life_cellmate_itiraf_incarcerated"
+    },
+    {
+      "key": "mem_rakibe_transfer",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ezeli rakibe transfer oldu -- geri alinamaz"
+    },
+    {
+      "key": "rakip_kulup_gecmisi",
+      "kind": "memory",
+      "type": "number",
+      "default": 0,
+      "label": "Kac kez ezeli rakibe transfer oldu"
+    },
+    {
+      "key": "mem_rakibe_gecis_yuzlesme",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Rakibe gecis sonrasi taraftarla yuzlesme -- evt_transfer_rakibe_gecis_hesaplasma"
+    },
+    {
+      "key": "mem_kopruleri_yakti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Eski kulubune donus yolu kapandi"
+    },
+    {
+      "key": "mem_ilk_sozlesme_bekledi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk sozlesmede velisinin okumasini bekledi"
+    },
+    {
+      "key": "mem_ilk_sozlesme_soru_sordu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk sozlesmede madde sordu"
+    },
+    {
+      "key": "mem_ilk_sozlesme_kendi_istedi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk sozlesmeyi tek basina imzalamak istedi"
+    },
+    {
+      "key": "mem_ilk_sozlesme_acele_etti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk sozlesmeyi okumadan imzaladi"
+    },
+    {
+      "key": "mem_basina_durust_konustu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Basina ilk kez durust konustu -- evt_media_ilk_roportaj"
+    },
+    {
+      "key": "mem_basina_kacamak_yapti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Basinin sorusunu kulube havale etti"
+    },
+    {
+      "key": "mem_basina_yalan_soyledi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Basina yalan soyledi -- evt_media_ilk_roportaj"
+    },
+    {
+      "key": "mem_ilk_maas_susmayi_secti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk maasi sorgulamadi"
+    },
+    {
+      "key": "mem_ilk_maas_soru_sordu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk maasta kesintileri sordu/bildi"
+    },
+    {
+      "key": "mem_ilk_maas_hepsini_harcadi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk maasi ayni gun bitirdi"
+    },
+    {
+      "key": "mem_olcum_takvime_uydu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Doktorun yuk takvimine uydu"
+    },
+    {
+      "key": "mem_olcum_pazarlik_etti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Doktorla dinlenme gunu pazarligi yapti"
+    },
+    {
+      "key": "mem_olcum_sessiz_kaldi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Olcum sonrasi hicbir sey demedi"
+    },
+    {
+      "key": "mem_isim_duzeltildi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Adinin yanlis soylenmesini duzeltti"
+    },
+    {
+      "key": "mem_isim_duzeltilmedi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Aylarca baskasinin adiyla cagrildi"
+    },
+    {
+      "key": "mem_ilk_istek_kabul_etti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ailesinin ilk istegini tumuyle kabul etti"
+    },
+    {
+      "key": "mem_ilk_istek_yariladi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ailesinin ilk istegini yarim kabul etti"
+    },
+    {
+      "key": "mem_ilk_istek_kendisi_gotturdu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Formayi kendisi goturdu, fotograf yok"
+    },
+    {
+      "key": "mem_ilk_istek_reddetti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ailesinin ilk istegini reddetti"
+    },
+    {
+      "key": "mem_marsi_soyledi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk milli macta marsi soyledi"
+    },
+    {
+      "key": "mem_marsi_sussmayi_secti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk milli macta marsta sustu"
+    },
+    {
+      "key": "mem_tunelde_konustu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Tunelde yanindaki cirakla konustu"
+    },
+    {
+      "key": "mem_kadroda_genci_savundu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli kadroda genci savundu"
+    },
+    {
+      "key": "mem_kadroda_kidemi_savundu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli kadroda kidemlileri savundu"
+    },
+    {
+      "key": "mem_kadroda_karismadi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli kadro kararina karismadi"
+    },
+    {
+      "key": "mem_kadroda_kendini_verdi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli kadroda kendi yerini teklif etti"
+    },
+    {
+      "key": "mem_milli_veda_hazir_metin",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli veda metnini danisman yazdi"
+    },
+    {
+      "key": "mem_milli_veda_kendi_yazdi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli veda metnini kendisi yazdi"
+    },
+    {
+      "key": "mem_milli_veda_gercegi_soyledi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli vedada gercek sebebi acikladi"
+    },
+    {
+      "key": "mem_milli_veda_sessiz_kaldi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli vedada sessiz kaldi, haber elinden cikti"
+    },
+    {
+      "key": "mem_federasyona_karsi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Federasyonla acik carpisma yasadi"
+    },
+    {
+      "key": "kariyer_mac_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Kariyer boyunca oynanan mac"
+    },
+    {
+      "key": "kariyer_gol_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Kariyer boyunca atilan gol"
+    },
+    {
+      "key": "kariyer_asist_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Kariyer boyunca yapilan asist"
+    },
+    {
+      "key": "mem_mevki_degisti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Hoca mevkisini degistirdi, kabul etti"
+    },
+    {
+      "key": "mem_mevki_sorgulandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Mevki degisimini sorguladi"
+    },
+    {
+      "key": "mem_mevki_itiraz_etti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Mevki degisimine odanin onunde itiraz etti"
+    },
+    {
+      "key": "mem_hocaya_karsi_geldi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Hocaya acikca karsi geldi"
+    },
+    {
+      "key": "mem_mevki_konusuldu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Mevki degisimini kapali kapi ardinda konustu"
+    },
+    {
+      "key": "mem_ugur_kaleciyi_destekledi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kalecinin ugurunu savundu"
+    },
+    {
+      "key": "mem_ugur_bozdu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Takim arkadasinin ugurunu bozdu"
+    },
+    {
+      "key": "mem_ugur_katildi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ugura kendisi de katildi"
+    },
+    {
+      "key": "mem_reklam_tamamlandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Reklam cekimini sonuna kadar goturdu"
+    },
+    {
+      "key": "mem_reklam_kendi_cumlesi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Reklamda kendi cumlesini kullandi"
+    },
+    {
+      "key": "mem_reklam_terk_etti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Reklam cekimini yarida birakti"
+    },
+    {
+      "key": "mem_sozlesme_bozdu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Bir ticari sozlesmeyi bozdu"
+    },
+    {
+      "key": "mem_kumarhaneden_kalkti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kumarhaneden kazanirken kalkti"
+    },
+    {
+      "key": "mem_kumarhanede_kaldi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kumarhanede sabaha kadar kaldi"
+    },
+    {
+      "key": "mem_kumarhanede_tanistirildi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kumarhanede tanimadigi biriyle tanisti"
+    },
+    {
+      "key": "mem_yuzuncu_mac_toren",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yuzuncu mac toreni yapildi"
+    },
+    {
+      "key": "mem_yuzuncu_mac_anneye",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yuzuncu mac formasini annesine verdi"
+    },
+    {
+      "key": "mem_tribune_cikti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Mac gunu tribune cikti"
+    },
+    {
+      "key": "mem_yuzuncu_mac_takima",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yuzuncu mac formasini takima birakti"
+    },
+    {
+      "key": "mem_yuzuncu_mac_reddetti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yuzuncu mac torenini reddetti"
+    },
+    {
+      "key": "mem_sistem_ogrendi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yeni sistemi ogrenmeye calisti"
+    },
+    {
+      "key": "mem_sistem_sorgulandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yeni sistemde yerini sordu"
+    },
+    {
+      "key": "mem_sistem_menajere_gitti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Sistem degisimini menajerine tasidi"
+    },
+    {
+      "key": "mem_ayrilik_dusundu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk kez ayrilmayi dusundu"
+    },
+    {
+      "key": "mem_sistem_kanitladi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Sistem degisimini sahada kanitlayarak karsiladi"
+    },
+    {
+      "key": "mem_sikayet_etmedi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yorulmasina ragmen sikayet etmedi"
+    },
+    {
+      "key": "mem_yerine_gelen_kutlandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yerine gelen transferi alenen kutladi"
+    },
+    {
+      "key": "mem_yerine_gelen_yuzlesti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yerine gelen transfer icin direktorle yuzlesti"
+    },
+    {
+      "key": "mem_direktore_borc_yazdi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Sportif direktor ona borclu kaldi"
+    },
+    {
+      "key": "mem_yerine_gelen_sustu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yerine gelen transfer karsisinda sustu"
+    },
+    {
+      "key": "mem_devre_arasi_ustlendi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Devre arasinda hatayi ustlendi"
+    },
+    {
+      "key": "mem_devre_arasi_savundu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Devre arasinda kendini savundu"
+    },
+    {
+      "key": "mem_devre_arasi_sustu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Devre arasinda sustu"
+    },
+    {
+      "key": "mem_devre_arasi_kaptan_korudu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Devre arasinda kaptan onu korudu"
+    },
+    {
+      "key": "mem_kaptana_borclu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kaptana borclu kaldi"
+    },
+    {
+      "key": "mem_bahis_reddetti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Bahis uygulamasini reddetti"
+    },
+    {
+      "key": "mem_bahis_hesabi_acti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Bahis hesabi acti"
+    },
+    {
+      "key": "mem_kayit_disi_hesap",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Baskasinin adina kayit disi hesabi var"
+    },
+    {
+      "key": "mem_bahis_uyardi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Takim arkadasini bahis konusunda uyardi"
+    },
+    {
+      "key": "mem_takim_arkadasini_karsina_aldi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Bir takim arkadasini karsisina aldi"
+    },
+    {
+      "key": "mem_bahis_kaptana_soyledi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Bahis meselesini kaptana tasidi"
+    },
+    {
+      "key": "mem_ellinci_gol_konustu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ellinci gol icin roportaj verdi"
+    },
+    {
+      "key": "mem_ellinci_gol_eski_arkadas",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ellinci golde eski takim arkadasina dondu"
+    },
+    {
+      "key": "mem_eski_baglanti_canlandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kopmus bir baglanti yeniden kuruldu"
+    },
+    {
+      "key": "mem_ellinci_gol_reddetti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ellinci gol topunu almadi"
+    },
+    {
+      "key": "mem_muzeye_final_formasi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Muzeye kupa finali formasini verdi"
+    },
+    {
+      "key": "mem_muzeye_ilk_forma",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Muzeye ilk mac formasini verdi"
+    },
+    {
+      "key": "mem_taraftarla_baglandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Taraftarla ozel bir bag kurdu"
+    },
+    {
+      "key": "mem_muzeye_camurlu_forma",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Muzeye yikanmamis formasini verdi"
+    },
+    {
+      "key": "mem_muzeyi_reddetti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Muze teklifini reddetti"
+    },
+    {
+      "key": "mem_baskanla_gerildi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Baskanla arasi gerildi"
+    },
+    {
+      "key": "mem_locker_karsilik_verdi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker karsilik verdi -- evt_locker_veteran_ilk_gun"
+    },
+    {
+      "key": "mem_locker_sessiz_basladi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker sessiz basladi -- evt_locker_veteran_ilk_gun"
+    },
+    {
+      "key": "mem_locker_veteran_sordu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker veteran sordu -- evt_locker_veteran_ilk_gun"
+    },
+    {
+      "key": "mem_locker_yer_kapti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker yer kapti -- evt_locker_veteran_ilk_gun"
+    },
+    {
+      "key": "mem_locker_formayi_aldi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker formayi aldi -- evt_locker_youngster_ayni_mevki"
+    },
+    {
+      "key": "mem_locker_formayi_birakti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker formayi birakti -- evt_locker_youngster_ayni_mevki"
+    },
+    {
+      "key": "mem_locker_gizli_anlasma",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker gizli anlasma -- evt_locker_youngster_ayni_mevki"
+    },
+    {
+      "key": "mem_locker_hakeme_birakti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "locker hakeme birakti -- evt_locker_youngster_ayni_mevki"
+    },
+    {
+      "key": "potansiyel",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Kariyer tavani -- teknik/fizik bu degeri asamaz"
+    },
+    {
+      "key": "sezon_mac_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Bu sezon oynanan mac -- gelisimin girdisi"
+    },
+    {
+      "key": "piyasa_carpani",
+      "kind": "resource",
+      "type": "number",
+      "default": 100,
+      "min": 0,
+      "max": 300,
+      "label": "Piyasanin sana bakisi (%100 = notr)"
+    },
+    {
+      "key": "sozlesme_sezon",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Sozlesmenin bitmesine kalan sezon"
+    },
+    {
+      "key": "sezon_gol_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Bu sezon atilan gol"
+    },
+    {
+      "key": "sezon_asist_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Bu sezon yapilan asist"
+    },
+    {
+      "key": "odul_sayisi",
+      "kind": "derived",
+      "type": "number",
+      "default": 0,
+      "label": "Kazanilan bireysel odul"
+    },
+    {
+      "key": "mem_gol_krali",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Bir sezon gol krali oldu"
+    },
+    {
+      "key": "mem_yilin_oyuncusu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Bir sezon yilin oyuncusu secildi"
+    },
+    {
+      "key": "mem_turnuva_oynadi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Buyuk turnuvada oynadi"
+    },
+    {
+      "key": "mem_turnuva_sampiyonu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Buyuk turnuva kazandi"
+    }
+  ],
+  "_softCapNotu": "AZALAN GETIRI DIZI. Bu degerin uzerindeki ARTISLAR kalan bosluga gore sonumlenir; azalislar sonumlenmez. Olculdu: liderlik bayragina 237 etki dokunuyor ve 233'u ARTI (+1113'e karsilik -23); dizi olmadan 50'den baslayan bayrak kariyerin ortasinda 100'e yapisiyor ve icerikteki 219 kilitli secim kosulu (esikler 55-70) islevsizlesiyor. Diziyi yukseltmek kapilari erken acar, dusurmek tirmanisi zorlastirir -- kod degil bu satir degisir."
+}

@@ -1,0 +1,246 @@
+{
+  "id": "evt_rival_final_match",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "epic",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": {
+    "self": 999,
+    "family": 10
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Final",
+      "kind": "branch",
+      "text": "Yirmi yil once ucuncu sahada otuz kisi vardi. Bu aksam elli iki bin.\n\nTunelde yine tam arkanda duruyor. Ikinizin de sakali agarmis, ikiniz de bandajlisiniz, ikiniz de bunun son buyuk gece oldugunu biliyorsunuz.\n\nDoksanincinci dakika, 1-1. Hakem son duduge hazirlanirken ceza sahasi icinde ikiniz ayni topa gidiyorsunuz ve o topu ikiniz de tam olarak nasil oynayacaginizi biliyorsunuz — cunku yirmi yildir birbirinizi izliyorsunuz.\n\nO durakliyor. Sen duraklamiyorsun. Ya da tam tersi; hangisinin oldugunu bu aksam sen seceksin.\n\nTribun uguldamiyor. Elli iki bin kisi ayni anda nefesini tutuyor.\n\n{actor.captain.first} on alti disinda bagiriyor. {actor.manager.first} kenarda ayakta. {actor.journalist.first} basin tribununde yazmayi birakti.\n\nBu topun sonunda biri kupa kaldiracak, biri emekli olacak.",
+      "choices": [
+        {
+          "id": "c_shoot",
+          "text": "Vur. Yirmi yildir bunun icin bekliyordun.",
+          "target": "n_shoot",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 9
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 12
+            }
+          ],
+          "persona": {
+            "mizac": 8,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_pass",
+          "text": "Bosta duran {actor.youngster.first:dat} ver. Kupa senin degil, takimin.",
+          "target": "n_pass",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 9
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "piyasa_carpani",
+              "op": "add",
+              "value": -7
+            }
+          ],
+          "persona": {
+            "sadakat": 12,
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_foul",
+          "text": "Onu dusur. Uzatmalara git, riski sifirla.",
+          "target": "n_foul",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 9
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -28
+            },
+            {
+              "flag": "mem_rival_humiliated",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": -12,
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_let",
+          "text": "Cekil. Bu topu onun oynamasina izin ver.",
+          "target": "n_let",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 9
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 40
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "mem_rival_helped",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": 10,
+            "sadakat": -8,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_shoot": {
+      "title": "Direk",
+      "kind": "outcome",
+      "text": "Topa vuruyorsun ve elli iki bin kisi ayaga kalkiyor.\n\nDirek. Sonra hakem duduge basiyor.\n\nUzatmalarda kupayi kaldiran sen olmuyorsun. Ama o gece hicbir gazete skoru yazmiyor; hepsi o vurusun fotografini basiyor — ikinizin de havada oldugu, ikinizin de yuzunun ayni ifadeyi tasidigi kare.\n\nYirmi yil sonra o fotograf hala duvarlarda asili. Kimin kazandigini kimse hatirlamiyor.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 15
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -12
+        },
+        {
+          "flag": "mem_rival_final_shot",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_pass": {
+      "title": "Pas",
+      "kind": "outcome",
+      "text": "{actor.youngster.first} topu agla bulusturuyor ve ne yaptigini anlamadan kosmaya basliyor.\n\nSen kosmuyorsun. Orta sahada duruyorsun ve elli iki bin kisinin bagirisini dinliyorsun.\n\n{actor.nemesis.name} birkac metre otende, ellerini dizlerine dayamis, sana bakiyor. Bir sey soylemiyor. Basini sallayip cimlere bakiyor.\n\nO gece kupayi {actor.youngster.first} kaldiriyor. Sen ikinci siradasin ve orasi tam olarak olman gereken yer.",
+      "onEnter": [
+        {
+          "flag": "liderlik",
+          "op": "add",
+          "value": 18
+        },
+        {
+          "flag": "iliski_nemesis",
+          "op": "add",
+          "value": 15
+        },
+        {
+          "flag": "mem_gave_up_penalty",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_foul": {
+      "title": "Faul",
+      "kind": "outcome",
+      "text": "Onu dusuruyorsun ve hakem karti cikariyor.\n\nYerde yatarken sana bakiyor ve ilk kez, gercekten ilk kez, gozlerinde ofke yok. Yorgunluk var.\n\n\"Bu kadar mi?\" diyor. \"Yirmi yil sonra bu mu?\"\n\nUzatmalari kazaniyorsunuz. Kupa toreninde el sikismiyorsunuz ve kameralar bunu gorup buyutuyor.\n\nO gece kupayi kaldiriyorsun. Elinde agir duruyor ve agirligin nereden geldigini biliyorsun.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "mem_rival_final_foul",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_let": {
+      "title": "Cekilme",
+      "kind": "outcome",
+      "text": "Bir adim geri atiyorsun ve o topu aliyor.\n\nAgi buluyor. Elli iki bin kisinin yarisi susuyor, yarisi cildiriyor.\n\nSevinmiyor. Topu aldigi yerde duruyor ve sana bakiyor — ne yaptigini anlamis birinin bakisi.\n\nTribundeki hicbir insan bunu affetmiyor. Ertesi gun taraftar sitelerinde adin \"biten adam\" olarak geciyor ve haklilar; o gece bir sey bitti.\n\nAma o adam, hayatinin geri kalaninda sana bir sey borclu oldugunu bilecek.",
+      "onEnter": [
+        {
+          "flag": "npc_nemesis_arc",
+          "op": "set",
+          "value": 9
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 25
+        },
+        {
+          "flag": "mem_rival_shook_hands",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

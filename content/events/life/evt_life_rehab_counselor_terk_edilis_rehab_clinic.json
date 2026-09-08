@@ -1,0 +1,392 @@
+{
+  "id": "evt_life_rehab_counselor_terk_edilis_rehab_clinic",
+  "family": "fam_life_terk_edilis",
+  "category": "life",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Boş Koltuk",
+          "kind": "branch",
+          "text": "Klinikteki bekleme salonunun havası ağır. {actor.rehab_counselor.name} elindeki dosyayı dizlerine koymuş, dikkatle pencereden dışarı bakıyor. Ziyaret saati dolalı yirmi dakika oldu. Beklediğin o tanıdık silüet, kapıdan giren hemşirenin dışında kimse değil. {actor.rehab_counselor.name} sana doğru dönüyor, yüzünde ifade kırıntısı yok. Sadece bir sessizlik. Buradaki herkesin bir hikayesi var ama seninki, kapının önünde bitmiş gibi görünüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı topla ve hiçbir şey olmamış gibi odana dön.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Klinik bahçesine çık, gidenlerin ardındaki boşluğu izle.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Menajerinle telefon görüşmesine başla, dışarıdaki imajını kurtar.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "{actor.rehab_counselor.name} ile süreci konuş, gerçekleri yüzüne vur.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_rehab_counselor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Kapıyı kapattın. İçerideki soğuk koridor, dış dünyanın sıcaklığından daha samimi geliyor artık.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Bahçedeki Yalnızlık",
+          "kind": "outcome",
+          "text": "Bahçedeki bankta otururken gece çöktü. Kimse gelmedi. Artık neyi kanıtlamaya çalıştığını unutuyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "İş Odaklı",
+          "kind": "outcome",
+          "text": "Paran hesabına yattı, ismin manşetlerde. Ama odaya döndüğünde yatağın yine bomboş duruyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "{actor.rehab_counselor.name} sana baktı. Gözlerindeki acımayı gördün. Yine de, durumu kabullenmek için tek yol bu diyalogdu.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Klinik mutfağının cızırtılı floresan lambası titriyor. {actor.rehab_counselor.name}, elinde yarısı içilmiş plastik bir bardakla tezgahın diğer ucunda duruyor. Saat gece yarısını geçti. Sessizlik, birikmiş yalanların ağırlığıyla boğucu. İkinizden başka kimse yok. {actor.rehab_counselor.name}, bakışlarını bardağın dibindeki tortuya sabitlemiş, az önce sorduğu sorunun cevabını bekliyor. Dün gece kulüp tesisinde yaşanan o arbedeyi, çantamda sakladığım o yasaklı paketi biliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Gerçekleri bir bir anlat. En azından burada bir dürüstlük kalsın.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Konuyu değiştir ve yarınki terapi seansına odaklanacağını söyle.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sus, cebimdeki zarfı ona uzat. İsimsiz bir bağış gibi görünsün.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bak ve klinik sonrası için yeni bir rota çiz.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_rehab_counselor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "İtirafın Bedeli",
+          "kind": "outcome",
+          "text": "Söylediklerin havada asılı kaldı. {actor.rehab_counselor.name} bir şey söylemedi, sadece bardağını çöp kutusuna attı ve odadan ayrıldı. Yarın her şey ortaya dökülecek.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Kaçış",
+          "kind": "outcome",
+          "text": "Sessizce arkamı döndüm. {actor.rehab_counselor.name} peşimden gelmedi. İçimdeki huzursuzluk, bastırılmış bir anı olarak daha derinlere gömüldü.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Suskunluk Bedeli",
+          "kind": "outcome",
+          "text": "Zarf masaya düştü. İkimiz de paranın sesini duyduk. {actor.rehab_counselor.name} zarfı alırken bakışlarını kaçırdı. Artık birbirimizin günah ortağıyız.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yeni Bir İrade",
+          "kind": "outcome",
+          "text": "{actor.rehab_counselor.name} ilk defa gülümsedi. Bu yorgun bir gülümsemeydi ama aramızdaki duvarı yıktı. Yarın için bir umut doğdu, ancak vücudumun yorgunluğu artıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_life_terk_edilis_rehab_counselor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

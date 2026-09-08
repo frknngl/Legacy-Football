@@ -1,0 +1,64 @@
+{
+  "id": "evt_rival_first_sighting",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 8 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Diger yari saha",
+      "kind": "branch",
+      "text": "Genclik turnuvasi. Ucuncu sahada, tribunde otuz kisi var ve yirmisi baba.\n\nKarsi takimda senin yasinda biri oynuyor. Ayni mevki, ayni ayak, ayni acgozlulukle topu istiyor. Iki kez seni gecti; ucuncusunde sen onu durdurdun ve o durdugun yeri hatirladi.\n\nMac bitiminde el sikismiyorsunuz. Bakisiyorsunuz.\n\nSoyunma odasinin kapisinda {actor.manager.name} bir isim okuyor: {actor.nemesis.name}. Sonra sana bakiyor. \"Bunu aklinda tut,\" diyor. \"On bes yil boyunca adini duyacaksin.\"\n\nHocanin boyle konustugunu hic duymamistin.",
+      "choices": [
+        {
+          "id": "c_greet",
+          "text": "Geri don, elini uzat. Once sen.",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": 12 },
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 1 },
+            { "flag": "iliski_manager", "op": "add", "value": 5 },
+            { "flag": "sokak_itibari", "op": "add", "value": -8 }
+          ],
+          "persona": { "dogruluk": 5, "mizac": -4 }
+        },
+        {
+          "id": "c_study",
+          "text": "Hicbir sey soyleme. Kayitlarini bul, izle, calis.",
+          "effects": [
+            { "flag": "teknik", "op": "add", "value": 4 },
+            { "flag": "profesyonellik", "op": "add", "value": 6 },
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 1 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -4 }
+          ],
+          "persona": { "mizac": -6, "durus": -3 }
+        },
+        {
+          "id": "c_mock",
+          "text": "Yaninda gecerken bir sey soyle. Duyacagi kadar alcak sesle.",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": -18 },
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 1 },
+            { "flag": "sokak_itibari", "op": "add", "value": 6 },
+            { "flag": "mem_rival_humiliated", "op": "set", "value": true }
+          ],
+          "persona": { "mizac": 9, "durus": 6, "dogruluk": -4 }
+        },
+        {
+          "id": "c_ignore",
+          "text": "Kim oldugunu bile umursama. Otobuse bin.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 1 },
+            { "flag": "moral", "op": "add", "value": 4 },
+            { "flag": "iliski_manager", "op": "add", "value": -4 }
+          ],
+          "persona": { "mizac": -8 }
+        }
+      ]
+    }
+  }
+}

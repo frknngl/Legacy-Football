@@ -1,0 +1,362 @@
+{
+  "id": "evt_transfer_agent_sadakat_sinavi",
+  "family": "fam_transfer_sadakat_sinavi",
+  "category": "transfer",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "trigger": {
+    "flag": "liderlik",
+    "op": "gte",
+    "value": 0
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Agentin Masası",
+          "kind": "branch",
+          "text": "{actor.agent.name} masasının üzerindeki iki sözleşmeyi işaret ediyor. Biri kariyerini zirveye taşıyacak dev bir kulüp, diğeri ise çocukluk hayallerini süsleyen, ekonomik olarak mütevazı ama manevi bağı yüksek bir proje. {actor.agent.name} gözlerini deviriyor, purosunun dumanı odadaki ağır havayı daha da boğuyor. 'Bu sadece bir imza değil,' diyor fısıltıyla. 'Hangisine ihanet edeceğini seçiyorsun. Eğer o dev kulübe gidersen, menajerlik komisyonu artacak ama eski çevrenden dışlanacaksın. Yerel kulübü seçersen, bu adamın kariyerim üzerindeki yatırımını yakmış olacaksın. İkisi de bu masada seni bekliyor, zaman daralıyor.'",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Büyük kulübün sözleşmesini imzala. Profesyonel olmanın bedeli budur.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Eski kulübe dön. Taraftarın gururu, maaş çekinden daha kıymetli.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfları al, rakamları yukarı çekmesini bekle. Herkesin bir fiyatı vardır.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Masaya otur. İki projeyi birleştir, şartlarını dikte et.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Kalem kâğıt üzerinde iz bırakırken {actor.agent.name} başını sallıyor. Geriye dönüşü olmayan bir yola girdin.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Eve Dönüş",
+          "kind": "outcome",
+          "text": "Sözleşmeyi itiyorsun. {actor.agent.name} yüzünde soğuk bir gülümsemeyle seni süzüyor, bu hamlenin bedelini ödeteceğini belli ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Rakamlar değişti. {actor.agent.name} el sıkışırken gözlerinde artık saygı değil, sadece ticaretin soğukluğu var.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Kontrol Sende",
+          "kind": "outcome",
+          "text": "{actor.agent.name} ilk defa bir oyuncunun karşısında geri adım atıyor. Masadan kalkarken zihnin yorgun, ama iplerin senin elinde olduğunu biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Garajdaki Karar",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki otopark, gece yarısı sessizliğine gömülü. Arabanın farları {actor.agent.name}’in yüzünü yarı aydınlık, yarı karanlık bırakıyor. {actor.agent.name} bagajı açıyor; içeride tek bir çanta ve üzerinde başka bir kulübün logosu bulunan mühürlü bir dosya var. 'Bu gece imzalarsan, yarın sabah hiçbir şey olmamış gibi antrenmana çıkarsın,' diyor. Sesi yankılanıyor. Çantadaki nakit, gelecekteki olası bir imza parasından çok daha fazlasını vaat ediyor. Sessizlik, tavan arasındaki borulardan damlayan su sesiyle bozuluyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Çantayı bagajdan al ve bagajı sertçe kapat. 'Bunu unutalım,' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Dosyayı alıp çantayı orada bırak. 'Rakamlar biraz daha yukarı çıkmalı,' diye fısılda.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -6
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Geri adım at. 'Sistemin dışına çıkmıyorum,' diyerek arkana bakmadan yürü.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Dosyayı al ve {actor.agent.name}’in gözlerinin içine bak. 'Bunu senin için değil, kulüp için imzalıyorum,' de.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Profesyonellik 68]",
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "İtibarın Bedeli",
+          "kind": "outcome",
+          "text": "Çanta artık senin. Sokaktaki çocukların gözündeki kahramanlık payen arttı ama yarın sabah gazetelerdeki manşetler, kulüple olan ilişkini daha da gerecek. Sessizliğin bedelini ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Huzursuz Zenginlik",
+          "kind": "outcome",
+          "text": "Bankadaki hanen büyüdü. Ancak aynaya baktığında artık o eski, sadece topuna odaklanan oyuncuyu görmüyorsun. Paranın ağırlığı omuzlarında.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Vicdanlı Boşluk",
+          "kind": "outcome",
+          "text": "Arabanın farları uzaklaşırken yalnız kaldın. Profesyonelce davrandın, sistemin çarkları arasında temiz kaldın; ama o çantadaki fırsatın kaçışını düşünmek bir süre uykularını kaçıracak.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Sistemin İçinde",
+          "kind": "outcome",
+          "text": "İmza, kariyerin için bir kalkan oldu. {actor.agent.name} memnun, sen ise sadece işini yaptın. Yorgunluk dizlerine vuruyor, zihnin ise yeni hedeflere kilitli.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

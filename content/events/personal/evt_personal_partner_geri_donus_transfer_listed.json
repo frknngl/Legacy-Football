@@ -1,0 +1,324 @@
+{
+  "id": "evt_personal_partner_geri_donus_transfer_listed",
+  "family": "fam_personal_geri_donus",
+  "category": "personal",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Eşiğin Eşiğinde",
+          "kind": "branch",
+          "text": "Antrenman sahasının kapısından girmene gerek kalmadı. {actor.partner.name}, otoparktaki köşede bekliyor. Araba motorunun sesi, yağmurun metale vuruşuyla karışıyor. Transfer listesindesin; telefonun sessiz, menajerin ortalıkta yok. {actor.partner.name} camı aralıyor. Gözleri, ayrıldığın o şehre geri dönmen için tek bir şansın kaldığını anlatıyor. Bu kapıdan bir kez daha geçmek, seni küllerinden mi doğuracak yoksa geçmişin çamurunda mı boğacak? Yanında duran çanta, sadece kıyafetlerini değil, taşınması zor pişmanlıkları da içeriyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bunu yapamam. Gelecek için artık çok geç, yarın yeni bir menajerle görüşeceğim.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Eski formayı tekrar üzerime geçirmek için her şeyi riske atarım.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sözleşme şartlarını konuşalım, duygular bir kenara.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Hata yaptık, ikimiz de biliyoruz. Ama bu sefer yönetimi ben devralıyorum.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "{actor.partner.name} başını hafifçe salladı. Gözlerinde bir beklenti yok artık. Arabayı çalıştırıp uzaklaştığında, otoparkta sadece sen ve sessizliğin kaldı. Kariyerin için en mantıklı olanı seçtin ama içindeki o boşluk şimdi daha soğuk.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İnatçı Dönüş",
+          "kind": "outcome",
+          "text": "Kapıyı açtın ve yanına oturdun. {actor.partner.name} gaza basarken aynadan eski sahana son kez baktın. Bu bir geri dönüş değil, bir inatlaşma. Taraftarların seni nasıl karşılayacağı ise sadece sisli bir ihtimal.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Ticari Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Para konuşuldu, şartlar belirlendi. {actor.partner.name} sana soğuk bir bakış atıyor. Bu artık bir ilişki değil, bir ortaklık. Hesaplara yatan paranın ağırlığı, aranızdaki tüm o eski hatıraların tozunu bastırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Yeni Kontrol",
+          "kind": "outcome",
+          "text": "Direksiyona elini koydun. {actor.partner.name} ilk defa güvenle gülümsedi. Kariyerindeki tüm bu dağınıklığı tek bir hamleyle toparlamaya niyetlisin. Yorgunsun ama ilk defa rotayı sen çiziyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Yüzleşmesi",
+          "kind": "branch",
+          "text": "Eşyaların yarısı kolilerde. {actor.partner.name} mutfak masasının üzerine bir zarf bıraktı. İçinde sadece transfer listesindeki ismin değil, kulübün gizli muhasebe kayıtlarının kopyası var. Pencereden dışarı bakıyor, sokak lambasının ışığı yüzündeki yorgunluğu vurguluyor. Gürültüden uzak, tek bir kelime etmeden bekliyor. Söylenmeyen her şey odanın içindeki havayı ağırlaştırıyor. Artık bu gizlilikten bir çıkış yolu yok.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı al ve yak. Bu sessizlik ikimize de servet kazandıracak.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Ona belgeleri medyaya sızdırmasını söyle. Kaybedecek hiçbir şeyim kalmadı.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kendi ellerinle kulüp yönetimine teslim et. Profesyonel kalmak zorundayız.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Bir Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.partner.name} yavaşça başını salladı. Kül yığınına dönüşen kağıtlar, artık asla açılmayacak bir sırrın mührü oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Geri Dönüşü Olmayan Yol",
+          "kind": "outcome",
+          "text": "Gözlerinin içindeki korkuyu gördün ama çekilmedin. {actor.partner.name} telefonunu eline aldı; kariyerinin sonuna giden kapıyı araladı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Doğru Olan",
+          "kind": "outcome",
+          "text": "Sessizliği senin bu soğuk tavrın bozdu. {actor.partner.name} mutfaktan çıkarken arkasına bile bakmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

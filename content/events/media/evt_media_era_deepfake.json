@@ -1,0 +1,118 @@
+{
+  "id": "evt_media_era_deepfake",
+  "family": "fam_media_era",
+  "category": "media",
+  "tier": "epic",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 40, "family": 20 },
+  "mediaEras": ["deepfake"],
+  "lifeStates": ["playing", "loaned", "national_duty", "injured", "suspended", "transfer_listed", "retired"],
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yapmadığın şey",
+      "kind": "branch",
+      "text": "Videoyu üç kez izliyorsun ve üçünde de kendini görüyorsun.\n\nSes senin sesin. Yüzündeki o kırışık senin kırışığın; kimse onu bilmez, sen bilirsin. Arka planda tanıdığın bir koridor var. Söylediğin cümle, senin kuracağın türden bir cümle.\n\nAma o cümleyi kurmadın. O koridorda o gün değildin. Bunu kanıtlayamıyorsun çünkü kimse nerede olmadığını kanıtlayamaz.\n\n{actor.agent.name} sabaha karşı geliyor, elinde iki telefon. \"Adli bilişim raporu üç hafta sürer,\" diyor. \"Video üç saatte yayıldı.\"\n\n{actor.pundit.name} yayını çoktan duyurdu. {actor.journalist.name} bir kez aradı, sonra aramadı — bu daha kötü.\n\nMasada üç şey var: {actor.lawyer.first:gen} kartviziti, bir kamera, ve senin telefonun.",
+      "choices": [
+        {
+          "id": "c_legal",
+          "text": "{actor.lawyer.name:acc} ara. Bu bir suç ve suç kanıtlanır.",
+          "target": "n_legal",
+          "effects": [
+            { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": -200000, "perTier": -400000 } },
+            { "flag": "medya_baskisi", "op": "add", "value": 15 },
+            { "flag": "profesyonellik", "op": "add", "value": 6 },
+            { "flag": "moral", "op": "add", "value": -10 }
+          ],
+          "persona": { "dogruluk": 6, "mizac": -5 }
+        },
+        {
+          "id": "c_camera",
+          "text": "Kameranın karşısına geç. Kesintisiz, kırk dakika, tek çekim.",
+          "target": "n_camera",
+          "effects": [
+            { "flag": "taraftar_destegi", "op": "add", "value": 20 },
+            { "flag": "medya_baskisi", "op": "add", "value": 25 },
+            { "flag": "sokak_itibari", "op": "add", "value": 15 },
+            { "flag": "tukenmislik", "op": "add", "value": 15 },
+            { "flag": "mem_media_war", "op": "set", "value": true }
+          ],
+          "persona": { "durus": 12, "dogruluk": 10 }
+        },
+        {
+          "id": "c_silence",
+          "text": "Hiçbir şey yapma. Yalanın ömrü kısadır.",
+          "target": "n_silence",
+          "effects": [
+            { "flag": "medya_baskisi", "op": "add", "value": 35 },
+            { "flag": "taraftar_destegi", "op": "add", "value": -15 },
+            { "flag": "mental_dayaniklilik", "op": "add", "value": 10 },
+            { "flag": "moral", "op": "add", "value": -18 }
+          ],
+          "persona": { "mizac": -10, "durus": -6 }
+        },
+        {
+          "id": "c_own_fake",
+          "text": "Kendi sahteni üret. Onların oyununu onlara oynat.",
+          "target": "n_own_fake",
+          "requires": { "flag": "persona_dogruluk", "op": "lte", "value": 40 },
+          "lockLabel": "[Doğruluk 40 ve altı]",
+          "effects": [
+            { "flag": "sokak_itibari", "op": "add", "value": 22 },
+            { "flag": "medya_itibari", "op": "add", "value": -25 },
+            { "flag": "skandal_seviyesi", "op": "add", "value": 30 },
+            { "flag": "sosyal_medya_takipci", "op": "add", "value": 1500000 }
+          ],
+          "persona": { "dogruluk": -15, "mizac": 10 }
+        }
+      ]
+    },
+
+    "n_legal": {
+      "title": "Üç hafta",
+      "kind": "outcome",
+      "text": "Rapor üç hafta sonra geliyor ve videonun sahte olduğunu kanıtlıyor. On dört sayfa, teknik dil, kimse okumuyor.\n\n{actor.lawyer.first} tebrik ediyor: \"Kazandık.\"\n\nO gün sokakta bir adam sana bakıp başını iki yana sallıyor. Rapordan haberi yok. Hiç olmayacak.\n\nMahkemede haklı çıktın. Kimsenin kafasında hiçbir şey değişmedi.",
+      "onEnter": [
+        { "flag": "medya_itibari", "op": "add", "value": 10 },
+        { "flag": "medya_baskisi", "op": "add", "value": -15 },
+        { "flag": "mem_public_apology", "op": "set", "value": false },
+        { "flag": "npc_lawyer_arc", "op": "add", "value": 1 }
+      ]
+    },
+
+    "n_camera": {
+      "title": "Kırk dakika, tek çekim",
+      "kind": "outcome",
+      "text": "Kırk dakika boyunca kesintisiz konuşuyorsun. Kimseyi suçlamıyorsun. Bir yerde sesin çatlıyor ve o kısmı kesmiyorsun.\n\nGörüntü iki günde otuz milyon izleniyor. Altında iki kamp kuruluyor ve ikisi de kendinden emin.\n\n{actor.journalist.name} sonunda yazıyor: \"Bu adamın yalan söylediğini düşünmüyorum. Ama artık bunun bir önemi olup olmadığından emin değilim.\"\n\nBu çağda gerçek bir şey değil, bir taraf.",
+      "onEnter": [
+        { "flag": "npc_journalist_arc", "op": "add", "value": 1 },
+        { "flag": "iliski_journalist", "op": "add", "value": 12 },
+        { "flag": "mental_dayaniklilik", "op": "add", "value": 12 }
+      ]
+    },
+
+    "n_silence": {
+      "title": "Ömrü kısa değilmiş",
+      "kind": "outcome",
+      "text": "Video ölmüyor. Altı ay sonra hâlâ dolaşıyor, iki yıl sonra bir belgeselde \"iddia edilen görüntü\" olarak geçiyor.\n\nHiçbir zaman doğrulanmıyor. Hiçbir zaman yalanlanmıyor da.\n\nYıllar sonra bir çocuk sana o cümleyi soruyor ve sen \"onu ben söylemedim\" diyorsun. Çocuk gülümsüyor ve inanmıyor.\n\nSusmak bazen doğru cevaptır. Bu, o zamanlardan biri değildi.",
+      "onEnter": [
+        { "flag": "mem_refused_to_apologize", "op": "set", "value": true },
+        { "flag": "medya_itibari", "op": "add", "value": -12 }
+      ]
+    },
+
+    "n_own_fake": {
+      "title": "Aynı silah",
+      "kind": "outcome",
+      "text": "Üretmesi dört saat sürüyor ve bu, işin en korkutucu tarafı.\n\nVideoda {actor.pundit.name} kendi programında sana iftira attığını itiraf ediyor. Sahte, elbette. Kusursuz, elbette.\n\nİki gün boyunca herkes onu konuşuyor. Üçüncü gün ikisinin de sahte olduğu anlaşılıyor ve o andan sonra hiç kimse hiçbir görüntüye inanmıyor.\n\nSen kazanmadın. Sadece herkesi kendi bulunduğun yere indirdin.",
+      "onEnter": [
+        { "flag": "npc_pundit_arc", "op": "add", "value": 2 },
+        { "flag": "iliski_pundit", "op": "add", "value": -30 },
+        { "flag": "mem_media_war", "op": "set", "value": true }
+      ]
+    }
+  }
+}

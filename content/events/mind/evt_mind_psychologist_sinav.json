@@ -1,0 +1,395 @@
+{
+  "id": "evt_mind_psychologist_sinav",
+  "family": "fam_mind_sinav",
+  "category": "mind",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Test",
+          "kind": "branch",
+          "text": "Klinikteki oda rutubet kokuyor. {actor.psychologist.name} masanın diğer ucunda, önündeki dosyayı ağır ağır çeviriyor. Dışarıda antrenman sahasından gelen top sesleri yok. Sadece floresan lambanın tiz vızıltısı var. Karşındaki kişi gözlüklerini çıkarıp masaya bırakıyor. 'Düşüşün hızını herkes görüyor,' diyor sesi mekanik bir soğuklukla. 'Ancak buradaki soru fiziksel değil. İyileşmeyi mi seçiyorsun, yoksa sadece mazeretlerin arkasına sığınmayı mı?' Önündeki kâğıt kalem boş. Cevap bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dürüst bir özeleştiri yazıp tüm sorumluluğu üzerime alıyorum.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sistemi ve kulübü suçlayan, öfkeli bir manifestoyu imzaya açıyorum.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kâğıdı boş bırakıp, primleri garantiye alacak gizli sözleşmeye imza atıyorum.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Psikoloğun gözlerinin içine bakıp, tüm kliniği rehabilite edecek bir yol haritası sunuyorum.",
+              "target": "n_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_psychologist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İtiraflar",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} kâğıdı alıp okuyor. Yüzünde bir mimik oynamıyor. 'Kabul etmek başlangıç,' diyor kısaca. Odadan çıkarken omzunda ağır bir yük hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Kalemi sertçe bırakıyorsun. {actor.psychologist.name} kâğıdı yırtıp çöpe atıyor. 'Kendi sonunu kendi ellerinle yazmayı seviyorsun,' diyor. Dışarıdaki gürültü artık daha yakın geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Kâğıt temiz kalıyor. {actor.psychologist.name} sessizce çekmecesinden bir zarf çıkarıp uzatıyor. 'Burada herkesin bir bedeli var,' diyor. Zarfın ağırlığı vicdanındaki boşlukla yarışıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_liderlik": {
+          "title": "Otorite",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} ilk defa gülümsüyor. Bu acı verici bir zafer. 'Liderlik, enkazın altında nefes alabilmektir,' diyor dosyayı kapatırken.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Gelen Teklif",
+          "kind": "branch",
+          "text": "Odanın pencereleri dışarıdaki sağanak yağmurdan dolayı tamamen buğulanmış. {actor.psychologist.name} masanın üzerindeki kayıt cihazını kapatıyor, kırmızı ışığı sönüyor. Odada sadece ikimizin nefes alışverişi duyuluyor. Masanın üzerinde imzalanmamış bir rapor ve yanında üzerinde isim yazmayan ağır, kalın bir zarf duruyor. {actor.psychologist.name} arkasına yaslanıyor, gözlüklerini yavaşça çıkarıp çerçevesiyle oynamaya başlıyor. Raporu imzalamam gerektiğini, yoksa kariyerimin bu noktada bir daha asla düzelemeyecek bir viraja gireceğini biliyoruz. Zarfın içi ise sessizliği bozacak kadar ağır hissettiriyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Zarfı alıp ceketimin iç cebine itiyorum. İmzayı yarın atarım.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Raporu alıyorum. Gerçekleri olduğu gibi yazıp önündeki boş dosyaya iliştiriyorum.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 12
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Zarfı açmadan doğrudan masadan çekip kendi çantamın dibine atıyorum. Raporun üzerine bir karalama çizip imzayı basıyorum.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Gözlerinin içine bakıyorum. 'Bu yolun sonu burası değil' diyorum, raporu yırtıp atıyorum.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_psychologist",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Profesyonellik 80]",
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Ertelenen Hesap",
+          "kind": "outcome",
+          "text": "Ceketimin ağırlığı omzuma biniyor. {actor.psychologist.name} hiçbir şey söylemiyor, sadece bakışlarını camdaki yağmura çeviriyor. Bu gece huzurlu uyumayacağımı biliyorum ama en azından yarın sahaya çıktığımda başka bir güçle döneceğim.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Acı Gerçek",
+          "kind": "outcome",
+          "text": "Kalemim kağıt üzerinde gıcırdıyor. {actor.psychologist.name} sayfaları çevirirken yüzünde en ufak bir duygu kırıntısı yok. Doğru olanı yapmanın ağırlığı, attığım her adımdan daha ağır hissettiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Görünmez Bedel",
+          "kind": "outcome",
+          "text": "İmzam kağıdı yırtıyor. Sessizlik, odadaki havayı daha da ağırlaştırıyor. {actor.psychologist.name} elindeki kalemi bırakıyor ve bir daha bana bakmıyor. Artık bu oyunu değil, oyunun arkasındaki başka bir şeyi oynuyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Kendi Yolum",
+          "kind": "outcome",
+          "text": "Yırtılan kağıtlar havada uçuşuyor. {actor.psychologist.name} ilk defa gülümsüyor, ama bu gülümseme hayra alamet değil. İpleri elimde tuttuğumu sanıyorum ama aslında kendi ipimi çekiyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,391 @@
+{
+  "id": "evt_dark_fixer_suc_ortakligi",
+  "family": "fam_dark_suc_ortakligi",
+  "category": "dark",
+  "tier": "epic",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İkinci El İhbar",
+          "kind": "branch",
+          "text": "Stadyumun arka kapısında, {actor.fixer.name} elinde yanan bir sigarayla bekliyor. Önündeki masada bir tablet duruyor. Ekranda, takımın son maçındaki tartışmalı penaltı pozisyonunun ağır çekim görüntüleri dönüyor. {actor.fixer.name} bana bakmıyor bile. 'Bu görüntülerin montajlı olduğunu herkes biliyor,' diyor. 'Ama bahis çetesi bunları senin adına sızdırdı. İnsanlar senin maçı sattığına inanıyor. Sessiz kalırsan, bu işin içinden nasıl çıkacağını ben biliyorum.' Masanın üzerinde duran kalın zarfı işaret ediyor. Şehir zaten ayağa kalktı. Taraftarlar sosyal medyada ismimi anıyor. Bir cevap bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Polise gidip görüntülerin sahte olduğunu ihbar edeceğim. Doğru olan bu.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Basın toplantısında her şeyi inkar edip taraftarları arkama alacağım.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı al ve sessiz kal. Geleceğimi bu parayla garantilemekten başka çare yok.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Masaya yaklaş, tableti kapat ve {actor.fixer.name} ile bu oyunu kendi şartlarınla bitir.",
+              "target": "n_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Temiz Çıkış",
+          "kind": "outcome",
+          "text": "İhbar süreci uzun ve yıpratıcıydı. Temizsin ama camiada 'gammaz' etiketiyle anılmaya başladın. Saha içindeki huzurun, dışarıdaki gürültünün gölgesinde kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Ateşle Dans",
+          "kind": "outcome",
+          "text": "Kameralar karşısında dik durdun. Taraftar sana inandı ama medya yönetimi, hakkındaki iddiaları her manşette canlı tutmaya yeminli.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Sözleşme",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı vicdanını bastırdı. Artık hem sahada hem de saha dışında, o zarfı verenlerin elindesin. Parayı harcayabilirsin ama aynaya bakmak giderek zorlaşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_liderlik": {
+          "title": "Kendi Oyunun",
+          "kind": "outcome",
+          "text": "Odanın iplerini eline aldın. {actor.fixer.name} geri adım atmak zorunda kaldı. Saygı kazandın ama bu soğuk savaş seni fiziksel ve zihinsel olarak fazlasıyla yordu.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Ziyareti",
+          "kind": "branch",
+          "text": "Antrenman sahasının otoparkında, eski bir sedanın farları üzerine yanıyor. {actor.fixer.name} sürücü koltuğunda, pencereyi aralık bırakmış. Elindeki çakmağın metalik sesi geceyi bölüyor. Torpido gözünden çıkardığı kirli bir defteri önündeki boşluğa fırlatıyor. Sayfalar açıldığında, kulübün muhasebe kayıtlarına ait olduğu anlaşılan bazı isimler ve yanlarındaki yuvarlak rakamlar görünüyor. {actor.fixer.name} sadece bakıyor, konuşmuyor. Tek bir bakışla, ödenmemiş olan o eski borcun sadece bir para meselesi olmadığını, artık daha fazlasını talep ettiğini anlatıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Defteri al, taraftarların önünde kulüp yönetiminin üzerindeki kirli elleri ifşa edeceğim.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Cevap vermeden sırtımı dönüp yürüyorum. Profesyonelliğimi bozmayacağım.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Defterdeki isimlerden birinin dosyasını imha et. Bana biraz nakit lazım.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 40
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Tüm borcu kapatıyorum. Sadece buradan uzaklaş ve bir daha gelme.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -80
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 3
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Servet Yetersiz]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Ateşe Atlamak",
+          "kind": "outcome",
+          "text": "O defterin içeriği yarın manşetlerde olacak. {actor.fixer.name} sadece başını salladı ve aracı uzaklaştı. Şimdi büyük bir savaşın ortasındasın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Direniş",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek şey motorun soğuma sesiydi. Yalnız başına soyunma odasına dönerken, o defterin içindeki borcun aslında hiç bitmeyeceğini anladın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Zarfı arka koltuğa attı. Para gerçekti ama defterin bir sayfası artık eksik. Bu boşluğu vicdanında yıllarca taşıyacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Bedelini Ödemek",
+          "kind": "outcome",
+          "text": "Cüzdanın hafifledi ama {actor.fixer.name} artık seninle aynı tarafta. Bu huzuru satın aldın, ancak saha içindeki yorgunluğun artık gizlenemez boyutta.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

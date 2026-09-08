@@ -1,0 +1,344 @@
+{
+  "id": "evt_locker_assistant_devir_teslim",
+  "family": "fam_locker_devir_teslim",
+  "category": "locker",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "_eraNote": "Hero AYRILAN taraf: dolabini devrediyor, antrenman notlarini ve taktik cizelgelerini birakiyor, 'hayatinin en buyuk hatalarini' anlatiyor. Miras devretmek cirakta olmaz -- eski kapi ['rookie', 'rise'] idi ve 16 yasindaki oyuncuya cikiyordu.",
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Emanetin Sahibi",
+          "kind": "branch",
+          "text": "Soyunma odası boş. Yerdeki bant artıkları, krampon çivilerinin parkede bıraktığı derin izler. {actor.assistant.name} köşede duruyor, gözleri üzerindeki dolapta. Yarın yerini alacak olan o. Kulüp yönetimi, senin bu dolabı nasıl bıraktığını takip etmiyor ama o, her detayı ezberliyor. Masanın üzerinde duran eski kaptanlık pazubandı, kişisel antrenman programlarının notları ve o hiç kimseye bahsetmediğin gizli taktik defterin. Sessizliği sadece uzaktan gelen tesis görevlisinin paspas sesi bölüyor. {actor.assistant.name} onay bekliyor; bu mirası mı devredeceksin yoksa her şeyi yakıp mı gideceksin?",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Tüm antrenman notlarını ve taktik çizelgelerini ona uzat. Kulüp kuralları bunu emreder.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dolabı boşalt, her şeyi çöpe at. Kendi yolunu kendisi bulsun, başkasının gölgesinde değil.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kritik verileri içeren notları menajerine satması için ona teklif et. Sessiz kalması karşılığında bir miktar para.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_lider",
+              "text": "Onu yanına oturt. Yarım saat boyunca hayatının en büyük hatalarını ve doğrularını ona anlat.",
+              "target": "n_outcome_lider",
+              "effects": [
+                {
+                  "flag": "iliski_assistant",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kurumsal Devir",
+          "kind": "outcome",
+          "text": "Dosyaları masaya bırakıp arkana bakmadan çıkıyorsun. Profesyonel bir veda, ama içinde bir boşluk var. Artık o notlar senin değil.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Sıfırdan Başlangıç",
+          "kind": "outcome",
+          "text": "Çöp kutusu doluyor. {actor.assistant.name} şaşkın, belki biraz kırgın. Kendi mirasını korumak için, başkasınınkini yok ettin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Kirli Ticaret",
+          "kind": "outcome",
+          "text": "Zarfı eline tutuşturuyorsun. Gözlerindeki o ilk hayranlık yerini şüpheye bırakıyor. Bir bedel ödedin ama bu defa cebin dolu.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lider": {
+          "title": "Zorunlu Miras",
+          "kind": "outcome",
+          "text": "Konuşuyorsun. Detaylar, sahadaki acı, gece gelen pişmanlıklar. Yorgunsun ama o artık senin yansıman. Bir sonraki dönem senin tecrübenle şekillenecek.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Yüzleşmesi",
+          "kind": "branch",
+          "text": "Otoparkın en uzak köşesi. Sisli bir gece. {actor.assistant.name} elinde eski bir stoperin tozlu kramponlarıyla sana yaklaşıyor. Takımın antrenman tesislerinde ışıklar sönmüş. {actor.assistant.name} duruyor, kramponları paslı metal kutuya bırakıyor. Yıllardır süren bu ritüelin sonuna gelindiğini biliyorsun. O, senin sahadaki gölgen gibiydi. Şimdi ise senin yıllardır sakladığın, kimsenin bilmediği o taktik not defterini tutuyor. Bir anlık sessizlikte, gözlerinin içine ilk kez bu kadar net bakıyor. Seni bir efsane olarak değil, yorgun ve yenilgiye yakın bir adam olarak görüyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Defteri ona ver. İçindekiler sadece oyun planı değil, kulüpteki herkesin kirli çamaşırı.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Onu susturmak için bir prim sözü ver ve elindeki defteri hızla alıp ateşe ver.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sırtını dön ve hiçbir şey olmamış gibi uzaklaş. Hatıralar kendi kendine ölür.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Ona gerçek kariyerinin sırlarını anlat. Bırak o senin devamın olsun.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "iliski_assistant",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[İtibar 55+]"
+            }
+          ]
+        },
+        "n_outcome": {
+          "title": "Devir Teslim",
+          "kind": "outcome",
+          "text": "Bakışlarınız ayrılıyor. {actor.assistant.name} elindekiyle sislerin arasında kayboluyor. Artık neyin kimin elinde olduğu önemsiz. Bir devir kapanırken, boşluğun soğuğu üzerinde.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

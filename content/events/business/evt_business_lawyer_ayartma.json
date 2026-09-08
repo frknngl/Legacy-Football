@@ -1,0 +1,139 @@
+{
+  "id": "evt_business_lawyer_ayartma",
+  "family": "fam_business_ayartma",
+  "category": "business",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "transfer_listed"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Masadaki Belge",
+      "kind": "branch",
+      "text": "Odanın içi ağır bir puro dumanıyla sarılı. {actor.lawyer.name} deri koltuğunda geriye yaslanmış, masanın üzerindeki iki dosyayı işaret ediyor. Biri standart bir sözleşme, diğeri ise kulüp yönetiminin habersiz olduğu, alt liglerin karanlık koridorlarında dönen bir aracılık teklifi. Dışarıda antrenman sahasından gelen top sesleri kesik kesik duyuluyor. {actor.lawyer.name} gözlerini kısarak sana bakıyor; elindeki altın kaplama kalemi masanın üzerine bırakıyor. Sessizlik, bir sonraki hamlenin tüm kariyerini yeniden tanımlayacağını fısıldıyor.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Sadece resmi sözleşmeyi imzala ve çekil.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "id": "c_riskli",
+          "text": "Aracılık teklifini al, taraftarların aradığı o büyük transfer için zemin hazırla.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "id": "c_gri",
+          "text": "Dosyaları çantana at, yarın akşam detayları konuşalım de.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Resmi Yollar",
+      "kind": "outcome",
+      "text": "{actor.lawyer.name} kaşlarını kaldırıyor, dosyayı elinden çekip alıyor. Çıkışta seni soğuk bir veda bekliyor.",
+      "onEnter": [
+        {
+          "flag": "mem_business_ayartma_lawyer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Sokakların Desteği",
+      "kind": "outcome",
+      "text": "Dosyayı aldın. {actor.lawyer.name} tatmin olmuş bir ifadeyle başını sallıyor. Artık kimin elinde hangi iplerin olduğunu biliyorsun.",
+      "onEnter": [
+        {
+          "flag": "mem_business_ayartma_lawyer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Belirsiz Gelecek",
+      "kind": "outcome",
+      "text": "Zarfın ağırlığını çantanda hissediyorsun. {actor.lawyer.name} sana gülümsüyor, kapıyı açıyor. Henüz hiçbir şey imzalamadın, ama artık geri dönüşü yok.",
+      "onEnter": [
+        {
+          "flag": "mem_business_ayartma_lawyer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

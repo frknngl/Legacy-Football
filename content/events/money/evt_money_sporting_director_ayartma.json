@@ -1,0 +1,319 @@
+{
+  "id": "evt_money_sporting_director_ayartma",
+  "category": "money",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "age",
+    "op": "gte",
+    "value": 16
+  },
+  "family": "fam_money_ayartma",
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Ofis",
+          "kind": "branch",
+          "text": "{actor.sporting_director.name} masanın üzerindeki deri çantasını hafifçe yana kaydırdı. İçerideki tomarın rengi, loş odadaki sigara dumanı arasında mat bir ışıkla parlıyordu. {actor.president.name} kapının önünde, elleri arkasında, sessizce bekliyordu. {actor.sporting_director.name} arkasına yaslandı, gözleri sadece sizin üzerinizde. 'Bu sadece bir takdir göstergesi,' dedi sesi fısıltıdan hallice. 'Sadece bir sonraki imzanın bizimle olması için küçük bir teminat.' Odanın havası ağırlaştı, dışarıdan gelen antrenman sahasındaki top sesleri artık birer yankıdan ibaretti. Seçim, önünüzdeki bu metal masanın soğukluğunda gizli.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Çantayı masanın ortasına, ona doğru itin. 'Benim bağlılığım kağıt üzerinde yazılı, burada değil.'",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Gülümseyin ve {actor.sporting_director.name} ile el sıkışın. 'Beni taraftara karşı mahcup etmeyeceğinizi umuyorum.'",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Hiçbir şey demeden çantayı alın ve ceketinizin içine gizleyin. Göz göze gelmekten kaçının.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Çantayı sertçe kapatın. '{actor.president.name} ile konuşmam lazım, bu ofisteki herkesin hesabı temiz olmalı.'",
+              "target": "n_sonuc_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Onurlu Dönüş",
+          "kind": "outcome",
+          "text": "Kapı arkanızdan kapandığında, soğuk koridorda yalnızsınız. İçinizdeki boşluk, kazandığınızdan emin olduğunuz saygıyla birleşiyor. Ama cüzdanınız her zamanki hafifliğinde.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Odayı terk ederken sırtınızda ağır bir yük hissediyorsunuz. Artık onların adamısınız. İlk maçta hata yaptığınızda, tribünlerin sesindeki o tanıdık tınıyı hatırlayacaksınız.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Ağırlık",
+          "kind": "outcome",
+          "text": "Dışarıdaki parlak güneş, ceketinizin altındaki sert çıkıntının yarattığı gölgeyi gizlemeye yetmiyor. Her adımınızda o paranın ağırlığını hissediyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_liderlik": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} şaşkınlıkla geri çekilirken {actor.president.name} gözlerini kaçırıyor. Odanın gücünü değiştirdiniz ama şimdi kulüp içinde hedef tahtasındasınız.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı, Gece Yarısı",
+          "kind": "branch",
+          "text": "Yağmur, otoparkın metal çatısına davul sesi gibi vuruyor. {actor.sporting_director.name}, aracının kapısını aralık bırakmış, dikiz aynasından seni süzüyor. Motorun rölantideki sesi, aradaki sessizliği bozan tek unsur. Torpido gözünden çıkardığı kirli beyaz bir zarfı koltuğun üzerine, senin ulaşabileceğin mesafeye bırakıyor. Başını hafifçe arkaya çeviriyor. Gözlerinde ne bir tehdit ne de bir vaat var; sadece keskin, soğuk bir merak. Bu kulübün geleceği, onun bu sessiz sorusuna vereceğin cevabın ağırlığıyla bükülüyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı hiç bakmadan çantana at. \"Yarınki maça odaklanmam lazım, detayları sonra konuşuruz.\"",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı olduğu gibi bırak ve kapıyı sertçe kapat. \"Beni bir daha burada görme.\"",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı elinle it. \"Kariyerimi sahada inşa etmeyi tercih ederim.\"",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Zarfı al, ancak doğrudan kulüp başkanının odasına gitmek üzere yola koyul.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 12
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Profesyonellik 80]"
+            }
+          ]
+        },
+        "n_outcome": {
+          "title": "Dönüşü Olmayan Yol",
+          "kind": "outcome",
+          "text": "Otoparkın çıkışına doğru yürürken, arkandaki aracın farları yanıyor. Motor sesi uzaklaşırken, az önce yaşananların ağırlığı üzerindeki ceketin kumaşına sinmiş gibi. Ne yaptığının önemi kalmadı; artık iz bırakıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

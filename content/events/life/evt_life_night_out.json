@@ -1,0 +1,667 @@
+{
+  "id": "evt_life_night_out",
+  "family": "fam_life_nightlife",
+  "category": "life",
+  "tier": "epic",
+  "weight": 20,
+  "cooldown": {
+    "self": 60,
+    "family": 30
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "transfer_listed"
+  ],
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "trigger": {
+    "flag": "skandal_seviyesi",
+    "op": "lte",
+    "value": 70
+  },
+  "personaAffinity": {
+    "mizac": 70
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "VIP locası",
+          "kind": "branch",
+          "text": "{actor.childhood_friend.name:gen} doğum günü. Çocukluk arkadaşın, aynı sahada başladığın adam, dizi on dokuzunda gittiği için şimdi bir bar işletiyor. Seni aylardır çağırıyor ve bu sefer hayır diyemedin.\n\nSaat ikiye geliyor. {actor.childhood_friend.first} kolunu omzuna atmış, bağıra bağıra eski maçları anlatıyor ve gözleri parlıyor — kıskançlık ve sevgi aynı anda.\n\nKarşı locadan biri {actor.childhood_friend.first:dat} laf atıyor. Bir kez. İki kez.\n\nÜçüncüde ayağa kalkıyor ve sen onun kolundan tutuyorsun. Üç masa ötede iki telefon çoktan kalkmış, kameralar açık.",
+          "choices": [
+            {
+              "id": "c_leave",
+              "text": "{actor.childhood_friend.first:acc} kolundan çek. \"Çıkıyoruz. Şimdi.\"",
+              "target": "n_left",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "npc_childhood_friend_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "mizac": -8,
+                "sadakat": -4
+              }
+            },
+            {
+              "id": "c_stand",
+              "text": "{actor.childhood_friend.first:gen} önüne geç. \"Bir daha söyle.\"",
+              "target": "n_roll_fight",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "npc_childhood_friend_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "mizac": 12,
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_phones",
+              "text": "Telefonları göster. \"Bak. Üç kamera. Buna değmez.\"",
+              "target": "n_defused",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -5,
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_buy",
+              "text": "Karşı locaya bir şişe gönder. Sorunu parayla kapat.",
+              "target": "n_bought",
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 50000
+              },
+              "lockLabel": "[Servet 50.000]",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": {
+                    "scaleBy": "stature",
+                    "base": -15000,
+                    "perTier": -12000
+                  }
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "mizac": -4,
+                "dogruluk": -5
+              }
+            }
+          ]
+        },
+        "n_roll_fight": {
+          "title": "Cam",
+          "kind": "roll",
+          "text": "Bir masa deviriliyor. Kimin ittiğini kimse görmüyor. Cam sesi.",
+          "outcomes": [
+            {
+              "target": "n_police",
+              "weight": {
+                "base": 55,
+                "modifiers": [
+                  {
+                    "flag": "skandal_seviyesi",
+                    "scale": 0.3
+                  },
+                  {
+                    "flag": "persona_mizac",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_got_out",
+              "weight": {
+                "base": 35,
+                "modifiers": [
+                  {
+                    "flag": "medya_itibari",
+                    "scale": 0.25
+                  },
+                  {
+                    "flag": "liderlik",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_left": {
+          "title": "Otoparkta",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.first:acc} dışarı çıkarıyorsun. Otoparkta duvara yaslanıp yere bakıyor.\n\n\"Sen hep doğru olanı yaparsın,\" diyor. Övgü değil.\n\nSonra: \"Ben o adama on yıl önce vururdum. Sen de vururdun. Fark şu: senin kaybedecek bir şeyin var.\"\n\nArabaya biniyorsun. Camdan bakıyor, el sallamıyor.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mem_left_academy_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_defused": {
+          "title": "Üç kamera",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.first} telefonları görüyor ve bir anda duruyor. Oturuyor. Bardağını alıp içiyor.\n\n\"Ne zaman böyle oldun sen?\" diye soruyor. Gülerek soruyor ama cevabını gerçekten istiyor.\n\nCevabın yok.\n\nGece sabaha kadar oturuyorsunuz ve bir daha kavgadan bahsedilmiyor. Ertesi gün hiçbir yerde hiçbir görüntü çıkmıyor.",
+          "onEnter": [
+            {
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_bought": {
+          "title": "Şişe",
+          "kind": "outcome",
+          "text": "Şişe gidiyor. Karşı locadan biri kaldırıp selam veriyor. Mesele kapanıyor.\n\n{actor.childhood_friend.first} sana bakıyor ve hiçbir şey söylemiyor. Bu, söylediği en uzun şey.\n\nGece bitince arabaya yürürken tek cümle kuruyor: \"Eskiden bunu yumrukla çözerdik. Şimdi kartla çözüyorsun. Hangisi daha ucuz bilmiyorum.\"",
+          "onEnter": [
+            {
+              "flag": "iliski_childhood_friend",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "mem_left_academy_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_got_out": {
+          "title": "Arka kapı",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.first} seni arka kapıdan çıkarıyor. Barın sahibi olmanın bir faydası.\n\nİki saat sonra iki görüntü internete düşüyor ama ikisinde de yüzün seçilmiyor. Kulüp açıklama yapmıyor. {actor.agent.first} sabah arayıp \"duydum\" diyor ve kapatıyor.\n\nBu sefer kurtardın. Onun eli sarılı ve nedenini kimseye söylemiyor.",
+          "onEnter": [
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_childhood_friend",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_police": {
+          "title": "Karakol",
+          "kind": "branch",
+          "text": "Geceyi karakolda geçiriyorsunuz. Sabah beşte bir memur elindeki telefonu masaya koyuyor ve ekranı sana çeviriyor.\n\nGörüntüde sen varsın. Net, kesintisiz, tartışmasız.\n\n\"Bu kaydı ben sildim,\" diyor memur. \"Bir kopyası var. Bende.\"\n\n{actor.childhood_friend.first} yan hücrede uyuyor. {actor.agent.name} yolda, kırk dakika uzakta.\n\nMemur arkasına yaslanıyor ve bekliyor.",
+          "onEnter": [
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "choices": [
+            {
+              "id": "c_bribe",
+              "text": "Cebine uzan. \"Kaç para?\"",
+              "target": "n_bribed",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": {
+                    "scaleBy": "stature",
+                    "base": -40000,
+                    "perTier": -85000
+                  }
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "mem_bribed_police",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": -15,
+                "mizac": -3
+              }
+            },
+            {
+              "id": "c_refuse",
+              "text": "\"Yayınla. Ne yaptıysam arkasındayım.\"",
+              "target": "n_refused_bribe",
+              "effects": [
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 40
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mem_refused_to_apologize",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "dogruluk": 12,
+                "durus": 12
+              }
+            },
+            {
+              "id": "c_wait",
+              "text": "Hiçbir şey söyleme. {actor.agent.first:acc} bekle.",
+              "target": "n_waited",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": {
+                    "scaleBy": "stature",
+                    "base": -20000,
+                    "perTier": -30000
+                  }
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -8,
+                "dogruluk": -4
+              }
+            }
+          ]
+        },
+        "n_bribed": {
+          "title": "Zarf",
+          "kind": "outcome",
+          "text": "Zarf masanın üstünden kayıyor. Memur onu almıyor bile; sadece çekmeceyi açıyor ve sen zarfı içine bırakıyorsun.\n\n\"Kayıt gitti,\" diyor.\n\nGitmedi. İkiniz de biliyorsunuz. Bu yüzden bu kadar ucuzdu.\n\nDışarı çıktığında sabah olmuş. {actor.childhood_friend.first} otoparkta sigara içiyor ve sana hiçbir şey sormuyor — bu da bir cevap.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_refused_bribe": {
+          "title": "Yayınla",
+          "kind": "outcome",
+          "text": "Memur bir saniye şaşırıyor, sonra gülüyor. \"Cesursun,\" diyor. \"Ya da aptal.\"\n\nGörüntü öğlen internete düşüyor. Akşam bütün kanallarda. Kulüp seni kadro dışı bırakıyor, sonra geri alıyor, sonra bir açıklama daha yapıyor.\n\nAma taraftar grubu tesise pankart asıyor: \"Bizden biri.\"\n\nBedelini ödedin ve kimseye borçlu değilsin.",
+          "onEnter": [
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            }
+          ]
+        },
+        "n_waited": {
+          "title": "Kırk dakika",
+          "kind": "outcome",
+          "text": "Kırk dakika hiçbir şey söylemiyorsun. Memur iki kez konuşmayı deniyor, ikisinde de susuyorsun.\n\n{actor.agent.first} geliyor. Yirmi dakika içeride kalıyor. Çıktığında kravatı gevşemiş ve elinde bir kâğıt var.\n\n\"Halloldu,\" diyor. \"Bir daha bu adamla karşılaşmayacaksın.\"\n\nNe ödediğini hiç söylemiyor. Bir sonraki sözleşmende bir madde beliriyor ve o maddeyi de hiç açıklamıyor.",
+          "onEnter": [
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Semtin Sessizliği",
+          "kind": "branch",
+          "text": "Antrenman sahasından çok uzakta, {actor.childhood_friend.name} ile köhne bir araba garajının kapısındasınız. Motorun sıcaklığı havada süzülüyor. Arkadaşın, elindeki ağır metal kutuyu yere bırakıyor. Yıllardır süren o sessiz yalan; kaza raporundaki sahte imzalar, kulübün üzerini örttüğü o gece... {actor.childhood_friend.name} yüzüne bakmıyor. Garajın metal kepengi hafifçe gıcırdıyor. \"Artık taşıyamıyorum,\" diyor sadece.",
+          "choices": [
+            {
+              "id": "c_wealth",
+              "text": "Çantayı açıp içindekileri önüne sür. Susması için tek yol bu.",
+              "target": "n_outcome_wealth",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Emniyete gidelim. Beraber teslim olacağız, her şeyi anlatacağız.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Ona bir yumruk at ve arkana bakmadan uzaklaş. Kimse ona inanmayacak.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_mental",
+              "text": "Onu dinle. Saatlerce konuşmasına izin ver, yükünü paylaş.",
+              "target": "n_outcome_mental",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 12
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Yüksek Mental Dayanıklılık]"
+            }
+          ]
+        },
+        "n_outcome_wealth": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} parayı alıyor. Gözlerindeki kırgınlığı görmezden geliyorsun. Artık senin sırrın değil, senin esirin.",
+          "onEnter": [
+            {
+              "flag": "mem_bribed_police",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "İtirafların Ağırlığı",
+          "kind": "outcome",
+          "text": "Karakolun kapısında elin kapı koluna gidiyor. {actor.childhood_friend.name} yanında, omzun omzuna değiyor. Kariyerin bir kumar masasına dönüştü, ama vicdanın sessiz.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_to_apologize",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Sokak Adaleti",
+          "kind": "outcome",
+          "text": "Yerdeki {actor.childhood_friend.name} arkanda kalıyor. Olayın üstü şimdilik kapandı, ama semtin sana bakışı değişti. Korku, saygının yerini alıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_left_academy_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_mental": {
+          "title": "Paylaşılan Yük",
+          "kind": "outcome",
+          "text": "Sabahın ilk ışıklarına kadar garajda oturdunuz. {actor.childhood_friend.name} ile aranızdaki o görünmez duvar yıkıldı. Sırrın artık bir suç değil, bir bağ.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

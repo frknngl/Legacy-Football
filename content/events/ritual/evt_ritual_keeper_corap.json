@@ -1,0 +1,147 @@
+{
+  "id": "evt_ritual_keeper_corap",
+  "family": "fam_ritual_ugur",
+  "category": "ritual",
+  "tier": "minor",
+  "weight": 12,
+  "cooldown": {
+    "self": 18,
+    "family": 8
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "playing",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yıkanmayan",
+      "kind": "branch",
+      "text": "{actor.keeper.name:gen} bir çorabı var. Yıkatmıyor.\n\nAltı maçtır gol yemedi ve altı maçtır aynı çorapla oynuyor. Malzemeci iki kez almaya çalıştı, iki kez geri verdi.\n\nBugün soyunma odasında koku bir mesele hâline geldi. {actor.veteran.name} camı açtı ve \"Ya bu ya ben,\" dedi.\n\n{actor.keeper.name} sana bakıyor. Neden sana bakıyor bilmiyorsun ama bakıyor.",
+      "choices": [
+        {
+          "id": "c_kaleci",
+          "text": "Kalecinin tarafını tut. \"Altı maç altı maçtır.\"",
+          "target": "n_kaleci",
+          "effects": [
+            {
+              "flag": "iliski_keeper",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_veteran",
+          "text": "Camı açık tut. \"Kokuyor gerçekten.\"",
+          "target": "n_veteran",
+          "effects": [
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_keeper",
+              "op": "add",
+              "value": -9
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "dogruluk": 4
+          }
+        },
+        {
+          "id": "c_kendi",
+          "text": "Hiçbir şey deme ama kendi çorabını da yıkatma.",
+          "target": "n_kendi",
+          "effects": [
+            {
+              "flag": "iliski_keeper",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 6
+          }
+        }
+      ]
+    },
+    "n_kaleci": {
+      "title": "Altı Maç",
+      "kind": "outcome",
+      "text": "\"Altı maç altı maçtır.\"\n\n{actor.keeper.name} başını salladı. {actor.veteran.name} camı kapatmadı ama bir şey de demedi.\n\nYedinci maçta üç gol yediler. Çorap ertesi gün çöpteydi ve kimse bundan bir daha bahsetmedi.",
+      "onEnter": [
+        {
+          "flag": "mem_ugur_kaleciyi_destekledi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_veteran": {
+      "title": "Açık Cam",
+      "kind": "outcome",
+      "text": "\"Kokuyor gerçekten.\"\n\nSoyunma odası güldü. {actor.keeper.name} gülmedi.\n\nO gün çorabı yıkattı ve yedinci maçta kalesini gole kapattı. Yani haklı olan sendin — ama {actor.keeper.name} bunu asla kabul etmedi ve seninle üç hafta konuşmadı.\n\nHaklı olmak, futbolda beklediğin kadar işe yaramıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_ugur_bozdu",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_kendi": {
+      "title": "İkinci Çorap",
+      "kind": "outcome",
+      "text": "Bir şey demedin. Ertesi gün kendi çorabını da malzemeciye vermedin.\n\n{actor.keeper.name} fark etti. Hiçbir şey söylemedi, sadece dolabının yanına geçti ve orada durdu.\n\nO sezon soyunma odasında beş kişi çorap yıkatmadı. Kimse başlatmadı, kimse bitirmedi. Böyle şeyler böyle oluyor.",
+      "onEnter": [
+        {
+          "flag": "mem_ugur_katildi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

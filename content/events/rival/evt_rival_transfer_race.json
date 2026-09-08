@@ -1,0 +1,170 @@
+{
+  "id": "evt_rival_transfer_race",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": {
+    "self": 999,
+    "family": 8
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "transfer_listed",
+    "injured"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tek koltuk",
+      "kind": "branch",
+      "text": "Kulup tek bir imza atacak. Listede iki isim var ve ikisini de taniyorsun.\n\n{actor.agent.name} rakamlari okuyor: onun talebi seninkinden dusuk, senin istatistigin onunkinden yuksek. Aradaki fark bir imza atmaya karar verecek kadar ince.\n\n\"Karar bu hafta cikacak,\" diyor {actor.agent.first}. \"Elinde bir sey varsa simdi kullan.\"\n\nElinde bir sey olup olmadigina yillar once bir kahve masasinda karar verdin. {actor.nemesis.name:gen} eski sozlesmesindeki o madde ya senin bildigin bir seydir ya da hic olmamistir.\n\n{actor.father.first} olsa ne derdi, biliyorsun. Ama {actor.father.first} bu odada degil.",
+      "choices": [
+        {
+          "id": "c_leak",
+          "text": "Maddeyi dogru kulaga fisilda. Koltuk senin.",
+          "requires": {
+            "flag": "mem_rival_inside_info",
+            "op": "isSet"
+          },
+          "lockLabel": "[Elinde bir sey yok]",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 5
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -30
+            },
+            {
+              "flag": "piyasa_carpani",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "mem_rival_cost_him_transfer",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 12
+            }
+          ],
+          "persona": {
+            "dogruluk": -14,
+            "sadakat": -5
+          }
+        },
+        {
+          "id": "c_earn",
+          "text": "Hicbir sey fisildama. Sahada kazan ya da kaybet.",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 5
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": 12,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_warn",
+          "text": "Onu ara. Madde konusundan haberi olsun.",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 5
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "piyasa_carpani",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mem_rival_helped",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "sadakat": 8
+          }
+        },
+        {
+          "id": "c_withdraw",
+          "text": "Adini listeden cektir. Bu sekilde istemiyorsun.",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 5
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 18
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 8,
+            "sadakat": 5
+          }
+        }
+      ]
+    }
+  }
+}

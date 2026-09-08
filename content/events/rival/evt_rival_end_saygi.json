@@ -1,0 +1,80 @@
+{
+  "id": "evt_rival_end_saygi",
+  "family": "fam_rival_end",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 4 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Mesafe",
+      "kind": "branch",
+      "text": "Bir odul gecesi. Ayni salon, ayni sira, arada uc koltuk.\n\nYirmi bes yil boyunca ne dost oldunuz ne dusman. Birbirinizi tam olarak hak ettiginiz kadar yordunuz ve bunun disinda hicbir sey paylasmadiniz.\n\n{actor.nemesis.name} sahneye cikip kisa konusuyor. Adini anmiyor. Sonra ekliyor: \"Bu isi tek basina yapan kimse yok. Herkesin bir olcusu var. Benimki bu salonda.\"\n\nSalon anlamiyor. Sen anliyorsun.\n\nGece bitince kapida karsilasiyorsunuz.",
+      "choices": [
+        {
+          "id": "c_nod",
+          "text": "Basini salla. Yeter.",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": 10 },
+            { "flag": "moral", "op": "add", "value": 10 },
+            { "flag": "iliski_basin", "op": "add", "value": -10 },
+            { "flag": "mem_rival_shook_hands", "op": "set", "value": true }
+          ],
+          "persona": { "mizac": -5, "dogruluk": 6 }
+        },
+        {
+          "id": "c_speak",
+          "text": "Bir sey soyle. Yirmi bes yil sonra ilk kez.",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": 22 },
+            { "flag": "medya_itibari", "op": "add", "value": 10 },
+            { "flag": "moral", "op": "add", "value": 14 },
+            { "flag": "medya_baskisi", "op": "add", "value": 14 },
+            { "flag": "mem_rival_shook_hands", "op": "set", "value": true }
+          ],
+          "persona": { "durus": 8, "dogruluk": 8 }
+        },
+        {
+          "id": "c_shot_memory",
+          "text": "\"O aksam direge vurdum ve senden nefret etmeyi biraktim.\"",
+          "requires": { "flag": "mem_rival_final_shot", "op": "isSet" },
+          "lockLabel": "[Finalde o vurusu yapmis olmalisin]",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": 30 },
+            { "flag": "moral", "op": "add", "value": 18 },
+            { "flag": "medya_baskisi", "op": "add", "value": 10 },
+            { "flag": "mem_rival_shook_hands", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": 12, "durus": 6 }
+        },
+        {
+          "id": "c_debt",
+          "text": "Yillar once ondan aldigin o imzayi hatirlat. Ilk kez.",
+          "requires": { "flag": "mem_rival_cost_him_transfer", "op": "isSet" },
+          "lockLabel": "[O transferi ondan almis olmalisin]",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": 15 },
+            { "flag": "medya_itibari", "op": "add", "value": 15 },
+            { "flag": "skandal_seviyesi", "op": "add", "value": 15 },
+            { "flag": "mem_public_apology", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": 16, "durus": 8 }
+        },
+        {
+          "id": "c_pass",
+          "text": "Yanindan gec. Mesafe zaten dogru mesafeydi.",
+          "effects": [
+            { "flag": "mental_dayaniklilik", "op": "add", "value": 8 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -5 },
+            { "flag": "profesyonellik", "op": "add", "value": 5 }
+          ],
+          "persona": { "mizac": -7 }
+        }
+      ]
+    }
+  }
+}

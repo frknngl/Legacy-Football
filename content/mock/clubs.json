@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "_note": "MOCK DUNYA -- DB gelene kadar tek elle yazilan dunya dosyasi. ContentLoader bu dosyayi GORMEZ (yalnizca orchestrator/ ve events/ yollarini isler); MockRosterProvider dogrudan okur. Kadrolar burada YAZILMAZ, tohumdan URETILIR: 34 kulup satiri + isim havuzu = 600+ kisilik tutarli bir dunya. Uc basamakli piramit cift devreli fikstur uretir (22/22/18 mac) ve sezon sonu yukselme/dusme uygular. DB entegrasyonunda bu dosya silinir, DbWorldProvider ayni arayuzu doldurur.",
+  "clubs": [
+    {
+      "id": "clb_demirspor",
+      "name": "Demirspor",
+      "city": "Zonguldak",
+      "stadium": "Ocak Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "rivalId": "clb_yesilova",
+      "reputation": 18,
+      "foreignRatio": 0
+    },
+    {
+      "id": "clb_yesilova",
+      "name": "Yesilova Genclik",
+      "city": "Denizli",
+      "stadium": "Bag Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "rivalId": "clb_demirspor",
+      "reputation": 22,
+      "foreignRatio": 0
+    },
+    {
+      "id": "clb_karadeniz",
+      "name": "Karadeniz FK",
+      "city": "Trabzon",
+      "stadium": "Kiyi Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "rivalId": "clb_firat",
+      "reputation": 38,
+      "foreignRatio": 0.05
+    },
+    {
+      "id": "clb_firat",
+      "name": "Firat Spor",
+      "city": "Elazig",
+      "stadium": "Harput Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "rivalId": "clb_karadeniz",
+      "reputation": 40,
+      "foreignRatio": 0.05
+    },
+    {
+      "id": "clb_menderes",
+      "name": "Menderes Birlik",
+      "city": "Aydin",
+      "stadium": "Menderes Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "rivalId": "clb_erciyes",
+      "reputation": 35,
+      "foreignRatio": 0.05
+    },
+    {
+      "id": "clb_erciyes",
+      "name": "Erciyes SK",
+      "city": "Kayseri",
+      "stadium": "Erciyes Arena",
+      "tier": "lower",
+      "league": "tr_2",
+      "rivalId": "clb_menderes",
+      "reputation": 42,
+      "foreignRatio": 0.1
+    },
+    {
+      "id": "clb_bogazici",
+      "name": "Bogazici SK",
+      "city": "Istanbul",
+      "stadium": "Bogaz Stadi",
+      "tier": "mid",
+      "league": "tr_1",
+      "rivalId": "clb_sancak",
+      "reputation": 58,
+      "foreignRatio": 0.2
+    },
+    {
+      "id": "clb_korfez",
+      "name": "Korfez Idman",
+      "city": "Izmir",
+      "stadium": "Korfez Arena",
+      "tier": "mid",
+      "league": "tr_1",
+      "rivalId": "clb_akdeniz",
+      "reputation": 61,
+      "foreignRatio": 0.2
+    },
+    {
+      "id": "clb_kale",
+      "name": "Kale Ankara",
+      "city": "Ankara",
+      "stadium": "Kale Stadi",
+      "tier": "mid",
+      "league": "tr_1",
+      "rivalId": "clb_bogazici",
+      "reputation": 56,
+      "foreignRatio": 0.15
+    },
+    {
+      "id": "clb_akdeniz",
+      "name": "Akdeniz FK",
+      "city": "Antalya",
+      "stadium": "Portakal Arena",
+      "tier": "mid",
+      "league": "tr_1",
+      "rivalId": "clb_korfez",
+      "reputation": 60,
+      "foreignRatio": 0.25
+    },
+    {
+      "id": "clb_yildiz",
+      "name": "Yildiz Kulubu",
+      "city": "Istanbul",
+      "stadium": "Yildiz Park",
+      "tier": "contender",
+      "league": "tr_1",
+      "rivalId": "clb_sancak",
+      "reputation": 76,
+      "foreignRatio": 0.35
+    },
+    {
+      "id": "clb_sancak",
+      "name": "Sancak SK",
+      "city": "Istanbul",
+      "stadium": "Sancak Arena",
+      "tier": "contender",
+      "league": "tr_1",
+      "rivalId": "clb_yildiz",
+      "reputation": 78,
+      "foreignRatio": 0.4
+    },
+    {
+      "id": "clb_toros",
+      "name": "Toros Adana",
+      "city": "Adana",
+      "stadium": "Toros Stadi",
+      "tier": "contender",
+      "league": "tr_1",
+      "rivalId": "clb_marmara",
+      "reputation": 72,
+      "foreignRatio": 0.3
+    },
+    {
+      "id": "clb_marmara",
+      "name": "Marmara Bursa",
+      "city": "Bursa",
+      "stadium": "Marmara Arena",
+      "tier": "contender",
+      "league": "tr_1",
+      "rivalId": "clb_toros",
+      "reputation": 74,
+      "foreignRatio": 0.35
+    },
+    {
+      "id": "clb_atlas",
+      "name": "Atlas CF",
+      "city": "Madrid",
+      "stadium": "Atlas Kolezyum",
+      "tier": "elite",
+      "league": "tr_1",
+      "rivalId": "clb_nordwest",
+      "reputation": 94,
+      "foreignRatio": 0.6
+    },
+    {
+      "id": "clb_nordwest",
+      "name": "Nordwest Munih",
+      "city": "Munih",
+      "stadium": "Nordwest Arena",
+      "tier": "elite",
+      "league": "tr_1",
+      "rivalId": "clb_atlas",
+      "reputation": 92,
+      "foreignRatio": 0.6
+    },
+    {
+      "id": "clb_ege",
+      "name": "Ege Spor",
+      "city": "Izmir",
+      "stadium": "Kordon Stadi",
+      "tier": "mid",
+      "league": "tr_1",
+      "reputation": 57,
+      "foreignRatio": 0.12,
+      "rivalId": "clb_harran"
+    },
+    {
+      "id": "clb_harran",
+      "name": "Harran FK",
+      "city": "Sanliurfa",
+      "stadium": "Balikligol Stadi",
+      "tier": "mid",
+      "league": "tr_1",
+      "reputation": 54,
+      "foreignRatio": 0.1,
+      "rivalId": "clb_ege"
+    },
+    {
+      "id": "clb_seyhan",
+      "name": "Seyhan Idman",
+      "city": "Adana",
+      "stadium": "Nehir Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 43,
+      "foreignRatio": 0.05,
+      "rivalId": "clb_sakarya"
+    },
+    {
+      "id": "clb_sakarya",
+      "name": "Sakarya Genclik",
+      "city": "Sakarya",
+      "stadium": "Ada Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 41,
+      "foreignRatio": 0.05,
+      "rivalId": "clb_seyhan"
+    },
+    {
+      "id": "clb_beydag",
+      "name": "Beydag FK",
+      "city": "Antalya",
+      "stadium": "Toros Sahasi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 39,
+      "foreignRatio": 0.04,
+      "rivalId": "clb_meric"
+    },
+    {
+      "id": "clb_meric",
+      "name": "Meric Spor",
+      "city": "Edirne",
+      "stadium": "Selimiye Sahasi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 37,
+      "foreignRatio": 0.04,
+      "rivalId": "clb_beydag"
+    },
+    {
+      "id": "clb_kizilirmak",
+      "name": "Kizilirmak Spor",
+      "city": "Kirikkale",
+      "stadium": "Irmak Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 36,
+      "foreignRatio": 0.03,
+      "rivalId": "clb_gediz"
+    },
+    {
+      "id": "clb_gediz",
+      "name": "Gediz Birlik",
+      "city": "Manisa",
+      "stadium": "Spil Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 34,
+      "foreignRatio": 0.03,
+      "rivalId": "clb_kizilirmak"
+    },
+    {
+      "id": "clb_coruh",
+      "name": "Coruh FK",
+      "city": "Artvin",
+      "stadium": "Vadi Stadi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 33,
+      "foreignRatio": 0.02,
+      "rivalId": "clb_tunca"
+    },
+    {
+      "id": "clb_tunca",
+      "name": "Tunca SK",
+      "city": "Bilecik",
+      "stadium": "Sogut Sahasi",
+      "tier": "lower",
+      "league": "tr_2",
+      "reputation": 31,
+      "foreignRatio": 0.02,
+      "rivalId": "clb_coruh"
+    },
+    {
+      "id": "clb_yenimahalle",
+      "name": "Yenimahalle SK",
+      "city": "Ankara",
+      "stadium": "Semt Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 24,
+      "foreignRatio": 0,
+      "rivalId": "clb_akcay"
+    },
+    {
+      "id": "clb_akcay",
+      "name": "Akcay Spor",
+      "city": "Balikesir",
+      "stadium": "Zeytin Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 23,
+      "foreignRatio": 0,
+      "rivalId": "clb_yenimahalle"
+    },
+    {
+      "id": "clb_incesu",
+      "name": "Incesu FK",
+      "city": "Kayseri",
+      "stadium": "Bag Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 21,
+      "foreignRatio": 0,
+      "rivalId": "clb_bagcilar"
+    },
+    {
+      "id": "clb_bagcilar",
+      "name": "Bagcilar Genclik",
+      "city": "Istanbul",
+      "stadium": "Mahalle Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 20,
+      "foreignRatio": 0,
+      "rivalId": "clb_incesu"
+    },
+    {
+      "id": "clb_dereici",
+      "name": "Dereici SK",
+      "city": "Rize",
+      "stadium": "Cay Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 19,
+      "foreignRatio": 0,
+      "rivalId": "clb_kavakli"
+    },
+    {
+      "id": "clb_kavakli",
+      "name": "Kavakli Spor",
+      "city": "Tekirdag",
+      "stadium": "Kavak Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 17,
+      "foreignRatio": 0,
+      "rivalId": "clb_dereici"
+    },
+    {
+      "id": "clb_tastepe",
+      "name": "Tastepe Birlik",
+      "city": "Sivas",
+      "stadium": "Tepe Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 16,
+      "foreignRatio": 0,
+      "rivalId": "clb_govdeli"
+    },
+    {
+      "id": "clb_govdeli",
+      "name": "Govdeli Genclik",
+      "city": "Malatya",
+      "stadium": "Kayisi Sahasi",
+      "tier": "amateur",
+      "league": "tr_amateur",
+      "reputation": 15,
+      "foreignRatio": 0,
+      "rivalId": "clb_tastepe"
+    }
+  ],
+  "leagues": [
+    {
+      "id": "tr_1",
+      "label": "Super Lig",
+      "level": 1,
+      "promoted": 0,
+      "relegated": 2,
+      "_note": "En ust basamak: yukselen yok, iki kulup duser."
+    },
+    {
+      "id": "tr_2",
+      "label": "1. Lig",
+      "level": 2,
+      "promoted": 2,
+      "relegated": 2
+    },
+    {
+      "id": "tr_amateur",
+      "label": "Bolgesel Amator",
+      "level": 3,
+      "promoted": 2,
+      "relegated": 0,
+      "_note": "En alt basamak: dusen yok, iki kulup yukselir."
+    }
+  ]
+}

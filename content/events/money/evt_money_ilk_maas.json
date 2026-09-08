@@ -1,0 +1,389 @@
+{
+  "id": "evt_money_ilk_maas",
+  "family": "fam_money_ilk_maas",
+  "category": "money",
+  "tier": "major",
+  "weight": 60,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "rookie"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ayın On Beşi",
+          "kind": "branch",
+          "text": "Bankamatik kulübün karşısındaki markette. Kartı üçüncü denemede doğru yönde soktun.\n\nEkranda bir rakam var. Sözleşmede yazan rakam değil bu — ondan küçük. Vergi, kesinti, ilk ay orantısı.\n\nArkanda sıra oluşuyor. Fişi cebine tıkıp çıkıyorsun.\n\nTesiste {actor.sporting_director.name} koridorda seni görüyor, elindeki buruşuk fişe bakıyor ve duruyor.\n\n\"Soracak bir şeyin var mı?\"",
+          "choices": [
+            {
+              "id": "c_yok",
+              "text": "\"Yok.\" Fişi cebine daha derine it.",
+              "target": "n_yok",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 4000
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_sor",
+              "text": "\"Neden bu kadar az?\" diye sor.",
+              "target": "n_sor",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 4000
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_hesap",
+              "text": "Kesintileri zaten biliyorsun. Hangi kalemin ne olduğunu say.",
+              "target": "n_hesap",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 4000
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              },
+              "requires": {
+                "flag": "mem_ilk_sozlesme_bekledi",
+                "op": "eq",
+                "value": true
+              },
+              "lockLabel": "[Sözleşmeyi okunurken beklemiştin]"
+            },
+            {
+              "id": "c_harca",
+              "text": "\"Yok.\" Sonra doğruca mağazaya git ve hepsini bitir.",
+              "target": "n_harca",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 400
+                }
+              ],
+              "persona": {
+                "mizac": 9
+              }
+            }
+          ]
+        },
+        "n_yok": {
+          "title": "Cepteki Fiş",
+          "kind": "outcome",
+          "text": "\"Yok,\" dedin. {actor.sporting_director.name} başını salladı, geçti.\n\nO fiş üç hafta cebinde kaldı. Yıkamaya verirken çıktı, mürekkebi solmuştu ama rakam okunuyordu.\n\nHâlâ neden o kadar olduğunu bilmiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_susmayi_secti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sor": {
+          "title": "Brüt ve Net",
+          "kind": "outcome",
+          "text": "\"Neden bu kadar az?\"\n\n{actor.sporting_director.name} güldü ama kötü değildi. Koridorun duvarına yaslandı, iki kelime söyledi: brüt, net.\n\nSonra üçüncüyü: \"Bunu şimdi öğrenmen iyi. Yirmi altısında öğrenenler var.\"",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_hesap": {
+          "title": "Sen Zaten Biliyordun",
+          "kind": "outcome",
+          "text": "Kalemleri saydın. Üçünü doğru bildin, birini karıştırdın.\n\n{actor.sporting_director.name} bir an sustu.\n\n\"Sen o gün gerçekten okumuşsun,\" dedi. Okumamıştın; annen okurken beklemiştin. Ama beklerken duymuştun.\n\nBazen aynı kapıya çıkıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_harca": {
+          "title": "Aynı Gün",
+          "kind": "outcome",
+          "text": "Krampon, kulaklık, kardeşine bir şey, annene bir şey.\n\nAkşam eve döndüğünde hesapta üç haneli bir rakam kalmıştı ve kendini çok iyi hissediyordun. Bu his gerçekti; sadece kısaydı.\n\nAyın on beşi bir daha gelecek. O da geçecek.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_hepsini_harcadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İlk Zar",
+          "kind": "branch",
+          "text": "Kulüp binasının bodrum katındaki muhasebe ofisi. Havada eski kağıt ve rutubet kokusu var. {actor.sporting_director.name}, masasının üzerinde duran, kenarı hafif yıpranmış kalın bir zarfı sana uzatıyor. İçinde ilk profesyonel maaşın duruyor. Gözleri doğrudan senin gözlerinde; tereddüt etmeni bekliyor. Kapı aralık, koridordan gelen krampon sesi yankılanıyor. Zarfı almanı bekleyen elini geri çekmiyor. Sessizlik, bir sınavdan daha ağır.",
+          "choices": [
+            {
+              "id": "c_tuket",
+              "text": "Zarfı al ve tek kelime etmeden arkana bakmadan çık.",
+              "target": "n_tuket",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Zarfı al, saygıyla selam ver ve hemen bankaya gidip bir kısmını tasarruf hesabına yatır.",
+              "target": "n_profesyonel",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı masanın üzerine bırak ve 'Bununla ne almamı bekliyorsun?' diye sor.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Zarfı aç, {actor.sporting_director.name} ile rakamların detaylarını net bir şekilde tartış.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Profesyonellik 55]",
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_tuket": {
+          "title": "Hızla Harcama",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı elinde. Dışarı çıktığın an, bu paranın yarın akşamki gece hayatında veya bir saatlik bir alışverişte yok olacağını biliyorsun. Bu, profesyonel bir kariyer için değil, bir anlık haz arayıcısı olarak damgalanmanı sağlayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_hepsini_harcadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_profesyonel": {
+          "title": "Güvenli Liman",
+          "kind": "outcome",
+          "text": "Doğru olanı yaptın. Herkes senin ne kadar disiplinli olduğunu konuşacak. Ama o gece yastığa başını koyduğunda, paranın soğukluğundan başka bir şey hissetmiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_susmayi_secti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sorgulayan Genç",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} sana bakışlarını dikti. Artık sadece bir 'genç yetenek' değil, sorun çıkaran birisin. Sokaklar bunu cesaret olarak görecek, yönetim ise tehdit.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Müzakere Masası",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} hafifçe gülümsedi. Artık sadece sahada değil, masada da bir ağırlığın var. Bu saygı, omuzlarında taşıyacağın yeni bir yük demek.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,347 @@
+{
+  "_note": "HAKEM HAVUZU -- kod degil VERI. Kaynak CSV'de hakem yok, bu yuzden hakemler bu dosyadan uretilir. Yeni hakem eklemek, kokart dagilimini degistirmek ya da bir ulkeye ozel isim havuzu tanimlamak icin TypeScript'e dokunmak gerekmez.",
+  "_nasil": {
+    "isim havuzu": "namePools altina ulke adi ekleyin (world.db'deki country.name_real ile birebir). Tanimli olmayan ulke 'default' havuzunu kullanir.",
+    "elle hakem": "manual dizisine satir ekleyin. Bu hakemler AYNEN yazilir; nitelikleri cekilisle uretilmez. Ulke adi tanimsizsa satir atlanir ve rapora yazilir.",
+    "sayi": "refereesPerLeague ligi basina kac hakem uretilecegini soyler. 16 ligli bir dunyada 8 -> ~128 hakem.",
+    "yeniden import": "Maske kilidi burada da gecerli: bir kere uretilen hakem adi ve ID'si DEGISMEZ. Havuza yeni isim eklemek eski hakemleri yeniden adlandirmaz, yalnizca yeni uretilenleri etkiler."
+  },
+  "refereesPerLeague": 8,
+  "_badgeNote": "Kokart dagilimi -- gercek piramide yakin. Toplam 1.0 olmali; olmazsa kalan en dusuk kokarta yazilir.",
+  "badgeDistribution": {
+    "regional": 0.45,
+    "national": 0.35,
+    "elite": 0.15,
+    "fifa": 0.05
+  },
+  "_profileNote": "Kokart yukseldikce nitelikler DARALIR ve yukselir: elit hakem daha tutarli ve daha az taraflidir. 'bias' ev sahibi kayirmasinin +/- bandi (50 notr).",
+  "badgeProfiles": {
+    "regional": {
+      "consistency": [
+        35,
+        65
+      ],
+      "bias": 12,
+      "reputation": [
+        20,
+        45
+      ]
+    },
+    "national": {
+      "consistency": [
+        50,
+        78
+      ],
+      "bias": 8,
+      "reputation": [
+        40,
+        70
+      ]
+    },
+    "elite": {
+      "consistency": [
+        65,
+        88
+      ],
+      "bias": 5,
+      "reputation": [
+        65,
+        88
+      ]
+    },
+    "fifa": {
+      "consistency": [
+        75,
+        95
+      ],
+      "bias": 3,
+      "reputation": [
+        80,
+        99
+      ]
+    }
+  },
+  "_rangeNote": "Kokarttan BAGIMSIZ nitelikler. Sert bir bolgesel hakem de, toleransli bir FIFA hakemi de olabilir -- kokart yetkinligi belirler, kisiligi degil.",
+  "attributeRanges": {
+    "strictness": [
+      35,
+      85
+    ],
+    "cardTendency": [
+      30,
+      85
+    ],
+    "penaltyCourage": [
+      30,
+      90
+    ],
+    "varReliance": [
+      20,
+      90
+    ],
+    "experience": [
+      0,
+      250
+    ]
+  },
+  "namePools": {
+    "default": {
+      "first": [
+        "Marco",
+        "Luca",
+        "Pierre",
+        "Anton",
+        "Felix",
+        "Sergio",
+        "Diego",
+        "Ivan",
+        "Michael",
+        "Craig",
+        "Anthony",
+        "Stuart",
+        "Lars",
+        "Jonas",
+        "Rui",
+        "Joao",
+        "Andre",
+        "Daniel",
+        "Tomas",
+        "Nikola"
+      ],
+      "last": [
+        "Rossi",
+        "Bianchi",
+        "Moreau",
+        "Weber",
+        "Fischer",
+        "Navarro",
+        "Costa",
+        "Oliver",
+        "Taylor",
+        "Clark",
+        "Andersen",
+        "Nilsson",
+        "Silva",
+        "Pereira",
+        "Kovac",
+        "Horvat",
+        "Dubois",
+        "Lambert"
+      ]
+    },
+    "Türkiye": {
+      "first": [
+        "Ali",
+        "Mert",
+        "Halil",
+        "Serkan",
+        "Emre",
+        "Cuneyt",
+        "Ozgur",
+        "Deniz",
+        "Volkan",
+        "Yasin",
+        "Arda",
+        "Ufuk"
+      ],
+      "last": [
+        "Yildiz",
+        "Kaya",
+        "Aksoy",
+        "Demirci",
+        "Ozkan",
+        "Turan",
+        "Bilgin",
+        "Sahin",
+        "Coskun",
+        "Karaca",
+        "Erdem",
+        "Polat"
+      ]
+    },
+    "England": {
+      "first": [
+        "Michael",
+        "Craig",
+        "Anthony",
+        "Stuart",
+        "Paul",
+        "Andrew",
+        "David",
+        "Simon",
+        "Chris",
+        "Jarred"
+      ],
+      "last": [
+        "Oliver",
+        "Taylor",
+        "Clark",
+        "Atkinson",
+        "Dean",
+        "Madley",
+        "Tierney",
+        "Bramall",
+        "Kavanagh",
+        "England"
+      ]
+    },
+    "Spain": {
+      "first": [
+        "Sergio",
+        "Antonio",
+        "Javier",
+        "Jesus",
+        "Alejandro",
+        "Ricardo",
+        "Carlos",
+        "Pablo"
+      ],
+      "last": [
+        "Navarro",
+        "Munuera",
+        "Gil",
+        "Hernandez",
+        "Soto",
+        "Cordero",
+        "Ortiz",
+        "Delgado"
+      ]
+    },
+    "Italy": {
+      "first": [
+        "Marco",
+        "Luca",
+        "Daniele",
+        "Matteo",
+        "Gianluca",
+        "Federico",
+        "Davide",
+        "Simone"
+      ],
+      "last": [
+        "Rossi",
+        "Bianchi",
+        "Orsato",
+        "Massa",
+        "Doveri",
+        "Irrati",
+        "Fabbri",
+        "Colombo"
+      ]
+    },
+    "Germany": {
+      "first": [
+        "Felix",
+        "Anton",
+        "Daniel",
+        "Tobias",
+        "Sascha",
+        "Deniz",
+        "Harm",
+        "Patrick"
+      ],
+      "last": [
+        "Weber",
+        "Fischer",
+        "Brych",
+        "Zwayer",
+        "Stegemann",
+        "Aytekin",
+        "Osmers",
+        "Ittrich"
+      ]
+    },
+    "France": {
+      "first": [
+        "Pierre",
+        "Clement",
+        "Benoit",
+        "Willy",
+        "Jerome",
+        "Francois",
+        "Stephanie",
+        "Ruddy"
+      ],
+      "last": [
+        "Moreau",
+        "Dubois",
+        "Bastien",
+        "Turpin",
+        "Delerue",
+        "Letexier",
+        "Brisard",
+        "Buquet"
+      ]
+    },
+    "Portugal": {
+      "first": [
+        "Rui",
+        "Joao",
+        "Artur",
+        "Luis",
+        "Tiago",
+        "Nuno",
+        "Fabio",
+        "Manuel"
+      ],
+      "last": [
+        "Costa",
+        "Pereira",
+        "Soares",
+        "Dias",
+        "Martins",
+        "Almeida",
+        "Veríssimo",
+        "Godinho"
+      ]
+    },
+    "Netherlands": {
+      "first": [
+        "Bas",
+        "Danny",
+        "Serdar",
+        "Jeroen",
+        "Dennis",
+        "Allard",
+        "Joey",
+        "Sander"
+      ],
+      "last": [
+        "Nijhuis",
+        "Makkelie",
+        "Gozubuyuk",
+        "Manschot",
+        "Higler",
+        "Lindhout",
+        "Kamphuis",
+        "Blom"
+      ]
+    }
+  },
+  "_manualNote": "ELLE TANIMLI HAKEMLER. Buraya yazilanlar aynen uretilir; nitelikleri cekilisle degil verdiginiz degerlerle olusur. Verilmeyen nitelik kokart profilinden cekilir. Bos birakmak serbest -- hepsi tohumdan uretilir.",
+  "manual": [
+    {
+      "name": "Cuneyt Kara",
+      "country": "Türkiye",
+      "badge": "fifa",
+      "attributes": {
+        "strictness": 78,
+        "cardTendency": 72,
+        "penaltyCourage": 88,
+        "varReliance": 45,
+        "consistency": 91,
+        "homeBias": 48,
+        "reputation": 97
+      }
+    },
+    {
+      "name": "Bjorn Hale",
+      "country": "England",
+      "badge": "elite",
+      "attributes": {
+        "cardTendency": 25,
+        "consistency": 86
+      }
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "id": "evt_life_suspended_stands",
+  "family": "fam_life_suspension",
+  "category": "life",
+  "tier": "minor",
+  "weight": 45,
+  "cooldown": {
+    "self": 4,
+    "family": 3
+  },
+  "lifeStates": [
+    "suspended"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tribünden",
+      "kind": "branch",
+      "text": "Kombine sahibi gibi oturuyorsun. Takım elbiseyle, VIP locada, elinde bir bardak su. Aşağıda takım ısınıyor ve senin yerinde oynayan çocuk on dokuz yaşında; ısınmayı bile senden hızlı yapıyor.\n\nYan koltukta {actor.president.name}. Maça bakmadan konuşuyor: \"Ceza haftaları uzun geçer. Bazıları bu haftalarda kendini bulur, bazıları kaybeder.\"\n\nİlk yarı bitiyor. Senin yerindeki çocuk gol atıyor.",
+      "choices": [
+        {
+          "id": "c_applaud",
+          "text": "Ayağa kalk ve alkışla. Kameralar seni görsün.",
+          "target": "n_applauded",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "sadakat": 6,
+            "mizac": -4
+          }
+        },
+        {
+          "id": "c_leave",
+          "text": "Devre arasında kalk, çık. Kimseye söyleme.",
+          "target": "n_left",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "mizac": 5,
+            "sadakat": -7
+          }
+        },
+        {
+          "id": "c_talk",
+          "text": "{actor.president.first:dat} dön: \"Bu hafta bittiğinde yerimi geri istiyorum.\"",
+          "target": "n_talked",
+          "effects": [
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": 6,
+            "mizac": 3
+          }
+        }
+      ]
+    },
+    "n_applauded": {
+      "title": "Görüntü",
+      "kind": "outcome",
+      "text": "Kamera seni buluyor ve o görüntü akşam bütün özetlerde dönüyor: cezalı adam, ayakta, yerine oynayan çocuğu alkışlıyor.\n\nÇocuk maçtan sonra soyunma odasında yanına geliyor. Ne diyeceğini bilmiyor. Sen de bilmiyorsun. İkiniz de gülüyorsunuz ve mesele o an çözülüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_youngster_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_left": {
+      "title": "Boş koltuk",
+      "kind": "outcome",
+      "text": "İkinci yarı başlarken kamera locayı gösteriyor. Koltuk boş.\n\nSpiker bir şey söylemiyor ama söylememesi yeterli. Ertesi gün tesise girdiğinde {actor.manager.name} seni ofisine çağırmıyor — bu daha kötü, çünkü çağırmayacağı anlamına geliyor.",
+      "onEnter": [
+        {
+          "flag": "iliski_manager",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_talked": {
+      "title": "Pazarlık",
+      "kind": "outcome",
+      "text": "{actor.president.first} gülümsüyor, hâlâ sahaya bakıyor. \"Yerini kimse almadı,\" diyor. \"Sen bıraktın. İki hafta sonra hâlâ istiyorsan konuşuruz.\"\n\nSonra ekliyor: \"Ama bir daha federasyona laf edersen ben de seni savunmam. Bunu şimdi söylüyorum ki sonra sürpriz olmasın.\"",
+      "onEnter": [
+        {
+          "flag": "mem_media_war",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

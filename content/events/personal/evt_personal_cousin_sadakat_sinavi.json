@@ -1,0 +1,164 @@
+{
+  "id": "evt_personal_cousin_sadakat_sinavi",
+  "family": "fam_personal_sadakat_sinavi",
+  "category": "personal",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Defterler",
+      "kind": "branch",
+      "text": "Mutfaktaki buzluktan gelen motor sesi sessizliği bölüyor. {actor.cousin.name}, masanın ucunda oturmuş, önündeki yıpranmış dosyayı parmaklarıyla geriyor. Yan odada {actor.partner.name} ile akşam yemeği planları konuşuluyor ama kuzenin bakışları başka yerde. 'Bunu kulübe verirsen, benim sonum olur,' diyor fısıltıyla. Eğer bu belgeler ortaya çıkarsa, kariyerin büyük bir skandalın tam ortasında kalacak. Sessizce masaya yığılmış fotoğraflara bakıyorsun. {actor.childhood_friend.name} ise kapı aralığından durumu izliyor; onun için bu sadece bir sadakat testi değil, eski mahallede kimin yanında saf tutacağının ilanı.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Dosyayı elinden al ve yak. 'Bunu hiç görmedim, sen de hatırlama.'",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 5,
+            "sadakat": -5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Dosyayı {actor.cousin.name:dat} geri ver. 'Neyi göze alıyorsan, arkasındayım.'",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "sadakat": 8,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Fotoğrafları al, zarfa koy. 'Bunun bir bedeli var, herkesin ortak olduğu bir bedel.'",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "durus": -5,
+            "mizac": 3
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Sessizlik Bedeli",
+      "kind": "outcome",
+      "text": "Kağıtlar küle dönüştüğünde kuzeninin gözlerindeki o parıltı sönüyor. Artık hiçbir şey eskisi gibi değil.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_sadakat_sinavi_cousin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Kan Bağı",
+      "kind": "outcome",
+      "text": "Dosyayı ona geri verdin. Bir gün bu kağıtların manşetleri süsleyeceğini biliyorsun ama şu an aranızdaki bağ her şeyden ağır.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_sadakat_sinavi_cousin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Hesaplı Sessizlik",
+      "kind": "outcome",
+      "text": "Zarfı kendine sakladın. Güç artık senin elinde, ama vicdanındaki o boşluk büyümeye başladı.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_sadakat_sinavi_cousin",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

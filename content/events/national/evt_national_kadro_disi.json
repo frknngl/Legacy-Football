@@ -1,0 +1,392 @@
+{
+  "id": "evt_national_kadro_disi",
+  "family": "fam_national_kadro",
+  "category": "national",
+  "tier": "major",
+  "weight": 55,
+  "cooldown": {
+    "self": 30,
+    "family": 14
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "national_duty",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yirmi Üç Kişilik Kâğıt",
+          "kind": "branch",
+          "text": "Kamp otelinin toplantı odası. {actor.national_manager.name} kapıyı kapatıyor.\n\nMasada yirmi altı isim var; kâğıda yirmi üç sığıyor.\n\n\"Sana soruyorum çünkü sen sahada göreceksin,\" diyor. \"Bana değil, yanındakine.\"\n\nÜç isim daire içine alınmış. Biri yirmi yaşında; iki hafta önce kampa ilk kez geldi ve antrenmanda herkesten çok koştu. Diğer ikisi otuzun üstünde, ikisi de sana yıllardır iyi davrandı.\n\n{actor.national_manager.name} kalemi masaya bırakıp arkasına yaslanıyor. Acelesi yok. Seninse var.",
+          "choices": [
+            {
+              "id": "c_genc",
+              "text": "Genci savun. \"Bu çocuk hazır.\"",
+              "target": "n_genc",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -11
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 7
+              }
+            },
+            {
+              "id": "c_kidem",
+              "text": "Kıdemlileri savun. \"Bu kadro onlarla buraya geldi.\"",
+              "target": "n_kidem",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 13
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "sadakat": 9
+              }
+            },
+            {
+              "id": "c_ret",
+              "text": "\"Bu benim işim değil.\" Kâğıdı geri it.",
+              "target": "n_ret",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -7
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_kendim",
+              "text": "\"Beni çıkar. Yirmi üçüncü ben olmayayım.\"",
+              "target": "n_kendim",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -14
+                }
+              ],
+              "persona": {
+                "dogruluk": 12,
+                "durus": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 78
+              },
+              "lockLabel": "[Liderlik 78]"
+            }
+          ]
+        },
+        "n_genc": {
+          "title": "Yirmi Yaşındaki",
+          "kind": "outcome",
+          "text": "Genç kaldı. Kıdemlilerden biri gitti.\n\nHavaalanında sana sarıldı ve \"Sağ ol\" dedi. Ne için sağ olduğunu bilmiyordu.\n\nGenç o turnuvada iki gol attı. Üçüncü maçtan sonra {actor.journalist.name} sana sordu: \"Onu siz mi istediniz?\" \"Hayır,\" dedin. Yalandı ama doğru yalandı.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_genci_savundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kidem": {
+          "title": "Bu Kadro Onlarla Geldi",
+          "kind": "outcome",
+          "text": "İkisi de kaldı. Genç, otobüse binmeden önce çantasını kendisi taşıdı; kimse yardım etmedi.\n\nDört yıl sonra o çocuk başka bir ülkenin en iyi oyuncusuydu ve millî takıma bir daha çağrıldığında \"Düşüneceğim,\" dedi.\n\nDüşündü. Gelmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_kidemi_savundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ret": {
+          "title": "Kâğıt Geri Gitti",
+          "kind": "outcome",
+          "text": "\"Bu benim işim değil.\"\n\n{actor.national_manager.name} kâğıdı aldı, katladı. \"Doğru,\" dedi. \"Benim işim.\"\n\nO gün odadan çıkarken aranızda bir şey değişmişti. Kötü bir şey değil — mesafe. Bir daha sana hiçbir şey sormadı.\n\nBazı kapılar kapanmaz, sadece bir daha çalınmaz.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_karismadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kendim": {
+          "title": "Yirmi Üçüncü",
+          "kind": "outcome",
+          "text": "Odada uzun bir sessizlik oldu.\n\n\"Ciddi misin?\" dedi {actor.national_manager.name}. Ciddiydin.\n\nSeni çıkarmadı. Ama o cümle kamptan çıktı, otobüse bindi, soyunma odasına girdi ve orada kaldı.\n\nBasın \"fedakârlık\" yazdı, bir kısmı \"şov\" yazdı. Takım hiçbir şey yazmadı; takım sadece bir daha sana farklı baktı.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_kendini_verdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Uçağın Kalkış Saati",
+          "kind": "branch",
+          "text": "Havalimanı özel terminalinin loş ışıklarında, {actor.national_manager.name} bir elinde pasaportları, diğerinde ise son güncellenmiş oyuncu listesini tutuyor. Yan yana yürüyoruz. Piste doğru uzanan koridorda sadece ikimizin ayak sesi yankılanıyor. Duruyor. Listeyi bana uzatıyor. Üzerinde kalemle çizilmiş bir isim var; uçağa binmeyecek olan, evine gönderilecek o son kişi. Bakışları, uçağın motor sesine odaklanmış durumda. Sessizlik, bir kararın ağırlığıyla ağırlaşıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "İsimleri tekrar kontrol et. Sistem neyi gerektiriyorsa onu yap.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Listeyi görmezden gel. Prim ödemeleriyle ilgili konuyu hatırlat ve önüne bak.",
+              "target": "n_ahlaki_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Çizilen ismin yanına git, uçağa binmesini sağla. Tartışmayı ben üstlenirim.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 12
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kendi yerimi ona bırakıp, kafileden ayrılmayı teklif et.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Destek Yetersiz]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İşin Gereği",
+          "kind": "outcome",
+          "text": "{actor.national_manager.name} başını hafifçe sallıyor. Liste değişmiyor. Bir oyuncunun hayalleri o kâğıtla birlikte çöp kutusuna atılıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_karismadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ahlaki_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Göz temasından kaçınıyorsun. {actor.national_manager.name} dudaklarında beliren ince bir tebessümle listeyi cebine koyuyor. Havaalanı çıkışında hesabına yatan miktar, vicdanındaki boşluğu doldurmaya yetmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_karismadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Açık İtaatsizlik",
+          "kind": "outcome",
+          "text": "Koridorda sesini yükseltiyorsun. {actor.national_manager.name} sana bakıyor; öfkesi değil, şaşkınlığı daha tehlikeli. O genç oyuncu uçakta, sen ise dikkatleri üzerine çektin.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_genci_savundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Fedakarlık",
+          "kind": "outcome",
+          "text": "{actor.national_manager.name} duraksıyor, elini omzuna koyuyor. Kimse anlamıyor ama sen yerini vererek aslında büyük bir borcun altına giriyorsun. Uçak havalanırken havaalanında tek başına kalıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_kendini_verdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

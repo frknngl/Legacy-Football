@@ -1,0 +1,393 @@
+{
+  "id": "evt_life_training_phone",
+  "family": "fam_life_daily",
+  "category": "life",
+  "tier": "beat",
+  "weight": 30,
+  "cooldown": {
+    "self": 14,
+    "family": 3
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "variants": [
+    {
+      "id": "v_phone",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Dört yüz bin görüntülenme",
+          "kind": "branch",
+          "text": "İdman sonrası soyunma odasında {actor.captain.name} telefonunu uzatıyor: \"Bak, senin o pozisyonu paylaşmışlar. Yorumları okuma derim ama...\"\n\n{actor.youngster.first} de omzunun üstünden bakıyor, gülüyor. Ekranda kendi hatan, dört yüz bin görüntülenme.",
+          "choices": [
+            {
+              "id": "c_read",
+              "text": "Telefonu al. Oku, hepsini oku.",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "mem_reads_own_criticism",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "dogruluk": 2,
+                "mizac": -3
+              }
+            },
+            {
+              "id": "c_close",
+              "text": "Telefonu kapat, sahaya dön. Bir saat daha şut çalış.",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "mizac": -4,
+                "sadakat": 3
+              }
+            },
+            {
+              "id": "c_reply",
+              "text": "Alt yorumlara gir. Cevap ver.",
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak 60]",
+              "effects": [
+                {
+                  "flag": "sosyal_medya_takipci",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7,
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_yusuf",
+              "text": "{actor.youngster.first:dat} dön: \"Sen de gülüyorsun. Yarın seninkini paylaşırlar.\"",
+              "effects": [
+                {
+                  "flag": "npc_youngster_arc",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "sadakat": 4,
+                "durus": 3
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_bus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Otobüsün arkası",
+          "kind": "branch",
+          "text": "Deplasman dönüşü. Otobüsün arka koltukları her zaman aynı üç kişinin: {actor.captain.first}, kaleci ve sen. Işıklar kapalı, herkes kulaklıkta.\n\n{actor.captain.first} camdan dışarı bakarak konuşuyor: \"Ben senin yaşındayken bu koltukta oturmuyordum. Öndeydim, hocanın arkasında. Buraya gelmem altı yıl sürdü.\"\n\nSonra sana dönüyor: \"Sen iki yılda geldin. Bu iyi bir şey mi kötü mü, hâlâ bilmiyorum.\"",
+          "choices": [
+            {
+              "id": "c_joke",
+              "text": "Gül. \"Belki de sen yavaştın.\"",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "mizac": 6,
+                "sadakat": -3
+              }
+            },
+            {
+              "id": "c_listen",
+              "text": "Sus ve dinle. Devamını getirmesini bekle.",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": -2
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "sadakat": 5,
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_honest",
+              "text": "\"Sen bana yer açtın. Ben bunu unutacak biri değilim.\"",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "sadakat": 9,
+                "dogruluk": 5
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kaptanlık Bandı",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları sönmek üzere. {actor.captain.name} soyunma odasının en ücra köşesinde, dolabını boşaltıyor. Çantasını yere bırakıyor, eski kramponlarını kilitli dolabın içine öylece bırakmış. Sana bakıyor. Gözlerinde ne bir veda var ne de bir tavsiye. Sadece boşluğa bakıyor. Soyunma odasının o ağır, ter ve sentetik çim kokusu boğazını yakıyor. Masanın üzerindeki kaptanlık pazubandını sana doğru itiyor. 'Burayı nasıl bırakırsan öyle bulursun,' diyor. Sesi titremiyor ama elleri soğuk. Karar senin. Odanın çıkışına giden yol kısa, ama üzerindeki yük ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Pazubandını al, dolabını düzenle ve çıkışta teknik heyete teşekkür et.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Pazubandını masada bırak, yanına sadece kendi eşyalarını al ve sessizce kapıyı çarp.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Pazubandını ve kilitli dolap anahtarını satmak için dışarıdaki temsilciyle görüş.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Düzenin Devamı",
+          "kind": "outcome",
+          "text": "Düzenin dışına çıkmadın. Herkes senin ne yapacağını biliyordu. Beklenti seni korudu ama ruhunu daralttı.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kendi Yolun",
+          "kind": "outcome",
+          "text": "Kapı gürültüyle kapandı. Arkanda ne bir iz ne de bir miras bıraktın. Sadece boş bir dolap ve yükselen fısıltılar.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Cebine giren para, odaya yayılan utanç kokusunu bastıramıyor. Artık hiçbir şey eskisi gibi temiz olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "_statureNote": "Sahne Hero'nun kendi hatasinin viral olmasi uzerine kurulu; hicbir sohreti olmayan bir caylagin pozisyonu 400 bin izlenmez."
+}

@@ -1,0 +1,384 @@
+{
+  "id": "evt_personal_partner_geri_donus_injured",
+  "family": "fam_personal_geri_donus",
+  "category": "personal",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Evin Eşiği",
+          "kind": "branch",
+          "text": "Dizindeki sargıların sızısı, oturduğun koltuğun sertliğiyle yarışıyor. Mutfaktan gelen kahve kokusu, yıllar önce terk ettiğin bu evin ritmini hatırlatıyor. {actor.partner.name}, elinde bir tepsiyle içeri giriyor. Göz göze geliyorsunuz. Omuzlarındaki o eski, ağır sessizlik odanın havasını değiştiriyor. {actor.mother.name} ise koridorda, belli belirsiz bir gölge gibi duruyor; ne içeri giriyor ne de gidiyor. Masanın üzerinde, rehabilitasyon programının ve menajerinin hazırladığı o soğuk, profesyonel iyileşme dosyaları duruyor. {actor.partner.name}, tepsiyi masaya bırakırken ellerinin titrediğini fark ediyorsun. Bir karar vermen gerekiyor; burası sadece bir bekleme odası değil, ya köprüleri tamamen yakacağın ya da külleri yeniden harmanlayacağın yer.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Dosyaları al ve hemen kulüp doktorunu ara. Profesyonelliği önceliğin yap.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Telefonu kapat, {actor.partner.name:gen} elini tut. Geri dönmek için acelemiz yok.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Masadaki teklif zarfını {actor.partner.name:dat} doğru kaydır. Sessizce ortak bir gelecek teklif et.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_leader",
+              "text": "Herkesi masaya çağır. {actor.mother.name} ve {actor.partner.name} ile bu enkazı nasıl kaldıracağınızı konuş.",
+              "target": "n_outcome_leader",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "İşin Gereği",
+          "kind": "outcome",
+          "text": "Telefonu eline aldığında {actor.partner.name:gen} bakışlarını üzerinde hissediyorsun. Uzaklaşıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Zamanın Dışında",
+          "kind": "outcome",
+          "text": "Dünya dışarıda dönmeye devam etse de odada zaman duruyor. {actor.partner.name} başını omzuna yaslıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "{actor.partner.name} zarfa bakıyor, sonra sana. Bir mutabakat imzalanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_leader": {
+          "title": "Kayıpları Toplamak",
+          "kind": "outcome",
+          "text": "Gözleriniz birleşiyor. {actor.mother.name} ilk defa gülümsüyor. Yük biraz hafifliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eşyaların Sessizliği",
+          "kind": "branch",
+          "text": "Antrenman sahasındaki o gürültülü yankı yerini boş bir dolabın soğukluğuna bıraktı. {actor.partner.name}, açık duran bagajın yanına diz çökmüş; geride bıraktıklarını ayıklıyor. Bir çift krampon, tek kalmış bir tekmelik ve bir avuç madalya. Gözleri yorgun, bakışları ise bir veda mektubu kadar net. Odada sadece bagaj kapağının menteşelerinden gelen o gıcırtı var. Artık iyileşmenin bir anlamı kalmadığını biliyor, sen de biliyorsun. O, kapıyı kapatmadan önce son kez duraksadı.",
+          "choices": [
+            {
+              "id": "c_1",
+              "text": "Sessizce başını salla ve gitmesine izin ver. Bazı sakatlıklar sadece bedeni değil, hikayeyi de bitirir.",
+              "target": "n_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Elindeki madalyayı alıp bagajın en dibine bırak. Profesyonelce, sanki hiçbir şey olmamış gibi.",
+              "target": "n_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_3",
+              "text": "Onu kolundan tutup içeri çek. Bu ayrılığın senin kariyerine mal olacağını haykır.",
+              "target": "n_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_4",
+              "text": "Eline dokun, hiçbir şey söylemeden yarım kalanları tamir etmeye çalış.",
+              "target": "n_4",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Mental Dayanıklılık 55]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_1": {
+          "title": "Gidenin Ardından",
+          "kind": "outcome",
+          "text": "Bagaj kapandı. Tek bir sesle hayatının bir bölümü kilitlendi. Artık geri dönüşü yok.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_2": {
+          "title": "Soğuk Veda",
+          "kind": "outcome",
+          "text": "Gözlerinin içine bile bakmadı. Kapı kapandığında, odadaki en soğuk şey senin yalnızlığın oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_3": {
+          "title": "Zorla Tutulan",
+          "kind": "outcome",
+          "text": "Onu tuttun ama ellerin boşaldı. Gitti. Şimdi her maçta tribünlerden gelen o yuhalamalar, o anın yankısı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_4": {
+          "title": "Yorgun Bağ",
+          "kind": "outcome",
+          "text": "Durdurdun onu. Ama bakışlarındaki o boşluk hiç dolmadı. Yine de yanındasın, bedeli ağır olsa da.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

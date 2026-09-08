@@ -1,0 +1,762 @@
+{
+  "id": "evt_react_locker_room_court",
+  "family": "fam_react_locker",
+  "category": "reaction",
+  "tier": "major",
+  "weight": 45,
+  "cooldown": {
+    "self": 12,
+    "family": 7
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "trigger": {
+    "anyOf": [
+      {
+        "flag": "inc_stood_up",
+        "op": "isSet"
+      },
+      {
+        "flag": "inc_gave_armband",
+        "op": "isSet"
+      },
+      {
+        "flag": "inc_racist_abuse",
+        "op": "isSet"
+      },
+      {
+        "flag": "inc_injured_teammate",
+        "op": "isSet"
+      }
+    ]
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Soyunma odası mahkemesi",
+          "kind": "branch",
+          "text": "Antrenman sonrası. {actor.captain.name} kapıyı kapatıyor ve masaj masasının üstüne oturuyor — bu, onun konuşacağı anlamına gelir ve herkes susuyor.\n\n\"{opponent} maçında olanı hepimiz gördük,\" diyor. \"Kimse bir şey söylemedi. Şimdi söyleyelim.\"\n\nOn sekiz kişi. Yarısı sana bakıyor, yarısı yere.\n\n{actor.keeper.first} elini kaldırıyor, sonra indiriyor. Stoper kollarını kavuşturmuş.",
+          "choices": [
+            {
+              "id": "c_explain",
+              "text": "Ayağa kalk ve neden öyle yaptığını anlat.",
+              "target": "n_explained",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 8,
+                "sadakat": 6
+              }
+            },
+            {
+              "id": "c_demand",
+              "text": "\"Siz ne yaptınız? Ben oradaydım, siz neredeydiniz?\"",
+              "target": "n_demanded",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "mizac": 11,
+                "durus": 9,
+                "sadakat": -6
+              }
+            },
+            {
+              "id": "c_quiet",
+              "text": "Otur ve dinle. Bugün konuşma sırası sende değil.",
+              "target": "n_listened",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -8,
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_young",
+              "text": "{actor.keeper.first:dat} dön: \"Sen bir şey söylemek istedin. Söyle.\"",
+              "target": "n_young",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "npc_keeper_arc",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 7,
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_explained": {
+          "title": "Yedi dakika",
+          "kind": "outcome",
+          "text": "Yedi dakika konuşuyorsun. Bir kısmında sesin titriyor ve bunu saklamıyorsun.\n\nBitirdiğinde kimse alkışlamıyor — bu iyi bir şey, alkış ucuz olurdu. Stoper kollarını indiriyor. {actor.captain.first} başını sallıyor.\n\n{actor.keeper.first} maçtan iki gün sonra sana bir mesaj atıyor: \"Benim babam da böyle bir şey yaşamıştı. Hiç anlatmamıştı.\"",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_demanded": {
+          "title": "Neredeydiniz",
+          "kind": "outcome",
+          "text": "Soru odada asılı kalıyor ve kimse cevaplamıyor. En kötüsü bu.\n\n{actor.captain.first} masadan iniyor. \"Haklısın,\" diyor. \"Ve bunu bu şekilde söylemen de yanlış. İkisi aynı anda doğru olabilir.\"\n\nKapıyı açıp çıkıyor. Arkasından yedi kişi daha çıkıyor.\n\nSekiz kişi kalıyor ve o sekiz kişi bundan sonra hep senin tarafında olacak. Diğerleri hiç olmayacak.",
+          "onEnter": [
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ]
+        },
+        "n_listened": {
+          "title": "Otuz dakika",
+          "kind": "outcome",
+          "text": "Oturuyorsun ve otuz dakika konuşuyorlar. Bazıları senin adına, bazıları değil.\n\nStoper konuşuyor: \"Ben o an ne yapacağımı bilmedim. Bunu söylemekten utanıyorum.\" Yirmi yıl futbol oynamış adam.\n\nSonunda {actor.captain.first} kapıyı açıyor. Çıkarken sana bakıp tek kelime söylüyor: \"Doğru olanı yaptın. İkisini de.\"",
+          "onEnter": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            }
+          ]
+        },
+        "n_young": {
+          "title": "Elini kaldıran",
+          "kind": "outcome",
+          "text": "{actor.keeper.first} ayağa kalkıyor. On dokuz yaşında, sesi çatlıyor.\n\n\"Ben de duydum,\" diyor. \"Kalede yalnızdım ve duydum. Ve hiçbir şey yapmadım çünkü ilk sezonum ve korktum.\"\n\nOturuyor. Odada kimse konuşmuyor.\n\n{actor.captain.first} masadan iniyor ve çocuğun yanına oturuyor. \"Şimdi yaptın,\" diyor.\n\nBunu sen başlattın ve kimse bunu hatırlamayacak. Sen hatırlayacaksın.",
+          "onEnter": [
+            {
+              "flag": "iliski_keeper",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 4
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Zaferin Soguk Yuksekliği",
+          "kind": "branch",
+          "text": "Stadyumun koridorunda yankılanan tezahüratlar, bu dar duş odasının metal duvarlarında boğuluyor. {actor.captain.name}, elindeki buz torbasını dizinden hızla çekip beton zemine fırlatıyor. Çıkan tok ses, zafer kutlamalarının uğultusunu kesiyor. Kaptanın gözleri, aynadaki yansımanla buluşuyor. Odadaki diğerleri, bu gergin sessizliğin baskısıyla başlarını öne eğmiş. Takım arkadaşların kazandı, ama sen başka bir dünyadasın. Kaptan, ıslak havlusunu bir kenara savurup sana doğru bir adım atıyor. Bakışı, zaferin sarhoşluğuyla değil, bir hesaplaşmanın soğukluğuyla keskin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Basını eğ, duşun soğuk suyunu aç. Bugün bu tartışmayı başlatmanın sırası değil.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kaptanın yanına git, elini omzuna koy. 'Bunu başardık, gerisinin önemi yok' de.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantandaki prim zarfını çıkar, masanın üzerine bırak. Sadece omuz silk.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kaptanın koluna gir, onu dışarıya, taraftarların arasına çek.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              },
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Taraftar Desteği 80+]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessizligin Bedeli",
+          "kind": "outcome",
+          "text": "Sular üzerindeki kireçli fayanslara vuruyor. Kapıdan çıkarken, arkanda bıraktığın bakışların ağırlığını hissediyorsun. Profesyonelce, ama yalnız.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sokagın Dili",
+          "kind": "outcome",
+          "text": "Omuz omuza duştan çıktınız. Herkes bu pervasızlığı izliyor. Gazeteciler yarın ne yazacağını biliyor, disiplin kurulu ise çoktan dosyayı açtı.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Ticari Bir Zafer",
+          "kind": "outcome",
+          "text": "Kaptan masadaki zarfa bakıyor. Sözcükler gereksizleşiyor. Artık takımın bir parçası değil, bir ortağı gibi bakıyor sana. Kırgınlık, hesap cüzdanında eriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Kalabaligin İlacı",
+          "kind": "outcome",
+          "text": "Dışarıdaki gürültü tüm gerginliği alıp götürüyor. Taraftarlar ikinizi de alkışlarken, kaptanın yüzündeki ifade yumuşuyor. Yorgunsun, ama aranızdaki bağın maliyetini ödedin.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kırılma Noktası",
+          "kind": "branch",
+          "text": "Duşlardan gelen su sesi kesildi. Soyunma odasının beton zemininde, {actor.captain.name} dolabına çökmüş, ayakkabılarını çıkarmadan öylece oturuyor. Havluyla yüzünü örtmüş. Nefes alışı düzensiz. Takımın tüm omuzları, tüm o sönmüş ışıkları bu küçük alana sığmış durumda. {actor.captain.name} parmak uçlarıyla alnını ovalıyor, sanki kafatasının içindeki baskıyı dışarı atacak bir delik arıyor. Söylenecek tek bir kelime, tüm odayı bir barut fıçısına çevirebilir.",
+          "choices": [
+            {
+              "id": "c_wealth",
+              "text": "Çantandan çıkardığın tomarı sessizce yanındaki sıraya bırak. 'Bunu kimse bilmeyecek, yarın her şey unutulacak.'",
+              "target": "n_outcome_wealth",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -7
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Yanına çök, omzuna dokunmadan sadece duvara bak. 'Sorumluluğu paylaşalım, yarın antrenmanda en önde ben duracağım.'",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": 6
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Dolabı sertçe tekmele. 'Bütün bu enkaz senin liderliğin, ben sadece senin gölgendeydim.'",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 9
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Elini omzuna bastır, göz göze gelmeyi bekle. 'Bu maçı değil, birbirimizi kurtardık. Devam ediyoruz.'",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Mental Dayanıklılık 74]"
+            }
+          ]
+        },
+        "n_outcome_wealth": {
+          "title": "Satın Alınan Sessizlik",
+          "kind": "outcome",
+          "text": "Paraya bakmıyor bile. Sadece omuzları biraz daha çöküyor. Bu alışveriş, aranızdaki bağı bir daha onarılamayacak şekilde koparıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "İçsel Yıkım",
+          "kind": "outcome",
+          "text": "{actor.captain.name} başını hafifçe sana çeviriyor, gözlerinde boş bir ifade var. Kelimelerin havada asılı kalıyor, ama hiçbir şey değişmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Yanan Köprüler",
+          "kind": "outcome",
+          "text": "{actor.captain.name} ayağa kalkıyor. Gözlerindeki nefret, odadaki havayı yakıyor. Artık aynı takımda olsanız da, yan yana değilsiniz.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Omuz Omuza",
+          "kind": "outcome",
+          "text": "{actor.captain.name} titreyen elini senin elinin üzerine koyuyor. İkiniz de bu ağır yükün altına bir daha çıkmamak üzere giriyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapatılan Kapı",
+          "kind": "branch",
+          "text": "Teknik direktörün odasının dışındaki koridorda, floresan lamba cızırdıyor. İçeriden gelen sesler bir anda kesildi. {actor.captain.name} kapıyı hafifçe araladı, içeriye bir anlığına bakıp sana döndü. Yüzünde bir ifade yok. Sadece kapıyı yavaşça, kilitlemeden kapattı ve yanından hiçbir şey söylemeden geçip gitti. İçeride senin geleceğin tartışıldı. Şimdi kapalı duran o ahşap yüzey, senin için tek gerçek.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Başını öne eğ, koridorda uzaklaşan adımları dinle. Yarınki antrenmana erken gel.",
+              "target": "n_safe",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Kapıya sertçe vur, içeridekilerin dışarı çıkmasını bekle. Sessizlik bir cevap değil.",
+              "target": "n_risky",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Menajerinle hemen iletişime geç. Kulübün bu kararı için tazminat konuşulmalı.",
+              "target": "n_grey",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "{actor.captain.name} durdur, 'Bunu neden yaptın?' diye sor. Omuzlarına dokun.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]",
+              "persona": {
+                "sadakat": 6
+              }
+            }
+          ]
+        },
+        "n_safe": {
+          "title": "Kabulleniş",
+          "kind": "outcome",
+          "text": "Kimse arkandan gelmedi. Koridorun soğukluğu, kariyerinin bir evresinin daha bittiğini kanıtlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risky": {
+          "title": "Tepki",
+          "kind": "outcome",
+          "text": "Kapı açılmadı. Sadece içerideki fısıltıların kıkırtıya dönüştüğünü duydun. İtibarın, attığın o tekmeyle koridor duvarında yankılandı.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_grey": {
+          "title": "Hesaplaşma",
+          "kind": "outcome",
+          "text": "Cebindeki telefon titriyor. Rakamlar, içindeki boşluğu doldurmaya yetmiyor. Bu, profesyonel bir veda.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Son Cevap",
+          "kind": "outcome",
+          "text": "{actor.captain.name} duraksadı, sadece sana baktı. Gözlerinde acı yoktu, sadece zorunluluk vardı. Elini omuzundan çekti ve gitti.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

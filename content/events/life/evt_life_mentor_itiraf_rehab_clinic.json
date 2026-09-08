@@ -1,0 +1,366 @@
+{
+  "id": "evt_life_mentor_itiraf_rehab_clinic",
+  "family": "fam_life_itiraf",
+  "category": "life",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda",
+          "kind": "branch",
+          "text": "{actor.rehab_counselor.name} kapıyı hafifçe aralayıp sessizce çekildi. Odaya giren soğuk floresan ışığı altında {actor.mentor.name} tekli koltukta, elleri dizlerinin arasında, titreyerek oturuyordu. Yıllar süren o sahte disiplin ve otorite maskesi, kliniğin steril duvarları arasında yere düşmüş bir cam gibi kırılmıştı. {actor.mentor.name} gözlerini yerden kaldırmadan, titrek bir sesle yıllardır taşıdığı o karanlık dosyayı açmaya başladı. Kulübün derinlerinde dönen yasaklı anlaşmalar, sahte imzalar ve senin kariyerini inşa etmek için yaktığı o insanların isimleri... Sessizlik, bir stadyumun son dakikası kadar ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Her şeyi olduğu gibi anlatıp tüm kanıtları polise teslim etmesini söyle.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ona sadık kalıp, duyduklarını sadece ikinizin arasında kalacak bir yeminle mühürle.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "İtirafı bir şantaj dosyasına dönüştür; sessiz kalması için ona bir çıkış yolu teklif et.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_leadership",
+              "text": "Omuzlarına elini koy, hatayı kabul et ve birlikte temiz bir sayfa açmayı öner.",
+              "target": "n_outcome_leader",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Yol Ayrımı",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} gözlerindeki hayal kırıklığıyla ayağa kalktı. Verdiğin kararın doğruluğu, vicdanındaki ağırlığı hafifletmeye yetmedi. Artık o, eski bir dost değil, sistemin dışına itilmiş bir figüran.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Karanlık Sözleşme",
+          "kind": "outcome",
+          "text": "Odayı terk ederken arkanda bıraktığın şey sadece itiraflar değil, gelecekteki olası bir yıkımın temel taşı. {actor.mentor.name} derin bir nefes alıp başını salladı; ikiniz de aynı bataklığa gömüldünüz.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Soğuk Kazanç",
+          "kind": "outcome",
+          "text": "Kasa dolarken vicdanın boşaldı. {actor.mentor.name} artık senin değil, cüzdanının esiri. Odadan çıkarken arkana bakmadın; güç, bazen en kirli anlardan filizlenir.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_leader": {
+          "title": "Zorlu Dönüşüm",
+          "kind": "outcome",
+          "text": "Birlikte ayağa kalktınız. {actor.mentor.name} gözlerindeki kararlılığı görünce duruldu. Bu yükü tek başına taşımak yerine, ikiniz de yeni bir sınavın içine doğru yürüdünüz.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borcun İadesi",
+          "kind": "branch",
+          "text": "Klinik bahçesindeki ıslak bankta oturuyorsun. {actor.mentor.name} yanına oturduğunda, cebinden çıkardığı bir deste eski fotoğrafı aranızdaki boşluğa bıraktı. Üzerlerinde, ikinizin de ait olmadığı karanlık bir dünyanın izleri var. Sigarasını yakarken elleri titriyor; ilk kez bu kadar yaşlı görünüyor. Uzaktaki ana yoldan geçen ambulansın sesi, {actor.mentor.name} sesli itirafını bir anlığına bastırıyor. \"Buraya sadece seni geri çekmek için gelmedim,\" diyor. Yere serdiği o fotoğraflar, kariyerinin en temiz günlerine atılmış kara lekelerden ibaret.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Fotoğrafları alıp doğrudan görevli hemşireye teslim et. Kimsenin görmesine izin verme.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Ona bir çanta hazırla. Sessizliği satın almak için gereken rakam, bu utancı örtecek kadar yüksek.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Elinin tersiyle fotoğrafları havaya savur. Rüzgar hepsini bahçeye dağıtırken hiçbir şey olmamış gibi arkana bakmadan yürü.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Onun elini tut ve bu yükü artık ikiniz birden taşıyın. Klinik odasına geri dönün.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Yüksek Moral Gerektirir]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "Geriye sadece boş bir bank kaldı. Her şey klinik kayıtlarına girdi, artık kurtuluşun tek yolu bu.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Bedeli",
+          "kind": "outcome",
+          "text": "Cüzdanın hafifledi ama geçmişin ağırlığı bir süreliğine gömüldü. Paranın suskunluğu, vicdanının sesinden daha baskın.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Rüzgara Teslim",
+          "kind": "outcome",
+          "text": "Fotoğraflar çimlerin arasında kayboldu. Kimin bulduğu önemli değil, önemli olan artık onlara sahip olmadığın.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Paylaşılan Yük",
+          "kind": "outcome",
+          "text": "İkiniz de odanıza dönerken, aslında hiçbir şeyin bitmediğini biliyorsun. Sadece artık yalnız değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

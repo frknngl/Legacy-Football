@@ -1,0 +1,363 @@
+{
+  "id": "evt_personal_child_geri_donus_yakin",
+  "family": "fam_arc_psychologist_kirilma",
+  "category": "personal",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 40
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_mind_kirilma_psychologist",
+        "op": "turnsSince",
+        "value": 21
+      }
+    ]
+  },
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "{actor.psychologist.name} kapıdan girdiğinde odanın havası değişti. Yirmi bir hafta önce o koltukta otururken, geleceğini kurtarmak için ödediğin bedeli hatırlıyorsun; söylediğin yalanlar, gizlediğin o raporlar artık birer kağıt yığını değil, kapının önünde bekleyen gerçekler. {actor.child.name} hemen arkasında, gözlerinde o günkü saflıkla duruyor. Çocuk, senin o günkü tercihlerinin yarattığı boşluğun farkında değil ama {actor.psychologist.name} bakışlarıyla hatırlatıyor: Bazı borçlar faiziyle ödenir.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Faturayı masaya bırak ve ödemeyi kabul et. Sorumluluğu üstlenmekten başka yol yok.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Her şeyi inkar et. Çocukla göz göze gelme, bu hikayenin burada bittiğini söyle.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Başka bir yerden borç alıp bu dosyayı kapatmasını iste. Yeter ki {actor.child.name} gerçeği duymasın.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 30000
+                },
+                {
+                  "flag": "iliski_child",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Huzursuzluk bitti. Hesap temizlendi, ancak içindeki boşluk artık daha büyük. {actor.child.name} olanlar bitenlerden habersiz oyununa devam ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Göz Ardı Edilenler",
+          "kind": "outcome",
+          "text": "Kapıyı yüzlerine kapattın. Sokaklarda fısıltılar artacak, ancak sahadaki imajın şimdilik kurtuldu. Fırtına sadece biraz daha güç toplayarak geri gelecek.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Yeni Bir Düğüm",
+          "kind": "outcome",
+          "text": "Kirli parayı kabul ettin. {actor.child.name} ile arandaki bağ kısa süreliğine güçlendi, ancak {actor.psychologist.name} ile arandaki zincir artık çok daha sıkı. Bundan sonra attığın her adımda bu yeni borcun izi olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Elden Kayıp",
+          "kind": "branch",
+          "text": "Antrenman sahasının çitlerine yaslanmışsın. {actor.child.name} saha kenarında, elinde eski bir topla tek başına duruyor. Gözleri senin üzerindeki kulüp armasında. Konuşmak için bir adım atıyorsun ama ayakların çakılı kalıyor. Aranızdaki mesafe sadece birkaç metre; ancak şu an bir okyanus kadar geniş. Yanında getirdiği o küçük eşyayı çimlere bırakıp arkasına bakmadan uzaklaşıyor. Sessizlik, sahanın demir parmaklıklarını paslı bir bıçak gibi kesiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Topu yerden alıp çitlerin arkasına bırak. Çocukluk bitti, profesyonellik burada başlıyor.",
+              "target": "n_guvenli",
+              "persona": {
+                "dogruluk": 8
+              },
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Çitlerden atla ve onu durdurmaya çalış. Ne pahasına olursa olsun, bu sahneyi bitir.",
+              "target": "n_riskli",
+              "persona": {
+                "durus": -6
+              },
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cebindeki parayı çıkarıp çitlerin arasından uzat. Konuşmak yerine sessizliği satın al.",
+              "target": "n_gri",
+              "persona": {
+                "mizac": -5
+              },
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Yanına git, yere çök ve omuzlarını tut. Gözlerine bakarak gerçeği itiraf et.",
+              "target": "n_stat",
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Mental Dayanıklılık 74]",
+              "persona": {
+                "sadakat": 10
+              },
+              "effects": [
+                {
+                  "flag": "iliski_child",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Mesafeli",
+          "kind": "outcome",
+          "text": "Top orada, çimlerin üzerinde yalnız kaldı. Sen ise soyunma odasına giden yolu seçtin. Arkana bakmadın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kaçış",
+          "kind": "outcome",
+          "text": "Çitleri aştın ama o çoktan kalabalığa karıştı. Şimdi antrenman sahasında, herkesin gözü önünde tek başına nefes nefesesin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Para el değiştirdi, ama sessizlik daha gürültülüydü. O uzaklaştıkça, vicdanındaki boşluk biraz daha büyüdü.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "İtiraf",
+          "kind": "outcome",
+          "text": "Gerçek, her ikinizi de kırdı. Ama artık aranızda hiçbir sır yok. Yükün hafifledi ama dizlerin titriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

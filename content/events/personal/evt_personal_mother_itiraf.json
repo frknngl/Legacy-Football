@@ -1,0 +1,165 @@
+{
+  "id": "evt_personal_mother_itiraf",
+  "family": "fam_personal_itiraf",
+  "category": "personal",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "age",
+    "op": "gte",
+    "value": 18
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Geçmişin İtirafı",
+      "kind": "branch",
+      "text": "{actor.mother.name} mutfak masasının başında oturuyor. Elleri titriyor, bir zarfı masaya itiyor. {actor.sibling.name} kapının eşiğinde, bakışlarını kaçırarak öylece bekliyor. Evin içi rutubet ve ucuz sigara kokuyor. {actor.mother.name} gözlerini dikiyor; hayatı boyunca sakladığı o mektubu, kulübün avukatlarına giden o gizli anlaşmayı nihayet ortaya döküyor. Sessizlik, bir düdük sesi kadar keskin ve soğuk.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Mektubu al ve derhal kulüp yönetimine git. Her şeyi resmileştir.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Zarfı {actor.mother.name:gen} gözleri önünde yak. Kimse bir şey bilmeyecek.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Bu kağıt parçasını şantaj aracına çevirip menajerle masaya otur.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -8
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Doğru Yolun Yükü",
+      "kind": "outcome",
+      "text": "Zarfın ağırlığı artık ellerinde değil. Profesyonel sorumluluk ağır bir gölge gibi üzerine çöktü. {actor.mother.name} arkasını dönüp ağlamaya başlıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_itiraf_mother",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Kül Olan Gerçekler",
+      "kind": "outcome",
+      "text": "Küller lavaboda suyla karışıp gidiyor. Tehlike geçti ama o bakış, {actor.sibling.name:gen} gözündeki korku, odanın içinde asılı kalmaya devam edecek.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_itiraf_mother",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Kirli Anlaşma",
+      "kind": "outcome",
+      "text": "Cebine giren para, masadaki o kağıdın tadını unutturmaya yetmiyor. Kariyerin artık sadece yeteneğine değil, bir sırra da bağlı.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_itiraf_mother",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

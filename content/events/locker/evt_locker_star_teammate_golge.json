@@ -1,0 +1,335 @@
+{
+  "id": "evt_locker_star_teammate_golge",
+  "family": "fam_locker_golge",
+  "category": "locker",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "_statureNote": "Yildiz oyuncu Hero'yu esit gorup sirdas seciyor; secenekler kenara cekme ve zarf iceriyor. Caylak icin ton uyumsuz -- oyun testinde bizzat sikayet edildi.",
+  "_eraNote": "Secenekler yildiz oyuncunun omzuna el koymayi ve ona reklam anlasmasi teklif etmeyi iceriyor -- akran muamelesi. Cirak evresinde olmaz.",
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gölgedeki Ayna",
+          "kind": "branch",
+          "text": "Soyunma odasının havası ağır. Buz torbalarının gürültüsü, taktik tahtasına çarpan kalem sesiyle karışıyor. {actor.star_teammate.name} kramponlarını çıkarırken gözleri senin dolabının kapağına takılıyor. Bir an için duraksıyor, sonra hafifçe gülümsüyor. Bu, bir takdir ifadesi değil. Bu, senin nerede durduğunu, onun nerede olduğunu hatırlatan o bildik bakış. Medya manşetleri bugün yine onun gollerini seninkilerle kıyaslamış. O, kusursuz bir heykel gibi duruyor. Sen ise o heykelin düştüğü gölgede, sadece daha fazla çabalaması gereken bir figürsün. İçerideki sessizlik, cevabını bekleyen bir soru gibi boğazını düğümlüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bakışlarını kaçır, işine dön. Bugün daha fazla koşman gerekiyor, hepsi bu.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dolabını sertçe kapat. Yüzüne karşı, bir sonraki maçta farkın kapanacağını söyle.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Yanına git, omzuna elini koy. Sosyal medyadaki o reklam anlaşması teklifini ona fısılda, ortak bir kapı aç.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_lider",
+              "text": "Gözlerinin içine bak. Takımın onsuz da eksik kalmayacağını, sıranın artık sana geçtiğini soğukkanlılıkla ifade et.",
+              "target": "n_outcome_lider",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Başını öne eğip kilitli dolabının anahtarına uzanıyorsun. O, arkanda bir şey mırıldanarak uzaklaşıyor. Kendi gölgenin içine hapsolmak, kavgadan daha güvenli hissettiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Açık Meydan Okuma",
+          "kind": "outcome",
+          "text": "Metal dolap kapağının gürültüsü tüm odayı inletiyor. Gözler sana dönüyor. {actor.star_teammate.name} bir an donup kalıyor, sonra dudaklarında alaycı bir kıvrılma beliriyor. Artık dönüşü yok.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "Fısıltın, aranızdaki soğukluğu bir ticaret anlaşmasıyla örtüyor. O gülümsüyor, sen ise içindeki o tuhaf ağırlıkla cüzdanını kontrol ediyorsun. Sahadaki rekabet bitti, yerine bir çıkar oyunu başladı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lider": {
+          "title": "Ağırlığını Koymak",
+          "kind": "outcome",
+          "text": "Odanın geri kalanı susuyor. {actor.star_teammate.name} geri adım atıyor, ancak gözlerindeki o ışık sönmüyor. Bu anın ağırlığı omzunda; artık takımın liderliğini gerçekten hissettin, bedeli ne olursa olsun.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünel Çıkışı",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş, sadece oyuncu tünelinin girişindeki cılız sarı lamba yanıyor. {actor.star_teammate.name}, ağır bir çanta sırtında, zemine kazınmış çim izlerine bakıyor. Senin durduğunu fark ettiğinde başını kaldırıyor. Gözleri yorgun, elleri titriyor. İkinizin arasında, yerdeki eski bir krampon kutusunun içine bırakılmış kaptanlık bandı duruyor. Bu, takımdaki statünün ve sessiz beklentinin ağırlığı. Konuşmuyor. Sadece, birinin bu yükü devralıp kutuyu kapağın altından çekmesini bekliyor.",
+          "choices": [
+            {
+              "id": "c_gölge_kalsın",
+              "text": "Kutuyu tekmenle kenara it, koridora doğru yürü. Herkes kendi günahını kendi taşır.",
+              "target": "n_karsiliksiz",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_devir_al",
+              "text": "Kutuyu al ve çanta gibi omzuna at. 'Yarın sabah erken gel,' de, 'Çalışmaya başlayacağız.'",
+              "target": "n_sahiplen",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_sokak_kurali",
+              "text": "Bandı al, kutuyu onun ayaklarının dibinde parçala. 'Bu sahanın hakimi ben olacağım,' diye fısılda.",
+              "target": "n_rest",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            }
+          ]
+        },
+        "n_karsiliksiz": {
+          "title": "Boşluk",
+          "kind": "outcome",
+          "text": "Kutu orada kalıyor. {actor.star_teammate.name} arkasına bakmadan karanlığa karışıyor. O an anlıyorsun ki, bazı devirler asla tamamlanmaz, sadece unutulur.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sahiplen": {
+          "title": "Sorumluluk",
+          "kind": "outcome",
+          "text": "Kutunun ağırlığı omzunda. {actor.star_teammate.name} bir an duruyor, hafifçe gülümsüyor ve tünelden çıkıyor. Artık o sadece bir takım arkadaşı değil, senin gölgen.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_rest": {
+          "title": "İlan",
+          "kind": "outcome",
+          "text": "Kutunun parçaları yerlerde. {actor.star_teammate.name} tek kelime etmeden uzaklaşıyor. Tribünlerde fısıltılar başlayacak, senin dönemin resmen açıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

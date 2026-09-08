@@ -1,0 +1,162 @@
+{
+  "id": "evt_legal_pfdk_hearing",
+  "family": "fam_legal_pfdk",
+  "category": "legal",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": { "self": 20, "family": 10 },
+  "_note": "Bu olay KUYRUKTAN gelir; kendiliginden cikmasin diye trigger asla saglanmayan bir kosula baglanmistir. schedule(forced) onu yine de calistirir.",
+  "trigger": { "flag": "mem_attacked_tff", "op": "turnsSince", "value": 999999 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kurul",
+      "kind": "branch",
+      "text": "Federasyon binasının üçüncü katı. Koridor uzun ve halısı sesini yutuyor. {actor.agent.name} yanında oturuyor, kravatını bugün ilk kez düzgün bağlamış. Karşı duvarda camlı bir vitrin: eski kupalar, eski adamlar, eski fotoğraflar.\n\nİçeriden adın okunuyor.\n\nÜç kişi. Ortadaki dosyayı açıyor, hiç bakmadan konuşuyor: \"Beyanlarınız kayıt altında. Söyleyeceğiniz bir şey var mı?\"",
+      "onEnter": [{ "flag": "medya_baskisi", "op": "add", "value": 5 }],
+      "choices": [
+        {
+          "id": "c_apologize",
+          "text": "\"Sıcağı sıcağına konuştum. Söylediklerimin arkasında değilim, özür dilerim.\"",
+          "target": "n_apologized",
+          "effects": [
+            { "op": "suspend", "matches": 1, "reason": "PFDK cezası" },
+            { "flag": "sokak_itibari", "op": "add", "value": -18 },
+            { "flag": "taraftar_destegi", "op": "add", "value": -12 },
+            { "flag": "iliski_fan_leader", "op": "add", "value": -20 },
+            { "flag": "medya_itibari", "op": "add", "value": 12 },
+            { "flag": "yonetim_baskisi", "op": "add", "value": -15 },
+            { "flag": "mem_public_apology", "op": "set", "value": true }
+          ],
+          "persona": { "durus": -10, "sadakat": 3, "dogruluk": -3 }
+        },
+        {
+          "id": "c_stand",
+          "text": "\"Her kelimesinin arkasındayım. Kaydınıza da geçirin.\"",
+          "target": "n_stood_ground",
+          "effects": [
+            { "op": "suspend", "matches": 3, "reason": "PFDK cezası" },
+            { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": -25000, "perTier": -90000 } },
+            { "flag": "taraftar_destegi", "op": "add", "value": 22 },
+            { "flag": "sokak_itibari", "op": "add", "value": 18 },
+            { "flag": "iliski_fan_leader", "op": "add", "value": 25 },
+            { "flag": "yonetim_baskisi", "op": "add", "value": 25 },
+            { "flag": "medya_itibari", "op": "add", "value": -10 },
+            { "flag": "mem_refused_to_apologize", "op": "set", "value": true }
+          ],
+          "persona": { "durus": 14, "dogruluk": 8, "mizac": 5 }
+        },
+        {
+          "id": "c_lawyer",
+          "text": "{actor.lawyer.name:acc} devreye sok. \"Avukatım konuşacak.\"",
+          "target": "n_roll_lawyer",
+          "requires": { "flag": "servet", "op": "gte", "value": 500000 },
+          "lockLabel": "[Servet 500.000]",
+          "effects": [
+            { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": -150000, "perTier": -60000 } },
+            { "flag": "sokak_itibari", "op": "add", "value": -6 },
+            { "flag": "iliski_fan_leader", "op": "add", "value": -8 }
+          ],
+          "persona": { "durus": -4, "dogruluk": -5 }
+        },
+        {
+          "id": "c_contact",
+          "text": "Kurulun sağındaki adama bak. Onu daha önce bir gece kulübünün arka odasında gördün.",
+          "target": "n_contact",
+          "requires": { "flag": "mem_bribed_police", "op": "isSet" },
+          "lockLabel": "[Geçmiş: polise rüşvet]",
+          "effects": [
+            { "flag": "disiplin_sicili", "op": "add", "value": -10 },
+            { "flag": "iliski_fixer", "op": "add", "value": 20 },
+            { "flag": "medya_itibari", "op": "add", "value": -5 },
+            { "flag": "mem_used_federation_contact", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": -14, "durus": -5 }
+        }
+      ]
+    },
+
+    "n_roll_lawyer": {
+      "title": "Dosya",
+      "kind": "roll",
+      "text": "{actor.lawyer.name} dosyayı açmıyor bile. Ezberden konuşuyor, tarih veriyor, emsal karar okuyor. Kurul üyelerinden biri not alıyor.",
+      "outcomes": [
+        {
+          "target": "n_lawyer_won",
+          "weight": {
+            "base": 30,
+            "modifiers": [
+              { "flag": "servet", "scale": 0.000012 },
+              { "flag": "iliski_agent", "scale": 0.35 },
+              { "flag": "disiplin_sicili", "scale": -0.8 }
+            ]
+          }
+        },
+        {
+          "target": "n_lawyer_lost",
+          "weight": {
+            "base": 45,
+            "modifiers": [
+              { "flag": "disiplin_sicili", "scale": 0.7 },
+              { "flag": "medya_baskisi", "scale": 0.2 }
+            ]
+          }
+        }
+      ]
+    },
+
+    "n_lawyer_won": {
+      "title": "Emsal",
+      "kind": "outcome",
+      "text": "\"Ceza tek maça indirilmiştir.\"\n\nKoridorda {actor.lawyer.first} ceketini düğmeliyor. \"İyi haber,\" diyor, \"kötü haber şu: artık dosyanız var. Dosyası olan adamın bir sonraki duruşmasında kimse emsal aramaz.\"\n\n{actor.agent.first} faturayı görünce hiçbir şey söylemiyor.",
+      "onEnter": [
+        { "op": "suspend", "matches": 1, "reason": "PFDK cezası (indirimli)" },
+        { "flag": "disiplin_sicili", "op": "add", "value": 4 },
+        { "flag": "medya_itibari", "op": "add", "value": -4 },
+        { "flag": "mem_media_war", "op": "set", "value": true }
+      ]
+    },
+
+    "n_lawyer_lost": {
+      "title": "Emsal yok",
+      "kind": "outcome",
+      "text": "\"Talep reddedilmiştir. Üç maç men ve para cezası.\"\n\n{actor.lawyer.first} koridorda omuz silkiyor: \"Sicilin ağır bastı.\" Parayı ödedin, cezayı da yiyorsun. {actor.agent.first} arabada tek kelime etmiyor; sadece bir kez, kırmızı ışıkta: \"Bu paraya üç maç aldık.\"",
+      "onEnter": [
+        { "op": "suspend", "matches": 3, "reason": "PFDK cezası" },
+        { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": -20000, "perTier": -70000 } },
+        { "flag": "disiplin_sicili", "op": "add", "value": 8 },
+        { "flag": "iliski_agent", "op": "add", "value": -10 },
+        { "flag": "moral", "op": "add", "value": -10 }
+      ]
+    },
+
+    "n_apologized": {
+      "title": "Bir maç",
+      "kind": "outcome",
+      "text": "\"Bir maç men.\"\n\nÇıkarken kameralara özür metnini okuyorsun; {actor.agent.first} yazmış, sen sadece sesini verdin. Akşam taraftar grubunun kapalı grubundan bir ekran görüntüsü sızıyor: \"Bizim adımıza konuştu sandık. Meğer kendi adına susmuş.\"\n\nBir maç ucuz. Fatura sonra gelecek.",
+      "onEnter": [{ "flag": "moral", "op": "add", "value": -6 }]
+    },
+
+    "n_stood_ground": {
+      "title": "Üç maç",
+      "kind": "outcome",
+      "text": "\"Üç maç men ve para cezası.\"\n\nKurul salonundan çıktığında koridorda otuz kişi var; hiçbiri gazeteci değil. Taraftar grubu haberi almış, binanın önünde bekliyorlar. Camdan aşağı bakıyorsun: pankartta senin cümlen yazıyor.\n\nÜç maç oynamayacaksın. Ama bu şehirde bir şey değişti.",
+      "onEnter": [
+        { "flag": "moral", "op": "add", "value": 8 },
+        { "flag": "npc_pundit_arc", "op": "add", "value": 1 }
+      ]
+    },
+
+    "n_contact": {
+      "title": "Tanıdık yüz",
+      "kind": "outcome",
+      "text": "Sağdaki adam gözlüğünü çıkarıp camını siliyor ve bir an fazla uzun bakıyor. \"Dosyada usul eksikliği var,\" diyor ortadakine. \"Bu haliyle karar veremeyiz.\"\n\nDışarı çıktığında telefonun titriyor. Kayıtsız numara, tek satır: *Bir iyilik bir iyiliktir.*\n\nCezan yok. Borcun var.",
+      "onEnter": [
+        { "flag": "iliski_fixer", "op": "add", "value": 10 },
+        { "flag": "mem_mafia_favor_owed", "op": "set", "value": true },
+        { "flag": "npc_fixer_arc", "op": "add", "value": 1 }
+      ]
+    }
+  }
+}

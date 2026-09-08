@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "_note": "HAYAT DURUMU TABLOSU. Gecis kurallari ve kapali kategoriler KOD DEGIL VERIDIR: yeni bir icerik kategorisi (media, transfer, money, legacy...) eklendiginde hapisteki oyuncuya kapatmak icin TypeScript dosyasina dokunmak gerekmez.",
+  "_closedNote": "closedCategories: bu durumdayken HANGI icerik havuzu kapali. Hapisteki oyuncuya penalti sahnesi cikmasini onleyen kapi budur.",
+
+  "lifeStates": [
+    {
+      "id": "playing",
+      "label": "Oynuyor",
+      "canPlay": true,
+      "transitionsTo": ["injured", "suspended", "incarcerated", "loaned", "transfer_listed", "national_duty", "rehab_clinic", "retired"],
+      "closedCategories": []
+    },
+    {
+      "id": "injured",
+      "label": "Sakat",
+      "canPlay": false,
+      "transitionsTo": ["playing", "rehab_clinic", "transfer_listed", "retired", "incarcerated"],
+      "closedCategories": ["match"]
+    },
+    {
+      "id": "suspended",
+      "label": "Cezali",
+      "canPlay": false,
+      "transitionsTo": ["playing", "transfer_listed", "incarcerated", "retired"],
+      "closedCategories": ["match"]
+    },
+    {
+      "id": "incarcerated",
+      "label": "Hukumlu",
+      "canPlay": false,
+      "transitionsTo": ["playing", "rehab_clinic", "retired"],
+      "closedCategories": ["match", "reaction", "media", "money", "transfer", "fandom", "business", "national", "rival"]
+    },
+    {
+      "id": "loaned",
+      "label": "Kiralik",
+      "canPlay": true,
+      "transitionsTo": ["playing", "injured", "suspended", "transfer_listed", "retired"],
+      "closedCategories": []
+    },
+    {
+      "id": "transfer_listed",
+      "label": "Kadro disi",
+      "canPlay": false,
+      "transitionsTo": ["playing", "loaned", "injured", "retired", "incarcerated"],
+      "closedCategories": []
+    },
+    {
+      "id": "national_duty",
+      "label": "Milli takimda",
+      "canPlay": true,
+      "transitionsTo": ["playing", "injured", "suspended"],
+      "closedCategories": ["transfer"]
+    },
+    {
+      "id": "rehab_clinic",
+      "label": "Rehabilitasyonda",
+      "canPlay": false,
+      "transitionsTo": ["playing", "injured", "transfer_listed", "retired"],
+      "closedCategories": ["match", "reaction"]
+    },
+    {
+      "id": "retired",
+      "label": "Emekli",
+      "canPlay": false,
+      "transitionsTo": [],
+      "closedCategories": ["match", "reaction", "pitch", "locker", "transfer", "national"]
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+/**
+ * Simule edilen dunya -- tek cagriyla kadro + lig + fikstur + simulator.
+ *
+ * `createMockWorld`dan farki: puan durumu kulup itibarindan TURETILMEZ,
+ * oynanan maclardan olusur. Hero'nun maci dakika dakika simule edilir, ayni
+ * haftanin diger fiksturleri `LeagueModel` tarafindan ucuz cozulur.
+ *
+ * KOMPOZISYON KOKU: `simulation` katmani motoru bilmez, `runtime` simulasyonu
+ * bilmez. Ikisini burada -- ve yalnizca burada -- birlestiriyoruz.
+ */
+
+import type { ContentRegistry } from '../loading/ContentRegistry.js';
+import type { RosterProvider, WorldFeed, WorldProvider } from '../domain/roster.js';
+import { Rng } from '../selection/Rng.js';
+import { LeagueModel } from '../simulation/LeagueModel.js';
+import { MatchSimulator } from '../simulation/MatchSimulator.js';
+import { buildSeasonSchedule, type SeasonSchedule } from '../simulation/SeasonCalendar.js';
+import { SimulatedWorldProvider } from '../simulation/SimulatedWorldProvider.js';
+import { loadMockClubs, loadMockLeagues } from './loadMockClubs.js';
+import { MockRosterProvider } from './MockRosterProvider.js';
+import { MockWorldFeed } from './MockWorldFeed.js';
+
+export interface SimulatedWorld {
+  readonly roster: RosterProvider;
+  readonly world: WorldProvider;
+  readonly worldFeed: WorldFeed;
+  readonly league: LeagueModel;
+  readonly simulator: MatchSimulator;
+  readonly schedule: SeasonSchedule;
+  /** Hero'nun maci disindaki fiksturleri cozer ve tabloya isler. */
+  advanceWeek(week: number, heroClubId: string): readonly string[];
+  /** Hero'nun macinin skorunu tabloya isler. */
+  recordHeroMatch(): void;
+  /** Sezonu kapatir: sampiyon, yukselme, dusme. */
+  finishSeason(): ReturnType<LeagueModel['finishSeason']>;
+}
+
+export async function createSimulatedWorld(
+  contentDir: string,
+  registry: ContentRegistry,
+  seed: number,
+  heroName = 'Sen',
+): Promise<SimulatedWorld> {
+  const clubs = await loadMockClubs(contentDir);
+  const leagues = await loadMockLeagues(contentDir);
+
+  const roster = new MockRosterProvider({
+    clubs,
+    names: registry.names,
+    slots: [...registry.slots.values()],
+    seed,
+  });
+
+  const schedule = buildSeasonSchedule({ weeks: 40, clubs, leagues }, new Rng(seed));
+  const league = new LeagueModel(clubs, leagues);
+  const simulator = new MatchSimulator({
+    clubs,
+    squadOf: (id) => roster.squad(id),
+    schedule,
+    seed,
+    heroName,
+  });
+
+  const world = new SimulatedWorldProvider(league);
+  // Diger fiksturlerin cozumu icin ayri bir RNG akisi: mac simulasyonunun
+  // determinizmini bozmasin.
+  const leagueRng = new Rng((seed ^ 0x9e3779b9) >>> 0);
+
+  return {
+    roster,
+    world,
+    worldFeed: new MockWorldFeed(world, clubs, seed),
+    league,
+    simulator,
+    schedule,
+    advanceWeek: (week, heroClubId) => {
+      league.playWeek(schedule.byWeek(week), heroClubId, leagueRng);
+      // Mock dunyada kupa yok: tek lig var, sezon sonu `finishSeason`
+      // ile kapaniyor ve turnuva katmani hic kurulmuyor. Bos donmek
+      // dogru -- uydurma kupa vermek stature'i yalanci sisirir.
+      return [];
+    },
+    recordHeroMatch: () => {
+      const fixture = simulator.currentFixture();
+      const score = simulator.finalScore();
+      if (fixture && score) {
+        league.record(fixture, { homeGoals: score.homeGoals, awayGoals: score.awayGoals });
+      }
+    },
+    finishSeason: () => {
+      simulator.resetSeason();
+      return league.finishSeason();
+    },
+  };
+}

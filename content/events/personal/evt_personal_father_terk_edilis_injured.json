@@ -1,0 +1,317 @@
+{
+  "id": "evt_personal_father_terk_edilis_injured",
+  "family": "fam_personal_terk_edilis",
+  "category": "personal",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Boş Koltuklar",
+          "kind": "branch",
+          "text": "Hastane odasının havası, yoğun dezenfektan kokusuyla ağırlaşmış durumda. Sol ayağındaki alçı, yatağın üzerinde kaba bir kaya parçası gibi duruyor. Kapı aralık, koridordan gelen tekerlekli sedye sesleri yankılanıyor. {actor.mother.name} telefonda kısık sesle tartışıyor, gözleri şişmiş. {actor.child.name} ise pencere kenarında, dışarıdaki yağmur damlalarını izliyor. Yanında olması beklenen {actor.father.name} ise yine yok. Ne bir mesaj, ne de bir ziyaret. Sadece komodinin üzerinde, o yokluğun ağırlığını perçinleyen bir fatura duruyor. Sessizlik, odadaki herkesin üzerine bir örtü gibi seriliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce yastığa gömül, kimseye bir şey belli etmeden ekranları kapat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Telefonu eline al ve o yokluğu herkesin göreceği bir platformda ifşa et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Avukatını çağır, geçmişe dair tüm bağları kesecek o yasal sözleşmeyi imzala.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_lider",
+              "text": "Yataktan doğrul, {actor.mother.name} ile göz göze gel ve herkesi sakinleştir.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_father",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Yalnızlık",
+          "kind": "outcome",
+          "text": "Ekran kararıyor, sadece kendi nefes sesini duyuyorsun. Büyümek, kimsenin gelmeyeceğini erkenden kabullenmekmiş.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İfşa",
+          "kind": "outcome",
+          "text": "Paylaşım düştüğü anda telefon kilitleniyor. Binlerce destek mesajı akıyor ama o odadaki boşluk, gelen hiçbir bildirimle dolmuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sözleşme",
+          "kind": "outcome",
+          "text": "Kalemin ucundaki mürekkep kağıda dağılıyor. Artık bağlar koptu. Para hesabına geçtiğinde, huzursuzluğun daha da derinleştiğini hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yük",
+          "kind": "outcome",
+          "text": "Bacaklarındaki sızıya rağmen dik duruyorsun. Aileyi bir arada tutmak, kendi yaralarını sarmaktan daha ağır geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Semtin Tozu",
+          "kind": "branch",
+          "text": "Antrenman sahasından uzakta, sakatlığın verdiği ataletle o küçük semt sahasının kenarındaki paslı demirlerde duruyorsun. Yağmur çamuru kaldırıma kusmuş. {actor.mother.name} hemen yanındaki bankta, titreyen elleriyle eski bir atkıyı düzeltiyor. Onun buraya gelişi, bir vedanın değil, bitmeyen bir borcun ilanı gibi. Çocukluğunun geçtiği bu döküntü sahanın kenarında, o gittiğinde bıraktığı boşluğun hala aynı büyüklükte olduğunu hissediyorsun. Ne bir özür, ne bir açıklama; sadece soğuk bir rüzgar ve yıllar önce kapıyı çekip giden o adamın hayaleti.",
+          "choices": [
+            {
+              "id": "c_taraftar_yolu",
+              "text": "Atkıyı elinden al, çocuklara biraz antrenman yaptıracağını söyleyerek herkesin içinde sesini yükselt.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_medya_yolu",
+              "text": "Cüzdanını çıkar, {actor.mother.name} ile göz göze gelmeden içine büyük bir miktar para koy ve masanın üzerine bırak.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_profesyonel_yolu",
+              "text": "Sırtını dön, aksayarak yürümeye devam et ve bu anı hiç yaşanmamış say.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Görünür Tepki",
+          "kind": "outcome",
+          "text": "Sahanın tozunu kaldırırken taraftarlar seni izliyor. Sokakta yeniden bir efsane gibi anılıyorsun ama dizindeki acı, bu sahte kahramanlığın altında derinleşiyor. Gazeteler yarın bu 'fedakarlığını' manşete taşıyacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bedel",
+          "kind": "outcome",
+          "text": "Para, aranızdaki uçurumu kapatmıyor, sadece üzerini örtüyor. {actor.mother.name} paraya bakmıyor bile. Sen ise bu vicdan rahatlatma eylemiyle bir kez daha kariyerindeki duygusal boşluğu derinleştiriyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Duygusuz İlerleme",
+          "kind": "outcome",
+          "text": "Arkana bakmadan yürürken dizindeki sızıyı bir antrenman disipliniyle bastırıyorsun. Doğru olanı yaptın; kendine odaklandın. Ancak o sahadan uzaklaşırken, geride bıraktığın o eski borcun ağırlığı adımlarına sinmeye devam ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

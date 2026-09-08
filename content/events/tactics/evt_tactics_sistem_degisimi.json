@@ -1,0 +1,388 @@
+{
+  "id": "evt_tactics_sistem_degisimi",
+  "family": "fam_tactics_sistem",
+  "category": "tactics",
+  "tier": "major",
+  "weight": 48,
+  "cooldown": {
+    "self": 30,
+    "family": 14
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "On Bir Mıknatıs, On Yer",
+          "kind": "branch",
+          "text": "Hazırlık kampının ilk günü. {actor.manager.name} yeni sistemi tahtaya diziyor.\n\nSayıyorsun. Bir kere daha sayıyorsun.\n\nSenin oynadığın mevki tahtada YOK. Kalkmış. Yerine iki tane başka şey konmuş ve ikisi de senin işin değil.\n\n\"Bu sezon böyle oynuyoruz,\" diyor {actor.manager.name}. Adını hiç anmadı. Kimsenin adını anmadı; sistemi anlattı, oyuncuyu değil.\n\n{actor.assistant.name} kâğıtları dağıtıyor. Seninkinde iki mevki yazıyor, ikisi de parantez içinde.",
+          "choices": [
+            {
+              "id": "c_ogren",
+              "text": "Kâğıdı al. Yeni mevkinin ne olduğunu öğrenmeye çalış.",
+              "target": "n_ogren",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_assistant",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -7
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_sor",
+              "text": "Toplantıdan sonra sor: \"Ben bu sistemde neredeyim?\"",
+              "target": "n_sor",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_menajer",
+              "text": "Kimseye bir şey deme. Akşam menajerini ara.",
+              "target": "n_menajer",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "sadakat": -6
+              }
+            },
+            {
+              "id": "c_kanitla",
+              "text": "Hiçbir şey sorma. Antrenmanda o iki mevkide de en iyi sen ol.",
+              "target": "n_kanitla",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "teknik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 17
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -11
+                }
+              ],
+              "persona": {
+                "durus": 8,
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_ogren": {
+          "title": "Parantez İçi",
+          "kind": "outcome",
+          "text": "{actor.assistant.name} sana kalan tek boş odada video açtı. Kırk dakika sürdü.\n\n\"Burada topu almıyorsun,\" dedi. \"Burada topun gelmesini bekliyorsun. Fark bu.\"\n\nBeklemeyi öğrenmek, koşmayı öğrenmekten zormuş.\n\nEylülde ilk on birdeydin. Kimse bunun bir hikâye olduğunu bilmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sistem_ogrendi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sor": {
+          "title": "Neredeyim",
+          "kind": "outcome",
+          "text": "\"Ben bu sistemde neredeyim?\"\n\n{actor.manager.name} tahtaya baktı, sonra sana. \"Bilmiyorum,\" dedi. \"Sen söyleyeceksin.\"\n\nCevap gibi durmuyordu ama cevaptı. O gün antrenmanda iki mevkide de oynadın ve ikisinde de kötüydün.\n\nÜçüncü haftada birinde iyiydin. {actor.manager.name} hiç yorum yapmadı — sadece bir daha diğerinde oynatmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_sistem_sorgulandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_menajer": {
+          "title": "Akşam Telefonu",
+          "kind": "outcome",
+          "text": "{actor.agent.name} dinledi, sonra tek cümle söyledi: \"Ocakta konuşuruz.\"\n\nOcak dört ay uzaktaydı ve o dört ay boyunca her antrenmana bu cümleyle gittin.\n\nAralıkta bir köşe yazısı \"mutsuz\" dedi. Kaynak sen değildin. Ama sen de olabilirdin ve bunu bilen tek kişi sensin.",
+          "onEnter": [
+            {
+              "flag": "mem_sistem_menajere_gitti",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_ayrilik_dusundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kanitla": {
+          "title": "İki Mevki",
+          "kind": "outcome",
+          "text": "Hiçbir şey sormadın. Hazırlık kampında herkesten çok koştun; iki mevkide de en iyi sendin.\n\n{actor.manager.name} sezonun ilk maçında seni ikisinde de oynattı. Sonraki maçta da. Sonraki maçta da.\n\nKasımda bacakların gitmişti ve kimse fark etmemişti — çünkü şikâyet etmemiştin ve şikâyet etmeyenin yorulduğu görülmez.",
+          "onEnter": [
+            {
+              "flag": "mem_sistem_kanitladi",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_sikayet_etmedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gölgede Kalan İsim",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki yedek kulübesinde, {actor.manager.name} tabletini sana uzatıyor. Ekran parlıyor; bir önceki sezonun en verimli kanat oyuncusu ile senin ısı haritaların yan yana. Kırmızılıklar onda yoğun, sende ise dağınık. {actor.manager.name} hiçbir şey söylemiyor, sadece tabletin camındaki parmak izlerini siliyor. Saha içinde ter kokusu, saha dışında ise bu sessiz kıyaslamanın ağırlığı var. Rakibin kim olduğu belli değil ama bu kıyaslama artık cildinin altına işlemiş bir dövme gibi.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Tablet masaya sertçe bırak. \"O oyuncunun istatistikleri, bu takımın değil, o oyuncunun başarısı\" de.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Tabletteki verileri sessizce incele. Kendi performansını değil, transfer piyasasındaki değerini sormak için menajerine bir mesaj yaz.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını salla ve sahaya dön. \"Daha fazla çalışmam gerektiğini biliyorum\" de.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_teknik",
+              "text": "Tableti geri al, parmağınla kendi koşu yollarını işaretle. \"Sistem burada tıkandığı için bu açıyı kullanamıyorum\" diyerek taktik tartışmaya gir.",
+              "target": "n_teknik",
+              "requires": {
+                "flag": "teknik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Teknik 55]",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "teknik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyanın Bedeli",
+          "kind": "outcome",
+          "text": "{actor.manager.name} arkasını dönüp giderken, aranızdaki gerilim sahaya yayılıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sistem_sorgulandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Fiyat Etiketi",
+          "kind": "outcome",
+          "text": "Rakamlar hesabına yattığında, o ekrandaki kıyaslama artık önemsizleşiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ayrilik_dusundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "İtiraz etmedin. Herkes aynı şeyi yapacağını bekliyordu zaten.",
+          "onEnter": [
+            {
+              "flag": "mem_sikayet_etmedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_teknik": {
+          "title": "Taktiksel İddia",
+          "kind": "outcome",
+          "text": "Teori kağıt üzerinde kusursuzdu; şimdi sıra sahada ispatlamakta.",
+          "onEnter": [
+            {
+              "flag": "mem_sistem_kanitladi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

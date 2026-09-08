@@ -1,0 +1,311 @@
+{
+  "id": "evt_business_lawyer_sinav",
+  "family": "fam_business_sinav",
+  "category": "business",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "retired"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Zarf",
+          "kind": "branch",
+          "text": "{actor.lawyer.name}, masanın üzerindeki dosyayı parmak uçlarıyla itti. Ofisin ağır havasında sadece dışarıdan gelen cılız trafik sesi duyuluyordu. {actor.childhood_friend.name} yan koltukta, elleri dizlerinin üzerinde, bakışlarını zemine çivilemiş bekliyor. Dosyanın içindeki kağıtlar, kariyerin boyunca biriktirdiğin her şeyi bir kalemde silip atabilecek veya seni tamamen yeni bir boyuta taşıyacak detaylarla dolu. {actor.lawyer.name} gözlüklerini düzeltti, hiçbir mimik yapmadan seni izliyor. Adalet terazisi, masanın üzerindeki bu imzada duruyor.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Dosyayı imzala, her şeyi kuralına göre bitir.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Dosyayı kenara it, sorumluluğu sokağa bırak.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gray",
+              "text": "Teklifi kabul et, parayı al ve arkana bakma.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_leader",
+              "text": "Masaya eğil, {actor.lawyer.name} ile yeni bir şartnameyi kendin dikte et.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 12
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome": {
+          "title": "Karar Kesinleşti",
+          "kind": "outcome",
+          "text": "Kalem yere düştü. Ofiste sadece saat tik takları kaldı. Kapı kapandığında artık geriye dönüş yok.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Avukatın Bürosunda",
+          "kind": "branch",
+          "text": "{actor.lawyer.name}, deri koltuğunda geriye yaslanmış, elindeki altın dolma kalemi masanın üzerindeki boş kontratın üzerinde çeviriyor. Oda rutubetli bir kütüphane kokuyor. Dışarıda sağanak yağmur, camdaki panjurları dövüyor. {actor.lawyer.name} gözlerini dosyadan ayırmadan, 'Bu imza, sadece bir devir değil,' diyor. 'Bu, senin sahadaki tüm o çamurlu anılarını bir başkasının ceketine iliklemek demek. Ama kimin taşıyacağı önemli.' Masadaki boş alan, henüz doldurulmamış bir gelecek gibi boşluğa bakıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kalemi al ve sadece temel maddeleri imzala. Kurumsal olanı seç, sorumluluğu devret.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Dosyayı {actor.lawyer.name} yönüne doğru it. 'Senin bildiğin şartlar olsun,' de ve arka kapıdan çık.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kontratı yırtıp at. Kendi mirasını kendi şartlarınla sonuna kadar taşı.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sessiz Bir Ayrılık",
+          "kind": "outcome",
+          "text": "Kalem kâğıt üzerinde düzgün, hatasız çizgiler bırakıyor. {actor.lawyer.name} başını hafifçe eğerek onaylıyor. Kapıdan çıkarken, arkanda bıraktığın her şeyin artık senin olmadığını biliyorsun. Hafif ama tuhaf bir boşluk hissi.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Avukatın gözlerindeki o belli belirsiz gülümseme, cevabın alındığını gösteriyor. Banka hesaplarındaki rakamlar yarın değişecek, ancak aynadaki suretinle kurduğun bağ biraz daha zayıflayacak. Bir şeyi sattın, ama ne olduğunu kendin bile tam olarak tanımlayamıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Kendi Yolun",
+          "kind": "outcome",
+          "text": "Kâğıt parçaları yere saçılıyor. {actor.lawyer.name} yüzündeki şaşkınlık, durumu ne kadar ileri götürdüğünün kanıtı. Artık geri dönüş yok; herkes senin ne kadar inatçı olduğunu konuşacak.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

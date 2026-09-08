@@ -1,0 +1,160 @@
+{
+  "id": "evt_personal_sibling_geri_donus",
+  "family": "fam_personal_geri_donus",
+  "category": "personal",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "injured",
+    "loaned"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Mahalle",
+      "kind": "branch",
+      "text": "Sokak lambası titriyor. {actor.mother.name} mutfakta, elinde çatlak bir fincanla dışarıyı izliyor. {actor.sibling.name}, kapının önündeki merdivenlerde oturmuş, çocukluktan kalma o eski topu çeviriyor. Ayaklarının altındaki asfalt, ilk sıyrıkların ve ilk büyük hayallerin anısıyla dolu. Hava soğuk. {actor.sibling.name} başını kaldırıyor, gözlerinde ne bir hayranlık ne de bir nefret var; sadece yorgun bir tanışıklık. 'Gitmeliydin,' diyor fısıltıyla. 'Buraya ait değilsin artık.' Sessizlik, uzaktan gelen otobüs sesiyle bölünüyor. Karar anı o. Dönüşü olmayan bir yola tekrar bakıyorsun.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Ona bir tomar para uzatıp sessizce kapıyı kapatmak. Bu hayat artık ikimizin de değil.",
+          "target": "n_sonuc_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Yanına oturup eski günlerdeki gibi sessizce beklemek. Şehrin geri kalanının ne düşündüğü umurumda değil.",
+          "target": "n_sonuc_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "sadakat": 8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Birlikte yeni bir iş kurmayı teklif etmek. Bu kirli parayı aklamanın en meşru yolu bu.",
+          "target": "n_sonuc_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -8
+          }
+        }
+      ]
+    },
+    "n_sonuc_guvenli": {
+      "title": "Kopuş",
+      "kind": "outcome",
+      "text": "Arkanı dönüp yürüyorsun. {actor.sibling.name} arkandan bakmıyor bile. Mesafe, artık sadece kilometrelerle değil, duvarlarla ölçülüyor.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_geri_donus_sibling",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_riskli": {
+      "title": "Sadakat",
+      "kind": "outcome",
+      "text": "Saatler geçiyor. Sokak sakinleşiyor. O tanıdık, paslı demir kokusu genzini yakıyor ama buraya aitsin.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_geri_donus_sibling",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_gri": {
+      "title": "İş Birliği",
+      "kind": "outcome",
+      "text": "Resmi imzalar atılıyor. {actor.sibling.name} artık bir iş ortağı. Kan bağı, ortak bir defterde kayboluyor.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_geri_donus_sibling",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

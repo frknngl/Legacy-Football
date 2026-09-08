@@ -1,0 +1,332 @@
+{
+  "id": "evt_mind_doctor_kirilma_injured",
+  "family": "fam_mind_kirilma",
+  "category": "mind",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda",
+          "kind": "branch",
+          "text": "{actor.doctor.name} elindeki tabletin ekranını kapattı. Oda soğuk, florasan ışığı titriyor. Dizindeki o cerrahi yaranın sızısı zihnini bulandırıyor. Doktor sana bakıyor, gözlerinde ne bir merhamet ne de bir düşmanlık var; sadece verilerle dolu bir kayıtsızlık. Önünde duran dosya, sahalara ne zaman dönebileceğine değil, artık kim olacağına karar veriyor. {actor.mentor.name:gen} öğrettikleri ile {actor.partner.name:gen} odayı terk ederken bıraktığı sessizlik arasında sıkıştın. Dışarıda taraftarın sesi kesildi. Burada ise sadece nefes alışverişin var.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Doktorun uzattığı rehabilitasyon raporunu imzala. Sabır, tek yol.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Ağrı kesiciyi reddet, yarayı görmezden gel ve antrenmana hemen dön.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Transfer teklifini kabul et, tedaviyi başka bir ülkede sürdürmek için imzayı at.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_leadership",
+              "text": "Doktoru zorla, süreci hızlandırmak için riskli bir yöntemi beraber seçin.",
+              "target": "n_outcome_lead",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "İkinci Plan",
+          "kind": "outcome",
+          "text": "İmza atıldı. Kapıdan çıkarken dizindeki metalik sızı seni bir yabancı gibi izliyor. Her şey kontrollü ama ruhun bir parça eksik.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Körlemesine",
+          "kind": "outcome",
+          "text": "Doktor başını salladı, bir şey söylemedi. Yürürken adımın aksıyor ama bunu kimse görmeyecek kadar hızlı hareket ediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Kaçış",
+          "kind": "outcome",
+          "text": "Banka hesabına düşen rakam, dizindeki acıyı bir anlığına susturdu. Kimse nereye gittiğini sormayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lead": {
+          "title": "Ağır Yük",
+          "kind": "outcome",
+          "text": "Gözleri birbirine kilitlendi. Doktor onayladı ama bu yöntemin bedeli, uykusuz gecelerin ağırlığıyla ödenecek. Artık yalnız değilsin, bu yükü paylaşıyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Steril Bir Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki küçük medikal odada, {actor.doctor.name} elindeki röntgen filmini pencereye doğru tutuyor. Dışarıda takımın ısınma sesleri boğuk bir uğultu gibi geliyor. {actor.doctor.name} filmi yavaşça masaya bırakıp gözlüklerini çıkarıyor. Sessizlik, dizindeki sızlayan yaranın nabız atışından daha ağır. Doktor, yüzündeki profesyonel maskeyi ilk kez indiriyor; yorgun ve hileli bir gerçeklik var bakışlarında.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Söyleneni yap. Bu sakatlığı bir 'kariyer molası' olarak kabullen ve sessizce kenara çekil.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Masadaki örtünün altına itilen zarfı işaret et. Kimsenin bilmediği o özel tedaviyi başlat.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Doktorun gözlerinin içine bakıp, riski ne olursa olsun sahaya dönmek istediğini haykır.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Kabulleniş",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} başını sallıyor, odayı sessizliğe bırakıp çıkıyor. Uzun bir sessizlik başlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Zarf masadan kayboluyor. {actor.doctor.name} kapıyı kilitlerken bakışlarını kaçırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Yıkıcı İnat",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} elindeki dosyayı sinirle duvara fırlatıyor, kapıyı sertçe çarpıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

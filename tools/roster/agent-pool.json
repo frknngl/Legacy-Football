@@ -1,0 +1,126 @@
+{
+  "_note": "MENAJER HAVUZU -- kod degil VERI. Kaynak CSV'de menajer adi var ama ithalat onu KASITLI olarak dusuruyor (gercek kisi adi tasimamak icin). Menajerler bu dosyadan uretilir. Yeni arketip eklemek, komisyon bandini degistirmek ya da bir ulkeye ozel isim havuzu tanimlamak icin TypeScript'e dokunmak gerekmez.",
+
+  "_nasil": {
+    "yeni arketip": "archetypes altina anahtar ekleyin. Motor arketipi tanimiyorsa dengeleyici carpanlar 1.0 kabul edilir; oyun kirilmaz, o arketip yalnizca duz davranir. Semadaki CHECK kisiti da genisletilmeli (schema.ts).",
+    "isim havuzu": "namePools altina ulke adi ekleyin (world.db'deki country.name_real ile birebir). Tanimsiz ulke 'default' havuzunu kullanir.",
+    "elle menajer": "manual dizisine satir ekleyin. Nitelikler yazilmazsa arketip bandindan cekilir.",
+    "sayi": "agentsPerCountry ulke basina kac menajer uretilecegini soyler; buyuk ligli ulkelerde lig sayisiyla carpilir.",
+    "yeniden import": "Maske kilidi burada da gecerli -- bir kere uretilen menajer adi ve ID'si DEGISMEZ."
+  },
+
+  "agentsPerCountry": 6,
+
+  "_dengeNotu": "Hicbir arketip baskin degil. super_agent seni Sampiyonlar Ligi'ne tasir ama kazancinin altida birini alir ve her sezon satmak ister. family seni ust lige cikaramaz ama 34 yasinda formdan dustugunde de yanindadir -- ve o an loyalty'nin fiyatini oder. Bir arketip her eksende iyiyse denge bozulmustur; her satirda EN AZ BIR dusuk sayi olmali.",
+
+  "_dagilimNotu": "Toplam 1.0 olmali. journeyman en kalabalik cunku baslangic menajeri odur -- havuzda az olsaydi ilk kariyer surekli super_agent'la baslardi.",
+  "distribution": {
+    "journeyman": 0.34,
+    "opportunist": 0.24,
+    "developer": 0.2,
+    "family": 0.12,
+    "super_agent": 0.1
+  },
+
+  "archetypes": {
+    "super_agent": {
+      "label": "Süper Ajan",
+      "note": "Dev kulup kapisini acar. Karsiliginda kazancinin altida birini alir ve seni SUREKLI satmak ister; reddettikce memnuniyeti coker.",
+      "reach": [85, 98],
+      "negotiation": [80, 95],
+      "loyalty": [15, 35],
+      "patience": [20, 40],
+      "commission": [0.12, 0.18],
+      "reputation": [75, 99]
+    },
+    "family": {
+      "label": "Aile Üyesi",
+      "note": "Amcan, ablan, cocukluk arkadasin. Komisyon yok denecek kadar az, sadakat mutlak. Elit kapiyi ACAMAZ -- guveni bedava degil, tavani alcak.",
+      "reach": [20, 40],
+      "negotiation": [30, 50],
+      "loyalty": [90, 99],
+      "patience": [85, 95],
+      "commission": [0.03, 0.05],
+      "reputation": [10, 35]
+    },
+    "developer": {
+      "label": "Gelişim Odaklı",
+      "note": "Forma sansi olan kulubu, parasi coka tercih eder. Buyuk para getirmez; KARIYER getirir.",
+      "reach": [45, 65],
+      "negotiation": [50, 70],
+      "loyalty": [65, 80],
+      "patience": [70, 85],
+      "commission": [0.06, 0.09],
+      "reputation": [40, 65]
+    },
+    "opportunist": {
+      "label": "Fırsatçı",
+      "note": "Her teklifi degerlendirir. Kulubun kalitesi umurunda degil, komisyon tutari umurunda.",
+      "reach": [60, 80],
+      "negotiation": [65, 85],
+      "loyalty": [25, 45],
+      "patience": [30, 50],
+      "commission": [0.09, 0.14],
+      "reputation": [45, 75]
+    },
+    "journeyman": {
+      "label": "Sıradan",
+      "note": "Vasat ama guvenilir. Baslangic menajeri: kimse ilk sozlesmesinde Super Ajan'la calismaz.",
+      "reach": [35, 55],
+      "negotiation": [40, 60],
+      "loyalty": [55, 70],
+      "patience": [60, 75],
+      "commission": [0.05, 0.08],
+      "reputation": [20, 50]
+    }
+  },
+
+  "namePools": {
+    "default": {
+      "first": ["Daniel", "Marco", "Peter", "Andre", "Victor", "Leon", "Ruben", "Stefan", "Mario", "Alex"],
+      "last": ["Brandt", "Nowak", "Keller", "Marchetti", "Ferrer", "Lindqvist", "Duarte", "Vasilev", "Horvat", "Almeida"]
+    },
+    "England": {
+      "first": ["Gary", "Neil", "Simon", "Craig", "Lewis", "Terry", "Owen", "Dean"],
+      "last": ["Whitlock", "Barnes", "Hargrave", "Coleridge", "Fenwick", "Marsden", "Ashby", "Rowntree"]
+    },
+    "Spain": {
+      "first": ["Iker", "Raul", "Joaquin", "Sergi", "Nacho", "Xabi", "Borja", "Aitor"],
+      "last": ["Velarde", "Quintana", "Salcedo", "Mendizabal", "Rojas", "Cabrera", "Ibanez", "Puig"]
+    },
+    "Italy": {
+      "first": ["Gianni", "Federico", "Enzo", "Matteo", "Silvio", "Dario", "Nico", "Piero"],
+      "last": ["Traversi", "Bonomi", "Falcone", "Riva", "Aglietti", "Sartori", "Costanzo", "Bellini"]
+    },
+    "Türkiye": {
+      "first": ["Kerem", "Onur", "Serkan", "Volkan", "Emre", "Tolga", "Barış", "Hakan"],
+      "last": ["Karabulut", "Aydemir", "Şengül", "Toprak", "Erdoğan", "Yalçın", "Doğanay", "Kırcı"]
+    },
+    "Germany": {
+      "first": ["Jens", "Torben", "Malte", "Kai", "Sven", "Nils", "Bernd", "Lars"],
+      "last": ["Ostermann", "Reinhardt", "Vogler", "Kuhnert", "Stadler", "Hellwig", "Brenner", "Dietz"]
+    },
+    "France": {
+      "first": ["Bruno", "Yann", "Cedric", "Olivier", "Thibault", "Farid", "Gael", "Pascal"],
+      "last": ["Rousset", "Meunier", "Delacroix", "Vasseur", "Bouchard", "Lasalle", "Perrin", "Garnier"]
+    },
+    "Brazil": {
+      "first": ["Wagner", "Cleber", "Juninho", "Everton", "Ademir", "Rogerio", "Caio", "Ivan"],
+      "last": ["Bastos", "Queiroz", "Machado", "Nogueira", "Peixoto", "Sarmento", "Vilela", "Rangel"]
+    },
+    "Portugal": {
+      "first": ["Tiago", "Nuno", "Rui", "Filipe", "Hugo", "Vitor", "Diogo", "Paulo"],
+      "last": ["Bettencourt", "Serrano", "Loureiro", "Guedes", "Palhares", "Amorim", "Falcao", "Tavares"]
+    },
+    "Netherlands": {
+      "first": ["Bram", "Joris", "Sander", "Teun", "Wouter", "Sjoerd", "Maarten", "Rik"],
+      "last": ["Vermeulen", "Hoekstra", "Dijkman", "Roelofs", "Bakhuis", "Vosmeer", "Kramer", "Sluis"]
+    },
+    "Argentina": {
+      "first": ["Hernan", "Damian", "Ariel", "Ezequiel", "Cristian", "Matias", "Ruben", "Lucas"],
+      "last": ["Bianchi", "Ferreyra", "Olmedo", "Zabala", "Cordero", "Aguirre", "Iriarte", "Solari"]
+    }
+  },
+
+  "manual": []
+}

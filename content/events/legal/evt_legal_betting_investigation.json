@@ -1,0 +1,341 @@
+{
+  "id": "evt_legal_betting_investigation",
+  "family": "fam_legal_fixing",
+  "category": "legal",
+  "tier": "epic",
+  "weight": 100,
+  "once": true,
+  "cooldown": {
+    "self": 200,
+    "family": 60
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "transfer_listed",
+    "suspended",
+    "injured",
+    "national_duty"
+  ],
+  "_note": "Kuyruktan gelir. Tetik asla saglanmaz; mafya arkinin schedule(forced) cagrisi calistirir.",
+  "trigger": {
+    "flag": "mem_accepted_fixing",
+    "op": "turnsSince",
+    "value": 14
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sabah altıda kapı",
+      "kind": "branch",
+      "text": "Sabah altıda kapı çalıyor ve kapıyı çalanlar gitmiyor.\n\n{actor.prosecutor.name} koridorda duruyor, arkasında dört kişi. Elinde bir kâğıt ve o kâğıdı okumuyor bile — ezberlemiş.\n\n\"Şike soruşturması,\" diyor. \"İki sezon önceki bir maç. Telefon kayıtları var, hesap hareketleri var. İfadenizi almak istiyoruz.\"\n\n{actor.agent.name} on beş dakika sonra geliyor, tıraş olmamış. Salonda sana bakıyor ve tek kelime söylüyor: \"Konuşma.\"\n\n{actor.prosecutor.first} o kelimeyi duyuyor ve gülümsüyor. Bu adamın gülümsemesi iyi bir şey değil.",
+      "choices": [
+        {
+          "id": "c_confess",
+          "text": "İtirafçı ol. Her şeyi anlat, kimin verdiğini söyle.",
+          "target": "n_informant",
+          "effects": [
+            {
+              "flag": "mem_turned_informant",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": -50
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "op": "suspend",
+              "matches": 6,
+              "reason": "Şike soruşturması tedbiri"
+            }
+          ],
+          "persona": {
+            "dogruluk": 12,
+            "sadakat": -12
+          }
+        },
+        {
+          "id": "c_deny",
+          "text": "İnkâr et. \"Böyle bir şey olmadı.\"",
+          "target": "n_roll_trial",
+          "effects": [
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 35
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 30
+            }
+          ],
+          "persona": {
+            "dogruluk": -10,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_lawyer",
+          "text": "{actor.lawyer.name:acc} çağır. Ordu kur.",
+          "target": "n_roll_trial",
+          "requires": {
+            "flag": "servet",
+            "op": "gte",
+            "value": 2000000
+          },
+          "lockLabel": "[Servet 2.000.000]",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -900000,
+                "perTier": -350000
+              }
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -6,
+            "mizac": -4
+          }
+        },
+        {
+          "id": "c_call_cem",
+          "text": "{actor.fixer.name:acc} ara. \"Bunu sen başlattın, sen bitir.\"",
+          "target": "n_called_cem",
+          "requires": {
+            "flag": "iliski_fixer",
+            "op": "gte",
+            "value": 60
+          },
+          "lockLabel": "[Yeraltı 60]",
+          "effects": [
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -14,
+            "sadakat": 4
+          }
+        }
+      ]
+    },
+    "n_informant": {
+      "title": "Koruma",
+      "kind": "outcome",
+      "text": "Dokuz saat ifade veriyorsun. {actor.prosecutor.first} bir kez bile sesini yükseltmiyor.\n\nÇıktığında evinin önünde bir araç var ve iki yıl orada duracak.\n\nAltı maç tedbirlisin. Kulüp açıklama yapıyor, taraftar grubu başka bir açıklama yapıyor ve ikisi de seni savunmuyor.\n\nAma hapse girmiyorsun. Bunun bedelini {actor.fixer.first} ödedi ve o bedeli sana hiç unutturmayacak.",
+      "onEnter": [
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 3
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -18
+        },
+        {
+          "flag": "iliski_fan_leader",
+          "op": "add",
+          "value": -25
+        }
+      ]
+    },
+    "n_called_cem": {
+      "title": "Telefon",
+      "kind": "outcome",
+      "text": "{actor.fixer.first} telefonu ikinci çalışta açıyor ve sen konuşmadan önce konuşuyor:\n\n\"Biliyorum. Üç gündür biliyorum.\"\n\nSessizlik.\n\n\"Bir ismi dosyadan çıkarabilirim. Bir isim. Seninki olmak zorunda değil ama seninki olacak, çünkü diğerleri benim için daha değerli.\"\n\nKapatıyor.\n\nİki hafta sonra iddianame çıkıyor ve senin adın en alt sırada, en hafif suçlamayla. Yanında üç isim var ve o üçü seni hiç affetmeyecek.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 4,
+          "reason": "Soruşturma tedbiri"
+        },
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 2
+        },
+        {
+          "flag": "skandal_seviyesi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_roll_trial": {
+      "title": "Duruşma",
+      "kind": "roll",
+      "text": "On dört ay sonra karar duruşması. Salon dolu; üçü gazeteci, gerisi meraklı.",
+      "outcomes": [
+        {
+          "target": "n_acquitted",
+          "weight": {
+            "base": 25,
+            "modifiers": [
+              {
+                "flag": "servet",
+                "scale": 8e-06
+              },
+              {
+                "flag": "medya_itibari",
+                "scale": 0.3
+              },
+              {
+                "flag": "disiplin_sicili",
+                "scale": -0.5
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_convicted",
+          "weight": {
+            "base": 55,
+            "modifiers": [
+              {
+                "flag": "skandal_seviyesi",
+                "scale": 0.4
+              },
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_acquitted": {
+      "title": "Beraat",
+      "kind": "outcome",
+      "text": "\"Yeterli delil bulunamadığından beraatine.\"\n\nSalonda kimse alkışlamıyor. Selim gözlerini kapatıp derin bir nefes alıyor.\n\nDışarıda kameralar var ve hiçbiri sana \"tebrikler\" demiyor; hepsi \"nasıl kurtuldunuz\" diye soruyor.\n\nBeraat ettin. Aklanmadın. Bu ikisi arasındaki farkı önümüzdeki on yıl boyunca her röportajda öğreneceksin.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 25
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": -15
+        },
+        {
+          "flag": "mem_media_war",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -8
+        }
+      ]
+    },
+    "n_convicted": {
+      "title": "Hüküm",
+      "kind": "outcome",
+      "text": "Hâkim kararı okurken sen ayaktasın ve kelimeleri duymuyorsun. Sadece bir kelimeyi duyuyorsun ve o kelime yeterli.\n\n{actor.agent.first} arkanda oturuyor ve ayağa kalkmıyor.\n\nJandarma iki tarafında. Salondan çıkarken {actor.journalist.name} fotoğraf çekiyor ve o fotoğraf bir daha hiç kaybolmayacak; on beş yıl sonra bir belgeselin açılış karesi olacak.\n\nKariyerin durdu. Yaşın durmuyor.",
+      "onEnter": [
+        {
+          "op": "lifeState",
+          "to": "incarcerated"
+        },
+        {
+          "flag": "mem_was_incarcerated",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "sentence_weeks",
+          "op": "set",
+          "value": 80
+        },
+        {
+          "flag": "piyasa_carpani",
+          "op": "set",
+          "value": 0
+        },
+        {
+          "flag": "haftalik_gelir",
+          "op": "set",
+          "value": 0
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": -40
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -40
+        }
+      ]
+    }
+  }
+}

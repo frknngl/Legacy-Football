@@ -1,0 +1,69 @@
+{
+  "id": "evt_rival_injury_moment",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 8 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yerde yatan",
+      "kind": "branch",
+      "text": "Ses cok net duyuluyor. Otuz bin kisi ayni anda susuyor.\n\n{actor.nemesis.name} on alti icinde yatiyor ve dizi olmamasi gereken bir yone bakiyor. Sana en yakin oyuncu sensin. Top hala oyunda ve hakem duduk calmadi.\n\nKale bos. Yedi metre.\n\nOn yildir bu adami yenmek icin ne yaptigini biliyorsun. Su an sadece kosman yetiyor.\n\nYa da durup elini kaldirman, oyunu kesmen, yanina cokmen.\n\n{actor.captain.first} arkandan bagiriyor ama ne dedigini duymuyorsun.",
+      "choices": [
+        {
+          "id": "c_score",
+          "text": "Kos. Gol at.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -35 },
+            { "flag": "taraftar_destegi", "op": "add", "value": -20 },
+            { "flag": "medya_baskisi", "op": "add", "value": 25 },
+            { "flag": "mem_rival_humiliated", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": -12, "sadakat": -6 }
+        },
+        {
+          "id": "c_stop",
+          "text": "Topu aut'a at. Yanina cok.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 35 },
+            { "flag": "taraftar_destegi", "op": "add", "value": 20 },
+            { "flag": "medya_itibari", "op": "add", "value": 18 },
+            { "flag": "form", "op": "add", "value": -8 },
+            { "flag": "mem_rival_helped", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": 14, "sadakat": 6 }
+        },
+        {
+          "id": "c_doctor",
+          "text": "Topu birak, {actor.doctor.first:acc} cagir, sonra geri cekil.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 12 },
+            { "flag": "profesyonellik", "op": "add", "value": 10 },
+            { "flag": "iliski_doctor", "op": "add", "value": 8 },
+            { "flag": "form", "op": "add", "value": -5 }
+          ],
+          "persona": { "dogruluk": 7, "mizac": -4 }
+        },
+        {
+          "id": "c_walk",
+          "text": "Hicbir sey yapma. Oyun devam etsin, sen yurumeye devam et.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -10 },
+            { "flag": "mental_dayaniklilik", "op": "add", "value": 8 },
+            { "flag": "iliski_takim", "op": "add", "value": -6 }
+          ],
+          "persona": { "mizac": -9, "durus": -6 }
+        }
+      ]
+    }
+  }
+}

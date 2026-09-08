@@ -1,0 +1,159 @@
+{
+  "id": "evt_locker_captain_yuzlesme",
+  "family": "fam_locker_yuzlesme",
+  "category": "locker",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "_statureNote": "Hero kaptanla EŞİT konusuyor, omzuna elini koyuyor ve prim teklif ediyor. Caylagin kaptanla bu iliskisi olmaz.",
+  "_eraNote": "Secenekler kaptanla ESIT konusmayi, omzuna el koymayi ve ona prim teklif etmeyi iceriyor. Ilk 11'de olmak yetmez: 16 yasindaki bir oyuncu kaptanla bu iliskiyi kuramaz. Sohret kapisi yeterli degildi, yas kapisi da gerekti.",
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kaptanla Yüzleşme",
+      "kind": "branch",
+      "text": "Soyunma odasının ağır kapısı aralandığında hava bir anda değişti. Metalik koku ve ter kokusu birbirine karışıyor. {actor.captain.name} dolabının önünde tek başına oturuyor. Kendi kramponlarını temizliyor. İçeri girdiğimi fark ettiği halde başını kaldırmıyor. Odanın sessizliğinde sadece havluyla metalin birbirine sürtünme sesi yankılanıyor. Aramızdaki o görünmez hat, son maçtaki paslaşma tercihinden beri gergin. Göz teması yok ama odanın tüm ağırlığı onun omuzlarında. Burada duruyorum; ya yanından geçip gideceğim ya da o sessizliği ben bozacağım.",
+      "choices": [
+        {
+          "id": "c_saf",
+          "text": "Kaptan, son maçtaki hatam için özür dilerim. Takımın önüne geçmemeliydim.",
+          "target": "n_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_risk",
+          "text": "Dolabının önünden geçerken, \"O pası vermen gerekiyordu, başka yolu yoktu,\" diye fısıldayıp devam et.",
+          "target": "n_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Kaptanın yanına bir zarf bırak. İçinde menajerinin teklif ettiği bonus anlaşması var. \"Bunu hallet, gerisi bizde,\" de.",
+          "target": "n_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "sadakat": -7
+          }
+        }
+      ]
+    },
+    "n_guvenli": {
+      "title": "Diplomasi",
+      "kind": "outcome",
+      "text": "{actor.captain.name} kramponunu yere bırakıyor. Kısa bir süre gözlerime bakıyor, cevap vermiyor. Başını hafifçe sallıyor, sadece işinle ilgilen işareti yapıyor. Aramızdaki gerginlik biraz dağılsa da, artık aramızda görünmez bir mesafe var.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_yuzlesme_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_riskli": {
+      "title": "İsyan",
+      "kind": "outcome",
+      "text": "Adımlarım duraksıyor ama dönmüyorum. Arkamdan gelen tek bir sert nefes sesi duyuyorum. Kaptanın kramponu vurduğu yerden gelen tok bir ses, odanın sessizliğini yırtıyor. Bu, artık aynı sahadayken birbirimizin gözünün içine bakacağımızın habercisi.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_yuzlesme_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_gri": {
+      "title": "İttifak",
+      "kind": "outcome",
+      "text": "{actor.captain.name} zarfı gördüğünde duraksıyor. Elini zarfın üzerine koyuyor, parmakları kağıdın kenarını sıkıyor. Tek kelime etmiyor ama kapıdan çıkarken arkamdan gelen o bakışı hissediyorum. Artık birbirimizin karanlık taraflarını biliyoruz.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_yuzlesme_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,732 @@
+{
+  "id": "evt_react_racism_aftermath",
+  "family": "fam_react_racism",
+  "category": "reaction",
+  "tier": "epic",
+  "weight": 80,
+  "cooldown": {
+    "self": 40,
+    "family": 20
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "suspended",
+    "national_duty",
+    "injured"
+  ],
+  "_note": "Yalnizca kuyruktan gelir. Tetik asla saglanmaz; schedule(forced) calistirir.",
+  "trigger": {
+    "flag": "mem_stood_against_racism",
+    "op": "turnsSince",
+    "value": 999999
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ertesi sabah",
+          "kind": "branch",
+          "text": "Telefonun sabah altıda çalmaya başladı ve hâlâ duruyor. {actor.agent.name} yedi kere aramış. Federasyon açıklama yaptı: \"Olay incelemeye alınmıştır.\" Kulüp açıklama yaptı: \"Oyuncumuzun yanıindayız.\" İkisi de aynı cümleyi kuruyor ve ikisi de hiçbir şey söylemiyor.\n\n{actor.journalist.name} kapıda. Kaydediciyi çıkarmıyor. \"Yayınlamayacağım,\" diyor, \"sadece anlat.\"\n\nMasada üç şey duruyor: bir sponsor sözleşmesi, bir federasyon davetiyesi ve babanın gece attığı mesaj. Babanın mesajını henüz açmadın.",
+          "choices": [
+            {
+              "id": "c_elif",
+              "text": "{actor.journalist.first:dat} anlat. Kaydediciyi aç ve her şeyi söyle.",
+              "target": "n_told_elif",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_sponsor",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "npc_journalist_arc",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "mem_dated_journalist",
+                  "op": "set",
+                  "value": false
+                }
+              ],
+              "persona": {
+                "durus": 10,
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_federation",
+              "text": "Federasyonun davetini kabul et. Masada otur, kurumsal yoldan git.",
+              "target": "n_federation",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_sponsor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -12
+                }
+              ],
+              "persona": {
+                "durus": -6,
+                "sadakat": 4
+              }
+            },
+            {
+              "id": "c_silence",
+              "text": "Hiçbirine cevap verme. Telefonu kapat, idmana git.",
+              "target": "n_silence",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_basin",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -8,
+                "mizac": -7
+              }
+            },
+            {
+              "id": "c_father",
+              "text": "Önce babanın mesajını aç.",
+              "target": "n_father",
+              "effects": [
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_sponsor",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 8,
+                "dogruluk": 6
+              }
+            }
+          ]
+        },
+        "n_told_elif": {
+          "title": "Kayıt",
+          "kind": "outcome",
+          "text": "İki saat konuşuyorsun. Bir kısmı futbolla ilgili değil: on iki yaşında bir maçta duyduğun ilk hece, annenin \"aldırma\" deyişi, babanın hiç bahsetmemesi.\n\n{actor.journalist.first} kaydediciyi kapatıyor. \"Bunu yayınlamam,\" diyor. \"Ama bir gün sen isteyeceksin ve o zaman elimde olacak.\"\n\nO kaset bir yerlerde duruyor. Bu bilgi seni hem rahatlatıyor hem korkutuyor.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_federation": {
+          "title": "Masa",
+          "kind": "outcome",
+          "text": "Uzun bir masa, sekiz takım elbise, önünde adının yazdığı bir karton. İki saat konuşuluyor ve senden üç cümle isteniyor.\n\nÜçünü de söylüyorsun. Fotoğraf çekiliyor. El sıkışılıyor.\n\nAkşam taraftar grubunun hesabında o fotoğraf paylaşılıyor. Tek yorum: \"Bizimle sahada durdu, onlarla masada oturdu.\"",
+          "onEnter": [
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "mem_public_apology",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            }
+          ]
+        },
+        "n_silence": {
+          "title": "Sahaya",
+          "kind": "outcome",
+          "text": "Tesise ilk sen geliyorsun. Kimseyle konuşmuyorsun, ısınmaya çıkıyorsun, sonra şut çalışıyorsun. Yüz elli şut.\n\n{actor.manager.name} kenarda uzun süre izliyor. Sonra yaklaşıp tek cümle söylüyor: \"Bunu susmak sanıyorsun. Ben bağırdığını duyuyorum.\"\n\nHiçbir şey söylemiyorsun. O da beklemiyor zaten.",
+          "onEnter": [
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mem_stayed_silent_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            }
+          ]
+        },
+        "n_father": {
+          "title": "Üç kelime",
+          "kind": "outcome",
+          "text": "Mesaj gece 02:14'te gelmiş. Üç kelime:\n\n*\"Doğru olanı yaptın.\"*\n\nOtuz yıl fabrikada çalışan, maçlarını televizyondan izleyen, hiçbirini yorumlamayan adam. Hayatında sana ikinci kez bir şey söylüyor.\n\nTelefonu masaya bırakıp mutfakta on dakika hiçbir şey yapmadan duruyorsun. Sonra {actor.agent.first:acc} arıyorsun ve \"bugün kimseyle konuşmuyorum\" diyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -6
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı, Yağmurlu",
+          "kind": "branch",
+          "text": "{actor.journalist.name} arabanın ön camına elini dayamış bekliyor. Yağmur, ikinizin arasında görünmez bir perde gibi asılı. Kayıt cihazının üzerindeki kırmızı ışık, karanlıkta sönük bir ateş böceği gibi yanıp sönüyor. {actor.journalist.name} tek bir kelime etmiyor, sadece bekliyor. Sessizlik, stadyumun arkasındaki otoyolun uğultusundan daha ağır. Uzaklaşmak için kontağı çevirmek yeterli, ama o, cevabın senin dudaklarından dökülmesini bekleyen bir gölge gibi orada.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kaydı durdur. Arabadan in ve ona sadece o gece yaşananları değil, hissettiğin öfkeyi anlat.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Cama vur. Resmi açıklamayı tekrar et, gaza bas ve onu aynadan izleyerek uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Cüzdanından çıkardığın bir miktar parayı aralık camdan ona uzat. Sessizliği satın al.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ]
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Onun gözlerinin içine bak, hiçbir şey söyleme. Sadece başını iki yana salla ve gidişine izin ver.",
+              "target": "n_kilitli",
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Bedeli Ödenen Sözler",
+          "kind": "outcome",
+          "text": "Söylediklerin yarın tüm manşetlerde olacak. Kulüp koridorlarında artık eskisi gibi yürüyemeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_public_apology",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Kurumsal Sessizlik",
+          "kind": "outcome",
+          "text": "Profesyonel duruşun herkesi tatmin etti ama otoparktan çıkarken aynada gördüğün yüz artık sana yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_stayed_silent_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Kirli Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Para el değiştirdi. O, kamerasını kapattı ve yağmurda eriyip gitti. Vicdanındaki boşluk ise hiç olmadığı kadar büyüdü.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Bakışın Gücü",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} tek kelime etmeden geri çekildi. İkiniz de biliyordunuz; bu sessizlik, herhangi bir manşetten daha tehlikeli.",
+          "onEnter": [
+            {
+              "flag": "mem_dated_journalist",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünel Sonu",
+          "kind": "branch",
+          "text": "Antrenman sahasına inen koridorun loş ışığında tek başına duruyorsun. Ayakkabılarının çamuru beton zeminde koyu lekeler bırakıyor. {actor.journalist.name}, elinde eski bir not defteri ve dikkati dağılmış bir ifadeyle tünel çıkışında bekliyor. Dışarıda taraftarın uğultusu, bir fırtınanın uzaktan gelen sesi gibi. {actor.journalist.name} sana doğru bir adım atıyor, kaleminin ucu kağıdın üzerinde asılı kalıyor. Sormasına gerek yok; yüzündeki o meraklı, biraz da acımasız ifade her şeyi söylüyor. Omuzlarındaki ağırlık artık nefes almanı zorlaştırıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın kulüp kartını ona uzat. \"İçerideki özel röportaj notlarını al, ama manşet benim istediğim gibi olacak.\"",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini kaçırarak yanından geç. \"Kulüp sözcüsü gerekli açıklamayı yaptı, soracağın başka bir şey yok.\"",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dur ve ona dön. \"O gece stadyumda yaşananları sadece gördüklerinle değil, duyduklarınla da yaz. Cesaretin varsa.\"",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Not defteri parmaklarının arasından alınıyor. Sessizlik, koridorun duvarlarında yankılanıyor. Vicdanın, banka hesabına düşen rakamdan daha ağır çekiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_stayed_silent_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Duvar Örüldü",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek, bir kalkan oluşturmak gibi. Ama arkandan gelen bakışların ağırlığını, koridorun sonuna kadar sırtında hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Ateşe Yürümek",
+          "kind": "outcome",
+          "text": "Gözleri aniden parlıyor. {actor.journalist.name} artık sadece görevini yapmıyor, bir taraf seçiyor. Bu kelimelerin yarın tüm şehirde nasıl bir yangın başlatacağını ikiniz de biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Bir Işık",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki çamaşırhanedesin. Makinaların uğultusu, dışarıdaki protestoların sesini bastırıyor. Havada ağır bir deterjan ve ter kokusu var. {actor.journalist.name} köşede, not defterini dizine koymuş, sana bakıyor. Işıklar cızırdıyor. Sana doğru tek bir adım atıyor, kalemini bırakıyor. \"Bugün sahada sadece bir topun peşinde koşmuyordun,\" diyor sesi titreyerek. \"Ben o gün stadyumda o tribünlerin arasında ne gördüğünü biliyorum. Ve sen de benim gördüğümü biliyorsun.\"",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Ona yaklaşıp defterindeki sayfayı işaret et. 'O isimleri yaz, bedelini beraber ödeyelim.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce dolabını aç, formanı çıkarıp çantana yerleştir. 'İşini yap, ben sadece işimi yaptım.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın kulüp kartını masaya bırak. 'Bu olay üzerine bir hikaye yazma, hayatını değiştir.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bak ve o günkü tribün yeminini tekrarla. 'Seni de o sahanın içine çekiyorum.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              },
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Tanınırlık Yüksek]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Ortaklık",
+          "kind": "outcome",
+          "text": "Yüzündeki ifade değişiyor. Bu artık bir röportaj değil, bir ittifak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sınırlar",
+          "kind": "outcome",
+          "text": "Sırtını dönüp çıkıyorsun. Profesyonel mesafe, gerçekliğin önüne örülmüş bir duvar.",
+          "onEnter": [
+            {
+              "flag": "mem_stayed_silent_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Suskunluk Bedeli",
+          "kind": "outcome",
+          "text": "Zarfların sesi yankılanıyor. Yalan, en saf haliyle aranızda büyüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_public_apology",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Gerçek Tanıklık",
+          "kind": "outcome",
+          "text": "Not defterini kapatıyor. İlk kez, birinin seni bir oyuncudan fazlası olarak gördüğünü hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dated_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

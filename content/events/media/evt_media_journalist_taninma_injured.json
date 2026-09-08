@@ -1,0 +1,149 @@
+{
+  "id": "evt_media_journalist_taninma_injured",
+  "family": "fam_media_taninma",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Buzlu Camın Ardı",
+      "kind": "branch",
+      "text": "Antrenman sahasının kenarındaki revirde, dizindeki sargıların acısı hala taze. {actor.journalist.name} elinde bir kayıt cihazıyla karşı köşede oturuyor. Sessizlik dakikalar sürdü. Bir noktada cihazı kapatıp kenara bıraktı. 'Seni oynamazken izlemek daha öğretici,' dedi, sesi samimiyetle çatallanarak. 'Herkesin o efsanevi kariyerin için yazdığı basmakalıp övgülerden bahsetmiyorum. O dizindeki sakatlığın, aslında tüm o hırsının bir sonucu olduğunu, içerideki o bitmek bilmeyen öfkeni gördüm. Kimse senin o boş bakışındaki derinliği merak etmiyor. Ben ediyorum.'",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Sadece işini yap ve yazını yaz. Hikayemi dramatize etme.",
+          "target": "n_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Sana tüm hikayeyi anlatacağım, ama tek bir kelimesini bile değiştirmeyeceksin.",
+          "target": "n_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Bu özel röportaj için kulübün belirlediği rakamı ödersen, belki aradığın o derinliği bulursun.",
+          "target": "n_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_guvenli": {
+      "title": "Profesyonel Mesafe",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} başını hafifçe salladı ve odadan çıktı. Sınırlarını korudun, ama odadaki o nadir insani temas hissi, yerini tekrar soğuk bir yalnızlığa bıraktı.",
+      "onEnter": [
+        {
+          "flag": "mem_media_taninma_journalist",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_riskli": {
+      "title": "Gerçekler Masada",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} not defterini hazırladı. İlk kez biri kalkanlarını deldi. Bu dürüstlük, taraftarların seni kahramanlaştıracağı ama medyanın da seni didik didik edeceği bir sürecin başlangıcı.",
+      "onEnter": [
+        {
+          "flag": "mem_media_taninma_journalist",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_gri": {
+      "title": "Pazarlıklı Hakikat",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} şaşkınlıkla güldü ve çantasına uzandı. İstediğin parayı masaya bıraktı. O an anladın ki, birine gerçek seni göstermek artık senin için bir seçenek değil, sadece bir ticaret metası.",
+      "onEnter": [
+        {
+          "flag": "mem_media_taninma_journalist",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

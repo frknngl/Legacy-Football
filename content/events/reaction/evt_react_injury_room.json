@@ -1,0 +1,734 @@
+{
+  "id": "evt_react_injury_room",
+  "family": "fam_react_medical",
+  "category": "reaction",
+  "tier": "major",
+  "weight": 55,
+  "cooldown": {
+    "self": 10,
+    "family": 6
+  },
+  "lifeStates": [
+    "playing",
+    "injured",
+    "loaned",
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "inc_injured_in_match",
+    "op": "isSet"
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sağlık odası",
+          "kind": "branch",
+          "text": "Tesisin alt katı, floresan ışığı, dezenfektan kokusu. {actor.doctor.name} MR görüntüsünü ekranda açık bırakmış ve sana bakmıyor, ekrana bakıyor.\n\n\"Bunu daha önce de gördüm,\" diyor. \"Aynı bacak, aynı bölge. İkinci kez.\"\n\nMasada bir dosya var; üstünde senin adın ve kalın bir yığın kâğıt. Otuz yaşındaki bir oyuncunun dosyası bu kadar olur; sen değilsin.\n\n\"Sana bir soru soracağım,\" diyor ve ilk kez dönüp bakıyor. \"Bana doğruyu söyleyecek misin?\"",
+          "choices": [
+            {
+              "id": "c_truth",
+              "text": "\"Aylardır ağrıyor. Hiçbirinizi haberdar etmedim.\"",
+              "target": "n_truth",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "sakatlik_riski",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "injury_weeks",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "mem_hid_injury",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "dogruluk": 12,
+                "mizac": -4
+              }
+            },
+            {
+              "id": "c_downplay",
+              "text": "\"Abartıyorsun. İki hafta sonra sahadayım.\"",
+              "target": "n_downplayed",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "sakatlik_riski",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "dogruluk": -9,
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_ask",
+              "text": "\"Sen ne yapardın? Sen olsan oynar mıydın?\"",
+              "target": "n_asked_her",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "dogruluk": 6,
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_file",
+              "text": "Dosyayı işaret et. \"O dosyada iğne kayıtları da var mı?\"",
+              "target": "n_file",
+              "requires": {
+                "flag": "mem_took_injection",
+                "op": "isSet"
+              },
+              "lockLabel": "[Geçmiş: iğne vurdurdun]",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "sakatlik_riski",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8,
+                "durus": 7
+              }
+            }
+          ]
+        },
+        "n_truth": {
+          "title": "Dört hafta",
+          "kind": "outcome",
+          "text": "{actor.doctor.first} uzun uzun dinliyor ve not almıyor — bu bilinçli.\n\n\"Dört hafta,\" diyor sonunda. \"İki değil, dört. Hocayla ben konuşurum, sen konuşma.\"\n\nÇıkarken kapıda duruyorsun. \"Neden bana bunu soruyorsun? Kimse sormuyor.\"\n\nEkranı kapatıyor. \"Çünkü ben on bir yıldır buradayım ve senden önce üç oyuncu bu odada aynı yalanı söyledi. Üçü de otuz yaşında bitti.\"",
+          "onEnter": [
+            {
+              "flag": "is_injured",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": false
+            }
+          ]
+        },
+        "n_downplayed": {
+          "title": "İki hafta",
+          "kind": "outcome",
+          "text": "{actor.doctor.first} bir süre sana bakıyor, sonra dosyayı kapatıp çekmeceye koyuyor.\n\n\"Tamam,\" diyor. \"İki hafta.\"\n\nBu kadar kolay kabul etmesi seni rahatsız ediyor ve haklısın: bu bir kabul değil, bir kayıt. Odadan çıkarken bilgisayarına bir şey yazdığını duyuyorsun.\n\nBir gün o notlar okunacak ve o gün sen bu odada olmayacaksın.",
+          "onEnter": [
+            {
+              "flag": "is_injured",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "injury_weeks",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_asked_her": {
+          "title": "Sen olsan",
+          "kind": "outcome",
+          "text": "{actor.doctor.first} sandalyeye oturuyor. Bu, uzun cevap vereceği anlamına geliyor.\n\n\"On dokuz yaşında hentbol oynuyordum,\" diyor. \"Omzum çıktı. Oynadım. İki yıl sonra bıraktım ve tıp okudum. Şimdi buradayım.\"\n\nSusuyor.\n\n\"Cevabım: oynardım. Ve yanlış olurdu. İkisi aynı anda doğru.\"",
+          "onEnter": [
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "is_injured",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "injury_weeks",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": false
+            }
+          ]
+        },
+        "n_file": {
+          "title": "Kayıt",
+          "kind": "outcome",
+          "text": "{actor.doctor.first} dosyayı açıp bir sayfayı çeviriyor ve sana gösteriyor. Tarih, doz, imza. Kendi imzası.\n\n\"Hepsi burada,\" diyor. \"Ben yazdım, ben imzaladım, ben sorumluyum. Sen istedin, ben yaptım ve bunu bir daha yapmayacağım.\"\n\nDosyayı kapatıyor.\n\n\"Bu kayıtlar bir gün mahkemeye gider,\" diyor. \"Ve o gün ikimiz de aynı tarafta olmayacağız.\"",
+          "onEnter": [
+            {
+              "flag": "is_injured",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "injury_weeks",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Kalan Kontrat",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki karanlık otopark. {actor.doctor.name} bagajın üzerine yaslanmış, elinde soğuk bir çanta ve uzun bir iğne tutuyor. Tepedeki tek lamba cızırtıyla yanıp sönüyor. Dışarıda taraftarların uğultusu, içeride ise sadece ikinizin nefes sesi duyuluyor. {actor.doctor.name} sessizce başıyla arabayı işaret ediyor; bu iğne seni bugünkü finale taşıyacak ama kariyerinin geri kalanından çalacak.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "İğneyi geri çevir. Bugün sahaya çıkmayacağım.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı al ve gizli bir prim için evrakları imzala.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "İğneyi yap, sahada her şeyimi vereceğim.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kulüp için fedakarlık vakti. İğneyi yap, sonrasını sonra düşünürüz.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sadakat Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Dürüstlüğün Bedeli",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} gözlerini kaçırıyor ve omuz silkiyor. Artık stadyumun gürültüsüyle baş başasın.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "İmza atıldı. {actor.doctor.name} çantayı eline tutuşturup hızla karanlığa karışıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Sahaya Dönüş",
+          "kind": "outcome",
+          "text": "Soğuk sıvı damarlarında yayılıyor. Bacağındaki o eski sızı artık yerini hissizliğe bırakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Kör Sadakat",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} minnetle başını sallıyor. Bu maçın zaferi, yarınki kariyerinin enkazı olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Doktorun Ofisi",
+          "kind": "branch",
+          "text": "Ofisin kapısı arkandan sertçe kapandı. {actor.doctor.name} masasının üzerinde duran eski bir plaketi parlatıyor, gözleri sana değmiyor. Odanın içi dışarıdaki antrenman sahasının gürültüsünden arınmış, sadece saat tikliyor. {actor.doctor.name} yavaşça çekmeceyi açtı ve senin aylardır sakladığın sağlık raporunun ham kopyasını masanın tam ortasına, iki parmağının ucuyla itti. İmza satırı boş. Gerçeği, en azından bu odayı terk etmeden önce duymak istiyor.",
+          "choices": [
+            {
+              "id": "c_risky",
+              "text": "Raporu yırtıp at. Tribünler ismimi haykırırken kenarda oturamam.",
+              "target": "n_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Sessizce başını salla. Sezonu kapatmayı kabul etmekten başka yol kalmadı.",
+              "target": "n_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Bu dosyayı şimdilik yok say. Yeni kontrat imzalanana kadar hiçbir şey değişmemiş gibi davran.",
+              "target": "n_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "moral",
+                "op": "lte",
+                "value": 40
+              },
+              "lockLabel": "[Moral düşük]"
+            }
+          ]
+        },
+        "n_risky": {
+          "title": "İnkârın Bedeli",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} sadece bakışlarını yerden kaldırdı. Bir şey demedi ama bakışındaki o ifade, bu kararın seni bir gün kendi çöküşüne götüreceğini hatırlatıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_safe": {
+          "title": "Kabulün Ağırlığı",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} dosyayı alıp parçalara ayırdı. Soyunma odasına giden koridorda yürürken, ayaklarının altındaki zemin artık her zamankinden daha ağır hissettiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_grey": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} çekmeceyi kilitledi. Anahtarın sesi odada çınladı. Şimdi sadece omuzlarındaki o sızıyı saklamanın değil, bu yalanın maliyetini de taşımanın zamanı.",
+          "onEnter": [
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kritik Eşik",
+          "kind": "branch",
+          "text": "Antrenman sahasının tozlu koridorunda, {actor.doctor.name} elindeki tabletle bir köşe başını tutmuş bekliyor. Pencereden vuran öğle güneşi, odadaki toz zerrelerini belirginleştiriyor. Ses yok; sadece dışarıdaki çim biçme makinesinin boğuk motor sesi. {actor.doctor.name}, ekrandaki veriyi durdurup sana doğru bir adım atıyor. Bakışları, dizindeki eski sargının üzerine kilitlenmiş durumda. Ortada ne bir tıbbi cihaz ne de bir dosya var; sadece ikiniz ve yaklaşan sonun ağırlığı.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Gülümseyerek elini omzuna koy. 'Bunu kimseye söyleme, büyük maçtan sonra istifa dilekçemi kendim vereceğim.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ceketinin fermuarını çek. 'Doğrusu neyse o, raporu yönetime gönder.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Tableti elinden alıp masaya bırak. 'Bu sahada ben düşmeden, beni kimse kenara alamaz.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bak. 'İkimiz de biliyoruz, bu bacak henüz bitmedi. Bana o iğneyi yap.'",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[İtibar Gerekiyor]",
+              "persona": {
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} gözlerini kaçırıyor. Aranızdaki mesafe, bir profesyonel ilişkiden çok bir suç ortağı sessizliğine dönüşüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Dürüst Son",
+          "kind": "outcome",
+          "text": "Raporun onaylanmasıyla kariyerin yeni bir şekil alıyor. {actor.doctor.name} başını hafifçe eğerek odadan çıkıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "Masadaki tableti bırakıyorsun. {actor.doctor.name} nefesini tutuyor, elindeki kalemi kıracak kadar sıkıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Karanlık Karar",
+          "kind": "outcome",
+          "text": "Sessizlik odanın duvarlarını daraltıyor. {actor.doctor.name} yavaşça çekmecesine uzanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

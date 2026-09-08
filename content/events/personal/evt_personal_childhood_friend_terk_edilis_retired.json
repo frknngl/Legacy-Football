@@ -1,0 +1,131 @@
+{
+  "id": "evt_personal_childhood_friend_terk_edilis_retired",
+  "family": "fam_personal_terk_edilis",
+  "category": "personal",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "playing",
+    "retired"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Bir Borç",
+      "kind": "branch",
+      "text": "Emekliliğin sessizliği, büyük stadyumların gürültüsünden daha sağır edici. Masanın üzerinde duran sarı zarf, {actor.childhood_friend.name} tarafından bırakılmış. Yıllardır beraber yürüdüğünüz o tozlu sokakların kokusu, zarfın üzerindeki rutubetle odaya siniyor. {actor.childhood_friend.name} artık yok; sadece geride bıraktığı bu el yazısı ve ödenmemiş bir hesap var. Pencereden dışarı bakıyorsun, şehir değişmiş. Sadece sen ve o aynı yerdesiniz, ama aranızdaki mesafe artık bir ömür kadar uzun.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Zarfı hiç açmadan yak. Biten bir hikaye, sadece küllerle hatırlanmalı.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Zarfı yerel bir gazeteye götür. Hikaye, senin değil, onun hatası.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Zarfın içindeki parayı al ve bir hayır kurumuna bağışla. Temiz bir vicdan, en pahalı lükstür.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 5000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Küller",
+      "kind": "outcome",
+      "text": "Alevler kağıdı yavaşça yutarken, {actor.childhood_friend.name} ile paylaştığın sırlar da yok oluyor. Artık sana ait tek bir iz bile kalmadı. Geçmiş, bir hayaletten ibaret.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_terk_edilis_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "İfşa",
+      "kind": "outcome",
+      "text": "Manşetler yarın seni değil, o eski dostluğu yargılayacak. {actor.childhood_friend.name} bir isimden, bir skandala dönüştü. İtibarın temizleniyor ama aynadaki yüzün artık sana yabancı.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_terk_edilis_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Bedel",
+      "kind": "outcome",
+      "text": "Parayı sisteme soktun. {actor.childhood_friend.name} ile arandaki bağ, bir makbuzla mühürlendi. Yardım ettiğin insanlar minnettar, ancak ruhundaki o boşluk kapanmayacak.",
+      "onEnter": [
+        {
+          "flag": "mem_personal_terk_edilis_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

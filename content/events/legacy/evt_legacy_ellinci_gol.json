@@ -1,0 +1,334 @@
+{
+  "id": "evt_legacy_ellinci_gol",
+  "family": "fam_legacy_kilometre",
+  "category": "legacy",
+  "tier": "major",
+  "weight": 58,
+  "once": true,
+  "cooldown": {
+    "self": 50,
+    "family": 20
+  },
+  "trigger": {
+    "flag": "kariyer_gol_sayisi",
+    "op": "gte",
+    "value": 50
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Elli",
+          "kind": "branch",
+          "text": "Maç bitti. Malzemeci topu getirdi; üstüne tarihi ve skoru yazmışlar.\n\nEllinci gol. Kimse alkışlamadı çünkü maçı kaybettiniz ve gol seksen sekizinci dakikada, hiçbir şeyi değiştirmeyen bir goldü.\n\nTop elinde duruyor ve ne yapacağını bilmiyorsun.\n\n{actor.journalist.name} kapının önünde bekliyor — \"iki dakika\" diye mesaj attı.\n\n{actor.former_teammate.name} de mesaj attı. Sekiz yıl önce senin ilk golünü asist eden adam. Tek satır: *\"Birincisini hatırlıyor musun?\"*",
+          "choices": [
+            {
+              "id": "c_gazeteci",
+              "text": "Gazeteciyi al. Elli golü konuş.",
+              "target": "n_gazeteci",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_cevap",
+              "text": "Gazeteciyi bekletip {actor.former_teammate.first:dat} cevap yaz.",
+              "target": "n_cevap",
+              "effects": [
+                {
+                  "flag": "iliski_former_teammate",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -7
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "sadakat": 9
+              }
+            },
+            {
+              "id": "c_top",
+              "text": "Topu malzemeciye geri ver. \"Kaybettik, tutulacak bir şey yok.\"",
+              "target": "n_top",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -9
+                }
+              ],
+              "persona": {
+                "durus": 9,
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_gazeteci": {
+          "title": "İki Dakika",
+          "kind": "outcome",
+          "text": "İki dakika on bir dakika oldu. {actor.journalist.name} elli golün hepsini not almış; bazılarını sen hatırlamıyordun.\n\n\"Hangisi en iyisiydi?\" diye sordu.\n\n\"Bilmiyorum,\" dedin ve bu doğruydu. Golleri hatırlamıyorsun; golden sonraki üç saniyeyi hatırlıyorsun ve hepsi aynı.\n\nHaber ertesi gün çıktı. Başlık \"Elli\"ydi. Alt başlık kaybettiğiniz maçtan bahsetmiyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_cevap": {
+          "title": "Birincisi",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} koridorda bekledi. Sen telefona baktın.\n\n*\"Hatırlıyorum. Sen sağdan ortaladın, ben gözümü kapattım.\"*\n\nÜç nokta belirdi, kayboldu, tekrar belirdi.\n\n*\"Gözünü kapatmıştın, evet. Ben de o yüzden ortaladım.\"*\n\nSekiz yıldır konuşmuyordunuz. O gece iki saat konuştunuz. Röportaj hiç yapılmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_eski_arkadas",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_eski_baglanti_canlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_top": {
+          "title": "Tutulacak Bir Şey",
+          "kind": "outcome",
+          "text": "\"Kaybettik. Tutulacak bir şey yok.\"\n\nMalzemeci topu aldı, bir şey demedi. Ertesi gün top malzeme odasının rafında duruyordu; üstündeki yazı silinmemişti.\n\nSoyunma odası bunu duydu. O hafta antrenmanda üç kişi ayrı ayrı yanına geldi ve hiçbiri golden bahsetmedi.\n\nİki sezon sonra ayrılırken malzemeci o topu çantana koydu. Sormadı, sen de çıkarmadın.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Tribünlerin Tozu",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki tel örgülere yaslanmış, {actor.journalist.name} elinde bir kayıt cihazı ile bekliyor. Burası, her şeyin başladığı ve ellinci golü attığın o eski saha. Çimler artık sararmış, çizgiler silinmiş. {actor.journalist.name} senin eski günlerini hatırlatacak bir dosya açıp, o gün attığın golün kariyerine nasıl bir yük bindirdiğini soracakken susuyor. Sadece sahanın sessizliğini ve o günkü tribün uğultusunun yerini alan rüzgarı duyuyorsun.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Basın açıklamasını yap, sadece istatistikten ve profesyonel gelişimden bahset.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Cihazı elinden al, eski mahallenin çocuklarına selam gönder ve her şeyi olduğu gibi anlat.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessizliği bir gülümsemeyle böl, eline tutuşturulan sus payı zarfını cebine at.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_kisisel",
+              "text": "Konuşmayı reddet, arkana bakmadan sahadan uzaklaş.",
+              "target": "n_reddetti",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İstatistiklerin Soğukluğu",
+          "kind": "outcome",
+          "text": "Söylediklerin gazetelerin arka sayfalarında kısa birer not olarak yer alacak. Geçmiş, bir sayıdan ibaret kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Eski Günlerin Gölgesi",
+          "kind": "outcome",
+          "text": "Sözlerin sokaklarda yankılanacak. Taraftar seni sevdi ama yönetim bu açık sözlülüğünden rahatsız.",
+          "onEnter": [
+            {
+              "flag": "mem_eski_baglanti_canlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bir Mutabakat",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı, o gün attığın golün gururunu gölgeledi. Kimse gerçeği asla öğrenmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_eski_arkadas",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_reddetti": {
+          "title": "Sırların Koruyucusu",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde {actor.journalist.name} şaşkınlıkla bakıyor. Bazı hikayeler, onları sadece yaşayanlar arasında kalmalı.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

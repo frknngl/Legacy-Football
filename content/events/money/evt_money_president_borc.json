@@ -1,0 +1,389 @@
+{
+  "id": "evt_money_president_borc",
+  "category": "money",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "trigger": {
+    "flag": "iliski_president",
+    "op": "lt",
+    "value": 50
+  },
+  "family": "fam_money_borc",
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Zarf",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları sönmüş, kulüp binasının sessizliği sadece klimanın uğultusuyla bölünüyor. {actor.president.name}, elindeki deri dosyayı masanın üzerine bırakıyor. Yanında {actor.sporting_director.name} var, yüzü gölgede. Başkan dosyayı parmak uçlarıyla sana doğru itiyor. İçindeki rakamlar, yıllar önce o imzasız kontratta verilen sözlerin dökümü. \"Futbol bir oyun, evet,\" diyor başkan, sesi soğuk bir metal gibi. \"Ama oyunun kurallarını finans belirler. Zamanı geldi.\"",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kulüp muhasebesine gidip durumu resmileştireceğim. Kayıt dışı bir şey kalmayacak.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bunu taraftarların bilmesini ister misin? Bu kulübü yönetenlerin gerçek yüzü, manşetlere çok yakışır.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Dosyayı çantama atıyorum. Sessizlik, en pahalı metadır. Kimse bir şey sormayacak.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Gözlerinin içine bakarak; 'Bu kulübün ruhunu sattın, şimdi bedelini başka birinden iste,' diyorum.",
+              "target": "n_outcome_liderlik",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Resmi Yollar",
+          "kind": "outcome",
+          "text": "Başkanın yüzündeki o belli belirsiz gülümseme donuyor. Kendi yöntemlerinle bir kapıyı kapatıyorsun ama arkanızda başka bir karanlık bırakıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tehdit",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} bir adım geri atıyor. Başkan hiçbir şey söylemiyor ama çıkış kapısına kadar duyulan o sessizlik, yeni bir düşmanlığın başlangıcı.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Anlaşma",
+          "kind": "outcome",
+          "text": "Zarf ağır, vicdanın daha ağır. Dışarı çıktığında gece biraz daha karanlık görünüyor. Artık başkana sadece performansınla değil, sessizliğinle de bağlısın.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Odadan çıktığında ellerin titriyor. İhtiyacın olan saygıyı kazandın ama bir sonraki transfer döneminde isminin neden listeye yazılacağını artık biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki otoparkta, havalandırma fanlarının ritmik tıkırtısı yankılanıyor. {actor.sporting_director.name}, aracının kapısını aralık bırakmış, gölgelerin içinde bekliyor. Elindeki ağır zarfı bagajın kenarına bırakıp sana bakıyor; yüzünde, kulübün mali çöküşünü gizlemek için harcadığı yılların yorgunluğu var. 'Bu sadece bir borç kapatma değil,' diyor, sesi yankılanarak sönüyor. 'Bu, huzurunun geri kalanını satın alma bedeli. Eğer alırsan, artık sahada sadece adınla değil, aldığın kararla anılacaksın.'",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Zarfı alıp otoparktan hızla uzaklaş. Tribünler bu paranın kaynağını sorarsa, hepsini sahada yanıtlayacağım.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı geri it. 'Benim işim sahada, kulübün bilançosunda değil.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Zarfı hiç bakmadan çantana koy. 'Yarın sabah antrenmanda görüşürüz.'",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Gözlerinin içine uzunca bak. 'Bu kulüp için çok şey feda ettim, bunu da yaparım.'",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Destek Yüksek]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Geri Dönüşü Olmayan Yol",
+          "kind": "outcome",
+          "text": "Zarfı kapıyorsun. Arkana bakmadan yürürken, otoparkın karanlığı omuzlarına biniyor. Artık sahada yaptığın her hata, tribünlerin sadece birer tepkisi değil, sırtında taşıyacağın bir yük olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Temiz Eller",
+          "kind": "outcome",
+          "text": "Zarfın orada, tozlu betonun üzerinde kalışını izliyorsun. Kulübün çöküşü kaçınılmaz bir sona doğru sürüklenirken, vicdanın rahat ama cüzdanın ve kulübe olan bağlılığın sessiz bir krizin eşiğinde.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı çantanda, bir taş gibi. Otoparktan çıkarken aynadan kendine bakıyorsun. Artık bu kulübün içindeki sırların bir parçasısın. Sessizlik, en pahalı alışverişmiş.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Kör Sadakat",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} başını hafifçe eğiyor, bir teşekkürden fazlası geçiyor aranızda. Bir anlaşma yapıldı; kulüp nefes alacak, ama senin omuzlarındaki yorgunluk artık kronik bir hal alacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

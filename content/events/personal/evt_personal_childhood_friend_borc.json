@@ -1,0 +1,314 @@
+{
+  "id": "evt_personal_childhood_friend_borc",
+  "family": "fam_personal_borc",
+  "category": "personal",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "injured",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Otel odasının kapısı sertçe tıklandı. {actor.childhood_friend.name} elinde bir kağıt parçasıyla içeri girdi. Dışarıda antrenman sahasından gelen çim biçme makinesinin uğultusu, odadaki sessizliği daha da boğucu kılıyordu. {actor.childhood_friend.name} masanın üzerine eski, kirli bir defter bıraktı. Yıllar önce, henüz kimsenin adını bilmediği o günlerde, ilk kramponlarını alması için gereken parayı o vermişti. Şimdi ise sahadaki başarının bedelini tahsil etmeye gelmişti. Gözleri yorgundu; senin lüks oda halının üzerine bastığı her adımda, eski mahalledeki o beton sahaya olan borcunu hatırlatıyordu.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kulüp temsilcisini ara, resmi kayıtlarla bu meseleyi hukuki bir zemine oturt.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "İstediği miktarı masaya bırak ve sessiz kalması için ona söz ver.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sözleşme haklarından bir kısmını ona devretmeyi teklif et, gelecekteki kazançları bölüşün.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Onunla karşılıklı otur, elindeki defteri kapat ve neden hala burada olduğunu dürüstçe konuş.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Resmi Yollar",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} odadan çıkarken tek bir kelime etmedi. Artık profesyonel hayatın sınırları içindeydin. Borç ödendi ama aranızdaki bağ geri dönüşü olmayan bir şekilde koparıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Bedel",
+          "kind": "outcome",
+          "text": "Zarfı eline tutuşturduğunda gözlerindeki o tanıdık ifadeyi gördün. Parayı aldı, gitti. Bu sır, yarın bir gün karşına çıkana kadar saklı kalacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Ortaklık",
+          "kind": "outcome",
+          "text": "Kendi geleceğinden bir parçayı ona verdin. Hesap kapandı, ancak bu işbirliği ileride karmaşık bir ağın içine çekilmene sebep olabilir.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Saatlerce konuştunuz. Geçmişin yükü omuzlarınızdan biraz olsun kalktı. {actor.childhood_friend.name} odadan ayrılırken artık bir alacaklı değil, eski bir dost gibiydi. Yine de bu duygusal yorgunluk, yarınki antrenmana ağır yansıyacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Mahallede Bir Gece",
+          "kind": "branch",
+          "text": "Arabanın farları, terk edilmiş otoparkın duvarındaki grafitiye vuruyor. {actor.childhood_friend.name} motorun kaputuna yaslanmış, elindeki yanan izmariti çamurlu ayakkabısının altında eziyor. Uzaktan bir yerlerde siren sesi duyuluyor, şehrin gürültüsü buraya kadar ulaşmıyor. {actor.childhood_friend.name} elindeki katlanmış kağıdı sileceklerin altına bırakıp gözlerini kaçırıyor. Sessizlik, biriken borcun ağırlığından daha ağır. Söyleyecek hiçbir şeyi yok, sadece bekliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kağıdı alıp yırt. Ona, bu saatten sonra birbirimize sadece kendi yeteneklerimizle borçlu olduğumuzu söyle.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Bagajdan kulüp için hazırlanan promosyon fonunu çıkar. İkisini de bir daha asla görmeyeceğini düşünerek ona uzat.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kendi temsilcinin numarasını ver ve durumu ona anlatmasını söyle. Profesyonelce, soğukkanlılıkla.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 12
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokağa Dönüş",
+          "kind": "outcome",
+          "text": "Gözleri bir anlığına parlıyor, belki nefret belki saygıdan. Kağıdı almadan arkasına bakmadan gidiyor. Yarın bu tavır kulüp binasında hoş karşılanmayacak, ama sokak bunu asla unutmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Satın Alınan Suskunluk",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı elinde. İkiniz de bu paranın ne anlama geldiğini biliyorsunuz: Bir daha görüşmemenin bedeli. Motorun sesi sessizliği bölüyor, arkasında sadece lastik izleri kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Duvarlar Örülürken",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} başını sallayıp telefonu alıyor. Yüzündeki o eski ifade yavaşça siliniyor. Mesafe koydun, doğru olanı yaptın ama o artık sadece bir yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

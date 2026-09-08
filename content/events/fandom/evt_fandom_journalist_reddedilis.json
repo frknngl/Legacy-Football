@@ -1,0 +1,392 @@
+{
+  "id": "evt_fandom_journalist_reddedilis",
+  "family": "fam_fandom_reddedilis",
+  "category": "fandom",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "suspended"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapılar",
+          "kind": "branch",
+          "text": "Stadyumun arka çıkışındaki paslı demir kapı, seninle {actor.journalist.name} arasında tek engel. {actor.journalist.name}, elindeki kayıt cihazını ağır çekimde çantasına yerleştiriyor. Gözlerindeki ifade, bir dönemin bittiğini haber veren sessiz bir cellat gibi. Ağzını açtığında kelimeler, bir daha geri dönüşü olmayan, soğuk bir vedanın ağırlığını taşıyor. Kulübün hakkındaki kararını biliyorsun. O, senin hikayeni yazmayacak. İçerideki ofis ışığı söndü. Dışarıdaki soğuk, yavaşça ense köküne yerleşiyor. Şimdi vereceğin cevap, yarınki manşetin tonunu ve taraftarın sana bakışını belirleyecek.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizliği bozma, başını öne eğ ve yağmurun altında yürümeye devam et.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sesini yükselt; herkesin duyabileceği şekilde onun taraflı tutumunu sorgula.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebinden çıkardığın zarfı ona uzat, yarınki köşesinde gerçekleri değil, senin kurgunu yazmasını fısılda.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bak; otoritenle onu durdur ve kulübün gerçek yüzünü anlatmaya ikna et.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek ses, ayakkabılarının ıslak zemindeki ritmi. Hiçbir açıklama, hiçbir savunma. Bu sessizlik, profesyonelliğinin en ağır bedeli.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Sokakların Sesi",
+          "kind": "outcome",
+          "text": "Bağırışların stadyum duvarlarında yankılandı. {actor.journalist.name} arkasına bile bakmadı, ancak o sokaklardan gelen öfkeli uğultu, arkanda bir ordu toplandığının işareti.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Gizli Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} zarfın ağırlığını hissetti, parmakları tereddüt etmedi. Yarınki manşetler değişecek ama vicdanındaki o boşluk, artık hiçbir primle dolmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "İkna Edilmiş Bir Kalem",
+          "kind": "outcome",
+          "text": "Sözlerin, bir hakem düdüğü kadar netti. {actor.journalist.name} duraksadı, kayıt cihazını yeniden açtı. Odanın içindeki baskıyı üzerine aldın; kazandın ama zihnin tamamen tükendi.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda",
+          "kind": "branch",
+          "text": "Kulübün tesislerindeki depo binasında, ışıklar cızırdıyor. {actor.journalist.name}, rafların arasında durmuş; tozlu bir dosya kutusunu karıştırıyor. Adım sesini duyduğunda duraksıyor ama dönmüyor. Aranızda sadece paslı bir çalışma masası ve yere düşmüş, mürekkebi dağılmış bir maç raporu kağıdı var. Dışarıda antrenman sahası sessiz. {actor.journalist.name}, elindeki dosyayı yavaşça rafa geri bırakırken, aynadaki yansımasından göz göze geliyorsunuz. O an, geçmişte yarım bıraktığınız o konuşmanın ağırlığı odayı dolduruyor.",
+          "choices": [
+            {
+              "id": "c_1",
+              "text": "Dosyayı masanın üzerinden al, sessizce rafa bırak ve odadan çık.",
+              "target": "n_1",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Masadaki boş zarfı ona doğru it. \"Yazacakların buna sığar mı?\"",
+              "target": "n_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 2000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_3",
+              "text": "Yüzüne tükürür gibi bak, kapıyı ardına kadar açıp bekle.",
+              "target": "n_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_4",
+              "text": "Geçmişin yükünü masaya dök, bildiği her şeyi açıklamasını söyle.",
+              "target": "n_4",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]"
+            }
+          ]
+        },
+        "n_1": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Gözlerini kaçırıyor. Kapıyı kapattığında, aranızdaki boşluk artık sonsuza dek kapanmış durumda.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_2": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Zarfı alıyor. Sessizliği satın aldın ama aynadaki yansın artık tanımadığın birine ait.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_3": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "İçeriye ilk giren taraftarın fısıltısı bu anı ölümsüzleştirecek. Köprüleri yakmak, özgürlüktür.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_4": {
+          "title": "İtiraf",
+          "kind": "outcome",
+          "text": "Yılların birikmiş yorgunluğuyla masaya çöküyor. Gerçek, sandığından daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

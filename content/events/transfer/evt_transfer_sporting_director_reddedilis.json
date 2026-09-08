@@ -1,0 +1,173 @@
+{
+  "id": "evt_transfer_sporting_director_reddedilis",
+  "family": "fam_transfer_reddedilis",
+  "category": "transfer",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kapanan Kapılar",
+      "kind": "branch",
+      "text": "Ofisin havası ağır ve rutubetli. {actor.sporting_director.name} masasının arkasında dik oturuyor, önündeki sözleşme dosyasını yavaşça kapatıyor. Yanındaki koltukta {actor.agent.name} huzursuzca kıpırdanıyor. {actor.president.name} ise pencereden dışarıyı, boş antrenman sahasını izliyor. Kimse konuşmuyor. {actor.sporting_director.name} nihayet dosyayı kenara itiyor. 'Kadro planlamamızda sana yer yok,' diyor. Sesi soğuk, kararı kesin. Transfer dönemi kapanmak üzere ve bu kapı yüzüne kapandı.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Başını hafifçe öne eğip ayağa kalk. 'Anlıyorum, profesyonel kararınıza saygı duyuyorum,' de ve sessizce kapıya yönel.",
+          "target": "n_outcome",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Masaya doğru eğil. 'Bu kulüp beni harcayacak kadar zengin değil,' de. {actor.sporting_director.name:gen} gözlerinin içine bakarak odadan çık.",
+          "target": "n_outcome",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "{actor.agent.name:dat} bak. 'Sözleşme fesih tazminatını konuştun mu?' diye sor. Bu kepazelikten en azından nakit çıkararak ayrıl.",
+          "target": "n_outcome",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_liderlik",
+          "text": "Sakinliğini koru. 'Sizin vizyonunuz dar olabilir ama ben sahada ne yapabileceğimi biliyorum, kayıtlara geçmesi yeterli,' de.",
+          "target": "n_outcome",
+          "effects": [
+            {
+              "flag": "iliski_sporting_director",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "requires": {
+            "flag": "liderlik",
+            "op": "gte",
+            "value": 65
+          },
+          "lockLabel": "[Liderlik 65]",
+          "persona": {
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_outcome": {
+      "title": "Yol Ayrımı",
+      "kind": "outcome",
+      "text": "Kapı arkandan kapandığında koridorun soğukluğu tenine işliyor. Artık bu kulüpteki hikayen bitti. {actor.sporting_director.name} masasına döndü bile.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_reddedilis_sporting_director",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

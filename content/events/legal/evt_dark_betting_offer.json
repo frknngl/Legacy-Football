@@ -1,0 +1,328 @@
+{
+  "id": "evt_dark_betting_offer",
+  "family": "fam_legal_fixing",
+  "category": "legal",
+  "tier": "epic",
+  "weight": 45,
+  "once": true,
+  "cooldown": {
+    "self": 120,
+    "family": 40
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "transfer_listed",
+    "injured"
+  ],
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "personaAffinity": {
+    "dogruluk": 30
+  },
+  "trigger": {
+    "anyOf": [
+      {
+        "flag": "borc",
+        "op": "gte",
+        "value": 40000
+      },
+      {
+        "flag": "mem_gambling_debt",
+        "op": "isSet"
+      },
+      {
+        "flag": "mem_bribed_police",
+        "op": "isSet"
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Borcun kadar",
+      "kind": "branch",
+      "text": "Tesisin otoparkinda degil; bu sefer evinin alt katindaki kahvede. {actor.fixer.name} koseye oturmus, onunde bir cay ve kapali bir telefon.\n\nBorcunun rakamini biliyor. Kurusuna kadar biliyor ve bunu soylemesine gerek olmadigini da biliyor; sadece bir kez kaslarini kaldiriyor.\n\n\"Bir mac,\" diyor. \"Ilk yarida bir sari kart. Sen zaten sert oynuyorsun, kimsenin dikkatini cekmez.\"\n\nCayindan bir yudum aliyor.\n\n\"Reddedersen kalkar giderim. Ama bir daha gelmem ve borcun yerinde durur.\"",
+      "choices": [
+        {
+          "id": "c_accept",
+          "text": "Basini salla. Bir sari kart, o kadar.",
+          "target": "n_accepted",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 60000,
+                "perTier": 110000
+              }
+            },
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -18
+            },
+            {
+              "flag": "mem_accepted_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 70,
+              "priority": "forced",
+              "onIneligible": "defer",
+              "maxDeferTurns": 60
+            }
+          ],
+          "persona": {
+            "dogruluk": -18,
+            "sadakat": -4
+          }
+        },
+        {
+          "id": "c_refuse",
+          "text": "Kalk ve cik. Hesabi da sen ode.",
+          "target": "n_refused",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -400,
+                "perTier": -900
+              }
+            },
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_report",
+          "text": "Kabul ediyormus gibi yap. Ciktiktan sonra savciligi ara.",
+          "target": "n_reported",
+          "effects": [
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": -35
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mem_reported_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 20,
+              "priority": "forced",
+              "onIneligible": "fire"
+            }
+          ],
+          "persona": {
+            "dogruluk": 16,
+            "durus": 6,
+            "sadakat": -5
+          }
+        },
+        {
+          "id": "c_haggle",
+          "text": "Borcumun tamami. Sari kart degil, bir maclik sessizlik.",
+          "target": "n_haggled",
+          "requires": {
+            "flag": "sokak_itibari",
+            "op": "gte",
+            "value": 65
+          },
+          "lockLabel": "[Sokak 65]",
+          "effects": [
+            {
+              "flag": "borc",
+              "op": "set",
+              "value": 0
+            },
+            {
+              "flag": "iliski_fixer",
+              "op": "add",
+              "value": 35
+            },
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "mem_accepted_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 55,
+              "priority": "forced",
+              "onIneligible": "defer",
+              "maxDeferTurns": 60
+            }
+          ],
+          "persona": {
+            "dogruluk": -22,
+            "mizac": 8
+          }
+        }
+      ]
+    },
+    "n_accepted": {
+      "title": "Bir sari kart",
+      "kind": "outcome",
+      "text": "Para uc gun sonra hesaba geciyor. Rakami bir kez okuyup uygulamayi kapatiyorsun.\n\nPazar gunu otuz dorduncu dakikada geç bir mudahale yapiyorsun. Hakem sari gosteriyor. Kimse bir sey fark etmiyor. Gercekten kimse.\n\nEve donerken radyoyu acmiyorsun. Sebebini kendine soylemiyorsun.",
+      "onEnter": [
+        {
+          "flag": "mem_sold_derby",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 2
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": -12
+        }
+      ]
+    },
+    "n_refused": {
+      "title": "Hesap",
+      "kind": "outcome",
+      "text": "Kalkiyorsun. {actor.fixer.first} arkandan bagirmiyor, seni durdurmuyor.\n\nKapida garson yetisiyor: hesap odenmemis. Odüyorsun.\n\nBorcun yerinde duruyor ve bu gece uyuyamayacaksin. Ama sabah aynaya bakabileceksin ve bunun bir fiyati oldugunu simdi ogreniyorsun.",
+      "onEnter": [
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 1
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_reported": {
+      "title": "Kayit",
+      "kind": "outcome",
+      "text": "Kahveden ciktiktan kirk dakika sonra {actor.prosecutor.name} ile karsi karsiyasin.\n\nAnlattiklarini yazdiriyor, imzalatiyor ve tek bir soru soruyor: \"Bunu neden yaptiniz?\"\n\nCevabini kaydetmiyor.\n\nUc hafta sonra sorusturma acildiginda senin adin da dosyada olacak -- ihbarci olarak, ama olacak. Dosyada olmak ile suclu olmak arasindaki farki bu ulkede kimse ayirt etmiyor.",
+      "onEnter": [
+        {
+          "flag": "mem_turned_informant",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 3
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_haggled": {
+      "title": "Bir maclik sessizlik",
+      "kind": "outcome",
+      "text": "{actor.fixer.first} cayini bitiriyor ve ilk kez gulumsuyor.\n\n\"Pazarlik yapan adami severim,\" diyor. \"Ama pazarlik yapan adam bir daha pazarlik yapamaz. Bunu da bil.\"\n\nBorcun ertesi gun kapaniyor. Telefonuna hicbir mesaj gelmiyor.\n\nO mac oynaniyor ve sen doksan dakika sahadasin. Hicbir sey yapmiyorsun. Yapmaman gereken seyi yapmiyorsun ve bu, yapmaktan daha agir.",
+      "onEnter": [
+        {
+          "flag": "mem_sold_derby",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 3
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": -18
+        },
+        {
+          "flag": "iliski_fixer",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  }
+}

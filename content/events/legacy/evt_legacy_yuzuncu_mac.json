@@ -1,0 +1,411 @@
+{
+  "id": "evt_legacy_yuzuncu_mac",
+  "family": "fam_legacy_kilometre",
+  "category": "legacy",
+  "tier": "epic",
+  "weight": 90,
+  "once": true,
+  "cooldown": {
+    "self": 60,
+    "family": 24
+  },
+  "trigger": {
+    "flag": "kariyer_mac_sayisi",
+    "op": "gte",
+    "value": 100
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yüz",
+          "kind": "branch",
+          "text": "Kulüp medya ekibi sabah bir grafik paylaştı: yüzüncü maç.\n\nSayıyı sen tutmuyordun. Biri tutuyormuş.\n\n{actor.president.name} soyunma odasına çerçeveli bir forma getirdi; üstünde senin adın ve büyük bir **100** var. Fotoğraf çekilecek.\n\nTribünde annen var. İki sıra arkasında {actor.fan_leader.name} ve on beş kişi, senin adını bir tezahürata yerleştirmişler — bu sabah öğrendiler, akşama ezberlemişler.\n\nYüz maç. Bunların on birini hatırlıyorsun.",
+          "choices": [
+            {
+              "id": "c_al",
+              "text": "Formayı al, fotoğrafı çektir, teşekkür et.",
+              "target": "n_al",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_anne",
+              "text": "Formayı al ve tribüne çık, annene ver.",
+              "target": "n_anne",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_mother",
+                  "op": "add",
+                  "value": 16
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_malzemeci",
+              "text": "Formayı al ve soyunma odasında bırak. \"Yüz maç on bir kişiyle olur.\"",
+              "target": "n_takim",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 17
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_reddet",
+              "text": "\"Yüz maç bir şey değil.\" Töreni kısa kes.",
+              "target": "n_reddet",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -13
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -9
+                }
+              ],
+              "persona": {
+                "durus": 8,
+                "mizac": 4
+              }
+            }
+          ]
+        },
+        "n_al": {
+          "title": "Çerçeve",
+          "kind": "outcome",
+          "text": "Fotoğraf çekildi. Kulübün hesabı paylaştı, üç bin beğeni aldı.\n\nÇerçeve eve gitti, salona asıldı, iki ay sonra kimse bakmaz oldu.\n\nİyi bir gündü. Sadece yüzüncü maçın kendisi kötü geçti — kaybettiniz ve sen altmış beşinci dakikada çıktın.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_toren",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_anne": {
+          "title": "İki Sıra Arkası",
+          "kind": "outcome",
+          "text": "Çerçeveyi aldın, kenar çizgisini geçtin, korkuluğa tırmandın.\n\nGüvenlik bir adım attı, sonra durdu.\n\nAnnen çerçeveyi aldı ve ağlamadı. Ağlamayacağını biliyordun; onun yerine {actor.fan_leader.name} ağladı ve bunu hayatının sonuna kadar inkâr etti.\n\nO görüntü, attığın hiçbir golden çok izlendi.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_anneye",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_tribune_cikti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_takim": {
+          "title": "On Bir Kişiyle",
+          "kind": "outcome",
+          "text": "\"Yüz maç on bir kişiyle olur.\"\n\nÇerçeveyi soyunma odasının ortasındaki masaya bıraktın. Kimse almadı; orada kaldı, sonra duvara asıldı, sonra bir daha indirilmedi.\n\nBasın bunu görmedi. Takım gördü.\n\nÜç sezon sonra sen ayrıldığında o çerçeve hâlâ oradaydı ve yeni gelenler kimin olduğunu sormadan biliyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_takima",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_reddet": {
+          "title": "Kısa Kesildi",
+          "kind": "outcome",
+          "text": "\"Yüz maç bir şey değil.\"\n\n{actor.president.name} gülümsemeye çalıştı, beceremedi. Fotoğrafçı iki kare çekti, ikisinde de bakmıyorsun.\n\nTezahürat başlamadan bitti. {actor.fan_leader.name} on beş kişiye \"Boş verin,\" dedi.\n\nHaklıydın — yüz maç gerçekten bir şey değil. Ama insanlar bir şey olmasını istiyordu ve sen onlara bunu vermedin. İkisi aynı anda doğru olabiliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünelin Sonu",
+          "kind": "branch",
+          "text": "Stadyumun otoparkında, yağmurun altında duruyorsun. {actor.fan_leader.name} bagajına yaslanmış, elinde eski bir stadyum biletiyle bekliyor. Yüzüncü maçının üzerinden yıllar geçti ama o bilet hala sararmış bir hatıra gibi adamın parmakları arasında. \"O günün faturasını çok ağır kestiler,\" diyor. Gözleri ıslak ama bakışı delici. \"Bize bir borcun vardı, hatırlar mısın?\"",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Cüzdanından çıkardığın yüklü bir zarfı eline sıkıştır. \"Borçlar ödendi, artık önüme bakıyorum.\"",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını selam verir gibi hafifçe öne eğ. \"Profesyonelce bir kariyerdi. Hatalar için özür dilemem.\" Çark et ve arabana bin.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bileti elinden al ve arka koltuğa at. \"Hala o günlerde mi yaşıyorsun? Atla, stada gidiyoruz, hatıraları beraber gömelim.\"",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_anneye",
+              "text": "Ceketinin iç cebindeki eski fotoğrafı çıkarıp ona uzat. \"O gün bu maçı anneme adamıştım, senin hatırladığından çok daha fazlasıydı.\"",
+              "target": "n_anneye",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Huzurlu]"
+            },
+            {
+              "id": "c_takim",
+              "text": "Omzuna dokun. \"O maçta sadece ben yoktum, takımın ruhu vardı. O ruhu geri çağıracağız.\"",
+              "target": "n_takim",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Satın Alınmış Geçmiş",
+          "kind": "outcome",
+          "text": "Zarfı aldığı an bakışı değişti. Artık eski bir taraftar değil, bir alacaklı gibi bakıyor. Arkana bakmadan gaza basarken, arabanın dikiz aynasında bir hatıranın daha paraya dönüştüğünü gördün.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Bir Veda",
+          "kind": "outcome",
+          "text": "Sessizlik stadyumun duvarlarında yankılandı. Arkandan gelen tek bir küfür sesi, kariyerinin en temiz kararını verdiğini hatırlatıyor. Kendi yolun, tek kişilik bir yol.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_toren",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Eski Dosyalar",
+          "kind": "outcome",
+          "text": "Arabanın içinde yankılanan motor sesi, eskinin tozunu dağıttı. Şimdi herkes seni izleyecek; o stadyuma beraber girmeniz, bir devrin yeniden alevlenmesi demek.",
+          "onEnter": [
+            {
+              "flag": "mem_tribune_cikti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_anneye": {
+          "title": "Eski Bir Bağ",
+          "kind": "outcome",
+          "text": "Bakışı yumuşadı. Biletin yanına fotoğrafı koydu, ikisini de saklayacağına dair başını salladı. O günün acısı paylaşıldıkça hafifledi.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_anneye",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_takim": {
+          "title": "Ortak Bir Gelecek",
+          "kind": "outcome",
+          "text": "Sözlerin bir sözleşme gibi havada asılı kaldı. Birbirinize baktınız, omuzlarındaki yükün hafiflediğini hissettin. Tribünlerin sesi zihninde yankılanmaya başladı.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_takima",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

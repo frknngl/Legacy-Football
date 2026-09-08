@@ -1,0 +1,384 @@
+{
+  "id": "evt_national_veda",
+  "family": "fam_national_veda",
+  "category": "national",
+  "tier": "epic",
+  "weight": 95,
+  "once": true,
+  "cooldown": {
+    "self": 60,
+    "family": 24
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "national_duty",
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Açıklama Metni",
+          "kind": "branch",
+          "text": "Telefonda üç paragraf duruyor. Basın danışmanı yazmış, sana onaylatıyor.\n\n*\"…bugüne kadar bu formayı taşımak hayatımın en büyük onuruydu. Sırayı gençlere bırakmanın zamanı geldi…\"*\n\nİyi yazılmış. Doğru da — hepsi doğru. Sadece hiçbiri senin cümlen değil.\n\n{actor.journalist.name} yarım saat önce mesaj attı: \"Duyduğum doğru mu? Bir cümle yeter.\"\n\n{actor.national_manager.name} aramadı. Aramaması da bir cümle.\n\nEkranda imleç yanıp sönüyor.",
+          "choices": [
+            {
+              "id": "c_onayla",
+              "text": "Metni onayla. Yazan bilir.",
+              "target": "n_onayla",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -11
+                }
+              ],
+              "persona": {
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_kendi",
+              "text": "Hepsini sil. Tek cümle yaz.",
+              "target": "n_kendi",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 16
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 11
+              }
+            },
+            {
+              "id": "c_sebep",
+              "text": "Gerçek sebebi yaz. Neden bıraktığını.",
+              "target": "n_sebep",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 26
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 12,
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_bekle",
+              "text": "Hiçbir şey yapma. Telefonu yüzüstü çevir.",
+              "target": "n_bekle",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "durus": 6
+              }
+            }
+          ]
+        },
+        "n_onayla": {
+          "title": "Üç Paragraf",
+          "kind": "outcome",
+          "text": "Onayladın. On dakika sonra yayımlandı.\n\nHer şey düzgün gitti. Federasyon teşekkür etti, kulüp paylaştı, eski takım arkadaşların altına yorum yazdı.\n\nO gece annen aradı. \"Sen mi yazdın bunu?\" dedi.\n\n\"Yok,\" dedin.\n\n\"Anlamıştım.\"",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_hazir_metin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kendi": {
+          "title": "Tek Cümle",
+          "kind": "outcome",
+          "text": "Üç paragrafı sildin. Yerine sekiz kelime yazdın.\n\nNe yazdığını herkes ezberledi. İki gün sonra tribünde pankart oldu, bir hafta sonra bir çocuğun kolunda dövme.\n\nDanışman aradı: \"Keşke bana sorsaydınız.\" Sormadın. Bütün mesele oydu.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_kendi_yazdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sebep": {
+          "title": "Neden",
+          "kind": "outcome",
+          "text": "Gerçek sebebi yazdın. Dizin değildi. Yaş da değildi.\n\nMetin yayımlandıktan kırk dakika sonra federasyondan bir açıklama geldi; adın geçmiyordu ama herkes anladı.\n\n{actor.national_manager.name} bir daha seninle konuşmadı. Üç yıl sonra görevden alındığında {actor.journalist.name} ona bunu sordu ve o adam gülüp \"Haklıydı,\" dedi.\n\nHaklı olmanın bedelini o üç yılda ödemiştin.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_gercegi_soyledi",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_federasyona_karsi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_bekle": {
+          "title": "Yüzüstü",
+          "kind": "outcome",
+          "text": "Telefonu ters çevirdin.\n\nHaber ertesi gün başkasının ağzından çıktı — kaynak belirsiz, cümleler senin değil, tarih yanlış.\n\nDüzeltmek için konuşman gerekti ve konuştuğunda artık veda değil savunma yapıyordun.\n\nBazı metinleri yazmazsan başkası yazar. Bu, öğrenilmesi geç bir ders.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_sessiz_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Milli Veda: İkilem",
+          "kind": "branch",
+          "text": "Otoparktaki loş ışığın altında, motor kaputu soğumadan üzerine biriken tozları seyrediyorsun. {actor.journalist.name} elinde kayıt cihazı bile yok, sadece sessizce seni izliyor. Federasyonun hazırladığı veda metni ön koltukta, mürekkebi kurumuş, her kelimesi yalanlarla cilalanmış bir mutabakat. Ancak sen biliyorsun; o metni okumak sistemin çarklarını yağlamak demek, okumamak ise yıllardır kurduğun her köprünün yanması demek. Uzaklardan maç sonrası taraftarın tek tük tezahüratları duyuluyor, bir devrin sonu bu ıssız otoparkta, birinin kaleminden çıkan iki sayfalık yalan veya bir hayatın tüm gerçeği arasında sıkışıp kalmış durumda.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Federasyonun dosyasını al. Onların istediği cümleyi kur, geleceğini garantiye al.",
+              "target": "n_out_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_taraftar",
+              "text": "Dosyayı yırt. {actor.journalist.name} gözlerinin içine bakarken, taraftarın neden seni unutmadığını yüksek sesle haykır.",
+              "target": "n_out_taraftar",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Sessizce arabaya bin. Kimseye bir şey söylemeden kapıyı çarp.",
+              "target": "n_out_sessiz",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": " {actor.journalist.name} ile dertleş. Bütün kirli çamaşırları dök, ama bedeli ağır olacak.",
+              "target": "n_out_gercek",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[İlişki Yüksek]",
+              "persona": {
+                "sadakat": 12
+              }
+            }
+          ]
+        },
+        "n_out_servet": {
+          "title": "Kurumsal Uzlaşı",
+          "kind": "outcome",
+          "text": "Kelimeler ağzından bir kağıt parçası gibi döküldü, ruhsuz ve soğuk. Kimse anlamadı ama sen her hecede bir parçanı bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_hazir_metin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_taraftar": {
+          "title": "Sokakların Sesi",
+          "kind": "outcome",
+          "text": "Otoparkta yankılanan sözlerin yarın sabah tüm manşetleri değiştirecek. Kariyerin için bir intihar ama taraftarın kalbi için bir destan.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_kendi_yazdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_sessiz": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Sessizlik bir cevap değil, bir duvardır. Herkes kendi hikayesini yazacak, sen ise sadece aynaya bakarken huzursuz olacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_sessiz_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_gercek": {
+          "title": "Gerçeklerin Yükü",
+          "kind": "outcome",
+          "text": "Yılların birikimi döküldü ortaya. Federasyonun koridorlarında yankılanacak bu an, senin için hem bir özgürleşme hem de bitişin ilanı.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_gercegi_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

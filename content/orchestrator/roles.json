@@ -1,0 +1,505 @@
+{
+  "schemaVersion": 1,
+  "_note": "SLOT KAYDI -- kimlik katmaninin tek dogruluk kaynagi. Icerik ASLA bir kisiye yazmaz, bir SLOT'a yazar: {actor.captain.name} ve iliski_captain. O slotu kimin doldurdugu motorun isidir ve transferde DEGISIR. Her slot icin FlagRegistry dort flag SENTEZLER -- core.json'a elle satir yazilmaz: iliski_<id> | npc_<id>_arc | slot_<id>_bound | slot_<id>_seasons",
+  "_scopeNote": "career: kariyer boyu seninle, transferde DOKUNULMAZ | club: her transferde yeniden atanir, eskisi arsive gider | world: baglam degisince | match: her mac | state: lifeState girisinde | former: arsivden geri cagrilir",
+
+  "defaults": {
+    "relationByStature": {
+      "nobody": 35,
+      "local_talent": 42,
+      "starter": 50,
+      "star": 58,
+      "superstar": 65,
+      "icon": 72,
+      "legend": 80
+    },
+    "decay": {
+      "_note": "KARAR: pozitif iliski zamanla sonumlenir, mem_* damgali negatif iz SONUMLENMEZ. Kirdigin adam seni unutmaz.",
+      "positivePerSeason": 2,
+      "negativeLocked": true,
+      "towards": 50
+    }
+  },
+
+  "slots": [
+    {
+      "id": "agent",
+      "scope": "career",
+      "label": "Menajer",
+      "note": "Firsatci ama sana yatirim yapmis. Her cumlesinde bir yuzde var.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 50,
+      "arcStages": 6,
+      "mortal": false
+    },
+    {
+      "id": "father",
+      "scope": "career",
+      "label": "Baba",
+      "note": "Fabrikada otuz yil. Maclarini televizyondan izler, hicbirini yorumlamaz.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 70,
+      "arcStages": 5,
+      "mortal": true
+    },
+    {
+      "id": "mother",
+      "scope": "career",
+      "label": "Anne",
+      "note": "Telefonu maclardan sonra degil, oncesinde acar. Sorulari futbolla ilgili degildir.",
+      "source": "external",
+      "gender": "female",
+      "defaultRelation": 80,
+      "arcStages": 4,
+      "mortal": true
+    },
+    {
+      "id": "sibling",
+      "scope": "career",
+      "label": "Kardes",
+      "note": "Senin golgende buyudu ve bunu bir kez bile soylemedi.",
+      "source": "external",
+      "defaultRelation": 65,
+      "arcStages": 5,
+      "mortal": true
+    },
+    {
+      "id": "cousin",
+      "scope": "career",
+      "label": "Genc kuzen",
+      "note": "Senin on yedi yasindaki halin, ama daha ac. Ona ne ogretirsen kendine soylemis olursun.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 60,
+      "arcStages": 5,
+      "mortal": true
+    },
+    {
+      "id": "childhood_friend",
+      "scope": "career",
+      "label": "Cocukluk arkadasi",
+      "note": "Ayni sahada basladiniz; onun dizi 19'unda gitti. Seninle gurur duyuyor ve bunu her gun kendine hatirlatmak zorunda.",
+      "source": "external",
+      "defaultRelation": 80,
+      "arcStages": 5,
+      "mortal": true
+    },
+    {
+      "id": "journalist",
+      "scope": "career",
+      "label": "Gazeteci",
+      "note": "Isini senden iyi yapiyor ve bunu senden saklamiyor. Seni seviyor olmasi haberini yazmasina engel degil.",
+      "source": "external",
+      "gender": "female",
+      "defaultRelation": 40,
+      "arcStages": 5,
+      "mortal": false
+    },
+    {
+      "id": "pundit",
+      "scope": "career",
+      "label": "Spor yorumcusu",
+      "note": "Aksam programinda kariyer bitirir. Sana karsi degil, reytinge karsi calisir. Bu daha tehlikelidir.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 40,
+      "arcStages": 7,
+      "mortal": false
+    },
+    {
+      "id": "fixer",
+      "scope": "career",
+      "label": "Bahis ve yeralti",
+      "note": "Hicbir zaman tehdit etmez, hep hatirlatir. Verdigi her sey borctur.",
+      "source": "external",
+      "gender": "male",
+      "nicknamed": true,
+      "defaultRelation": 0,
+      "arcStages": 6,
+      "mortal": true
+    },
+    {
+      "id": "lawyer",
+      "scope": "career",
+      "label": "Avukat",
+      "note": "Pahali, etkili ve karanlik. Hangi hakimin nasil karar verdigini bilir, bunu bir marifet sayar.",
+      "source": "external",
+      "defaultRelation": 45,
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "prosecutor",
+      "scope": "career",
+      "label": "Savci",
+      "note": "Amansiz ve ikna edilemez. Futbolu sevmiyor degil; tam olarak sevdigi icin bu kadar sert.",
+      "source": "external",
+      "defaultRelation": 20,
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "partner",
+      "scope": "career",
+      "label": "Hayat arkadasi",
+      "note": "Senin takvimini ezbere biliyor ve kendi takvimini sana hic anlatmadi.",
+      "source": "external",
+      "defaultRelation": 70,
+      "arcStages": 6,
+      "mortal": true
+    },
+    {
+      "id": "child",
+      "scope": "career",
+      "label": "Cocuk",
+      "note": "Seni tribunden degil, ekrandan tanidi. Bu farki bir gun sana soyleyecek.",
+      "source": "external",
+      "defaultRelation": 85,
+      "arcStages": 5,
+      "mortal": true
+    },
+    {
+      "id": "mentor",
+      "scope": "career",
+      "label": "Emekli efsane",
+      "note": "Senin yasindayken ayni seyleri duymus ve hicbirini dinlememis. Simdi dinlemeni istiyor.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 45,
+      "arcStages": 5,
+      "mortal": true
+    },
+    {
+      "id": "psychologist",
+      "scope": "career",
+      "label": "Psikolog",
+      "note": "Soru sormaz, susar. Sessizligi doldurmak zorunda hissedersin ve tam olarak bunu bekler.",
+      "source": "external",
+      "gender": "female",
+      "defaultRelation": 50,
+      "arcStages": 4,
+      "mortal": false
+    },
+
+    {
+      "id": "manager",
+      "scope": "club",
+      "label": "Teknik direktor",
+      "note": "Eski okul. Disiplini sevgiyle karistirir, ikisini de yuzune vurmaz. Susarak azarlar.",
+      "source": "staff",
+      "staffRole": "manager",
+      "castingRule": "staff:manager",
+      "arcStages": 6,
+      "mortal": true,
+      "relationByStature": {
+        "nobody": 40, "local_talent": 45, "starter": 52, "star": 58,
+        "superstar": 62, "icon": 66, "legend": 70
+      }
+    },
+    {
+      "id": "assistant",
+      "scope": "club",
+      "label": "Yardimci antrenor",
+      "note": "Hocanin duymak istemedigi her seyi o duyar ve hicbirini aktarmaz.",
+      "source": "staff",
+      "staffRole": "assistant",
+      "castingRule": "staff:assistant",
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "captain",
+      "scope": "club",
+      "label": "Kaptan",
+      "note": "Soyunma odasinin gercek sahibi. Once seni korur, sonra yerini aldigini fark eder.",
+      "source": "squad",
+      "castingRule": "highest:leadership",
+      "arcStages": 5,
+      "mortal": false,
+      "relationByStature": {
+        "nobody": 45, "local_talent": 50, "starter": 55, "star": 58,
+        "superstar": 55, "icon": 50, "legend": 45
+      },
+      "_relationNote": "Sohretin yukseldikce kaptan seni daha az sever: tehdit sensin."
+    },
+    {
+      "id": "keeper",
+      "scope": "club",
+      "label": "Kaleci",
+      "note": "Sahanin en yalniz adami. Yenilgiyi herkesten once bilir.",
+      "source": "squad",
+      "castingRule": "position:GK",
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "veteran",
+      "scope": "club",
+      "label": "Tecrubeli",
+      "note": "Son sozlesmesini oynuyor ve bunu herkesten iyi biliyor.",
+      "source": "squad",
+      "castingRule": "oldest",
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "youngster",
+      "scope": "club",
+      "label": "Akademi cocugu",
+      "note": "Senin yerini almaya geldi ve bunu henuz kendisi bile bilmiyor.",
+      "source": "squad",
+      "castingRule": "youngest",
+      "arcStages": 5,
+      "mortal": false
+    },
+    {
+      "id": "star_teammate",
+      "scope": "club",
+      "label": "Takimin yildizi",
+      "note": "Kadrodaki en iyi ikinci oyuncu. Hangisi oldugunuz her hafta degisiyor.",
+      "source": "squad",
+      "castingRule": "highest:quality",
+      "arcStages": 5,
+      "mortal": false
+    },
+    {
+      "id": "rival_teammate",
+      "scope": "club",
+      "label": "Mevkidasin",
+      "note": "Ayni mevki, ayni yas, tek forma. Selamlasiyorsunuz ve ikiniz de bunun ne oldugunu biliyorsunuz.",
+      "source": "squad",
+      "castingRule": "same_position",
+      "arcStages": 5,
+      "mortal": false,
+      "relationByStature": {
+        "nobody": 40, "local_talent": 38, "starter": 35, "star": 32,
+        "superstar": 30, "icon": 30, "legend": 32
+      }
+    },
+    {
+      "id": "president",
+      "scope": "club",
+      "label": "Kulup baskani",
+      "note": "Seni tribune de satar, tribune karsi da savunur. Hangisi o hafta ise yariyorsa.",
+      "source": "staff",
+      "staffRole": "president",
+      "castingRule": "staff:president",
+      "arcStages": 5,
+      "mortal": false
+    },
+    {
+      "id": "sporting_director",
+      "scope": "club",
+      "label": "Sportif direktor",
+      "note": "Transferi o yapar, aciklamayi baskan yapar. Ikisi de birbirini sever gorunur.",
+      "source": "staff",
+      "staffRole": "sporting_director",
+      "castingRule": "staff:sporting_director",
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "doctor",
+      "scope": "club",
+      "label": "Kulup doktoru",
+      "note": "Igneyi vurmayi da vurmamayi da yapabilir; karari sana birakir ve sonucunu senin tasiyacagini bilir.",
+      "source": "staff",
+      "staffRole": "doctor",
+      "castingRule": "staff:doctor",
+      "gender": "female",
+      "titled": "Dr.",
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "physio",
+      "scope": "club",
+      "label": "Fizyoterapist",
+      "note": "Bedenini doktordan iyi tanir ve raporlara hicbirini yazmaz.",
+      "source": "staff",
+      "staffRole": "physio",
+      "castingRule": "staff:physio",
+      "arcStages": 3,
+      "mortal": false
+    },
+    {
+      "id": "fan_leader",
+      "scope": "club",
+      "label": "Taraftar grubu lideri",
+      "note": "Tribunun sesini o ayarlar. Bir hafta adini soyletir, bir hafta susturur.",
+      "source": "external",
+      "gender": "male",
+      "nicknamed": true,
+      "defaultRelation": 50,
+      "arcStages": 5,
+      "mortal": true
+    },
+
+    {
+      "id": "nemesis",
+      "scope": "world",
+      "label": "Rakip yildiz",
+      "note": "Ayni mevkide, ayni yasta, ayni acgozlulukte. Sen dusektikce o yukselir; bu bir kader degil, bir aynadir.",
+      "source": "external",
+      "defaultRelation": 30,
+      "arcStages": 10,
+      "mortal": true
+    },
+    {
+      "id": "national_manager",
+      "scope": "world",
+      "label": "Milli takim teknik direktoru",
+      "note": "Listeyi aciklarken adini okumamayi bir mesaj olarak kullanir.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 45,
+      "arcStages": 5,
+      "mortal": false
+    },
+    {
+      "id": "national_captain",
+      "scope": "world",
+      "label": "Milli takim kaptani",
+      "note": "Baska bir kulubun adami ama burada senin kaptanin. Ikiniz de bunu tuhaf buluyorsunuz.",
+      "source": "external",
+      "defaultRelation": 50,
+      "arcStages": 4,
+      "mortal": false
+    },
+    {
+      "id": "rival_club_manager",
+      "scope": "world",
+      "label": "Rakip kulup hocasi",
+      "note": "Basin toplantisinda adini anmasi bir taktiktir; anmamasi da.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 40,
+      "arcStages": 4,
+      "mortal": false
+    },
+
+    {
+      "id": "opponent_star",
+      "scope": "match",
+      "label": "Rakibin yildizi",
+      "source": "opponent_squad",
+      "castingRule": "highest:quality",
+      "defaultRelation": 40,
+      "arcStages": 2,
+      "mortal": false
+    },
+    {
+      "id": "opponent_keeper",
+      "scope": "match",
+      "label": "Rakip kaleci",
+      "source": "opponent_squad",
+      "castingRule": "position:GK",
+      "defaultRelation": 45,
+      "arcStages": 2,
+      "mortal": false
+    },
+    {
+      "id": "opponent_hardman",
+      "scope": "match",
+      "label": "Rakibin sert adami",
+      "source": "opponent_squad",
+      "castingRule": "highest:aggression",
+      "defaultRelation": 25,
+      "arcStages": 2,
+      "mortal": false
+    },
+    {
+      "id": "referee",
+      "scope": "match",
+      "label": "Hakem",
+      "note": "Adini ancak kotu bir gun gecirdiginde ogrenirsin.",
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 45,
+      "arcStages": 3,
+      "mortal": false
+    },
+
+    {
+      "id": "cellmate",
+      "scope": "state",
+      "label": "Hucre arkadasi",
+      "note": "Eski boksor. Ya hayatinin mentoru olur ya da en pahali tuzagi. Ikisi de ayni cumleyle baslar.",
+      "lifeStates": ["incarcerated"],
+      "source": "external",
+      "gender": "male",
+      "nicknamed": true,
+      "defaultRelation": 0,
+      "arcStages": 5,
+      "mortal": true
+    },
+    {
+      "id": "guard",
+      "scope": "state",
+      "label": "Gardiyan",
+      "note": "Satin alinabilir mi belli degil; belli olmasini istemiyor. Belirsizlik onun tek gucu.",
+      "lifeStates": ["incarcerated"],
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 30,
+      "arcStages": 3,
+      "mortal": false
+    },
+    {
+      "id": "prison_mentor",
+      "scope": "state",
+      "label": "Kogus ustasi",
+      "note": "Kimseye ogut vermez, yalnizca sirasi gelene yer acar.",
+      "lifeStates": ["incarcerated"],
+      "source": "external",
+      "gender": "male",
+      "defaultRelation": 25,
+      "arcStages": 4,
+      "mortal": true
+    },
+    {
+      "id": "rehab_counselor",
+      "scope": "state",
+      "label": "Rehabilitasyon danismani",
+      "note": "Senin gibi otuz kisi gordu. Hangisinin dondugunu sana soylemiyor.",
+      "lifeStates": ["rehab_clinic"],
+      "source": "external",
+      "defaultRelation": 45,
+      "arcStages": 3,
+      "mortal": false
+    },
+
+    {
+      "id": "former_captain",
+      "scope": "former",
+      "label": "Eski kaptanin",
+      "note": "Bir zamanlar sana yer acan adam. Simdi karsi tarafta ya da ekranda.",
+      "archiveOf": "captain",
+      "reunionTriggers": ["opponent_is_former_club", "joined_your_club", "became_pundit", "time_elapsed"],
+      "arcStages": 4,
+      "mortal": true
+    },
+    {
+      "id": "former_manager",
+      "scope": "former",
+      "label": "Eski hocan",
+      "note": "Seni kuran ya da yikan adam. Hangisi oldugunu ancak simdi anlayacaksin.",
+      "archiveOf": "manager",
+      "reunionTriggers": ["opponent_is_former_club", "became_pundit", "national_camp", "time_elapsed"],
+      "arcStages": 4,
+      "mortal": true
+    },
+    {
+      "id": "former_teammate",
+      "scope": "former",
+      "label": "Eski takim arkadasin",
+      "note": "Ayni soyunma odasini paylastiniz. Simdi karsi kaledeki adam o.",
+      "archiveOf": "any_club",
+      "reunionTriggers": ["opponent_is_former_club", "joined_your_club", "national_camp", "time_elapsed"],
+      "arcStages": 3,
+      "mortal": true
+    }
+  ]
+}

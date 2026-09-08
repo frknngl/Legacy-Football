@@ -1,0 +1,378 @@
+{
+  "id": "evt_locker_manager_reddedilis",
+  "family": "fam_locker_reddedilis",
+  "category": "locker",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapı",
+          "kind": "branch",
+          "text": "{actor.manager.name} masasının üzerindeki taktik tahtasına bakıyor. Odanın içi soğuk, çim kokusu ve terin keskinliği dışarıda kalmış. {actor.veteran.name}, kaptanlık pazubandının geleceğini konuşmak için aralık kapıdan içeri süzülüyor. {actor.manager.name}, elindeki dosyayı yavaşça çekmeceye bırakıp kilidi çeviriyor. Göz göze gelmiyorlar. \"Karar verildi,\" diyor manager, sesi bir bıçak kadar pürüzsüz. {actor.rival_teammate.name} yan odada gülerek telefonla konuşuyor; duvarlar ince, ses net geliyor. Kaptanlık hakkındaki beklenti, masanın üzerindeki boş bir fincan kadar değersiz kalıyor. Sessizlik, odadaki havayı vakumlayıp dışarı çekiyor.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Sessizce arkamı dönüp çıkmak. Bir kaptana yakışan vakur duruşu korumak en iyisi.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Kapıyı sertçe kapatıp çıkmak. Herkesin ne yaşandığını duymasını sağlamak.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Ceketimin iç cebindeki sözleşme teklifini masaya bırakmak. Paranın, sadakatten daha yüksek ses çıkardığını göstermek.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_leadership",
+              "text": "Durup gözlerinin içine bakmak. Takım içindeki huzursuzluğu ve sorumluluğumu hatırlatmak.",
+              "target": "n_outcome_lead",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Sükunet",
+          "kind": "outcome",
+          "text": "Koridorda yürürken sadece kramponlarımın sesi yankılanıyor. Kimse bir şey sormuyor, ben de bir şey söylemiyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Gerilim",
+          "kind": "outcome",
+          "text": "Kapı çerçevenin içinde sarsılıyor. Soyunma odasındaki herkes sustu. Artık geri dönüşü yok.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Manager dosyaya bakıyor, dudaklarında hafif bir gülümseme. Gururumun fiyatını o da, ben de biliyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lead": {
+          "title": "Ağırlık",
+          "kind": "outcome",
+          "text": "Bakışları bir anlığına buluşuyor. Geri adım atmadı ama odadaki atmosfer ağırlaştı. Yük artık benim omuzlarımda.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Terli İtiraf",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki duşların altında, buharın arasında {actor.manager.name} duruyor. Elinde buruşmuş bir transfer listesi var; kağıdın mürekkebi neme yenik düşüp akmış. İçerideki yankı, dışarıdaki ıslık seslerini boğuyor. Bir elinde, kulüp yönetiminin gönderdiği sözleşme fesih taslağı; diğer yanında ise taraftarın senin için hazırladığı destek pankartı duruyor. Bakışları yere sabitlenmiş, suyun sesi ikinizin arasındaki sessizliği bölmekte. Senden, takıma değil, sadece ona sadık kalmanı bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kağıdı elinden alıp imzalıyorum. Bu profesyonellik, başka açıklaması yok.",
+              "target": "n_outcome_prof",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Masadaki nakit zarfını alıyorum. Bugünlük burada hiçbir şey duymadım.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Pankartı sırtıma dolayıp odadan çıkıyorum. Kimin yanında olduğum belli.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Omzuna dokunuyorum. Tüm takım seninle, bu kararı onlara bırakamazsın.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Takım Bağlılığı Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_prof": {
+          "title": "Kurala Sadık",
+          "kind": "outcome",
+          "text": "Sessizce imzaladın. Kapıdan çıkarken arkanı dönmedin bile. Profesyonelliğin bedeli, aynaya baktığında seni karşılayan o yabancıydı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Karar",
+          "kind": "outcome",
+          "text": "Zarf ağır, vicdanın ise tuhaf bir şekilde hafif. Kimse ne olduğunu sormayacak, kimse gerçeği asla bilmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Sokağın Sesi",
+          "kind": "outcome",
+          "text": "Odanın kapısını çarparak çıktın. Arkanda bıraktığın o sessizlik, kariyerinin en büyük gürültüsüne dönüşmek üzere.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Takım Adamı",
+          "kind": "outcome",
+          "text": "Herkesin yükünü omuzlarına aldın. Yorgunluk dizlerinde, ama odadaki o ağır hava dağıldı. Bedeli ağır olacak, biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

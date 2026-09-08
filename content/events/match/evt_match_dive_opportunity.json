@@ -1,0 +1,120 @@
+{
+  "id": "evt_match_dive_opportunity",
+  "family": "fam_match_discipline",
+  "category": "match",
+  "tier": "minor",
+  "momentType": "dive_opportunity",
+  "weight": 14,
+  "cooldown": { "self": 14, "family": 6 },
+  "lifeStates": ["playing", "loaned", "national_duty"],
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Temas",
+      "kind": "branch",
+      "text": "{minute}. dakika, {opponent} ceza sahasının içi, skor {scoreline}. Topu döndürürken defansın eli sırtına değiyor — gerçekten değiyor, ama seni düşürecek kadar değil.\n\nAyaktasın. Hakem beş metre uzakta ve tam bu tarafa bakıyor.\n\nBir hafta önce {actor.pundit.name} seni programında \"cambaz\" diye anmıştı. Bunu düşünüyorsun ve düşündüğün için kendine kızıyorsun.",
+      "choices": [
+        {
+          "id": "c_stay",
+          "text": "Ayakta kal. Topu döndürmeye devam et.",
+          "target": "n_stayed",
+          "effects": [
+            { "flag": "medya_itibari", "op": "add", "value": 10 },
+            { "flag": "profesyonellik", "op": "add", "value": 6 },
+            { "flag": "kondisyon", "op": "add", "value": -4 },
+            { "flag": "taraftar_destegi", "op": "add", "value": -5 }
+          ],
+          "persona": { "dogruluk": 8, "mizac": -3 }
+        },
+        {
+          "id": "c_dive",
+          "text": "Kendini bırak. Temas vardı, kimse aksini kanıtlayamaz.",
+          "target": "n_roll_dive",
+          "effects": [
+            { "flag": "sokak_itibari", "op": "add", "value": 5 },
+            { "flag": "profesyonellik", "op": "add", "value": -8 },
+            { "flag": "medya_itibari", "op": "add", "value": -6 },
+            { "flag": "disiplin_sicili", "op": "add", "value": 3 }
+          ],
+          "persona": { "dogruluk": -10 }
+        },
+        {
+          "id": "c_appeal",
+          "text": "Ayakta kal ama hakeme dön ve elini göster. Bir sonrakine hazırlık.",
+          "target": "n_appealed",
+          "effects": [
+            { "flag": "medya_itibari", "op": "add", "value": 4 },
+            { "flag": "iliski_basin", "op": "add", "value": 3 },
+            { "flag": "disiplin_sicili", "op": "add", "value": 2 },
+            { "flag": "kondisyon", "op": "add", "value": -2 }
+          ],
+          "persona": { "dogruluk": 4, "durus": 4 }
+        }
+      ]
+    },
+
+    "n_roll_dive": {
+      "title": "Yer",
+      "kind": "roll",
+      "text": "Kendini bırakıyorsun. Hakem düdüğe götürüyor elini.",
+      "outcomes": [
+        {
+          "target": "n_dive_won",
+          "weight": { "base": 35, "modifiers": [{ "flag": "medya_itibari", "scale": 0.3 }, { "flag": "disiplin_sicili", "scale": -0.45 }] }
+        },
+        {
+          "target": "n_dive_caught",
+          "weight": { "base": 45, "modifiers": [{ "flag": "disiplin_sicili", "scale": 0.55 }] }
+        }
+      ]
+    },
+
+    "n_stayed": {
+      "title": "Ayakta",
+      "kind": "outcome",
+      "text": "Ayakta kalıyorsun ve topu kaybediyorsun. Kontra geliyor, kaleciniz kurtarıyor.\n\nTribün homurdanıyor. Yan kulübeden birisi bağırıyor: \"Düşseydin be!\"\n\nMaç sonu {actor.journalist.name} tek soru soruyor: \"Neden düşmedin?\" Cevabını yazmıyor ama o gece yazdığı köşede tek cümle var: \"Bu ligde ayakta kalmak bir tercih.\"",
+      "onEnter": [
+        { "op": "match", "rating": 0.2, "incident": "inc_stood_up" },
+        { "flag": "iliski_journalist", "op": "add", "value": 8 },
+        { "flag": "moral", "op": "add", "value": -4 }
+      ]
+    },
+
+    "n_appealed": {
+      "title": "Not alındı",
+      "kind": "outcome",
+      "text": "Hakem duraksıyor, elini görüyor, devam ettiriyor. Ama kafasına bir şey yazdı.\n\nYirmi dakika sonra benzer bir pozisyonda, aynı defansta, aynı temas — bu sefer düdük çalıyor.\n\nBazen dürüstlük geç ödeme yapar.",
+      "onEnter": [
+        { "op": "match", "rating": 0.4, "incident": "inc_ref_conflict" },
+        { "flag": "medya_itibari", "op": "add", "value": 5 },
+        { "flag": "moral", "op": "add", "value": 4 }
+      ]
+    },
+
+    "n_dive_won": {
+      "title": "Penaltı",
+      "kind": "outcome",
+      "text": "Düdük. Nokta. Ceza sahasında kavga çıkıyor, defans hakemin üstüne yürüyor.\n\nYerde yatarken kendi tribününün sevincini duyuyorsun ve gözlerini açmıyorsun. Kalktığında kimseyle göz göze gelmiyorsun.\n\nAkşam tekrarını izliyorsun. Temas vardı. Kendine bunu üç kez söylüyorsun.",
+      "onEnter": [
+        { "op": "match", "rating": 0.4, "incident": "inc_dived" },
+        { "flag": "taraftar_destegi", "op": "add", "value": 6 },
+        { "flag": "medya_itibari", "op": "add", "value": -10 },
+        { "flag": "moral", "op": "add", "value": -5 }
+      ]
+    },
+
+    "n_dive_caught": {
+      "title": "Cambaz",
+      "kind": "outcome",
+      "text": "Hakem sana sarı gösteriyor: aldatma.\n\nErtesi gün {actor.pundit.name} programında o pozisyonu yavaş çekimde dört kez oynatıyor ve her seferinde aynı kelimeyi kullanıyor. Dördüncüde kamerayı gösterip \"kendisi izliyorsa\" diyor.\n\nİzliyorsun.",
+      "onEnter": [
+        { "op": "match", "yellowCards": 1, "rating": -0.8, "incident": "inc_dived" },
+        { "flag": "medya_itibari", "op": "add", "value": -18 },
+        { "flag": "medya_baskisi", "op": "add", "value": 18 },
+        { "flag": "disiplin_sicili", "op": "add", "value": 6 },
+        { "flag": "npc_pundit_arc", "op": "add", "value": 1 }
+      ]
+    }
+  }
+}

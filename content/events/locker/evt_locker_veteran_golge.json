@@ -1,0 +1,160 @@
+{
+  "id": "evt_locker_veteran_golge",
+  "family": "fam_locker_golge",
+  "category": "locker",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gölgedeki Ayna",
+      "kind": "branch",
+      "text": "Soyunma odasının en köşesinde, {actor.veteran.name} yeni transferin kramponlarını inceliyor. O, kulübün geleceği olarak lanse edilen çocuk. Duvarlardaki eski şampiyonluk fotoğraflarında {actor.veteran.first} var, ancak genç oyuncunun dolabına asılan dev poster tüm dikkatleri üzerine çekiyor. {actor.veteran.name} sessizce krampon bağlarını sıkıyor. Göz göze gelmiyorlar. Genç olan, az sonra sahaya çıkacak olan asıl ismin o olduğunu kanıtlamak istercesine havaya sıçrayıp bağırıyor. Odanın havası ağır, ter ve eski zaferlerin kokusuyla karışık. {actor.veteran.name} arkasına yaslanıyor. İkisi aynı formayı giyiyor ama sadece biri omuzlarındaki ağırlığı taşıyabiliyor.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Genci yanına çağır, taktik tahtasının önünde ona bir pas açısını göster.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Kramponlarını sessizce bağlamaya devam et, onunla tek kelime bile konuşma.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Menajerinin önerdiği reklam anlaşmasını kabul et ve genci gölgede bırakacak bir hamle yap.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": -4
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Mentorluk",
+      "kind": "outcome",
+      "text": "Gencin gözlerindeki o anlık şaşkınlık, yerini saygıya bıraktı. Kendi yerini hazırlarken, onun parlamasına izin verdin. Şimdi herkes seni profesyonel bir örnek olarak görüyor ama kendi içindeki o huzursuzluğu kimse bilmiyor.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_golge_veteran",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Sessiz Savaş",
+      "kind": "outcome",
+      "text": "Odanın soğukluğu taraftara yansıdı. Tribünler senin tarafında ama medya bu mesafeli tavrını bir ego savaşı olarak damgaladı. Artık her maç, senin için bir varoluş mücadelesi.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_golge_veteran",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Ticari Hamle",
+      "kind": "outcome",
+      "text": "Banka hesabındaki artış, sahada hissettiğin o boşluğu doldurmadı. Kulüp binasından çıkarken flaşlar patladı, herkes genci konuşuyordu. Sen ise sadece bir çekin bozulmasını bekliyordun.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_golge_veteran",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

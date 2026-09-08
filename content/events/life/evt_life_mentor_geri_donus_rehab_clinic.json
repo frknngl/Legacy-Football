@@ -1,0 +1,326 @@
+{
+  "id": "evt_life_mentor_geri_donus_rehab_clinic",
+  "family": "fam_life_geri_donus",
+  "category": "life",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin Gölgesi",
+          "kind": "branch",
+          "text": "Rehabilitasyon merkezinin beyaz duvarları, ter kokusunu ve dezenfektan keskinliğini hapsediyor. {actor.mentor.name} karşında, sandalyenin kenarına tünemiş durumda. Pencereden dışarıdaki gri bahçeye bakıyor. Masanın üstündeki dosyalar; biri eski bir kontratın kopyası, diğeri ise isimsiz bir bağış makbuzu. İçerisi ağır, nefes almak güç. {actor.mentor.name} gözlerini sana çeviriyor. Bir şey söylemiyor ama beklentisi odadaki havayı daha da daraltıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Basın toplantısı için notları hazırla, bu kirli dosyaları yak.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyaları alıp çık, kimsenin seni bulamayacağı o eski kapıyı çal.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Bağış makbuzunu imzala, parayı al ve sessizce çık.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_liderlik",
+              "text": "{actor.mentor.name} gözlerinin içine bak, durumu açıkça masaya yatır.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Yeni Bir Maske",
+          "kind": "outcome",
+          "text": "Dosyalar küle dönüştü. Artık temiz bir sayfa açtın ama aynaya baktığında o eski, hesapsız günlerin burukluğunu hissediyorsun. Profesyonellik, bir tutku kaybı.",
+          "onEnter": [
+            {
+              "flag": "mem_life_geri_donus_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Sokakların Çağrısı",
+          "kind": "outcome",
+          "text": "Eski çevren seni bağrına bastı. Ancak her köşe başında bir lensin yansımasını ve her maçta disiplin komitesinin üzerindeki gözleri daha çok hissedeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_life_geri_donus_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Bir Anlaşma",
+          "kind": "outcome",
+          "text": "İmza atıldı, para hesabına geçti. Hiçbir şey konuşulmadı, hiçbir soru sorulmadı. Vicdanının ağırlığı, banka bakiyenin yüksekliğine denk.",
+          "onEnter": [
+            {
+              "flag": "mem_life_geri_donus_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Zorlu Yüzleşme",
+          "kind": "outcome",
+          "text": "{actor.mentor.name} ile kurduğun bu dürüst diyalog, ikinizi de tüketti. Ama artık aranızda saklı hiçbir şey kalmadı. Zor olanı seçtin.",
+          "onEnter": [
+            {
+              "flag": "mem_life_geri_donus_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Tavanın köşesindeki rutubet lekesi, {actor.mentor.name} gözlerini odakladığı tek yer. Odanın içi, dışarıdaki şehrin gürültüsünden tamamen yalıtılmış. Elinde, üzerinde hiçbir ibare olmayan, mühürlü bir veri diski tutuyor. {actor.mentor.name} arkasına yaslanıyor, sandalyenin gıcırtısı sessizliği yırtıyor. Ses tonu o kadar düz ki, söylediği şeyin yıkıcılığını kendi bile tartamıyor. Sırrı artık sadece havada asılı duran bir sis değil, masanın üzerindeki somut bir ağırlık. Başını yavaşça kaldırıp sana bakıyor; yüzünde ne bir suçluluk ne de bir pişmanlık var. Sadece bir bitişin yorgunluğu.",
+          "choices": [
+            {
+              "id": "c_durus",
+              "text": "Diski alıp masadaki imha makinesine at. Sessizlik, bir kariyerin bedelidir.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_servet",
+              "text": "Disk için ödenen bedeli düşün. Sakladığın şey, bir başkasının zenginleşmesi için kullanılabilir.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Diski sosyal medyada anonim olarak paylaş. Herkesin gerçeği görme vakti geldi.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -25
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Kül Olup Gidenler",
+          "kind": "outcome",
+          "text": "Cihazın dişleri diski öğütürken çıkan ses, odadaki tek gerçek. {actor.mentor.name} gözlerini kapatıyor. Hiçbir şey olmamış gibi koridora çıkıyorsun. Artık bu sır, sadece ikinizin ortak mezarı.",
+          "onEnter": [
+            {
+              "flag": "mem_life_geri_donus_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bir Ticaret",
+          "kind": "outcome",
+          "text": "Kayıtlar el değiştiriyor. Hesabına yatan meblağ, vicdanındaki boşluğu kapatmaya yetmiyor. {actor.mentor.name} odadan çıkarken arkanıza bakmıyorsunuz bile. Sahne bitti, perde kapandı.",
+          "onEnter": [
+            {
+              "flag": "mem_life_geri_donus_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İfşa",
+          "kind": "outcome",
+          "text": "Tek bir tıkla dünyayı ateşe verdin. {actor.mentor.name} ekrandaki bildirim sesini duyunca yüzünü ellerinin arasına alıyor. Dışarıdaki siren seslerini duymaya başlıyorsun. Artık geri dönüşü yok.",
+          "onEnter": [
+            {
+              "flag": "mem_life_geri_donus_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

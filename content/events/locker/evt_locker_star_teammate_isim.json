@@ -1,0 +1,154 @@
+{
+  "id": "evt_locker_star_teammate_isim",
+  "family": "fam_locker_taninma",
+  "category": "locker",
+  "tier": "minor",
+  "weight": 16,
+  "once": true,
+  "cooldown": {
+    "self": 30,
+    "family": 12
+  },
+  "eras": [
+    "rookie"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yanlış İsim",
+      "kind": "branch",
+      "text": "Isınma bitti. Suluklar dağıtılıyor.\n\n{actor.star_teammate.name} sana bir tane uzatıyor ve bir isim söylüyor. Senin adın değil. Altyapıdan çıkan başka bir çocuğun adı.\n\nKimse düzeltmiyor. İki kişi duydu, ikisi de duymamış gibi yaptı.\n\nSuluk hâlâ havada.",
+      "choices": [
+        {
+          "id": "c_duzelt",
+          "text": "Al ve adını söyle. Net, bir kere.",
+          "target": "n_duzelt",
+          "effects": [
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 7
+          }
+        },
+        {
+          "id": "c_al",
+          "text": "Al ve bir şey deme. Bugün değil.",
+          "target": "n_al",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -9
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -4
+          }
+        },
+        {
+          "id": "c_saka",
+          "text": "Şaka yap: \"O daha hızlı koşuyor, ben daha iyi görünüyorum.\"",
+          "target": "n_saka",
+          "effects": [
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 7
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "mizac": 8
+          }
+        }
+      ]
+    },
+    "n_duzelt": {
+      "title": "Bir Kere",
+      "kind": "outcome",
+      "text": "Adını söyledin. {actor.star_teammate.name} bir saniye durdu, sonra \"Tamam,\" dedi ve devam etti.\n\nErtesi hafta seni doğru isimle çağırdı. Üçüncü hafta soyadınla.\n\nDördüncü hafta hiçbir şeyle çağırmadı; sadece pas attı. En iyisi oydu.",
+      "onEnter": [
+        {
+          "flag": "mem_isim_duzeltildi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_al": {
+      "title": "Bugün Değil",
+      "kind": "outcome",
+      "text": "Suluğu aldın. Teşekkür ettin.\n\nO isim üç ay sürdü. Üç ay boyunca başka birinin adına cevap verdin ve her seferinde içinde küçük bir şey aşındı.\n\nDüzelttiğinde ise kimse şaşırmadı. Herkes zaten biliyordu; kimsenin umurunda değildi. En zor kısmı buydu.",
+      "onEnter": [
+        {
+          "flag": "mem_isim_duzeltilmedi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_saka": {
+      "title": "Gülüşme",
+      "kind": "outcome",
+      "text": "Soyunma odası güldü. {actor.star_teammate.name} en çok gülendi ve elini omzuna attı — sen ona değil, o sana.\n\nO gün adını öğrendi.\n\nAntrenör kenardan baktı, gülmedi. \"Yeni çocuk çenesini kullanıyor,\" dedi yardımcısına. Bu bir övgü değildi ama hakaret de değildi.",
+      "onEnter": [
+        {
+          "flag": "mem_isim_duzeltildi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

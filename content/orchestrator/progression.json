@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "_note": "stature ELLE SET EDILMEZ -- asagidaki agirliklardan TURETILIR. hysteresis dususu yavaslatir: tek kotu sezonda ikon -> hickimse olmaz.",
+
+  "statureThresholds": [
+    { "id": "nobody", "threshold": 0, "label": "Hickimse" },
+    { "id": "local_talent", "threshold": 60, "label": "Yerel yetenek" },
+    { "id": "starter", "threshold": 130, "label": "Ilk 11" },
+    { "id": "star", "threshold": 220, "label": "Yildiz" },
+    { "id": "superstar", "threshold": 330, "label": "Superstar" },
+    { "id": "icon", "threshold": 460, "label": "Ikon" },
+    { "id": "legend", "threshold": 620, "label": "Efsane" }
+  ],
+
+  "clubTiers": [
+    { "id": "amateur", "label": "Amator / bolgesel" },
+    { "id": "lower", "label": "Alt lig" },
+    { "id": "mid", "label": "Ust lig orta sira" },
+    { "id": "contender", "label": "Sampiyonluk adayi" },
+    { "id": "elite", "label": "Avrupa elitleri" }
+  ],
+
+  "statureWeights": {
+    "taraftar_destegi": 1,
+    "medya_itibari": 1,
+    "piyasa_degeri": 0.000004,
+    "kupa_sayisi": 25,
+    "milli_mac_sayisi": 1.5,
+    "sosyal_medya_takipci": 0.000005
+  },
+
+  "_hysteresis_note": "ORAN (0-1): bir alt kademeye olan mesafenin yuzde kaci pay olarak taninir. Mutlak puan DEGIL; mutlak pay dar alt kademeleri yutar ve en alt seviyeyi ulasilamaz kilar.",
+  "hysteresis": 0.5,
+
+  "impossibleCells": [
+    { "era": "rookie", "stature": "legend", "reason": "16-19 yasindaki bir oyuncu efsane olamaz; kupa ve milli mac birikimi matematiksel olarak yetmez." },
+    { "era": "rookie", "stature": "icon", "reason": "Cirak evresinde ikon seviyesi ulasilamaz." },
+    { "era": "rise", "stature": "legend", "reason": "20-23 yas efsane esigi icin erken." },
+    { "stature": "legend", "clubTier": "amateur", "reason": "Efsane sohretli oyuncu amator kulupte olmaz; tahliye sonrasi dusus zaten sohreti de dusurur." },
+    { "stature": "icon", "clubTier": "amateur", "reason": "Ikon sohretli oyuncu amator kulupte olmaz." },
+    { "stature": "superstar", "clubTier": "amateur", "reason": "Superstar sohretli oyuncu amator kulupte olmaz." },
+    { "stature": "nobody", "clubTier": "elite", "reason": "Avrupa elitinde hicbir sohreti olmayan oyuncu kadroda tutulmaz." }
+  ]
+}

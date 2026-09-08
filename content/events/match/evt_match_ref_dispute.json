@@ -1,0 +1,243 @@
+{
+  "id": "evt_match_ref_dispute",
+  "family": "fam_match_referee",
+  "category": "match",
+  "tier": "minor",
+  "momentType": "ref_dispute",
+  "weight": 15,
+  "cooldown": {
+    "self": 8,
+    "family": 4
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ucuncu kez",
+      "kind": "branch",
+      "text": "{minute}. dakika, skor {scoreline}. Ucuncu kez ayni sey oluyor: uzerine geliyorlar, sen yere dusuyorsun, {actor.referee.name} devam isareti yapiyor.\n\nUcuncusunde artik tesaduf demek zor.\n\nAyaga kalkiyorsun ve hakem tam yaninda duruyor. Bakisiyorsunuz. Iki metre.",
+      "choices": [
+        {
+          "id": "c_calm",
+          "text": "Sakin sor: ne yapmami istiyorsunuz, soyleyin de yapayim.",
+          "effects": [
+            {
+              "flag": "iliski_referee",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "target": "n_calm",
+          "persona": {
+            "durus": 5,
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_shout",
+          "text": "Bagir. Uc kere! Uc kere ayni sey!",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_referee",
+              "op": "add",
+              "value": -18
+            }
+          ],
+          "target": "n_roll_shout",
+          "persona": {
+            "mizac": 10,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_ignore",
+          "text": "Hicbir sey soyleme. Kalk ve kos.",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "target": "n_ignored",
+          "persona": {
+            "mizac": -7
+          }
+        }
+      ]
+    },
+    "n_roll_shout": {
+      "title": "Iki metre",
+      "kind": "roll",
+      "text": "{actor.referee.first} sana doner. Eli cebine gitmiyor -- henuz.",
+      "outcomes": [
+        {
+          "target": "n_shout_yellow",
+          "weight": {
+            "base": 55,
+            "modifiers": [
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_shout_heard",
+          "weight": {
+            "base": 40,
+            "modifiers": [
+              {
+                "flag": "medya_itibari",
+                "scale": 0.3
+              },
+              {
+                "flag": "liderlik",
+                "scale": 0.25
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_calm": {
+      "title": "Bir cumle",
+      "kind": "outcome",
+      "text": "Sakin sordugunda hakem bir saniye duruyor. Bu tonu duymaya alisik degil.\n\nKollarini biraz dusuruyor. Bakarim, diyor.\n\nDordunculerde duduk caliyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.4,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "iliski_referee",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_shout_yellow": {
+      "title": "Sari",
+      "kind": "outcome",
+      "text": "Sari kart. Bagirdigin cumlenin ikinci yarisini soyleyemiyorsun.\n\n{actor.captain.name} seni kolundan cekip goturuyor: yeter artik, diyor.\n\nDorduncu faul de verilmiyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": -0.5,
+          "incident": "inc_argued_ref"
+        },
+        {
+          "flag": "disiplin_sicili",
+          "op": "add",
+          "value": 6
+        },
+        {
+          "flag": "iliski_captain",
+          "op": "add",
+          "value": -6
+        }
+      ]
+    },
+    "n_shout_heard": {
+      "title": "Duyuldu",
+      "kind": "outcome",
+      "text": "Hakem kart cikarmiyor. Bir sey de soylemiyor.\n\nAma sonraki iki mudahalede duduk caliyor.\n\nBazen bagirmak ise yarar. Bu sefer yaradi ve bunu bir kural sanma hatasina dusme.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.5,
+          "incident": "inc_argued_ref"
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 8
+        },
+        {
+          "flag": "iliski_referee",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_ignored": {
+      "title": "Kalk ve kos",
+      "kind": "outcome",
+      "text": "Kalkiyorsun ve kosuyorsun. Dizindeki cizik kanamaya basliyor, silmiyorsun.\n\nYetmis besinci dakikada bacaklarin bitiyor.\n\nMac sonunda {actor.physio.name} dizine bakip soruyor: neden ciktirmadin?\n\nCevap vermiyorsun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.1,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "iliski_physio",
+          "op": "add",
+          "value": 6
+        },
+        {
+          "flag": "mem_hid_injury",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,351 @@
+{
+  "id": "evt_social_kumarhane",
+  "family": "fam_social_kumar",
+  "category": "social",
+  "tier": "major",
+  "weight": 45,
+  "cooldown": {
+    "self": 30,
+    "family": 14
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured",
+    "suspended"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kazanan Masa",
+          "kind": "branch",
+          "text": "{actor.star_teammate.name} \"bir saat\" dedi. Üç saat oldu.\n\nMasada oturuyorsun ve kazanıyorsun. Otuz bin. Sonra kırk beş.\n\nKazanmak, kaybetmekten daha tehlikeli bir şey — çünkü kaybeden kalkar, kazanan oturur.\n\nKrupiye seni tanıyor. İki masa ötede biri telefonunu kaldırdı, sonra indirdi. Kaldırdığını gördün.\n\nYarın saat dokuzda antrenman var.",
+          "choices": [
+            {
+              "id": "c_kalk",
+              "text": "Fişleri boz ve çık. Şimdi.",
+              "target": "n_kalk",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 45000
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": -7
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_devam",
+              "text": "Bir el daha. Sadece bir el.",
+              "target": "n_devam",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 16
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -9
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                }
+              ],
+              "persona": {
+                "mizac": 9
+              }
+            },
+            {
+              "id": "c_telefon",
+              "text": "Telefonu kaldıran adamın yanına git.",
+              "target": "n_telefon",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 13
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 45000
+                }
+              ],
+              "persona": {
+                "mizac": 10,
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_kalk": {
+          "title": "Dokuzda Antrenman",
+          "kind": "outcome",
+          "text": "Kalktın. {actor.star_teammate.name} \"Erken oldu,\" dedi ve oturmaya devam etti.\n\nSabah dokuzda sahadaydın. O yoktu; on birde geldi, hoca bir şey demedi.\n\nKırk beş bin hesabında. Kimse bilmiyor. En iyi kısmı bu.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhaneden_kalkti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_devam": {
+          "title": "Bir El Daha",
+          "kind": "outcome",
+          "text": "Bir el daha oynadın. Sonra bir tane daha.\n\nSabah dörtte kırk beş bin, yirmi beş bine inmişti. Çıkarken kendine \"yine de kârdayım\" dedin ve bu doğruydu, ama söylemek zorunda kalman bir şey anlatıyordu.\n\nDokuzda antrenmandaydın. Koştun. Kimse bir şey demedi.\n\nAma o gün ilk kez, topa geç gittiğini kendin fark ettin.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhanede_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_telefon": {
+          "title": "İki Masa Ötesi",
+          "kind": "outcome",
+          "text": "Yanına gittin. Adam telefonunu cebine koydu ve gülümsedi.\n\n\"Merak etme,\" dedi. \"Ben senin tarafındayım.\"\n\nBu cümleyi hayatında ilk kez duyuyordun ve son kez duymayacaktın.\n\nFotoğraf çıkmadı. Ama o adam artık senin numaranı biliyor ve sen onunkini bilmiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhanede_tanistirildi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Park Yeri",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışındaki gölgelerin arasından {actor.star_teammate.name} beliriyor. Motoru kapatmıyor, egzozdan gelen kesik kesik ses sessizliği bölüyor. Pencereyi hafifçe indiriyor; içeriden ağır bir tütün kokusu taşıyor. {actor.star_teammate.name} bir şey söylemiyor, sadece direksiyonun üzerindeki parmaklarıyla ritim tutuyor. Geçen ayın hesabını kapatma vakti geldiğini, boş bakışlarından ve koltuğun yanındaki deri çantadan anlıyorsun. Çanta açılmıyor ama içinde ne olduğu, aradaki soğuk rüzgardan daha net belli.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Önümüzdeki hafta taraftarın önünde bu maçı alacağız, parayı o günün akşamında ödeyeceğim.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Bugünlük boş geldim. Kulüp disiplin kuruluna gitmek istersen anahtarım orada.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Şu an üzerimde bu kadar yok. Yarınki reklam çekiminden alacağım avansın yarısı senin olsun.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Çantayı arabanın arka koltuğuna bırak. Borcun tamamı orada, bir daha da yüzümü görme.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -60
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Yeterli birikim gerekli]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Söz Senettir",
+          "kind": "outcome",
+          "text": "{actor.star_teammate.name} kafasını sallıyor. Sözün ağırlığı havaya siniyor. Giderken arkasında bıraktığı toz bulutu, omuzlarına binen yükü hafifletmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhaneden_kalkti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Keskin Çizgi",
+          "kind": "outcome",
+          "text": "Gözlerindeki hayal kırıklığını gizlemiyor. Motor gürültüyle çalışıyor ve araç karanlıkta hızla uzaklaşıyor. Doğruyu yaptın ama kapı arkanda daha sert kapandı.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhanede_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Gizli Ödeme",
+          "kind": "outcome",
+          "text": "Sessizce onaylıyor. Paranın kaynağını sormuyor. İnsanların bilmediği bir şey varsa, o da bu borcun vadesinin asla dolmadığıdır.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhaneden_kalkti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Temiz Sayfa",
+          "kind": "outcome",
+          "text": "{actor.star_teammate.name} çanta ile birlikte gülümsüyor. Bu gidiş, aradaki gerilimi bitirdi ama cebindeki boşluk, yarınki idmana yorgunluk olarak yansıyacak.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhaneden_kalkti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "id": "evt_fandom_fan_leader_maske_dusmesi",
+  "family": "fam_fandom_maske_dusmesi",
+  "category": "fandom",
+  "tier": "minor",
+  "weight": 50,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "sokak_itibari",
+    "op": "gte",
+    "value": 10
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Köşe",
+      "kind": "branch",
+      "text": "Stadyumun arka çıkışındaki loş koridorda, otoparka giden kapı aralık. {actor.fan_leader.name} duvara yaslanmış, elindeki sigaranın dumanını boşluğa bırakıyor. Sen yaklaştığında başını kaldırıyor; gözlerinde o alıştığın 'sadık taraftar' ışığı yok. Hemen yanında, {actor.journalist.name} bir flaşın patlamasına ramak kala duruyor, elindeki kayıt cihazı titriyor. Fan lideri, tribünlerdeki o mitolojik figür değil; sadece yorgun ve hırçın bir yabancı. Aranızdaki o sarsılmaz, kutsal mesafe bir anlığına yok oluyor.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Gözlerini {actor.journalist.name} üzerine dik. 'Cihazı kapat, sonra konuşalım.'",
+          "target": "n_sonuc_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "{actor.fan_leader.name} ile yan yana dur. 'Ne anlatacaksan, herkesin önünde anlat.'",
+          "target": "n_sonuc_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Yavaşça cüzdanını çıkar. {actor.fan_leader.name} için bir 'teşekkür' bırak.",
+          "target": "n_sonuc_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": -8
+          }
+        }
+      ]
+    },
+    "n_sonuc_guvenli": {
+      "title": "Sessizlik Anlaşması",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} cihazı indiriyor. {actor.fan_leader.name} başını sallayıp gölgelere karışıyor. Sırrın seninle kalıyor ama arkanda bıraktığın hayal kırıklığı tadı uzun süre gitmiyor.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_riskli": {
+      "title": "Açık Çatışma",
+      "kind": "outcome",
+      "text": "Kayıt cihazı havada. {actor.fan_leader.name} konuşmaya başlıyor. Tribünler yarın senin gerçek yüzünü görecek, ama sokaktaki sadakat en azından bir süreliğine seninle.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_gri": {
+      "title": "Satın Alınan Sadakat",
+      "kind": "outcome",
+      "text": "Para el değiştiriyor. {actor.fan_leader.name} omuz silkiyor ve ortamdan uzaklaşıyor. Kariyerin güvende, ama aynaya baktığında odayı neden terk ettiğini sorguluyorsun.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

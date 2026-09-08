@@ -1,0 +1,394 @@
+{
+  "id": "evt_money_president_sinav",
+  "family": "fam_money_sinav",
+  "category": "money",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ofis Masası",
+          "kind": "branch",
+          "text": "{actor.president.name} deri koltuğuna gömülmüş, masanın üzerindeki iki farklı dosyaya bakıyor. {actor.lawyer.name} pencere kenarında, elleri cebinde sessizce bekliyor. {actor.sporting_director.name} ise kapının eşiğinde, huzursuzca ayak değiştiriyor. Ortada duran boş bir dosya, cevabın senin ağzından çıkmasını bekliyor. Oda ağır bir puro dumanı ve rutubet kokuyor. {actor.president.name} hafifçe öne eğilip gözlerini üzerine dikiyor. 'Bu takımın geleceği senin imzana bağlı,' diyor sesi odada yankılanarak. 'Ama herkes kendi bedelini öder. Seçim senin.'",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sözleşmeyi dikkatle incele, kulüp kurallarına tam uyum sağla.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Basın önünde yönetimi eleştir, kendi kurallarını koy.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı kabul et, soruları sormadan odadan çık.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Masaya yumruğunu vur ve herkesi masada topla.",
+              "target": "n_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Doğru Yol",
+          "kind": "outcome",
+          "text": "İmzayı attın. Herkes sessiz. {actor.president.name} hafifçe başını salladı. Doğru olanı yaptın, ama aynadaki yansıman bugün biraz daha yorgun görünüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Tepki",
+          "kind": "outcome",
+          "text": "Sözlerin odada buz gibi bir etki yarattı. {actor.sporting_director.name} başını yere eğdi. Tribünler arkanda olacak, ancak kulüp koridorlarında artık bir hedef tahtasısın.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık",
+          "kind": "outcome",
+          "text": "Zarf ağır, cebin daha da ağır. {actor.lawyer.name} kapıyı açarken göz göze gelmemeye çalıştı. Sessizlik, bir ihanet kadar gürültülü.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_liderlik": {
+          "title": "İnisiyatif",
+          "kind": "outcome",
+          "text": "Masadakiler gerildi ama itiraz etmediler. {actor.president.name} ilk defa sana astı değil, muhatabı gibi bakıyor. Bu yük, omuzlarında kalıcı bir iz bırakacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Soyunma Odası Köşesi",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katında, havalandırma pervanesinin ritmik gıcırtısı duyuluyor. {actor.president.name} tam çıkış kapısının önünde duruyor. Elinde buruşturulmuş bir bilet koçanı ve kalın bir zarf var. Işıklar cılız, zemindeki beton çatlakları boydan boya uzanıyor. Sessizlik, bir anlaşmanın imzalanmasından daha ağır. {actor.president.name} tek kelime etmiyor, sadece zarfın köşesini işaret ediyor. Seçim, sahanın dışındaki en sert darbe olacak.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı geri itip sadece antrenman sahasını işaret et.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı al ama hemen tribünlerin önünde açıp gülümse.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantana at ve tek kelime etmeden tesisten ayrıl.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Zarfı reddet, kulübün geleceği için doğrudan yüzüne haykır.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Destek Seviyesi Yüksek]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sınav Sonucu",
+          "kind": "outcome",
+          "text": "Sırtını dönüp gittiğinde arkanda kalan sessizlik, aslında senin en büyük başarındı.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sınav Sonucu",
+          "kind": "outcome",
+          "text": "Yarın tüm manşetler senin üzerinde olacak, ancak bu bedeli kimse bir daha unutmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sınav Sonucu",
+          "kind": "outcome",
+          "text": "Ağırlığı elinde, vicdanın ise çok gerilerde kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Sınav Sonucu",
+          "kind": "outcome",
+          "text": "Herkesin sustuğu yerde sesini çıkardın. Bu, ödenmesi gereken en ağır bedeldi.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

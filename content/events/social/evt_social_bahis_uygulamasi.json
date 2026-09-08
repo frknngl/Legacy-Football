@@ -1,0 +1,336 @@
+{
+  "id": "evt_social_bahis_uygulamasi",
+  "family": "fam_social_bahis",
+  "category": "social",
+  "tier": "epic",
+  "weight": 85,
+  "cooldown": {
+    "self": 36,
+    "family": 16
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sadece Basket",
+          "kind": "branch",
+          "text": "Deplasman oteli, 21:40. {actor.star_teammate.name} odana geliyor, telefonu elinde.\n\n\"Şuna bak,\" diyor. Ekranda bir uygulama: katsayılar, yeşil rakamlar, altta bir bakiye.\n\n\"Sadece basket oynuyorum,\" diyor. \"Futbola girmiyorum, deli değilim.\"\n\nBakiye altı haneli.\n\n\"Sen de aç. Beş dakika. Adın yok, telefon numarası da benim kuzenimin.\"\n\nYarın maç var. Talimatnamede bu konu yazıyor ve ikiniz de o sayfayı okumadınız.",
+          "choices": [
+            {
+              "id": "c_ret",
+              "text": "\"Yok.\" Telefonu geri ver ve konuyu kapat.",
+              "target": "n_ret",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": -9
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "dogruluk": 9
+              }
+            },
+            {
+              "id": "c_ac",
+              "text": "Aç. Sadece basket. Küçük bir miktar.",
+              "target": "n_ac",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 30000
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "mizac": 8,
+                "dogruluk": -7
+              }
+            },
+            {
+              "id": "c_uyar",
+              "text": "\"Kapat şunu.\" Talimatnamedeki maddeyi hatırlat.",
+              "target": "n_uyar",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": -17
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "dogruluk": 11,
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_kaptan",
+              "text": "Bir şey deme. Sabah kaptanla konuş.",
+              "target": "n_kaptan",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 13
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": -13
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 6,
+                "sadakat": -5
+              },
+              "requires": {
+                "flag": "iliski_captain",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Kaptanla ilişki 55]"
+            }
+          ]
+        },
+        "n_ret": {
+          "title": "Kapanan Konu",
+          "kind": "outcome",
+          "text": "\"Yok.\"\n\n{actor.star_teammate.name} güldü, telefonu cebine koydu. \"Sıkıcısın,\" dedi ve çıktı.\n\nO gece uyudun. On dört ay sonra, o uygulamanın adı gazetelerde çıktığında ve federasyon üç oyuncuyu çağırdığında, sen o listede yoktun.\n\nSıkıcı olmak bazen bir kariyer stratejisidir.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ac": {
+          "title": "Küçük Bir Miktar",
+          "kind": "outcome",
+          "text": "Açtın. Basket. Küçük bir miktar.\n\nÜç hafta sonra küçük bir miktar değildi. İki ay sonra tenis de vardı, sonra masa tenisi, sonra saat 03:00'te oynanan bir lig.\n\nFutbola hiç girmedin. Bunu kendine her gece söyledin ve söylemek zorunda kalman bir şey anlatıyordu.\n\nHesap {actor.star_teammate.name:gen} kuzeninin adına. Yani senin adın hiçbir yerde yok. Yani sen de o kuzeni hiç tanımıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_hesabi_acti",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_kayit_disi_hesap",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_uyar": {
+          "title": "Talimatname",
+          "kind": "outcome",
+          "text": "\"Kapat şunu. Maddeyi biliyorsun.\"\n\n{actor.star_teammate.name} bir an sana baktı. \"Sen ne zaman avukat oldun?\" dedi ve çıktı. Kapıyı çarpmadı; çarpsa daha iyiydi.\n\nO sezon bir daha odana gelmedi. Sahada pas verdi, dışarıda konuşmadı.\n\nSoruşturma başladığında adın hiç geçmedi. Onunki geçti. İkiniz de bunu hiç konuşmadınız.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_uyardi",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_takim_arkadasini_karsina_aldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kaptan": {
+          "title": "Sabah Kahvesi",
+          "kind": "outcome",
+          "text": "Sabah {actor.captain.name} ile lobide konuştun. İsim vermedin; vermene gerek kalmadı.\n\n\"Biliyorum,\" dedi. \"İki aydır biliyorum.\"\n\nO gün odaya iki kişi girdi ve akşam uygulama silinmişti. Nasıl olduğunu hiç öğrenmedin.\n\n{actor.star_teammate.name} kimin söylediğini hiç öğrenmedi. Ama bir daha sana telefon uzatmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_kaptana_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Gelen Borç",
+          "kind": "branch",
+          "text": "Antrenman sahasının otoparkı boş. Farlar kapalı bir aracın içinden {actor.star_teammate.name} iniyor. Yüzünde alışık olduğun o geniş gülümseme yok; aksine, çenesi sıkılı. Kaputun üzerine yaslanıyor, cebinden buruşuk bir not kağıdı çıkarıp sana uzatıyor. 'Geçen ayki mevzuyu hatırlıyorsun,' diyor. Sesi, etrafı saran hafif yağmurdan daha soğuk. 'İnsanlar sabırsız, ben de öyle. Artık bu işin bittiğini duymak istiyorlar, senin de bu işten kurtulmanı istiyorlar.' Kağıtta rakamlar var; hepsi kırmızı.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Cüzdanı çıkar, içindeki nakdin tamamını ver. 'Bu şimdilik olsun, gerisi yarın akşam.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kendi özel bahis hesabının şifresini içeren notu ona uzat. 'İçeridekiyle fazlasıyla ödenir, hesabı kapat ve bir daha gelme.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Geri adım at. 'Bunu kaptana anlatacağız. Borcu ben üstleniyorum, ama bu yol burada biter.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokakların Dili",
+          "kind": "outcome",
+          "text": "Parayı alırken gözlerini ayırmıyor. Bu sadece bir borç ödemesi değil, artık birbirinizin sırrına ortak oldunuz. Sokakta güven kazandın ama saha içindeki konsantrasyonun zayıflayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_uyardi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Kayıt Dışı Hesap",
+          "kind": "outcome",
+          "text": "Hesabı ona devretmek, aslında kendi oyun sahanı başkasına açmak demek. Parayı geri kazandın belki ama bu isim artık senin dijital izlerinde bir hayalet gibi dolaşacak.",
+          "onEnter": [
+            {
+              "flag": "mem_kayit_disi_hesap",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Gerçeklerle Yüzleşmek",
+          "kind": "outcome",
+          "text": "Otoparktan ayrılırken arkanı dönüp yürüyorsun. Bu hamlenin seni takım içinde yalnızlaştıracağını biliyorsun. Kaptan bu olayı öğrendiğinde, aranızdaki güven bir daha asla eskisi gibi olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_kaptana_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

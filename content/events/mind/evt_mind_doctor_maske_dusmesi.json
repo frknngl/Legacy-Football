@@ -1,0 +1,385 @@
+{
+  "id": "evt_mind_doctor_maske_dusmesi",
+  "family": "fam_mind_maske_dusmesi",
+  "category": "mind",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_mind_maske_dusmesi_doctor",
+    "op": "notIn",
+    "value": [
+      true
+    ]
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Muayene",
+          "kind": "branch",
+          "text": "{actor.doctor.name} masanın arkasında hareketsiz oturuyor. Odanın ışıkları loş, duvarda sadece saatin tik-takları duyuluyor. Masanın üzerinde senin son birkaç yılda verdiğin tüm tepkilerin, yalanların ve gizli öfkenin dökümleri duruyor. Gözlerini kaçırmana izin vermiyor. {actor.partner.name} ise dışarıda, basın ordusuyla başa çıkmaya çalışırken seni bu odaya, bir uzmanın merhametine terk etti. Burası, herkesin senden beklediği o kusursuz, soğukkanlı futbolcu maskesinin ilk kez çatladığı yer. {actor.doctor.name} dosyayı kapatıp hafifçe ileri itiyor. 'Sonsuza kadar oyun oynayamazsın,' diye fısıldıyor. 'Şimdi, kim olduğunla yüzleşme vakti.'",
+          "choices": [
+            {
+              "id": "c_1",
+              "text": "Maskeyi takmaya devam et. Her şeyin kontrol altında olduğunu söyle ve çıkışa yönel.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Sandalyesini tekmele ve dışarıdaki gazetecilere her şeyi anlatacağını söyleyerek tehdit et.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
+            },
+            {
+              "id": "c_3",
+              "text": "Çek defterini çıkar. Sessiz kalması için önüne büyük bir rakam yaz.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -12
+              }
+            },
+            {
+              "id": "c_4",
+              "text": "Gerçeği itiraf et. Zayıflıklarını kabul edip ondan profesyonel destek almayı kabul et.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "İnkarın Konforu",
+          "kind": "outcome",
+          "text": "Gülümsemen yapay, adımların hızlı. Kapıdan çıkarken herkes sana hayranlıkla bakıyor, ama içindeki boşluk sadece büyüyor. Yalnız kaldığında ayna artık tanıdık bir yabancıyı gösteriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Kontrolsüz Patlama",
+          "kind": "outcome",
+          "text": "Sessizlik bozuldu. Kapı çarpıldığında, arkanda bıraktığın şey sadece {actor.doctor.name} değil, kariyerinin en büyük güvenlik duvarıydı. Yarın manşetlerde sadece sen olacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizliğin Bedeli",
+          "kind": "outcome",
+          "text": "Kağıt parçası masaya bırakıldı. {actor.doctor.name} sadece başıyla onaylıyor. Artık sırların güvenli, ama vicdanın bu odanın soğuk duvarlarına hapsolmuş durumda.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Dürüstlüğün Yükü",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} derin bir nefes alıyor. İlk kez gerçek bir bağ kuruldu. Bu zayıflık, sahada seni daha savunmasız kılacak belki, ama artık kendi içinde bir bütünsün.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tıbbi Raporun Gölgesi",
+          "kind": "branch",
+          "text": "{actor.doctor.name} arka bahçedeki eski stadyumun yıkıntıları arasında bir sandalyede oturuyor. Önündeki paslı metal sehpanın üzerinde senin sakladığın tüm dosyalar, geçmişteki tartışmaların ve özel hayatına dair kayıtlar duruyor. Sigarasından derin bir nefes alıp dosyayı sana doğru itiyor. 'Kariyerin bir imajdan ibaret,' diyor, 'ama ben gerçekleri temizlemekten yoruldum. Şimdi, bu yığını yakmamı mı istersin, yoksa herkesin görmesi için halka açık bir arşive mi yükleyeyim?' Rüzgar, kurumuş otları hışırdatıyor. Sessizlik, bir kararın ağırlığıyla ağırlaşıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Dosyayı sessizce alıp içindeki isimleri ve tarihleri karalamaya başla. Ona kalın bir zarf uzat.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı elinden al ve hiçbir şey söylemeden hemen oradaki varile atıp ateşi yak. Kariyerine odaklan.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı reddet. 'İstediğini yap, herkesin gerçeği görmesi belki de tek çare,' diyerek arkanı dön ve yürü.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Dosyayı tek tek incele, hatalarını {actor.doctor.name} ile birlikte analiz et. Bir daha asla bu noktaya gelmeyeceğine dair yemin et.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Profesyonellik 68]",
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın Alınan Sessizlik",
+          "kind": "outcome",
+          "text": "İşlem tamamlandı. {actor.doctor.name} zarfı alırken göz göze gelmiyorsunuz. Vicdanının bir kısmını o stadyumun tozlu zemininde bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Küllerin Sessizliği",
+          "kind": "outcome",
+          "text": "Alevler kağıtları yutarken {actor.doctor.name} sadece izledi. Geçmişini yaktın, ancak bu hırsın geride bıraktığı boşluk, antrenmanlarda zihnini kemirmeye devam edecek.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Maskesiz Yürüyüş",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek en zoruydu. {actor.doctor.name} arkandan sadece bakakaldı. Artık hiçbir şeyin gizli kalmayacağını biliyorsun, bu seni daha tehlikeli yapacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Zorunlu Yüzleşme",
+          "kind": "outcome",
+          "text": "Saatlerce konuştunuz. {actor.doctor.name} sonunda o ağır dosyayı imha etti. Bedeli büyük bir yorgunluk oldu ama artık aranızda sahtelik kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "id": "evt_media_agent_maske_dusmesi_injured",
+  "family": "fam_media_maske_dusmesi",
+  "category": "media",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda",
+          "kind": "branch",
+          "text": "Oda loş. Havada yanık kablo ve ucuz parfüm kokusu var. {actor.agent.name} masanın ucunda, sırtı dönük bir şekilde parmaklarını ekranında gezdiriyor. Dışarıda, antrenman tesislerinin kapısında kameralar bekliyor. Sakatlığının ciddiyetini gizlemek, kariyerinin en büyük kumarı. {actor.journalist.name} az önce bir tehdit mesajı gönderdi: ya bu akşam tüm gerçekleri itiraf edersin ya da o, elindeki 'dosyayı' yarın manşet yapar. {actor.pundit.name} ise televizyonda senin sahadan kaçtığını, aslında hiçbir şeyin olmadığını söylüyor. {actor.agent.name} dönüyor, göz altları çökmüş. 'İstediğini verip kurtulalım mı, yoksa savaşa devam mı?' diye soruyor. Sessizlik ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bırak ne yazacaklarsa yazsınlar. Sağlığım her şeyden önemli, raporları olduğu gibi yayınlayalım.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı çöpe at. Yarın akşam o stadyumda olacağım, sakat falan değilim.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Onun istediği parayı ödeyin. Dosya sonsuza kadar silinsin.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Her şeyi olduğu gibi anlatacağım. Ekibi topla, canlı yayına hazırlanıyoruz.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İtibarın Bedeli",
+          "kind": "outcome",
+          "text": "Raporlar medyaya düştü. Herkes senin ne kadar profesyonel olduğunu konuşuyor ama taraftarların gözündeki o 'yıkılmaz' imajın bir daha geri gelmemek üzere silindi.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Karanlık Bahis",
+          "kind": "outcome",
+          "text": "Dosyayı reddettin. Sokaklar seninle ama medya artık bir avcı gibi pusuda. Oynadığın her maçta herkes sakatlığına odaklanacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Satın Alındı",
+          "kind": "outcome",
+          "text": "Banka hesabın azaldı. Sessizlik sağlandı ama {actor.agent.name:gen} gözlerindeki o küçümseyici bakışı bir ömür taşıyacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Kontrol Sende",
+          "kind": "outcome",
+          "text": "Kendi hikayeni kendin yazdın. Zihinsel olarak tükendin ama artık kimse sana bir şey dayatamayacak. Odadaki tüm güç artık senin elinde.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Klinik Koridoru",
+          "kind": "branch",
+          "text": "Fizyoterapi odasının kapısı hafifçe aralık. İçeriden gelen rutin cihaz sesi {actor.agent.name}’in sesiyle kesiliyor. Telefonu duvara doğru çevirmiş, ekrandaki yazışmaları silmekle meşgul. Hastane terliklerim parkede yumuşak bir ses çıkarıyor ama başını kaldırmıyor. Ayak sesimi tanıdığını biliyorum. Yanındaki metal tepside, sakatlığım süresince hakkında sahte raporlar düzenlediği dergi kupürleri duruyor. Şimdi o kağıtları buruşturuyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sessizce yanına otur. 'Hepsini sil ve şu çeki imzala, aramızdaki her şeyi unutalım.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Tepsiyi yere devir. 'Bunu herkesin bilmesi gerekiyorsa, önce senin elinle olacak.'",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kapıyı arkandan kapa. 'Bu iş burada bitti. Sözleşmeyi feshediyoruz, hiçbir şey talep etmiyorum.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -30
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Göz göze gelmiyoruz. Çeki masanın üzerine bırakıyor. İmzayı atarken kaleminin kağıdı yırtan sesi odada yankılanıyor. Artık ikimiz de aynı yalanın parçasıyız.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "Dağılan kağıtların üzerinde ismimin geçtiği manşetler saçılıyor. Yüzündeki o sinsi gülümseme yerini soğuk bir şaşkınlığa bırakıyor. Yarın manşetler değişecek ama bu bedeli ödemeye hazır mıyım, bilmiyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Gözlerindeki hayal kırıklığını gizlemiyor. Bir daha asla dönmemek üzere odadan çıkıyorum. Kariyerimdeki bu belirsizliğin tek sorumlusu artık sadece benim.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

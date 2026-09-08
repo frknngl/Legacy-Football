@@ -1,0 +1,195 @@
+{
+  "id": "evt_locker_youngster_reddedilis",
+  "family": "fam_locker_reddedilis",
+  "category": "locker",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "_statureNote": "Hero, kadro disi birakilan bir gence zarf uzatiyor ve 'eski kaptanlik bandi'ndan soz ediliyor. Himaye eden taraf olmak kidem ister.",
+  "_eraNote": "Metinde 'senin eski kaptanlik bandin' geciyor. 16 yasindaki bir oyuncu ESKI KAPTAN olamaz -- sohret ne olursa olsun.",
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kapıdaki Sessizlik",
+      "kind": "branch",
+      "text": "Soyunma odasının en köşesindeki dolabın önündesin. {actor.youngster.name} başı önde, antrenman çantasını topluyor. Kulüp yönetimi kapıyı çoktan kapattı; onun için yer kalmadı, bu kadro artık ona ait değil. Yüzüne bakmıyor, duvardaki bir çatlağa odaklanmış. Dolabın kapağı gürültüyle kapanıyor. İçeride kalan kramponların tok sesi, boş odada yankılanıyor. Bakışlarınız kesiştiğinde, omuzlarını dikleştirip sana doğru bir adım atıyor. Sessizliği bozman gerekiyor.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Omuzuna hafifçe vur. 'Profesyonel kal, başka kapılar açılır.'",
+          "target": "n_sonuc_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "id": "c_riskli",
+          "text": "Kapıyı sertçe tekmele. 'Burası seni hak etmiyor, sesini çıkar.'",
+          "target": "n_sonuc_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "id": "c_gri",
+          "text": "Cebindeki zarfı sessizce eline tutuştur. 'Bu, yeni başlangıcın için.'",
+          "target": "n_sonuc_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "id": "c_liderlik",
+          "text": "Kendi dolabını aç, ona bir sonraki maçın biletini ver. 'Burası bitti, ama ben bitti demedim.'",
+          "target": "n_sonuc_liderlik",
+          "requires": {
+            "flag": "liderlik",
+            "op": "gte",
+            "value": 65
+          },
+          "lockLabel": "[Liderlik 65]",
+          "effects": [
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 5
+            }
+          ]
+        }
+      ]
+    },
+    "n_sonuc_guvenli": {
+      "title": "Soğuk Veda",
+      "kind": "outcome",
+      "text": "Sadece başını sallıyor. Arkasını dönüp kapıya doğru yürüyor. Adımları boş koridorda tekdüze bir ritim tutuyor. Artık yabancısınız.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_reddedilis_youngster",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_riskli": {
+      "title": "Kıvılcım",
+      "kind": "outcome",
+      "text": "Gözlerinde gördüğün o öfke, sadece hırs değil. Kapıdan çıkarken omuzları daha dik. Burayı yakıp gideceği belli.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_reddedilis_youngster",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_gri": {
+      "title": "Sessiz Anlaşma",
+      "kind": "outcome",
+      "text": "Zarfı hiç bakmadan çantasına atıyor. İçerideki rakamın ağırlığını ikiniz de biliyorsunuz. Kelimelere gerek kalmadı.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_reddedilis_youngster",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_liderlik": {
+      "title": "Geleceğe Yatırım",
+      "kind": "outcome",
+      "text": "Bileti tutan parmakları titriyor. İlk defa sana tam gözlerinin içine bakıyor. Bu bilet, bir kulüpten daha fazlasını temsil ediyor.",
+      "onEnter": [
+        {
+          "flag": "mem_locker_reddedilis_youngster",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

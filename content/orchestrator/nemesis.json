@@ -1,0 +1,97 @@
+{
+  "_note": "RAKIP ARKI. Icerik burada bir kisi tanimlamaz; bir SLOT'a (roles.json world-scope) bagli 10 asamali bir yay tanimlar. Asamalari motor sirayla kuyruga alir; her asama olayi `npc_nemesis_arc` degerini bir artirir ve bir sonraki asama acilir. Yeni asama eklemek = bu listeye bir satir + bir olay dosyasi.",
+
+  "defaults": {
+    "gapTurns": 14
+  },
+
+  "nemeses": [
+    {
+      "id": "ayna",
+      "slotRef": "nemesis",
+      "label": "Ayna",
+      "note": "Ayni mevki, ayni yas, ters kader. On asama boyunca ikiniz de degisirsiniz; hangisinin daha cok degistigi finali belirler.",
+      "gapTurns": 14,
+
+      "stages": [
+        {
+          "stage": 1,
+          "label": "Ilk gorus",
+          "eventId": "evt_rival_first_sighting",
+          "minSeason": 1
+        },
+        {
+          "stage": 2,
+          "label": "Ilk karsilasma",
+          "eventId": "evt_rival_first_derby",
+          "minSeason": 3
+        },
+        {
+          "stage": 3,
+          "label": "Adini anmadan",
+          "eventId": "evt_rival_press_jab",
+          "minSeason": 5
+        },
+        {
+          "stage": 4,
+          "label": "Ayni menajer",
+          "eventId": "evt_rival_same_agent",
+          "minSeason": 7
+        },
+        {
+          "stage": 5,
+          "label": "Tek koltuk",
+          "eventId": "evt_rival_transfer_race",
+          "minSeason": 9
+        },
+        {
+          "stage": 6,
+          "label": "Milli takim yedegi",
+          "eventId": "evt_rival_national_bench",
+          "minSeason": 11
+        },
+        {
+          "stage": 7,
+          "label": "Yerde yatan",
+          "eventId": "evt_rival_injury_moment",
+          "minSeason": 13
+        },
+        {
+          "stage": 8,
+          "label": "Iki dusman bir masa",
+          "eventId": "evt_rival_private_dinner",
+          "minSeason": 15
+        },
+        {
+          "stage": 9,
+          "label": "Final",
+          "eventId": "evt_rival_final_match",
+          "minSeason": 18
+        },
+        {
+          "stage": 10,
+          "label": "Son arama",
+          "eventId": "evt_rival_last_call",
+          "minSeason": 21
+        }
+      ],
+
+      "resolutions": [
+        {
+          "id": "dostluk",
+          "eventId": "evt_rival_end_dostluk",
+          "condition": { "flag": "iliski_nemesis", "op": "gte", "value": 70 }
+        },
+        {
+          "id": "yikim",
+          "eventId": "evt_rival_end_yikim",
+          "condition": { "flag": "iliski_nemesis", "op": "lte", "value": 25 }
+        },
+        {
+          "id": "saygi",
+          "eventId": "evt_rival_end_saygi"
+        }
+      ]
+    }
+  ]
+}

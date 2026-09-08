@@ -1,0 +1,158 @@
+{
+  "id": "evt_rival_last_call",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": {
+    "self": 999,
+    "family": 8
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Son arama",
+      "kind": "branch",
+      "text": "Gece iki. Telefon caliyor ve ekranda kayitli olmayan bir numara var.\n\n\"Ben,\" diyor {actor.nemesis.name}. Sesini bir yerden taniyorsun ama bu haliyle hic duymamistin.\n\n\"Yarin aciklayacagim. Bitiyor.\"\n\nBir sessizlik. Sonra: \"Once sana soyleyeyim istedim. Gazeteden ogrenme.\"\n\nYirmi bes yildir bu adami yenmeye calistin. Simdi yenilecek kimse kalmiyor ve bunun ne demek oldugunu ilk kez fark ediyorsun.\n\nKonusma bitmedi. Hala hatta.",
+      "choices": [
+        {
+          "id": "c_thanks",
+          "text": "\"Tesekkur ederim. Her sey icin.\"",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 10
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mem_rival_shook_hands",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": 10,
+            "sadakat": 6
+          }
+        },
+        {
+          "id": "c_after_you",
+          "text": "\"Ben devam ediyorum.\"",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 10
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "mizac": 8,
+            "durus": 7
+          }
+        },
+        {
+          "id": "c_together",
+          "text": "\"O zaman ayni gun aciklayalim.\"",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 10
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "piyasa_carpani",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "mem_rival_shook_hands",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_hangup",
+          "text": "Hicbir sey soyleme. Kapat.",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 10
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": -8,
+            "dogruluk": -5
+          }
+        }
+      ]
+    }
+  }
+}

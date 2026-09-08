@@ -1,0 +1,158 @@
+{
+  "id": "evt_rival_same_agent",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": {
+    "self": 999,
+    "family": 8
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ayni masa",
+      "kind": "branch",
+      "text": "{actor.agent.name} kahvesini karistiriyor ve sana bakmiyor. Bu, kotu haberi olan bir adamin oturusudur.\n\n\"Onu da ben temsil ediyorum,\" diyor sonunda. \"Uc yildir.\"\n\nUc yil. Yani senin adina pazarlik ettigi her masada, karsi tarafta duran adamin da cikarini tasiyordu.\n\n\"Cikar catismasi degil,\" diye ekliyor, kendini savunmadan. \"Ayni ligde iki oyuncu. Bu is boyle yurur.\"\n\nYurumez. Ikiniz de biliyorsunuz. Ama {actor.agent.first} seni {actor.nemesis.name:abl} once kesfetti ve o zamandan beri telefonuna cikan tek insan o.",
+      "choices": [
+        {
+          "id": "c_fire",
+          "text": "Bitir. Bugun.",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 4
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -40
+            },
+            {
+              "flag": "piyasa_carpani",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "mem_rival_cost_him_transfer",
+              "op": "set",
+              "value": false
+            }
+          ],
+          "persona": {
+            "sadakat": -6,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_ultimatum",
+          "text": "\"Birimizi sececeksin. Bugun.\"",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 4
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "haftalik_gelir",
+              "op": "add",
+              "value": 4000
+            }
+          ],
+          "persona": {
+            "mizac": 7,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_use_it",
+          "text": "Kal. Ama artik onun bildigi her seyi sen de bil.",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 4
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "mem_rival_inside_info",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "dogruluk": -9,
+            "mizac": -4
+          }
+        },
+        {
+          "id": "c_accept",
+          "text": "Kabul et. Bu is gercekten boyle yuruyor.",
+          "effects": [
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 4
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 6,
+            "mizac": -5
+          }
+        }
+      ]
+    }
+  }
+}

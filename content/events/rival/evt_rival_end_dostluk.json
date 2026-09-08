@@ -1,0 +1,66 @@
+{
+  "id": "evt_rival_end_dostluk",
+  "family": "fam_rival_end",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 4 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ayni taraf",
+      "kind": "branch",
+      "text": "Bir sahil kasabasi, sezon disi, iki sandalye.\n\n{actor.nemesis.name} kahveyi getiriyor ve oturuyor. Yirmi bes yil once bu adami yenmek icin uykusuz kaldigini hatirliyorsun; simdi ayni adam senin cocugunun adini biliyor.\n\n\"Bir sey soracagim,\" diyor. \"Beraber bir sey kurmak ister misin? Akademi. Bizim gibi cocuklar icin.\"\n\nCebinden katlanmis bir kagit cikariyor. Uzerinde iki isim var ve ikisi de yan yana yazilmis.\n\nOnu yenmek icin harcadigin yirmi bes yil, bu masaya oturmak icin gerekliydi. Baska turlu buraya gelemezdiniz.",
+      "choices": [
+        {
+          "id": "c_in",
+          "text": "Kagidi al. \"Varim.\"",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": 20 },
+            { "flag": "servet", "op": "add", "value": -400000 },
+            { "flag": "moral", "op": "add", "value": 20 },
+            { "flag": "mem_rival_shook_hands", "op": "set", "value": true }
+          ],
+          "persona": { "sadakat": 10, "dogruluk": 8 }
+        },
+        {
+          "id": "c_apology",
+          "text": "Once yillar once soyledigin o cumleyi geri al.",
+          "requires": { "flag": "mem_rival_humiliated", "op": "isSet" },
+          "lockLabel": "[Onu bir kez asagilamis olmalisin]",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": 25 },
+            { "flag": "moral", "op": "add", "value": 22 },
+            { "flag": "servet", "op": "add", "value": -400000 },
+            { "flag": "mem_public_apology", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": 15, "durus": 8 }
+        },
+        {
+          "id": "c_money_only",
+          "text": "\"Parasini koyarim. Adimi koymam.\"",
+          "effects": [
+            { "flag": "servet", "op": "add", "value": -250000 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 5 },
+            { "flag": "moral", "op": "add", "value": 6 },
+            { "flag": "mem_rival_shook_hands", "op": "set", "value": true }
+          ],
+          "persona": { "mizac": -6, "durus": -4 }
+        },
+        {
+          "id": "c_no",
+          "text": "\"Hayir. Ama tesekkur ederim.\"",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": -8 },
+            { "flag": "moral", "op": "add", "value": -6 },
+            { "flag": "mental_dayaniklilik", "op": "add", "value": 6 }
+          ],
+          "persona": { "sadakat": -5, "durus": 5 }
+        }
+      ]
+    }
+  }
+}

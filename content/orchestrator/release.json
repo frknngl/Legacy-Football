@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "_note": "SURUM KAPILARI -- ilk cikista neyin acik olacagi. Kod degil VERI: bir mevkiyi acmak icin TypeScript degil bu dosya degisir.",
+
+  "_nedenMevkiKilidi": "Kaleci ve defans, oyunun geri kalaninin varsaydigi seylerden farkli seyler gerektiriyor: kaleci icin ayri bir mac ani seti (kurtaris, cikis, penalti kurtarma), defans icin farkli bir istatistik dili (mudahale, ikili mucadele, temiz kale). Bunlar yazilmadan acmak, orta saha icin yazilmis 21 mac aninin kaleciye de cikmasi demek olurdu -- 'penalti kullanma' ani kaleciye sorulur, 'gol sevinci' stopere. Kapali tutmak dogru karar; ACIK tutmak yalan olurdu.",
+
+  "playablePositions": ["MF", "FW"],
+
+  "lockedPositions": {
+    "GK": {
+      "label": "Kaleci",
+      "reason": "Kaleciye ozel mac anlari (kurtaris, cikis karari, penalti kurtarma) ve istatistik dili henuz yazilmadi.",
+      "unlocksWith": "GK moment seti + kaleci reyting modeli"
+    },
+    "DF": {
+      "label": "Defans",
+      "reason": "Savunma istatistikleri (mudahale, ikili mucadele, temiz kale) ve stopere ozel anlar henuz yazilmadi.",
+      "unlocksWith": "DF moment seti + savunma reyting modeli"
+    }
+  },
+
+  "_arketipNotu": "immigrant ve latebloom arketipleri DF olarak tasarlanmisti. Mevki kilitliyken bunlar EN YAKIN acik mevkiye duser (DF -> MF): arketipin hikayesi korunur, sahadaki rolu degisir. Kilit kalkinca kendi mevkilerine geri donerler -- bu esleme kodda degil burada.",
+  "positionFallback": {
+    "GK": "MF",
+    "DF": "MF"
+  }
+}

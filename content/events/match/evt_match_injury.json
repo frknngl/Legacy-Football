@@ -1,0 +1,316 @@
+{
+  "id": "evt_match_injury",
+  "family": "fam_match_body",
+  "category": "match",
+  "tier": "major",
+  "momentType": "injury_in_match",
+  "weight": 16,
+  "cooldown": {
+    "self": 12,
+    "family": 8
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Bir şey koptu",
+      "kind": "branch",
+      "text": "{minute}. dakika. {opponent} karşısında skor {scoreline}. Sprintin ortasında arka adalende bir şey oluyor — ses değil, his. Sanki biri arkandan ayağına vurmuş gibi dönüp bakıyorsun ve arkanda kimse yok.\n\nİki adım daha atıyorsun, sonra duruyorsun. {actor.doctor.name} çoktan çizgide, elini kaldırmış, seni bekliyor.\n\n{actor.manager.name} dördüncü hakeme numarayı gösteriyor. Ama daha karar vermedi; sana bakıyor.",
+      "choices": [
+        {
+          "id": "c_off",
+          "text": "Elini kaldır. \"Çıkıyorum.\"",
+          "target": "n_came_off",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "mizac": -5,
+            "dogruluk": 4
+          }
+        },
+        {
+          "id": "c_continue",
+          "text": "{actor.doctor.first:dat} başını salla: \"Bir şeyim yok.\" Oyuna devam et.",
+          "target": "n_roll_played_on",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "mizac": 7,
+            "dogruluk": -6
+          }
+        },
+        {
+          "id": "c_injection",
+          "text": "{actor.doctor.first:acc} yanına çağır. \"İğne yap. Kimse duymasın.\"",
+          "target": "n_roll_injection",
+          "requires": {
+            "flag": "iliski_doctor",
+            "op": "gte",
+            "value": 55
+          },
+          "lockLabel": "[Doktor güveni 55]",
+          "effects": [
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 45
+            },
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "mizac": 6,
+            "dogruluk": -10
+          }
+        },
+        {
+          "id": "c_ask_score",
+          "text": "Skora bak. Kararı skora ver.",
+          "target": "n_roll_played_on",
+          "requires": {
+            "flag": "liderlik",
+            "op": "gte",
+            "value": 60
+          },
+          "lockLabel": "[Liderlik 60]",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "sadakat": 7,
+            "dogruluk": -3
+          }
+        }
+      ]
+    },
+    "n_came_off": {
+      "title": "Numara",
+      "kind": "outcome",
+      "text": "Kenara yürürken alkış geliyor ama sen duymuyorsun. Yedek kulübesine oturuyorsun, {actor.doctor.first} buz koyuyor, sen sahaya bakıyorsun.\n\n\"İki hafta,\" diyor. \"Kurtardın.\"\n\nKurtardığın şeyin ne olduğunu ancak yıllar sonra anlayacaksın.",
+      "onEnter": [
+        {
+          "op": "match",
+          "injuryWeeks": 2,
+          "rating": -0.4,
+          "incident": "inc_injured_in_match"
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -6
+        }
+      ]
+    },
+    "n_roll_played_on": {
+      "title": "Yirmi dakika",
+      "kind": "roll",
+      "text": "Devam ediyorsun. Her adımda o his geri geliyor.",
+      "outcomes": [
+        {
+          "target": "n_survived",
+          "weight": {
+            "base": 30,
+            "modifiers": [
+              {
+                "flag": "kondisyon",
+                "scale": 0.4
+              },
+              {
+                "flag": "fizik",
+                "scale": 0.3
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_tore_it",
+          "weight": {
+            "base": 45,
+            "modifiers": [
+              {
+                "flag": "sakatlik_riski",
+                "scale": 0.5
+              },
+              {
+                "flag": "kondisyon",
+                "scale": -0.25
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_roll_injection": {
+      "title": "Tünelde",
+      "kind": "roll",
+      "text": "Tünelin ağzında, iki dakika. {actor.doctor.first} hiçbir şey söylemiyor ve iğneyi yapıyor.",
+      "outcomes": [
+        {
+          "target": "n_survived",
+          "weight": {
+            "base": 45,
+            "modifiers": [
+              {
+                "flag": "fizik",
+                "scale": 0.3
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_tore_it",
+          "weight": {
+            "base": 40,
+            "modifiers": [
+              {
+                "flag": "sakatlik_riski",
+                "scale": 0.45
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_survived": {
+      "title": "Doksan",
+      "kind": "outcome",
+      "text": "Doksanı tamamlıyorsun. Son on dakika sadece yürüdün ama sahadaydın.\n\nSoyunma odasında ayakkabını çıkarmak için üç dakika uğraşıyorsun. {actor.doctor.first} karşında oturuyor, bakıyor, hiçbir şey söylemiyor.\n\n\"Bu sefer kurtardın,\" diyor sonunda. \"Ben not düşüyorum. Bir gün bu notlar okunacak.\"",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.5,
+          "incident": "inc_injured_in_match"
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 8
+        },
+        {
+          "flag": "kondisyon",
+          "op": "add",
+          "value": -12
+        },
+        {
+          "flag": "iliski_doctor",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_tore_it": {
+      "title": "Sedye",
+      "kind": "outcome",
+      "text": "Yedi dakika sonra top olmayan bir yerde, koşmadan, sadece dönerken kopuyor.\n\nSedyeyle çıkıyorsun. Tribün ayakta ama sen tavana bakıyorsun. {actor.doctor.first} yanında koşuyor ve tek kelime etmiyor; söyleyecek bir şey yok, ikiniz de biliyorsunuz.\n\nTünelde {actor.manager.name} sedyenin yanında duruyor: \"Sana sormamalıydım.\"",
+      "onEnter": [
+        {
+          "op": "match",
+          "injuryWeeks": 9,
+          "rating": -1.5,
+          "incident": "inc_injured_in_match"
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        },
+        {
+          "flag": "sakatlik_riski",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "iliski_manager",
+          "op": "add",
+          "value": 6
+        },
+        {
+          "flag": "mem_hid_injury",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

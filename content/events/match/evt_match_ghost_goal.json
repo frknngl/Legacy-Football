@@ -1,0 +1,258 @@
+{
+  "id": "evt_match_ghost_goal",
+  "family": "fam_match_var",
+  "category": "match",
+  "tier": "major",
+  "momentType": "ghost_goal",
+  "weight": 12,
+  "cooldown": {
+    "self": 20,
+    "family": 8
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Cizgiyi gecti mi",
+      "kind": "branch",
+      "text": "{minute}. dakika, skor {scoreline}. Vurdun, top ust direkten asagi indi ve {actor.opponent_keeper.name} onu cizginin uzerinden disari cikardi.\n\nSen gectigini gordun. Gercekten gordun -- ya da gordugune inandin; ikisi arasindaki farki bu stadyumda kimse ayirt edemez.\n\nBu ligde cizgi teknolojisi yok. Karar {actor.referee.name} ile yan hakemin arasinda gecen uc saniyelik bir bakismaya kalmis.\n\nHakem devam isareti yapiyor.",
+      "choices": [
+        {
+          "id": "c_swear",
+          "text": "Hakemin onune gec. Yemin et, gectigini soyle.",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_referee",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "target": "n_roll_swear",
+          "persona": {
+            "mizac": 8,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_keeper",
+          "text": "Kaleciye don: sen biliyorsun. Soyle onlara.",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_opponent_keeper",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "target": "n_keeper_asked",
+          "persona": {
+            "dogruluk": 10,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_play",
+          "text": "Oyuna devam et. Bu ligde bu karar zaten verilmez.",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "target": "n_played_on",
+          "persona": {
+            "mizac": -7
+          }
+        }
+      ]
+    },
+    "n_roll_swear": {
+      "title": "Uc saniye",
+      "kind": "roll",
+      "text": "{actor.referee.first} yan hakeme bakiyor. Yan hakem bayragini kaldirmiyor, indirmiyor da.",
+      "outcomes": [
+        {
+          "target": "n_given",
+          "weight": {
+            "base": 22,
+            "modifiers": [
+              {
+                "flag": "medya_itibari",
+                "scale": 0.3
+              },
+              {
+                "flag": "liderlik",
+                "scale": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_denied",
+          "weight": {
+            "base": 65,
+            "modifiers": [
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.3
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_given": {
+      "title": "Gol",
+      "kind": "outcome",
+      "text": "Hakem orta noktayi gosteriyor.\n\nRakip savunma cileden cikiyor. {actor.opponent_keeper.name} topu yere firlatip ellerini havaya kaldiriyor.\n\nKale arkasi senin adini soyluyor. Sen ise hala emin degilsin ve bunu kimseye soylemeyeceksin.",
+      "onEnter": [
+        {
+          "op": "match",
+          "goals": 1,
+          "rating": 1.4,
+          "incident": "inc_ghost_goal"
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_denied": {
+      "title": "Verilmedi",
+      "kind": "outcome",
+      "text": "Devam.\n\nOn dakika sonra hala o topu dusunuyorsun ve o on dakikada iki pas hatasi yapiyorsun.\n\nMac sonu tekrar cikiyor: top tamamen gecmis. Sunucu guluyor ve baska konuya geciyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.6,
+          "incident": "inc_ghost_goal"
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -14
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "mem_media_war",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_keeper_asked": {
+      "title": "Kaleci biliyor",
+      "kind": "outcome",
+      "text": "{actor.opponent_keeper.name} sana bakiyor. Uzun bir saniye.\n\nSonra hakeme donuyor ve basini iki yana salliyor.\n\nGecmedi, diyor.\n\nBunun dogru olup olmadigini asla ogrenemeyeceksin. Ama mac sonunda formasini degistirmek icin sana geliyor ve sen formani veriyorsun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.3,
+          "incident": "inc_ghost_goal"
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "iliski_opponent_keeper",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "mem_saved_teammate",
+          "op": "set",
+          "value": false
+        }
+      ]
+    },
+    "n_played_on": {
+      "title": "Devam",
+      "kind": "outcome",
+      "text": "Donuyorsun ve kosmaya devam ediyorsun. Kimse itiraz etmedigi icin tribun de sesini kesiyor.\n\nDevre arasinda {actor.captain.name} soruyor: gecti mi?\n\nBilmiyorum, diyorsun.\n\nBiliyorsun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.2,
+          "incident": "inc_ghost_goal"
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -8
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    }
+  }
+}

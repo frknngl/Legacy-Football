@@ -1,0 +1,362 @@
+{
+  "id": "evt_dark_prosecutor_kirilma",
+  "family": "fam_dark_kirilma",
+  "category": "dark",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sorgu Odasındaki Yüzleşme",
+          "kind": "branch",
+          "text": "Odanın havası ağır, sigara dumanı ve rutubet karışımı bir koku genzini yakıyor. {actor.prosecutor.name} karşısında oturuyor, dosyayı masaya fırlatıyor. Çizgili kağıtlarda geçmişin tüm hataları, gizli transferler ve şaibeli görüşmelerin dökümü var. Yanında {actor.lawyer.name} ellerini birbirine kenetlemiş, gözlerini kaçırıyor. Kapı aralığında {actor.childhood_friend.name} belirdi; yüzünde her şeyi bilen, ürkütücü bir sessizlik var. Dışarıda taraftarın uğultusu duyuluyor ama burada zaman durmuş. {actor.prosecutor.name} öne eğiliyor, kalemi masaya bırakıyor. 'Seçimini yap,' diyor, sesi odadaki tek net ses. 'Ya bu dosyayı burada kapatırız, ya da ikimiz de aynı enkaza gömülürüz.'",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyadaki her şeyi imzala ve tüm suçlamaları kabul et. Kariyerin zedelense de temiz bir sayfa aç.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı yırt ve {actor.prosecutor.name} ile kozlarını paylaş. İhanetin bedelini ödetmek için sahaya geri dön.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "{actor.lawyer.name} ile göz göze gel. Sessiz kal ve istenen bedeli, el altından, bir daha asla geri dönemeyecek şekilde öde.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "{actor.prosecutor.name} ile pazarlık yap. Elindeki tüm gücü kullanarak sistemi kendi lehine yeniden kur.",
+              "target": "n_outcome_stat",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_prosecutor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İtiraf",
+          "kind": "outcome",
+          "text": "İmzan, geleceğinle beraber eski hayatını da mühürledi. Artık her şeyin bir bedeli olduğunu biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Savaş",
+          "kind": "outcome",
+          "text": "Kıvılcım çaktı. Artık geri dönüşü yok; sadece zafer ya da tam bir yıkım seni bekliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Zarf masanın altında yer değiştirdi. Vicdanın artık sadece bir ağırlık, aynadaki yabancı ise çoktan değişti.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Sistemin Hakimi",
+          "kind": "outcome",
+          "text": "Sorgu odasından çıkan kişi ile giren kişi aynı değil. Zirveye giden yolun artık neye mal olduğunu sadece sen biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Antrenman bitmiş, otopark sessizliğe gömülmüştü. Aracına yaklaşırken farların aydınlattığı köşede {actor.prosecutor.name} duruyor. Elinde bir anahtarlık, ritmik bir şekilde sallıyor. Yüzünde ne bir öfke ne de bir merhamet var. Sadece bekliyor. Aranızdaki mesafe, geçmişteki tüm imzasız kağıtların ağırlığını taşıyor. Kaçtığın o yüz, şimdi metalik soğuklukta sana bakıyor.",
+          "choices": [
+            {
+              "id": "c_greeed",
+              "text": "Cüzdanımdan bir miktar çıkarıp aracın kaputuna bırak. 'Bunu unut,' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_reckless",
+              "text": "Üzerine yürü. 'Buraya gelmeye cesaretin var mı gerçekten?' diye kükre.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "id": "c_safe",
+              "text": "Başını eğ ve tek kelime etmeden yanından geçip git.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "iliski_prosecutor",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_hard",
+              "text": "Yavaşça dur, gözlerine dik bak. 'Seni de o dosyaları da yakarım,' diye fısılda.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_prosecutor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Sokak İtibarı 80]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Parayı görünce omuzları düştü. Başını çevirdi, araba farları bir anlık kör edici bir ışıkla yüzünü taradı. Senden uzaklaşırken arkasında sadece lastik izi bıraktı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Açık Çatışma",
+          "kind": "outcome",
+          "text": "Gözlerinde gördüğün o anlık korku, bu geceyi kazanmanı sağladı. Ancak yarın sabah gazetelerde çıkacak manşetlerin soğukluğunu, şimdiden ensende hissedebiliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Görünmez Mesafe",
+          "kind": "outcome",
+          "text": "Seni izlediğini biliyorsun. Arabanın kapısını kilitlerken aynadan gördüğün tek şey, karanlıkta sönüp giden bir sigara ateşi. Doğru olanı yaptın, ama için soğumadı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Karanlık İttifak",
+          "kind": "outcome",
+          "text": "Sözlerin aranızdaki havayı kesti. Geri çekildi. Artık ikiniz de aynı bataklığın farklı kıyılarındasınız. Bu güç, üzerinde bir yük gibi ağırlaşmaya başladı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

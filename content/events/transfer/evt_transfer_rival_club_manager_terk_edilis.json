@@ -1,0 +1,375 @@
+{
+  "id": "evt_transfer_rival_club_manager_terk_edilis",
+  "family": "fam_transfer_terk_edilis",
+  "category": "transfer",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İmzaların Gölgesinde",
+          "kind": "branch",
+          "text": "Ofisin havası ağır. {actor.president.name} kapıyı sertçe kapatıp çıktı. Masanın öbür ucunda {actor.rival_club_manager.name} oturuyor. Gözlerinde ne bir zafer parıltısı var ne de merhamet. Sadece seninle olan o uzun geçmişin yarattığı soğuk bir mesafe. Önünde iki ayrı kontrat duruyor; biri ait olduğun yer, diğeri ise ihanetin başlangıcı. Kimse gelmeyecek. Destek beklediğin o sesler çoktan sustu. İmzayı bekliyor. Sessizlik, odadaki havayı tüketiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Reddet. Kulüp binasından sessizce çık ve bir sonraki antrenmana odaklan.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kontratı yırtıp at ve durumu basına sızdırarak tepkini göster.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kalemi al, rakamları kontrol et ve suskunluğunu bozmadan imzayı at.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Gözlerinin içine bakarak teklifi müzakere et; şartları kendi lehine çevir.",
+              "target": "n_outcome_leadership",
+              "effects": [
+                {
+                  "flag": "iliski_rival_club_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Sessiz Bir Ayrılış",
+          "kind": "outcome",
+          "text": "Arkanı dönüp çıktığında {actor.rival_club_manager.name}’in arkandan attığı bakışı hissedebiliyorsun. Profesyonelce, ama içi boş.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Köprüleri Yakmak",
+          "kind": "outcome",
+          "text": "Kağıtlar yere saçıldı. {actor.rival_club_manager.name} yerinden bile kıpırdamadı. Bu meydan okuma, şehrin sokaklarında yankılanacak bir fırtınanın fitilini ateşledi.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Bedeli Ödenmiş Bir Karar",
+          "kind": "outcome",
+          "text": "Kalem ucunun kağıt üzerindeki sürtünme sesi odada yankılandı. {actor.rival_club_manager.name} rahatladı. Artık sadece bir rakamsın.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_leadership": {
+          "title": "Yeni Şartlar",
+          "kind": "outcome",
+          "text": "Sesin titretmedi, masaya vurduğun elin tüm odayı hizaya getirdi. {actor.rival_club_manager.name} ilk defa geri adım atıyor. İmzayı attın ama zihnin artık yorgun.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_cenaze",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Çay Bardağı",
+          "kind": "branch",
+          "text": "Cenaze. Ortak bir tanıdık; ikinizin de ilk hocası.\n\nAvluda uzun masalar, plastik sandalyeler, herkesin elinde bir çay bardağı. Kimse futbol konuşmuyor çünkü konuşulmaz.\n\n{actor.rival_club_manager.name} yanına oturuyor. Taziyeni alıyor, kendi taziyesini veriyor. İki dakika hava, bir dakika merhum.\n\nSonra, bardağını masaya bırakırken, sesini hiç değiştirmeden:\n\n\"Ocakta ara beni.\"\n\nHepsi bu. Kâğıt yok, rakam yok, teklif bile denemez. Ayağa kalkıp başka bir masaya geçiyor.\n\nÜç sandalye ötede kulübünün sportif direktörü oturuyor ve bu tarafa bakmadı — ya da baktı.",
+          "choices": [
+            {
+              "id": "c_duymadim",
+              "text": "Duymamış gibi yap. Çayını bitir, kalk, kimseyle konuşma.",
+              "target": "n_duymadim",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -11
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_pesinden",
+              "text": "Peşinden git. \"Bugün mü?\" de. Sadece bunu.",
+              "target": "n_pesinden",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "iliski_rival_club_manager",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10,
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_direktore",
+              "text": "Üç sandalye öteye geç. Direktörüne kendin anlat.",
+              "target": "n_direktore",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 16
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -40000
+                },
+                {
+                  "flag": "iliski_rival_club_manager",
+                  "op": "add",
+                  "value": -18
+                }
+              ],
+              "persona": {
+                "sadakat": 11
+              }
+            },
+            {
+              "id": "c_numarayi_al",
+              "text": "Hiçbir şey yapma. Ocakta ara.",
+              "target": "n_numarayi_al",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "sadakat": -9
+              }
+            }
+          ]
+        },
+        "n_duymadim": {
+          "title": "Soğuyan Çay",
+          "kind": "outcome",
+          "text": "Bardağı bitirdin. Sıcaktı, sonra ılıktı, sonra bitti.\n\nOcak geldi ve geçti. Aramadın.\n\nMart'ta {actor.rival_club_manager.name} başka birini aldı — senin mevkine, senden üç yaş genç. Basın \"bütçe\" yazdı.\n\nO cenazede kimse futbol konuşmadı. Sen de konuşmadın. En azından bunu söyleyebiliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_pesinden": {
+          "title": "Bugün mü",
+          "kind": "outcome",
+          "text": "Avlunun ortasında yetiştin ona. \"Bugün mü?\"\n\nDurdu. Sana baktı. İlk kez o gün, gözlerinde bir şey vardı — utanç değildi, ona benzeyen başka bir şeydi.\n\n\"Haklısın,\" dedi. Ve gitti.\n\nOcakta aramadı. Bir daha da hiç aramadı. Kazandığın şeyin adını koyamıyorsun ama bir şey kazandın.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_direktore": {
+          "title": "Üç Sandalye",
+          "kind": "outcome",
+          "text": "Kalktın, üç sandalye ötesine oturdun ve anlattın. Cenazede, fısıltıyla, on beş saniyede.\n\n{actor.sporting_director.name} başını salladı. \"Sağ ol,\" dedi.\n\nO sağ ol sana bir sözleşme kazandırmadı — hatta ocak ayındaki zammı geciktirdi, çünkü artık gitmeyeceğini biliyorlardı.\n\nSadakatin fiyatı vardır ve faturayı sana kimse göstermez.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_numarayi_al": {
+          "title": "Ocak",
+          "kind": "outcome",
+          "text": "Hiçbir şey yapmadın. Cenazeden çıktın, eve gittin, uyudun.\n\nOcak ayının ilk günü telefonu eline aldın ve on dakika ekrana baktın.\n\nAradın.\n\nO konuşma dört dakika sürdü ve o dört dakikanın içinde, bir cenazede söylenmiş üç kelimenin nasıl bir tohum olduğunu anladın.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

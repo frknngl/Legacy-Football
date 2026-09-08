@@ -1,0 +1,160 @@
+{
+  "id": "evt_fandom_fan_leader_maske_dusmesi_suspended",
+  "family": "fam_fandom_maske_dusmesi",
+  "category": "fandom",
+  "tier": "minor",
+  "weight": 5,
+  "cooldown": {
+    "self": 20,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "suspended"
+  ],
+  "trigger": {
+    "flag": "mem_fandom_maske_dusmesi_fan_leader",
+    "op": "isSet",
+    "value": false
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Odadaki Yüzleşme",
+      "kind": "branch",
+      "text": "Stadyumun zemin katındaki depo odası. Floresan lamba titriyor, havada nemli beton ve ucuz tütün kokusu var. {actor.fan_leader.name} masanın üzerine bir dosya bırakıyor; içinde yasaklı günlerdeki görüşmelerin fotoğrafları var. {actor.pundit.name} odanın köşesinde, elinde telefonuyla bekliyor. {actor.fan_leader.name} yüzündeki o bildik, sert maskeyi indirdi. Gözleri yorgun, elleri titriyor. Sessizlik, bir mahkeme kararı gibi odanın içine çökmüş durumda. Dışarıda taraftarın sana duyduğu o körü körüne bağlılığın yavaş yavaş nasıl bir nefrete dönüşebileceğini görebiliyorsun.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Dosyayı {actor.pundit.name}’e uzat. Kamuoyuna her şeyi açıkla, en azından dürüstlüğünle temiz kal.",
+          "target": "n_sonuc_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Masadakileri {actor.fan_leader.name}’in gözlerinin içine bakarak yırt. Sokaktaki çocuklara sadık kal.",
+          "target": "n_sonuc_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 7
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Dosya için istenen miktarı masaya bırak. {actor.pundit.name}’in sessiz kalması için yeni bir anlaşma yap.",
+          "target": "n_sonuc_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_sonuc_guvenli": {
+      "title": "İtiraflar ve Kaybedilenler",
+      "kind": "outcome",
+      "text": "Sözlerin yayınlandığında stadyum tribünlerinin seni nasıl yuhaladığını duyabiliyorsun. Medya seni alkışlıyor ama soyunma odasına döndüğünde artık yalnızsın.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_riskli": {
+      "title": "Sokakların Sadakati",
+      "kind": "outcome",
+      "text": "Görüntüler silindi ama yalanların yarattığı ağırlık göğsünde. Tribünler senin arkanda, ancak federasyonun sana biçtiği ceza süresi iki katına çıkıyor.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_gri": {
+      "title": "Pahalı Bir Sessizlik",
+      "kind": "outcome",
+      "text": "Banka hesabın kabardı, {actor.pundit.name} memnun. Ancak aynaya her baktığında, o gece odada saklanan diğer yüzünü görüyorsun.",
+      "onEnter": [
+        {
+          "flag": "mem_fandom_maske_dusmesi_fan_leader",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

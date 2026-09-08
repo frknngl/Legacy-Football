@@ -1,0 +1,192 @@
+{
+  "id": "evt_match_substituted_off",
+  "family": "fam_match_bench",
+  "category": "match",
+  "tier": "minor",
+  "momentType": "substituted_off",
+  "weight": 15,
+  "cooldown": {
+    "self": 9,
+    "family": 4
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dorduncu hakem",
+      "kind": "branch",
+      "text": "{minute}. dakika, skor {scoreline}. Dorduncu hakem tabelayi kaldiriyor ve uzerinde senin numaran var.\n\nKotu oynamadin. Iyi de oynamadin.\n\n{actor.manager.name} sana bakmiyor bile; kollarini kavusturmus sahaya bakiyor.\n\nYerini alacak cocuk cizgide sicriyor. On dokuz yasinda ve senin gozune bakamiyor.",
+      "choices": [
+        {
+          "id": "c_clap",
+          "text": "Cikarken cocugun eline vur. Sonra hocanin yanina otur.",
+          "effects": [
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "target": "n_clapped",
+          "persona": {
+            "sadakat": 7,
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_shirt",
+          "text": "Formani cikar ve yere at. Kamera zaten sende.",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "target": "n_threw",
+          "persona": {
+            "mizac": 12,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_slow",
+          "text": "Yavas yuru. Cok yavas. Otuz saniye kazandir.",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "target": "n_slow",
+          "persona": {
+            "mizac": 6,
+            "sadakat": 5
+          }
+        }
+      ]
+    },
+    "n_clapped": {
+      "title": "El teması",
+      "kind": "outcome",
+      "text": "Cocugun eline vurup geciyorsun. O sana bir sey soylemek istiyor ama beceremiyor.\n\nYedek kulubesinde {actor.manager.name} bir sure sonra yanina oturuyor: bugun kotu degildin, diyor. Sadece bugun onun gunuydu.\n\nBu, ozur degil. Ama en yakin seyi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.2,
+          "incident": "inc_substituted_angry"
+        },
+        {
+          "flag": "npc_youngster_arc",
+          "op": "add",
+          "value": 1
+        },
+        {
+          "flag": "mem_saved_teammate",
+          "op": "set",
+          "value": false
+        }
+      ]
+    },
+    "n_threw": {
+      "title": "Yere",
+      "kind": "outcome",
+      "text": "Forma yerde. Kamera once formaya, sonra {actor.manager.name} yuzune gidiyor. Adam kipirdamiyor.\n\nMac sonu aciklama yapmasi gerekiyor ve yapiyor: takim ici mesele.\n\nSali gunu antrenmanda ilk on birde yoksun ve nedenini soran olmuyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.9,
+          "incident": "inc_substituted_angry"
+        },
+        {
+          "op": "lifeState",
+          "to": "transfer_listed",
+          "forTurns": 2
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 25
+        },
+        {
+          "flag": "mem_fought_coach",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_slow": {
+      "title": "Otuz saniye",
+      "kind": "outcome",
+      "text": "Cok yavas yuruyorsun. Tribun ne yaptigini anliyor ve alkislamaya basliyor.\n\n{actor.referee.name} sari kart gosteriyor: oyunu geciktirmek.\n\nSkoru koruyorsunuz. {actor.captain.name} mac sonunda tek kelime soyluyor: iyiydi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": 0.3,
+          "incident": "inc_substituted_angry"
+        },
+        {
+          "flag": "iliski_captain",
+          "op": "add",
+          "value": 8
+        },
+        {
+          "flag": "disiplin_sicili",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    }
+  }
+}

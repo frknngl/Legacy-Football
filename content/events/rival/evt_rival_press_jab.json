@@ -1,0 +1,67 @@
+{
+  "id": "evt_rival_press_jab",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 8 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Adini anmadan",
+      "kind": "branch",
+      "text": "Roportajda adini bir kez bile anmiyor.\n\n\"Bazi oyuncular yetenekle dogar,\" diyor {actor.nemesis.name}. \"Bazilari da yetenegin yerine ses koyar. Kimi kastettigimi soylemeyecegim.\"\n\nBir saat icinde herkes kimi kastettigini biliyor.\n\n{actor.journalist.name} arayip yorumunu istiyor. {actor.agent.name} \"sakin ol\" mesaji atiyor. {actor.pundit.name} aksam programinda bunu tartisacak ve senin susmani korkakliga yoracak.\n\nMikrofon on dakika sonra onunde olacak. Ne diyecegini simdi secmen gerekiyor.",
+      "choices": [
+        {
+          "id": "c_return_fire",
+          "text": "Ayni dille cevap ver. Sen de adini anma.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 3 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -15 },
+            { "flag": "medya_baskisi", "op": "add", "value": 15 },
+            { "flag": "sokak_itibari", "op": "add", "value": 12 },
+            { "flag": "mem_media_war", "op": "set", "value": true }
+          ],
+          "persona": { "durus": 9, "mizac": 7 }
+        },
+        {
+          "id": "c_praise",
+          "text": "Onu ov. Sicak suyla soner.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 3 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 15 },
+            { "flag": "medya_itibari", "op": "add", "value": 12 },
+            { "flag": "sokak_itibari", "op": "add", "value": -8 }
+          ],
+          "persona": { "mizac": -8, "dogruluk": 5 }
+        },
+        {
+          "id": "c_silence",
+          "text": "Mikrofonu es gec. Cevap vermemek de cevaptir.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 3 },
+            { "flag": "medya_baskisi", "op": "add", "value": 10 },
+            { "flag": "mental_dayaniklilik", "op": "add", "value": 8 },
+            { "flag": "iliski_basin", "op": "add", "value": -10 }
+          ],
+          "persona": { "mizac": -6, "durus": -5 }
+        },
+        {
+          "id": "c_pitch",
+          "text": "\"Cevabimi pazar gunu, ayni sahada veririm.\"",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 3 },
+            { "flag": "taraftar_destegi", "op": "add", "value": 18 },
+            { "flag": "medya_itibari", "op": "add", "value": 8 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -5 },
+            { "flag": "npc_journalist_arc", "op": "add", "value": 1 }
+          ],
+          "persona": { "durus": 7, "mizac": 3 }
+        }
+      ]
+    }
+  }
+}

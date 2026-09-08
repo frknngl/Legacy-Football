@@ -1,0 +1,69 @@
+{
+  "id": "evt_rival_first_derby",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 8 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ilk gercek karsilasma",
+      "kind": "branch",
+      "text": "Bu sefer tribunde otuz kisi yok.\n\n{actor.nemesis.name} artik {actor.nemesis.club} formasi giyiyor ve tunelde tam arkanda duruyor. Nefesini duyuyorsun. Bir sey soylemiyor.\n\nYirmi ikinci dakikada topu ikiniz de kovaliyorsunuz. Ona ulasmak icin ayagini uzatmak zorunda degilsin ama uzatabilirsin; hakemin acisi kapali.\n\nUzatirsan onu bir ay sahadan alirsin ve kimse bunu goremez.\n\nUzatmazsan topu o alir ve bu maci o kazanir.\n\nIki saniyen var.",
+      "choices": [
+        {
+          "id": "c_leg",
+          "text": "Uzat. Kimse gormuyor.",
+          "effects": [
+            { "flag": "iliski_nemesis", "op": "add", "value": -25 },
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 2 },
+            { "flag": "disiplin_sicili", "op": "add", "value": 10 },
+            { "flag": "sokak_itibari", "op": "add", "value": 10 },
+            { "flag": "mem_rival_humiliated", "op": "set", "value": true }
+          ],
+          "persona": { "dogruluk": -10, "mizac": 8 }
+        },
+        {
+          "id": "c_clean",
+          "text": "Cek ayagini. Onu topla, ayakla degil.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 2 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 8 },
+            { "flag": "profesyonellik", "op": "add", "value": 8 },
+            { "flag": "form", "op": "add", "value": -4 }
+          ],
+          "persona": { "dogruluk": 9 }
+        },
+        {
+          "id": "c_shoulder",
+          "text": "Omuzla. Sert ama temiz.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 2 },
+            { "flag": "fizik", "op": "add", "value": 4 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -8 },
+            { "flag": "taraftar_destegi", "op": "add", "value": 10 }
+          ],
+          "persona": { "mizac": 6, "durus": 4 }
+        },
+        {
+          "id": "c_outplay",
+          "text": "Topu birak, adami birak. Sonraki topta onu utandir.",
+          "requires": { "flag": "teknik", "op": "gte", "value": 60 },
+          "lockLabel": "[Teknik 60]",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 2 },
+            { "flag": "teknik", "op": "add", "value": 5 },
+            { "flag": "taraftar_destegi", "op": "add", "value": 15 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -12 },
+            { "flag": "mem_rival_humiliated", "op": "set", "value": true }
+          ],
+          "persona": { "durus": 8, "mizac": 4 }
+        }
+      ]
+    }
+  }
+}

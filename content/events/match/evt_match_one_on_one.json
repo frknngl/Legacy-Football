@@ -1,0 +1,488 @@
+{
+  "id": "evt_match_one_on_one",
+  "family": "fam_match_chance",
+  "category": "match",
+  "tier": "major",
+  "momentType": "one_on_one",
+  "weight": 20,
+  "cooldown": {
+    "self": 7,
+    "family": 4
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kaleciyle baş başa",
+      "kind": "branch",
+      "text": "{minute}. dakika. {opponent} savunması bir anlığına açıldı ve sen o boşluğun içindesin. Skor {scoreline}. Kaleci çıkıyor, gövdesini büyütüyor, ellerini açıyor.\n\nSol tarafta {actor.captain.name} koşuyor ve bağırıyor; sesini duymuyorsun ama ne dediğini biliyorsun. Sağda kimse yok. Arkanda bir defans ayağını uzatmış geliyor.\n\nHer şey yarım saniye.",
+      "choices": [
+        {
+          "id": "c_shoot",
+          "text": "Vur. Düşünmeyi bırak, sadece vur.",
+          "target": "n_roll_shot",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "mizac": 4
+          }
+        },
+        {
+          "id": "c_pass",
+          "text": "{actor.captain.first:dat} çıkar. Boş kale onun önünde.",
+          "target": "n_roll_pass",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "sadakat": 6,
+            "mizac": -4
+          }
+        },
+        {
+          "id": "c_dribble",
+          "text": "Kaleciyi çalımla. Ağlara yürüyerek gir.",
+          "target": "n_roll_dribble",
+          "requires": {
+            "flag": "teknik",
+            "op": "gte",
+            "value": 72
+          },
+          "lockLabel": "[Teknik 72]",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -7
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "mizac": 7,
+            "durus": 4
+          }
+        },
+        {
+          "id": "c_win_foul",
+          "text": "Temas var. Kendini bırak, penaltı ver.",
+          "target": "n_roll_dive",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "dogruluk": -9,
+            "mizac": 3
+          }
+        }
+      ]
+    },
+    "n_roll_shot": {
+      "title": "Ayak",
+      "kind": "roll",
+      "text": "Ayağın topun altına giriyor. Kalecinin dizleri kilitleniyor.",
+      "outcomes": [
+        {
+          "target": "n_scored",
+          "weight": {
+            "base": 30,
+            "modifiers": [
+              {
+                "flag": "teknik",
+                "scale": 0.55
+              },
+              {
+                "flag": "form",
+                "scale": 0.25
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_saved",
+          "weight": {
+            "base": 50,
+            "modifiers": [
+              {
+                "flag": "teknik",
+                "scale": -0.3
+              },
+              {
+                "flag": "medya_baskisi",
+                "scale": 0.2
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_roll_pass": {
+      "title": "Pas",
+      "kind": "roll",
+      "text": "Topu içeri çeviriyorsun. {actor.captain.first} geliyor. Tribün nefesini tutuyor.",
+      "outcomes": [
+        {
+          "target": "n_assist",
+          "weight": {
+            "base": 55,
+            "modifiers": [
+              {
+                "flag": "iliski_takim",
+                "scale": 0.3
+              },
+              {
+                "flag": "teknik",
+                "scale": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_pass_wasted",
+          "weight": {
+            "base": 30,
+            "modifiers": [
+              {
+                "flag": "teknik",
+                "scale": -0.15
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_roll_dribble": {
+      "title": "Omuz",
+      "kind": "roll",
+      "text": "Omzunu sağa atıyorsun. Kaleci yutuyor. Ya da yutmuyor.",
+      "outcomes": [
+        {
+          "target": "n_scored_style",
+          "weight": {
+            "base": 20,
+            "modifiers": [
+              {
+                "flag": "teknik",
+                "scale": 0.65
+              },
+              {
+                "flag": "persona_mizac",
+                "scale": 0.15
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_saved",
+          "weight": {
+            "base": 55,
+            "modifiers": [
+              {
+                "flag": "teknik",
+                "scale": -0.25
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_roll_dive": {
+      "title": "Düşüş",
+      "kind": "roll",
+      "text": "Ayağını uzatıyorsun, teması arıyorsun, kendini bırakıyorsun. Hakem koşarak geliyor.",
+      "outcomes": [
+        {
+          "target": "n_dive_won",
+          "weight": {
+            "base": 40,
+            "modifiers": [
+              {
+                "flag": "medya_itibari",
+                "scale": 0.25
+              },
+              {
+                "flag": "disiplin_sicili",
+                "scale": -0.4
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_dive_caught",
+          "weight": {
+            "base": 45,
+            "modifiers": [
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_scored": {
+      "title": "İçeri",
+      "kind": "outcome",
+      "text": "Top kalecinin bacaklarının arasından geçiyor ve içeri gidiyor. Sevinmiyorsun bile — sadece dönüp orta yuvarlağa koşuyorsun. {actor.captain.first} arkandan yetişip ensene vuruyor: \"Bir dahakine bana çıkar.\" Gülüyor. Yarısı şaka.",
+      "onEnter": [
+        {
+          "op": "match",
+          "goals": 1,
+          "rating": 1.3,
+          "incident": "inc_scored_winner"
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 7
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": -6
+        }
+      ]
+    },
+    "n_scored_style": {
+      "title": "Yürüyerek",
+      "kind": "outcome",
+      "text": "Kaleci yere yatıyor ve sen topu yanından geçiriyorsun. Boş kaleye yürüyerek gidiyorsun. Bir saniye durup topa bakıyorsun, sonra içeri itiyorsun.\n\n{actor.manager.name} kenarda ellerini beline koymuş. Golü beğendi. Bir saniye fazla beklemeni beğenmedi. İkisini de sana söyleyecek.",
+      "onEnter": [
+        {
+          "op": "match",
+          "goals": 1,
+          "rating": 1.8,
+          "incident": "inc_scored_winner"
+        },
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "sosyal_medya_takipci",
+          "op": "add",
+          "value": 40000
+        },
+        {
+          "flag": "iliski_manager",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_saved": {
+      "title": "Ayak ucu",
+      "kind": "outcome",
+      "text": "Kalecinin ayak ucu. Top korner çizgisine gidiyor ve stadyum aynı anda iç çekiyor. Ellerini dizlerine koyup yere bakıyorsun. Kimse bir şey söylemiyor; söylememeleri daha kötü.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -1,
+          "incident": "inc_missed_sitter"
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_assist": {
+      "title": "Asist",
+      "kind": "outcome",
+      "text": "{actor.captain.first} boş kaleye gönderiyor ve dönüp seni arıyor. Kaptanlık pazubandını gösteriyor, sonra sana. Ne demek istediğini anlıyorsun.\n\nTribün onun adını söylüyor. Bu doğru olan şeydi ve bunun hiç kimse tarafından hatırlanmayacağını da biliyorsun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "assists": 1,
+          "rating": 0.9,
+          "incident": "inc_saved_point"
+        },
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": 8
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 1
+        },
+        {
+          "flag": "mem_saved_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_pass_wasted": {
+      "title": "Yarım saniye geç",
+      "kind": "outcome",
+      "text": "Pas yarım saniye geç çıkıyor. Defans araya giriyor. {actor.captain.first} ellerini havaya kaldırıp \"neden\" diye bağırıyor — sana değil, kendine.\n\nAma kamera seni gösteriyor ve akşam bu görüntünün altında \"cesaret edemedi\" yazacak.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.7,
+          "incident": "inc_missed_sitter"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "iliski_captain",
+          "op": "add",
+          "value": 4
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -6
+        }
+      ]
+    },
+    "n_dive_won": {
+      "title": "Nokta",
+      "kind": "outcome",
+      "text": "Hakem noktayı gösteriyor. Kaleci deliriyor, {opponent} oyuncuları etrafını sarıyor, sen ayağa kalkıp elini kolunu silkeliyorsun.\n\nKendini iyi hissetmiyorsun. Ama skor tabelası duyguları saymıyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.5,
+          "incident": "inc_dived"
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 5
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -8
+        }
+      ]
+    },
+    "n_dive_caught": {
+      "title": "Sarı",
+      "kind": "outcome",
+      "text": "Hakem elini cebine götürüyor ve sana sarı kart gösteriyor. \"Kalk,\" diyor, \"kalk ve bir daha yapma.\"\n\nKaleci gülüyor. {opponent} tribünü ıslık çalıyor. Kendi taraftarın da susuyor ve bu en ağırı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": -1.2,
+          "incident": "inc_dived"
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -15
+        },
+        {
+          "flag": "disiplin_sicili",
+          "op": "add",
+          "value": 6
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 15
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -6
+        }
+      ]
+    }
+  }
+}

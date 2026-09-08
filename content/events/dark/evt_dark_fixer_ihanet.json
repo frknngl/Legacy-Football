@@ -1,0 +1,388 @@
+{
+  "id": "evt_dark_fixer_ihanet",
+  "family": "fam_dark_ihanet",
+  "category": "dark",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kırılma Noktası",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş, otoparkta sadece tek bir aracın farları yanıyor. {actor.fixer.name}, elindeki dosyayı kaputun üzerine bırakıyor. {actor.childhood_friend.name}, arabanın gölgesinde hareketsiz duruyor. Dosyada takımın hafta sonu oynayacağı maçın şifreli konuşmaları, gizli bahis oranları ve senin imzanın taklit edildiği o sözleşme var. {actor.fixer.name} sessizliği bozuyor: 'Bu dosyayı yarın federasyona teslim etmemi istemiyorsan, bu gece bir seçim yapmalısın. Ya arkadaşın gidecek ya da kariyerin.' {actor.childhood_friend.name} başını kaldırıyor, gözlerinde korku değil, bir kabulleniş var. Sessizlik ağır, betonun soğukluğu teni yakıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı al ve arkadaşını emniyete yönlendir. Kendi temizliğin her şeyden önemli.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı yırt, arkadaşının omzuna elini koy ve oradan uzaklaş. Her şeyi onlar halletsin.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "{actor.fixer.name} ile masaya otur. Paranın bir kısmını bırak, ikisi de sessiz kalsın.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "İkisinin de gözlerinin içine bak, dosyayı geri al ve {actor.fixer.name} üzerinden baskı kurarak durumu lehine çevir.",
+              "target": "n_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Yalnızlaşmak",
+          "kind": "outcome",
+          "text": "Arabanın kapısı kapandı. Arkadan gelen siren sesleri, bir dostluğun bittiğinin resmî kanıtı gibi yankılandı. Artık daha temizsin, ama sahada yanında duracak kimsen kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Karanlık Sadakat",
+          "kind": "outcome",
+          "text": "Dosya asfaltın üzerinde parçalandı. {actor.fixer.name} hafifçe gülümsedi. Artık bir bağın var, ama bu bağın boğazını ne zaman sıkacağını bilmiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş",
+          "kind": "outcome",
+          "text": "Zarf el değiştirdi. Banka hesabındaki artış, ruhundaki boşluğu doldurmadı. Artık herkesin bir fiyatı olduğunu biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_liderlik": {
+          "title": "Kontrol Sende",
+          "kind": "outcome",
+          "text": "Sesin o kadar netti ki, {actor.fixer.name} geri adım attı. Dosyayı aldın ama o anın yarattığı zihinsel yorgunluk, sahaya taşıyacağın bir yüke dönüştü.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Trenin Sesi",
+          "kind": "branch",
+          "text": "Tren istasyonunun ıssız peronundayız. {actor.fixer.name}, beton bankta tek başına oturuyor. Önündeki boş bira kutusu rüzgarla metalik bir ses çıkararak raylara doğru yuvarlanıyor. Elinde, üzerinde hiçbir yazı olmayan kalın bir zarf duruyor. Uzaktan gelen trenin uğultusu geceyi yırtıyor. {actor.fixer.name}, bakışlarını raylardan ayırmadan zarfı yanına bırakıyor. 'İnanmak bir seçim, ben ise sadece bir muhasebeciyim,' diyor. Sesinde ne bir tehdit var ne de bir merhamet. Sadece yorgunluk. Karar vermen için raylardan gelen ışıkların platformu aydınlatması yetecek.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı almadan geri çekil, bu hikayenin dışında kal.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı elinin tersiyle raylara doğru it, sessizliğini boz.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı ceketinin iç cebine yerleştir, arkana bakmadan yürü.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Zarfı aç, içindeki notu okurken ona doğrudan meydan oku.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Zihinsel Dayanıklılık 80]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Gölgede Kalmak",
+          "kind": "outcome",
+          "text": "Tren durduğunda içeri biniyorsun. {actor.fixer.name} zarfı alıp karanlıkta kayboluyor. Kendi adın temiz, ama içinin bir yerleri artık eksik.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Köprüleri Yakmak",
+          "kind": "outcome",
+          "text": "Zarf metal rayların arasında parçalanıyor. {actor.fixer.name} sadece başını sallıyor, bu bir savaş ilanı. Yarın manşetlerde adın farklı geçecek.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Cebindeki ağırlık tüm yürüyüşünü değiştiriyor. Artık o da, sen de birbirinizin tek sırdaşısınız. Bu parayla başka bir hayat satın alabilirsin, ama asla uyuyamazsın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Göz Göze",
+          "kind": "outcome",
+          "text": "Kağıdı okuyorsun. Birbirinize bakıyorsunuz. {actor.fixer.name} ilk defa gülümsüyor, ama bu bir zafer gülümsemesi değil. İkiniz de artık aynı çamurun içindesiniz.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,336 @@
+{
+  "id": "evt_fandom_fan_leader_taninma",
+  "family": "fam_fandom_taninma",
+  "category": "fandom",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "suspended"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tribünlerin Gözü",
+          "kind": "branch",
+          "text": "Antrenman sahasının dışındaki demir parmaklıklar ardında hava ağır. {actor.fan_leader.name} elinde bir paketle bekliyor. Kapıdan çıkmanı sessizce izlemiş, sadece başını eğmiş. Gözlerinde ne bir öfke var ne de bir beklenti. Sadece seni tanıyor. Yıllardır görmezden geldiğin, ismini bile ezbere bilmediğin o adam, senin bir futbolcudan fazlası olduğunu biliyor. Cebindeki sigarayı çıkarıp yakıyor, dumanı soğuk havaya karışıyor. Sana doğru bir adım atıyor. O an, sahada kazandığın kupalardan daha ağır bir sessizlik çöküyor. Seni ilk kez bir vitrin mankeni olarak değil, bir insan olarak görüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğip yanından geç, sadece profesyonel bir selam ver.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dur ve {actor.fan_leader.name} ile yan yana oturup dertleş.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Sana uzattığı zarfı al, sessizce cebine koy.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Kendi hikayeni ona anlat, kırgınlıkları birlikte sarın.",
+              "target": "n_outcome_lider",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 3
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk Mesafe",
+          "kind": "outcome",
+          "text": "Mesafe seni korudu ama o anki o 'görülme' hissi sonsuza dek kayboldu. Artık sadece bir yabancısın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Sokakların Dili",
+          "kind": "outcome",
+          "text": "Tribün artık seni sahipleniyor. Medya bunu bir 'kirlenme' olarak görecek ama sen gerçek bir bağ kurdun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Zarf ağır, vicdanın daha ağır. Bu para sana konfor getirecek ama aynadaki aksin artık daha silik.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lider": {
+          "title": "Omuz Omuza",
+          "kind": "outcome",
+          "text": "Saha içindeki masken düştü. Yorgunsun ama {actor.fan_leader.name} sayesinde içindeki o kavgayı ilk kez birisi anladı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkında Yüzleşme",
+          "kind": "branch",
+          "text": "Otoparkın en karanlık köşesinde, motor kaputunun üzerinde bir parlama var. {actor.fan_leader.name} arkası dönük duruyor, elleri titreyerek bir metal kutunun içinde sigara arıyor. Yüzündeki o meşhur, boyalı maske yere düşmüş. Yanındaki çöp kutusuna sızan yağmur suyuyla bulanıyor. Ayak seslerini duyunca arkasına bakmıyor bile; sadece omuzları çöküyor. Seni izlediğini bildiği o büyük, yapay kahraman imajı tamamen parçalandı. Şimdi sadece titreyen, yorgun bir yabancı var karşında.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Sessizce yanından geçip git. Gördüğünü unut.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Maskeyi yerden alıp ona uzat. \"Bu sana yakışıyor,\" de.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gray",
+              "text": "Cüzdanından bir miktar para çıkarıp metal kutusuna bırak. \"Herkesin bir fiyatı var,\" diye fısılda.",
+              "target": "n_outcome_gray",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 1000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Görmezden Gelmek",
+          "kind": "outcome",
+          "text": "Sadece başını öne eğip yürümeye devam ediyorsun. Arkandan gelen tek ses, bir çakmağın defalarca çakılma sesi. Olanları hafızandan siliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Döngüyü Sürdürmek",
+          "kind": "outcome",
+          "text": "Maskeyi alıp ellerine bırakıyorsun. {actor.fan_leader.name} yüzüne bakmıyor, titreyen parmaklarla maskeyi tekrar yüzüne kapatıyor. İkiniz de bu oyunun bir parçası olduğunuzu onaylıyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gray": {
+          "title": "İlişkiyi Satın Almak",
+          "kind": "outcome",
+          "text": "Para, yere düşen maskenin yanındaki çamurlu kutuya giriyor. {actor.fan_leader.name} paraya dokunmuyor, sadece sana bakıp gülümsüyor. Bu, bir bağlılık değil, bir suç ortaklığı antlaşması.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

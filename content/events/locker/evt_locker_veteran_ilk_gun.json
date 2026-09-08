@@ -1,0 +1,368 @@
+{
+  "id": "evt_locker_veteran_ilk_gun",
+  "family": "fam_locker_ilk_gun",
+  "category": "locker",
+  "tier": "major",
+  "weight": 90,
+  "cooldown": {
+    "self": 40,
+    "family": 12
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "_statureNote": "Hero DINLEYEN taraf: kidemli oyuncu ona yer gosteriyor. Soyunma odasi iceriginin tamami kidemli agzindan yaziliydi ve dogru kapilandiginda caylak icin bu kategori TAMAMEN bosaldi (olculdu: 0 olay). Bu sahne o boslugu caylagin kendi agziyla dolduruyor.",
+  "lifeStates": [
+    "playing",
+    "loaned"
+  ],
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Dolabın Yeri",
+          "kind": "branch",
+          "text": "Soyunma odasında sana ayrılan dolap kapının hemen yanında. Girenin çıkanın omzunu sürttüğü yer. İçeride kimse sana nerede oturacağını söylemedi; sadece çantanı oraya bıraktılar.\n\n{actor.veteran.name} odanın diğer ucunda, pencerenin önündeki köşede. On dört yıldır aynı dolap. Bandajını sararken başını kaldırmadan konuşuyor: \"Kapının yanı iyidir. Erken çıkarsın.\"\n\nOdadaki üç kişi gülüyor. Gülüşün nereye düştüğü belli. {actor.veteran.first} hâlâ bandajıyla meşgul, ama bekliyor. Bir şey söylemeni değil, ne yapacağını.",
+          "choices": [
+            {
+              "id": "c_sessiz",
+              "text": "Hiçbir şey söyleme. Çantanı aç, formanı çıkar, sahaya ilk sen in.",
+              "target": "n_sessiz",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "mem_locker_sessiz_basladi",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "durus": -6,
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_karsilik",
+              "text": "\"Erken çıkmayı sevmem. Geç çıkarım, siz gidince.\" Gözünü kaçırma.",
+              "target": "n_karsilik",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "mem_locker_karsilik_verdi",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "durus": 9,
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_soru",
+              "text": "Yanına git. \"Pencere kenarı kaç yıl sürüyor?\" diye sor.",
+              "target": "n_soru",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "npc_veteran_arc",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "mem_locker_veteran_sordu",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "durus": 3,
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_sert",
+              "text": "Çantanı al, pencerenin önündeki boş dolaba geç. Kimseye sormadan.",
+              "target": "n_sert",
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Sokak itibari 70]",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 16
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "mem_locker_yer_kapti",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "mizac": 12,
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_sessiz": {
+          "title": "Kapının Yanı",
+          "kind": "outcome",
+          "text": "Formanı giyip çıkıyorsun. Arkanda kimse konuşmuyor.\n\nBir hafta sonra kapının yanındaki dolabın avantajını öğreniyorsun: kimse sana bir şey sormuyor, kimse senden bir şey beklemiyor. Sahada koştuğun kadar varsın.\n\n{actor.veteran.name} bir kez, koridorda geçerken başını hafifçe sallıyor. O kadar."
+        },
+        "n_karsilik": {
+          "title": "Geç Çıkan",
+          "kind": "outcome",
+          "text": "Oda bir an sessizleşiyor. {actor.veteran.first} bandajı bırakıyor, sana bakıyor. Uzun bakıyor.\n\n\"Peki,\" diyor sonunda. Gülmüyor.\n\nO gün antrenmandan en son sen çıkıyorsun. Ertesi gün de. Üçüncü gün kaleci yanına gelip \"Sen gerçekten geç mi çıkıyorsun, yoksa inat mı?\" diye soruyor. İkisi de doğru."
+        },
+        "n_soru": {
+          "title": "On Dört Yıl",
+          "kind": "outcome",
+          "text": "{actor.veteran.name} bandajını bitiriyor, sonra cevap veriyor.\n\n\"Dört yıl kapının yanı. Altı yıl ortada. Dört yıldır burada.\" Duruyor. \"Ortadaki kısım en zoru. Kapının yanındayken kimse seni görmez, pencerenin önündeyken herkes görür. Ortada ikisi birden olur.\"\n\nSonra bandajını çantasına atıyor. \"Yerini sorman iyi. Çoğu sormaz, hemen oturur.\""
+        },
+        "n_sert": {
+          "title": "Boş Dolap",
+          "kind": "outcome",
+          "text": "Çantanı pencerenin önündeki boş dolaba koyuyorsun. Odada kimse bir şey söylemiyor ama herkes gördü.\n\nÖğleden sonra malzemeci geliyor: \"Orası {actor.veteran.first:gen} yanındaki yer. Yıllardır boş duruyor çünkü kimse oturmuyor.\"\n\n\"Şimdi oturuyor,\" diyorsun.\n\nO akşam telefonuna menajerinden mesaj geliyor: \"Kulüpten aradılar. 'Uyum sorunu' diye bir laf ettiler. Ne yaptın sen?\""
+        }
+      }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Kasa, Yeni Gölge",
+          "kind": "branch",
+          "text": "Antrenman sahasına inen koridordasın. {actor.veteran.name} kramponlarını ağır ağır bağlarken senin geçişini izliyor. Bakışları, sahaya daha girmeden seni bir tartıya koymuş gibi. Birkaç adım ötede senin formana benzer bir isimlik var. {actor.veteran.name} hafifçe gülümseyip, 'Eskiden burası benim yerimdi, sonra benden daha iyisi geldi,' diyor. Sesinde bir tavsiye mi var, yoksa bir uyarı mı, belirsiz.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Omuz silkip, 'Zamanı geçmiş yerlere takılmam,' de ve yanından hızla geç.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Saygıyla başını eğ, 'Öğrenmem gereken çok şey var,' diyerek dolabına yönel.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "durus": -3
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın prim zarfını masaya bırak, 'Buradaki boşlukları senin primlerin doldurur,' diye fısılda.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Topu ayağında sektirerek yanına git, 'Senin yerin dolmadı, sadece el değiştirdi,' diyerek gözlerinin içine bak.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "teknik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "teknik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Teknik 60]",
+              "persona": {
+                "durus": 7
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "{actor.veteran.name} arkandan sadece sessizce gülüyor. Bu sessizlik, ileride yaşayacağın baskının ilk adımı olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_karsilik_verdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Uyumluluk",
+          "kind": "outcome",
+          "text": "Sessizce dolabını düzenlemeye başladın. O, senin varlığını artık yok sayıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sessiz_basladi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Gözleri para dolu zarfa kayıyor. Saygınlık azaldı, ama en azından bir süre seni rahat bırakacak.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_veteran_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Meydan Okuma",
+          "kind": "outcome",
+          "text": "{actor.veteran.name} ilk defa seni bir rakip olarak görüyor. Yerini korumak için vereceğin mücadele bugün başladı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yer_kapti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

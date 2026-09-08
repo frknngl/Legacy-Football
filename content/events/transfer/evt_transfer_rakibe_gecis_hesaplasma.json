@@ -1,0 +1,339 @@
+{
+  "id": "evt_transfer_rakibe_gecis_hesaplasma",
+  "family": "fam_transfer_rakibe_gecis",
+  "category": "transfer",
+  "tier": "major",
+  "weight": 220,
+  "cooldown": {
+    "self": 24,
+    "family": 12
+  },
+  "trigger": {
+    "flag": "mem_rakibe_transfer",
+    "op": "eq",
+    "value": true
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapının Önünde",
+          "kind": "branch",
+          "text": "Tesisin çıkışında bekliyorlar. Kalabalık değil — on beş kişi, belki yirmi. Ama hepsi tanıdık yüz. En önde {actor.fan_leader.name} duruyor; yıllarca tribünde senin adını bağıran adam. Elinde bir şey yok, pankart yok, taş yok. Sadece duruyor. Arabanın camını indirdiğinde konuşmuyor bile, önce uzun uzun bakıyor.\n\nSonra tek cümle: \"Formayı öptüğün o maçı hatırlıyor musun?\"\n\nArkandan güvenlik yaklaşıyor. Bir işaret etsen bu iş bir dakikada biter. Ama {actor.fan_leader.name} hâlâ orada, cevabı bekliyor.",
+          "choices": [
+            {
+              "id": "c_yuzles",
+              "text": "Arabadan in. Karşısına geç ve gözünün içine bakarak dinle.",
+              "target": "n_yuzles",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10,
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_savun",
+              "text": "\"Kulüp beni sattı, ben gitmedim.\" Kararın senin olmadığını söyle.",
+              "target": "n_savun",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": -4
+              }
+            },
+            {
+              "id": "c_gec",
+              "text": "Camı kaldır. Güvenliğe işaret et ve oradan uzaklaş.",
+              "target": "n_gec",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -6
+              }
+            },
+            {
+              "id": "c_meydan",
+              "text": "\"Öptüm. Ve yine öperim — ama bu sefer başka formayı.\"",
+              "target": "n_meydan",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 14,
+                "durus": 8
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak itibarı 60]"
+            }
+          ]
+        },
+        "n_yuzles": {
+          "title": "Cevap Yok",
+          "kind": "outcome",
+          "text": "İndin. Karşısına geçtin. {actor.fan_leader.name} konuşurken hiçbir şey söylemedin — çünkü söylenecek bir şey yoktu. Bitirdiğinde başını salladı, arkasını döndü ve gitti.\n\nErtesi gün o videoyu paylaşan yine onlar oldu. Altındaki yorumların yarısı hâlâ küfür. Ama diğer yarısı, ilk defa, seni savunuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_rakibe_gecis_yuzlesme",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_savun": {
+          "title": "Doğru Ama Yetersiz",
+          "kind": "outcome",
+          "text": "Söylediğin doğruydu. Sözleşmeyi sen açmadın, rakamı sen konuşmadın, o toplantıda sen yoktun.\n\n{actor.fan_leader.name} bunu biliyordu zaten. \"Biliyorum,\" dedi. \"Ama sen de hayır diyebilirdin.\"\n\nCamı kaldırırken bunun cevabını bulamadın.",
+          "onEnter": [
+            {
+              "flag": "mem_rakibe_gecis_yuzlesme",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gec": {
+          "title": "Aynada Kalan",
+          "kind": "outcome",
+          "text": "Güvenlik araya girdi. Araba hareket etti. Dikiz aynasından baktığında {actor.fan_leader.name} hâlâ aynı yerde duruyordu — kimseyi itmeden, bağırmadan.\n\nO görüntü, sonraki üç ay boyunca her derbi öncesi manşetlerde çıkacak.",
+          "onEnter": [
+            {
+              "flag": "mem_rakibe_gecis_yuzlesme",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_meydan": {
+          "title": "Köprü Yok",
+          "kind": "outcome",
+          "text": "Cümle ağzından çıktığı anda kalabalıktan çıkan ses insan sesi değildi.\n\nO gece kulüp müzesindeki formanı indirdiler. Adını tribün koreografisinden sildiler. Ve yeni taraftarın seni ilk kez gerçekten kendinden saydı — çünkü artık geri dönebileceğin bir yer kalmamıştı.",
+          "onEnter": [
+            {
+              "flag": "mem_rakibe_gecis_yuzlesme",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_kopruleri_yakti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Otoparkın beton zemininde yankılanan tek bir ayak sesi var. {actor.fan_leader.name}, aracının önünü kesmiş, kaputa yaslanmış bekliyor. Yağmur, ikinizin arasındaki mesafeyi gri bir perde gibi kapatıyor. Adamın yüzünde öfke yok, sadece bir yabancıya bakar gibi boş bir ifade var. Elinde yırtılmış bir kombine kartı tutuyor; yavaşça parçalara ayırıp yere savuruyor. Konuşmuyor. Sadece kapı koluna uzanmanı bekliyor, ya da belki de o kapıyı hiç açamayacağını bildiği o anı.",
+          "choices": [
+            {
+              "id": "c_para",
+              "text": "Cüzdanından bir tomar para çıkarıp yere bırak. \"Hayat sadece bağlılıktan ibaret değil.\"",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_sokak",
+              "text": "Araçtan in ve üzerine yürü. \"Seni değil, başarısızlığı kovdum.\"",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Kontağı çevir ve gözlerini ondan kaçırarak aracı geri vitese al.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 2
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Para yere düştüğünde {actor.fan_leader.name} bakmadı bile. Sadece yürüdü, senin üzerine basarak geçti. Kopan bağların sesi yağmurda boğuldu.",
+          "onEnter": [
+            {
+              "flag": "mem_kopruleri_yakti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Göz göze geldiniz. {actor.fan_leader.name} bir an duraksadı, sonra tiksinerek tükürdü. Bu sahne yarınki manşetlerin tek konusu olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_rakibe_gecis_yuzlesme",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessiz Gidiş",
+          "kind": "outcome",
+          "text": "Sessizlik bir yanıt değildir ama bazen en ağır cezadır. {actor.fan_leader.name} dikiz aynasında giderek küçüldü, sonunda tamamen silindi.",
+          "onEnter": [
+            {
+              "flag": "mem_kopruleri_yakti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

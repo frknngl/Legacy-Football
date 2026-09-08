@@ -1,0 +1,339 @@
+{
+  "id": "evt_tactics_devre_arasi",
+  "family": "fam_tactics_devre",
+  "category": "tactics",
+  "tier": "major",
+  "weight": 50,
+  "cooldown": {
+    "self": 24,
+    "family": 12
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "playing",
+    "national_duty"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "On Beş Dakika",
+          "kind": "branch",
+          "text": "Devre arası. Skor aleyhinize ve ikinci gol senin arkandan geldi.\n\nSoyunma odası sessiz. {actor.manager.name} tahtayı almıyor bile — parmağını kaldırıp seni gösteriyor.\n\n\"Sen. Sen nerede duruyordun?\"\n\nNerede durduğunu biliyorsun. Talimatta durman gereken yerde duruyordun ve tam da bu yüzden gol oldu.\n\n{actor.captain.name} yere bakıyor. Kimse konuşmuyor. Saat işliyor: on bir dakika kaldı.",
+          "choices": [
+            {
+              "id": "c_ustlen",
+              "text": "\"Benim hatam.\" Kısa kes, ikinci yarıya bak.",
+              "target": "n_ustlen",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "sadakat": 7
+              }
+            },
+            {
+              "id": "c_acikla",
+              "text": "\"Talimat oydu.\" Nerede durduğunu anlat.",
+              "target": "n_acikla",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 9
+              }
+            },
+            {
+              "id": "c_sus",
+              "text": "Hiçbir şey söyleme. Kramponunu bağla.",
+              "target": "n_sus",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_kaptan",
+              "text": "{actor.captain.name} konuşsun. Ona bak ve bekle.",
+              "target": "n_kaptan",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -7
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5,
+                "sadakat": 4
+              }
+            }
+          ]
+        },
+        "n_ustlen": {
+          "title": "Benim Hatam",
+          "kind": "outcome",
+          "text": "\"Benim hatam.\"\n\n{actor.manager.name} bir şey daha söyleyecekti, söylemedi. Tahtayı aldı, ikinci yarıyı anlattı.\n\nOdadan çıkarken {actor.captain.name} omzuna vurdu. Tek kelime etmedi.\n\nİkinci yarıda bir gol attınız, yetmedi. Ama o odada bir şey kazanmıştın ve skor tablosunda görünmüyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_ustlendi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_acikla": {
+          "title": "Talimat Oydu",
+          "kind": "outcome",
+          "text": "\"Talimat oydu,\" dedin ve nerede durduğunu anlattın. Doğruydu. Odadaki herkes doğru olduğunu biliyordu.\n\n{actor.manager.name} sana on saniye baktı. \"Tamam,\" dedi.\n\nİkinci yarıda oynadın. Sonraki maçta da oynadın.\n\nAma o \"tamam\" hiç bitmedi. Üç ay sonra kadro dışı kaldığında, o odayı hatırladın ve haklı olmanın nereye yazıldığını merak ettin.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_savundu",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_hocaya_karsi_geldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sus": {
+          "title": "Krampon Bağı",
+          "kind": "outcome",
+          "text": "Eğildin, kramponunu çözdün, yeniden bağladın. İki kez.\n\n{actor.manager.name} bir süre bekledi, sonra tahtaya döndü.\n\nSustuğun için ne ceza aldın ne ödül. Sadece o gün, odadaki herkes senin ne tür biri olduğuna dair küçük bir not aldı — ve o notlar birikiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kaptan": {
+          "title": "Araya Giren",
+          "kind": "outcome",
+          "text": "{actor.captain.name} ayağa kalktı. \"Hocam, orada üç kişiydik,\" dedi. \"Tek kişilik iş değildi.\"\n\n{actor.manager.name} tartışmadı. Konu kapandı.\n\nSen hiç konuşmadın ve korunmuş oldun. İkisi de doğru: korunmak iyidir, korunmaya ihtiyaç duyulduğu görülür.\n\nO gün {actor.captain.name} senin için bir şey harcadı. Böyle şeylerin faizi vardır.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_kaptan_korudu",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_kaptana_borclu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Koridordaki Gölge",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları tünelin ucunda cılız bir vızıltı çıkarıyor. Devre arası düdüğü henüz çalmış. Takım arkadaşların çoktan içeri girmiş; sen ise koridorun sonundaki çıkmazda duran {actor.manager.name} ile yüz yüze kalıyorsun. Adam elindeki metal su şişesini öyle bir sıkıyor ki parmak boğumları bembeyaz. Gözleri senin boşluğunu, kaçırdığın kademeleri, o meşum anı izliyor. İkiniz de konuşmuyorsunuz. Sadece ter ve rutubet kokan o dar alanda, sadece senin nefes alışverişin duyuluyor. Gitmen gereken oda bir tarafta, yönetmenin dik bakışları diğer tarafta.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Bakışlarını kaçır, sessizce yanından geçip git. Prim sözü hala masada.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Hocanın dibine kadar gir, 'Takımı sen sattın, suçu bana atma' de.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Dur, gözlerine bak ve 'İkinci yarıda telafi edeceğim' de.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Omuz omuza çarpışarak geçiyorsun. {actor.manager.name} arkandan bir şey mırıldanıyor ama duymamazlıktan geliyorsun. Zarfın içeriği kadar sessiz bir gece olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Açık Cephe",
+          "kind": "outcome",
+          "text": "Koridordaki yankı ikinizin de sesini büyütüyor. Kimse odaya girmiyor, herkes kapı ağzında donup kalıyor. İpler ilk kez bu kadar geriliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_hocaya_karsi_geldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Zorunlu Söz",
+          "kind": "outcome",
+          "text": "Kısa bir sessizlik. {actor.manager.name} başıyla onay veriyor, omuzlarındaki yük biraz daha ağırlaşıyor. Sahaya geri dönüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_ustlendi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

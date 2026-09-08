@@ -1,0 +1,353 @@
+{
+  "id": "evt_mind_partner_ayartma",
+  "family": "fam_mind_ayartma",
+  "category": "mind",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Bir Teklif",
+          "kind": "branch",
+          "text": "Odanın içi nemli bir karanlığa gömülü. {actor.partner.name}, masanın ucunda oturuyor. Önünde ağır bir dosya ve bir miktar nakit para var. {actor.mentor.name:gen} bu akşam antrenman sahasında fısıldadığı uyarılar zihninde yankılanıyor: 'Kestirme yollar, bacaklarını değil ruhunu kırar.' {actor.partner.name} ise elindeki kalemi yavaşça masaya bırakıyor. Gözleri doğrudan seninkilere kilitli. Masadaki teklif, kulübün sunduğu maaşın iki katından fazlasını vaat ediyor ancak dürüstlüğünü ve antrenman disiplinini bir kenara itmeni gerektiriyor. Dışarıda taraftarların uğultusu duyuluyor, içeride ise sadece ikinizin nefes alıp verişi. Karar vermen için bir dakika bile süren yok.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı reddet ve masayı terk et. Profesyonel kalmak, bu geceki huzursuz uykudan daha önemli.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Para önemli değil, bu isimlerin desteğini almalıyım. Masadakileri al ve {actor.partner.name} ile yeni bir anlaşmaya imza at.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Parayı al ama {actor.partner.name:dat} hiçbir söz verme. Bugünün geleceğini, yarının sorunlarıyla takas et.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_lider",
+              "text": "{actor.partner.name:gen} gözlerine bak ve bu manipülasyonun seni değil, ancak zayıfları yönetebileceğini söyle.",
+              "target": "n_outcome_lider",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Bir Vicdan",
+          "kind": "outcome",
+          "text": "Kapıyı sessizce kapatıyorsun. {actor.partner.name:gen} arkandan attığı bakışı görmezden geliyorsun. Sabah antrenmanında bacaklarında bir ağırlık var ama başın dik.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Yeni Bir İttifak",
+          "kind": "outcome",
+          "text": "Zarfı çantana atıyorsun. {actor.partner.name} gülümsüyor, karanlıkta dişleri parlıyor. Artık kulüpteki disiplin kuralları senin için sadece birer tavsiye.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Kiralık Bir Gelecek",
+          "kind": "outcome",
+          "text": "Para çantası ağır, ruhun ise hafif. Odanın ışığını söndürüyorsun. Bu paranın hangi maçın sonucunu değiştireceğini düşünmemeye çalışıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lider": {
+          "title": "Otoritenin Ağırlığı",
+          "kind": "outcome",
+          "text": "{actor.partner.name} masadaki parayı yavaşça çekiyor. Saygısının arttığını bakışlarından okuyorsun. Ama bu restleşme, antrenmanlarda daha fazla efor sarf etmeni gerektirecek.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ayna Kırığı",
+          "kind": "branch",
+          "text": "Stadyumun otoparkında, yağmurun metale vurduğu ritmik ses dışında her şey sessiz. {actor.partner.name} arabanın kaputuna yaslanmış, elindeki eski bir fotoğrafı buruşturuyor. Yüzündeki ifade, yıllardır kahvaltı masalarında izlediğin o huzurlu maskeden eser bırakmıyor. Gözleri, arenadaki ışıklardan çok daha soğuk. 'Oraya ait değilsin,' diyor, sesi rüzgarda kaybolmadan hemen önce. 'Sen sadece bir temsilcisin, ama temsil ettiğin kişi çoktan öldü.' Başını kaldırıp sana bakıyor; beklediği tek şey, yalan söylemeye devam edip etmeyeceğin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Suskunluğunu koru, fotoğrafı elinden nazikçe al ve onu eve götür.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Gerçekleri olduğu gibi yüzüne vur; kim olduğunun artık bir önemi yok.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantadaki zarfı ona uzat, kapıyı kilitle ve bir daha asla geriye bakma.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 10
+              },
+              "lockLabel": "[Yeterli Nakit]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İnkar",
+          "kind": "outcome",
+          "text": "Arabayı çalıştırıyorsun. İkiniz de tek kelime etmiyorsunuz. Bu sessizlik, kazanacağın bir sonraki maçın priminden çok daha değerli, ancak içindeki o boşluk artık asla dolmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Patlama",
+          "kind": "outcome",
+          "text": "Masken tamamen parçalandı. {actor.partner.name} arabaya binmeden yürüyerek uzaklaşıyor. Yarın manşetlerde senin ismin olacak ama en azından artık kimseye bir şey kanıtlamak zorunda değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sözleşme",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığını hissediyor. Hiçbir şey demeden parayı alıyor. İkiniz de neyin satıldığını biliyorsunuz; bu gece kariyerin için yeni bir dönem, ama kişiliğin için nihai bir son.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

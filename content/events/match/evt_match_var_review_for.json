@@ -1,0 +1,185 @@
+{
+  "id": "evt_match_var_review_for",
+  "family": "fam_match_var",
+  "category": "match",
+  "tier": "minor",
+  "momentType": "var_review_for",
+  "weight": 14,
+  "cooldown": {
+    "self": 10,
+    "family": 5
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Lehine",
+      "kind": "branch",
+      "text": "{minute}. dakika, skor {scoreline}. {opponent} golu attigini sandi; kale arkasi coktan bayrak sallamaya baslamisti.\n\nSonra {actor.referee.name} elini kulagina goturuyor ve ekrana yuruyor.\n\nIki dakika. Rakip santrfor senin yanina gelip duruyor, ikiniz de ekrana bakiyorsunuz ve ikiniz de hicbir sey goremiyorsunuz.\n\nHakem donuyor: gol iptal. Ofsayt.\n\nRakip oyuncu dizlerinin ustune cokuyor. Tribunun o bolumu susuyor.",
+      "choices": [
+        {
+          "id": "c_celebrate",
+          "text": "Kollarini ac ve o tribune don. Bu da bir sevinctir.",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "target": "n_celebrated",
+          "persona": {
+            "mizac": 8,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_quiet",
+          "text": "Hicbir sey yapma. Topu al, oyuna devam.",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "target": "n_quiet",
+          "persona": {
+            "mizac": -6
+          }
+        },
+        {
+          "id": "c_console",
+          "text": "Yerdeki adami kaldir. Bu golu o hak etmisti.",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_opponent_star",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "target": "n_consoled",
+          "persona": {
+            "dogruluk": 9,
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_celebrated": {
+      "title": "O tribun",
+      "kind": "outcome",
+      "text": "Kollarini aciyorsun ve o tribun senin adini kufurle soyluyor. {actor.referee.first} sana dogru bir adim atiyor ama kart cikarmiyor.\n\nMac sonunda bu goruntu doner. Kimse ofsayti konusmaz; senin kollarini konusur.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.2,
+          "incident": "inc_var_for"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_quiet": {
+      "title": "Topu al",
+      "kind": "outcome",
+      "text": "Topu alip orta yuvarlaga yuruyorsun. Kimse seni gostermiyor, kimse seni alkislamiyor.\n\n{actor.captain.name} yanina gelip ensene vuruyor: dogru olan buydu, diyor. Sonra ekliyor: ama bir gun bunun bedelini odeyeceksin, cunku taraftar hatirlamaz.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.3,
+          "incident": "inc_var_for"
+        },
+        {
+          "flag": "iliski_captain",
+          "op": "add",
+          "value": 8
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    },
+    "n_consoled": {
+      "title": "Elini uzat",
+      "kind": "outcome",
+      "text": "Yerdeki adami kolundan tutup kaldiriyorsun. Sana bakiyor, basini salliyor ve hicbir sey soylemiyor.\n\nO fotograf ertesi gun her yerde: rakibini kaldiran oyuncu.\n\nKendi taraftarinin bir bolumu bunu sevmiyor ve bunu duyuyorsun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.5,
+          "incident": "inc_var_for"
+        },
+        {
+          "flag": "mem_saved_teammate",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    }
+  }
+}

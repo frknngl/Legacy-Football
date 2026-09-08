@@ -1,0 +1,380 @@
+{
+  "id": "evt_mind_partner_kirilma",
+  "family": "fam_mind_kirilma",
+  "category": "mind",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sessizligin Ağırlığı",
+          "kind": "branch",
+          "text": "Odanın havası ağır, klimaların uğultusu ilaç kokusunu bastıramıyor. {actor.partner.name} karşında oturuyor. Elindeki dosyalar, medyanın bildiği sahte hayatın aksine, gerçeklerin enkazını taşıyor. Dışarıda yüz binlerin tezahüratı, burada ise sadece bir kadının titreyen elleri var. Bakışları, sahaya ilk çıktığın günkü gibi değil; artık sadece yorgunluk ve birikmiş bir öfke taşıyor. Masanın üzerindeki imza kalemine uzanıyor. Sessizlik, bir kararın bıçak sırtında uzuyor. Bir yanın profesyonel kariyerini kurtarmanın hesabını yapıyor, diğer yanın ise bu çürümüş camiadan tek kaçış biletini arıyor. {actor.partner.name} gözlerini kaçırıyor, sadece odayı terk etmeni veya tüm hayatını kağıda dökmeni bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Basın açıklamasını imzala ve sessizliği satın al.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Evrakları yırtıp at, gerçekleri taraftara anlat.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Yüklü bir sus payını kabul et, her şeyi unut.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Elini tut ve tüm sorumluluğu üstüne alarak her şeyi baştan kurmayı teklif et.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İtibarın Bedeli",
+          "kind": "outcome",
+          "text": "İmza atıldı. İtibarın kurtuldu ama aranızdaki son bağ koptu. Artık sahada herkesin tanıdığı o insansın, evinde ise tamamen yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Yıkım Başladı",
+          "kind": "outcome",
+          "text": "Kağıtlar havaya saçıldı. Medya fırtınası kapıda. Artık hiçbir şey eskisi gibi gizli kalmayacak ama en azından vicdanın rahat.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Satın Alındı",
+          "kind": "outcome",
+          "text": "Banka hesabın doldu, ruhun boşaldı. Bu sessizlik, kariyerinin geri kalanında taşıyacağın en büyük yük olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Yeni Bir Başlangıç",
+          "kind": "outcome",
+          "text": "Yükü bölüştünüz. Bu karar seni tüketti ama {actor.partner.name} ile kurduğun yeni denge, her kupa ve unvandan daha değerli.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Gelen Teklif",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş, otoparkta sadece güvenlik devriyesinin ayak sesleri yankılanıyor. {actor.partner.name}, bagajı açık bırakılmış lüks bir aracın önünde duruyor. Elinde iki tane uçak bileti ve üzerine mühür vurulmamış bir zarf var. Şehir çoktan uyudu, ancak gölgeler hiç olmadığı kadar canlı. {actor.partner.name} gözlerini bir an bile senden ayırmadan zarfı kaputun üzerine bırakıyor. Sessizliği sadece uzaktaki otoyolun uğultusu bozuyor. Biliyorsun, o zarfın içindeki rakam, son yıllarda üzerine titrediğin tüm prestijin tek bir gecede erimesine neden olacak.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı eline bile alma, doğrudan arabana bin ve uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı al ve {actor.partner.name} ile bu işin burada bittiğini konuş.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı cebine at, yarın sabah hiçbir şey olmamış gibi antrenmana çık.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Biletlerden birini al, {actor.partner.name} yanına git ve bu şehri terk et.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Profesyonellik 55]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sırtını Dönmek",
+          "kind": "outcome",
+          "text": "Arkana bakmadan gaza basıyorsun. Aynadan {actor.partner.name} siluetinin karanlıkta kayboluşunu izliyorsun. Doğru olanı yaptın, ama içindeki o boşluk hissi, kazandığın saygınlıktan daha ağır geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Köprüleri Yakmak",
+          "kind": "outcome",
+          "text": "{actor.partner.name} sana bakıyor, yüzünde acı bir gülümseme var. Zarfın içindeki gerçeklerin, sahadaki itibarını yarın yerle bir edeceğini biliyorsun. Artık kimse seni dinlemeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Zarf ağır, vicdanın daha da ağır. {actor.partner.name} sessizce yanından ayrılıyor. Artık bu sır senin değil, onların oyununun bir parçası.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Kaçış",
+          "kind": "outcome",
+          "text": "Antrenman sahası, taraftarlar, hedefler... Hepsi geride kalıyor. Biletin getirdiği özgürlük, kariyerinin en büyük bahsi. Bedelini sonra ödeyeceksin ama bu gece, sadece sana ait.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

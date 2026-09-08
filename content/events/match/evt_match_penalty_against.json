@@ -1,0 +1,348 @@
+{
+  "id": "evt_match_penalty_against",
+  "family": "fam_match_penalty",
+  "category": "match",
+  "tier": "major",
+  "momentType": "penalty_against",
+  "weight": 16,
+  "cooldown": {
+    "self": 9,
+    "family": 5
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Nokta -- ama bu sefer aleyhine",
+      "kind": "branch",
+      "text": "{minute}. dakika, skor {scoreline}. Ceza sahasinda bir temas oldu ve {actor.referee.name} hic tereddut etmeden noktayi gosterdi.\n\nTemasi yapan sensin. Ayagini geri cekmistin ama adam ustune dustu ve simdi yerde, kalkmiyor.\n\n{actor.keeper.name} kaleden cikip sana dogru geliyor; yuzunde soru degil sitem var. {actor.captain.name} hakemin yanina kosmus, kollarini aciyor.\n\nOtuz bin kisi ayakta ve hepsi seni gosteriyor.",
+      "choices": [
+        {
+          "id": "c_own",
+          "text": "Elini kaldir. Benim hatam de, kimseyi tartismaya sokma.",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "target": "n_owned",
+          "persona": {
+            "dogruluk": 8,
+            "mizac": -4
+          }
+        },
+        {
+          "id": "c_protest",
+          "text": "Hakeme yuru. Dokunmadigini bagira bagira soyle.",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 7
+            },
+            {
+              "flag": "iliski_referee",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "target": "n_roll_protest",
+          "persona": {
+            "mizac": 9,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_keeper",
+          "text": "Kaleciye git: sag koseye gidecek, adami taniyorum.",
+          "effects": [
+            {
+              "flag": "iliski_keeper",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "target": "n_roll_keeper",
+          "persona": {
+            "sadakat": 6,
+            "mizac": -3
+          }
+        },
+        {
+          "id": "c_blame",
+          "text": "Kaptana don: sen orada olsaydin bu top oraya gelmezdi.",
+          "effects": [
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "target": "n_blamed",
+          "persona": {
+            "mizac": 10,
+            "sadakat": -9
+          }
+        }
+      ]
+    },
+    "n_roll_protest": {
+      "title": "Cep",
+      "kind": "roll",
+      "text": "{actor.referee.first} elini cebine goturuyor ve sana bakmiyor.",
+      "outcomes": [
+        {
+          "target": "n_protest_card",
+          "weight": {
+            "base": 55,
+            "modifiers": [
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.5
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_protest_free",
+          "weight": {
+            "base": 45,
+            "modifiers": [
+              {
+                "flag": "medya_itibari",
+                "scale": 0.3
+              },
+              {
+                "flag": "disiplin_sicili",
+                "scale": -0.4
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_roll_keeper": {
+      "title": "Sag kose",
+      "kind": "roll",
+      "text": "{actor.keeper.first} eldivenlerini birbirine vurup kaleye gidiyor. Sana bir kez bakiyor.",
+      "outcomes": [
+        {
+          "target": "n_keeper_saved",
+          "weight": {
+            "base": 28,
+            "modifiers": [
+              {
+                "flag": "iliski_keeper",
+                "scale": 0.25
+              },
+              {
+                "flag": "liderlik",
+                "scale": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_keeper_beaten",
+          "weight": {
+            "base": 62
+          }
+        }
+      ]
+    },
+    "n_owned": {
+      "title": "Bir hata",
+      "kind": "outcome",
+      "text": "Golu yiyorsunuz. Orta yuvarlaga donerken kimse sana bir sey soylemiyor -- soylemek istemedikleri icin degil, soyleyecek bir sey olmadigi icin.\n\nDevre arasinda {actor.manager.name} tahtaya bir sey cizmiyor. Sadece devam diyor ve bu, bagirmasindan daha agir.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.8,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_protest_card": {
+      "title": "Sari",
+      "kind": "outcome",
+      "text": "Sari kart. {actor.referee.first} adini deftere yazarken sen hala konusuyorsun.\n\nPenalti golu oluyor. Tribunun bir bolumu seni alkisliyor, digeri islik caliyor. Ikisi de ayni sey icin.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": -0.6,
+          "incident": "inc_argued_ref"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 14
+        },
+        {
+          "flag": "disiplin_sicili",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    },
+    "n_protest_free": {
+      "title": "Uyari",
+      "kind": "outcome",
+      "text": "Yeter, diyor {actor.referee.first}. Kart gostermiyorum ama bir daha konusma.\n\nPenalti golu oluyor. Kart yemedin ama bu hakemin defterinde bir yer edindin ve o defter sezon boyunca acik kalacak.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.3,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "iliski_referee",
+          "op": "add",
+          "value": -8
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    },
+    "n_keeper_saved": {
+      "title": "Eldiven",
+      "kind": "outcome",
+      "text": "{actor.keeper.name} sag kosede. Top eline carpiyor ve disari gidiyor.\n\nAyaga kalkip sana kosuyor, kollarini aciyor ve bagiriyor. Bu maci kaybetseniz bile bu on saniye ikinizin arasinda kalacak.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.9,
+          "incident": "inc_saved_point"
+        },
+        {
+          "flag": "iliski_keeper",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 12
+        },
+        {
+          "flag": "mem_saved_teammate",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_keeper_beaten": {
+      "title": "Diger kose",
+      "kind": "outcome",
+      "text": "Sol kose. {actor.keeper.first} sag tarafa uctu.\n\nAyaga kalkarken sana bakmiyor. Bakmamasi bakmasindan kotu.\n\nMac sonunda soyunma odasinda yanina gidiyorsun, o dusu aciyor. Konusmuyorsunuz.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.4,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "iliski_keeper",
+          "op": "add",
+          "value": -10
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -8
+        }
+      ]
+    },
+    "n_blamed": {
+      "title": "Kamera gordu",
+      "kind": "outcome",
+      "text": "{actor.captain.name} sana bakiyor, bir sey soylemiyor ve donuyor. Kamera bu on saniyeyi yakaladi.\n\nPenalti golu oluyor. Mac sonunda o goruntu ekranlarda doner: kaptanina parmagini uzatan oyuncu.\n\nYarin bu konusulacak ve senin ne dedigin degil, nasil durdugun konusulacak.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.9,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "mem_betrayed_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

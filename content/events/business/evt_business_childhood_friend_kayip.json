@@ -1,0 +1,150 @@
+{
+  "id": "evt_business_childhood_friend_kayip",
+  "family": "fam_business_kayip",
+  "category": "business",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Masadaki Veda",
+      "kind": "branch",
+      "text": "{actor.lawyer.name}, masanın üzerine kalın bir dosya bıraktı. {actor.president.name} arkasını dönmüş, pencereden boş stadyuma bakıyordu. {actor.childhood_friend.name}, odanın köşesinde, mahcubiyet ve öfke arasında gidip gelen bir ifadeyle duruyordu. Şirketin fonlarını kendi başına yönetmeye çalışırken yarattığı açık, geri döndürülemez bir noktaya ulaşmıştı. Masadaki kağıtlara göre, {actor.childhood_friend.name}’in kariyerini ve imajını kurtarmak için tek yol, onu bu işin tek sorumlusu olarak işaretleyip tasfiye etmekti. Odanın içi soğuk, sessizlik ise keskin.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Avukata dönüp, 'Gerekeni yapın,' diyerek dosyayı imzala. İlişkini değil, ismini koru.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Dosyayı yırtıp at. 'Bu benim hatam, bedelini ben öderim,' diyerek sorumluluğu üstlen.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Sessizce odadan çık. {actor.childhood_friend.name}’in şirket hisselerini gizlice kendine devretmesini sağla.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": -8
+          }
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "İmzanın Soğukluğu",
+      "kind": "outcome",
+      "text": "İmza atıldı. {actor.childhood_friend.name} tek bir kelime etmeden odadan çıktı. Kapının kapanış sesi, aranızdaki yılların sonuydu. Artık bir yabancısınız.",
+      "onEnter": [
+        {
+          "flag": "mem_business_kayip_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Bedeli Ödemek",
+      "kind": "outcome",
+      "text": "{actor.president.name} şaşkınlıkla baktı. {actor.childhood_friend.name}’in gözlerinde minnetten ziyade derin bir utanç vardı. Yıkımı üstlendin ama huzuru kaybettin.",
+      "onEnter": [
+        {
+          "flag": "mem_business_kayip_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Görünmez Kayıp",
+      "kind": "outcome",
+      "text": "Banka hesapları güncellendi. {actor.childhood_friend.name} elindeki her şeyi kaybettiğini anladığında artık çok geçti. Güç kazandın, ama artık yanına oturacak kimsen kalmadı.",
+      "onEnter": [
+        {
+          "flag": "mem_business_kayip_childhood_friend",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "id": "evt_locker_keeper_taninma",
+  "family": "fam_locker_taninma",
+  "category": "locker",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "_statureNote": "Metin Hero'yu 'takimin en kidemli, en az konusan savunma oyuncusu' diye tarif ediyor ve secenekler prim pazarligi/taktik tartismasi iceriyor. 16 yasindaki bir hickimse bu sahnenin oznesi olamaz.",
+  "_eraNote": "Metin Hero'yu 'takimin en kidemli oyuncusu' diye tarif ediyor. Bu STATURE degil ERA sorunu: 16 yasinda ilk 11'e girmis olmak bile seni kadronun en kidemlisi yapmaz.",
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Görülmek",
+          "kind": "branch",
+          "text": "Antrenman bitmiş. Soyunma odası sessiz. Sadece duşların damlama sesi ve havalandırmanın uğultusu duyuluyor. {actor.keeper.name} eldivenlerini yavaşça çıkarırken aynadaki yansımasına bakıyor. Arkasında, takımın en kıdemli, en az konuşan savunma oyuncusu duruyor. Yansımadan kesişen bakışlar. O an, bir kalecinin kalesinde tek başına geçirdiği o uzun saatler, o bitmek bilmeyen 'acaba'lar bir anda anlam kazanıyor. Takımın sessiz lideri, elini {actor.keeper.name:gen} omzuna koyuyor. Söyleyecek bir şeyi yok, sadece orada olduğunu onaylayan bir ağırlık var o elde. Omuzlardaki yük, ilk defa bir başkasıyla paylaşılıyor. Dışarıda taraftarın bağırışları, içeride ise sadece bu sessiz tanıklık var.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini kaçır ve başını hafifçe salla. Sadece işini yaptığını belli et.",
+              "target": "n_outcome_profesyonel",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sırtını tamamen aynadan çekip ona doğru dön. İlk defa gerçek bir bağ kurmak için gözlerinin içine bak.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Ona bir sonraki maçın prim pazarlığına dair üstü kapalı bir not fısılda. Duyguyu paraya tahvil et.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_lider",
+              "text": "Takımın eksiklerini ve bir sonraki planı tartışmak için onu kenara çek. Bu anı bir stratejiye dönüştür.",
+              "target": "n_outcome_lider",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_keeper",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_profesyonel": {
+          "title": "Sınırlar",
+          "kind": "outcome",
+          "text": "Sessizlik korundu. Mesafe, profesyonelliğin en korunaklı kalesidir.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Odayı bir gerilim sardı. Artık sadece bir takım arkadaşı değilsin, bir müttefiksin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Avucuna sıkıştırılan kağıtla birlikte omuzundaki el çekildi. Bazı şeyler gerçekten satın alınabiliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lider": {
+          "title": "Sorumluluk",
+          "kind": "outcome",
+          "text": "Taktik tahtasının başında geçen uzun dakikalar. İkiniz de yorgunsunuz, ama artık aynı yöne bakıyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tüneldeki Yüzleşme",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş, otoparkın asfaltında maçın yorgunluğu asılı. {actor.keeper.name} bagajına yaslanmış, elindeki anahtarlığı ritmik bir şekilde çeviriyor. Karanlığın içinden gelen ağır adımlar duruyor. {actor.keeper.name}, bir adım mesafesinde beliriyor. Gözlerinde takımın hiyerarşisinden çok, kişisel bir hesabın ağırlığı var. Uzatılan el, bir tebrikten ziyade bir sınır çizgisini hatırlatır gibi havada asılı. Sessizlik, sahadaki tüm bağları sorgular nitelikte.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Eli sıkıca kavra. Sadece profesyonel bir selam ver ve oradan ayrıl.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Pahalı saatine bakıp yanından geçerek, arabanın kapısını sertçe kapat.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Gülümseyerek elini havada bırak. Arkasından kendi yoluna git.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Ona bir sonraki maçın stratejisi hakkında fısılda, sadakatini bir sırla mühürle.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_keeper",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Takım Bağlılığı 60]",
+              "persona": {
+                "sadakat": 8
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "İşin Gereği",
+          "kind": "outcome",
+          "text": "Elindeki soğukluk, kapı kapanana kadar geçmedi. Profesyonellik bazen en büyük yalnızlıktır.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Mesafeli",
+          "kind": "outcome",
+          "text": "Yarınki manşetler bu soğukluğu yazacak. Cüzdanın dolu ama koridorlar artık daha boş.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Gösterilen Saygısızlık",
+          "kind": "outcome",
+          "text": "Arabanın dikiz aynasında onun öfkeli siluetini izliyorsun. Bu hareketin bedeli henüz ödenmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Gizli İttifak",
+          "kind": "outcome",
+          "text": "Başını onaylar gibi salladı. İkiniz arasında, kimsenin bilmediği yeni bir hiyerarşi kuruldu.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

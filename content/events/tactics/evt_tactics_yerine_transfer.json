@@ -1,0 +1,332 @@
+{
+  "id": "evt_tactics_yerine_transfer",
+  "family": "fam_tactics_yerine",
+  "category": "tactics",
+  "tier": "major",
+  "weight": 52,
+  "cooldown": {
+    "self": 28,
+    "family": 14
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kahvaltıda Öğrenmek",
+          "kind": "branch",
+          "text": "Tesis kahvaltısı. Yumurta soğuk, herkes telefonunda.\n\n{actor.star_teammate.name} ekranını sana çeviriyor: kulübün hesabı yeni transferi duyurmuş. Fotoğrafta forma, numaranın altında bir mevki yazıyor.\n\nSenin mevkin.\n\nOn dört saat önce {actor.sporting_director.name} ile aynı koridorda karşılaştın. \"Nasılsın?\" dedi. \"İyiyim,\" dedin. Hepsi bu kadardı.\n\nMasada kimse konuşmuyor. Herkes senin ne yapacağını bekliyor ve kimse sana bakmıyor.",
+          "choices": [
+            {
+              "id": "c_kutla",
+              "text": "Telefonu al, yeni oyuncuyu takip et, hoş geldin yaz.",
+              "target": "n_kutla",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 6
+              }
+            },
+            {
+              "id": "c_direktor",
+              "text": "Kahvaltıyı bırak. {actor.sporting_director.first:gen} odasına git.",
+              "target": "n_direktor",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": -9
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "mizac": 8,
+                "durus": 6
+              }
+            },
+            {
+              "id": "c_sessiz",
+              "text": "Yumurtayı bitir. Hiçbir şey olmamış gibi antrenmana çık.",
+              "target": "n_sessiz",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -16
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 7
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_kutla": {
+          "title": "Hoş Geldin",
+          "kind": "outcome",
+          "text": "\"Hoş geldin, birlikte güzel işler yapacağız.\"\n\nDört bin beğeni. Yorumların çoğu \"sınıf\" diyordu. Bir tanesi \"kendi mezarını kazıyor\" diyordu ve o yorumu üç kez okudun.\n\nYeni oyuncu ertesi gün geldi, elini sıktı, adını doğru söyledi.\n\nİyi çocuktu. Bu, işleri kolaylaştırmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_kutlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_direktor": {
+          "title": "On Dört Saat",
+          "kind": "outcome",
+          "text": "Kapıyı çaldın ve beklemedin.\n\n\"On dört saat önce koridorda karşılaştık,\" dedin. \"Nasılsın dediniz.\"\n\n{actor.sporting_director.name} bir şey söylemek için ağzını açtı, sonra kapattı. Sonunda çıkan cümle şuydu: \"Haklısın.\"\n\nÖzür değildi ama yalan da değildi. O odadan çıkarken transfer hâlâ olmuştu — sadece artık bir kişi sana borçluydu.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_yuzlesti",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_direktore_borc_yazdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sessiz": {
+          "title": "Soğuk Yumurta",
+          "kind": "outcome",
+          "text": "Yumurtayı bitirdin. Antrenmanda kimse konuyu açmadı.\n\nO hafta üç kez ilk on birde oynadın ve üçünde de iyiydin. Kimse bunu transferle ilişkilendirmedi; sen de etmedin.\n\nAma her akşam yatarken aynı cümleyi düşündün: *bana söyleyebilirlerdi.*\n\nSöylemediler. Ve bu, oynadığın futboldan çok, kalan üç yılını belirledi.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Görüşmesi",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları sönmüş, yalnızca otoparktaki {actor.sporting_director.name} aracının farları yanıyor. Pencereyi aralıyor, elindeki dosyayı koltuğa atıyor. İçerideki koku; ucuz bir tütün ve yoğun bir baskı. Gözlerini kaçırmıyor, direkt gözlerinin içine bakıyor. Bu kez başka. Bu kez taktiksel bir hamle değil, doğrudan senin yerin üzerine kurulmuş bir gelecek tasarımı. Uzattığı kontrat taslağını tutarken parmakları bir an duraksıyor. Hayatının en büyük kararını bir araba koltuğunun kıvrımları arasında veriyorsun.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Sessizce kontratı al. Geleceğini garantiye alıp yedek kulübesini kabullen.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı fırlat. Yerine geleni saha içinde pişman edeceğini hissettir.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Profesyonelce kabul et. Takım çıkarlarının kişisel hırslarının önünde olduğunu söyle.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Kendi şartlarını masaya koy. Rekabeti kabul et ama yerini asla terk etme.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Yüksek İtibar]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Gözlerini kaçırdın. {actor.sporting_director.name} elini sıktı ancak bakışlarındaki ifade, senin artık sadece bir varlık olduğunu kanıtlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_direktore_borc_yazdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Dosya yere düştü. {actor.sporting_director.name} başını salladı, bir savaşın fitilini ateşlediğini biliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_yuzlesti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Profesyonel Veda",
+          "kind": "outcome",
+          "text": "Kısa bir el sıkışma. {actor.sporting_director.name} arkasına bakmadan uzaklaştı. İçinde bir şeylerin öldüğünü hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Güç Gösterisi",
+          "kind": "outcome",
+          "text": "Gülümseyerek kapıyı kapattın. {actor.sporting_director.name} arabadan indiğinde, içerideki güç dengesinin değiştiğini herkes anladı.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_kutlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

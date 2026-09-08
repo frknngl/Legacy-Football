@@ -1,0 +1,381 @@
+{
+  "id": "evt_personal_partner_terk_edilis",
+  "family": "fam_personal_terk_edilis",
+  "category": "personal",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Boş Valizler",
+          "kind": "branch",
+          "text": "Antrenman sahasından döndüğünde koridordaki sessizlik tanıdık değil. Dolapların kapakları açık, askılar boş. {actor.partner.name}’in her zaman bıraktığı o hafif yasemin kokusu, yerini soğuk ve yabancı bir havalandırma tınısına bırakmış. Antreman çantanı yere bırakıyorsun; deri, zemine ağır bir toklukla çarpıyor. Mutfak masasının üzerinde tek bir zarf duruyor. Üzerinde ismin yazılı değil, sadece bir anahtar. Bu ev, bu şehir, bu başarı; hepsi bir anda bir sahne dekoru kadar anlamsızlaşıyor. Yarın derbi var, medya mikrofonlarını şimdiden hazırladı. Ancak şu an, sadece mutfaktaki o boşluğun ağırlığını hissediyorsun.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Evi olduğu gibi bırak. Basına durumu ailevi bir mesele olarak açıkla ve formana odaklan.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kulübü ara, yarınki maça çıkamayacağını söyle. Onu geri getirmek için şehirden ayrıl.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı yırtıp çöpe at. Menajerinle konuş ve hemen yeni bir reklam anlaşması imzala.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Duygularını bir kenara it. Kulübün ihtiyacı olan lider gibi davran, geceyi kampta geçir.",
+              "target": "n_liderlik",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonelce",
+          "kind": "outcome",
+          "text": "Kamuoyu senin sarsılmaz profesyonelliğini alkışlıyor. Maçta hatasız oynadın, taraftar ayakta. Ancak soyunma odasına döndüğünde, kazandığın üç puanın ceketinin iç cebindeki o anahtarın boşluğunu doldurmadığını anlıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İnsanca",
+          "kind": "outcome",
+          "text": "Havaalanında bekliyorsun. Kulüpten gelen uyarı mesajlarını okumadan siliyorsun. Kimse nerede olduğunu bilmiyor. İtibarın zedelendi, belki teknik direktörünle arana kara kedi girdi ama en azından bir şeyi kurtarmak için geç kalmadın.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Soğuk İmzalar",
+          "kind": "outcome",
+          "text": "İmza töreninde yüzünde sahte bir gülümseme var. Kameralar parlıyor, hesap bakiyen yükseliyor. {actor.partner.name}’in ismini ananlara karşı verdiğin sert cevaplar, seni bir buz dağına çevirdi.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_liderlik": {
+          "title": "Kaptan",
+          "kind": "outcome",
+          "text": "Takım arkadaşların senin yanındaydı, senin dirayetinle kazandılar. Soyunma odasının gürültüsü içinde tek başınasın. Liderlik, sadece başkalarının yükünü taşımak değilmiş, kendi içindeki enkazı da kimseye belli etmemekmiş.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Terminali",
+          "kind": "branch",
+          "text": "Terminalin otoparkında yağmur asfaltı simsiyah boyamış. {actor.partner.name}, bagaj kapağı açık bir taksinin önünde duruyor. Gözlerinde ne bir öfke ne de veda kırıntısı var. Sadece yorgun bir kabulleniş. \"Beni burada bırak,\" diyor, \"ya da o maça çıkmak için beni unut.\" Arabanın ön farları, oyuncunun yüzünü bembeyaz bir ışıkla yıkıyor. Stadyumun ışıkları ise ufukta, vazgeçilmez bir zorunluluk gibi parlıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Taksiyi durdur, şoföre gitmesini söyle. Yarınki maç umrumda değil.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cüzdanımdan bir miktar nakit çıkarıp ona uzat. \"İyi bir yere yerleş, sana ulaşacağım,\" de.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce arkana dön ve stadyuma doğru sür. Formayı giymek zorundasın.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Elini omzuna koy. \"Her şey değişecek, sadece biraz zaman ver,\" diye fısılda.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Sadakat İmtihanı]",
+              "persona": {
+                "sadakat": 8
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Taksi uzaklaştı. Arkasında bıraktığı egzoz dumanı yağmurla birleşip dağıldı. Yarınki manşetler şimdiden belli, ancak bu sessizlik stadyumdaki uğultudan daha gerçek.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Satın Alınmış Veda",
+          "kind": "outcome",
+          "text": "Parayı kabullendi ama bakışları değişmedi. Bu bir veda değil, bir pazarlıktı. Şimdi sahaya çıkma vakti, cüzdan hafifledi ama içindeki yük daha da ağırlaştı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Arabanın kapısı kapandı. Sileceklerin ritmi, az önce yaşanan vedanın üzerine bir örtü serdi. Şimdi sadece oyun var.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "İnce Çizgide",
+          "kind": "outcome",
+          "text": "Gözleri doldu ama başını salladı. Bir şans daha verdin, ancak takımın içindeki huzursuzluk artık bir çatlak gibi büyüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "id": "evt_transfer_captain_ayartma_transfer_listed",
+  "family": "fam_transfer_ayartma",
+  "category": "transfer",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "transfer_listed"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kapalı Kapılar Ardında",
+      "kind": "branch",
+      "text": "Antrenman sahasının en kuytu köşesinde, {actor.captain.name} yanına yaklaşıyor. Elinde kulüp antetli ama mühürsüz bir dosya var. 'Transfer listesindesin,' diyor, sesi rüzgarda eriyor. 'Kulüp seni gömmeden önce kurtulabileceğin tek yer burası. Şartlar ağır ama imza anlık. Kimse bilmeyecek, sadece ikimiz.' Etrafta kimse yok, sadece uzaklardan gelen topun beton zemine vuruş sesi.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Dosyayı masada bırak. Bu şekilde gitmeyeceğim, kulübün kapısından başım dik çıkarım.",
+          "target": "n_outcome_guvenli",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "id": "c_riskli",
+          "text": "Dosyayı yırtıp yüzüne at. Takım arkadaşlarıma bu ihaneti yapmayacağımı biliyorsun.",
+          "target": "n_outcome_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "id": "c_gri",
+          "text": "Kalemi uzat. Rakamları beğenirsem, kiminle anlaştığımın bir önemi yok.",
+          "target": "n_outcome_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ]
+        },
+        {
+          "id": "c_liderlik",
+          "text": "Gözlerinin içine bak ve kulübün geleceğini masaya yatır. Bu şartlar hepimizi yakar.",
+          "target": "n_outcome_liderlik",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "requires": {
+            "flag": "liderlik",
+            "op": "gte",
+            "value": 65
+          },
+          "lockLabel": "[Liderlik 65]"
+        }
+      ]
+    },
+    "n_outcome_guvenli": {
+      "title": "Onurlu Ayrılık",
+      "kind": "outcome",
+      "text": "Dosyayı reddettin. {actor.captain.name} sırtını dönüp uzaklaştı. Sessizlik, bir kararın ağırlığıyla çöktü üzerinize.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_ayartma_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_riskli": {
+      "title": "Sırt Çevirmek",
+      "kind": "outcome",
+      "text": "Tepkin sahada yankılandı. {actor.captain.name} gözlerini kaçırıyor. Artık soyunma odasında soğuk rüzgarlar esecek.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_ayartma_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_gri": {
+      "title": "Karanlık Mutabakat",
+      "kind": "outcome",
+      "text": "Kalemi aldın. {actor.captain.name} hafifçe gülümsedi. İmza atıldı, artık bu sırrı mezara kadar taşıyacaksın.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_ayartma_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_liderlik": {
+      "title": "Zoraki Uzlaşı",
+      "kind": "outcome",
+      "text": "{actor.captain.name} söylediklerini tarttı. Başını sallayıp dosyayı geri çekti. Bir lider olarak duruşun, en azından bugünlük bir krizi önledi.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_ayartma_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

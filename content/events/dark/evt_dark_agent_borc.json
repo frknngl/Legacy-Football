@@ -1,0 +1,285 @@
+{
+  "id": "evt_dark_agent_borc",
+  "family": "fam_dark_borc",
+  "category": "dark",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Defterler",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin otoparkında, gölgede bekleyen siyah bir sedanın camı yavaşça açılıyor. İçeriden gelen tütün kokusu, gecenin nemiyle birleşerek ağırlaşıyor. {actor.agent.name} direksiyona yaslanmış, parmakları direksiyonu hafifçe okşuyor. Gözleri, sahaya doğru yürüyen oyuncunun üzerinde; bir avcı kararlılığıyla değil, bir hesap uzmanının soğukkanlılığıyla bakıyor. Elindeki deri çanta, ön koltukta, varlığıyla tüm otoparkın ağırlık merkezini değiştiriyor. Sessizlik uzuyor. Tek bir kelime etmiyor; sadece çantanın tokasını yavaşça tıklatıyor. Borç, bu sessizliğin içinde, kulüp binasındaki ışıklardan daha parlak bir şekilde parlıyor. Beklenen hamle, havayı kesen o keskin bakışta gizli.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kulüpten aldığım son ödemeyi çantaya bırak. Bu konuyu burada kapatalım.",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bana biraz zaman tanı. Bu maçı kazandıktan sonra her şey yoluna girecek.",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Piyasa değeri yüksek o yedek oyuncunun transferinden alacağın payı artır, borcumuz silinsin.",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_lider",
+              "text": "Gözlerinin içine bak ve bu işin burada bittiğini, bir daha beni rahatsız etmemesini söyle.",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_sonuc": {
+          "title": "İmzalanan Anlaşma",
+          "kind": "outcome",
+          "text": "Arabanın motoru kükreyerek çalışıyor. Egzoz dumanı, karanlık otoparkı bir anlığına puslandırıyor. Uzaklaşan kırmızı stop lambalarına bakarken, ceketinin içinde hissettiğin o soğuk boşluk yerini kalıcı bir tedirginliğe bırakıyor. Sözler verildi, ödünler verildi. Bu gece sahadan ayrılırken adımların biraz daha ağır, zihnin biraz daha kalabalık.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Altı",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki çamaşırhanede, makinelerin ritmik gürültüsü ortamı sağır ediyor. {actor.agent.name}, paslanmaz çelik bir tezgahın üzerine oturmuş, elindeki tabletin ekranını sana doğru çeviriyor. Ekranda, senin adının karıştığı yasadışı bahis trafiğinin şemaları var. Oysa senin bu işlemlerle hiçbir ilgin yok. {actor.agent.name} hiçbir şey söylemiyor, sadece ıslak zemine damlayan sızıntının sesini dinlemene izin veriyor. Bu kurgu, senin kariyerini bitirebilecek kadar kusursuz hazırlanmış.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Tabletteki isimleri değiştirip dosyayı anonim olarak kulüp başkanının mailine gönder.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Tabletteki verileri tamamen sil ve bu işin içinde sessizce kalmaya devam et.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_guven",
+              "text": "Dosyayı doğrudan disiplin kuruluna teslim et ve tüm süreci ihbar et.",
+              "target": "n_outcome_guven",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "İkinci Bir Oyun",
+          "kind": "outcome",
+          "text": "Dosya ulaştı. Kendi ismini temize çıkarırken, bir başkasının kariyerini ateşe attın. Vicdanındaki boşluk, hesabına yatan paradan daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Karanlık Bir Bağ",
+          "kind": "outcome",
+          "text": "Tablet karardı. {actor.agent.name} sana gülümsedi. Artık bu bataklığın bir parçasısın; sessizliğin, ileride önüne çıkacak bir fırtınanın bedeli.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guven": {
+          "title": "Yalnız Yürüyüş",
+          "kind": "outcome",
+          "text": "Kurulda verdiğin ifade sonrası stadyumdan çıkarken kimse sana selam vermiyor. Profesyonel olarak doğru olanı yaptın, ama arkanda bıraktığın enkaz seninle büyüyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

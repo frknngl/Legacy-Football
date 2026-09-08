@@ -1,0 +1,333 @@
+{
+  "id": "evt_mind_doctor_olcum",
+  "family": "fam_mind_olcum",
+  "category": "mind",
+  "tier": "major",
+  "weight": 60,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 14
+  },
+  "eras": [
+    "rookie"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kemik Yaşı",
+          "kind": "branch",
+          "text": "Revirde duvara yapıştırılmış bir grafik var: yaşa göre boy eğrisi. Senin adının yanındaki nokta eğrinin altında.\n\n{actor.doctor.name} bileğinin röntgenini ışığa tutuyor.\n\n\"Kemik yaşın on beş buçuk. Nüfusta on altı yazıyor ama vücudun öyle demiyor.\"\n\nElindeki kâğıda üç şey yazıyor: ağırlık çalışması yok, haftada iki tam gün dinlenme, maç yükü sınırlı.\n\n\"Bu bir ceza değil,\" diyor. \"Bu bir takvim.\"\n\nAntrenör listeyi görmedi henüz. Kâğıt hâlâ doktorun elinde.",
+          "choices": [
+            {
+              "id": "c_kabul",
+              "text": "Kâğıdı al ve antrenöre kendin götür.",
+              "target": "n_kabul",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 11
+                },
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "dogruluk": 7
+              }
+            },
+            {
+              "id": "c_pazarlik",
+              "text": "\"İki gün çok. Bir gün olmaz mı?\"",
+              "target": "n_pazarlik",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_sus",
+              "text": "Hiçbir şey deme. Kâğıdı onun elinde bırak ve çık.",
+              "target": "n_sus",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            }
+          ]
+        },
+        "n_kabul": {
+          "title": "Takvim",
+          "kind": "outcome",
+          "text": "Kâğıdı antrenöre sen götürdün. Okudu, katladı, cebine koydu. \"Tamam,\" dedi. Başka bir şey demedi.\n\nO hafta iki gün izin yaptın. İkisinde de tesise gittin, sahaya çıkmadın, kenarda oturdun.\n\nOturmak, koşmaktan daha zor bir şeymiş.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_takvime_uydu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_pazarlik": {
+          "title": "Bir Gün",
+          "kind": "outcome",
+          "text": "\"Bir gün,\" dedi {actor.doctor.name} sonunda. Kâğıda tek çizik attı, rakamı değiştirdi.\n\nÜstüne bir cümle ekledi ve o cümle, kâğıttan daha uzun süre aklında kaldı:\n\n\"Bunu ben yazmadım artık. Sen yazdın.\"",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_pazarlik_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sus": {
+          "title": "Kâğıt Orada Kaldı",
+          "kind": "outcome",
+          "text": "Çıktın. Kâğıt masada kaldı.\n\n{actor.doctor.name} onu ertesi gün antrenöre verdi. Aynı şey oldu — ama senin götürmenle onun vermesi arasındaki fark, ikinizin de aklında bir yere yazıldı.\n\nGrafikteki nokta hâlâ eğrinin altında. Acelesi yok. Seninse var.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_sessiz_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda, Keskin Işık",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki sessizlik, {actor.doctor.name}’in elindeki dijital tabletin çıkardığı hafif vızıltıyla bölünüyor. {actor.doctor.name} ekranı sana doğru çeviriyor. Performans verilerin, biyolojik limitlerin ve psikolojik kırılganlıkların; hepsi soğuk grafiklerde parlıyor. 'Görünen o ki,' diyor {actor.doctor.name}, 'yükü taşıyamıyorsun. Bu veriler dışarı sızarsa, kariyerin daha başlamadan biter.' Başını kaldırıp senin gözlerinin içine bakıyor. Söylemediği şey, bu ekranın zaten birçok kişinin görebileceği bir ağa bağlı olduğu.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Tableti al ve verileri yerel sunucudan tamamen silmesini iste. Kariyerim dürüstlükle kurulacak.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Gülümseyerek arkana yaslan. 'Bunu herkes biliyor zaten, sadece kabul etmek istemiyorlar,' de.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cebinden çıkardığın zarfı masaya it. 'Bu verileri saklamanın bir bedeli olmalı, değil mi?'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "İşbirliği teklif et. 'Birlikte çalışırsak, ikimizin de bu rapordan kazanacağı çok şey var.'",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Medya İtibarı 55]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} verileri siliyor. Odadan çıkarken omuzlarındaki ağırlık azalıyor ama kulüpteki 'uyumlu oyuncu' etiketin seni daha çok kısıtlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_takvime_uydu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kaosun İçinde",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} şaşkınlıkla bakıyor. Odayı terk ederken koridorda insanların sana bakışının değiştiğini hissediyorsun. Tehlikeli bir şöhret başlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_sessiz_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Satın Alındı",
+          "kind": "outcome",
+          "text": "Zarf masadan kayboluyor. {actor.doctor.name} gözlerini kaçırıyor. Para hesabına yatıyor, ama aynaya baktığında odaya bıraktığın gururun eksikliğini hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_pazarlik_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Karanlık İttifak",
+          "kind": "outcome",
+          "text": "İkiniz de gülümsüyorsunuz. Artık bir rakip değilsiniz, ortaklıksınız. Veriler sana karşı değil, başkalarına karşı bir koz olarak saklanacak.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_pazarlik_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

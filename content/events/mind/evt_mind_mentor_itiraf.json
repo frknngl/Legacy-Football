@@ -1,0 +1,399 @@
+{
+  "id": "evt_mind_mentor_itiraf",
+  "family": "fam_mind_itiraf",
+  "category": "mind",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "injured",
+    "playing"
+  ],
+  "trigger": {
+    "flag": "iliski_mentor",
+    "op": "gte",
+    "value": 1
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Soyunma odasının loş ışığında, {actor.mentor.name} çantasını hazırlıyor. Omuzları çökmüş. Bir zamanlar saha kenarında fırtınalar estiren o dik duruş gitmiş, yerine yorgun bir gölge gelmiş. Masanın üzerinde, geçmişteki o karanlık anlaşmayı kanıtlayan belgeler duruyor. {actor.partner.name} ise kapı aralığından durumu izliyor; gözlerinde hem korku hem de beklenti var. Mentor başını kaldırmıyor, sadece önüne bakıyor. Her şeyin sonuna gelindi. Sessizliğin ağırlığı, odadaki oksijeni tüketiyor. Bu kağıtlar basına düşerse kariyerin biter, ama susarsan vicdanın bu yükü daha ne kadar taşıyabilir?",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Belgeleri alıp kendi ellerimle yakmalıyım. Her şey burada bitsin.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Gerçeklerin tamamını kulüp yönetimine anlatacağım. Ne olursa olsun.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Bu dosyayı şantaj aracı olarak kullanabiliriz. Kimse zarar görmez.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Otur, konuşalım. Bu sorumluluğu tek başına yüklenmene izin veremem.",
+              "target": "n_outcome_lider",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Küller Dağılıyor",
+          "kind": "outcome",
+          "text": "Kağıtlar küle dönüştü. {actor.mentor.name} sadece başını salladı. Odanın içindeki o ağır hava dağıldı, ama vicdanındaki düğüm daha da sıkılaştı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İplerin Kopuşu",
+          "kind": "outcome",
+          "text": "Gerçekleri söyledin. {actor.mentor.name} ile göz göze geldiniz. Bu kararın bedelini önümüzdeki aylarda tüm medya koridorlarında ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Yeni Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfı çantana attın. {actor.partner.name} başka yöne baktı. Banka hesabındaki artış, aynadaki yansımanı bir süre daha görmezden gelmeni sağlayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lider": {
+          "title": "Omuz Omuza",
+          "kind": "outcome",
+          "text": "Mentorun gözleri doldu. Birlikte bir çıkış yolu çizmeye başladınız. Kariyerinin en zorlu günlerine giriyorsun, ama artık yalnız değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahne Arkası Sessizliği",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları sönmüş, sadece kale arkasındaki projektörün cılız sarısı zemine vuruyor. {actor.mentor.name}, sahanın ortasında, çimlere çökmüş halde oturuyor. Dizlerinde eski bir antrenman yeleği, parmakları arasında ezdiği bir sigara paketi var. Yanına yaklaştığını fark etmiyor. Başını ellerinin arasına almış, dudaklarından dökülen kelimeler rüzgarda eriyip gidiyor. Otoriter tavrının, o kusursuz teknik adam maskesinin altına gizlediği tüm çürükler, bir anda ortaya dökülüyor. Sana bakmıyor bile; sadece boşluğa konuşuyor, hayatı boyunca kurduğu tüm o büyük yalanların nasıl birer birer yıkıldığını itiraf ediyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce yanından uzaklaş. Ne duyduğunu unut.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Söylediklerini telefonuna kaydet. Bir gün işine yarayabilir.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sırtına dokun. Birlikte bu sırrı paylaşmaya karar ver.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Maskesini düşürdüğü için onu sorgula, sorumluluk almaya zorla.",
+              "target": "n_sonuc_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Yüksek Profil]",
+              "persona": {
+                "durus": 6
+              }
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Görünmez İtiraf",
+          "kind": "outcome",
+          "text": "Arkana bakmadan yürüdün. O gece o sahada olan her şey, seninle birlikte sessizliğe gömüldü.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Bir Yatırım",
+          "kind": "outcome",
+          "text": "Cihazın ekranındaki kayıt, artık senin en güçlü kozun. Bu itirafın bedeli, vicdanındaki soğukluk.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Ağırlık Paylaşımı",
+          "kind": "outcome",
+          "text": "Omzuna attığın el, {actor.mentor.name} için bir kurtuluş değil, yeni bir esaretin başlangıcı oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_kilitli": {
+          "title": "Ayna Etkisi",
+          "kind": "outcome",
+          "text": "Kendi doğrularınla onu sıkıştırdın. {actor.mentor.name} gözlerindeki o kırılma, artık bir nefrete dönüştü.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

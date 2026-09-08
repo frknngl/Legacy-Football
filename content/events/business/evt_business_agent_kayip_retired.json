@@ -1,0 +1,377 @@
+{
+  "id": "evt_business_agent_kayip_retired",
+  "family": "fam_business_kayip",
+  "category": "business",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Veda Masası",
+          "kind": "branch",
+          "text": "{actor.agent.name} masanın üzerine boş bir dosya bıraktı. Yıllarca süren transfer pazarlıklarının, imza törenlerinin ve gizli anlaşmaların tutulduğu o evrak çantası artık hafif. {actor.president.name} karşı koltukta, bir sigara yaktı. Duman, odadaki havayı ağırlaştırıyor. Agent, bakışlarını kaçırarak masadaki kalemi çevirmeye başladı. Kariyerini inşa eden tüm belgeler o çantanın içindeydi, şimdi ise sadece birer arşiv numarası. Artık ne bir imza yetkisi ne de bir menajerlik hakkı var. {actor.agent.name} sessizliği bozdu: 'Her şey bitti. Tasfiye süreci başladı.'",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı imzala ve çıkış işlemlerini başlat. Profesyonelce bitti.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Evrakları masada bırakıp {actor.president.name} ile yüzleş. Bu ayrılık hak edilmedi.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Çantadaki gizli nakit havuzuna dair tek bir kelime etme. Kendi payını sessizce çek.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Hepsini bir araya topla, {actor.agent.name} ile bir son kez strateji kur.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Kapı yavaşça kapandı. Ardından hiçbir ses gelmedi. Dosya artık bir müze parçası kadar uzak.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Ağır Hesaplaşma",
+          "kind": "outcome",
+          "text": "Sesler koridorda yankılandı. {actor.president.name} yerinden bile kıpırdamadı. Kapı çarpıldığında, içerideki her bağ sonsuza dek kopmuştu.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Çantanın ağırlığı artık cebinde. Hafifledin ama içinin bir kısmı, {actor.agent.name} ile birlikte binadan çıktı.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Son Strateji",
+          "kind": "outcome",
+          "text": "{actor.agent.name} gözlerinin içine baktı. Bu bir veda değil, yeni bir düzenin başlangıcıydı. Yorgunsun, ama kontrol hâlâ senin elinde.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Borçlar",
+          "kind": "branch",
+          "text": "Emeklilik sonrası sessizliğe gömülmüş garajında, eski bir klasik otomobilin kaputu üzerinde çalışıyorsun. Kapı aralığından gelen ayak sesleri duruyor. {actor.agent.name} elinde bir kağıt parçasıyla yağlı beton zemine basıyor. Bakışları, duvarda asılı duran, artık tozlanmış eski formanda. 'Her şeyin bir son kullanma tarihi var,' diyor, sesindeki o tanıdık tınıyla. 'Senin döneminde kapatamadığımız defterler ise hala taze.' Masanın üstündeki anahtar takımıyla, aranızdaki o eski borç dengesi arasında bir boşluk oluşuyor.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Yağlı elinle kağıdı al ve buruşturup yere at. 'Buradan çık, yoksa kapıdan değil, camdan çıkarsın.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Eldivenlerini çıkar, çekmecedeki kayıt dışı nakit zarfını ona uzat. 'Bu son. Bir daha ne adımı an, ne de kapıma gel.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce gözlerine bak ve borcun yasal yollarla ödeneceğini söyle. 'Sistemi biliyorsun. Avukatım yarın seninle iletişime geçecek.'",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Dosyayı masaya fırlat. 'Sana fazlasıyla kazandırdım. Bu borç zaten yıllar önce ödendi.'",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 60
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Maddi Güç]",
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Restleşme",
+          "kind": "outcome",
+          "text": "{actor.agent.name} hiçbir şey demeden kapıdan çıktı. Arkanızdaki sessizlik artık daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Zarfı aldı ve arkasına bakmadan uzaklaştı. Bedeli ağır olsa da, en azından artık bir gölgen yok.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Prosedür",
+          "kind": "outcome",
+          "text": "Yasalar önünde her şey temizlendi. Ama bu süreçteki gerginlik omuzlarında başka bir yük bıraktı.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Eski ortağınla tüm bağlarını kestin. Banka hesabın dolu ama zihnin hiç olmadığı kadar yorgun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

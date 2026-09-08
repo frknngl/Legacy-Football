@@ -1,0 +1,391 @@
+{
+  "id": "evt_dark_lawyer_yuzlesme",
+  "family": "fam_dark_yuzlesme",
+  "category": "dark",
+  "tier": "epic",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Zarf",
+          "kind": "branch",
+          "text": "Odanın ağır, küf kokulu havasına karışan ucuz tütün dumanı gözlerini yakıyor. Köşedeki masada {actor.lawyer.name} oturuyor, önündeki deri çanta yarı açık. Kapının hemen girişinde, yıllar önce top peşinde koşan {actor.childhood_friend.name} duruyor; bakışlarını yerden kaldırmıyor. Sessizlik, bir stadyumun son dakikasındaki gerginlikten daha boğucu. Avukat, çantayı hafifçe iterek sana bakıyor. O gözlerde ne profesyonel bir nezaket var ne de eski dostluğun kırıntısı. Sadece bir seçenek sunuluyor; bu odadan çıkışının bedeli belli.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Masaya yaklaşmadan, sırtını dönüp çıkışı işaret et. Bu kirli oyunu medya önünde ifşa edeceğini söyle.",
+              "target": "n_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "{actor.childhood_friend.name} ile göz göze gel. Masadaki çantayı tekmeleyerek devir, hiçbir şey imzalamayacağını haykır.",
+              "target": "n_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Sessizce masaya otur. Kalemi al, sorgusuzca imzala ve çantayı çantana aktar.",
+              "target": "n_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_leadership",
+              "text": "{actor.lawyer.name} ve {actor.childhood_friend.name} arasına yürü. İkisinin de gözlerinin içine bakarak, şartlarını kendi kurallarınla yeniden dikte et.",
+              "target": "n_leader",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "durus": 12
+              }
+            }
+          ]
+        },
+        "n_safe": {
+          "title": "Mesafeni Koru",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek ses, masadan gelen o alaycı gülüş oldu. Temiz kalmanın bedeli, artık her köşe başında bir düşmanla yüzleşmek demek.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risky": {
+          "title": "Sokakların İntikamı",
+          "kind": "outcome",
+          "text": "Çanta yerlere saçılırken odadaki gerilim patladı. {actor.childhood_friend.name} korkuyla geri çekildi. Artık imzanın değeri yok, sadece öfkenin yankısı var.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_grey": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Kalem kâğıt üzerinde akarken vicdanının sesi kesildi. Para çantana girdi, ama o kapıdan çıktığında artık eski sen değildin.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_leader": {
+          "title": "Dengeyi Kuran",
+          "kind": "outcome",
+          "text": "Odanın kontrolü tamamen eline geçti. İkisi de sana bakarken kimin av, kimin avcı olduğu artık belli değil. Saygı kazandın ama ruhun biraz daha yoruldu.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Altı",
+          "kind": "branch",
+          "text": "Stadyumun otoparkında, yanıp sönen bir florasan lambanın altında duruyorsunuz. Beton soğuk. {actor.childhood_friend.name} arabanın kaputuna yaslanmış, elindeki anahtarlıkla oynuyor. Yüzü gölgede kalmış, ama omuzlarının gerginliği her şeyi anlatıyor. Ayaklarının dibinde, kulüp yönetiminin resmi damgasını taşıyan iptal tebligatı yırtılmış halde yatıyor. {actor.childhood_friend.name} başını kaldırmıyor. Otoparkın uzak köşesinden gelen siren sesi, aradaki sessizliği kesiyor. Biriniz gitmek zorunda.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sırtını dön ve hızla uzaklaş. Kulübün imajı senin kariyerinden daha değerli.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Üzerine yürü. Sessizliğini bir itirafa dönüştürmesini bekle.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfları değiştir. Senin yerine onun adının yazılı olduğu kağıdı masaya bırak.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bakıp elini omzuna koy. Bu ihanetin ağırlığını beraber taşıyın.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Uzaklaşmak",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek şey motorun çalışma sesi. Arkana bakmadan otoparktan çıkıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Yüzleşmek",
+          "kind": "outcome",
+          "text": "Gözleri doluyor. Cebinden çıkardığı notu sana uzatıyor. Her şey çok daha karmaşık hale geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "İhanet",
+          "kind": "outcome",
+          "text": "Ona bir bakış atıyorsun. Anlıyor. Sessizce masadaki dosyayı alıp çıkıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Ağırlığı Paylaşmak",
+          "kind": "outcome",
+          "text": "Birbirinize sarılıyorsunuz. Bu yük artık tek bir kişinin değil, ikinizin sırrı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

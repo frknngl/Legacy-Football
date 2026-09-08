@@ -1,0 +1,374 @@
+{
+  "id": "evt_personal_cousin_borc_retired",
+  "family": "fam_personal_borc",
+  "category": "personal",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin Faturası",
+          "kind": "branch",
+          "text": "Emeklilik sonrası huzur aradığın bahçenin kapısı, ağır bir gıcırtıyla açıldı. {actor.cousin.name}, elinde eski bir defterle, güneşin tam karşısında duruyor. Yıllar önceki o mahalle turnuvasını, imzaladığın ilk profesyonel sözleşme priminden ona ayırman gereken o payı hatırlatıyor. Sesi, sanki aradaki yirmi yılı bir kalemde siliyor; ne bir selam var ne de hal hatır soran bir nezaket. Sadece, bugün ödenmesi gereken bir rakam ve arkasında yıllardır biriken o karanlık beklenti. {actor.childhood_friend.name} gölgede sigarasını söndürüp izliyor. Sessizlik, evdeki tüm eşyalardan daha ağır.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Avukatımı ara ve hukuki süreci başlat. İmzalanmamış bir senet, sadece bir kağıt parçasıdır.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Masadaki nakit yığınını göster. 'Bu mahallenin hatırı için kalsın,' de, defteri yüzüne fırlat.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Zarfı uzat. İçindekini kontrol etmesini bekleme, kapıyı ardına kadar açık bırak.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_leadership",
+              "text": "Elini omzuna koy. Gözlerine bakarak, o günkü şartların aslında onu nasıl kurtardığını tane tane anlat.",
+              "target": "n_outcome_lead",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Resmiyete Dökülen Kopuş",
+          "kind": "outcome",
+          "text": "{actor.cousin.name} arkasını dönüp giderken, bahçedeki kuşlar bile sustu. Hukuk, bağları kesti; ancak artık biliyorsun, sırtında o eski mahallenin hayaletiyle yaşayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Sokakların Onayı",
+          "kind": "outcome",
+          "text": "Parayı değil, raconu seçtin. {actor.cousin.name} kazandı belki ama sen, mahallenin hafızasında 'adamlığını' kanıtladın. Şimdi medya bunu başka türlü yazacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Sessiz Bir Ödeme",
+          "kind": "outcome",
+          "text": "Hesap kapandı, kelimeler hiç sarf edilmedi. Para gitti, huzursuzluk baki kaldı. Sadece ikiniz biliyorsunuz o zarfta neyin bedelinin ödendiğini.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_lead": {
+          "title": "Yeniden İkna",
+          "kind": "outcome",
+          "text": "Sesin, yılların yorgunluğunu ezip geçti. {actor.cousin.name}, elindeki defteri yavaşça bıraktı. O günkü kararın, bugün bir anlaşmaya dönüştü. İçin soğudu ama ruhun biraz daha yoruldu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borç",
+          "kind": "branch",
+          "text": "Emekliliğin sessizliğini bozan tek şey, kapıdaki ısrarlı tıkırtı. {actor.cousin.name}, yorgun bir ifadeyle eşikte duruyor. Arkasında, yıllar önce paylaştığınız o tozlu antrenman sahasının hatırası değil, şimdi boğazına dayanmış bir borç yığını var. Masanın üzerinde duran emeklilik ikramiyesinin olduğu zarf, odadaki tek ışık kaynağı gibi parlıyor. {actor.cousin.name} konuşmuyor, sadece o eski antrenman sahasındaki günlerde olduğu gibi çaresizce bakıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı hiç açmadan masanın kenarına sürükle. Sadece gitmesini iste.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ceketinin iç cebindeki gizli nakitleri çıkarıp {actor.cousin.name} avucuna birak. 'Bunu kimse duymayacak,' de.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Yavaşça ayağa kalk ve kapıyı göster. 'Yolun burada ayrılıyor,' de.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Eski günlerin hatırına, {actor.cousin.name} ile birlikte bankaya gitmeyi teklif et.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sadakat Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Bir Bedel",
+          "kind": "outcome",
+          "text": "{actor.cousin.name} tek kelime etmeden çıkıp gidiyor. Odanın içindeki ağırlık, giden ayak seslerinden daha fazla yer kaplıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Karanlık Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Para, {actor.cousin.name} avuçlarına dökülüyor. Kapı kapandığında, kendi vicdanının sesi artık dışarıdaki dedikodulardan daha yüksek.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk Bir Veda",
+          "kind": "outcome",
+          "text": "Kapı yüzüne kapandığında, {actor.cousin.name} bakışındaki o hayal kırıklığını kendi yansımanla birlikte aynada görüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Son Bir Çaba",
+          "kind": "outcome",
+          "text": "Banka kuyruğunda, profesyonel hayatının tüm yorgunluğu omuzlarına biniyor. {actor.cousin.name} bakarken, geçmişin borcunu ödemenin aslında kendi huzurunu sattığını anlıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

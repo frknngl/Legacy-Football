@@ -1,0 +1,208 @@
+{
+  "id": "evt_transfer_captain_geri_donus",
+  "family": "fam_transfer_geri_donus",
+  "category": "transfer",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 8
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Evin Kapısı",
+      "kind": "branch",
+      "text": "Odanın içi rutubet ve eski bir boya kokusuyla dolu. Masada duran sözleşme metni, yıllar önce çıktığın o merdivenleri hatırlatıyor. {actor.rival_club_manager.name} camdan dışarı, antrenman sahasına bakıyor. Sırtı sana dönük. {actor.agent.name} ise masanın kenarına yaslanmış, imza kalemini parmakları arasında çeviriyor. Dışarıda, antrenman sahasının tellerine asılmış bir pankart dalgalanıyor. Yazı, ayrıldığın günkü öfkeyi hala taşıyor. Sessizlik ağırlaşıyor. Masadaki evrak, geri dönmen için tek seçenek.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Kontratı incele. Şartları iyileştirmelerini söyle ama sadakatini vurgula.",
+          "target": "n_sonuc_guvenli",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Pankartı işaret et. Taraftarın gönlünü almak için maaşında indirim iste.",
+          "target": "n_sonuc_riskli",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Sessizce çantayı aç, rakamları konuşmadan sadece imza primine odaklan.",
+          "target": "n_sonuc_gri",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": -7
+          }
+        },
+        {
+          "id": "c_liderlik",
+          "text": "Kaptanlık pazubandını masaya bırak. Sadece liderlik yükünü taşımak için geri dön.",
+          "target": "n_sonuc_liderlik",
+          "effects": [
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "sadakat": 12
+          },
+          "requires": {
+            "flag": "liderlik",
+            "op": "gte",
+            "value": 65
+          },
+          "lockLabel": "[Liderlik 65]"
+        }
+      ]
+    },
+    "n_sonuc_guvenli": {
+      "title": "Profesyonel Dönüş",
+      "kind": "outcome",
+      "text": "Kalem kâğıdın üzerinde pürüzsüzce kayıyor. {actor.agent.name} başıyla onaylıyor. Bu bir geri dönüş değil, bir iş ortaklığı.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_riskli": {
+      "title": "Tribünlerin Çağrısı",
+      "kind": "outcome",
+      "text": "{actor.rival_club_manager.name} kaşlarını çatıyor, ancak taraftarın sesi dışarıdan içeri sızıyor. Risk aldın, karşılığında tüm yükü omuzlarına yükledin.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_gri": {
+      "title": "Sessiz Kazanç",
+      "kind": "outcome",
+      "text": "Sayılar tatmin edici. Kimse geçmişteki kırgınlıklardan bahsetmiyor. Sadece bir kontrat imzalandı, vicdanın ise odanın kapısında kaldı.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sonuc_liderlik": {
+      "title": "Yeniden Kaptan",
+      "kind": "outcome",
+      "text": "{actor.captain.name} pazubandını çıkarıp sana uzatıyor. Gözlerindeki yorgunluğu görüyorsun. Bu geri dönüş, sadece sahadaki yerini değil, kulübün geleceğini de omuzlarına bindiriyor.",
+      "onEnter": [
+        {
+          "flag": "mem_transfer_geri_donus_captain",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

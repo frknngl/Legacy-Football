@@ -1,0 +1,399 @@
+{
+  "id": "evt_locker_youngster_ayni_mevki",
+  "family": "fam_locker_ayni_mevki",
+  "category": "locker",
+  "tier": "major",
+  "weight": 80,
+  "cooldown": {
+    "self": 24,
+    "family": 10
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "_statureNote": "Iki caylak AYNI yer icin yarisiyor -- kidem degil akranlik sahnesi. Locker kategorisi dogru kapilandiginda caylak icin bosalmisti; bu sahne o boslugu dolduruyor ve `youngster` slotunu caylak agziyla kullaniyor.",
+  "lifeStates": [
+    "playing",
+    "loaned"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Aynı Numara",
+          "kind": "branch",
+          "text": "Malzemeci formaları dağıtırken bir tanesi elinde kalıyor. Üstünde senin numaran var ama iki tane basmışlar.\n\n{actor.youngster.name} yanında duruyor. Senin yaşında, senin mevkinde, senden üç ay önce imzalamış. Antrenmanda ikinizden biri sahada, diğeri kenarda; bu böyle sürüyor.\n\nMalzemeci ikinize birden bakıyor: \"Kim alacak bunu?\"\n\n{actor.youngster.first} elini uzatmıyor. Sen de uzatmadın. İkiniz de biliyorsunuz ki mesele forma değil.",
+          "choices": [
+            {
+              "id": "c_birak",
+              "text": "\"Onun olsun.\" Geri çekil, kendi eski formanı al.",
+              "target": "n_birak",
+              "effects": [
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "mem_locker_formayi_birakti",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "sadakat": 6,
+                "durus": -7
+              }
+            },
+            {
+              "id": "c_al",
+              "text": "Formayı al. \"Numara benim.\" Gözünün içine bakarak.",
+              "target": "n_al",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": -16
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "mem_locker_formayi_aldi",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "mizac": 8,
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_paylas",
+              "text": "Malzemeciye dön: \"İkisini de bırak. Hoca kime verirse o giyer.\"",
+              "target": "n_paylas",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "npc_youngster_arc",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "mem_locker_hakeme_birakti",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "dogruluk": 7,
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_anlas",
+              "text": "Sessizce yanına git: \"Bu sezon sen, gelecek sezon ben. Kimseye söyleme.\"",
+              "target": "n_anlas",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Liderlik 55]",
+              "effects": [
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "npc_youngster_arc",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "mem_locker_gizli_anlasma",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "sadakat": 8,
+                "dogruluk": -6
+              }
+            }
+          ]
+        },
+        "n_birak": {
+          "title": "Eski Forma",
+          "kind": "outcome",
+          "text": "{actor.youngster.name} formayı alıyor, teşekkür etmiyor. Etmesine gerek de yok; ikiniz de ne olduğunu biliyorsunuz.\n\nO hafta sonu o ilk onbirde, sen kenardasın. Doksan dakika boyunca senin numaranı taşıyan birini izliyorsun.\n\nSoyunma odasına dönerken yanına geliyor. \"Ben istememiştim,\" diyor. \"Sen verdin.\""
+        },
+        "n_al": {
+          "title": "Numara Benim",
+          "kind": "outcome",
+          "text": "Formayı alıp dolabına asıyorsun. {actor.youngster.first} bir şey demiyor, çıkıyor.\n\nErtesi gün antrenmanda ikili mücadelede ayağına sert giriyor. Hakem yok, ıslık yok. Yerden kalkarken bakışıyorsunuz.\n\nBu, bir sezon sürecek bir şeyin ilk günü."
+        },
+        "n_paylas": {
+          "title": "Hocaya Kalsın",
+          "kind": "outcome",
+          "text": "Malzemeci omuz silkiyor, iki formayı da rafa koyuyor.\n\nÖğleden sonra {actor.manager.name} seni çağırıyor. \"Malzemeci anlattı,\" diyor. \"Doğru yaptın. Ama bir şeyi bil: benim kararımı beklemek bazen kimsenin kararını almamak demektir.\"\n\nKapıdan çıkarken ekliyor: \"Numarayı ona verdim. Sen kendine bir tane seç.\""
+        },
+        "n_anlas": {
+          "title": "İki Kişilik Sır",
+          "kind": "outcome",
+          "text": "{actor.youngster.first} önce anlamıyor, sonra anlıyor. Başını sallıyor.\n\nO sezon o oynuyor, sen bekliyorsun. Bir kez bile şikâyet etmiyorsun ve bu, hocanın gözünden kaçmıyor — ama yanlış tarafından: \"Rekabet etmiyor,\" diye not düşüyor birileri.\n\nSezon sonunda {actor.youngster.first} yanına geliyor. \"Sözümüz duruyor,\" diyor. Duruyor mu, göreceksin."
+        }
+      }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ayna Görüntü",
+          "kind": "branch",
+          "text": "Duşların buğusu aynayı kaplamış. {actor.youngster.name} kenara çekilmiş, saçlarını düzeltiyor. Aynı kramponu giymişiz, aynı dizliği takmışız. Bugün maç kasedini izlerken analiz şefi yanıma geldi, elindeki tableti işaret etti: 'Bak, senin hareketlerin, senin zamanlaman. O, senin gölgen gibi büyüyor.' {actor.youngster.name} aynadaki yansımamıza bakıp gülümsedi. O gülüşte, sadece benim bildiğim bir meydan okuma var. Soyunma odasının gürültüsü kesildi, sadece akan suyun sesi kaldı.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Aynadaki görüntüsüne bakmadan çantamı topla. Profesyonelliğini koru, sus.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Yanına yaklaş, menajerinden bahset. 'Senin için daha iyi bir kulüp bulabiliriz' diye fısılda.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kramponunu orta sahada kasten unut. Onun ayağına bir numara büyük gelsin, maçta topukları vursun.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Antrenman sahasına onu çağır. Hatalarını bizzat, defalarca düzelt.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "teknik",
+                  "op": "add",
+                  "value": 1
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "requires": {
+                "flag": "teknik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Teknik 74]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Kalış",
+          "kind": "outcome",
+          "text": "Sessizlik en güvenli zırh. O, senin yerini almaya çalışırken sen sadece işine odaklanıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_formayi_birakti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sinsi Teklif",
+          "kind": "outcome",
+          "text": "Zarf masanın altında yer değiştirdi. Artık o sadece bir rakip değil, senin gölgeni taşıyan bir müşteri.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_gizli_anlasma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Küçük Sabotaj",
+          "kind": "outcome",
+          "text": "Sahaya çıktığında topalladığını gördün. Tribünlerdeki uğultu, onun yetersizliğine dönüştü.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_hakeme_birakti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Usta-Çırak",
+          "kind": "outcome",
+          "text": "Kasların yorgunluktan titriyor ama o artık senin her hareketini ezberledi. Aranızdaki bağ, saha dışına taştı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_formayi_aldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

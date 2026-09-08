@@ -1,0 +1,348 @@
+{
+  "id": "evt_mind_physio_itiraf_injured",
+  "family": "fam_mind_itiraf",
+  "category": "mind",
+  "tier": "major",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odadaki İtiraf",
+          "kind": "branch",
+          "text": "Oda buz gibi. {actor.physio.name} elindeki MR raporunu masaya bırakıyor. Bakışları, dizindeki o yaranın ötesine geçip doğrudan ruhuna ulaşıyor. Dışarıda antrenman sahasının gürültüsü duyuluyor, sen ise içerideki sessizliğin ağırlığı altındasın. Sakatlığın aslında çok daha eski olduğunu, sezon başından beri her adımın aslında bir yıkım olduğunu biliyor. {actor.psychologist.name} kapının aralığında, elinde tuttuğu defterle bekliyor. {actor.doctor.name} odada yok ama gölgesi her köşe başında. Gerçeği söylemezsen dizin birkaç haftaya tamamen bitecek. Söylersen, takımın tüm stratejisi ve senin imajın yerle bir olacak. {actor.physio.name} elindeki kalemi yavaşça masaya bırakıyor. 'Daha ne kadar saklayabileceğini sanıyorsun?' diye fısıldıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Raporu imzala. 'Dinlenmem gerektiğini biliyorum, gerçeği açıklayalım.'",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Raporu buruşturup kenara at. 'Sahaya çıkmam için bana iğne yap, sadece iki maç kaldı.'",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sesini alçalt. 'Bu bilgiyi dosyaya işleme, maaşımı düzenli alayım, tedaviyi özelde hallederim.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_lider",
+              "text": "Gözlerinin içine bak. 'Birlikte bir yol bulmalıyız, takımın sana ihtiyacı var, bana da.'",
+              "target": "n_outcome_leader",
+              "effects": [
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "İtirafın Bedeli",
+          "kind": "outcome",
+          "text": "Resmi raporlar sisteme girildi. Artık herkes dizindeki sorunu biliyor. Kariyerin bir süreliğine durdu, ama vicdanın sessiz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Kumar Oynamak",
+          "kind": "outcome",
+          "text": "Eczane çantası açıldı. O iğne dizindeki acıyı değil, sadece hissini öldürüyor. İki maç sonra sahada yıkılacağını ikiniz de biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Bedeli",
+          "kind": "outcome",
+          "text": "Zarf masanın üzerinden eline geçti. Kimse bir şey görmedi. Dışarı çıkarken aynadaki yansıman artık eskisi kadar temiz görünmüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_leader": {
+          "title": "Ortak Bir Sır",
+          "kind": "outcome",
+          "text": "{actor.physio.name} hafifçe başını sallıyor. Aranızda kurulan bu sessiz anlaşma, hem kulübün hem de senin geleceğin için ağır bir yük.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Buzlu Su ve Yalanlar",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki rehabilitasyon havuzunda, suyun kimyasal kokusu genzini yakıyor. {actor.physio.name}, dizindeki sargıyı yavaşça çözerken gözleri sadece morarmış dokuda değil, senin huzursuzluğunda. Havuzun metal kenarına yaslanmış, dışarıdaki takımın hafif tempolu koşusunu izliyorsun. {actor.physio.name} bir an duraksıyor, elindeki kayıt cihazını kapatıp yanına yaklaşıyor. Bakışlarındaki ifade, profesyonel bir mesafeden çok bir suç ortağının sessizliğini barındırıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Sargıyı kendi ellerinle yırtıp at. 'Bu hafta ilk 11'deyim, raporu sakla.'",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğ. 'Raporu yaz, kulüp ne derse o olsun.'",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın zarfı havuz kenarına bırak. 'Bunu yeni ekipman masrafı say, raporu unut.'",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine derinlemesine bak. 'Yılların hatırına, bu seferlik durumu idare et.'",
+              "target": "n_sonuc",
+              "effects": [
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              },
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[İtibar Yüksek]"
+            }
+          ]
+        },
+        "n_sonuc": {
+          "title": "Karar Kesinleşti",
+          "kind": "outcome",
+          "text": "{actor.physio.name} hiçbir şey söylemeden arkasını dönüp gidiyor. Arkasında bıraktığı ıslak ayak izleri, havuzun kenarındaki fayanslarda hızla kuruyor. Artık geri dönüşü yok.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

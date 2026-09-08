@@ -1,0 +1,224 @@
+{
+  "id": "evt_match_racist_abuse",
+  "family": "fam_match_stands",
+  "category": "match",
+  "tier": "epic",
+  "momentType": "racist_abuse",
+  "weight": 22,
+  "cooldown": { "self": 30, "family": 12 },
+  "lifeStates": ["playing", "loaned", "national_duty"],
+  "personaAffinity": { "durus": 70 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kale arkası",
+      "kind": "branch",
+      "text": "{minute}. dakika, {opponent} deplasmanı, skor {scoreline}. Korner kullanmak için köşe bayrağına gidiyorsun ve ilk kez net duyuyorsun.\n\nBir kişi değil. Kale arkasının bir bölümü, ritim tutturmuş. Aynı hece, tekrar tekrar. Topu yere koyuyorsun ve elin titriyor; soğuktan değil.\n\nHakem hiçbir şey duymuyormuş gibi elini kaldırıyor: devam. {actor.captain.name} koşarak yanına geliyor ve tek kelime söylemeden omzuna dokunuyor. Kenarda {actor.manager.name} ayakta, dördüncü hakeme bir şeyler anlatıyor.\n\nOtuz bin kişi senin ne yapacağını bekliyor ve bunların çoğu daha ne olduğunu bilmiyor.",
+      "onEnter": [{ "flag": "inc_racist_abuse", "op": "set", "value": true }],
+      "choices": [
+        {
+          "id": "c_play",
+          "text": "Korneri kullan. Duymamış gibi yap, oyuna devam et.",
+          "target": "n_played_on",
+          "effects": [
+            { "flag": "profesyonellik", "op": "add", "value": 8 },
+            { "flag": "medya_itibari", "op": "add", "value": 5 },
+            { "flag": "moral", "op": "add", "value": -18 },
+            { "flag": "mental_dayaniklilik", "op": "add", "value": -6 },
+            { "flag": "mem_stayed_silent_racism", "op": "set", "value": true }
+          ],
+          "persona": { "durus": -10, "mizac": -6 }
+        },
+        {
+          "id": "c_walk",
+          "text": "Topu bırak. Sahanın ortasına yürü ve dur.",
+          "target": "n_walked_off",
+          "effects": [
+            { "flag": "taraftar_destegi", "op": "add", "value": 20 },
+            { "flag": "sokak_itibari", "op": "add", "value": 15 },
+            { "flag": "medya_baskisi", "op": "add", "value": 30 },
+            { "flag": "yonetim_baskisi", "op": "add", "value": 15 },
+            { "flag": "mem_stood_against_racism", "op": "set", "value": true },
+            {
+              "op": "schedule",
+              "event": "evt_react_racism_aftermath",
+              "inTurns": 1,
+              "priority": "forced",
+              "onIneligible": "fire"
+            }
+          ],
+          "persona": { "durus": 14, "dogruluk": 10 }
+        },
+        {
+          "id": "c_point",
+          "text": "Hakeme dön ve tribünü göster. \"Duyuyorsun. Sen de duyuyorsun.\"",
+          "target": "n_roll_ref",
+          "effects": [
+            { "flag": "disiplin_sicili", "op": "add", "value": 5 },
+            { "flag": "taraftar_destegi", "op": "add", "value": 12 },
+            { "flag": "medya_baskisi", "op": "add", "value": 18 },
+            { "flag": "moral", "op": "add", "value": -8 }
+          ],
+          "persona": { "durus": 10, "mizac": 7 }
+        },
+        {
+          "id": "c_team",
+          "text": "Takımı çağır. \"Ya hep beraber çıkarız ya hiç kimse.\"",
+          "target": "n_team_stand",
+          "requires": { "flag": "liderlik", "op": "gte", "value": 68 },
+          "lockLabel": "[Liderlik 68]",
+          "effects": [
+            { "flag": "iliski_takim", "op": "add", "value": 25 },
+            { "flag": "liderlik", "op": "add", "value": 8 },
+            { "flag": "yonetim_baskisi", "op": "add", "value": 25 },
+            { "flag": "medya_baskisi", "op": "add", "value": 25 },
+            { "flag": "mem_stood_against_racism", "op": "set", "value": true },
+            {
+              "op": "schedule",
+              "event": "evt_react_racism_aftermath",
+              "inTurns": 1,
+              "priority": "forced",
+              "onIneligible": "fire"
+            }
+          ],
+          "persona": { "durus": 12, "sadakat": 10, "dogruluk": 8 }
+        },
+        {
+          "id": "c_answer",
+          "text": "Gol at ve sevincini o tribünün önünde yap.",
+          "target": "n_roll_answer",
+          "requires": { "flag": "persona_mizac", "op": "gte", "value": 62 },
+          "lockLabel": "[Mizaç 62]",
+          "effects": [
+            { "flag": "sokak_itibari", "op": "add", "value": 18 },
+            { "flag": "disiplin_sicili", "op": "add", "value": 8 },
+            { "flag": "medya_itibari", "op": "add", "value": -6 },
+            { "flag": "kondisyon", "op": "add", "value": -5 }
+          ],
+          "persona": { "mizac": 12, "durus": 8 }
+        }
+      ]
+    },
+
+    "n_played_on": {
+      "title": "Korner",
+      "kind": "outcome",
+      "text": "Korneri kullanıyorsun. Top ceza sahasına gidiyor, kafa, aut. Oyun devam ediyor.\n\nDevre arasında soyunma odasında kimse konuyu açmıyor. Sen de açmıyorsun. Duşta suyun altında duruyorsun ve o heceyi hâlâ duyuyorsun.\n\nGece annen arıyor. \"İyi misin?\" diyor. \"İyiyim,\" diyorsun. İkiniz de inanmıyorsunuz.",
+      "onEnter": [
+        { "op": "match", "rating": -0.4, "incident": "inc_racist_abuse" },
+        { "flag": "iliski_aile", "op": "add", "value": -4 },
+        { "flag": "tukenmislik", "op": "add", "value": 12 }
+      ]
+    },
+
+    "n_walked_off": {
+      "title": "Orta yuvarlak",
+      "kind": "outcome",
+      "text": "Topu yerde bırakıp yürüyorsun. Orta yuvarlağa varıp duruyorsun ve kimseye bakmıyorsun.\n\nÖnce ıslık. Sonra bir sessizlik. Sonra karşı tribünün başka bir bölümü alkışlamaya başlıyor ve alkış yayılıyor. Hakem düdüğü çalıyor, anons yapılıyor. {actor.captain.first} yanına geliyor, sonra kaleci, sonra hepsi.\n\nMaç yedi dakika durdu. Yarın bunu konuşacaklar. Bir kısmı seni suçlayacak.",
+      "onEnter": [
+        { "op": "match", "rating": 0.3, "incident": "inc_stood_up" },
+        { "flag": "moral", "op": "add", "value": 8 },
+        { "flag": "iliski_takim", "op": "add", "value": 12 },
+        { "flag": "iliski_basin", "op": "add", "value": -8 }
+      ]
+    },
+
+    "n_roll_ref": {
+      "title": "Hakemin kararı",
+      "kind": "roll",
+      "text": "Hakem sana bakıyor, sonra tribüne, sonra dördüncü hakeme. Kulaklığına bir şey söylüyor.",
+      "outcomes": [
+        {
+          "target": "n_ref_acted",
+          "weight": { "base": 40, "modifiers": [{ "flag": "medya_itibari", "scale": 0.3 }, { "flag": "taraftar_destegi", "scale": 0.15 }] }
+        },
+        {
+          "target": "n_ref_ignored",
+          "weight": { "base": 50, "modifiers": [{ "flag": "disiplin_sicili", "scale": 0.35 }] }
+        }
+      ]
+    },
+
+    "n_ref_acted": {
+      "title": "Anons",
+      "kind": "outcome",
+      "text": "Stadyum anonsu devreye giriyor. Protokol okunuyor, o soğuk resmi metin. Maç dört dakika duruyor.\n\nİşe yarayıp yaramadığını bilmiyorsun. Ama birisi bir şey yaptı ve bunu sen başlattın. Kale arkasından bir grup dışarı çıkarılıyor.",
+      "onEnter": [
+        { "op": "match", "rating": 0.2, "incident": "inc_stood_up" },
+        { "flag": "medya_itibari", "op": "add", "value": 8 },
+        { "flag": "mem_stood_against_racism", "op": "set", "value": true },
+        { "flag": "moral", "op": "add", "value": 4 }
+      ]
+    },
+
+    "n_ref_ignored": {
+      "title": "Devam",
+      "kind": "outcome",
+      "text": "\"Oyna,\" diyor hakem. \"Oyna, gecikme yapma.\"\n\nBir saniye ona bakıyorsun. O gözlerini kaçırıyor. Korneri kullanıyorsun.\n\nBu anı unutmayacaksın ve bir gün, çok sonra, bir mikrofonun önünde bu hakemin adını söyleyeceksin.",
+      "onEnter": [
+        { "op": "match", "rating": -0.5, "incident": "inc_ref_conflict" },
+        { "flag": "moral", "op": "add", "value": -14 },
+        { "flag": "mem_stayed_silent_racism", "op": "set", "value": true },
+        { "flag": "mental_dayaniklilik", "op": "add", "value": 6 }
+      ]
+    },
+
+    "n_team_stand": {
+      "title": "On bir kişi",
+      "kind": "outcome",
+      "text": "Elini kaldırıyorsun ve bekliyorsun. {actor.captain.first} ilk gelen. Sonra kaleci ceza sahasından çıkıp orta sahaya yürüyor. Sonra hepsi.\n\nOn bir kişi orta yuvarlakta duruyor. {opponent} oyuncularından üçü de geliyor. Kenarda {actor.manager.name} kollarını kavuşturmuş ve gözleri dolu; bunu kimseye söylemeyecek.\n\nMaç on dakika durdu. Bu fotoğraf yarın bütün gazetelerin birinci sayfasında olacak ve on yıl boyunca kullanılacak.",
+      "onEnter": [
+        { "op": "match", "rating": 0.8, "incident": "inc_stood_up" },
+        { "flag": "moral", "op": "add", "value": 15 },
+        { "flag": "iliski_manager", "op": "add", "value": 15 },
+        { "flag": "npc_captain_arc", "op": "add", "value": 1 },
+        { "flag": "taraftar_destegi", "op": "add", "value": 10 }
+      ]
+    },
+
+    "n_roll_answer": {
+      "title": "Cevap",
+      "kind": "roll",
+      "text": "Hiçbir şey söylemiyorsun. Sadece topu istiyorsun. Sonraki yirmi dakika boyunca her topu istiyorsun.",
+      "outcomes": [
+        {
+          "target": "n_answered",
+          "weight": { "base": 25, "modifiers": [{ "flag": "teknik", "scale": 0.5 }, { "flag": "form", "scale": 0.3 }, { "flag": "persona_mizac", "scale": 0.2 }] }
+        },
+        {
+          "target": "n_burned_out",
+          "weight": { "base": 45, "modifiers": [{ "flag": "kondisyon", "scale": -0.3 }, { "flag": "tukenmislik", "scale": 0.4 }] }
+        }
+      ]
+    },
+
+    "n_answered": {
+      "title": "O tribünün önünde",
+      "kind": "outcome",
+      "text": "Topu ağlara gönderiyorsun ve koşuyorsun. O tribünün önüne gidiyorsun, duruyorsun, kollarını iki yana açıyorsun ve hiçbir şey söylemiyorsun.\n\nSaha görevlileri koşarak geliyor. {actor.captain.first} seni omzundan çekiyor. Hakem sarı kart gösteriyor ve gösterirken sana bakamıyor.\n\nO fotoğraf da yarın gazetede. Ama bu sefer sen gülümsemiyorsun.",
+      "onEnter": [
+        { "op": "match", "goals": 1, "yellowCards": 1, "rating": 1.5, "incident": "inc_celebrated_provocatively" },
+        { "op": "match", "incident": "inc_scored_winner" },
+        { "flag": "taraftar_destegi", "op": "add", "value": 25 },
+        { "flag": "sokak_itibari", "op": "add", "value": 20 },
+        { "flag": "medya_baskisi", "op": "add", "value": 25 },
+        { "flag": "disiplin_sicili", "op": "add", "value": 6 },
+        { "flag": "mem_stood_against_racism", "op": "set", "value": true }
+      ]
+    },
+
+    "n_burned_out": {
+      "title": "Yetmedi",
+      "kind": "outcome",
+      "text": "Her topu istedin ve hiçbirini beceremedin. Bacakların öfkeyle koştu, kafan koşmadı. Yetmiş sekizinci dakikada {actor.manager.name} seni oyundan aldı.\n\nKenara gelirken o tribün ayakta ıslık çalıyor. Yedek kulübesine oturup havluyu kafana geçiriyorsun.\n\nOnlar kazandı. Bunu bir daha yapmayacaksın.",
+      "onEnter": [
+        { "op": "match", "rating": -1.3, "incident": "inc_substituted_angry" },
+        { "flag": "moral", "op": "add", "value": -16 },
+        { "flag": "tukenmislik", "op": "add", "value": 18 },
+        { "flag": "mental_dayaniklilik", "op": "add", "value": 8 },
+        { "flag": "iliski_manager", "op": "add", "value": -5 }
+      ]
+    }
+  }
+}

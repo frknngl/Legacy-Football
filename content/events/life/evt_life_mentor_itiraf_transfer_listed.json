@@ -1,0 +1,383 @@
+{
+  "id": "evt_life_mentor_itiraf_transfer_listed",
+  "family": "fam_life_itiraf",
+  "category": "life",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 20,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odada Yüzleşme",
+          "kind": "branch",
+          "text": "{actor.mentor.name} ofisin köşesindeki eski deri koltuğa çökmüş. Önündeki masada, {actor.youngster.name} hakkındaki dosya açık duruyor. Odanın içi, dışarıdaki yağmurun cama vurduğu ritmik sesle boğuluyor. {actor.mentor.name} bir an duraksayıp, titreyen elleriyle sigarasını yakıyor. Bakışlarını {actor.youngster.name} üzerine sabitleyerek, yıllardır sakladığı o mektubu masaya itiyor. 'Bunu başkası bulmadan önce senin bilmen gerekiyordu,' diyor sesi kısık bir tonda. Transfer sürecindeki kirli pazarlıklar, kulübün geleceğini karartan o imza artık gizli değil. Sözler odanın içinde asılı kalıyor; bir itirafın ağırlığı, aralarındaki sessizliği parçalıyor.",
+          "choices": [
+            {
+              "id": "c_saf",
+              "text": "Mektubu yırtıp at. Sessizlik, en azından bugünlük bizi kurtarır.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Basınla paylaş. Herkes kimin neyi nasıl sattığını öğrensin.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Mektubu şantaj kozu olarak sakla. Bu bilgi, başka kapılar açar.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            },
+            {
+              "id": "c_lider",
+              "text": "{actor.mentor.name} ile otur, tüm süreci temizlemek için bir yol haritası çiz.",
+              "target": "n_outcome_leader",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Karanlık Karar",
+          "kind": "outcome",
+          "text": "Kağıtlar küle dönüştü. {actor.mentor.name} ile aranızdaki bu sır, artık kemikleşmiş bir yük. Kariyerin temiz görünse de, odadaki o ağır havayı asla dışarı çıkaramayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Gürültülü Çöküş",
+          "kind": "outcome",
+          "text": "Gerçeği kusmak, her şeyi yakmak demekti. Taraftarların gözünde bir kahramansın belki ama kulüp koridorlarında artık istenmeyen kişisin.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Fırtına Öncesi Sessizlik",
+          "kind": "outcome",
+          "text": "Masadaki kağıtlar şimdi kasanın derinliklerinde. Vicdanın sızlasa da, cüzdanın ve etki alanın hiç olmadığı kadar genişledi.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_leader": {
+          "title": "Zorlu Kurtuluş",
+          "kind": "outcome",
+          "text": "Sabaha kadar süren tartışmalar, yorgun düşmüş bir zihin. Yine de {actor.mentor.name} ile kurduğun bu yeni bağ, batmakta olan bir gemide tek sığınağın.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Saha Kenarı",
+          "kind": "branch",
+          "text": "Paslı tellerden sızan ay ışığı, {actor.mentor.name} ile top koşturduğumuz o çamurlu toprak sahayı aydınlatıyor. {actor.mentor.name} elinde tuttuğu yıpranmış antrenman yeleğini bana uzatıyor. Kumaşta hala o günlerin rutubetli kokusu var. Kulüpten gönderilmemin ertesi günü, sanki zaman hiç ilerlememiş gibi yine buradayız. {actor.mentor.name} gözlerimin içine bakıyor; hiçbir şey söylemiyor, sadece sahanın ortasındaki derin çukuru işaret ediyor. Oraya gömdüğümüz hayaller, şimdi yeniden ayaklarımızın altında gıcırdıyor.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Yeleği alıp sahanın ortasına fırlat. Herkesin bizi izlediği bu tribünlerde bir kavga başlat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Yeleği sessizce alıp çantama koy. Bu kulübün kasasına giren o son primin yerini ikimiz de biliyoruz.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Yeleği geri çevir, arkana bakmadan sahadan uzaklaş. profesyonel bir oyuncunun buraya dönmeye hakkı yok.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "{actor.mentor.name} ile yan yana otur, omuz omuza verip sessizliği dinle. Hiçbir şey demeden paylaşmak daha hafif.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Moral Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sokakların Dili",
+          "kind": "outcome",
+          "text": "Gürültüyle sahadan ayrılıyorsun. Kendi hikayeni yazmak için önce eskiyi yakman gerektiğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Zarflar el değiştiriyor. Vicdanın biraz ağırlaşıyor ama geleceğin biraz daha garanti altında.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sınırlar",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek, bu kapıyı tamamen kapatmak demek. Artık dönmek için geç.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Ortak Hafıza",
+          "kind": "outcome",
+          "text": "Sessizlik uzadıkça aradaki buzlar eriyor. Geçmiş, bir yük olmaktan çıkıp bir dayanağa dönüşüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_life_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

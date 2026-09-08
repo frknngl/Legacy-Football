@@ -1,0 +1,119 @@
+{
+  "id": "evt_react_bad_night",
+  "family": "fam_react_blame",
+  "category": "reaction",
+  "tier": "major",
+  "weight": 50,
+  "cooldown": { "self": 8, "family": 5 },
+  "lifeStates": ["playing", "loaned", "national_duty"],
+  "trigger": {
+    "anyOf": [
+      { "flag": "inc_missed_sitter", "op": "isSet" },
+      { "flag": "inc_refused_penalty", "op": "isSet" },
+      { "flag": "inc_substituted_angry", "op": "isSet" }
+    ]
+  },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hocanın ofisi",
+      "kind": "branch",
+      "text": "Salı sabahı. {actor.manager.name:gen} ofisi tesisin en küçük odası; masasında bir bilgisayar ve bir kül tablası var, ikisini de kullanmıyor.\n\n\"Otur,\" diyor. Oturuyorsun.\n\nUzun bir sessizlik. Sonra: \"{opponent} maçında ne oldu?\"\n\nDışarıda takım ısınıyor. Cam açık, ıslık sesleri geliyor. {actor.manager.first} seni izliyor ve cevap vermezsen bütün gün böyle oturabilir.",
+      "choices": [
+        {
+          "id": "c_own",
+          "text": "\"Ben beceremedim. Başka açıklaması yok.\"",
+          "target": "n_owned",
+          "effects": [
+            { "flag": "iliski_manager", "op": "add", "value": 14 },
+            { "flag": "profesyonellik", "op": "add", "value": 6 },
+            { "flag": "moral", "op": "add", "value": -10 },
+            { "flag": "taraftar_destegi", "op": "add", "value": -3 }
+          ],
+          "persona": { "dogruluk": 8, "mizac": -4 }
+        },
+        {
+          "id": "c_system",
+          "text": "\"Ben orada yalnızdım hocam. Bunu bir kez daha konuşalım.\"",
+          "target": "n_argued_system",
+          "effects": [
+            { "flag": "liderlik", "op": "add", "value": 6 },
+            { "flag": "iliski_manager", "op": "add", "value": -12 },
+            { "flag": "iliski_takim", "op": "add", "value": 8 },
+            { "flag": "yonetim_baskisi", "op": "add", "value": 8 }
+          ],
+          "persona": { "durus": 9, "mizac": 6 }
+        },
+        {
+          "id": "c_tired",
+          "text": "\"Yorgunum hocam. Aylardır yorgunum ve kimseye söylemedim.\"",
+          "target": "n_admitted_burnout",
+          "effects": [
+            { "flag": "iliski_manager", "op": "add", "value": 10 },
+            { "flag": "tukenmislik", "op": "add", "value": -25 },
+            { "flag": "medya_baskisi", "op": "add", "value": 5 },
+            { "flag": "iliski_takim", "op": "add", "value": -6 }
+          ],
+          "persona": { "dogruluk": 10, "durus": 5 }
+        },
+        {
+          "id": "c_fight",
+          "text": "\"Beni seksen ikide çıkardınız. Sorulacak soru bu değil mi?\"",
+          "target": "n_fought",
+          "requires": { "flag": "persona_mizac", "op": "gte", "value": 58 },
+          "lockLabel": "[Mizaç 58]",
+          "effects": [
+            { "flag": "iliski_manager", "op": "add", "value": -25 },
+            { "flag": "sokak_itibari", "op": "add", "value": 10 },
+            { "flag": "yonetim_baskisi", "op": "add", "value": 15 },
+            { "flag": "mem_fought_coach", "op": "set", "value": true }
+          ],
+          "persona": { "mizac": 12, "durus": 8, "sadakat": -5 }
+        }
+      ]
+    },
+
+    "n_owned": {
+      "title": "Başka açıklaması yok",
+      "kind": "outcome",
+      "text": "{actor.manager.first} bir süre bir şey söylemiyor. Sonra sandalyesini geriye itip ayağa kalkıyor.\n\n\"Otuz yıldır bu odada oturuyorum,\" diyor. \"Bu cümleyi kuran altıncı oyuncusun. Diğer beşi de iyi kariyer yaptı.\"\n\nKapıyı açıyor. \"Çık, ısınmaya yetiş.\"",
+      "onEnter": [
+        { "flag": "moral", "op": "add", "value": 6 },
+        { "flag": "mem_public_apology", "op": "set", "value": true }
+      ]
+    },
+
+    "n_argued_system": {
+      "title": "Tahta",
+      "kind": "outcome",
+      "text": "{actor.manager.first} tahtaya kalkıp on beş dakika sistem anlatıyor. Haklı olduğun yerleri kabul ediyor, olmadığın yerleri kabul ettiriyor.\n\nSonunda tebeşiri bırakıyor: \"Pazar günü söylediğin gibi oynayacağız. İşe yaramazsa bir daha bu odaya oturarak girmezsin.\"\n\nAnlaşma bu.",
+      "onEnter": [
+        { "flag": "yonetim_baskisi", "op": "add", "value": 10 },
+        { "flag": "mem_fought_coach", "op": "set", "value": true }
+      ]
+    },
+
+    "n_admitted_burnout": {
+      "title": "İtiraf",
+      "kind": "outcome",
+      "text": "Cümle ağzından çıktığı anda odadaki hava değişiyor. {actor.manager.first} öne eğiliyor.\n\n\"Neden söylemedin?\"\n\nCevabın yok. O da beklemiyor.\n\n\"Pazar oynamıyorsun,\" diyor. \"Bu bir ceza değil. {actor.doctor.first:ins} konuş, ben de konuşacağım.\"\n\nOdadan çıkarken omuzlarında bir şeyin eksildiğini fark ediyorsun ve bunun ne olduğunu bilmiyorsun.",
+      "onEnter": [
+        { "flag": "iliski_doctor", "op": "add", "value": 10 },
+        { "flag": "moral", "op": "add", "value": 8 },
+        { "flag": "mem_hid_injury", "op": "set", "value": true }
+      ]
+    },
+
+    "n_fought": {
+      "title": "Kapı",
+      "kind": "outcome",
+      "text": "{actor.manager.first} yavaşça arkasına yaslanıyor.\n\n\"Seni seksen ikide çıkardım çünkü seksen birde yürüyordun,\" diyor. \"Bunu televizyonda söylemedim. Şimdi de söylemeyeceğim. Ama sen bana burada bunu söyletiyorsun.\"\n\nKapıyı gösteriyor.\n\nÖğleden sonra takım listesi asılıyor. Adın yok ve nedeni yazmıyor.",
+      "onEnter": [
+        { "op": "lifeState", "to": "transfer_listed", "forTurns": 3 },
+        { "flag": "moral", "op": "add", "value": -12 },
+        { "flag": "medya_baskisi", "op": "add", "value": 12 }
+      ]
+    }
+  }
+}

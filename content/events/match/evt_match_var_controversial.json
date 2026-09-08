@@ -1,0 +1,244 @@
+{
+  "id": "evt_match_var_controversial",
+  "family": "fam_match_var",
+  "category": "match",
+  "tier": "minor",
+  "momentType": "var_controversial",
+  "weight": 14,
+  "cooldown": {
+    "self": 10,
+    "family": 5
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Net degil",
+      "kind": "branch",
+      "text": "{minute}. dakika, skor {scoreline}. Ceza sahasinda bir kariklik oldu ve kimse ne gordugunden emin degil -- sen de degilsin.\n\n{actor.referee.name} ekranin basinda uc dakikadir. Bu kadar uzun surmesi tek bir sey demek: goruntude bir cevap yok.\n\n{actor.captain.name} yanina geliyor: sen gordun mu, diye soruyor. Gormedin. Ama ne dersen o da onu tekrarlayacak.",
+      "choices": [
+        {
+          "id": "c_honest",
+          "text": "Gormedim de. Yalan soyleme.",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "target": "n_honest",
+          "persona": {
+            "dogruluk": 12,
+            "durus": 4
+          }
+        },
+        {
+          "id": "c_claim",
+          "text": "Penaltiydi de. Sen gormesen de takim icin soyle.",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "target": "n_claimed",
+          "persona": {
+            "dogruluk": -9,
+            "sadakat": 6
+          }
+        },
+        {
+          "id": "c_pressure",
+          "text": "Hakemi cevrele. Karar ne olursa olsun baski kur.",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_referee",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "target": "n_roll_pressure",
+          "persona": {
+            "mizac": 8,
+            "durus": 5
+          }
+        }
+      ]
+    },
+    "n_roll_pressure": {
+      "title": "Halka",
+      "kind": "roll",
+      "text": "Yedi kisi hakemin etrafinda. {actor.referee.first} geri adim atiyor.",
+      "outcomes": [
+        {
+          "target": "n_pressure_worked",
+          "weight": {
+            "base": 35,
+            "modifiers": [
+              {
+                "flag": "liderlik",
+                "scale": 0.3
+              },
+              {
+                "flag": "medya_itibari",
+                "scale": 0.2
+              }
+            ]
+          }
+        },
+        {
+          "target": "n_pressure_backfired",
+          "weight": {
+            "base": 55,
+            "modifiers": [
+              {
+                "flag": "disiplin_sicili",
+                "scale": 0.5
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "n_honest": {
+      "title": "Gormedim",
+      "kind": "outcome",
+      "text": "Gormedim, diyorsun. {actor.captain.first} sana bir saniye bakiyor, sonra hakeme donup ayni seyi soyluyor.\n\nHakem karari rakip lehine veriyor.\n\nTribun senin adini soylemiyor bu sefer. Ama {actor.referee.first} sezonun geri kalaninda sana farkli davranacak ve bunun sebebini kimseye acikamayacaksin.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.2,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "iliski_referee",
+          "op": "add",
+          "value": 15
+        },
+        {
+          "flag": "mem_refused_to_apologize",
+          "op": "set",
+          "value": false
+        }
+      ]
+    },
+    "n_claimed": {
+      "title": "Penaltiydi",
+      "kind": "outcome",
+      "text": "Penaltiydi, diyorsun. Sesin cok emin cikiyor -- gerekenden emin.\n\nHakem yine de vermiyor.\n\nMac sonu tekrarini izliyorsun. Penalti degilmis. Kimse sana bunu sormuyor ve bu, sormalarindan daha rahatsiz edici.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.2,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -6
+        },
+        {
+          "flag": "mem_media_war",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_pressure_worked": {
+      "title": "Karar dondu",
+      "kind": "outcome",
+      "text": "{actor.referee.first} ekrana bir kez daha bakiyor ve karari lehinize ceviriyor.\n\nRakip teknik direktor cileden cikiyor, dorduncu hakem araya giriyor.\n\nKazandin. Ama nasil kazandigini biliyorsun ve o bilgi hafta boyunca seninle kalacak.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 0.4,
+          "incident": "inc_ref_conflict"
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -6
+        }
+      ]
+    },
+    "n_pressure_backfired": {
+      "title": "Iki sari",
+      "kind": "outcome",
+      "text": "{actor.referee.first} once sana, sonra {actor.captain.name} adina sari kart gosteriyor.\n\nKarar degismiyor.\n\nKaptan yanindan gecerken tek kelime soyluyor: aptalca.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1,
+          "rating": -0.7,
+          "incident": "inc_argued_ref"
+        },
+        {
+          "flag": "iliski_captain",
+          "op": "add",
+          "value": -10
+        },
+        {
+          "flag": "disiplin_sicili",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    }
+  }
+}

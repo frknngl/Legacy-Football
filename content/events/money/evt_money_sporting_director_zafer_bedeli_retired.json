@@ -1,0 +1,390 @@
+{
+  "id": "evt_money_sporting_director_zafer_bedeli_retired",
+  "family": "fam_money_zafer_bedeli",
+  "category": "money",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "retired"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Hesap",
+          "kind": "branch",
+          "text": "Odada sadece tavan vantilatörünün sesi var. {actor.sporting_director.name}, önündeki deri çantayı yavaşça aralıyor. İçerisi, futbolun ışıklı sahalarında kazanılan zaferlerin gölgesiyle dolu. {actor.president.name} kapının eşiğinde, saatine bakıyor. {actor.lawyer.name} ise masanın köşesinde, sessiz bir noter gibi bekliyor. Masada duran kağıtlar, kariyerin boyunca biriktirdiğin tüm o gürültülü zaferlerin birer faturası niteliğinde. Kazandığın her kupa, şimdi bu zarfların içinde başka bir şekle bürünmüş durumda. Sessizlik uzuyor, {actor.sporting_director.name} ilk hamleyi senden bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Evrakları imzala, kulübün geleceğini riske atma.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sözleşmeyi masanın ortasına fırlat, taraftarın sesini dinle.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı al ve arka kapıdan çık, arkana bakma.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "{actor.sporting_director.name} ile göz göze gel, yeni bir düzen kur.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Bir Veda",
+          "kind": "outcome",
+          "text": "İmzalar atıldı. {actor.lawyer.name} evrakları dosyasına kaldırırken {actor.president.name} hafifçe başını sallıyor. Kariyerin, bir bürokratın onay mührüyle noktalanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sokakların Kararı",
+          "kind": "outcome",
+          "text": "Odadan çıktığında kulüp binasının önünde bekleyen kalabalığı görüyorsun. {actor.sporting_director.name} arkandan bakıyor. Şimdi tüm gözler, o imzanın yarattığı gürültüde.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Karanlık Bir Kazanç",
+          "kind": "outcome",
+          "text": "Ağırlığı elinde hissettiğin o çanta, artık hayatının geri kalanını tanımlayacak. {actor.president.name} ile kurduğun bu karanlık ortaklık, artık kimsenin silemeyeceği bir iz.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Stratejik Ortaklık",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} gülümseyerek elini uzatıyor. Bu artık bir spor değil, devasa bir satranç oyunu. Yorgunsun, ama saha kenarında ipleri artık sen tutuyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Gölgesinde",
+          "kind": "branch",
+          "text": "Stadyumun yıkık dökük otoparkında, soğuk bir rüzgar eski kramponların bıraktığı izleri süpürüyor. {actor.sporting_director.name}, kapısı açık bekleyen siyah sedanın yanına yaslanmış. Sigarasının közü karanlıkta bir yıldız gibi parlıyor. Elindeki şifreli evrak çantasını değil, bagaja bırakılan isimsiz bir zarfı işaret ediyor. Şehir çoktan uyudu. Sahalardaki son alkışın üzerinden yıllar geçti, ancak bu teklif, geçmişteki hiçbir galibiyet primine benzemiyor. Sessizlik sadece motorun hafif tıkırtısıyla bölünüyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı al. İsimsiz bir banka hesabına gönderilmesi yeterli.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Otoparkın ortasında sesini yükselt. Herkesin duymasını sağla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Arkanı dön ve uzaklaş. Gelecek, geçmişin enkazıyla kurulmaz.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Eski dostunun omzuna dokun. Bu işi profesyonel bir nezaketle bitir.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Profesyonellik 68]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı elinde. {actor.sporting_director.name} başını hafifçe eğerek vedalaşıyor. Artık geriye dönüş yok.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Onurlu Rest",
+          "kind": "outcome",
+          "text": "Sözlerin otoparkta yankılanıyor. {actor.sporting_director.name} yüzündeki o sahte gülümsemeyi silip arabasına biniyor. İpler kopuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Adımların asfaltta tok bir ses çıkarıyor. {actor.sporting_director.name} arkandan bakıyor ama ses etmiyor. Doğru olanı yaptın, ama bedelini hissettin.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Son Paylaşım",
+          "kind": "outcome",
+          "text": "Bu gece bir şeyleri bitirirken, kendinden bir parçayı da orada bıraktın. {actor.sporting_director.name} ile kurduğun denge, huzurunu çaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

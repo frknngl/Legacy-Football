@@ -1,0 +1,336 @@
+{
+  "id": "evt_personal_cousin_istek",
+  "family": "fam_personal_ilk_istek",
+  "category": "personal",
+  "tier": "major",
+  "weight": 60,
+  "once": true,
+  "cooldown": {
+    "self": 36,
+    "family": 14
+  },
+  "eras": [
+    "rookie"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapının Önünde Bir Araba",
+          "kind": "branch",
+          "text": "{actor.cousin.name} iki yıldır uğramamıştı. Bugün kapının önünde, arabası çalışır hâlde.\n\nİçeri girmiyor. \"Beş dakika,\" diyor.\n\nİsteği küçük: bir forma. İmzalı olsun, arkasına bir çocuğun adı yazılsın. \"Komşunun oğlu, hasta,\" diyor. Sonra ekliyor: \"Bir de fotoğraf çekelim, ben paylaşırım.\"\n\nİkinci cümle ilkini biraz değiştiriyor. Ama ilki hâlâ orada duruyor ve doğru olabilir.\n\nHenüz bir formanın var. Bir tane.",
+          "choices": [
+            {
+              "id": "c_ver",
+              "text": "Formayı ver. Fotoğrafı da çektir.",
+              "target": "n_ver",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "sadakat": 7
+              }
+            },
+            {
+              "id": "c_forma",
+              "text": "Formayı ver ama fotoğrafa hayır de.",
+              "target": "n_forma",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": -7
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_cocuk",
+              "text": "\"Çocuğun adını ver. Ben kendim götürürüm.\"",
+              "target": "n_cocuk",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_ret",
+              "text": "\"Bir tane formam var.\" Kapıyı kapat.",
+              "target": "n_ret",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 7
+                }
+              ],
+              "persona": {
+                "durus": 6,
+                "sadakat": -8
+              }
+            }
+          ]
+        },
+        "n_ver": {
+          "title": "Paylaşım",
+          "kind": "outcome",
+          "text": "Forma gitti. Fotoğraf da gitti.\n\nAkşam paylaşımda formayı gördün ama çocuğu görmedin. Altında {actor.cousin.name:gen} adı, senin adın ve bir de tanımadığın bir hesabın etiketi vardı.\n\nHasta çocuk gerçek miydi bilmiyorsun. Sormayı da beceremedin.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_kabul_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_forma": {
+          "title": "Yarısı",
+          "kind": "outcome",
+          "text": "\"Forma tamam, fotoğraf yok.\"\n\n{actor.cousin.name} bir an baktı. \"Sen bilirsin,\" dedi. Arabaya bindi, kapıyı biraz sert kapattı.\n\nFormayı aldı ama aldığı asıl şey o değildi ve ikiniz de bunu biliyordunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_yariladi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_cocuk": {
+          "title": "Adres",
+          "kind": "outcome",
+          "text": "\"Adını ver, ben götürürüm.\"\n\n{actor.cousin.name} adı vermedi. \"Boş ver,\" dedi, arabaya bindi.\n\nÜç gün sonra annen aradı: \"Ne dedin sen ona?\"\n\nAma o cumartesi, kimse bilmeden, hastanenin çocuk servisine gittin. Forma orada kaldı. Fotoğraf çekilmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_kendisi_gotturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ret": {
+          "title": "Kapalı Kapı",
+          "kind": "outcome",
+          "text": "\"Bir tane formam var.\"\n\nDoğruydu. Doğru olması yetmedi.\n\n{actor.cousin.name} bir daha aramadı. Yıllar sonra bir düğünde karşılaştınız; sana \"Şampiyon\" dedi ve geçti.\n\nO kelimeyi o tonda söylemeyi ailede sadece o bilir.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borç",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışındaki otoparkta yağmur çiseliyor. {actor.cousin.name} arka koltuktan bir zarf çıkarıyor, ön cama yaslıyor. Gözleri kaçıran o tanıdık bakış. 'O gün o parayı kullandığımda, senin adın geçecekti,' diyor. Sesi titrek değil, aksine fazlasıyla düz. 'Eğer şimdi duyulursa, kulübün avukatları kapına dayanır. Ama bir yolu var. Sessiz kalırsan, borcumuz biter.' Silecekler ritmik bir şekilde gıcırdıyor, zarfın üzerindeki ıslaklık artıyor.",
+          "choices": [
+            {
+              "id": "c_risky",
+              "text": "Zarfı al. 'Sessiz kalacağım ama bedelini ödersin.'",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Zarfa dokunma. 'Polise gidiyoruz, şimdi.'",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gray",
+              "text": "Zarfı aç. İçindeki nakti al ve uzaklaşmasını söyle.",
+              "target": "n_outcome_gray",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Karanlık Bir Ortaklık",
+          "kind": "outcome",
+          "text": "Zarfı ceketinin içine gizliyorsun. {actor.cousin.name} başını sallayıp vitese takıyor. Artık bu sır sadece onun değil, senin de suçun. Sahadaki yükselişin, bu lekeyle yan yana büyüyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_kabul_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Keskin Bir Kopuş",
+          "kind": "outcome",
+          "text": "Arabanın kapısını kapatıyorsun. {actor.cousin.name} dikiz aynasından sana bakıyor ama bu sefer o geri çekiliyor. İlişkinizin soğuk yüzü artık tamamen belli. Kendi doğrularınla baş başasın, yalnızlık daha hafif hissettiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gray": {
+          "title": "Satın Alınan Vicdan",
+          "kind": "outcome",
+          "text": "Parayı saymadan cebine atıyorsun. {actor.cousin.name} hızla uzaklaşırken arkasında bıraktığı toz bulutu, aranızdaki bağın sonu oluyor. Cüzdanın ağırlaştı, omuzların değil.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_yariladi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

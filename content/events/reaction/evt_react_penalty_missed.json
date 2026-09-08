@@ -1,0 +1,747 @@
+{
+  "id": "evt_react_penalty_missed",
+  "family": "fam_react_penalty",
+  "category": "reaction",
+  "tier": "major",
+  "weight": 55,
+  "cooldown": {
+    "self": 10,
+    "family": 6
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "inc_missed_penalty",
+    "op": "isSet"
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Soyunma odası",
+          "kind": "branch",
+          "text": "Kimse konuşmuyor. Duşun sesi var, bir de birinin krampon çıkarırken çıkardığı o cırt cırt sesi. {actor.captain.name} karşı sırada, havluyu boynuna atmış, sana bakmıyor ama tam olarak senin için orada oturuyor.\n\n{actor.manager.name} kapıdan giriyor, iki saniye duruyor, sonra sadece \"Yarın on birde\" deyip çıkıyor. Bu, bağırmasından beter.\n\nTelefonun yandaki bankta titriyor. Ekranda annen. Bir de {opponent} maçının etiketiyle yüz kırk bildirim.",
+          "choices": [
+            {
+              "id": "c_speak",
+              "text": "Ayağa kalk. \"Benim yüzümden. Bir dahakine yine ben atacağım.\"",
+              "target": "n_owned",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 6,
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_phone",
+              "text": "Telefonu al, bildirimleri aç, hepsini oku.",
+              "target": "n_read",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "mem_reads_own_criticism",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "mizac": -4,
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_silence",
+              "text": "Hiçbir şey söyleme. Duşa gir, suyu sonuna kadar aç.",
+              "target": "n_silence",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": -6,
+                "mizac": -3
+              }
+            },
+            {
+              "id": "c_blame",
+              "text": "{actor.captain.first:dat} dön: \"Sen bıraktın topu bana. Bunu ikimiz de biliyoruz.\"",
+              "target": "n_blame",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": -22
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "mizac": 9,
+                "sadakat": -8
+              }
+            }
+          ]
+        },
+        "n_owned": {
+          "title": "Sırt",
+          "kind": "outcome",
+          "text": "Otuz saniye sürüyor. Sonra bankın öbür ucundan bir alkış geliyor — genç kaleci, on sekiz yaşında, ne yaptığını bilmiyor. İki kişi daha katılıyor. {actor.captain.first} katılmıyor ama başını kaldırıp sana bakıyor ve hafifçe onaylıyor.\n\nBu odada bugün bir şey değişti ve sen henüz ne olduğunu bilmiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_read": {
+          "title": "Üç bin yorum",
+          "kind": "outcome",
+          "text": "İlk yüz tanesi kolay. İkinci yüzden sonra bir tanesi geçiyor: babanla ilgili. Onu okuduğuna pişman oluyorsun ve tam o yüzden bir daha okuyorsun.\n\nSaat üçte hâlâ ayaktasın. Yarınki idmanda bacakların ağır olacak ve bunun sebebini kimseye söylemeyeceksin.\n\nArtık bu bir alışkanlık. Bunu da biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        "n_silence": {
+          "title": "Su",
+          "kind": "outcome",
+          "text": "Su sıcak. Duvara alnını dayıyorsun ve topun demire çarptığı sesi tekrar duyuyorsun; bir daha, bir daha.\n\nÇıktığında oda boşalmış. Sadece {actor.doctor.name} kalmış, çantasını topluyor. \"Uyuyabiliyor musun?\" diye soruyor. Cevap vermiyorsun. \"Sormaya devam edeceğim,\" diyor.",
+          "onEnter": [
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": false
+            }
+          ]
+        },
+        "n_blame": {
+          "title": "Çatlak",
+          "kind": "outcome",
+          "text": "{actor.captain.first} havluyu yavaşça katlıyor. Ayağa kalkıyor. Sana doğru bir adım atıyor, sonra durup gülümsüyor — o gülümseme daha kötü.\n\n\"Haklısın,\" diyor. \"Bıraktım. Bir daha bırakmam.\"\n\nOdadan çıkıyor. Arkanda kalan on kişi bunu duydu ve hepsi bir taraf seçti.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 8
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Otopark Çıkışı",
+          "kind": "branch",
+          "text": "Stadyumun arka kapısında, yağmurun altında park halindeki aracına yaslanmış bekliyorsun. {actor.captain.name} yanına geliyor. Elinde tuttuğu zarfın köşesi ıslanmış. Gözleri, maçtaki o kaçırdığın penaltıdan çok, stadyumun dışındaki uğultuyu dinliyor. Kimse görmüyor, kimse duymuyor. Sessizliği sadece uzaktan gelen siren sesleri bölüyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Zarfı elinden al, hiçbir şey söylemeden taraftarların arasına yürü.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ona 'Gitmesi gereken yere gönder' de, arabanın anahtarını çevir.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı al, arka koltuğa at ve asla açma.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -2
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Onun elini tut, kendi yükünü ona devret.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Destek Yüksek]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokağın Sesi",
+          "kind": "outcome",
+          "text": "Sokağın sesi artık senin arkanda. Penaltıyı unutmuş görünüyorlar, ama yarın manşetlerde adın farklı geçecek.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Kendi içindeki yıkımı gizledin. Herkes seni kusursuz bir profesyonel olarak anacak, ama o gece uyumayacağını biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Kazanç",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı vicdanına ağır geliyor. Para hesabına yattı, ama o anki hata, artık hiçbir miktarla telafi edilemez.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Ortak Yük",
+          "kind": "outcome",
+          "text": "O, senin kaçırdığın penaltının gölgesini üzerine aldı. Aranızdaki bağ güçlendi, ama bir parçan artık ona emanet.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tesis Çıkışı",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki tel örgülere yaslanmışsın. {actor.captain.name} yanına geliyor. Elinde bir şişe su var, kapağını açmıyor bile. Stadyumun ışıkları sönmüş, geride kalan tek şey projektörlerin cızırtısı. {actor.captain.name} bakışlarını senin üzerinden çekip boş tribünlere dikiyor. 'İçinde tuttuğun o kırık parça, topu dışarı attığında değil, aslında aylardır orada,' diyor sesi dümdüz bir tonda. Yalanın ağırlığı, omuzlarındaki yorgunluktan daha ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğ. 'Evet, haklısın. Aylardır saklıyordum.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ona bir miktar nakit teklif et. 'Sessiz kalman karşılığında bu işi çözeriz.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sırtını dön ve git. 'Beni yargılayacak kişi sen değilsin.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Sakatlığını dürüstçe açıkla. 'Oynamamalıydım, takımı yarı yolda bırakacağımı biliyordum.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Mental Dayanıklılık 74]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İtiraf",
+          "kind": "outcome",
+          "text": "Doğruyu söyledin. {actor.captain.name} yüzündeki ifadeyi değiştirmedi. Sadece arkasını dönüp yürüdü. Yükün hafiflemedi, sadece paylaşıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Yol",
+          "kind": "outcome",
+          "text": "Para el değiştirdi. {actor.captain.name} artık senin ortağın. Artık stadyumda değil, bir suç ortağı olarak yürüyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İnat",
+          "kind": "outcome",
+          "text": "Kendi doğrularınla baş başa kaldın. {actor.captain.name} arkandan bakıyor. Aranızdaki uçurum, sahadaki o kaçan golle aynı boyuta ulaştı.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Dürüstlük",
+          "kind": "outcome",
+          "text": "Sakatlığı itiraf etmek, profesyonel bir yıkım. {actor.captain.name} sessizce elini omzuna koydu. Yarın kulüpte büyük bir fırtına kopacak.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki dar koridorda, sadece uzak bir yerden gelen havalandırma uğultusu duyuluyor. {actor.captain.name}, duvardaki gölgelerin arasında öylece durmuş sana bakıyor. Elinde bir kulüp kimlik kartı var. Yavaşça onu yere, senin ayaklarının dibine bırakıyor. Gözlerinde ne öfke var ne de acıma; sadece silinmiş bir beklenti. Kapı senin için kilitlendi, geri dönüşü yok.",
+          "choices": [
+            {
+              "id": "c_bribery",
+              "text": "Cüzdanını çıkar, içindeki tüm parayı önüne at. Sesin titrememeli.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_professional",
+              "text": "Başını hafifçe eğ, selam ver ve arkana bakmadan tünele doğru yürü.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Yerdeki karta tükür ve koridorun ışıklarını tek tek kapatarak ilerle.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 12
+              }
+            },
+            {
+              "id": "c_loyal",
+              "text": "Karta uzan, {actor.captain.name} ile göz göze gel. Bu yükü ikiniz beraber taşıyacaksınız.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Saygınlık Eksik]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Kartı yerden almadı. Sadece yanından geçip gitti. Cebin doldu ama o koridor artık senin için sonsuza kadar kapalı.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Adımların yankılanıyor. Kimse bir şey söylemiyor, kimse kimseyi affetmiyor. Profesyonel bir veda bile değil bu, sadece bir yok oluş.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Yıkım",
+          "kind": "outcome",
+          "text": "Karanlıkta sadece nefes alışverişlerin var. Köprüleri yaktın. Yarın herkes bu anı konuşacak, ama sen orada olmayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Ortak Yük",
+          "kind": "outcome",
+          "text": "Gözleri seninle birleşti. Kartı yerden alıp ona geri uzattın. Bir şey değişmedi ama en azından yalnız yürümüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

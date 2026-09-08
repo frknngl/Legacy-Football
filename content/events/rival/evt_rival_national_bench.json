@@ -1,0 +1,68 @@
+{
+  "id": "evt_rival_national_bench",
+  "family": "fam_rival_arc",
+  "category": "rival",
+  "tier": "major",
+  "weight": 100,
+  "once": true,
+  "scheduledOnly": true,
+  "cooldown": { "self": 999, "family": 8 },
+
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ayni forma",
+      "kind": "branch",
+      "text": "Milli takim kampinda oda listesini asiyorlar. Ikinizin adi yan yana.\n\n{actor.national_manager.name} ilk on biri okuyor ve senin adin yok. {actor.nemesis.name:gen} adi var.\n\nOn dokuz yildir birbirinizi yenmeye calisiyorsunuz; bu hafta ilk kez ayni formayi giyeceksiniz ve bunu yalnizca biri sahada yasayacak.\n\nAksam yemekte masada bir bos sandalye var. Onun yaninda.\n\n{actor.national_captain.first} sana bakiyor: gorecek. Herkes gorecek. Nereye oturdugun, yarin gazetede bir cumle olacak.",
+      "choices": [
+        {
+          "id": "c_sit",
+          "text": "O sandalyeye otur.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
+            { "flag": "iliski_nemesis", "op": "add", "value": 20 },
+            { "flag": "iliski_national_captain", "op": "add", "value": 10 },
+            { "flag": "medya_itibari", "op": "add", "value": 10 },
+            { "flag": "sokak_itibari", "op": "add", "value": -10 }
+          ],
+          "persona": { "mizac": -5, "dogruluk": 6 }
+        },
+        {
+          "id": "c_far",
+          "text": "Salonun obur ucuna otur.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -12 },
+            { "flag": "iliski_takim", "op": "add", "value": -8 },
+            { "flag": "medya_baskisi", "op": "add", "value": 12 }
+          ],
+          "persona": { "mizac": 6, "durus": 4 }
+        },
+        {
+          "id": "c_manager",
+          "text": "Yemegi atla. {actor.national_manager.first:gen} kapisini cal.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
+            { "flag": "iliski_national_manager", "op": "add", "value": -10 },
+            { "flag": "npc_national_manager_arc", "op": "add", "value": 1 },
+            { "flag": "liderlik", "op": "add", "value": 6 },
+            { "flag": "iliski_takim", "op": "add", "value": -5 }
+          ],
+          "persona": { "durus": 10, "mizac": 6 }
+        },
+        {
+          "id": "c_work",
+          "text": "Yemekten sonra sahaya cik. Tek basina, karanlikta.",
+          "effects": [
+            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
+            { "flag": "form", "op": "add", "value": 8 },
+            { "flag": "profesyonellik", "op": "add", "value": 8 },
+            { "flag": "tukenmislik", "op": "add", "value": 10 },
+            { "flag": "iliski_nemesis", "op": "add", "value": -5 }
+          ],
+          "persona": { "mizac": -7, "sadakat": 4 }
+        }
+      ]
+    }
+  }
+}

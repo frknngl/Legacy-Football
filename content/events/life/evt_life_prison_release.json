@@ -1,0 +1,308 @@
+{
+  "id": "evt_life_prison_release",
+  "family": "fam_life_prison_end",
+  "category": "life",
+  "tier": "epic",
+  "weight": 100,
+  "once": true,
+  "cooldown": {
+    "self": 200,
+    "family": 100
+  },
+  "lifeStates": [
+    "incarcerated"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "mem_was_incarcerated",
+        "op": "isSet"
+      },
+      {
+        "flag": "sentence_weeks",
+        "op": "lte",
+        "value": 0
+      }
+    ]
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tahliye günü",
+      "kind": "branch",
+      "text": "Sabah yedide bir naylon poşet veriyorlar: bir saat, bir cüzdan, girerken üstünde olan kıyafetler. Kıyafetler artık bol.\n\nKapı açılıyor. Dışarıda üç kişi var: {actor.agent.name}, {actor.cellmate.first:gen} oğlu (baban gibi ol demişti, gelmiş), ve bir kamera.\n\n{actor.agent.first} dosyayı uzatıyor: \"Üç teklif var. Üçü de bölgesel amatör lig. Biri denizin kenarında, biri dağın dibinde, biri de burada — üçüncü lig, haftada dört bin.\"\n\nYaşın {age}. Bacakların hâlâ çalışıyor. Adını hâlâ biliyorlar; sadece iyi bir şey için değil.",
+      "choices": [
+        {
+          "id": "c_climb",
+          "text": "Dosyayı al. \"En yakını hangisi? Yarın idmana çıkıyorum.\"",
+          "target": "n_climb",
+          "effects": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "clubTier",
+              "to": "amateur"
+            },
+            {
+              "flag": "haftalik_gelir",
+              "op": "set",
+              "value": 4000
+            },
+            {
+              "flag": "piyasa_carpani",
+              "op": "set",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "set",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_camera",
+          "text": "Kameraya yürü. Söyleyeceklerin var ve iki yıldır bekliyorlar.",
+          "target": "n_camera",
+          "effects": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "clubTier",
+              "to": "amateur"
+            },
+            {
+              "flag": "haftalik_gelir",
+              "op": "set",
+              "value": 4000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "set",
+              "value": 25
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_quit",
+          "text": "Dosyayı geri ver. \"Bitti. Beni eve bırak.\"",
+          "target": "n_quit",
+          "effects": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            },
+            {
+              "flag": "retired",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": -40
+            },
+            {
+              "flag": "iliski_aile",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "sadakat": -8,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_kadir",
+          "text": "Önce {actor.cellmate.first:gen} oğluna git. Söz vermiştin.",
+          "target": "n_kadir",
+          "requires": {
+            "flag": "mem_prison_mentored",
+            "op": "isSet"
+          },
+          "lockLabel": "[Geçmiş: hapiste mentörlük]",
+          "effects": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "clubTier",
+              "to": "amateur"
+            },
+            {
+              "flag": "haftalik_gelir",
+              "op": "set",
+              "value": 4000
+            },
+            {
+              "flag": "iliski_cellmate",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "set",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -18
+            },
+            {
+              "flag": "npc_cellmate_arc",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "sadakat": 14,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_climb": {
+      "title": "Üçüncü lig",
+      "kind": "outcome",
+      "text": "Ertesi sabah dokuzda sahadasın. Saha kötü, file yırtık, soyunma odası soğuk. On sekiz kişi ısınıyor ve on ikisi seni tanıyor.\n\nAntrenör elini sıkarken gözlerinin içine bakmıyor. Kimse hoş geldin demiyor.\n\nİlk koşuda arkada kalıyorsun. İki yıl. İki yılda beden unutuyor.\n\nAma akşam eve gittiğinde bacakların ağrıyor ve bu ağrıyı iki yıldır özlemiştin.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "set",
+          "value": 30
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_camera": {
+      "title": "İki yıllık cümle",
+      "kind": "outcome",
+      "text": "Kameraya yürüyorsun. Muhabir hazır değil; iki yıldır kimse senden bir cümle alamamıştı.\n\nDört dakika konuşuyorsun. Kimseyi suçlamıyorsun ve kimseyi de aklamıyorsun. Sadece anlatıyorsun.\n\nO görüntü akşam bütün kanallarda. {actor.pundit.name} programında oynatıp uzun süre susuyor, sonra tek cümle söylüyor: \"Bu adamı biz yarattık.\"\n\nErtesi gün üçüncü ligdeki kulübün kombine satışı üçe katlanıyor.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "set",
+          "value": 30
+        },
+        {
+          "flag": "npc_pundit_arc",
+          "op": "add",
+          "value": 2
+        },
+        {
+          "flag": "sosyal_medya_takipci",
+          "op": "add",
+          "value": 200000
+        }
+      ]
+    },
+    "n_quit": {
+      "title": "Eve",
+      "kind": "outcome",
+      "text": "{actor.agent.first} dosyayı alıp arabanin arka koltuğuna atıyor. Bir şey söylemiyor; on iki yıldır seninle çalışıyor ve ilk kez sana kızgın değil, üzün.\n\nEve varıyorsunuz. Annen kapıda. Baban içeride, ayağa kalkmıyor.\n\nSalonda oturuyorsun. Televizyonda maç var. İzlemiyorsun.\n\nOtuz yıl sonra biri sana \"neden bıraktın\" diye soracak ve sen \"yorgundum\" diyeceksin. Bu doğru olmayacak ama söylenebilecek en yakın şey bu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_kadir": {
+      "title": "Söz",
+      "kind": "outcome",
+      "text": "Çocuk on altı yaşında ve babasının yüzünü taşıyor. İki yıl boyunca ona kaleci olmayı anlattın; hiç görmediğin bir çocuğa, camın arkasından, tarif ederek.\n\nSahaya götürüyorsun. Eldiven alıyorsun. İki saat çalıştırıyorsun.\n\nAkşam {actor.cellmate.first:acc} arıyorsun ve telefonda ikiniz de uzun süre konuşmuyorsunuz.\n\n\"Ben sana borçluydum,\" diyorsun.\n\n\"Hayır,\" diyor. \"Sen kendine borçluydun.\"",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "set",
+          "value": 32
+        },
+        {
+          "flag": "mem_prison_mentored",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mental_dayaniklilik",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,370 @@
+{
+  "id": "evt_business_ilk_sozlesme_veli",
+  "family": "fam_business_ilk_sozlesme",
+  "category": "business",
+  "tier": "major",
+  "weight": 70,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 20
+  },
+  "eras": [
+    "rookie"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İki İmza Yeri",
+          "kind": "branch",
+          "text": "Oda küçük. Masanın üstünde bir sürahi su var ama kimse dokunmuyor.\n\n{actor.sporting_director.name} sözleşmeyi sana doğru itiyor, sonra durup {actor.mother.name:dat} bakıyor. Kâğıdın son sayfasında iki imza yeri var. Birinde senin adın yazıyor. Diğerinin altında küçük harflerle: veli.\n\n\"On sekizine kadar böyle,\" diyor. Kötü bir niyetle söylemiyor, sadece söylüyor. \"Sen imzalıyorsun ama tek başına geçerli değil.\"\n\n{actor.mother.name} çantasından gözlüğünü çıkarıyor. Sayfaları çevirmeye başlıyor. Yavaş çeviriyor. Odada üç kişiden ikisi bekliyor, biri okuyor.\n\nKalem hâlâ senin önünde.",
+          "choices": [
+            {
+              "id": "c_bekle",
+              "text": "Bekle. O okusun; annen bitirene kadar kaleme dokunma.",
+              "target": "n_bekle",
+              "effects": [
+                {
+                  "flag": "iliski_mother",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "sadakat": 6
+              }
+            },
+            {
+              "id": "c_sor",
+              "text": "Anlamadığın bir maddeyi göster ve ne demek olduğunu sor.",
+              "target": "n_sor",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -7
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_kendim",
+              "text": "\"Ben imzalayamaz mıyım?\" diye sor.",
+              "target": "n_kendim",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_mother",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_hemen",
+              "text": "Kalemi al ve kendi yerine imzala. Gerisi onların işi.",
+              "target": "n_hemen",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -9
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_bekle": {
+          "title": "Kırk Dakika",
+          "kind": "outcome",
+          "text": "{actor.mother.name} kırk dakika okudu. {actor.sporting_director.name} iki kere telefonuna baktı, üçüncüde bakmadı.\n\nSonunda gözlüğünü çıkarıp \"Tamam,\" dedi. Önce o imzaladı. Sonra sen.\n\nÇıkarken koridorda sana dönüp tek cümle kurdu: \"Bir dahakine sen okuyacaksın.\"",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_bekledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sor": {
+          "title": "Dokuzuncu Madde",
+          "kind": "outcome",
+          "text": "Parmağını sayfanın ortasına koydun. \"Bu ne demek?\"\n\n{actor.sporting_director.name} bir an duraksadı. Sonra açıkladı; uzun uzun değil, ama uydurmadan. Anladığın kadarıyla: iyi oynarsan maaş artıyor, sakatlanırsan artmıyor.\n\n\"Başka?\" dedi.\n\n\"Yok,\" dedin. Vardı ama sorduğun soru kadarını sormuştun ve kulakların yanıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kendim": {
+          "title": "On Sekiz",
+          "kind": "outcome",
+          "text": "\"Hayır,\" dedi {actor.sporting_director.name}. \"On sekizine kadar hayır.\"\n\n{actor.mother.name} gözlüğünün üstünden sana baktı. Bir şey söylemedi. Söylemediği şey odada kaldı.\n\nİmzalar atıldı. Doğru sırayla atıldı. Ama o soruyu sorduğunu üçünüz de unutmadınız.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_kendi_istedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_hemen": {
+          "title": "Mürekkep",
+          "kind": "outcome",
+          "text": "Kalemi aldın, kendi yerine attın imzayı. Hızlı oldu.\n\n{actor.sporting_director.name} gülümsedi: \"Acelesi var beyefendinin.\"\n\n{actor.mother.name} hâlâ dördüncü sayfadaydı. Başını kaldırmadan imzaladı, kendi yerine. Sayfaları da bitirmedi.\n\nArabaya kadar konuşmadınız.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_acele_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışındaki otoparkta, {actor.sporting_director.name} aracının kapısına yaslanmış duruyor. Etraf sessiz. Rüzgar telleri titretiyor. Elindeki zarfı kaputa vurarak hafifçe gülümsüyor. Geçmişten kalan bir borçtan bahsediyor. Rakamdan çok, borcun varlığı önemli. Başını sallıyor; gözleri cevabını bekliyor. Ödeme vakti gelmiş gibi duruyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı al, içindeki rakamı sorgulamadan kabul et. Geleceğin için sessiz kal.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ona bir sonraki priminden daha fazlasını vaat et. Şimdilik üzerimden yükü at.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bana bunu hatırlatamazsın. Git ve başkasını bul. Ben artık o çocuk değilim.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "İstediğin miktarı hemen ödüyorum. Sadece kulüp içi sorunlarımı görmezden gel.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -40
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yeterli birikim gerekli]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Bedel",
+          "kind": "outcome",
+          "text": "Bakışlarını kaçırıp imza atıyorsun. Zarfı ona geri verirken elin titriyor. Bu sadece bir para meselesi değil, bir daha asla bu pozisyona düşmemen gerektiğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_bekledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Ertelenen Borç",
+          "kind": "outcome",
+          "text": "Söz veriyorsun. O, memnun bir ifadeyle araca biniyor. Şimdi cebin daha dolu ama bu borcun ileride neye mal olacağını tahmin edemiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_acele_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Sesin beklenenden daha yüksek çıkıyor. {actor.sporting_director.name} şaşırıyor. Otoparkta soğuk bir rüzgar esiyor. Artık bir borcun yok ama kazandığın tek şey bir düşman.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_kendi_istedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Güç ve Taviz",
+          "kind": "outcome",
+          "text": "Hesabı kapatıyorsun. Elini sıkarken bir müttefik kazandığını hissediyorsun ama o parayı kazanmak için harcadığın mesai, antrenmanlarda seni ağırlaştırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

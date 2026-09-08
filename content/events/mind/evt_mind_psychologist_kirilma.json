@@ -1,0 +1,384 @@
+{
+  "id": "evt_mind_psychologist_kirilma",
+  "family": "fam_mind_kirilma",
+  "category": "mind",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 30,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "playing",
+    "rehab_clinic"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kopma Noktası",
+          "kind": "branch",
+          "text": "Klinikteki odanın penceresinden dışarı bakıyorsun. Bahçedeki çürümüş yapraklar, yorgun bir mevsimin habercisi. {actor.psychologist.name}, elindeki kalemi yavaşça masaya bırakıyor. Masanın üzerinde, bir zamanlar {actor.mentor.name} ile üzerinde çalıştığın taktik tahtası duruyor; artık sadece anlamsız çizgiler ve silik daireler. İçerideki hava ağır, ilaç kokusu ve başarısızlığın o keskin, metalik tadıyla yüklü. Dışarıda antrenman sahasından gelen top sesleri, sanki başka bir evrene ait. Omuzlarındaki yük, kemiklerinin sınırlarını zorluyor. {actor.psychologist.name} gözlerini ayırmadan bakıyor, cevabı sen verene kadar sessizlik uzayıp gidiyor. İçinde bir şeylerin çatladığını duyabiliyorsun.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Hatalarımı kabul edip profesyonel bir dille tedavi sürecine odaklandığımı söyle.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sistemin suçunu kabul etmeyi reddedip sahaya geri dönmek için ısrar et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Huzurdan feragat et, kariyerini kurtarmak için kulübün sunduğu şartlı sözleşmeyi imzala.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Tüm sorumluluğu üstlenip {actor.mentor.name} ile geçmişi tamamen kapatmayı teklif et.",
+              "target": "n_outcome_4",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_psychologist",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Kabulleniş",
+          "kind": "outcome",
+          "text": "Sözlerin odadaki boşluğa çarpıp geri dönüyor. {actor.psychologist.name} başıyla onaylıyor, ama gözlerinde bir yalanı izlemenin ağırlığı var. Profesyonellik maskesi kusursuz, ancak ruhun o maskenin altında boğuluyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Kapıyı sertçe çarparak çıkıyorsun. Klinik odasının soğukluğu yerini sokakların gürültüsüne bırakıyor. Herkesin konuştuğu bir adam olarak kalacaksın, ama yalnızlığın artık daha yüksek sesle çığlık atıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Kiralık Ruh",
+          "kind": "outcome",
+          "text": "Kalem kâğıdın üzerine düştüğünde, imzadan gelen ses bir mahkûmiyet ilanı gibi yankılanıyor. Cebindeki o ağır zarf, aslında kendi değerine biçtiğin fiyatın sessiz kanıtı. Artık sahada sadece bir envanter parçasına dönüştün.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Ağırlık",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} ilk defa gülümsüyor. Bu, bir zafer değil, bir veda. Kendi doğrularını omuzlarında taşımaktan bitap düşmüş durumdasın, ama en azından artık kimseye bir şey borçlu değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda İtirafı",
+          "kind": "branch",
+          "text": "{actor.psychologist.name} perdeleri sıkıca kapatmış. Odanın içi, dışarıdaki canlı futbol sahasının aksine, ağır bir rutubet ve eski evrak kokuyor. Masanın üzerinde yanan tek bir masa lambası var. {actor.psychologist.name}, bir ajanda açıyor. İçinde sadece senin imzaların ve silikleşmiş tarihli notlar var. Bakışları, odanın köşesindeki soğuk, metalik bir sandalyeye kayıyor. \"Zamanı geldi,\" diyor. Sesi, dışarıdan gelen taraftar tezahüratlarını bile bastırıyor. O an, zihnindeki tüm kilitli kapıların pası dökülüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Her şeyi olduğu gibi anlat; kariyerimden vazgeçmem gerekse bile, bu yükle sahaya çıkamam.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sadece işime yarayacak kısımları dile getir; geri kalanı, mezara gömülecek sırlarım olarak kalsın.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ona bir avuç nakit ver ve dosyaları yakmasını teklif et; bu sessizlik bir bedele sahip.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bak ve tüm savunma mekanizmalarını tek tek indir; bu, kendi kendimi iyileştirmemin tek yolu.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_psychologist",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Mental Dayanıklılık 68]",
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Arınma",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} notları kapatıyor. Hafiflemişsin ama arkanda bıraktığın o ağır miras, kulüp koridorlarında fısıltı olarak yankılanmaya başladı bile.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Eksik İtiraf",
+          "kind": "outcome",
+          "text": "Sırrın bir kısmı güvende, ancak gerisi zihninde zehir gibi büyüyor. Bugün seni kurtardı ama yarın bir şantaja dönüşmesi an meselesi.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessizlik Bedeli",
+          "kind": "outcome",
+          "text": "Zarf masanın üzerinde kayboluyor. {actor.psychologist.name} tek kelime etmiyor. Artık kariyerin temiz ama vicdanın bu alışverişin ağırlığıyla baş başa.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Derin İyileşme",
+          "kind": "outcome",
+          "text": "Saatler süren bu yüzleşme seni fiziksel olarak bitirdi. Ancak aynaya baktığında, tanıdığın o eski, sahte gülümsemeli adamın yerine gerçek birini görüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,374 @@
+{
+  "id": "evt_transfer_president_terk_edilis",
+  "family": "fam_transfer_terk_edilis",
+  "category": "transfer",
+  "tier": "epic",
+  "weight": 100,
+  "cooldown": {
+    "self": 20,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "playing",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Boşluk",
+          "kind": "branch",
+          "text": "Odanın içi ağır, lüks ve sessiz. Pencereden şehrin ışıkları görünüyor ama içerisi bir mezar kadar soğuk. {actor.president.name} deri koltuğunda geriye yaslanmış, masanın üzerindeki transfer evraklarına bakıyor. İmzalar atılmalı, hayat değişmeli. Oysa odaya girip beklediğin o ses, o destek, o tanıdık el, gelmiyor. {actor.agent.name} köşede, telefonundan yansıyan soluk mavi ışıkla meşgul. Kimse göz göze gelmiyor. Boş sandalye, orada oturması gereken kişinin artık bu hikayenin bir parçası olmadığını haykırıyor. Sessizlik, bir kararın ağırlığıyla kristalleşiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Evrakları imzalayıp masayı terk et. Profesyonelce, sessizce.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kalemi masaya fırlat ve şartları reddet. Taraftarın seni neden sevdiğini hatırlat.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Daha yüksek bir imza parası talep et. Bu yalnızlığın bedeli ödenmeli.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "{actor.president.name} ile yüzleş, bu transferin neden yapıldığını gözlerinin içine bakarak sor.",
+              "target": "n_outcome_stat",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk Bir Vedalaşma",
+          "kind": "outcome",
+          "text": "Kapı arkandan kapandığında, içerideki soğuk koridora yayıldı. Kimse arkandan gelmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Köprüleri Yakmak",
+          "kind": "outcome",
+          "text": "Odanın camları titredi. {actor.president.name} şaşkın, dışarısı ise senin ismini haykırmaya hazır.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Bir Mutabakat",
+          "kind": "outcome",
+          "text": "Rakamlar yükseldi, vicdanın hafifledi ama odayı dolduran o yalnızlık daha da keskinleşti.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Göz Gözeyken",
+          "kind": "outcome",
+          "text": "Gerçeği duydun. {actor.president.name} artık bir müttefik değil, sadece bir satranç oyuncusu.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Altındaki Yüzleşme",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki otoparkta sadece ikinizin nefes sesi duyuluyor. {actor.president.name}, beton duvara yaslanmış, elindeki eski kulüp anahtarını parmakları arasında çeviriyor. Dışarıda taraftar sesleri derinden uğulduyor. Sana bakmıyor bile. Yerlerde duran yarım kalmış bir su şişesi ve kulüp armalı bir ceket var. {actor.president.name} sessizliği bölerek, \"Burada geçirdiğin yılların bir anlamı olması gerekirdi, ama görünen o ki sadece bir kontrat süresiymiş,\" diyor. Karar anı geldi.",
+          "choices": [
+            {
+              "id": "c_wealth",
+              "text": "Anahtarı yere atıp arkama bakmadan arabaya yürüyorum. Bu huzursuzluktan kurtulmanın tek yolu bu.",
+              "target": "n_outcome_wealth",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Başımı eğip hiçbir şey söylemeden ceketimi alıyorum. Profesyonelce gitmek, bağırıp çağırmaktan daha saygın.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Taraftarların adımı haykırdığı o tribüne doğru dönüyorum. Gitmemi istiyorsan, bunu onların gözü önünde söyle.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_loyal",
+              "text": "Yanına gidip elindeki anahtarı tutuyorum. Ne olursa olsun bu formayı beraber taşımaya devam edeceğiz.",
+              "target": "n_outcome_loyal",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "sadakat": 12
+              },
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Bağlılık Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_wealth": {
+          "title": "Soğuk Veda",
+          "kind": "outcome",
+          "text": "Cüzdanın doluyor ama adının ağırlığı otoparkın tozlu zemininde kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Herkesin alkışlayacağı bir profesyonel gibi ayrıldın; ama için, söyleyemediğin kelimelerle yanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Tribünlerin Çığlığı",
+          "kind": "outcome",
+          "text": "İpler koptu. Artık ne yönetimin ne de başka bir kurumun güvenli alanı var; sadece sokaklar ve öfkeli taraftarlar.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_loyal": {
+          "title": "Ağır Yük",
+          "kind": "outcome",
+          "text": "Birlikte kalmaya karar verdiniz. Ancak bu sadakat, her gün daha fazla ödenecek bir bedeli ve tükenmişliği beraberinde getiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

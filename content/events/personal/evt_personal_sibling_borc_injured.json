@@ -1,0 +1,342 @@
+{
+  "id": "evt_personal_sibling_borc_injured",
+  "family": "fam_personal_borc",
+  "category": "personal",
+  "tier": "epic",
+  "weight": 10,
+  "cooldown": {
+    "self": 30,
+    "family": 8
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "injured"
+  ],
+  "trigger": {
+    "flag": "lifeState",
+    "op": "eq",
+    "value": "injured"
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Odanın içi hastane odası kokusu ve ağır bir sessizlikle dolu. {actor.sibling.name}, yatağının ucuna oturmuş, elindeki telefonu yavaşça çeviriyor. Bakışları, alçıda olan bacağında değil, sehpanın üzerindeki lüks saatte. \"Sen burada sakatlanıp yatarken dünya dönmeye devam ediyor,\" diyor sesi soğuk bir metal sürtünmesi gibi. \"Bana söz verdiğin o günleri hatırlıyor musun? O zamanlar ikimizdik, şimdi ise sadece sen ve o sözleşmen varsın. Borcunu ödeme vakti geldi, hem de bugünkü kurdan.\"",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Kulüp avukatlarının numarasını masaya bırak. 'Resmi kanallardan halledelim, yasal yollar dışında tek kuruş ödemem.'",
+              "target": "n_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Cüzdanını aç, içindeki nakdin tamamını yatağın üzerine saç. 'İçeridekiyle idare et, gerisi bittiğinde gelecek.'",
+              "target": "n_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Yatırım hesabının şifresini içeren kağıdı ona uzat. 'Bunu kullan, ama bir daha karşıma çıkma.'",
+              "target": "n_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_leader",
+              "text": "Doğrulup gözlerinin içine bak. 'Seninle bu şekilde bitirmeyeceğim. {actor.child.name} için bir gelecek kuracağız, o parayı bir işe yatıracağız.'",
+              "target": "n_leader",
+              "effects": [
+                {
+                  "flag": "iliski_sibling",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_safe": {
+          "title": "Soğuk Bir Mesafe",
+          "kind": "outcome",
+          "text": "{actor.sibling.name} kağıda bakmıyor bile. Odadan çıkarken kapıyı sertçe kapatıyor. Aile bağları, profesyonel hayatın soğuk duvarlarına çarparak parçalanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risky": {
+          "title": "Sokak Dilinde Anlaşma",
+          "kind": "outcome",
+          "text": "Parayı alıp gülümseyerek çıkıyor. Bu borç bitti ama başka bir borcun kapısı aralandı. Artık dışarıda, senin adına verilen kararların sorumluluğu ona ait.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_grey": {
+          "title": "Görünmez Bir Kayıp",
+          "kind": "outcome",
+          "text": "Kasa boşaldı. Hesabındaki rakamların düşüşünü izlemek, bacağındaki acıdan daha keskin bir sızı bırakıyor. Huzuru para ile satın aldın, ama huzur artık seninle değil.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_leader": {
+          "title": "Zorlu Bir Uzlaşı",
+          "kind": "outcome",
+          "text": "{actor.sibling.name} duraksıyor, fikrini değiştiriyor. {actor.child.name}’in ismi odaya yeni bir hava getiriyor. Borç ödendi ancak yükün artık sadece para değil, iki hayatın ağırlığı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının kapalı otoparkında, soğuk betonun üzerine çökmüş durumdasın. Sakatlığın bacağını sızlatıyor ama asıl acı, karşında duran {actor.sibling.name} ile arandaki mesafede. Elinde tuttuğu son hesap özetleri, senin yıllardır gizlediğin transfer primlerinin nereye gittiğini kanıtlıyor. {actor.sibling.name} sadece bakıyor; tek bir ses bile etmiyor. Sadece arabanın dikiz aynasından yansıyan cılız ışıkta, gözlerindeki o tanıdık hayal kırıklığını izliyorsun. Sessizlik, biriken borçların gürültüsünden daha ağır.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Banka kartını ona uzat. 'Bu son. Bir daha ne adımı duy ne de yerimi öğren.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ayağa kalk, acını hiçe sayarak ona yaklaş. 'Bunu dışarıda halledeceğiz. Benim arkamda dur, gerisini ben çözerim.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğ, gözlerini kaçır. 'Kariyerimi riske atamam. Gitmen gerekiyor, buraya kadar.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sibling",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Kartı avucuna bırakırken parmaklarınız birbirine değmiyor. {actor.sibling.name} arkasını dönüp gidiyor. Biliyorsun, o para tükendiğinde yine geri gelecek ama bu gece, bir süre daha nefes alabileceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Yeni Bir İttifak",
+          "kind": "outcome",
+          "text": "{actor.sibling.name} başını sallıyor, otoparkın karanlığında gözleri parlıyor. Bu sadece bir borç kapatma değil, artık bir suç ortaklığı. Tribünlerdeki fısıltılar artacak, biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Kopan Bağlar",
+          "kind": "outcome",
+          "text": "{actor.sibling.name} gitmeden önce uzun süre yüzüne bakıyor. Arkasından kapı kapandığında, kendi kariyerini kurtardığını hissediyorsun ama odaya dönmek artık sadece yorgunluk veriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "id": "evt_money_lawyer_sinav",
+  "family": "fam_money_sinav",
+  "category": "money",
+  "tier": "minor",
+  "weight": 1,
+  "cooldown": {
+    "self": 14,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "clubTiers": [
+    "amateur",
+    "lower"
+  ],
+  "lifeStates": [
+    "loaned",
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Masadaki Zarf",
+      "kind": "branch",
+      "text": "Ofisin havası ağır. {actor.lawyer.name} karşında, deri koltuğunda geriye yaslanmış. Önünde duran kalın dosya, {actor.sporting_director.name} ve {actor.president.name} arasındaki imza sürecini tıkayan tek engel. Avukat, ince parmaklarıyla dosyanın kenarını işaret ediyor. \"Bu şartları kabul edersen kulüp sana kapıyı açar, ancak kariyerinin geri kalanında bu sözleşmenin gölgesinden çıkamazsın,\" diyor sesi fısıltıdan hallice. Dışarıda antrenman sahasının uğultusu duyuluyor. Masanın üzerinde, dosyanın yanındaki küçük zarf ise sadece senin görebileceğin bir seçenek. {actor.lawyer.name} gözlerini kaçırıyor, cevabını bekliyor.",
+      "choices": [
+        {
+          "id": "c_guvenli",
+          "text": "Dosyayı imzala, şartları kabul et ve kariyerine odaklan.",
+          "target": "n_outcome_1",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_riskli",
+          "text": "Dosyayı sertçe kenara it, şartları reddet ve {actor.sporting_director.name} ile yüzleş.",
+          "target": "n_outcome_2",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_gri",
+          "text": "Zarfı kimse görmeden cebine koy, avukatla göz göze gel ve başını salla.",
+          "target": "n_outcome_3",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -8
+          }
+        }
+      ]
+    },
+    "n_outcome_1": {
+      "title": "Resmi Yol",
+      "kind": "outcome",
+      "text": "Kalemin mürekkebi kağıdı delerken {actor.lawyer.name} belli belirsiz gülümsüyor. Yolun belli, sözleşmen kesin; artık sadece sahada konuşacaksın.",
+      "onEnter": [
+        {
+          "flag": "mem_money_sinav_lawyer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_2": {
+      "title": "Zor Seçim",
+      "kind": "outcome",
+      "text": "Kapıyı vurup çıktığında arkandaki sessizlik her şeyi anlatıyor. Kariyerin bir süreliğine belirsizliğe gömülse de, kendi değerlerini korumuş olmanın getirdiği o soğuk güveni hissediyorsun.",
+      "onEnter": [
+        {
+          "flag": "mem_money_sinav_lawyer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_outcome_3": {
+      "title": "Sessiz Ortaklık",
+      "kind": "outcome",
+      "text": "Cebindeki ağırlık tüm yürüyüşünü değiştiriyor. {actor.lawyer.name} dosyanın kapağını kapatıyor. Bu odada ne yaşandıysa, artık sadece ikinizin paylaştığı bir sır.",
+      "onEnter": [
+        {
+          "flag": "mem_money_sinav_lawyer",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

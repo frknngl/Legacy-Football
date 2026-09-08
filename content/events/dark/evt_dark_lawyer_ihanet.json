@@ -1,0 +1,370 @@
+{
+  "id": "evt_dark_lawyer_ihanet",
+  "family": "fam_dark_ihanet",
+  "category": "dark",
+  "tier": "major",
+  "weight": 10,
+  "cooldown": {
+    "self": 14,
+    "family": 6
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "lifeStates": [
+    "loaned",
+    "transfer_listed"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki İhanet",
+          "kind": "branch",
+          "text": "{actor.lawyer.name}, masanın karşı tarafında camdan dışarı bakıyor. Sigarasını küllüğe bastırıp, dosyayı ağır hareketlerle önüme itiyor. İçinde, kulübün benim sözleşmemi feshetmek için hazırladığı gizli madde var. Asıl vurucu olan ise, bunu bizzat {actor.lawyer.name} ile birlikte hazırlamış olmaları. Sessizliğini, dışarıdaki yağmurun cama vuran ritmi bozuyor. Göz göze geldiğimizde bakışlarını kaçırmıyor. Kendi kariyerimi kurtarmanın tek yolu, bu belgeleri sızdırmak ya da oyunun kurallarına boyun eğip bir sonraki hamleyi beklemek.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce dosyayı imzala ve odadan çık. Kendi profesyonelliğini koru.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Belgeleri telefonunla gizlice çek. Taraftara gerçekleri gösterme vakti.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ona bir teklif sun. Sessiz kalması için ne kadar istediğini sor.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Sakin kal ve onu masaya geri çek. Kendi tarafına geçmesini emret.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Profesyonel Sessizlik",
+          "kind": "outcome",
+          "text": "İmzayı attın. Kapı kapandığında, içeride bıraktığın sadece bir sözleşme değil, kendi onurundu.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sokakların Ateşi",
+          "kind": "outcome",
+          "text": "Fotoğraflar internete düştü. Artık dönüşü olmayan bir savaşın içindesin. {actor.lawyer.name} ile köprüler yandı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Rakamlar üzerinde anlaştınız. Cebin doldu ama aynaya baktığında gördüğün adam artık yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Gücün Sınırı",
+          "kind": "outcome",
+          "text": "Baskın çıktı. Masadaki dengeler değişti, bir anlığına kontrolü geri kazandın ama bu oyun seni bitkin düşürdü.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Antrenman sahasının bodrum katında, havalandırmanın metalik iniltisi eşliğinde duruyoruz. {actor.lawyer.name}, paslı bir kilitli dolabın önünde durmuş, tozlu bir eski dosya klasörünü çeviriyor. Işık, tepemizdeki titreyen floresandan sarı bir toz bulutuna dönüşüyor. Göz göze geldiğimizde başını hafifçe eğiyor; ne bir özür ne de bir açıklama. Sadece bekliyor. Kapının kolu arkamda, metalin soğukluğu avucumda. Sessizlik, biriken borçlar gibi ağır.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Dosyayı çantasına geri bırakmasını söyle ve masaya koyduğu yüklü çeki al.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_sokak",
+              "text": "Dosyayı elinden kap ve antrenman sahasının kapısına doğru fırlat.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_prof",
+              "text": "Yüzüne bakmadan odadan çık ve durumu kulüp yönetimine rapor et.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_kilit",
+              "text": "Gırtlağına yapış, dosyada yazanların neden yapıldığını itiraf ettir.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": -30
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı Gerekli]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Çek cebimde, vicdanım yolda. {actor.lawyer.name} arkasını dönüp giderken tozlu koridorda ayak sesleri yankılanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Açık Kavga",
+          "kind": "outcome",
+          "text": "Dosya parçalandı. {actor.lawyer.name} yüzündeki şaşkınlık, kariyerimdeki en büyük fırtınanın başlangıcı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Kapıyı kapattığımda, arkamda bıraktığım oyunun bitmediğini biliyordum. Sadece kuralı değiştirdim.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Kanlı İtiraf",
+          "kind": "outcome",
+          "text": "{actor.lawyer.name} titreyerek her şeyi döktü. Yorgun hissediyorum, ama artık kimin dost olduğunu biliyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
