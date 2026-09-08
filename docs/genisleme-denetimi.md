@@ -150,6 +150,20 @@ Kapasite mevcut borçla düşer; banka bitince geriye tefeci kalır.
 Not: simülasyon botu kredi çekmediği için bu iki sahne `npm run simulate`
 çıktısında hâlâ ölü görünür; **oyuncu için** erişilebilir oldular.
 
+### Faz 4a — hocanın kovulması ✅ (2026-09-08)
+
+`yonetim_baskisi` bayrağını **17 içerik olayı yazıyor**, motor onu hiç
+okumuyordu. İsyan senaryosunun eksik dördüncü ayağı buydu.
+
+`runtime/ManagerTenure.ts`: baskı = `yonetim_baskisi` + soyunma odası
+huzuru + hero formu (sonuncusu bilerek zayıf). Sert eşik yerine olasılık
+(70 üzeri, tavanda haftalık ~%12). Yalnızca `manager` slotu yeniden
+dökülür ve **giden kişi dışlanır** — yoksa mock dünyada (kulüp başına tek
+hoca) kovulan aynı hafta geri geliyordu.
+
+Yeni bir mekanik değil: hoca kötü sezonda da gider, isyan yalnızca
+süreci hızlandırır. `mem_hoca_kovuldu` izi bırakılır.
+
 ### Sırada
 
 Faz 4 — isyan ve tepkisel senaryolar (yeni `WorldEvent` turu + `manager` slotunun yeniden dokumu). Agirlikli olarak YAZIM isi.
