@@ -110,6 +110,7 @@ import {
 import type { ActorState } from '../domain/actors.js';
 import { valuePlayer } from '../domain/transfer.js';
 import { STATURES, statureIndex } from '../domain/axes.js';
+import { DEFAULT_THRESHOLD, latePenalty, loanOffers, type LoanOffer, type LoanState } from '../domain/loan.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -879,6 +880,7 @@ export class GameEngine {
     this.tickFatigue();
     this.tickBonds();
     this.tickEconomy();
+    this.tickLoan();
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
@@ -1527,6 +1529,119 @@ export class GameEngine {
    *   uretmek, sifir birakmaktan iyidir. Muzakere geldiginde bu taban
    *   yalnizca BASLANGIC degeri olur.
    */
+
+  // --------------------------------------------------------------- KREDI
+
+  /**
+   * Bu gelirle alinabilecek krediler.
+   *
+   * Kapasite mevcut borcla azalir; bitince banka teklifi duser ve geriye
+   * yalnizca tefeci kalir. "Artik sana kimse vermiyor" ani boyle dogal
+   * olarak kurulur.
+   */
+  loanOffers(): readonly LoanOffer[] {
+    this.requireStarted();
+    if (this.state.loan !== undefined) return [];
+    return loanOffers(
+      numberFlag(this.state.flags, 'haftalik_gelir'),
+      numberFlag(this.state.flags, 'borc'),
+    );
+  }
+
+  /**
+   * Krediyi ceker: para ELINE GECER, borc TOPLAM geri odeme kadar artar.
+   *
+   * `borc` tek gercek kaynak olarak tutuluyor -- icerik zaten onu okuyor
+   * (`evt_dark_betting_offer` 40.000'de tetikleniyor), yani borclanmak
+   * sike teklifi zincirini kendiliginden aciyor.
+   */
+  takeLoan(offer: LoanOffer): void {
+    this.requireStarted();
+    if (this.state.loan !== undefined) {
+      throw new EngineStateError('Zaten acik bir kredin var.');
+    }
+    const f = this.state.flags;
+    f['servet'] = numberFlag(f, 'servet') + offer.principal;
+    f['borc'] = numberFlag(f, 'borc') + offer.total;
+    this.state.loan = {
+      lender: offer.lender,
+      weekly: offer.weekly,
+      weeksLeft: offer.weeks,
+      missed: 0,
+    };
+    WalletLedger.record(this.state, offer.principal, 'kredi', `${offer.lender} kredisi`);
+    this.notices.push(
+      `Kredi cekildi: ${offer.principal.toLocaleString('tr-TR')} TL. ` +
+        `Haftalik taksit ${offer.weekly.toLocaleString('tr-TR')} TL, ${offer.weeks} hafta.`,
+    );
+  }
+
+  /** Acik kredinin durumu -- host masasi icin. */
+  currentLoan(): Readonly<LoanState> | undefined {
+    return this.state.loan;
+  }
+
+  /**
+   * Haftalik taksit.
+   *
+   * Para yetmezse taksit KACIRILIR: ceza borca eklenir ve sayac artar.
+   * Ust uste `DEFAULT_THRESHOLD` kacirmak temerruttur ve alacakliya gore
+   * farkli sonuc verir:
+   *   banka  -- basin ve itibar; medya baskisi artar
+   *   tefeci -- `mem_mafia_favor_owed` yazilir; bu iz `legal` kolundaki
+   *             tahsilat sahnesini besler
+   *
+   * Temerrut kredinin kendisini KAPATMAZ; borc durur ve buyur. Kacis
+   * yok, secim var: ya odersin ya bedeline katlanirsin.
+   */
+  private tickLoan(): void {
+    const loan = this.state.loan;
+    if (loan === undefined) return;
+    const f = this.state.flags;
+
+    if (loan.weeksLeft <= 0) {
+      this.state.loan = undefined;
+      this.notices.push('Kredi kapandi.');
+      return;
+    }
+
+    const wealth = numberFlag(f, 'servet');
+    if (wealth >= loan.weekly) {
+      f['servet'] = wealth - loan.weekly;
+      f['borc'] = Math.max(0, numberFlag(f, 'borc') - loan.weekly);
+      loan.weeksLeft -= 1;
+      loan.missed = 0;
+      WalletLedger.record(this.state, -loan.weekly, 'kredi', 'Kredi taksiti');
+      if (loan.weeksLeft <= 0) {
+        this.state.loan = undefined;
+        this.notices.push('Kredi bitti. Borcun kapandi.');
+      }
+      return;
+    }
+
+    // --- TAKSIT KACIRILDI
+    const penalty = latePenalty(loan);
+    f['borc'] = numberFlag(f, 'borc') + penalty;
+    loan.missed += 1;
+    this.notices.push(
+      `Kredi taksiti odenemedi (${loan.missed}). Gecikme cezasi: ${penalty.toLocaleString('tr-TR')} TL.`,
+    );
+
+    if (loan.missed < DEFAULT_THRESHOLD) return;
+
+    // --- TEMERRUT
+    loan.missed = 0;
+    if (loan.lender === 'tefeci') {
+      // Bu iz `legal` kolundaki tahsilat sahnesini besler.
+      f['mem_mafia_favor_owed'] = true;
+      this.state.flagSetTurn['mem_mafia_favor_owed'] = this.state.turn;
+      this.notices.push('Borcunu almaya geldiler.');
+    } else {
+      f['medya_baskisi'] = clamp100(numberFlag(f, 'medya_baskisi') + 12);
+      this.notices.push('Bankaya olan borcun basina sizdi.');
+    }
+  }
+
   private tickEconomy(): void {
     const f = this.state.flags;
 

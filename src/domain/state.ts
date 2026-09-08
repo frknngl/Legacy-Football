@@ -8,6 +8,7 @@ import type { FlagValue } from './flags.js';
 import type { PlayerAvailability } from './match.js';
 import type { AgentState } from './agent.js';
 import type { WalletEntry, WalletTotals } from './wallet.js';
+import type { LoanState } from './loan.js';
 
 /** Kuyruga alinmis, vadesi gelince calisacak olay. */
 export interface ScheduledEvent {
@@ -173,6 +174,13 @@ export interface GameState {
   wallet: WalletEntry[];
   /** Tur bazinda kariyer TOPLAMLARI -- defter sinirindan bagimsiz. */
   walletTotals: WalletTotals;
+  /**
+   * Acik kredi. `undefined` = borcu yok.
+   *
+   * Optional oldugu icin eski kayitlar backfill istemez: eksik olmasi
+   * "kredisi yok" demek ve dogru anlam bu.
+   */
+  loan?: LoanState | undefined;
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

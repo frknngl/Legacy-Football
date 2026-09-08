@@ -338,7 +338,10 @@ async function agentTurn(
  * Kumar ve kredi gelmeden once bu gorunur olmali -- kaybin okunmadigi
  * bir ekonomide risk almak bir karar degil, gurultudur.
  */
-function walletDesk(engine: GameEngine): void {
+async function walletDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<void> {
   const state = engine.snapshot();
   const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
 
@@ -388,6 +391,56 @@ function walletDesk(engine: GameEngine): void {
       `    ${c.grey(`t${String(e.turn).padStart(4)}`)} ${sign.padEnd(22)} ${c.grey(e.label)}`,
     );
   }
+
+  await loanSection(engine, ask, money);
+}
+
+/**
+ * KREDI BOLUMU.
+ *
+ * Acik kredi varsa durumu, yoksa teklifleri gosterir. Tefeci teklifi
+ * bilerek AYNI listede duruyor: "ucuz olan bitince pahali olan kaliyor"
+ * ayrimini oyuncunun kendisi gormeli.
+ */
+async function loanSection(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+  money: (n: number) => string,
+): Promise<void> {
+  const loan = engine.currentLoan();
+  if (loan !== undefined) {
+    console.log('');
+    console.log(c.bold('  KREDI'));
+    console.log(
+      `    ${loan.lender === 'tefeci' ? c.red('Tefeci') : 'Banka'}` +
+        c.grey(`  haftalik ${money(loan.weekly)} TL  |  ${loan.weeksLeft} hafta kaldi`),
+    );
+    if (loan.missed > 0) {
+      console.log(c.red(`    ${loan.missed} taksit kacirildi -- ucunde is degisir.`));
+    }
+    return;
+  }
+
+  const offers = engine.loanOffers();
+  if (offers.length === 0) return;
+
+  console.log('');
+  console.log(c.bold('  KREDI ALABILIRSIN'));
+  offers.forEach((o, i) => {
+    const name = o.lender === 'tefeci' ? c.red('Tefeci') : 'Banka';
+    console.log(
+      `    ${c.bold(String(i + 1))}) ${name}  ${money(o.principal)} TL` +
+        c.grey(`  ->  ${o.weeks} hafta x ${money(o.weekly)} TL  (toplam ${money(o.total)})`),
+    );
+  });
+  console.log(c.grey('    <enter> vazgec'));
+
+  const pick = Number.parseInt((await ask('    > ')).trim(), 10) - 1;
+  const chosen = offers[pick];
+  if (chosen === undefined) return;
+
+  engine.takeLoan(chosen);
+  console.log(c.green(`    ${money(chosen.principal)} TL hesabina gecti.`));
 }
 
 async function agentDesk(engine: GameEngine, ask: (q: string) => Promise<string>): Promise<void> {
@@ -716,7 +769,7 @@ async function main(): Promise<void> {
     if (input === ':q') break;
 
     if (input === ':cuzdan') {
-      walletDesk(engine);
+      await walletDesk(engine, ask);
       continue;
     }
 
