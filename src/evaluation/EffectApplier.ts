@@ -15,6 +15,8 @@ import {
   isScalableValue,
   type Effect,
   type FlagEffect,
+  isValueRef,
+  type ValueRef,
   type ScaleContext,
 } from '../domain/effects.js';
 import { ScalableValueResolver } from './ScalableValueResolver.js';
@@ -99,7 +101,11 @@ export class EffectApplier {
       return { flag: effect.flag, before, after };
     }
 
-    const raw = this.scalable.resolveEffectValue(effect.value, scale);
+    // Iki cozum yolu: kademeye gore olcekleme (ScalableValue) ve calisma
+    // zamaninda bayraktan okuma (ValueRef). Ikisi ayrik sekillerdir.
+    const raw = isValueRef(effect.value)
+      ? resolveValueRef(effect.value, state.flags)
+      : this.scalable.resolveEffectValue(effect.value, scale);
 
     if (def.type === 'boolean') {
       const after = effect.op === 'set' ? Boolean(raw) : Boolean(raw ?? true);
@@ -198,3 +204,26 @@ export class EffectApplier {
 }
 
 export { isScalableValue };
+
+/**
+ * `ValueRef`i somut sayiya cevirir.
+ *
+ * Tanimsiz ya da sayisal olmayan bir referans 0 verir. Bu SESSIZ bir
+ * hata gibi gorunur ama degil: `ValueRefRule` referansin varligini ve
+ * sayisal oldugunu build zamaninda dogrular, yani buraya gelen her
+ * referans zaten gecerlidir. Buradaki 0, yalnizca bir bayragin henuz
+ * yazilmamis olmasina karsi zarif bozulmadir -- bahis oynanmadan
+ * `son_bahis_tutari` 0'dir ve dogru cevap budur.
+ */
+export function resolveValueRef(
+  value: ValueRef,
+  flags: Readonly<Record<string, FlagValue>>,
+): number {
+  const raw = flags[value.ref];
+  const n = typeof raw === 'number' ? raw : typeof raw === 'boolean' ? (raw ? 1 : 0) : 0;
+
+  let out = n * (value.mul ?? 1) + (value.add ?? 0);
+  if (value.clampMin !== undefined) out = Math.max(value.clampMin, out);
+  if (value.clampMax !== undefined) out = Math.min(value.clampMax, out);
+  return Math.round(out);
+}

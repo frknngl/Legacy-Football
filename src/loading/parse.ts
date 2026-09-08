@@ -166,6 +166,19 @@ function parseEffectValue(v: unknown, ctx: ParseContext, path: string): EffectVa
     if (cmax !== undefined) out['clampMax'] = cmax;
     return out as unknown as EffectValue;
   }
+  if (isObj(v) && 'ref' in v) {
+    const ref = str(v['ref']);
+    if (ref === undefined) {
+      ctx.error(path, 'Bayrak referansi `ref` bir metin olmali.');
+      return undefined;
+    }
+    const out: Record<string, unknown> = { ref };
+    for (const key of ['mul', 'add', 'clampMin', 'clampMax'] as const) {
+      const n = num(v[key]);
+      if (n !== undefined) out[key] = n;
+    }
+    return out as unknown as EffectValue;
+  }
   ctx.error(path, `Gecersiz efekt degeri: ${JSON.stringify(v)}`);
   return undefined;
 }

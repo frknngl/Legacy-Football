@@ -7,7 +7,7 @@
  */
 
 import { referencedFlags } from '../../domain/conditions.js';
-import { isFlagEffect, isScheduleEffect } from '../../domain/effects.js';
+import { isFlagEffect, isScheduleEffect, isValueRef } from '../../domain/effects.js';
 import { allNodes, type StoryEvent, type StoryNode } from '../../domain/story.js';
 import { CONTENT_READONLY_KINDS } from '../../domain/flags.js';
 import { finding, isWaived, type Finding, type ValidationRule } from '../Rule.js';
@@ -687,3 +687,91 @@ export const VariantConsistencyRule: ValidationRule = {
   },
 };
 
+/**
+ * BAYRAK REFERANSI DENETIMI.
+ *
+ * `ValueRef` bir efektin buyuklugunu CALISMA ZAMANINDA bir bayraktan
+ * okur. Bu guclu bir ilkel ama sessiz bir hata kaynagi: tanimsiz ya da
+ * sayisal olmayan bir referans `0` verir ve efekt hicbir sey yapmaz.
+ * Bahis kaybi 0 TL olur, kredi taksiti hic kesilmez -- ve hicbir yerde
+ * hata gorunmez.
+ *
+ * Bu yuzden referans BUILD ZAMANINDA denetlenir:
+ *   1. Bayrak tanimli mi
+ *   2. Sayisal mi (boolean 0/1 verir, string her zaman 0)
+ *   3. Carpan makul mu -- 1000 kat bir carpan neredeyse her zaman
+ *      yazim hatasidir ve ekonomiyi tek sahnede patlatir
+ *
+ * SEVERITY `error`: bu ilkel yeni, yani grandfather edilecek mevcut
+ * ihlal yok. Kapiyi bastan sikilastirmak, sonra temizlemekten ucuzdur.
+ */
+export const ValueRefRule: ValidationRule = {
+  name: 'ValueRefRule',
+  defaultSeverity: 'error',
+  description: 'ValueRef tanimli ve SAYISAL bir bayraga isaret etmeli; carpan makul olmali.',
+  check({ events, registry }): Finding[] {
+    const out: Finding[] = [];
+    const MAX_MUL = 100;
+
+    for (const event of events) {
+      if (isWaived(event, 'ValueRefRule')) continue;
+      for (const [nodeId, node] of allNodes(event)) {
+        const effects = [
+          ...(node.onEnter ?? []).map((e) => ({ e, path: `nodes.${nodeId}.onEnter` })),
+          ...(node.choices ?? []).flatMap((c) =>
+            c.effects.map((e) => ({ e, path: `nodes.${nodeId}.choices.${c.id}.effects` })),
+          ),
+        ];
+
+        for (const { e, path } of effects) {
+          if (!isFlagEffect(e) || !isValueRef(e.value)) continue;
+          const ref = e.value.ref;
+          const def = registry.flags.get(ref);
+
+          if (!def) {
+            out.push(
+              finding(ValueRefRule, event, `"${ref}" diye bir bayrak yok (ValueRef).`, {
+                path,
+                fix: 'Referansi core.json`daki bir bayraga cevirin. Tanimsiz referans sessizce 0 verir.',
+              }),
+            );
+            continue;
+          }
+
+          if (def.type !== 'number') {
+            out.push(
+              finding(
+                ValueRefRule,
+                event,
+                `"${ref}" sayisal degil (${def.type}); ValueRef her zaman 0 uretir.`,
+                { path, fix: 'Sayisal bir bayraga referans verin.' },
+              ),
+            );
+          }
+
+          const mul = e.value.mul;
+          if (mul !== undefined && Math.abs(mul) > MAX_MUL) {
+            out.push(
+              finding(
+                ValueRefRule,
+                event,
+                `"${ref}" carpani ${mul} -- ${MAX_MUL} kattan buyuk carpan neredeyse her zaman yazim hatasidir.`,
+                { path, fix: 'Carpani kucultun ya da sabit bir deger kullanin.' },
+              ),
+            );
+          }
+
+          if (mul === 0) {
+            out.push(
+              finding(ValueRefRule, event, `"${ref}" carpani 0 -- efekt hicbir sey yapmaz.`, {
+                path,
+                fix: 'Carpan 0 ise efekti silin; olu efekt okuyucuyu yaniltir.',
+              }),
+            );
+          }
+        }
+      }
+    }
+    return out;
+  },
+};

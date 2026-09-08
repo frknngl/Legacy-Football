@@ -32,6 +32,7 @@ import {
   VariantDistinctnessRule,
   VariantIncidentRule,
   ShapeVarietyRule,
+  ValueRefRule,
 } from './structure.js';
 import {
   ConsequenceHookRule,
@@ -64,6 +65,7 @@ export const ALL_RULES: readonly ValidationRule[] = [
   VariantDistinctnessRule,
   VariantIncidentRule,
   ShapeVarietyRule,
+  ValueRefRule,
   // kalite
   ConsequenceHookRule,
   TradeoffRule,

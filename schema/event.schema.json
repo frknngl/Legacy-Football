@@ -4,10 +4,25 @@
   "title": "Anlati olayi",
   "description": "src/loading/parse.ts'ten turetilmistir. Ayristirici KESIN Turkce hata mesaji verir; bu sema editorde otomatik tamamlama ve yazim yanlisi yakalamak icindir. Ikisi arasindaki tutarlilik tests/Schema.test.ts ile baglanmistir.",
   "type": "object",
-  "required": ["id", "family", "category", "tier", "cooldown"],
+  "required": [
+    "id",
+    "family",
+    "category",
+    "tier",
+    "cooldown"
+  ],
   "anyOf": [
-    { "required": ["nodes", "rootNode"] },
-    { "required": ["variants"] }
+    {
+      "required": [
+        "nodes",
+        "rootNode"
+      ]
+    },
+    {
+      "required": [
+        "variants"
+      ]
+    }
   ],
   "additionalProperties": false,
   "patternProperties": {
@@ -16,8 +31,9 @@
     }
   },
   "properties": {
-    "$schema": { "type": "string" },
-
+    "$schema": {
+      "type": "string"
+    },
     "id": {
       "type": "string",
       "pattern": "^evt_[a-z0-9_]+$",
@@ -34,62 +50,159 @@
       "description": "content/events/ altindaki klasor adiyla AYNI olmali."
     },
     "tier": {
-      "enum": ["epic", "major", "minor", "beat"],
+      "enum": [
+        "epic",
+        "major",
+        "minor",
+        "beat"
+      ],
       "description": "`filler` YOKTUR: her olay >=3 secim ve >=1 kalici sonuc tasir."
     },
-    "weight": { "type": "number", "default": 10 },
-    "cooldown": { "$ref": "#/definitions/cooldown" },
-
-    "eras": { "type": "array", "items": { "$ref": "#/definitions/era" } },
-    "stature": { "type": "array", "items": { "$ref": "#/definitions/stature" } },
-    "clubTiers": { "type": "array", "items": { "$ref": "#/definitions/clubTier" } },
-    "lifeStates": { "type": "array", "items": { "$ref": "#/definitions/lifeState" } },
-    "mediaEras": { "type": "array", "items": { "$ref": "#/definitions/mediaEra" } },
-    "archetypes": { "type": "array", "items": { "$ref": "#/definitions/archetype" } },
-
-    "personaAffinity": { "$ref": "#/definitions/persona" },
-    "trigger": { "$ref": "#/definitions/condition" },
-    "momentType": { "type": "string" },
-
-    "once": { "type": "boolean" },
-    "scheduledOnly": { "type": "boolean" },
-
-    "rootNode": { "type": "string" },
-    "nodes": { "$ref": "#/definitions/nodes" },
+    "weight": {
+      "type": "number",
+      "default": 10
+    },
+    "cooldown": {
+      "$ref": "#/definitions/cooldown"
+    },
+    "eras": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/era"
+      }
+    },
+    "stature": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/stature"
+      }
+    },
+    "clubTiers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/clubTier"
+      }
+    },
+    "lifeStates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/lifeState"
+      }
+    },
+    "mediaEras": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/mediaEra"
+      }
+    },
+    "archetypes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/archetype"
+      }
+    },
+    "personaAffinity": {
+      "$ref": "#/definitions/persona"
+    },
+    "trigger": {
+      "$ref": "#/definitions/condition"
+    },
+    "momentType": {
+      "type": "string"
+    },
+    "once": {
+      "type": "boolean"
+    },
+    "scheduledOnly": {
+      "type": "boolean"
+    },
+    "rootNode": {
+      "type": "string"
+    },
+    "nodes": {
+      "$ref": "#/definitions/nodes"
+    },
     "variants": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "rootNode", "nodes"],
+        "required": [
+          "id",
+          "rootNode",
+          "nodes"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "rootNode": { "type": "string" },
-          "nodes": { "$ref": "#/definitions/nodes" },
-          "archetypes": { "type": "array", "items": { "$ref": "#/definitions/archetype" } }
+          "id": {
+            "type": "string"
+          },
+          "rootNode": {
+            "type": "string"
+          },
+          "nodes": {
+            "$ref": "#/definitions/nodes"
+          },
+          "archetypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/archetype"
+            }
+          }
         }
       }
     },
-
     "lint": {
       "type": "object",
       "description": "Validator muafiyeti. GEREKCESIZ olamaz.",
-      "required": ["reason"],
+      "required": [
+        "reason"
+      ],
       "additionalProperties": false,
       "properties": {
-        "ignore": { "type": "array", "items": { "type": "string" } },
-        "reason": { "type": "string", "minLength": 1 }
+        "ignore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     }
   },
-
   "definitions": {
-    "era": { "enum": ["rookie", "rise", "prime", "veteran", "twilight"] },
-    "stature": {
-      "enum": ["nobody", "local_talent", "starter", "star", "superstar", "icon", "legend"]
+    "era": {
+      "enum": [
+        "rookie",
+        "rise",
+        "prime",
+        "veteran",
+        "twilight"
+      ]
     },
-    "clubTier": { "enum": ["amateur", "lower", "mid", "contender", "elite"] },
+    "stature": {
+      "enum": [
+        "nobody",
+        "local_talent",
+        "starter",
+        "star",
+        "superstar",
+        "icon",
+        "legend"
+      ]
+    },
+    "clubTier": {
+      "enum": [
+        "amateur",
+        "lower",
+        "mid",
+        "contender",
+        "elite"
+      ]
+    },
     "lifeState": {
       "enum": [
         "playing",
@@ -103,73 +216,134 @@
         "retired"
       ]
     },
-    "mediaEra": { "enum": ["press", "twitter", "instagram", "tiktok", "deepfake"] },
-    "archetype": {
-      "enum": ["street", "academy", "bloodline", "immigrant", "latebloom", "influencer"]
+    "mediaEra": {
+      "enum": [
+        "press",
+        "twitter",
+        "instagram",
+        "tiktok",
+        "deepfake"
+      ]
     },
-
+    "archetype": {
+      "enum": [
+        "street",
+        "academy",
+        "bloodline",
+        "immigrant",
+        "latebloom",
+        "influencer"
+      ]
+    },
     "cooldown": {
       "type": "object",
       "description": "Iki seviyeli. Tek sayi YAZILAMAZ; aile cooldown'u 'ust uste 100 gece kulubu' hatasini onler.",
-      "required": ["self", "family"],
+      "required": [
+        "self",
+        "family"
+      ],
       "additionalProperties": false,
       "properties": {
-        "self": { "type": "number", "minimum": 0 },
-        "family": { "type": "number", "minimum": 0 }
+        "self": {
+          "type": "number",
+          "minimum": 0
+        },
+        "family": {
+          "type": "number",
+          "minimum": 0
+        }
       }
     },
-
     "persona": {
       "type": "object",
       "description": "Kimlik eksenleri secimlerle BIRIKIR; icerik bunlari dogrudan set edemez.",
       "additionalProperties": false,
       "properties": {
-        "sadakat": { "type": "number" },
-        "mizac": { "type": "number" },
-        "durus": { "type": "number" },
-        "dogruluk": { "type": "number" }
+        "sadakat": {
+          "type": "number"
+        },
+        "mizac": {
+          "type": "number"
+        },
+        "durus": {
+          "type": "number"
+        },
+        "dogruluk": {
+          "type": "number"
+        }
       }
     },
-
     "condition": {
       "description": "Ozyinelemeli kosul agaci: allOf / anyOf / noneOf / not ya da { flag, op, value }.",
       "oneOf": [
         {
           "type": "object",
-          "required": ["allOf"],
+          "required": [
+            "allOf"
+          ],
           "additionalProperties": false,
           "properties": {
-            "allOf": { "type": "array", "items": { "$ref": "#/definitions/condition" } }
+            "allOf": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/condition"
+              }
+            }
           }
         },
         {
           "type": "object",
-          "required": ["anyOf"],
+          "required": [
+            "anyOf"
+          ],
           "additionalProperties": false,
           "properties": {
-            "anyOf": { "type": "array", "items": { "$ref": "#/definitions/condition" } }
+            "anyOf": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/condition"
+              }
+            }
           }
         },
         {
           "type": "object",
-          "required": ["noneOf"],
+          "required": [
+            "noneOf"
+          ],
           "additionalProperties": false,
           "properties": {
-            "noneOf": { "type": "array", "items": { "$ref": "#/definitions/condition" } }
+            "noneOf": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/condition"
+              }
+            }
           }
         },
         {
           "type": "object",
-          "required": ["not"],
+          "required": [
+            "not"
+          ],
           "additionalProperties": false,
-          "properties": { "not": { "$ref": "#/definitions/condition" } }
+          "properties": {
+            "not": {
+              "$ref": "#/definitions/condition"
+            }
+          }
         },
         {
           "type": "object",
-          "required": ["flag", "op"],
+          "required": [
+            "flag",
+            "op"
+          ],
           "additionalProperties": false,
           "properties": {
-            "flag": { "type": "string" },
+            "flag": {
+              "type": "string"
+            },
             "op": {
               "enum": [
                 "eq",
@@ -190,120 +364,272 @@
         }
       ]
     },
-
     "effectValue": {
       "oneOf": [
-        { "type": ["number", "boolean", "string"] },
+        {
+          "type": [
+            "number",
+            "boolean",
+            "string"
+          ]
+        },
         {
           "type": "object",
           "description": "Kariyer seviyesine gore olceklenen deger; ciraga 100 bin, ikona 2 milyon.",
-          "required": ["scaleBy", "base", "perTier"],
+          "required": [
+            "scaleBy",
+            "base",
+            "perTier"
+          ],
           "additionalProperties": false,
           "properties": {
-            "scaleBy": { "enum": ["stature", "clubTier", "season"] },
-            "base": { "type": "number" },
-            "perTier": { "type": "number" },
-            "clampMin": { "type": "number" },
-            "clampMax": { "type": "number" }
+            "scaleBy": {
+              "enum": [
+                "stature",
+                "clubTier",
+                "season"
+              ]
+            },
+            "base": {
+              "type": "number"
+            },
+            "perTier": {
+              "type": "number"
+            },
+            "clampMin": {
+              "type": "number"
+            },
+            "clampMax": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "Calisma zamaninda bir bayraktan okunan deger: flags[ref] * mul + add. 'Yatirdigin kadar kaybet' gibi miktari OYUNCUNUN belirledigi efektler icin.",
+          "required": [
+            "ref"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ref": {
+              "type": "string",
+              "description": "Okunacak sayisal bayrak."
+            },
+            "mul": {
+              "type": "number"
+            },
+            "add": {
+              "type": "number"
+            },
+            "clampMin": {
+              "type": "number"
+            },
+            "clampMax": {
+              "type": "number"
+            }
           }
         }
       ]
     },
-
     "effect": {
       "oneOf": [
         {
           "type": "object",
-          "required": ["flag", "op"],
+          "required": [
+            "flag",
+            "op"
+          ],
           "additionalProperties": false,
           "properties": {
-            "flag": { "type": "string" },
-            "op": { "enum": ["set", "add", "mul", "unset"] },
-            "value": { "$ref": "#/definitions/effectValue" }
+            "flag": {
+              "type": "string"
+            },
+            "op": {
+              "enum": [
+                "set",
+                "add",
+                "mul",
+                "unset"
+              ]
+            },
+            "value": {
+              "$ref": "#/definitions/effectValue"
+            }
           }
         },
         {
           "type": "object",
           "description": "Zincirin halkasini takvime koyar. `forced` agirlikli secimi bypass eder.",
-          "required": ["op", "event", "inTurns", "priority"],
+          "required": [
+            "op",
+            "event",
+            "inTurns",
+            "priority"
+          ],
           "additionalProperties": false,
           "properties": {
-            "op": { "const": "schedule" },
-            "event": { "type": "string" },
-            "inTurns": { "type": "number", "minimum": 0 },
-            "priority": { "enum": ["forced", "weighted"] },
-            "onIneligible": { "enum": ["defer", "fire", "cancel"] },
-            "maxDeferTurns": { "type": "number", "minimum": 0 },
-            "replaceWith": { "type": "string" }
+            "op": {
+              "const": "schedule"
+            },
+            "event": {
+              "type": "string"
+            },
+            "inTurns": {
+              "type": "number",
+              "minimum": 0
+            },
+            "priority": {
+              "enum": [
+                "forced",
+                "weighted"
+              ]
+            },
+            "onIneligible": {
+              "enum": [
+                "defer",
+                "fire",
+                "cancel"
+              ]
+            },
+            "maxDeferTurns": {
+              "type": "number",
+              "minimum": 0
+            },
+            "replaceWith": {
+              "type": "string"
+            }
           }
         },
         {
           "type": "object",
-          "required": ["op", "to"],
+          "required": [
+            "op",
+            "to"
+          ],
           "additionalProperties": false,
           "properties": {
-            "op": { "const": "lifeState" },
-            "to": { "$ref": "#/definitions/lifeState" },
-            "forTurns": { "type": "number", "minimum": 0 }
+            "op": {
+              "const": "lifeState"
+            },
+            "to": {
+              "$ref": "#/definitions/lifeState"
+            },
+            "forTurns": {
+              "type": "number",
+              "minimum": 0
+            }
           }
         },
         {
           "type": "object",
-          "required": ["op", "to"],
+          "required": [
+            "op",
+            "to"
+          ],
           "additionalProperties": false,
           "properties": {
-            "op": { "const": "clubTier" },
-            "to": { "$ref": "#/definitions/clubTier" }
+            "op": {
+              "const": "clubTier"
+            },
+            "to": {
+              "$ref": "#/definitions/clubTier"
+            }
           }
         },
         {
           "type": "object",
-          "required": ["op"],
+          "required": [
+            "op"
+          ],
           "additionalProperties": false,
           "properties": {
-            "op": { "const": "match" },
-            "goals": { "type": "number" },
-            "assists": { "type": "number" },
-            "yellowCards": { "type": "number" },
-            "injuryWeeks": { "type": "number" },
-            "rating": { "type": "number" },
-            "redCard": { "type": "boolean" },
-            "incident": { "type": "string" }
+            "op": {
+              "const": "match"
+            },
+            "goals": {
+              "type": "number"
+            },
+            "assists": {
+              "type": "number"
+            },
+            "yellowCards": {
+              "type": "number"
+            },
+            "injuryWeeks": {
+              "type": "number"
+            },
+            "rating": {
+              "type": "number"
+            },
+            "redCard": {
+              "type": "boolean"
+            },
+            "incident": {
+              "type": "string"
+            }
           }
         },
         {
           "type": "object",
-          "required": ["op", "matches", "reason"],
+          "required": [
+            "op",
+            "matches",
+            "reason"
+          ],
           "additionalProperties": false,
           "properties": {
-            "op": { "const": "suspend" },
-            "matches": { "type": "number", "minimum": 0 },
-            "reason": { "type": "string" }
+            "op": {
+              "const": "suspend"
+            },
+            "matches": {
+              "type": "number",
+              "minimum": 0
+            },
+            "reason": {
+              "type": "string"
+            }
           }
         }
       ]
     },
-
-    "effects": { "type": "array", "items": { "$ref": "#/definitions/effect" } },
-
+    "effects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/effect"
+      }
+    },
     "weightExpression": {
       "oneOf": [
-        { "type": "number" },
+        {
+          "type": "number"
+        },
         {
           "type": "object",
-          "required": ["base"],
+          "required": [
+            "base"
+          ],
           "additionalProperties": false,
           "properties": {
-            "base": { "type": "number" },
+            "base": {
+              "type": "number"
+            },
             "modifiers": {
               "type": "array",
               "items": {
                 "type": "object",
-                "required": ["flag", "scale"],
+                "required": [
+                  "flag",
+                  "scale"
+                ],
                 "additionalProperties": false,
                 "properties": {
-                  "flag": { "type": "string" },
-                  "scale": { "type": "number" }
+                  "flag": {
+                    "type": "string"
+                  },
+                  "scale": {
+                    "type": "number"
+                  }
                 }
               }
             }
@@ -311,70 +637,152 @@
         }
       ]
     },
-
     "choice": {
       "type": "object",
-      "required": ["id", "text"],
+      "required": [
+        "id",
+        "text"
+      ],
       "additionalProperties": false,
       "dependencies": {
         "requires": {
-          "required": ["lockLabel"],
+          "required": [
+            "lockLabel"
+          ],
           "description": "Kosullu secim lockLabel ZORUNLU: oyuncu neyi kacirdigini gormeli."
         }
       },
       "properties": {
-        "id": { "type": "string" },
-        "text": { "type": "string", "minLength": 1 },
-        "target": { "type": "string" },
-        "effects": { "$ref": "#/definitions/effects" },
-        "requires": { "$ref": "#/definitions/condition" },
-        "lockLabel": { "type": "string", "minLength": 1 },
-        "hideWhenLocked": { "type": "boolean" },
-        "persona": { "$ref": "#/definitions/persona" }
+        "id": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target": {
+          "type": "string"
+        },
+        "effects": {
+          "$ref": "#/definitions/effects"
+        },
+        "requires": {
+          "$ref": "#/definitions/condition"
+        },
+        "lockLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hideWhenLocked": {
+          "type": "boolean"
+        },
+        "persona": {
+          "$ref": "#/definitions/persona"
+        }
       }
     },
-
     "node": {
       "type": "object",
-      "required": ["title", "text", "kind"],
+      "required": [
+        "title",
+        "text",
+        "kind"
+      ],
       "additionalProperties": false,
       "properties": {
-        "title": { "type": "string", "minLength": 1 },
-        "text": { "type": "string", "minLength": 1 },
-        "kind": { "enum": ["branch", "outcome", "roll"] },
-        "onEnter": { "$ref": "#/definitions/effects" },
-        "next": { "type": "string" },
-        "choices": { "type": "array", "items": { "$ref": "#/definitions/choice" } },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "branch",
+            "outcome",
+            "roll"
+          ]
+        },
+        "onEnter": {
+          "$ref": "#/definitions/effects"
+        },
+        "next": {
+          "type": "string"
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/choice"
+          }
+        },
         "outcomes": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["target", "weight"],
+            "required": [
+              "target",
+              "weight"
+            ],
             "additionalProperties": false,
             "properties": {
-              "target": { "type": "string" },
-              "weight": { "$ref": "#/definitions/weightExpression" },
-              "effects": { "$ref": "#/definitions/effects" }
+              "target": {
+                "type": "string"
+              },
+              "weight": {
+                "$ref": "#/definitions/weightExpression"
+              },
+              "effects": {
+                "$ref": "#/definitions/effects"
+              }
             }
           }
         }
       },
       "allOf": [
         {
-          "if": { "properties": { "kind": { "const": "branch" } }, "required": ["kind"] },
-          "then": { "required": ["choices"] }
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "branch"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "choices"
+            ]
+          }
         },
         {
-          "if": { "properties": { "kind": { "const": "roll" } }, "required": ["kind"] },
-          "then": { "required": ["outcomes"] }
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "roll"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "outcomes"
+            ]
+          }
         }
       ]
     },
-
     "nodes": {
       "type": "object",
       "minProperties": 1,
-      "additionalProperties": { "$ref": "#/definitions/node" }
+      "additionalProperties": {
+        "$ref": "#/definitions/node"
+      }
     }
   }
 }

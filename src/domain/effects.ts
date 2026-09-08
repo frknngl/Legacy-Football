@@ -25,7 +25,40 @@ export function isScalableValue(v: unknown): v is ScalableValue {
   return typeof v === 'object' && v !== null && 'scaleBy' in v && 'base' in v && 'perTier' in v;
 }
 
-export type EffectValue = number | boolean | string | ScalableValue;
+/**
+ * BAYRAKTAN OKUNAN DEGER -- efektin buyuklugu OYUN SIRASINDA belli olur.
+ *
+ * NEDEN GEREKLI (olculdu): efekt degerleri ya sabitti ya da `ScalableValue`
+ * ile yalnizca `stature`/`clubTier`/`season` eksenlerinde olcekleniyordu.
+ * Yani "yatirdigin kadar kaybet" cumlesi efekt dilinde KURULAMIYORDU --
+ * cunku yatirilan miktari oyuncu secer, yazar degil.
+ *
+ * Bu tek ilkel yalnizca kumari acmiyor:
+ *   { "flag": "servet", "op": "add",
+ *     "value": { "ref": "son_bahis_tutari", "mul": 35 } }   <- 35'e 1 rulet
+ *   { "ref": "kredi_taksit", "mul": -1 }                     <- kredi taksiti
+ *   { "ref": "haftalik_gelir", "mul": 4 }                    <- bir aylik prim
+ *   { "ref": "borc", "mul": -0.5 }                           <- borcun yarisi
+ *
+ * Deger: `flags[ref] * (mul ?? 1) + (add ?? 0)`, sonra kirpma.
+ *
+ * Okunan bayrak sayisal olmalidir; tanimsiz ya da sayisal olmayan bir
+ * referans `0` verir ve `ValueRefRule` bunu build zamaninda hata olarak
+ * yakalar -- sessiz sifir en kotu sonuc olurdu.
+ */
+export interface ValueRef {
+  readonly ref: string;
+  readonly mul?: number;
+  readonly add?: number;
+  readonly clampMin?: number;
+  readonly clampMax?: number;
+}
+
+export function isValueRef(v: unknown): v is ValueRef {
+  return typeof v === 'object' && v !== null && 'ref' in v;
+}
+
+export type EffectValue = number | boolean | string | ScalableValue | ValueRef;
 
 export const FLAG_EFFECT_OPS = ['set', 'add', 'mul', 'unset'] as const;
 export type FlagEffectOp = (typeof FLAG_EFFECT_OPS)[number];
