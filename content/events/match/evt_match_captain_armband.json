@@ -20,22 +20,210 @@
     "veteran",
     "twilight"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Bant",
-      "kind": "branch",
-      "text": "{minute}. dakika, {opponent} karşısında {scoreline}. {actor.captain.name} sakatlandı ve çıkıyor. Sedyeye uzanırken pazubandı çıkarıyor.\n\nSahada dört kişi ondan kıdemli. Kaleci var, otuz dört yaşındaki stoper var, iki yüz maçlık sağ bek var.\n\n{actor.captain.first} hiçbirine bakmıyor. Bandı sana uzatıyor ve gözlerini kaçırmıyor: \"Al. Konuşacak birine ihtiyaçları var, sen konuşuyorsun.\"\n\nStoper bunu gördü. Yüzü hiç değişmedi ve bu daha kötü.",
-      "choices": [
-        {
-          "id": "c_take",
-          "text": "Bandı al ve koluna geçir.",
-          "target": "n_took",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Bant",
+          "kind": "branch",
+          "text": "{minute}. dakika, {opponent} karşısında {scoreline}. {actor.captain.name} sakatlandı ve çıkıyor. Sedyeye uzanırken pazubandı çıkarıyor.\n\nSahada dört kişi ondan kıdemli. Kaleci var, otuz dört yaşındaki stoper var, iki yüz maçlık sağ bek var.\n\n{actor.captain.first} hiçbirine bakmıyor. Bandı sana uzatıyor ve gözlerini kaçırmıyor: \"Al. Konuşacak birine ihtiyaçları var, sen konuşuyorsun.\"\n\nStoper bunu gördü. Yüzü hiç değişmedi ve bu daha kötü.",
+          "choices": [
             {
-              "flag": "liderlik",
+              "id": "c_take",
+              "text": "Bandı al ve koluna geçir.",
+              "target": "n_took",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "is_captain",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "yonetim_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 7,
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_give",
+              "text": "Stopere ver. \"Bu onun hakkı.\"",
+              "target": "n_gave",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "sadakat": 6,
+                "durus": -6
+              }
+            },
+            {
+              "id": "c_ask",
+              "text": "Stopere dön: \"Sen ister misin?\" Cevabı beklemeden karar verme.",
+              "target": "n_asked",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "durus": 5,
+                "sadakat": 7
+              }
+            },
+            {
+              "id": "c_refuse",
+              "text": "Reddet. \"Bant benim işimi kolaylaştırmıyor.\"",
+              "target": "n_refused",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "yonetim_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8,
+                "sadakat": -6
+              }
+            }
+          ]
+        },
+        "n_took": {
+          "title": "Yirmi dakika kaptan",
+          "kind": "outcome",
+          "text": "Bandı koluna geçiriyorsun. Ağır değil ama koluna oturduğunda bir şey değişiyor.\n\nKalan yirmi dakikada üç kez konuşuyorsun ve üçünde de seni dinliyorlar. Stoper hariç; o bir kez bile sana bakmıyor.\n\nMaç sonunda {actor.president.name} soyunma odasına giriyor ve bandı gösteriyor: \"Yakışmış.\" Sonra ekliyor: \"Şimdi hak etmen lazım.\"",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.6,
+              "incident": "inc_gave_armband"
+            },
+            {
+              "flag": "npc_captain_arc",
               "op": "add",
-              "value": 12
+              "value": 1
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 8
+            }
+          ]
+        },
+        "n_gave": {
+          "title": "Doğru olan",
+          "kind": "outcome",
+          "text": "Bandı stopere uzatıyorsun. Adam bir saniye duraksıyor, sonra alıp koluna geçiriyor ve ilk kez bütün maçta sana bakıyor. Başını hafifçe sallıyor.\n\nSedyedeki {actor.captain.first} bunu gördü. Tünelden içeri girerken arkasına dönüp sana baktı ve gülümsemedi.\n\nSoyunma odasında sana kimse bir şey söylemiyor. Hepsi biliyor.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.3,
+              "incident": "inc_gave_armband"
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ]
+        },
+        "n_asked": {
+          "title": "Soru",
+          "kind": "outcome",
+          "text": "Stopere dönüp soruyorsun. Adam iki saniye düşünüyor, sonra elini kaldırıp bandı gösteriyor: \"Sen tak. Ben bağırırım, sen konuşursun. İkisi ayrı iş.\"\n\nBandı takıyorsun ama artık kimseden çalınmış değil.\n\nO gece stoper sana mesaj atıyor — tek satır: \"Doğru soruyu sordun.\"",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.8,
+              "incident": "inc_gave_armband"
             },
             {
               "flag": "is_captain",
@@ -43,48 +231,34 @@
               "value": true
             },
             {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": -8
-            },
-            {
-              "flag": "yonetim_baskisi",
-              "op": "add",
-              "value": 10
-            }
-          ],
-          "persona": {
-            "durus": 7,
-            "sadakat": 5
-          }
-        },
-        {
-          "id": "c_give",
-          "text": "Stopere ver. \"Bu onun hakkı.\"",
-          "target": "n_gave",
-          "effects": [
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "profesyonellik",
+              "flag": "liderlik",
               "op": "add",
               "value": 6
             },
             {
-              "flag": "liderlik",
-              "op": "add",
-              "value": -6
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_refused": {
+          "title": "Yere",
+          "kind": "outcome",
+          "text": "Ellerini kaldırıp geri adım atıyorsun. {actor.captain.first} bandı bir saniye havada tutuyor, sonra stopere uzatıyor.\n\nKamera bunu yakaladı. Yarın bu on saniye tekrar tekrar dönecek ve altına \"sorumluluktan kaçtı\" yazılacak.\n\nSen ne yaptığını biliyorsun: bugün taşıyamayacağın bir şeyi almadın. Bunu kimseye açıklayamazsın.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": -0.5,
+              "incident": "inc_gave_armband"
             },
             {
-              "flag": "iliski_captain",
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "medya_itibari",
               "op": "add",
               "value": -10
             },
@@ -93,178 +267,133 @@
               "op": "add",
               "value": 1
             }
-          ],
-          "persona": {
-            "sadakat": 6,
-            "durus": -6
-          }
-        },
-        {
-          "id": "c_ask",
-          "text": "Stopere dön: \"Sen ister misin?\" Cevabı beklemeden karar verme.",
-          "target": "n_asked",
-          "effects": [
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Bantın Ağırlığı",
+          "kind": "branch",
+          "text": "Soyunma odasının tünelinde yankılanan krampon sesleri kesildi. {actor.captain.name} kenara geliyor. Ter, formasına ağır bir yük gibi yapışmış. Nefes alışverişi düzensiz. Elinde tuttuğu kaptanlık pazubandına bakıyor. Gözleri tribünlerden ziyade, yanında duran teknik heyetin yüzündeki o belirsiz ifadeye takılıyor. Kimse bir şey söylemiyor, sadece bir onay bekliyorlar. Bant, sanki o an orada olan tek canlı nesne gibi, parmaklarının arasında hafifçe titriyor. {actor.captain.name} artık kararın sahibi.",
+          "choices": [
             {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 8
+              "id": "c_professional",
+              "text": "Pazubandını en yakınındaki deneyimli oyuncuya uzat. Sessizce yerine geç.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
             },
             {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 12
+              "id": "c_risky",
+              "text": "Bantı doğrudan taraftar grubuna doğru fırlat. Sahadan çıkarken yumruğunu havaya kaldır.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
             },
             {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -3
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": -4
+              "id": "c_grey",
+              "text": "Pazubandını yavaşça yere bırak. Kimsenin elini tutmasına izin verme.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "form",
+                "op": "gte",
+                "value": 85
+              },
+              "lockLabel": "[Form 85]"
             }
-          ],
-          "persona": {
-            "durus": 5,
-            "sadakat": 7
-          }
+          ]
         },
-        {
-          "id": "c_refuse",
-          "text": "Reddet. \"Bant benim işimi kolaylaştırmıyor.\"",
-          "target": "n_refused",
-          "effects": [
+        "n_outcome_safe": {
+          "title": "Görev Devri",
+          "kind": "outcome",
+          "text": "Bant yeni kolunda sıkılaşıyor. Sen ise tünelin karanlığına doğru yürüyorsun. Kimse sana bakmıyor ama herkes senin orada olduğunu biliyor.",
+          "onEnter": [
             {
-              "flag": "moral",
-              "op": "add",
-              "value": 6
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
             },
             {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": -8
-            },
-            {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "yonetim_baskisi",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "liderlik",
-              "op": "add",
-              "value": -10
+              "op": "match",
+              "incident": "inc_gave_armband"
             }
-          ],
-          "persona": {
-            "durus": -8,
-            "sadakat": -6
-          }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Tribünlerin Sesi",
+          "kind": "outcome",
+          "text": "Tribünler ayağa kalkıyor. Kaptanlık bandı, stadyumun ışıkları altında bir an için parlayıp kayboluyor. Bu gece disiplin raporuna işlenecek bir olay, ama kimin umurunda?",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Soğuk Veda",
+          "kind": "outcome",
+          "text": "Yerdeki o parlak kumaş parçası, takımın ruhundan kopup gidiyor. Kimse yerden almıyor. O soğukluk, içerideki cüzdanın ağırlığından daha belirgin.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
         }
-      ]
-    },
-    "n_took": {
-      "title": "Yirmi dakika kaptan",
-      "kind": "outcome",
-      "text": "Bandı koluna geçiriyorsun. Ağır değil ama koluna oturduğunda bir şey değişiyor.\n\nKalan yirmi dakikada üç kez konuşuyorsun ve üçünde de seni dinliyorlar. Stoper hariç; o bir kez bile sana bakmıyor.\n\nMaç sonunda {actor.president.name} soyunma odasına giriyor ve bandı gösteriyor: \"Yakışmış.\" Sonra ekliyor: \"Şimdi hak etmen lazım.\"",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.6,
-          "incident": "inc_gave_armband"
-        },
-        {
-          "flag": "npc_captain_arc",
-          "op": "add",
-          "value": 1
-        },
-        {
-          "flag": "medya_itibari",
-          "op": "add",
-          "value": 8
-        }
-      ]
-    },
-    "n_gave": {
-      "title": "Doğru olan",
-      "kind": "outcome",
-      "text": "Bandı stopere uzatıyorsun. Adam bir saniye duraksıyor, sonra alıp koluna geçiriyor ve ilk kez bütün maçta sana bakıyor. Başını hafifçe sallıyor.\n\nSedyedeki {actor.captain.first} bunu gördü. Tünelden içeri girerken arkasına dönüp sana baktı ve gülümsemedi.\n\nSoyunma odasında sana kimse bir şey söylemiyor. Hepsi biliyor.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.3,
-          "incident": "inc_gave_armband"
-        },
-        {
-          "flag": "mem_saved_teammate",
-          "op": "set",
-          "value": true
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": -4
-        }
-      ]
-    },
-    "n_asked": {
-      "title": "Soru",
-      "kind": "outcome",
-      "text": "Stopere dönüp soruyorsun. Adam iki saniye düşünüyor, sonra elini kaldırıp bandı gösteriyor: \"Sen tak. Ben bağırırım, sen konuşursun. İkisi ayrı iş.\"\n\nBandı takıyorsun ama artık kimseden çalınmış değil.\n\nO gece stoper sana mesaj atıyor — tek satır: \"Doğru soruyu sordun.\"",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.8,
-          "incident": "inc_gave_armband"
-        },
-        {
-          "flag": "is_captain",
-          "op": "set",
-          "value": true
-        },
-        {
-          "flag": "liderlik",
-          "op": "add",
-          "value": 6
-        },
-        {
-          "flag": "mem_saved_teammate",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_refused": {
-      "title": "Yere",
-      "kind": "outcome",
-      "text": "Ellerini kaldırıp geri adım atıyorsun. {actor.captain.first} bandı bir saniye havada tutuyor, sonra stopere uzatıyor.\n\nKamera bunu yakaladı. Yarın bu on saniye tekrar tekrar dönecek ve altına \"sorumluluktan kaçtı\" yazılacak.\n\nSen ne yaptığını biliyorsun: bugün taşıyamayacağın bir şeyi almadın. Bunu kimseye açıklayamazsın.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": -0.5,
-          "incident": "inc_gave_armband"
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 18
-        },
-        {
-          "flag": "medya_itibari",
-          "op": "add",
-          "value": -10
-        },
-        {
-          "flag": "npc_captain_arc",
-          "op": "add",
-          "value": 1
-        }
-      ]
+      }
     }
-  }
+  ]
 }
