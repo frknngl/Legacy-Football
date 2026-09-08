@@ -27,6 +27,7 @@ import { ContentLoader } from '../src/loading/ContentLoader.js';
 import { FileSystemContentSource } from '../src/loading/FileSystemContentSource.js';
 import type { ContentRegistry } from '../src/loading/ContentRegistry.js';
 import { GameEngine } from '../src/runtime/GameEngine.js';
+import { Rng } from '../src/selection/Rng.js';
 import { createMockWorld, type MockWorld } from '../src/testing/mockWorld.js';
 
 let registry: ContentRegistry;
@@ -42,6 +43,16 @@ beforeAll(async () => {
 /** Ilk sezon donusune kadar ilerletir; `potansiyel` orada bir kez belirlenir. */
 function potentialVsStart(seed: number): { potential: number; base: number } {
   const engine = new GameEngine(registry, { seed, ...mock });
+  // RASTGELE SECIM sart.
+  //
+  // Ilk yazimda bot hep ILK acik secenegi aliyordu. O bir oyuncu degil,
+  // kotumser bir robot: olculdugunde kariyerlerin %43'u duraklamis
+  // gorunuyordu. Ayni tohumlarla rastgele secimde oran %23 -- yani
+  // tasarim hedefi (~beste bir) tutuyor, olcum politikasi yaniltiyordu.
+  //
+  // Ayni hata bu projede daha once para dengesinde de yapildi
+  // ("icerik maastan cok para veriyor" -> gercekte 1.09x).
+  const rng = new Rng(seed ^ 0xabc);
   engine.start('street');
   const s0 = engine.snapshot();
   const base = (Number(s0.flags['teknik'] ?? 0) + Number(s0.flags['fizik'] ?? 0)) / 2;
@@ -53,7 +64,7 @@ function potentialVsStart(seed: number): { potential: number; base: number } {
       if (!engine.currentNode()) break;
       const open = engine.availableChoices().filter((c) => !c.locked);
       if (open.length === 0) break;
-      engine.choose(open[0]!.id);
+      engine.choose(open[Math.floor(rng.next() * open.length)]!.id);
     }
     if (engine.snapshot().ending !== undefined) break;
   }
