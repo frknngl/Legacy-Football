@@ -30,6 +30,7 @@ import {
   parseArchetypes,
   parseAxes,
   parseEndings,
+  parseEpilogueCodas,
   parseEras,
   parseFlags,
   parseMediaEras,
@@ -204,6 +205,9 @@ export class ContentLoader {
 
     const endCtx = new ParseContext(ORCHESTRATOR_FILES.endings);
     const endings = endingsDoc ? parseEndings(endingsDoc.data, endCtx) : [];
+    // Kodalar ayni dosyada durur: ikisi de "kariyer nasil anlatilir"
+    // sorusunun parcasi ve birlikte okunmalari gerekir.
+    const epilogueCodas = endingsDoc ? parseEpilogueCodas(endingsDoc.data, endCtx) : [];
     collect(ORCHESTRATOR_FILES.endings, endCtx);
 
     // ---- olaylar ----
@@ -275,6 +279,7 @@ export class ContentLoader {
       names,
       nemeses,
       endings,
+      epilogueCodas,
       turn,
       cadence,
       release,

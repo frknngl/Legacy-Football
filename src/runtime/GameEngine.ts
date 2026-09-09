@@ -377,7 +377,12 @@ export class GameEngine {
       this.evaluator,
       registry.config.turn.turnsPerSeason,
     );
-    this.endings = new EndingResolver(registry.config.endings, this.evaluator, this.interpolator);
+    this.endings = new EndingResolver(
+      registry.config.endings,
+      this.evaluator,
+      this.interpolator,
+      registry.config.epilogueCodas,
+    );
     this.broker = new MatchMomentBroker(this.selector);
     this.saves = new SaveGame(registry.flags);
     this.archive = new ActorArchive(registry.config.turn.turnsPerSeason);

@@ -3,20 +3,25 @@
   "_note": "SONLANMA TABLOSU. Emeklilik tek ekran degildir: kosulu saglayan sonlar arasindan EN YUKSEK oncelikli secilir. 'Mahkum' sonu 'sessiz veda'dan once gelmelidir -- ikisi de dogru olabilir ama biri digerini kapsar.",
   "_personaNote": "Kimlik eksenleri (sadakat / mizac / durus / dogruluk) burada karsiligini bulur. Ayni istatistiklerle biten iki kariyer, FARKLI secimler yaptiysa farkli epilog alir.",
   "_fallbackNote": "priority 0 olan 'sessiz veda' hicbir kosul tasimaz; her kariyer en az bir son alir.",
-
   "endings": [
     {
       "id": "end_incarcerated",
       "title": "Duvarin ardinda",
       "priority": 100,
-      "requires": { "flag": "mem_was_incarcerated", "op": "isSet" },
+      "requires": {
+        "flag": "mem_was_incarcerated",
+        "op": "isSet"
+      },
       "epilogue": "Kariyerin bir mahkeme salonunda bitti, sahada degil.\n\nDisari ciktiginda {age} yasindaydin ve bacaklarin hâlâ calisiyordu; kimse sormadi. {actor.agent.name} son kez aradi, sonra o da aramadi.\n\nYillar sonra bir belgeselde adin geciyor. Anlatici cumleyi \"yetenegini kendi elleriyle...\" diye kuruyor ve sen kanali degistiriyorsun.\n\n{kupa_sayisi} kupa. {milli_mac_sayisi} milli mac. Ve tek bir imza."
     },
     {
       "id": "end_informant_exile",
       "title": "Konusan adam",
       "priority": 95,
-      "requires": { "flag": "mem_turned_informant", "op": "isSet" },
+      "requires": {
+        "flag": "mem_turned_informant",
+        "op": "isSet"
+      },
       "epilogue": "Dogruyu soyledin ve kimse seni bunun icin sevmedi.\n\nUc kariyer bitti, biri seninkiydi. Sahaya bir daha ayni gozle bakilmadin: her stadyumda bir tribun senin adini islikla karsiladi, her stadyumda bir baskasi ayaga kalkti.\n\n{actor.journalist.name} kitabi yazdi. Kapakta senin fotografin yok ama ilk bolum senin.\n\nDogruluk: {persona_dogruluk}. Sadakat: {persona_sadakat}. Ikisi ayni anda yuksek olamazdi ve sen sectin."
     },
     {
@@ -25,9 +30,24 @@
       "priority": 90,
       "requires": {
         "allOf": [
-          { "flag": "stature", "op": "in", "value": ["icon", "legend"] },
-          { "flag": "persona_sadakat", "op": "gte", "value": 65 },
-          { "flag": "kupa_sayisi", "op": "gte", "value": 4 }
+          {
+            "flag": "stature",
+            "op": "in",
+            "value": [
+              "icon",
+              "legend"
+            ]
+          },
+          {
+            "flag": "persona_sadakat",
+            "op": "gte",
+            "value": 65
+          },
+          {
+            "flag": "kupa_sayisi",
+            "op": "gte",
+            "value": 4
+          }
         ]
       },
       "epilogue": "Son macinda {club.name:loc} otuz bin kisi ayaga kalkti ve dokuz dakika oturmadi.\n\nFormani tribune astilar. {actor.captain.name} mikrofonu alip konusmaya calisti, beceremedi, sarilmakla yetindi.\n\n{kupa_sayisi} kupa. {milli_mac_sayisi} milli mac. Ve hepsinden onemlisi: tek bir kulup.\n\nKirk yil sonra bir cocuk senin adini tasiyan tribunde oturacak ve seni hic izlememis olacak. Yine de senin adini bilecek."
@@ -38,8 +58,16 @@
       "priority": 85,
       "requires": {
         "allOf": [
-          { "flag": "servet", "op": "gte", "value": 25000000 },
-          { "flag": "persona_sadakat", "op": "lte", "value": 35 }
+          {
+            "flag": "servet",
+            "op": "gte",
+            "value": 25000000
+          },
+          {
+            "flag": "persona_sadakat",
+            "op": "lte",
+            "value": 35
+          }
         ]
       },
       "epilogue": "Yedi kulup, dokuz sozlesme, tek bir taraftar grubu senin adini bagirmadi.\n\nParayi kazandin. {servet} lira ve hicbirini kimseye borclu degilsin.\n\nSon macinda tribun bosalirken kimse kalmadi. {actor.agent.name} tesekkur etti; on iki yildir birlikte calistiniz ve ilk kez ona bir sey soylemedin.\n\nEvin buyuk. Duvarda forma yok."
@@ -50,8 +78,15 @@
       "priority": 80,
       "requires": {
         "allOf": [
-          { "flag": "mem_hid_injury", "op": "isSet" },
-          { "flag": "age", "op": "lte", "value": 32 }
+          {
+            "flag": "mem_hid_injury",
+            "op": "isSet"
+          },
+          {
+            "flag": "age",
+            "op": "lte",
+            "value": 32
+          }
         ]
       },
       "epilogue": "Doktor bunu sana ilk kez soyleyen kisi degildi. Sadece dinledigin ilk kisiydi.\n\n{actor.doctor.name} dosyayi kapatti: \"Bu dosyayi acan altinci oyuncusun. Besi de bu yasta bitti.\"\n\n{age} yasinda birakiyorsun. Sabahlari on dakika ayakta durmadan yuruyemiyorsun ve bunu kimseye soylemiyorsun.\n\nHer igne bir hafta kazandirdi ve bir yil goturdu. Matematigi sonradan yaptin."
@@ -62,8 +97,15 @@
       "priority": 75,
       "requires": {
         "allOf": [
-          { "flag": "mem_attacked_tff", "op": "isSet" },
-          { "flag": "persona_durus", "op": "gte", "value": 75 }
+          {
+            "flag": "mem_attacked_tff",
+            "op": "isSet"
+          },
+          {
+            "flag": "persona_durus",
+            "op": "gte",
+            "value": 75
+          }
         ]
       },
       "epilogue": "Kimseye yaranmadin ve bunu bir kez bile pisman olmadan yaptin.\n\n{actor.pundit.name} programinda seni son kez andi: \"Bu adam bize hep zor gunler yasatti. Simdi kimin dogru soyledigini konusuyoruz.\"\n\nFederasyon binasinda senin adin gecmiyor. Ama iki nesil sonraki oyuncular senin actigin davanin icinden geciyor.\n\nDurus: {persona_durus}. Medya itibari: {medya_itibari}. Biri digerinin bedeliydi."
@@ -74,22 +116,40 @@
       "priority": 70,
       "requires": {
         "anyOf": [
-          { "flag": "mem_prison_mentored", "op": "isSet" },
+          {
+            "flag": "mem_prison_mentored",
+            "op": "isSet"
+          },
           {
             "allOf": [
-              { "flag": "mem_rival_shook_hands", "op": "isSet" },
-              { "flag": "iliski_nemesis", "op": "gte", "value": 65 }
+              {
+                "flag": "mem_rival_shook_hands",
+                "op": "isSet"
+              },
+              {
+                "flag": "iliski_nemesis",
+                "op": "gte",
+                "value": 65
+              }
             ]
           },
           {
             "allOf": [
-              { "flag": "npc_youngster_arc", "op": "gte", "value": 3 },
-              { "flag": "persona_sadakat", "op": "gte", "value": 60 }
+              {
+                "flag": "npc_youngster_arc",
+                "op": "gte",
+                "value": 3
+              },
+              {
+                "flag": "persona_sadakat",
+                "op": "gte",
+                "value": 60
+              }
             ]
           }
         ]
       },
-      "epilogue": "Kariyerin bitti ve kimse manset atmadi.\n\nAma {actor.youngster.name} ilk milli formasini giydigi gun mikrofona su cumleyi kurdu: \"Bana kimse bir sey ogretmedi. Bir kisi hari\u00e7.\"\n\nAdini soylemedi. Sen anladin.\n\nBu kariyerin en iyi istatistigi hicbir yerde yazmiyor."
+      "epilogue": "Kariyerin bitti ve kimse manset atmadi.\n\nAma {actor.youngster.name} ilk milli formasini giydigi gun mikrofona su cumleyi kurdu: \"Bana kimse bir sey ogretmedi. Bir kisi hariç.\"\n\nAdini soylemedi. Sen anladin.\n\nBu kariyerin en iyi istatistigi hicbir yerde yazmiyor."
     },
     {
       "id": "end_quiet_return",
@@ -97,8 +157,16 @@
       "priority": 65,
       "requires": {
         "allOf": [
-          { "flag": "club_tier", "op": "eq", "value": "amateur" },
-          { "flag": "age", "op": "gte", "value": 33 }
+          {
+            "flag": "club_tier",
+            "op": "eq",
+            "value": "amateur"
+          },
+          {
+            "flag": "age",
+            "op": "gte",
+            "value": 33
+          }
         ]
       },
       "epilogue": "Son sezonunu yuz kisilik bir tribunun onunde oynadin ve o yuz kisi adini biliyordu.\n\nSaha kotu, file yirtik, soyunma odasi soguk. Otuz yasindaki bir stoper senden imza istedi ve ellerinin titredigini gordun.\n\n{age} yasinda kramponlari cividen astin. Kimse fotograf cekmedi.\n\nEn cok bu sezonu ozleyeceksin ve bunu kimseye anlatamayacaksin."
@@ -109,8 +177,16 @@
       "priority": 60,
       "requires": {
         "allOf": [
-          { "flag": "tukenmislik", "op": "gte", "value": 75 },
-          { "flag": "age", "op": "lte", "value": 34 }
+          {
+            "flag": "tukenmislik",
+            "op": "gte",
+            "value": 75
+          },
+          {
+            "flag": "age",
+            "op": "lte",
+            "value": 34
+          }
         ]
       },
       "epilogue": "Kimse anlamadi. Istatistikler iyiydi, beden saglamdi, sozlesme masadaydi.\n\n{actor.manager.name} \"bir sezon daha\" dedi. {actor.agent.name} rakami iki katina cikardi. {actor.partner.name} hicbir sey demedi ve tek dogru cevap oydu.\n\nOtuz yil sonra biri sana \"neden biraktin\" diye soracak. \"Yorgundum,\" diyeceksin.\n\nBu dogru olmayacak ama soylenebilecek en yakin sey bu."
@@ -119,7 +195,11 @@
       "id": "end_debt",
       "title": "Kapanmayan hesap",
       "priority": 58,
-      "requires": { "flag": "borc", "op": "gte", "value": 3000000 },
+      "requires": {
+        "flag": "borc",
+        "op": "gte",
+        "value": 3000000
+      },
       "epilogue": "Kariyerin bitti, faiz bitmedi.\n\n{borc} lira. Rakami her ay bir kez okuyorsun ve her ay ayni buyuklukte.\n\n{actor.fixer.name} bir kez daha aradi. Bu sefer bir sey teklif etmedi, sadece hatirlatti. Zaten hep boyle yapardi.\n\nSahada kazandigin her seyi sahanin disinda kaybettin ve ikisi de senin secimindi."
     },
     {
@@ -128,8 +208,16 @@
       "priority": 55,
       "requires": {
         "allOf": [
-          { "flag": "medya_itibari", "op": "gte", "value": 70 },
-          { "flag": "persona_durus", "op": "gte", "value": 55 }
+          {
+            "flag": "medya_itibari",
+            "op": "gte",
+            "value": 70
+          },
+          {
+            "flag": "persona_durus",
+            "op": "gte",
+            "value": 55
+          }
         ]
       },
       "epilogue": "Kramponlari birakip mikrofonu aldin.\n\nIlk yayinda karsinda {actor.pundit.name} oturuyordu; on yil boyunca seni yerden yere vurmus adam. Reklam arasinda \"iyi olacaksin\" dedi ve sen ona inanmadin.\n\nHakli cikti.\n\nSimdi baska cocuklar hakkinda konusuyorsun ve her cumleden once yarim saniye duruyorsun. O yarim saniyeyi kimse fark etmiyor. Sen biliyorsun ne oldugunu."
@@ -140,8 +228,16 @@
       "priority": 52,
       "requires": {
         "allOf": [
-          { "flag": "liderlik", "op": "gte", "value": 75 },
-          { "flag": "iliski_manager", "op": "gte", "value": 60 }
+          {
+            "flag": "liderlik",
+            "op": "gte",
+            "value": 75
+          },
+          {
+            "flag": "iliski_manager",
+            "op": "gte",
+            "value": 60
+          }
         ]
       },
       "epilogue": "Antrenorluk kursuna kirk yasinda basladin ve sinifin en yaslisi degildin.\n\nIlk gorevinde ofis tesisin en kucuk odasiydi: bir bilgisayar, bir kul tablasi, ikisi de kullanilmiyor.\n\nBir cocuk kapiyi caldi. \"Otur,\" dedin. Oturdu. Uzun bir sessizlik oldu.\n\nO sessizligin ne oldugunu artik iki taraftan da biliyorsun."
@@ -152,8 +248,16 @@
       "priority": 50,
       "requires": {
         "allOf": [
-          { "flag": "skandal_seviyesi", "op": "gte", "value": 70 },
-          { "flag": "taraftar_destegi", "op": "lte", "value": 30 }
+          {
+            "flag": "skandal_seviyesi",
+            "op": "gte",
+            "value": 70
+          },
+          {
+            "flag": "taraftar_destegi",
+            "op": "lte",
+            "value": 30
+          }
         ]
       },
       "epilogue": "Son iki sezonda telefonun calmadi.\n\nKulupler aramadi, sponsorlar aramadi, {actor.agent.name} ayda bir aradi ve konusacak bir sey bulamadi.\n\nHicbir sey resmen soylenmedi. Boyle seyler soylenmez; sadece olur.\n\nSkandal seviyesi {skandal_seviyesi}. Bu rakami kimse gormedi ama herkes hissetti."
@@ -164,8 +268,15 @@
       "priority": 48,
       "requires": {
         "allOf": [
-          { "flag": "persona_dogruluk", "op": "gte", "value": 80 },
-          { "flag": "mem_refused_fixing", "op": "isSet" }
+          {
+            "flag": "persona_dogruluk",
+            "op": "gte",
+            "value": 80
+          },
+          {
+            "flag": "mem_refused_fixing",
+            "op": "isSet"
+          }
         ]
       },
       "epilogue": "Sana iki kez teklif geldi ve iki kez hayir dedin. Bunun bedelini kimse bilmiyor.\n\nO teklifleri kabul edenlerin bazilari hâlâ oynuyor, bazilari hapiste, biri artik hayatta degil.\n\n{actor.prosecutor.name} yillar sonra bir konferansta senin adini verdi: \"Bir isim var, hicbir dosyada gecmiyor. Bu ligde bu bir basaridir.\"\n\nDogruluk: {persona_dogruluk}. Servet: {servet}. Ikincisi daha buyuk olabilirdi."
@@ -176,8 +287,19 @@
       "priority": 45,
       "requires": {
         "allOf": [
-          { "flag": "persona_sadakat", "op": "gte", "value": 70 },
-          { "flag": "stature", "op": "in", "value": ["starter", "star"] }
+          {
+            "flag": "persona_sadakat",
+            "op": "gte",
+            "value": 70
+          },
+          {
+            "flag": "stature",
+            "op": "in",
+            "value": [
+              "starter",
+              "star"
+            ]
+          }
         ]
       },
       "epilogue": "Hicbir zaman en iyisi olmadin ve hicbir zaman gitmedin.\n\nUc teknik direktor geldi gecti, iki kez kume dustunuz, bir kez cikitiniz. Sen hep oradaydin.\n\nSon macinda {actor.president.name} bir plaket verdi ve adini yanlis telaffuz etti. Tribun duzeltti.\n\nO duzeltme, plaketten daha degerliydi."
@@ -186,7 +308,10 @@
       "id": "end_racism_legacy",
       "title": "Orta yuvarlakta duran adam",
       "priority": 44,
-      "requires": { "flag": "mem_stood_against_racism", "op": "isSet" },
+      "requires": {
+        "flag": "mem_stood_against_racism",
+        "op": "isSet"
+      },
       "epilogue": "O fotograf hicbir zaman kaybolmadi.\n\nOrta yuvarlakta tek basina duran adam. On yil boyunca her kampanyada kullanildi, bes yil boyunca senden izin almadan.\n\nBir cocuk kendi macinda ayni seyi yapti ve sonra seni buldu: \"Sizi izlemistim.\"\n\nKupalarini sayabilirsin. Bunu sayamazsin."
     },
     {
@@ -195,8 +320,19 @@
       "priority": 20,
       "requires": {
         "allOf": [
-          { "flag": "stature", "op": "in", "value": ["nobody", "local_talent"] },
-          { "flag": "kupa_sayisi", "op": "lte", "value": 0 }
+          {
+            "flag": "stature",
+            "op": "in",
+            "value": [
+              "nobody",
+              "local_talent"
+            ]
+          },
+          {
+            "flag": "kupa_sayisi",
+            "op": "lte",
+            "value": 0
+          }
         ]
       },
       "epilogue": "Kimse veda maci yapmadi. Kimse aciklama yazmadi.\n\nBir gun antrenmana gitmedin ve ertesi gun de gitmedin. Ucuncu gun kimse aramadi.\n\n{milli_mac_sayisi} milli mac, {kupa_sayisi} kupa, {season} sezon.\n\nBir sahada iyi bir gun gecirdin ve o gunu sadece sen hatirliyorsun. Bu da bir kariyerdir."
@@ -205,8 +341,210 @@
       "id": "end_quiet_goodbye",
       "title": "Sessiz veda",
       "priority": 0,
-      "requires": { "flag": "retired", "op": "eq", "value": true },
+      "requires": {
+        "flag": "retired",
+        "op": "eq",
+        "value": true
+      },
       "epilogue": "Son duduk caldi ve baska bir duduk calmayacagini bilerek sahadan ciktin.\n\n{club.name} soyunma odasinda kramponlari cikarman dokuz dakika surdu. Kimse acele ettirmedi.\n\n{season} sezon, {kupa_sayisi} kupa, {milli_mac_sayisi} milli mac.\n\nDisari ciktiginda hava soguktu ve bu, otuz yildir ilk kez, bir sey ifade etmiyordu."
     }
-  ]
+  ],
+  "codas": [
+    {
+      "id": "koda_evli",
+      "priority": 90,
+      "requires": {
+        "allOf": [
+          {
+            "flag": "mem_evlendi",
+            "op": "isSet"
+          },
+          {
+            "flag": "mem_ayrilik",
+            "op": "notIn",
+            "value": [
+              true
+            ]
+          }
+        ]
+      },
+      "text": "Eve dondugunde kapiyi acan biri var. Otuz sezon boyunca en az degisen sey bu oldu ve degerini ancak simdi biliyorsun."
+    },
+    {
+      "id": "koda_ayrilik",
+      "priority": 88,
+      "requires": {
+        "flag": "mem_ayrilik",
+        "op": "isSet"
+      },
+      "text": "Telefonunda hala o numara duruyor. Silmedin, aramiyorsun da. Kariyerin en pahali sey kaybi kupa degildi."
+    },
+    {
+      "id": "koda_bosanma",
+      "priority": 89,
+      "requires": {
+        "allOf": [
+          {
+            "flag": "mem_evlendi",
+            "op": "isSet"
+          },
+          {
+            "flag": "mem_ayrilik",
+            "op": "isSet"
+          }
+        ]
+      },
+      "text": "Avukatlar bittikten sonra ev de bitti. Imzayi atarken elin titremedi; asil titreyen, o evde gecmeyen yillardi."
+    },
+    {
+      "id": "koda_borsa_vurgunu",
+      "priority": 60,
+      "requires": {
+        "flag": "mem_borsa_vurgunu",
+        "op": "isSet"
+      },
+      "text": "Bir sabah ekrandaki sayi hayatinin en buyuk transfer ucretinden buyuktu. Kimseye anlatmadin. Anlatsan inanmazlardi, cunku sahayla ilgisi yoktu."
+    },
+    {
+      "id": "koda_borsa_yandi",
+      "priority": 59,
+      "requires": {
+        "flag": "mem_borsa_yandi",
+        "op": "isSet"
+      },
+      "text": "Bir de yandigin yil var. O yil kimse maasini konusmadi, sen de acmadin."
+    },
+    {
+      "id": "koda_kumar",
+      "priority": 58,
+      "requires": {
+        "flag": "mem_kumar_oynadi",
+        "op": "isSet"
+      },
+      "text": "Masada gecirdigin geceleri toplasan bir sezon eder. Kazandiklarini hatirlamiyorsun; kaybettigin tek bir eli hala hatirliyorsun."
+    },
+    {
+      "id": "koda_tefeci",
+      "priority": 62,
+      "requires": {
+        "flag": "mem_gambling_debt",
+        "op": "isSet"
+      },
+      "text": "Bir donem telefonun calmasindan korktun. O korkuyu futbol vermedi, sen kendin aldin."
+    },
+    {
+      "id": "koda_arkadas_borc",
+      "priority": 55,
+      "requires": {
+        "allOf": [
+          {
+            "flag": "mem_arkadastan_borc",
+            "op": "isSet"
+          },
+          {
+            "flag": "mem_arkadasligi_yakti",
+            "op": "notIn",
+            "value": [
+              true
+            ]
+          }
+        ]
+      },
+      "text": "Zor bir donemde birine el actin ve o verdi. Kapattin da. Soyunma odasindan geriye kalan iki uc kisiden biri o."
+    },
+    {
+      "id": "koda_arkadas_yakti",
+      "priority": 56,
+      "requires": {
+        "flag": "mem_arkadasligi_yakti",
+        "op": "isSet"
+      },
+      "text": "Parasini geri istemedi. Bir daha da aramadi. Bazi hesaplar kapanmaz, sadece susar."
+    },
+    {
+      "id": "koda_turnuva_sampiyonu",
+      "priority": 95,
+      "requires": {
+        "flag": "mem_turnuva_sampiyonu",
+        "op": "isSet"
+      },
+      "text": "Milli formayla bir turnuva kazandin. O gece havaalanindaki kalabaligi anlatmaya calisiyorsun ve her seferinde cumlenin ortasinda susuyorsun."
+    },
+    {
+      "id": "koda_turnuva_oynadi",
+      "priority": 70,
+      "requires": {
+        "allOf": [
+          {
+            "flag": "mem_turnuva_oynadi",
+            "op": "isSet"
+          },
+          {
+            "flag": "mem_turnuva_sampiyonu",
+            "op": "notIn",
+            "value": [
+              true
+            ]
+          }
+        ]
+      },
+      "text": "Buyuk turnuvaya gittin ve kupasiz dondun. Yillar sonra o kadronun fotografina bakarken, kimin nerede oldugunu tek tek sayabiliyorsun."
+    },
+    {
+      "id": "koda_gol_krali",
+      "priority": 80,
+      "requires": {
+        "flag": "mem_gol_krali",
+        "op": "isSet"
+      },
+      "text": "Bir sezon ligin en cok gol atani sendin. Tabelada adin en ustte durdu ve o goruntuyu bugun bile kapatip acabiliyorsun."
+    },
+    {
+      "id": "koda_yilin_oyuncusu",
+      "priority": 85,
+      "requires": {
+        "flag": "mem_yilin_oyuncusu",
+        "op": "isSet"
+      },
+      "text": "Yilin oyuncusu secildigin gece konusmani yarim biraktin. Tesekkur edecegin biri vardi ve adini soyleyemedin."
+    },
+    {
+      "id": "koda_rakibe_transfer",
+      "priority": 75,
+      "requires": {
+        "flag": "mem_rakibe_transfer",
+        "op": "isSet"
+      },
+      "text": "Bir kere karsi tarafa gectin. Eski tribun bunu unutmadi; her donusunde ayni islik, ayni yuzler. Karar seninki, fatura da."
+    },
+    {
+      "id": "koda_hoca_kovuldu",
+      "priority": 50,
+      "requires": {
+        "flag": "mem_hoca_kovuldu",
+        "op": "isSet"
+      },
+      "text": "Bir hocanin gidisinde parmagin vardi. Yillar sonra bir yayinda karsilastiniz, elini sikti ve gozune bakmadi."
+    },
+    {
+      "id": "koda_kacamak",
+      "priority": 45,
+      "requires": {
+        "flag": "mem_mac_gecesi_kacti",
+        "op": "isSet"
+      },
+      "text": "Bir mac gecesi kamptan kactigini kimse ogrenmedi. Ertesi gun sahada bacaklarinin agirligini yalnizca sen bildin."
+    },
+    {
+      "id": "koda_seri_ihanet",
+      "priority": 76,
+      "requires": {
+        "flag": "mem_rakip_kulup_gecmisi",
+        "op": "gte",
+        "value": 2
+      },
+      "text": "Bir kere degil, iki kere karsi tarafa gectin. Birincisine ihanet dediler; ikincisinden sonra kimse bir sey demedi, cunku artik bu senin karakterindi ve karakter tartisilmaz, kabul edilir."
+    }
+  ],
+  "_codaNotu": "EPILOG KODALARI. Sonlanmadan BAGIMSIZDIR: hangi sonla bitilirse bitilsin, kosulu tutan cumleler epiloga eklenir. Sebep: motor yirmi kadar `mem_*` izi yaziyordu (evlilik, ayrilik, borsa, kumar, turnuva, gol kralligi, rakibe transfer) ve HICBIRI okunmuyordu -- otuz sezonda verilen kararlarin cogu son ekranda hic gorunmuyordu. On sekiz sonlanma x her iz icin ayri metin yazmak yerine kodalar tek noktada durur. `requires` bir OKUMADIR: `OrphanMemoryFlagRule` bunu sayar."
 }

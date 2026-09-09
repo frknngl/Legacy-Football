@@ -504,6 +504,14 @@ export const OrphanMemoryFlagRule: ValidationRule = {
         if (!read.has(f)) read.set(f, `(son: ${ending.id})`);
       }
     }
+    // EPILOG KODALARI da okuma yeridir -- hatta en dogru yer: kariyerin
+    // biraktigi izin karsiligini sonda vermek, kelebek vaadinin ta
+    // kendisi.
+    for (const coda of registry.config.epilogueCodas) {
+      for (const f of referencedFlags(coda.requires)) {
+        if (!read.has(f)) read.set(f, `(koda: ${coda.id})`);
+      }
+    }
     for (const arc of registry.config.nemeses) {
       for (const r of arc.resolutions) {
         if (!r.condition) continue;
@@ -514,7 +522,17 @@ export const OrphanMemoryFlagRule: ValidationRule = {
     }
 
     for (const def of registry.flags.byKind('memory')) {
-      const w = written.get(def.key);
+      // MOTOR DA BIR YAZARDIR.
+      //
+      // Kural yalnizca icerigi tariyordu ve motorun yazdigi izleri
+      // "okunuyor ama hicbir yerde yazilmiyor" diye bildiriyordu.
+      // Olculdu: uc yanlis alarm (`mem_gambling_debt`, `mem_hoca_kovuldu`,
+      // `mem_rakibe_transfer`) -- ucu de `GameEngine` icinde yaziliyor.
+      //
+      // Yanlis alarm veren bir kural, dogru alarmlarini da supheli kilar:
+      // 182 uyarinin icinde hangisinin gercek oldugunu bilemezsin.
+      const engineWrites = def.writableBy?.includes('engine') ?? false;
+      const w = written.get(def.key) ?? (engineWrites ? '(motor)' : undefined);
       const r = read.get(def.key);
       if (w !== undefined && r === undefined) {
         // CIRCIR (ratchet): eski borc hos gorulur, YENI borc hatadir.
@@ -527,7 +545,7 @@ export const OrphanMemoryFlagRule: ValidationRule = {
         out.push({
           rule: OrphanMemoryFlagRule.name,
           severity: grandfathered ? 'warn' : 'error',
-          file: events.find((e) => e.id === w)?.sourceFile ?? '(bilinmiyor)',
+          file: events.find((e) => e.id === w)?.sourceFile ?? '(motor)',
           message: grandfathered
             ? `"${def.key}" yaziliyor ama hicbir yerde okunmuyor -- olu kelebek (taban listesinde).`
             : `"${def.key}" yaziliyor ama hicbir yerde okunmuyor -- YENI olu kelebek.`,

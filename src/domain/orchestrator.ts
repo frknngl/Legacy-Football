@@ -5,7 +5,7 @@
 
 import type { Archetype, ClubTier, Era, LifeState, MediaEra, Stature } from './axes.js';
 import type { NameConfig, NemesisDefinition, Position, SlotDefinition } from './actors.js';
-import type { Ending } from './endings.js';
+import type { Ending, EpilogueCoda } from './endings.js';
 import type { FlagDefinition, FlagValue } from './flags.js';
 import type { GameDefinition } from './gambling.js';
 import type { AssetDefinition } from './assets.js';
@@ -153,6 +153,11 @@ export interface OrchestratorConfig {
   readonly names: NameConfig;
   readonly nemeses: readonly NemesisDefinition[];
   readonly endings: readonly Ending[];
+  /**
+   * Epilog kodalari -- kariyerin biraktigi izlerin sondaki karsiligi.
+   * Sonlanmadan bagimsiz: hangisiyle bitilirse bitilsin uygulanir.
+   */
+  readonly epilogueCodas: readonly EpilogueCoda[];
   readonly turn: TurnConfig;
   /** Kumar katalogu -- `content/economy/games.json`. */
   readonly games: readonly GameDefinition[];

@@ -6,7 +6,7 @@
  * ikisi de dogru olabilir, ama biri digerini kapsar.
  */
 
-import type { Ending, ResolvedEnding } from '../domain/endings.js';
+import type { Ending, EpilogueCoda, ResolvedEnding } from '../domain/endings.js';
 import type { GameState } from '../domain/state.js';
 import { ConditionEvaluator } from '../evaluation/ConditionEvaluator.js';
 import { TextInterpolator, type InterpolationContext } from '../evaluation/TextInterpolator.js';
@@ -16,6 +16,7 @@ export class EndingResolver {
     private readonly endings: readonly Ending[],
     private readonly evaluator: ConditionEvaluator = new ConditionEvaluator(),
     private readonly interpolator: TextInterpolator = new TextInterpolator(),
+    private readonly codas: readonly EpilogueCoda[] = [],
   ) {}
 
   resolve(state: GameState, interpolation: InterpolationContext): ResolvedEnding | undefined {
@@ -32,10 +33,24 @@ export class EndingResolver {
     const chosen = matches[0];
     if (!chosen) return undefined;
 
+    // KODALAR: kariyerin biraktigi izlerin sondaki karsiligi. Sonlanmadan
+    // bagimsizdir -- nasil biterse bitsin, evlendiysen evlendigin yazar.
+    const codas = this.codas
+      .filter((c) =>
+        this.evaluator.evaluate(c.requires, {
+          flags: state.flags,
+          flagSetTurn: state.flagSetTurn,
+          turn: state.turn,
+        }),
+      )
+      .sort((a, b) => b.priority - a.priority)
+      .map((c) => this.interpolator.interpolate(c.text, interpolation));
+
+    const base = this.interpolator.interpolate(chosen.epilogue, interpolation);
     return {
       id: chosen.id,
       title: chosen.title,
-      epilogue: this.interpolator.interpolate(chosen.epilogue, interpolation),
+      epilogue: codas.length === 0 ? base : [base, ...codas].join('\n\n'),
     };
   }
 

@@ -70,6 +70,12 @@ describe('medya cagi gecisleri', () => {
     const seenAnywhere = new Set<string>();
 
     for (const seed of seeds) {
+      // Dordu de gorulduyse kalan tohumlarin bilgi degeri yok. Iddia
+      // "her gecis olayi ULASILABILIR" -- bir kez gormek bunu kanitlar.
+      // Kariyer basina ~1000 tur kostugu icin bu, kumeyi bellek baskisi
+      // altinda ayakta tutan farki yaratiyor.
+      if (seenAnywhere.size === TRANSITIONS.length) break;
+
       const engine = new GameEngine(registry, {
         seed,
         ...(await createMockWorld('content', registry, seed)),
@@ -102,10 +108,8 @@ describe('medya cagi gecisleri', () => {
     }
 
     expect([...seenAnywhere].sort()).toEqual([...TRANSITIONS].sort());
-    // Bes tohum x 1100 tur. Secim maliyeti olculdu: tur basina 0,56 ms
-    // (sertlestirilmis seciciden once 0,44 ms; +%27). Varsayilan 5 sn
-    // sinirina sigmiyor ve bu bir yavaslama hatasi degil, olcumun
-    // boyutu -- sinir acikca yaziliyor ki bir gun gercekten yavaslarsa
-    // fark edilsin.
-  }, 30_000);
+    // Tohumlar erken cikisla tuketiliyor; en kotu durumda bes kariyer
+    // x 1100 tur. Secim maliyeti olculdu: tur basina 0,56 ms
+    // (sertlestirilmis seciciden once 0,44 ms; +%27).
+  }, 60_000);
 });

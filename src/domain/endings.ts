@@ -20,6 +20,30 @@ export interface Ending {
   readonly priority: number;
 }
 
+/**
+ * EPILOG KODASI -- kariyerin biraktigi izin sondaki karsiligi.
+ *
+ * NEDEN VAR: motor yirmi kadar `mem_*` izi yaziyordu (evlilik, ayrilik,
+ * borsa vurgunu, turnuva sampiyonlugu, gol kralligi, kumar, rakibe
+ * transfer) ve HICBIRI hicbir yerde okunmuyordu. Yani otuz sezonda
+ * verdigin kararlarin cogu, kariyerin son ekraninda hic gorunmuyordu.
+ *
+ * Koda bunu tek noktada cozer: her sonlanma metnine, kosulu tutan
+ * cumleler eklenir. On sekiz sonlanma x elli koda yazmak yerine
+ * kodalar SONLANMADAN BAGIMSIZ durur ve hepsine uygulanir.
+ *
+ * `requires` bir OKUMADIR: `OrphanMemoryFlagRule` bunu sayar, yani bir
+ * izin kodasi varsa o iz artik olu kelebek degildir.
+ */
+export interface EpilogueCoda {
+  readonly id: string;
+  readonly requires: Condition;
+  /** Epiloga eklenecek cumle(ler). Enterpolasyon uygulanir. */
+  readonly text: string;
+  /** Buyuk olan once yazilir: evlilik, kumar borcundan onemlidir. */
+  readonly priority: number;
+}
+
 /** Cozulmus sonlanma + doldurulmus epilog. */
 export interface ResolvedEnding {
   readonly id: string;

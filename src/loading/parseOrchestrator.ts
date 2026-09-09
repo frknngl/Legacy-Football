@@ -37,7 +37,7 @@ import {
   type ReunionTrigger,
   type SlotDefinition,
 } from '../domain/actors.js';
-import type { Ending } from '../domain/endings.js';
+import type { Ending, EpilogueCoda } from '../domain/endings.js';
 import type { FlagDefinition, FlagValue } from '../domain/flags.js';
 import type {
   ArchetypeDefinition,
@@ -404,6 +404,30 @@ export function parseEndings(doc: unknown, ctx: ParseContext): Ending[] {
       continue;
     }
     out.push({ id, title, epilogue, priority, requires });
+  }
+  return out;
+}
+
+/**
+ * Epilog kodalarini ayristirir.
+ *
+ * Kodalar SONLANMADAN BAGIMSIZDIR: hangisi tutarsa hangi sonla
+ * bitilirse bitilsin epiloga eklenir. Bozuk bir koda oyunu dusurmez --
+ * atlanir ve bildirilir.
+ */
+export function parseEpilogueCodas(doc: unknown, ctx: ParseContext): EpilogueCoda[] {
+  if (!isObj(doc)) return [];
+  const out: EpilogueCoda[] = [];
+  for (const [i, raw] of arr(doc['codas']).entries()) {
+    if (!isObj(raw)) continue;
+    const id = str(raw['id']);
+    const text = str(raw['text']);
+    const requires = parseCondition(raw['requires'], ctx, `codas[${i}].requires`);
+    if (id === undefined || text === undefined || requires === undefined) {
+      ctx.error(`codas[${i}]`, '`id`, `text`, `requires` gerekli.');
+      continue;
+    }
+    out.push({ id, text, requires, priority: num(raw['priority']) ?? 0 });
   }
   return out;
 }

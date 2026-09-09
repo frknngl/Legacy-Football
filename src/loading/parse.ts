@@ -693,6 +693,20 @@ export function parseFlagDefinition(
   if (max !== undefined) out['max'] = max;
   const shortfallTo = str(v['shortfallTo']);
   if (shortfallTo !== undefined) out['shortfallTo'] = shortfallTo;
+  // YAZMA YETKISI -- kim bu bayraga dokunabilir.
+  //
+  // Alan `FlagDefinition` tipinde vardi ve `core.json`da yirmiden fazla
+  // bayrakta yaziliydi, ama BURADA OKUNMUYORDU: calisma zamaninda hep
+  // `undefined` idi, yani bir belge olarak duruyor ama hicbir sey
+  // yapmiyordu. `OrphanMemoryFlagRule` motorun yazdigi izleri bu yuzden
+  // "hicbir yerde yazilmiyor" diye bildiriyordu.
+  const writableBy = Array.isArray(v['writableBy'])
+    ? v['writableBy'].filter(
+        (w): w is 'content' | 'engine' | 'host' =>
+          w === 'content' || w === 'engine' || w === 'host',
+      )
+    : undefined;
+  if (writableBy !== undefined && writableBy.length > 0) out['writableBy'] = writableBy;
   const softCap = num(v['softCap']);
   if (softCap !== undefined) out['softCap'] = softCap;
   const softFloor = num(v['softFloor']);
