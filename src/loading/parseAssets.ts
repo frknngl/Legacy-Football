@@ -34,6 +34,7 @@ export function parseAssets(doc: unknown): readonly AssetDefinition[] {
       upkeep: num(a['upkeep']) ?? 0,
       yearlyDrift: num(a['yearlyDrift']) ?? 0,
       visibility: Math.max(0, Math.min(100, num(a['visibility']) ?? 0)),
+      ...(num(a['rentYield']) === undefined ? {} : { rentYield: num(a['rentYield'])! }),
       ...(str(a['note']) === undefined ? {} : { note: str(a['note'])! }),
     });
   }

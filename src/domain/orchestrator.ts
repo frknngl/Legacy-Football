@@ -9,6 +9,7 @@ import type { Ending } from './endings.js';
 import type { FlagDefinition, FlagValue } from './flags.js';
 import type { GameDefinition } from './gambling.js';
 import type { AssetDefinition } from './assets.js';
+import type { InflationConfig } from './inflation.js';
 
 export interface EraDefinition {
   readonly id: Era;
@@ -155,6 +156,8 @@ export interface OrchestratorConfig {
   readonly games: readonly GameDefinition[];
   /** Varlik katalogu -- `content/economy/assets.json`. */
   readonly assets: readonly AssetDefinition[];
+  /** Enflasyon -- `content/economy/inflation.json`. */
+  readonly inflation: InflationConfig;
   readonly cadence: CadenceConfig;
   readonly release: ReleaseConfig;
   /**

@@ -35,6 +35,7 @@ import { runSimulatedMatch } from './runMatch.js';
 import { selectWorld, describeWorld, type GameWorld } from './world.js';
 import { windowAt } from '../domain/transfer.js';
 import { WalletLedger, WALLET_KINDS, WALLET_LABELS } from '../runtime/WalletLedger.js';
+import { realValue } from '../domain/inflation.js';
 
 const SAVE_PATH = '.saves/play.json';
 
@@ -376,9 +377,15 @@ async function assetDesk(
       const def = catalog.find((d) => d.id === item.id);
       const paid = def?.price ?? item.value;
       const arrow = item.value >= paid ? c.green('▲') : c.red('▼');
+      const rentable = def?.rentYield !== undefined;
+      const rent = rentable ? Math.round((item.value * def!.rentYield!) / 52) : 0;
+      const mark = item.rented === true ? c.green('[kirada]') : rentable ? c.grey('[bos]') : '';
       console.log(
-        `    ${arrow} ${(def?.label ?? item.id).padEnd(26)} ${money(item.value).padStart(12)} TL` +
-          c.grey(`   (alis ${money(paid)}, gider ${money(def?.upkeep ?? 0)}/hafta)`),
+        `    ${arrow} ${(def?.label ?? item.id).padEnd(26)} ${money(item.value).padStart(12)} TL ${mark}`,
+      );
+      console.log(
+        c.grey(`        gider ${money(def?.upkeep ?? 0)}/hafta`) +
+          (rentable ? c.grey(`  |  kira ${money(rent)}/hafta`) : ''),
       );
     }
   }
@@ -397,11 +404,18 @@ async function assetDesk(
     });
   }
 
-  console.log(c.grey('  <enter> vazgec | s<no> sat'));
+  console.log(c.grey('  <enter> vazgec | s<no> sat | k<no> kiraya ver/cikar'));
   const answer = (await ask('  > ')).trim();
   if (answer === '') return;
 
   try {
+    if (answer.startsWith('k')) {
+      const ki = Number.parseInt(answer.slice(1), 10) - 1;
+      const target = owned[ki];
+      if (target === undefined) return;
+      engine.setRented(target.id, target.rented !== true);
+      return;
+    }
     if (answer.startsWith('s')) {
       const si = Number.parseInt(answer.slice(1), 10) - 1;
       const target = owned[si];
@@ -514,6 +528,18 @@ async function walletDesk(
     `  Bakiye ${c.bold(money(Number(state.flags['servet'] ?? 0)) + ' TL')}` +
       c.grey(`   haftalik maas ${money(Number(state.flags['haftalik_gelir'] ?? 0))} TL`),
   );
+
+  // ENFLASYON gorunur olmali -- gorunmezse oyuncu neden fakirlestigini
+  // anlamaz. Anadolu'da 15 sezonda 1M TL, 20 bin TL alim gucune duser.
+  const idx = Number(state.flags['enflasyon_endeksi'] ?? 100);
+  const yearly = Number(state.flags['yillik_enflasyon'] ?? 0);
+  if (idx > 105) {
+    const real = realValue(Number(state.flags['servet'] ?? 0), idx);
+    console.log(
+      c.grey(`  Kariyer basi parasiyla ${money(real)} TL`) +
+        c.grey(`   (fiyatlar x${(idx / 100).toFixed(1)}, bu sezon %${yearly.toFixed(1)})`),
+    );
+  }
 
   const borc = Number(state.flags['borc'] ?? 0);
   if (borc > 0) console.log(c.red(`  Borc   ${money(borc)} TL`));

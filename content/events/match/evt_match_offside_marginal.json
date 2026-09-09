@@ -351,6 +351,180 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Cizginin otesi",
+          "kind": "branch",
+          "text": "Soyunma odasının loş ışığında terli formalar yere atılmış. {actor.manager.name} köşede, elinde bir tabletle görüntüleri ağır çekimde döndürüyor. Görüntü duruyor: Santimetre farkı. Hakemin kararı kesin, gol iptal. Odadaki herkes sonucu kabullenip susmuş durumda. {actor.manager.name} tableti masaya sertçe bırakıyor ve sana bakıyor. O bakış, maçın sonucundan çok, bu hayal kırıklığını nasıl pazarlayacağınızı sorguluyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Basının karşısına çık ve hakemin takımı kasıtlı yaktığını bağırarak söyle.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kameranın karşısında hakemin kararını savunan diplomatik bir açıklama yap.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sponsorun sunduğu 'hakem hatası' içerikli reklam metnini sosyal medyada paylaş.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_kosulsuz",
+              "text": "Sessizce duşun altına gir, zihinsel yükü atıp bir sonraki maça odaklan.",
+              "target": "n_basit",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Kelimelerin manşetlere düştü. Taraftar seni kahraman ilan etti ama federasyonun radarına girdin. Artık her faulün iki kat daha dikkatli izlenecek.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_argued_ref"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Doğru olanı yaptın, takımın zarar görmedi. Ancak taraftar tribünde senin samimiyetinden şüphe duymaya başladı bile.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_marginal_offside"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Zarfa gelen para hesabına geçti ama taraftarın sana bakışı değişti. Profesyonelliğini paraya sattığını düşünüyorlar.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_marginal_offside"
+            }
+          ]
+        },
+        "n_basit": {
+          "title": "Unutuş",
+          "kind": "outcome",
+          "text": "Sessizlik en güvenli liman. Ama içerideki o öfke, bir sonraki maçta daha büyük bir patlamaya gebe.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_marginal_offside"
+            }
+          ]
+        }
+      }
     }
   ]
 }

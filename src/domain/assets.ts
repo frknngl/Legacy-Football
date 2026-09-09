@@ -37,6 +37,14 @@ export interface AssetDefinition {
   readonly yearlyDrift: number;
   /** 0-100. Ne kadar GORUNUR: medya ve taraftar bunu fark eder. */
   readonly visibility: number;
+  /**
+   * Kiraya verilirse YILLIK getiri orani (degerin yuzdesi).
+   *
+   * Arabanin kirasi olmaz; arsanin dusuk, isletmenin yuksek. Kira
+   * gideri KAPATMAZ, sadece hafifletir -- yoksa her varlik kendi
+   * kendini odeyen bir makineye donerdi ve alim karari kaybolurdu.
+   */
+  readonly rentYield?: number;
   readonly note?: string;
 }
 
@@ -45,8 +53,10 @@ export interface OwnedAsset {
   readonly id: string;
   /** Kacinci turda alindi -- "uc yildir o evde" cumlesi icin. */
   readonly boughtTurn: number;
-  /** Bugunku degeri; her hafta `yearlyDrift` ile guncellenir. */
+  /** Bugunku degeri; her hafta `yearlyDrift` VE enflasyonla guncellenir. */
   value: number;
+  /** Kiraya verildi mi. */
+  rented?: boolean;
 }
 
 /** Haftalik toplam gider. */
@@ -119,4 +129,40 @@ export function purchaseRejection(
  */
 export function saleValue(asset: OwnedAsset): number {
   return Math.round(asset.value * 0.88);
+}
+
+
+/** Haftalik kira geliri -- yalnizca kiraya verilmis varliklardan. */
+export function rentIncome(
+  owned: readonly OwnedAsset[],
+  catalog: readonly AssetDefinition[],
+): number {
+  let sum = 0;
+  for (const item of owned) {
+    if (item.rented !== true) continue;
+    const def = catalog.find((d) => d.id === item.id);
+    if (def?.rentYield === undefined) continue;
+    sum += (item.value * def.rentYield) / 52;
+  }
+  return Math.round(sum);
+}
+
+/** Kiraya verilebilir mi -- arabanin kirasi olmaz. */
+export function canRent(def: AssetDefinition | undefined): boolean {
+  return def?.rentYield !== undefined && def.rentYield > 0;
+}
+
+/**
+ * ENFLASYON varlik degerine islenir.
+ *
+ * `driftValues` REEL degisimi uygular (araba yipranir, arsa kiymetlenir);
+ * bu ise NOMINAL artisi. Ikisi ayri tutulmali: Anadolu'da bir araba
+ * nominal olarak deger KAZANABILIR ama reel olarak yine kaybeder -- ve
+ * oyuncunun gordugu sayi nominal olandir.
+ */
+export function inflateValues(owned: readonly OwnedAsset[], weeklyFactor: number): void {
+  if (weeklyFactor === 1) return;
+  for (const item of owned) {
+    item.value = Math.max(0, Math.round(item.value * weeklyFactor));
+  }
 }

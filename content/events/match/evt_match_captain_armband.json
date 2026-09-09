@@ -557,6 +557,201 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahne kenarında duraklama",
+          "kind": "branch",
+          "text": "Oyun durdu. Yedek kulübesi değişimi işaret etti. {actor.captain.name} saha kenarına doğru ağır adımlarla yürüyor. Stadın uğultusu kulaklarında uğulduyor. Kolundaki pazubandına takılan kanca çorabına takılmış, kumaş tenini çekiyor. Hemen önünde, kenarda bekleyen genç yedek oyuncu, heyecandan titreyen gözlerle kaptanına bakıyor. {actor.captain.name} o kumaşı kolundan çekip çıkardığında, terle ağırlaşmış bandın derisinde bıraktığı izi net bir şekilde hissediyor. Herkesin gözü o kumaş parçasında.",
+          "choices": [
+            {
+              "id": "c_saf",
+              "text": "Bandı çıkarıp kenardaki en genç oyuncunun bileğine geçir. \"Buradan sonrası senin.\"",
+              "target": "n_devir",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Bandı cebine tıkıştırıp doğrudan soyunma odasına yönel. Kimsenin gözlerinin içine bakma.",
+              "target": "n_kacis",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Bandı tribünlere doğru fırlat. \"Bu takımın sahibi sizsiniz, ben değil.\"",
+              "target": "n_isyan",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Bandı terli avucunda sıkıp tünelin karanlığına doğru ilerle. Henüz bırakmaya hazır değilsin.",
+              "target": "n_tutun",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Mental dayanıklılık 74]"
+            }
+          ]
+        },
+        "n_devir": {
+          "title": "Teslimiyet",
+          "kind": "outcome",
+          "text": "Genç oyuncu bandı koluna takarken {actor.captain.name} yanından geçip yedek kulübesine çöktü. Omuzlarındaki yük bir anlığına hafifledi ama içindeki boşluk büyüdü.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        },
+        "n_kacis": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Arka kapıdan hızla çıkarken attığı her adımda vicdanının sesini duymaya çalıştı ama kulakları sağır eden bir sessizlik hakimdi.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        },
+        "n_isyan": {
+          "title": "Öfke",
+          "kind": "outcome",
+          "text": "Kumaş parçasının tribünlerdeki kaosu izledi. Bir parçası onu oraya ait hissetti, diğer parçası ise yaktığı gemilerin dumanını kokladı.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        },
+        "n_tutun": {
+          "title": "Direniş",
+          "kind": "outcome",
+          "text": "Avucunun içindeki bandın sertliğini hissetti. Tünelin sonunda ışık bittiğinde, kolundaki o izin hiç silinmeyeceğini biliyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        }
+      }
     }
   ]
 }

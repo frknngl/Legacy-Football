@@ -117,7 +117,8 @@ import { pressureDecay, reputationDrift, reputationTarget } from '../domain/medi
 import { betRejection, resolveBet, type BetResult, type GameDefinition } from '../domain/gambling.js';
 import { followerDrift, followerTarget, type PhoneModel } from '../domain/phone.js';
 import { PhoneBuilder } from './PhoneBuilder.js';
-import { displayWeight, driftValues, purchaseRejection, saleValue, totalUpkeep, type AssetDefinition, type OwnedAsset } from '../domain/assets.js';
+import { canRent, displayWeight, driftValues, inflateValues, purchaseRejection, rentIncome, saleValue, totalUpkeep, type AssetDefinition, type OwnedAsset } from '../domain/assets.js';
+import { forCountry, nextIndex, seasonRate, weeklyFactor } from '../domain/inflation.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -541,7 +542,35 @@ export class GameEngine {
   }
 
   /** Sezon basi: gormedigin insanlar seni unutur, iz birakmayanlar arsivden dusar. */
+  /**
+   * SEZONUN ENFLASYONU -- oynadigin ULKENIN parasi.
+   *
+   * 2015-2024 gercek verisi: Anadolu %27,5, Gallia %1,8 -- on bes kat
+   * fark. Enflasyon asimetrik etki eder ve karar uretir: nakit erir,
+   * varlik korur, MAAS geride kalir (sozlesme nominal ve sabit), BORC
+   * erir. Anadolu'da kredi cekip arsa almak akillica; Gallia'da ayni
+   * hamle anlamsiz.
+   */
+  private tickInflation(): void {
+    const f = this.state.flags;
+    const country = forCountry(
+      this.registry.config.inflation,
+      this.options.roster?.club(this.state.clubId)?.countryName,
+    );
+    const previous = numberFlag(f, 'yillik_enflasyon') || country.mean;
+    const rate = seasonRate(country, previous, this.rng.next());
+    this.state.rngCursor = this.rng.position;
+
+    f['yillik_enflasyon'] = rate;
+    f['enflasyon_endeksi'] = nextIndex(numberFlag(f, 'enflasyon_endeksi') || 100, rate);
+
+    if (Math.abs(rate) >= 15) {
+      this.notices.push(`Yillik enflasyon %${rate.toFixed(1)}. Nakit erimeye devam ediyor.`);
+    }
+  }
+
   private onSeasonChange(): void {
+    this.tickInflation();
     this.develop();
     this.awardSeason();
     this.tickContract();
@@ -1875,6 +1904,28 @@ export class GameEngine {
    * aidat odenmedi diye kaybetmek oyunun anlatacagi bir hikaye degil;
    * borcun buyumesi ise zaten kurulu bir kol.
    */
+  /**
+   * Varligi kiraya verir ya da kiradan cikarir.
+   *
+   * Arabanin kirasi olmaz. Kira gideri karsilar ve ustune verir -- ama
+   * bedeli var: kendi evin kiradaysa senin evin yoktur (moral duser),
+   * isletme isletmek is demektir (tukenmislik artar).
+   */
+  setRented(assetId: string, rented: boolean): void {
+    this.requireStarted();
+    const owned = this.state.assets.find((a) => a.id === assetId);
+    if (owned === undefined) throw new EngineStateError('Bu varlik senin degil.');
+
+    const def = this.registry.config.assets.find((a) => a.id === assetId);
+    if (rented && !canRent(def)) {
+      throw new EngineStateError(`${def?.label ?? assetId} kiraya verilemez.`);
+    }
+    owned.rented = rented;
+    this.notices.push(
+      rented ? `${def?.label ?? assetId} kiraya verildi.` : `${def?.label ?? assetId} kiradan cikarildi.`,
+    );
+  }
+
   private tickAssets(): void {
     if (this.state.assets.length === 0) return;
     const f = this.state.flags;
@@ -1892,7 +1943,40 @@ export class GameEngine {
       WalletLedger.record(this.state, -upkeep, 'varlik', 'Varlik giderleri');
     }
 
+    // KIRA GELIRI -- kiraya verilen mulk gideri karsilar ve ustune verir.
+    // Bedeli var: kendi evin kiradaysa senin evin yoktur (moral), isletme
+    // isletmek is demektir (tukenmislik).
+    const rent = rentIncome(this.state.assets, catalog);
+    if (rent > 0) {
+      f['servet'] = numberFlag(f, 'servet') + rent;
+      WalletLedger.record(this.state, rent, 'varlik', 'Kira geliri');
+
+      const rentedHomes = this.state.assets.filter((a) => {
+        const def = catalog.find((d) => d.id === a.id);
+        return a.rented === true && def?.kind === 'ev';
+      }).length;
+      const ownHomes = this.state.assets.filter((a) => {
+        const def = catalog.find((d) => d.id === a.id);
+        return a.rented !== true && def?.kind === 'ev';
+      }).length;
+      if (rentedHomes > 0 && ownHomes === 0) {
+        f['moral'] = clamp100(numberFlag(f, 'moral') - 0.4);
+      }
+
+      const businesses = this.state.assets.filter((a) => {
+        const def = catalog.find((d) => d.id === a.id);
+        return a.rented === true && def?.kind === 'isletme';
+      }).length;
+      if (businesses > 0) {
+        f['tukenmislik'] = clamp100(numberFlag(f, 'tukenmislik') + businesses * 0.3);
+      }
+    }
+
     driftValues(this.state.assets, catalog);
+    // ENFLASYON varlik degerine NOMINAL olarak islenir; `driftValues`
+    // REEL degisimi uyguladi. Anadolu'da bir araba nominal olarak deger
+    // kazanabilir ama reel olarak yine kaybeder.
+    inflateValues(this.state.assets, weeklyFactor(numberFlag(f, 'yillik_enflasyon')));
 
     // GOSTERIS: gorunur bir hayat markalari cezbeder, taraftari sogutur.
     // Sessiz bir arsa hicbirini yapmaz.
@@ -1912,7 +1996,13 @@ export class GameEngine {
       const steps = STATURES.length - 1;
       const fame = statureIndex(this.state.stature) / steps;
       // Alt lig cirak ~2.500, elit yildiz ~250.000 bandinda.
-      f['haftalik_gelir'] = Math.round(2_500 + clubRep * 120 * (0.4 + fame * 4));
+      // Turetilen maas endekse baglidir; SOZLESMELI maas degildir.
+      // Fark bilincli: imzaladigin sozlesme NOMINAL ve sabit kalir, yani
+      // yuksek enflasyonda bes yillik sozlesme her sezon daha az eder.
+      const idx = numberFlag(f, 'enflasyon_endeksi') || 100;
+      f['haftalik_gelir'] = Math.round(
+        (2_500 + clubRep * 120 * (0.4 + fame * 4)) * (idx / 100),
+      );
     }
     const wage = numberFlag(f, 'haftalik_gelir');
     f['servet'] = numberFlag(f, 'servet') + wage;

@@ -403,6 +403,158 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünel Sonu",
+          "kind": "branch",
+          "text": "Maç sonu. Çimlerin üzerinde ter ve çamur birbirine karışmış. {actor.referee.name} ağır adımlarla tünelin girişinde duruyor, elindeki not defterine bir şeyler karalıyor. Gözleri bir anlığına senin üzerinde geziniyor; ne bir suçluluk ne de bir zafer ifadesi var. Yüzünde sadece o soğuk, kurumsal boşluk. Tribünler boşalırken yankılanan tek ses, beton zemine vuran kramponların ritmi. Yanından geçerken omuz omuza veriyorsun. {actor.referee.name} durmuyor, sadece fısıltı gibi tek bir cümle dökülüyor dudaklarından: 'Bazen kazanmak için önce kendine yenilmen gerekir.'",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Görmezden gel, başını eğ ve soyunma odasına yönel.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Ceketinin iç cebindeki zarfı usulca onun ceketinin yan cebine bırak.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 10000
+              },
+              "lockLabel": "[Yeterli kaynak gerekli]"
+            },
+            {
+              "id": "c_riskli",
+              "text": "Yolunu kes, elindeki defteri çekip al ve çimlerin üzerine savur.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gittiğinde, arkanda bıraktığın o otorite silüeti kayboluyor. Profesyonelliğin seni koruyor ama içinin soğumadığı tek bir an bile yok.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_argued_ref"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Kirli Anlaşma",
+          "kind": "outcome",
+          "text": "Temas anlık. Dönüp arkana bakmıyorsun bile. Vicdanının ağırlığı, cüzdanındaki artışla dengelenmeye çalışıyor; ancak saha içindeki o boşluk artık kalıcı bir gölgeye dönüşüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ref_conflict"
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Defter kağıtları havada uçuşuyor. {actor.referee.name} şaşkınlıkla geri çekiliyor. Stat görevlileri koşmaya başladığında, yaptığının bedelinin sezon boyunca önüne çıkacağını biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ref_conflict"
+            }
+          ]
+        }
+      }
     }
   ]
 }

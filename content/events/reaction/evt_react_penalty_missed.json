@@ -742,6 +742,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İdari Ofis",
+          "kind": "branch",
+          "text": "Kulüp binasının en üst katındaki loş koridorda, kulüp başkanının odasının hemen dışındasın. Kapı hafifçe aralık; içeriden gelen fincan sesi kesiliyor. {actor.captain.name}, odadan çıkarken kapıyı senin yüzüne doğru yavaşça kapatıyor. Göz göze geliyorsunuz. Omuzları dik, elindeki deri dosya klasörünü göğsüne bastırmış. Koridorda sadece ikinizin nefes alışverişi ve uzaktan gelen temizlik görevlisinin paspas sesi duyuluyor. {actor.captain.name} yanından geçerken duraksıyor, hiçbir şey söylemiyor ama yüzündeki o yorgun ifade, penaltı noktasındaki boşluğun aynısı.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı elinden çekip al ve doğrudan odanın içine gir.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını önüne eğ, kenara çekil ve geçmesi için ona yol ver.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın anahtarları ona uzat, 'İçerideki pazarlığın bedeli bu' de.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Dosyayı çektiğinde içindeki belgeler yere saçılıyor. {actor.captain.name} bir anlık şaşkınlıkla duruyor ama sonra hiçbir şey demeden merdivenlere yöneliyor. Bu hareketin koridordaki güvenlik kameraları tarafından kaydedildiğini biliyorsun. Yarına kadar her şey bilinecek.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.captain.name} yanından geçerken omzu omzuna sürtüyor. Bir an durup fısıldıyor: 'Sadece kuralları takip et, yoksa oyun biter.' Koridorun sonundaki asansöre biniyor ve gözden kayboluyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Anahtarları avucuna bırakıyorsun. {actor.captain.name} avucunu kapatıyor, bir an bile gözlerini kaçırmıyor. Bu anahtarların neyi temsil ettiğini biliyor. Sessizliğin bedeli ödenmiş durumda.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

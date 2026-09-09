@@ -317,6 +317,158 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gri Ekranın Soğukluğu",
+          "kind": "branch",
+          "text": "Stadyumun dev ekranında aynı kare döngüye giriyor. {actor.referee.name} kenardaki monitörün başında, yüzünde belli belirsiz bir ter damlası. Tribünlerin tek bir nota inen uğultusu yerini derin bir sessizliğe bıraktı. Ekrandaki görüntüde temas var, belki milimetrik, belki hayali. {actor.referee.name} ekranın ışığıyla aydınlanan yüzünde kararını çoktan vermiş bir ifadeyle doğruluyor. O an, bir başkasının başarısının üzerine inşa edilmiş kariyerin, kendi hata payınla tartılıyor.",
+          "choices": [
+            {
+              "id": "c_kabul",
+              "text": "Başını öne eğ, gözlerini zemine sabitle. Sessiz kal.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_referee",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_itiraz",
+              "text": "Hakemin yanına git, ekrandaki görüntüye elinle işaret et, 'görmedin mi' diye bağır.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_kurnaz",
+              "text": "Avukatınla konuşulmuş gizli bir bonus maddesini hatırla, sonucu değiştirecek o küçük yalanı söyle.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 40
+              },
+              "lockLabel": "[Profesyonellik 40]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Düdük çaldı. {actor.referee.name} kararı verdi. Omuzların çöküyor ama disiplinin korunuyor. Bu bir futbol maçı, hayatın kendisi değil.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_var_for"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Tribünlerin Çığlığı",
+          "kind": "outcome",
+          "text": "Tribünler senin ismini haykırıyor. {actor.referee.name} kartına uzanıyor. Kırmızı, hayatının en pahalı kartı olabilir ama o an tribünlerdeki tek kahraman sensin.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_var_for"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Göz göze geliyorsunuz. {actor.referee.name} bakışlarını kaçırıyor. Maç devam ediyor, cüzdanın ağırlaşıyor ama içindeki o boşluk gitmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_var_for"
+            }
+          ]
+        }
+      }
     }
   ]
 }

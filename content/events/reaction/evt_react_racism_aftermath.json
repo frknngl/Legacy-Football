@@ -909,6 +909,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odada İtiraf",
+          "kind": "branch",
+          "text": "Antrenman tesisinin en kuytu köşesinde, duşların buharıyla ağırlaşmış havada sadece ikiniz varsınız. {actor.journalist.name} duvarın dibinde, kayıt cihazını bile çıkarmadan bekliyor. Gözlerindeki bakış, hazırladığı soruların çok ötesinde; bir insanın, başka bir insanın vicdanındaki ağırlığı ölçmeye çalışıyor. Su borularından gelen ritmik tıkırtı dışında odada çıt yok. Sessizlik, birikmiş yalanların çatlamasına neden oluyor.",
+          "choices": [
+            {
+              "id": "c_buyuk_para",
+              "text": "Çantandan çıkardığın kalın zarfı, tek bir kelime etmeden çöp kutusunun hemen yanına bırak.",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_taraftar_yolu",
+              "text": "Ona doğru bir adım at, kısık sesle tribünlerin o geceki uğultusunu taklit eder gibi mırıldan: 'Bunu yazarsan, şehrin yarısını yakarsın.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_profesyonel_yalan",
+              "text": "Gömleğinin düğmelerini düzelt, ciddiyetle gözlerinin içine bak: 'Her şey kulüp raporunda yazıldığı gibi. Başka bir şey yok.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_gercek_itiraf",
+              "text": "Tüm yorgunluğunla sırtını soğuk duvara yasla, başını öne eğip o gece yaşananları tane tane anlatmaya başla.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 12
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Satın Alınan Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} zarfı gördü. Uzun bir an sessiz kaldı, sonra yavaşça arkasını dönüp gitti. İçin boşalmış gibi hissetmiyorsun; aksine, cebin ağırlaşırken ruhun biraz daha yük taşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dated_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Ateşle Oynamak",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} gülümsedi. Bu bir zafer değil, bir tehdit alışverişiydi. Sokaktaki insanlar seni kahraman olarak görecek ama medya yavaş yavaş etrafındaki çemberi daraltacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İçten İçte Yanmak",
+          "kind": "outcome",
+          "text": "Cümlelerin o kadar kusursuzdu ki kendin bile inandın. {actor.journalist.name} not defterini kapattı ve çıktı. Sahaya döndüğünde herkes alkışlıyor ama sen aynaya bakarken yabancı birini görüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_public_apology",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Zorlu İtiraf",
+          "kind": "outcome",
+          "text": "Bütün ağırlık omuzlarından kalktı. {actor.journalist.name} her kelimeyi dikkatle not aldı. Yarın manşetler seni yakacak ama artık yalanın soğuk gölgesinde değil, gerçeğin sert güneşinde yürüyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

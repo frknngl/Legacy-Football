@@ -744,6 +744,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Yüzleşmesi",
+          "kind": "branch",
+          "text": "Evin kapısını araladığında, koridordaki ışık yanıyor. {actor.journalist.name}, koltuğunda oturmuş, elinde senin hakkında tuttuğu bir not defteri var. Ne bekçisi var ne de bir güvenlik. Sadece masada duran, dışarı sızması halinde kariyerini bitirecek o eski ses kayıt cihazı. {actor.journalist.name} bakışlarını sana dikiyor; içerideki hava nefes aldırmıyor. Sessizlik, bir kararın ağırlığıyla ağırlaşıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Cihazı al ve kenara bırak. Çekmecedeki zarfı işaret et: 'Bunu al ve bir daha beni görme.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Cihazı elinden al, hiçbir şey söylemeden masanın üzerindeki boş bardağın içine bırak ve suyu doldur. 'Yarın sabah açıklama yapacağım.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kayıt cihazını kapıp pencereye yürü. Bahçeye fırlat. 'İstediğini yaz, kimse senin yalanlarına inanmayacak.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} zarfı alıyor, gözlerinde bir hayal kırıklığıyla kapıya yöneliyor. Bu gece kariyerini satın aldın ama aynadaki aksin artık eskisi kadar net değil.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğukkanlılık",
+          "kind": "outcome",
+          "text": "Yarın yaşanacak fırtınayı biliyorsun. Sistemin adamı olmak, kendi doğrularından vazgeçmek pahasına geldi. Sessizlik, bir kalkan değil, sadece gecikmiş bir yargı.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Geri Dönüşü Yok",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} hiçbir şey demeden gidiyor. Yarın manşetlerde sadece senin ismin olacak. Bedelini sonra ödeyeceksin, ama bu gece kazanan sensin.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

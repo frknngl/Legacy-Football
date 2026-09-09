@@ -597,6 +597,199 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İkinci Bir Bakış",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki küçük monitörün başında duruyorsun. Maçın tekrar görüntüleri, {actor.opponent_keeper.name}’in o anki refleksini ağır çekimde donduruyor. Top, çizginin ardındaki beyazlığı sanki bir hayalet gibi geçip tekrar dışarı süzülüyor. {actor.opponent_keeper.name} yanına geliyor, elinde bir kahve kupasıyla ekrana bakıyor. İkiniz de aynı görüntüyü izliyorsunuz ama bambaşka şeyler görüyorsunuz. Sessizlik, sahadaki çim kokusundan daha ağır.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Ekrana bakıp gülümse. 'Kaderin adaleti bazen yavaştır,' de ve oradan uzaklaş.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kupaya vurup yere düşür. 'Herkesin senin o gün neler çevirdiğini bilmesini sağlayacağım' diye fısılda.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ekranı kapat. 'Bitti gitti, artık önümüzdeki maçlara bakalım,' diyerek oradan ayrıl.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Elini omzuna koy. 'Bileğini nasıl döndürdüğünü gördüm, o açıyı bir daha kimse yakalayamaz,' de.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_opponent_keeper",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "teknik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              },
+              "requires": {
+                "flag": "teknik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Teknik 55]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "O, kupayı yerden alırken gözleri bir anlığına seninkilerle buluşuyor. Söylemediği her şey, bu ortak günahın ağırlığıyla odaya yayılıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İlan Edilmemiş Savaş",
+          "kind": "outcome",
+          "text": "Arkanı dönüp giderken onun arkandan izlediğini biliyorsun. Artık bu sadece bir maç değil, sonu gelmeyecek bir takıntı.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Gerçeği Gömmek",
+          "kind": "outcome",
+          "text": "Ekran kararıyor. O, monitörün soğuk ışığında yalnız kalıyor; sen ise koridorun karanlığına karışıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Zanaatkarın Saygısı",
+          "kind": "outcome",
+          "text": "Kafasını hafifçe öne eğip selam veriyor. Bir an için aranızdaki rekabet, oyunun teknik kusursuzluğuna duyulan hayranlıkla dengeleniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        }
+      }
     }
   ]
 }

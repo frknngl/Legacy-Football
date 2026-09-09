@@ -42,6 +42,7 @@ import {
 } from './parseOrchestrator.js';
 import { parseGames } from './parseGames.js';
 import { parseAssets } from './parseAssets.js';
+import { parseInflation } from './parseInflation.js';
 
 export interface LoadIssue extends ParseIssue {
   readonly file: string;
@@ -70,6 +71,7 @@ const ORCHESTRATOR_FILES = {
   orphanBaseline: 'orchestrator/orphan-baseline.json',
   games: 'economy/games.json',
   assets: 'economy/assets.json',
+  inflation: 'economy/inflation.json',
 } as const;
 
 export class ContentLoader {
@@ -253,6 +255,7 @@ export class ContentLoader {
     // dusururdu ve mevcut testler (sentetik korpus) bu dosyayi tasimiyor.
     const games = parseGames(byPath.get(ORCHESTRATOR_FILES.games)?.data);
     const assets = parseAssets(byPath.get(ORCHESTRATOR_FILES.assets)?.data);
+    const inflation = parseInflation(byPath.get(ORCHESTRATOR_FILES.inflation)?.data);
 
     const config: OrchestratorConfig = {
       schemaVersion: 1,
@@ -272,6 +275,7 @@ export class ContentLoader {
       orphanBaseline,
       games,
       assets,
+      inflation,
     };
 
     const fatal =

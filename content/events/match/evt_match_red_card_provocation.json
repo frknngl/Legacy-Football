@@ -698,6 +698,202 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Düdüğün Gölgesi",
+          "kind": "branch",
+          "text": "Maçın bitiş düdüğü yankılanırken çimlere çöküyorsun. {actor.manager.name} yanına geliyor. Elini omzuna koymuyor, sadece yanına çöküyor. Kalabalığın uğultusu kesiliyor. {actor.manager.name} sana bakıyor; sadece oyuncusuna değil, bir yabancıya bakar gibi. 'Bugün sahada gördüğüm tek gerçek şey sendin,' diyor. Sesi titremiyor. Cebinden eski bir kağıt çıkarıp zemine bırakıyor. Bu, kariyerinin en ağır sessizliği.",
+          "choices": [
+            {
+              "id": "c_ayril",
+              "text": "Kağıdı yerden almadan doğrulu, soyunma odasına yönel.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Kağıdı al, {actor.manager.name} gözlerinin içine bakıp yırt.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kağıdı sessizce cebine koy, içeri girerken başını hafifçe salla.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -3
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Teklifin üzerindeki rakama bak, {actor.manager.name} başını onayla.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              },
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[İtibar 60]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gidiyorsun. Hiçbir şey vaat etmedin, hiçbir şey almadın. Sadece oradaydın.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_stood_up"
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Disiplin gerekçesiyle kadro dışı."
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Kağıt parçaları çimlere saçılıyor. {actor.manager.name} sadece bakıyor. Kendi yolunu çizdin.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_red_card"
+            },
+            {
+              "op": "match",
+              "incident": "inc_fought_opponent"
+            },
+            {
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Saha içi disiplinsizlik."
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Gizli Anlaşma",
+          "kind": "outcome",
+          "text": "Cebindeki ağırlık artık kafa karıştırıcı değil. Sadece bir başlangıç.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_scored_winner"
+            },
+            {
+              "op": "match",
+              "incident": "inc_injured_in_match"
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "İzinli."
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Ağır Yük",
+          "kind": "outcome",
+          "text": "Herkesin beklediği adam oldun. Bu, omuzlarındaki ağırlığın bedeli.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ref_conflict"
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Kondisyon korunması."
+            }
+          ]
+        }
+      }
     }
   ]
 }

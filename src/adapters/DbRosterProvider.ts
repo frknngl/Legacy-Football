@@ -86,6 +86,7 @@ interface ClubRow {
   competition_id: number | null;
   reputation: number;
   rival_club_id: number | null;
+  country_masked: string | null;
 }
 
 interface PlayerRow {
@@ -150,9 +151,11 @@ export class DbRosterProvider implements RosterProvider {
 
     const rows = opts.db
       .prepare(
-        `SELECT id, name_masked, short_masked, city, stadium, tier, competition_id, reputation,
-                rival_club_id
-         FROM club ORDER BY reputation DESC`,
+        `SELECT c.id, c.name_masked, c.short_masked, c.city, c.stadium, c.tier,
+                c.competition_id, c.reputation, c.rival_club_id,
+                n.name_masked AS country_masked
+         FROM club c LEFT JOIN country n ON n.id = c.country_id
+         ORDER BY c.reputation DESC`,
       )
       .all() as unknown as ClubRow[];
 
@@ -460,6 +463,10 @@ function toClubInfo(row: ClubRow): ClubInfo {
     // `mem_rakibe_transfer` hic yazilmiyor ve
     // `evt_transfer_rakibe_gecis_hesaplasma` hep olu goruluyordu.
     ...(row.rival_club_id === null ? {} : { rivalId: String(row.rival_club_id) }),
+    // Enflasyon ULKEYE baglidir; kulubun ulkesi motora ulasmali.
+    ...(row.country_masked === null || row.country_masked === undefined
+      ? {}
+      : { countryName: row.country_masked }),
     // Yabanci orani kadronun kendisinden turer; ayri bir alan tutmaya gerek yok.
     foreignRatio: 0,
   };

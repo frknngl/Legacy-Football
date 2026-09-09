@@ -36,6 +36,14 @@ export interface ClubInfo {
   readonly rivalId?: string;
   /** 0-100. Casting kalitesini ve transfer cekiciligini olcekler. */
   readonly reputation: number;
+  /**
+   * MASKELI ulke adi -- enflasyon ve milli takim buradan cozulur.
+   *
+   * Enflasyon ULKEYE baglidir ve oyundaki ulkeler arasinda 15 KAT fark
+   * var (Anadolu %27,5 / Gallia %1,8, 2015-2024 gercek verisi). Bu
+   * yuzden kulubun ulkesi motora ULASMALI.
+   */
+  readonly countryName?: string;
   /** 0-1. Kadroda yabanci isim orani -- kulup seviyesi isimlerden hissedilir. */
   readonly foreignRatio: number;
 }
