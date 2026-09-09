@@ -12,6 +12,7 @@ import type { AssetDefinition } from './assets.js';
 import type { InflationConfig } from './inflation.js';
 import type { Instrument } from './market.js';
 import type { PrivateLifeConfig } from './privateLife.js';
+import type { TreatmentConfig } from './injury.js';
 
 export interface EraDefinition {
   readonly id: Era;
@@ -169,6 +170,8 @@ export interface OrchestratorConfig {
   readonly markets: readonly Instrument[];
   /** Ozel hayat dengesi -- `content/social/private-life.json`. */
   readonly privateLife: PrivateLifeConfig;
+  /** Agir sakatlik tedavileri -- `content/health/treatments.json`. */
+  readonly treatments: TreatmentConfig;
   readonly cadence: CadenceConfig;
   readonly release: ReleaseConfig;
   /**

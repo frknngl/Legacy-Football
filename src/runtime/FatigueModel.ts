@@ -179,10 +179,44 @@ export function weeklyInjuryChance(risk: number): number {
  * Sakatligin agirligi -- risk yukseldikce daha uzun.
  * `roll` 0-1 arasi tohumlu bir cekilis.
  */
-export function injuryWeeks(risk: number, roll: number): number {
+export function injuryWeeks(risk: number, roll: number, severeRoll = 1): number {
+  // AGIR SAKATLIK KUYRUGU.
+  //
+  // OLCULEN SORUN: bu fonksiyon riskten TUREYEN bir sure veriyordu ve
+  // gercek oyunda `sakatlik_riski` medyani 6-15 arasinda kaliyor
+  // (`tukenmislik` medyani 0, p75 5 -- yorgunluk epizodik). O bantta
+  // formul yalnizca 1-3 hafta uretebiliyor: `Math.min(12, ...)` tavani
+  // hicbir zaman yaklasilmayan bir suslemeydi ve kariyeri tanimlayan
+  // sakatlik HIC olmuyordu.
+  //
+  // Gercek futbolda kuyruk yorgunluktan BAGIMSIZDIR: capraz bag en dinc
+  // haftanda da kopar. Bu yuzden ayri bir cekim -- riske bakmaz.
+  if (severeRoll < SEVERE_INJURY_CHANCE) {
+    // 10-30 hafta: sezonun kalani ya da daha fazlasi.
+    return Math.round(10 + roll * 20);
+  }
   const severity = 1 + Math.floor(roll * (2 + risk / 22));
   return Math.max(1, Math.min(12, severity));
 }
+
+/**
+ * Bir sakatligin AGIR olma olasiligi -- yorgunluktan bagimsiz.
+ *
+ * KALIBRASYON OLCULDU: `weeklyInjuryChance` 26 sezonluk bir kariyerde
+ * ~7,3 sakatlik uretiyor (risk medyani ~12). %6'da bu, kariyer basina
+ * 0,44 agir sakatlik demekti -- yani kariyerlerin yarisindan cogunda
+ * tedavi karari HIC sorulmuyordu ve modul suslemeye donuyordu.
+ *
+ * %12 ile kariyer basina ~0,88: cogu kariyerde bir kez, bazilarinda hic,
+ * nadiren iki kez. Kariyeri tanimlayan sakatlik boyle olmali -- garanti
+ * degil ama beklenebilir.
+ *
+ * NOT: asil dusuk olan sakatlik SIKLIGININ kendisi (sezonda 0,28;
+ * gercek futbolcu ortalamasi 1-2). O `weeklyInjuryChance` kalibrasyonu
+ * ayri bir denge karari ve kendi gerekcesi yazili; burada
+ * degistirilmedi.
+ */
+export const SEVERE_INJURY_CHANCE = 0.12;
 
 function round1(v: number): number {
   return Math.round(v * 10) / 10;

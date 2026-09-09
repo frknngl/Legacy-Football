@@ -798,6 +798,62 @@ async function privateLifeDesk(
   }
 }
 
+/**
+ * SAGLIK MASASI -- tedavi karari.
+ *
+ * Ekranda gorunmesi gereken sey sure degil TAKAS: ameliyat en uzun
+ * yoklugu getirir ama kirilganligi dusurur; gizlemek hic yokluk
+ * getirmez ve bir gun bacagini durdurur.
+ */
+async function healthDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<void> {
+  const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
+  const inj = engine.injuryState();
+  const options = engine.treatmentOptions();
+
+  console.log('');
+  console.log(c.bold('SAGLIK') + c.grey(`   kirilganlik ${Math.round(inj.fragility)}`));
+  if (inj.hidden === true) {
+    console.log(c.red('  Gizlenmis bir sakatlikla oynuyorsun. Her hafta bir ihtimal.'));
+  }
+
+  if (options.length === 0) {
+    console.log(c.grey('  Karar bekleyen bir sakatligin yok.'));
+    return;
+  }
+
+  console.log(c.yellow('  Doktor tedavi karari bekliyor.'));
+  options.forEach((o, i) => {
+    const dur = o.weeks === 0 ? c.red('yokluk YOK') : c.grey(`${o.weeks} hafta yoksun`);
+    const heal =
+      o.treatment.fragilityHeal !== undefined
+        ? c.green(`  kirilganlik -${o.treatment.fragilityHeal}`)
+        : c.red(`  kirilganlik +${o.treatment.fragility}`);
+    const cost = o.treatment.cost ? c.grey(`  ${money(o.treatment.cost)} TL`) : '';
+    if (o.available) {
+      console.log(`    ${c.bold(String(i + 1))}) ${o.treatment.label.padEnd(24)} ${dur}${heal}${cost}`);
+    } else {
+      console.log(c.grey(`    -  ${o.treatment.label.padEnd(24)} `) + c.red(o.reason ?? ''));
+    }
+    if (o.treatment.note) console.log(c.grey(`       ${o.treatment.note}`));
+  });
+
+  console.log(c.grey('  <enter> karari ertele (kulup doktoru karar verir) | <no> sec'));
+  const answer = (await ask('  > ')).trim();
+  if (answer === '') return;
+
+  try {
+    const pick = options[Number.parseInt(answer, 10) - 1];
+    if (pick === undefined) return;
+    engine.chooseTreatment(pick.treatment.id);
+    console.log(c.green(`    ${pick.treatment.label}.`));
+  } catch (error) {
+    console.log(c.red(`    ${(error as Error).message}`));
+  }
+}
+
 async function walletDesk(
   engine: GameEngine,
   ask: (q: string) => Promise<string>,
@@ -1252,7 +1308,7 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :arkadas | :ozel | :telefon | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :arkadas | :ozel | :saglik | :telefon | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
@@ -1276,6 +1332,11 @@ async function main(): Promise<void> {
 
     if (input === ':arkadas') {
       await favorDesk(engine, ask);
+      continue;
+    }
+
+    if (input === ':saglik') {
+      await healthDesk(engine, ask);
       continue;
     }
 

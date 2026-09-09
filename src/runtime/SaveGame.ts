@@ -93,6 +93,8 @@ export class SaveGame {
       usedThisWeek: {},
       highStrainWeeks: 0,
     };
+    state.injury ??= { fragility: 0 };
+    state.injury.fragility ??= 0;
     state.privateLife.usedThisWeek ??= {};
     state.privateLife.highStrainWeeks ??= 0;
     state.ratingHistory ??= [];

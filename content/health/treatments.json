@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "_note": "AGIR SAKATLIK TEDAVISI. Uc yol, uc ayri para birimi: ameliyat ZAMAN oder, konservatif ORTA yol, gizlemek RISK oder. Ameliyat en uzun yoklugu getirir -- bu kasitli; karsiliginda kirilganligi DUSURUR ve kariyerin geri kalanini korur. Gizlemenin cazibesi faturanin BUGUN gelmemesi; coktugunde iki katiyla geliyor.",
+  "seriousWeeks": 6,
+  "fragilityDecay": 0.25,
+  "treatments": [
+    {
+      "id": "ameliyat",
+      "label": "Ameliyat ol",
+      "weekMultiplier": 1.9,
+      "fragility": 3,
+      "fragilityHeal": 14,
+      "cost": 250000,
+      "trace": "mem_ameliyat_oldu",
+      "note": "Sezonu verirsin. Ama diz bir daha o diz olur; yillar sonra bunu bilen tek kisi sen olursun."
+    },
+    {
+      "id": "konservatif",
+      "label": "Ameliyatsiz tedavi",
+      "weekMultiplier": 1,
+      "fragility": 9,
+      "note": "Fizyoterapi, buz, sabir. Kulup doktorunun ilk onerisi ve cogu zaman yeterli."
+    },
+    {
+      "id": "gizle",
+      "label": "Kimseye soyleme, oyna",
+      "weekMultiplier": 0,
+      "fragility": 22,
+      "collapseChance": 0.14,
+      "weeklyToll": 4,
+      "trace": "mem_hid_injury",
+      "note": "Sozlesme bitiyor, turnuva var, yerini kaptirirsin. Bugun agrimiyor gibi yaparsan bugun sorun yok."
+    }
+  ]
+}

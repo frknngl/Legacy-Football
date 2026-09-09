@@ -96,6 +96,9 @@ const TRACKED = [
   // bilesenin sinirsiz birikmesidir.
   'medya_itibari',
   'sosyal_medya_takipci',
+  // Agir sakatlik karari: kirilganlik kariyere yayilan izdir ve
+  // olculmezse tedavi secimlerinin bir sonucu olup olmadigi bilinemez.
+  'sakatlik_kirilganligi',
 ] as const;
 
 interface Trajectory {

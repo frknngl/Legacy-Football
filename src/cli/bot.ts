@@ -32,6 +32,8 @@ export interface BotOutcome {
   transferred: boolean;
   /** Ezeli rakibe gecildi mi -- `mem_rakibe_transfer` bunu yaziyor. */
   toRival: boolean;
+  /** Secilen agir sakatlik tedavisi -- yoksa undefined. */
+  treatment?: string;
   loanTaken: boolean;
 }
 
@@ -150,6 +152,22 @@ export function botTurn(
           out.toRival = rival;
         }
       }
+    }
+  }
+
+  // --- AGIR SAKATLIK TEDAVISI
+  //
+  // Bot uc yolu da kullanmali, yoksa mekanik olculmez ve "kulup doktoru
+  // karar verdi" dalindan baska bir sey hic sinanmaz. Dagilim kasitli:
+  // cogunlukla konservatif (gercekci), ara sira ameliyat, nadiren gizle.
+  if (engine.pendingTreatment() !== undefined) {
+    const roll = rng.next();
+    const id = roll < 0.25 ? 'ameliyat' : roll < 0.85 ? 'konservatif' : 'gizle';
+    try {
+      engine.chooseTreatment(id);
+      out.treatment = id;
+    } catch {
+      // Parasi yetmediyse kulup doktoru karar versin.
     }
   }
 

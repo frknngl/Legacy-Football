@@ -13,6 +13,7 @@ import type { OwnedAsset } from './assets.js';
 import type { MarketState } from './market.js';
 import type { Favor } from './favor.js';
 import type { PrivateLifeState } from './privateLife.js';
+import type { InjuryState } from './injury.js';
 
 /** Kuyruga alinmis, vadesi gelince calisacak olay. */
 export interface ScheduledEvent {
@@ -239,6 +240,13 @@ export interface GameState {
    * degil: kurulu ve olculmus bir dongunun girisi.
    */
   privateLife: PrivateLifeState;
+  /**
+   * SAKATLIK -- kirilganlik ve bekleyen tedavi karari.
+   *
+   * `kirilganlik` gecmis tedavilerin kariyere yayilan izi: sakatlik
+   * riskine eklenir, saglikli haftalarda yavasca iyilesir.
+   */
+  injury: InjuryState;
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

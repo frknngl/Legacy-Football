@@ -148,6 +148,20 @@ import {
 } from '../domain/assets.js';
 import { forCountry, nextIndex, seasonRate, weeklyFactor } from '../domain/inflation.js';
 import {
+  collapseWeeks,
+  collapses,
+  defaultTreatment,
+  fragilityAfter,
+  fragilityRisk,
+  healFragility,
+  isSerious,
+  recoveryWeeks,
+  treatmentRejection,
+  type InjuryState,
+  type PendingTreatment,
+  type Treatment,
+} from '../domain/injury.js';
+import {
   BREAKUP_STRAIN,
   closenessGain,
   contactRejection,
@@ -550,6 +564,7 @@ export class GameEngine {
       favors: [],
       // Kariyer YALNIZ baslar. Kimse on yedi yasinda hayat arkadasiyla
       // gelmez; tanisma da hikayenin kendisi.
+      injury: { fragility: 0 },
       privateLife: {
         stage: 'tanisma',
         closeness: 40,
@@ -1014,6 +1029,7 @@ export class GameEngine {
     this.tickMarkets();
     this.tickFavors();
     this.tickPrivateLife();
+    this.tickInjury();
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
@@ -2693,6 +2709,160 @@ export class GameEngine {
     f['iliski_aile'] = familyScore(pl);
   }
 
+
+  // -------------------------------------------------------- AGIR SAKATLIK
+
+  /**
+   * Karar bekleyen agir sakatlik -- yoksa `undefined`.
+   *
+   * Host bunu gorurse tedavi masasini acar. Karar verilmezse bir hafta
+   * sonra kulup doktoru karar verir (`konservatif`): oyun kilitlenmez,
+   * ama kararsizligin da bir sonucu olur -- secmemek de bir secimdir.
+   */
+  pendingTreatment(): PendingTreatment | undefined {
+    this.requireStarted();
+    return this.state.injury.pending;
+  }
+
+  /** Sakatlik durumu -- kirilganlik ve gizlenmis sakatlik. */
+  injuryState(): InjuryState {
+    this.requireStarted();
+    return this.state.injury;
+  }
+
+  /** Su an secilebilecek tedaviler; parasi yetmeyen de SEBEBIYLE gelir. */
+  treatmentOptions(): readonly {
+    treatment: Treatment;
+    weeks: number;
+    available: boolean;
+    reason?: string;
+  }[] {
+    this.requireStarted();
+    const pending = this.state.injury.pending;
+    if (pending === undefined) return [];
+    const wealth = numberFlag(this.state.flags, 'servet');
+
+    return this.registry.config.treatments.treatments.map((treatment) => {
+      const reason = treatmentRejection(treatment, pending, wealth);
+      return {
+        treatment,
+        weeks: recoveryWeeks(treatment, pending.baseWeeks),
+        ...(reason === undefined ? { available: true } : { available: false, reason }),
+      };
+    });
+  }
+
+  /**
+   * Tedaviyi secer.
+   *
+   * Uc yol uc ayri para biriminden oder: ameliyat ZAMAN, konservatif
+   * ORTA yol, gizlemek RISK. Gizlemenin cazibesi faturanin BUGUN
+   * gelmemesi -- ve tam bu yuzden en tehlikelisi.
+   */
+  chooseTreatment(treatmentId: string): void {
+    this.requireStarted();
+    const pending = this.state.injury.pending;
+    const treatment = this.registry.config.treatments.treatments.find(
+      (t) => t.id === treatmentId,
+    );
+    const wealth = numberFlag(this.state.flags, 'servet');
+    const rejection = treatmentRejection(treatment, pending, wealth);
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    this.applyTreatment(treatment!, pending!);
+  }
+
+  private applyTreatment(treatment: Treatment, pending: PendingTreatment): void {
+    const f = this.state.flags;
+    const inj = this.state.injury;
+    inj.pending = undefined;
+
+    if (treatment.cost !== undefined && treatment.cost > 0) {
+      f['servet'] = numberFlag(f, 'servet') - treatment.cost;
+      WalletLedger.record(this.state, -treatment.cost, 'olay', `${treatment.label} (klinik)`);
+    }
+
+    inj.fragility = fragilityAfter(inj.fragility, treatment);
+    f['sakatlik_kirilganligi'] = inj.fragility;
+
+    if (treatment.trace !== undefined) {
+      f[treatment.trace] = true;
+      this.state.flagSetTurn[treatment.trace] = this.state.turn;
+    }
+
+    const weeks = recoveryWeeks(treatment, pending.baseWeeks);
+    if (weeks <= 0) {
+      // GIZLEME: sahada kalirsin. Gercek sure saklanir; coktugunde
+      // faturasi faiziyle gelir.
+      inj.hidden = true;
+      inj.hiddenWeeks = pending.baseWeeks;
+      f['is_injured'] = false;
+      f['injury_weeks'] = 0;
+      if (this.state.lifeState === 'injured') this.setLifeState('playing');
+      this.notices.push('Kimse bilmiyor. Bugun agrimiyor gibi yapiyorsun.');
+      return;
+    }
+
+    f['is_injured'] = true;
+    f['injury_weeks'] = weeks;
+    // Ameliyat KLINIK surecidir; konservatif tedavi kulupte yurur.
+    this.setLifeState(treatment.cost !== undefined ? 'rehab_clinic' : 'injured');
+    this.notices.push(`${treatment.label}: ${weeks} hafta yoksun.`);
+  }
+
+  /**
+   * Haftalik sakatlik tiki -- kirilganlik ve gizlenmis sakatlik.
+   *
+   * Kirilganlik saglikli haftalarda YAVASCA iyilesir. Sart: yalnizca
+   * tirmanan bir kirilganlik tek yonlu mandaldir ve her kariyer ayni
+   * kirilgan yerde biter -- ayni deseni bu projede dort kez duzeltmistik.
+   */
+  private tickInjury(): void {
+    const inj = this.state.injury;
+    const f = this.state.flags;
+    const config = this.registry.config.treatments;
+
+    // CEVAPSIZ KARAR: bir hafta sonra kulup doktoru karar verir.
+    if (inj.pending !== undefined && this.state.turn - inj.pending.askedTurn >= 1) {
+      const fallback = defaultTreatment(config);
+      if (fallback !== undefined) {
+        this.notices.push('Karar vermedin; kulup doktoru kendi yolunu secti.');
+        this.applyTreatment(fallback, inj.pending);
+      } else {
+        inj.pending = undefined;
+      }
+    }
+
+    // GIZLENMIS SAKATLIK: her hafta cokme ihtimali, ve her hafta bedeli.
+    if (inj.hidden === true) {
+      const hide = config.treatments.find((t) => t.weekMultiplier === 0);
+      const toll = hide?.weeklyToll ?? 0;
+      if (toll > 0) {
+        f['kondisyon'] = clamp100(numberFlag(f, 'kondisyon') - toll);
+        f['tukenmislik'] = clamp100(numberFlag(f, 'tukenmislik') + toll * 0.5);
+      }
+      const roll = this.rngSimulation.next();
+      this.syncRngStreams();
+      if (hide !== undefined && collapses(hide, roll)) {
+        const weeks = collapseWeeks(inj.hiddenWeeks ?? 4);
+        inj.hidden = false;
+        inj.hiddenWeeks = 0;
+        inj.fragility = Math.min(100, inj.fragility + 12);
+        f['sakatlik_kirilganligi'] = inj.fragility;
+        f['is_injured'] = true;
+        f['injury_weeks'] = weeks;
+        this.setLifeState('injured');
+        this.notices.push(`Bacagin durdu. ${weeks} hafta -- erteledigin fatura faiziyle geldi.`);
+      }
+      return;
+    }
+
+    if (f['is_injured'] !== true && inj.fragility > 0) {
+      inj.fragility = healFragility(inj.fragility, config);
+      f['sakatlik_kirilganligi'] = inj.fragility;
+    }
+  }
+
   private tickEconomy(): void {
     const f = this.state.flags;
 
@@ -2827,10 +2997,16 @@ export class GameEngine {
     }
 
     // Risk TURETILIR, birikmez -- dinlenince duser.
-    const risk = injuryRisk(
-      numberFlag(f, 'tukenmislik'),
-      numberFlag(f, 'kondisyon'),
-      this.state.age,
+    // KIRILGANLIK riske EKLENIR, carpmaz: carpim yuksek yorgunlukla
+    // birlesince riski aninda tavana yapistirir ve yorgunluk yonetimini
+    // anlamsizlastirirdi.
+    const risk = Math.min(
+      95,
+      injuryRisk(
+        numberFlag(f, 'tukenmislik'),
+        numberFlag(f, 'kondisyon'),
+        this.state.age,
+      ) + fragilityRisk(this.state.injury.fragility),
     );
     f['sakatlik_riski'] = risk;
 
@@ -2859,12 +3035,21 @@ export class GameEngine {
       return;
     }
 
-    const weeks = injuryWeeks(risk, this.rngSimulation.next());
+    // Ikinci cekim AGIR SAKATLIK kuyrugu icin -- riske bakmaz, cunku
+    // capraz bag en dinc haftanda da kopar.
+    const weeks = injuryWeeks(risk, this.rngSimulation.next(), this.rngSimulation.next());
     this.syncRngStreams();
     this.state.flags['injury_weeks'] = weeks;
     this.state.flags['is_injured'] = true;
     this.setLifeState('injured');
     this.notices.push(`Sakatlandin: ${weeks} hafta (yorgunluk riski ${risk})`);
+
+    // AGIR SAKATLIK KARAR ISTER. Hafif bir sakatlik icin "ameliyat mi
+    // olsam" diye sormak karari degersizlestirirdi; esik icerikte.
+    if (isSerious(weeks, this.registry.config.treatments)) {
+      this.state.injury.pending = { baseWeeks: weeks, askedTurn: this.state.turn };
+      this.notices.push('Doktor tedavi karari bekliyor.');
+    }
   }
 
   /**
