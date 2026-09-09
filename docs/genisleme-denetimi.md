@@ -164,6 +164,41 @@ hoca) kovulan aynı hafta geri geliyordu.
 Yeni bir mekanik değil: hoca kötü sezonda da gider, isyan yalnızca
 süreci hızlandırır. `mem_hoca_kovuldu` izi bırakılır.
 
+### Faz 5 — kumar ve bahis ✅ (9 Eylül 2026)
+
+`social` kategorisi kumarı **anlatıyordu** ama mekanik yoktu; sahneler
+`servet`e sabit bir sayı yazıyordu. *"Masaya oturdun ve 150.000
+kaybettin"* bir karar değil, bir cümledir. Karar **miktarı oyuncunun
+seçmesiyle** başlar — Faz 2'deki `ValueRef` ilkelinin varlık sebebi
+buydu, ilk gerçek müşterisi geldi.
+
+Oyun matematiği **içerikte** (`content/economy/games.json`): rulet, at
+yarışı, UFC, blackjack. Kasa avantajları gerçekçi — rulet %2,7 (gerçek
+hayattaki gibi), at yarışı %7-12. Test her seçenekte kasanın kazandığını
+doğruluyor; aksi hâlde ekonomi sonsuz para basar.
+
+Bıraktığı izler `mem_gambling_debt`'i besliyor — o iz **okunuyor ama hiç
+yazılmıyordu**.
+
+### Faz 6 — telefon modeli ✅ (9 Eylül 2026)
+
+**Görsel yok, model var.** Denetimdeki tavsiye buydu: motorun kurucu
+ilkesi UI-bağımsızlık, 3D telefon ise bir *render* problemi. Sıra tersine
+çevrilirse motorun içine görsel varsayımlar sızar.
+
+`domain/phone.ts` + `runtime/PhoneBuilder.ts` + `:telefon` masası.
+Model **türetilmiş**: akış maç reytinglerinden, bildirimler kredi/ceza
+durumundan, mesajlar aktörlerin `lastInteractionTurn` damgasından gelir.
+`GameState`e **yeni alan girmedi** — kayıt göçü yok ve besleme kariyerle
+kendiliğinden tutarlı.
+
+İki test bu ilkeyi koruyor: model JSON'a çevrilebiliyor (görsel varsayım
+yok) ve `phone()` çağırmak durumu değiştirmiyor (depolanmış olsaydı
+değiştirirdi).
+
+Ayrıca `sosyal_medya_takipci` canlandırıldı: artık şöhretin yansıması,
+kendiliğinden büyüyen bir sayaç değil (8.728 – 3.448.054 bandı).
+
 ### Sırada
 
 Faz 4 — isyan ve tepkisel senaryolar (yeni `WorldEvent` turu + `manager` slotunun yeniden dokumu). Agirlikli olarak YAZIM isi.
