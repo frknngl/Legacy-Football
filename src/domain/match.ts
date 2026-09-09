@@ -102,8 +102,23 @@ export type MomentType = (typeof MOMENT_TYPES)[number];
 export interface PendingMoment {
   readonly type: MomentType;
   readonly minute: number;
-  /** Ornek: "1-1". Metin enterpolasyonunda kullanilir. */
+  /**
+   * Geriye uyumlu skor alani.
+   *
+   * Eski icerikler `{scoreline}` kullandigi icin korunur; yeni iceriklerde
+   * gerekirse `scoreline_before / scoreline_after / scoreline_provisional`
+   * ayrimi tercih edilir.
+   */
   readonly scoreline: string;
+  /** Momentten hemen ONCEKI resmi skor. */
+  readonly scorelineBefore?: string;
+  /**
+   * Tartismali aksiyon sayilsaydi olusacak skor.
+   * Ornek: iptal edilen golde "skor bu olacakti" baglami.
+   */
+  readonly scorelineProvisional?: string;
+  /** Karar aninda gecerli resmi skor (VAR sonrasi vb.). */
+  readonly scorelineAfter?: string;
   readonly opponent: string;
   readonly importance: MatchImportance;
 }

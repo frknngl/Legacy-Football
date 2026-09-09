@@ -220,6 +220,9 @@ export const ReadOnlyFlagRule: ValidationRule = {
           ...(node.choices ?? []).flatMap((c, ci) =>
             c.effects.map((e, ei) => ({ e, p: `nodes.${id}.choices[${ci}].effects[${ei}]` })),
           ),
+          ...(node.outcomes ?? []).flatMap((o, oi) =>
+            (o.effects ?? []).map((e, ei) => ({ e, p: `nodes.${id}.outcomes[${oi}].effects[${ei}]` })),
+          ),
         ];
         for (const { e, p } of effects) {
           if (!isFlagEffect(e)) continue;
@@ -728,6 +731,9 @@ export const ValueRefRule: ValidationRule = {
           ...(node.choices ?? []).flatMap((c) =>
             c.effects.map((e) => ({ e, path: `nodes.${nodeId}.choices.${c.id}.effects` })),
           ),
+          ...(node.outcomes ?? []).flatMap((o, oi) =>
+            (o.effects ?? []).map((e, ei) => ({ e, path: `nodes.${nodeId}.outcomes[${oi}].effects[${ei}]` })),
+          ),
         ];
 
         for (const { e, path } of effects) {
@@ -887,6 +893,7 @@ export const ScheduleReachabilityRule: ValidationRule = {
           const effects = [
             ...(node.onEnter ?? []),
             ...(node.choices ?? []).flatMap((c) => c.effects),
+            ...(node.outcomes ?? []).flatMap((o) => o.effects ?? []),
           ];
           for (const effect of effects) {
             if (!isScheduleEffect(effect)) continue;

@@ -40,6 +40,8 @@ const IDLE_RESULT: MatchResultReport = {
  * sessizce rastgele secer. Ucu de yalnizca bu arayuzu doldurur.
  */
 export interface MatchUi {
+  /** Motorda oyuncuya gosterilen dugum. Olcum araclari bunu dinler. */
+  onPresented?(node: PresentedNode): void;
   /**
    * Bir mac ani sunuldu. Donen deger secilecek `choiceId`.
    * `undefined` donerse an atlanir (gecersiz girdi ya da kilitsiz secenek yok).
@@ -128,6 +130,8 @@ export async function runMatch(
   for (let guard = 0; guard < limit; guard += 1) {
     const node = engine.currentNode();
     if (!node || !node.isMoment) break;
+
+    ui.onPresented?.(node);
 
     const choiceId = await ui.chooseMoment(node);
     if (choiceId === undefined) break;
@@ -218,6 +222,7 @@ export async function runSimulatedMatch(
         closed = true;
         break;
       }
+      ui.onPresented?.(node);
       const choiceId = await ui.chooseMoment(node);
       const chosen = choiceId === undefined ? undefined : node.choices.find((c) => c.id === choiceId);
       if (!chosen || chosen.locked) {

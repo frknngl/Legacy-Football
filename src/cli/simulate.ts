@@ -20,9 +20,15 @@ import { FileSystemContentSource } from '../loading/FileSystemContentSource.js';
 import { GameEngine, type TurnReport } from '../runtime/GameEngine.js';
 import { EligibilityFilter, type RejectReason } from '../selection/EligibilityFilter.js';
 import { Rng } from '../selection/Rng.js';
+import {
+  OccurrenceCollector,
+  buildMetricsManifest,
+  seedSeries,
+  writeManifest,
+} from './narrativeMetrics.js';
 import { randomOpenChoice, runSimulatedMatch } from './runMatch.js';
 import { selectWorld } from './world.js';
-import { botTurn } from './bot.js';
+import { BOT_POLICY_VERSION, botTurn } from './bot.js';
 
 const NATIONAL_WEEKS = new Set([5, 11, 17, 26, 33]);
 
@@ -70,13 +76,11 @@ async function playCareer(
   sim.simulator.useChemistrySource((id) => engine.chemistryFor(id));
   const rng = new Rng(seed ^ 0x5bf03635);
   const filter = new EligibilityFilter();
+  const occurrences = new OccurrenceCollector();
 
-  const seen = new Set<string>();
-  const byCategory = new Map<string, number>();
   const rejections = new Map<string, Map<RejectReason, number>>();
   const everEligible = new Set<string>();
   let scenes = 0;
-  let firstRepeatTurn: number | undefined;
   let turns = 0;
   let lastSeason = 1;
   // Mac istatistikleri -- simulatorun uretimini olcer.
@@ -88,11 +92,8 @@ async function playCareer(
   const note = (report: TurnReport): void => {
     const p = report.presented;
     if (!p) return;
+    if (!occurrences.observe(p, report.turn).countedOccurrence) return;
     scenes += 1;
-    const key = p.variantId ? `${p.eventId}#${p.variantId}` : p.eventId;
-    if (seen.has(key) && firstRepeatTurn === undefined) firstRepeatTurn = report.turn;
-    seen.add(key);
-    byCategory.set(p.category, (byCategory.get(p.category) ?? 0) + 1);
   };
 
   // Bot kararlari motorun RNG'sinden AYRI bir akista: boylece bot
@@ -145,9 +146,14 @@ async function playCareer(
       flagSetTurn: state.flagSetTurn,
       seenEvents: state.seenEvents,
       seenVariants: state.seenVariants,
+      storyArcTurns: state.storyArcTurns,
+      storyBeatTurns: state.storyBeatTurns,
+      storyBeatCounts: state.storyBeatCounts,
+      storySignatureTurns: state.storySignatureTurns,
       cooldownState: {
         cooldowns: state.cooldowns,
         familyCooldowns: state.familyCooldowns,
+        categoryCooldowns: state.categoryCooldowns,
       },
     };
     for (const event of events) {
@@ -179,8 +185,11 @@ async function playCareer(
       engine,
       sim.simulator,
       {
+        onPresented: (node) => {
+          if (!occurrences.observe(node, turns).countedOccurrence) return;
+          scenes += 1;
+        },
         chooseMoment: (node) => randomOpenChoice(node, (max) => rng.int(max)),
-        onChoiceMade: note,
         onMatchStart: () => {
           matches += 1;
         },
@@ -203,8 +212,17 @@ async function playCareer(
   // Bir kez bile uygun olan olayin red kaydi anlamsizdir.
   for (const id of everEligible) rejections.delete(id);
 
+  const seen = occurrences.allSeenEventKeys();
+
   return {
-    seed, turns, scenes, distinct: seen.size, firstRepeatTurn, seen, byCategory, rejections,
+    seed,
+    turns,
+    scenes,
+    distinct: seen.size,
+    firstRepeatTurn: occurrences.firstRepeatTurn,
+    seen,
+    byCategory: new Map(occurrences.byCategory),
+    rejections,
     matches, goals, cards, momentsOffered,
   };
 }
@@ -233,6 +251,10 @@ async function main(): Promise<void> {
 
   const seeds = Number.parseInt(arg('seeds', '20'), 10);
   const maxTurns = Number.parseInt(arg('turns', '1040'), 10);
+  const seedBase = Number.parseInt(arg('seedBase', '1000'), 10);
+  const seedStep = Number.parseInt(arg('seedStep', '7919'), 10);
+  const dbPath = arg('world', '');
+  const manifestPath = arg('manifest', '');
   const archetypeArg = arg('archetype', 'street');
   const archetype = ((ARCHETYPES as readonly string[]).includes(archetypeArg)
     ? archetypeArg
@@ -241,9 +263,10 @@ async function main(): Promise<void> {
 
   console.log(`=== SIMULASYON | ${seeds} tohum x ${maxTurns} tur | ${archetype} ===\n`);
 
+  const seedList = seedSeries(seeds, seedBase, seedStep);
   const results: CareerResult[] = [];
-  for (let i = 0; i < seeds; i += 1) {
-    results.push(await playCareer(registry, 1000 + i * 7919, maxTurns, archetype, events));
+  for (const seed of seedList) {
+    results.push(await playCareer(registry, seed, maxTurns, archetype, events, dbPath));
   }
 
   const repeats = results.filter((r) => r.firstRepeatTurn !== undefined);
@@ -283,10 +306,10 @@ async function main(): Promise<void> {
 
   if (dead.length > 0) {
     console.log('\nOLU OLAYLAR -- hicbir kariyerde sahneye gelmedi');
-  console.log(
-    '  (match olaylari MEVKIYE kapilidir: forvet kariyerinde stoper ani, ' +
-      'stoper kariyerinde forvet ani cikmaz -- bu olu icerik degildir)',
-  );
+    console.log(
+      '  (match olaylari MEVKIYE kapilidir: forvet kariyerinde stoper ani, ' +
+        'stoper kariyerinde forvet ani cikmaz -- bu olu icerik degildir)',
+    );
     for (const e of dead) {
       const merged = new Map<RejectReason, number>();
       for (const r of results) {
@@ -330,6 +353,31 @@ async function main(): Promise<void> {
     if (process.argv.includes('--strict')) process.exitCode = 1;
   } else {
     console.log('Her olay en az bir kariyerde sahneye geldi.');
+  }
+
+  const manifest = buildMetricsManifest({
+    tool: 'simulate',
+    registry,
+    world: dbPath === '' ? 'mock' : dbPath,
+    archetype,
+    requestedSeeds: seeds,
+    requestedTurns: maxTurns,
+    seeds: seedList,
+    playedTurns: results.map((r) => r.turns),
+    botVersion: BOT_POLICY_VERSION,
+  });
+
+  if (manifestPath !== '') {
+    await writeManifest(manifest, manifestPath);
+    console.log('\nMANIFEST');
+    console.log(`  Yazildi                 : ${manifestPath}`);
+  } else {
+    console.log('\nMANIFEST');
+    console.log(`  Icerik hash             : ${manifest.contentHash}`);
+    console.log(`  Dunya                   : ${manifest.world}`);
+    console.log(`  Bot surumu              : ${manifest.botVersion}`);
+    console.log(`  Tohumlar                : ${manifest.seeds.join(', ')}`);
+    console.log(`  Oynanan turlar          : ${manifest.playedTurns.join(', ')}`);
   }
 }
 

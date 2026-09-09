@@ -20,6 +20,18 @@ import type { Rng } from './Rng.js';
 import { ScheduledEventQueue } from './ScheduledEventQueue.js';
 import { WeightedPicker } from './WeightedPicker.js';
 
+const SCHEDULED_WEIGHT_BONUS = 6;
+
+interface WeightedScheduledCandidate {
+  readonly event: StoryEvent;
+  readonly entry: ScheduledEvent;
+}
+
+interface ScheduledSelection {
+  readonly forced?: SelectionResult;
+  readonly weighted: readonly WeightedScheduledCandidate[];
+}
+
 export interface SelectionResult {
   readonly event: StoryEvent;
   readonly variantId?: string;
@@ -46,11 +58,24 @@ export class EventSelector {
   ) {}
 
   select(ctx: SelectionContext, rng: Rng): SelectionResult | undefined {
-    const scheduled = this.takeScheduled(ctx);
-    if (scheduled) return scheduled;
+    const scheduled = this.collectScheduled(ctx);
+    if (scheduled.forced) return scheduled.forced;
 
-    const pool = this.eligiblePool(ctx);
-    const chosen = this.picker.pick(pool, rng, {
+    const normal = this.selectablePool(this.eligiblePool(ctx), ctx);
+    const queued = scheduled.weighted
+      .filter((c) => this.selectablePool([c.event], ctx).length > 0);
+
+    const all = this.boostedPool(normal, queued);
+    if (all.length === 0) return undefined;
+
+    // Tekrari ertelemek icin once gorulmemis icerik havuzunda sec.
+    const unseen = this.boostedPool(
+      normal.filter((e) => this.hasUnseenContent(e, ctx)),
+      queued.filter((c) => this.hasUnseenContent(c.event, ctx)),
+    );
+    const source = unseen.length > 0 ? unseen : all;
+
+    const chosen = this.picker.pick(source, rng, {
       turn: ctx.turn,
       history: ctx.history,
       persona: ctx.persona,
@@ -58,7 +83,19 @@ export class EventSelector {
     });
     if (!chosen) return undefined;
 
-    return this.withVariant(chosen, ctx, rng, false);
+    const result = this.withVariant(chosen, ctx, rng, false);
+    if (!result) return undefined;
+
+    const scheduledBy = queued.find((c) => c.event.id === chosen.id)?.entry;
+    if (!scheduledBy) return result;
+
+    this.queue.resolve(
+      scheduledBy,
+      ctx.scheduledEvents,
+      this.scheduledEligibility(ctx),
+      { consume: true },
+    );
+    return { ...result, scheduledBy };
   }
 
   /**
@@ -88,32 +125,66 @@ export class EventSelector {
 
   /** Bir `PendingMoment` tipini karsilayan uygun olaylar. */
   forMoment(momentType: string, ctx: EligibilityContext, rng: Rng): SelectionResult | undefined {
-    const candidates = this.registry
+    const candidates = this.selectablePool(
+      this.registry
       .forMoment(momentType)
-      .filter((e) => this.filter.isEligible(e, ctx));
+      .filter((e) => this.filter.isEligible(e, ctx)),
+      ctx,
+    );
     if (candidates.length === 0) return undefined;
-    const chosen = rng.weighted(candidates, (e) => e.weight);
+
+    // Mac anlarinda da gorulmemis icerik tukenene kadar tekrar etme.
+    const unseen = candidates.filter((e) => this.hasUnseenContent(e, ctx));
+    const source = unseen.length > 0 ? unseen : candidates;
+
+    const chosen = rng.weighted(source, (e) => e.weight);
     if (!chosen) return undefined;
     return this.withVariant(chosen, ctx, rng, false);
   }
 
-  private takeScheduled(ctx: SelectionContext): SelectionResult | undefined {
+  private collectScheduled(ctx: SelectionContext): ScheduledSelection {
+    const weighted: WeightedScheduledCandidate[] = [];
+    const isRunnable = this.scheduledEligibility(ctx);
+
     for (const entry of this.queue.due(ctx.scheduledEvents, ctx.turn)) {
-      const outcome = this.queue.resolve(entry, ctx.scheduledEvents, (id) => {
-        const event = this.registry.get(id);
-        return event !== undefined && this.filter.isEligible(event, ctx);
-      });
-      if (outcome === 'defer' || outcome === 'drop') continue;
+      if (entry.priority === 'forced') {
+        const forced = this.queue.resolve(entry, ctx.scheduledEvents, isRunnable, { consume: true });
+        if (forced === 'defer' || forced === 'drop') continue;
 
-      const event = this.registry.get(outcome.eventId);
-      // Kuyruktaki olay icerikten silinmisse sessizce dus; validator zaten
-      // build zamaninda bunu hata olarak bildirir.
-      if (!event) continue;
+        const event = this.registry.get(forced.eventId);
+        // Kuyruktaki olay icerikten silinmisse sessizce dus; validator zaten
+        // build zamaninda bunu hata olarak bildirir.
+        if (!event) continue;
 
-      const result = this.withVariant(event, ctx, undefined, entry.priority === 'forced');
-      return { ...result, scheduledBy: entry };
+        const result = this.withVariant(event, ctx, undefined, true);
+        if (!result) continue;
+        return { forced: { ...result, scheduledBy: entry }, weighted };
+      }
+
+      const preview = this.queue.resolve(entry, ctx.scheduledEvents, isRunnable, { consume: false });
+      if (preview === 'defer' || preview === 'drop') {
+        // Defer/drop etkisini bu turde uygula; aday havuzuna girmez.
+        this.queue.resolve(entry, ctx.scheduledEvents, isRunnable, { consume: true });
+        continue;
+      }
+
+      const event = this.registry.get(preview.eventId);
+      if (!event) {
+        this.queue.resolve(entry, ctx.scheduledEvents, isRunnable, { consume: true });
+        continue;
+      }
+      weighted.push({ event, entry });
     }
-    return undefined;
+    return { weighted };
+  }
+
+  private scheduledEligibility(ctx: SelectionContext): (eventId: string) => boolean {
+    return (id: string): boolean => {
+      const event = this.registry.get(id);
+      if (!event) return false;
+      if (!this.filter.isEligible(event, ctx)) return false;
+      return this.selectablePool([event], ctx).length > 0;
+    };
   }
 
   /**
@@ -125,20 +196,22 @@ export class EventSelector {
     ctx: EligibilityContext,
     rng: Rng | undefined,
     forced: boolean,
-  ): SelectionResult {
+  ): SelectionResult | undefined {
     const variants = event.variants ?? [];
-    if (variants.length === 0) return { event, forced, fallback: false };
+    if (variants.length === 0) {
+      return { event, forced, fallback: ctx.seenEvents[event.id] !== undefined };
+    }
 
-    const unseen = this.filter.unseenVariants(event, ctx);
+    const allowed = this.filter.allowedVariants(event, ctx);
+    if (allowed.length === 0) return undefined;
+
+    const unseen = allowed.filter((id) => ctx.seenVariants[`${event.id}#${id}`] === undefined);
     if (unseen.length > 0) {
       const id = rng ? unseen[rng.int(unseen.length)]! : unseen[0]!;
       return { event, variantId: id, forced, fallback: false };
     }
 
     // Havuz tukendi: EN UZUN SUREDIR gorulmemis varyanta dusulur.
-    const allowed = this.filter.allowedVariants(event, ctx);
-    if (allowed.length === 0) return { event, forced, fallback: true };
-
     let oldestId = allowed[0]!;
     let oldestTurn = Number.POSITIVE_INFINITY;
     for (const id of allowed) {
@@ -149,5 +222,31 @@ export class EventSelector {
       }
     }
     return { event, variantId: oldestId, forced, fallback: true };
+  }
+
+  private selectablePool(events: readonly StoryEvent[], ctx: EligibilityContext): StoryEvent[] {
+    return events.filter((event) => {
+      const variants = event.variants ?? [];
+      return variants.length === 0 || this.filter.allowedVariants(event, ctx).length > 0;
+    });
+  }
+
+  private hasUnseenContent(event: StoryEvent, ctx: EligibilityContext): boolean {
+    const variants = event.variants ?? [];
+    if (variants.length === 0) return ctx.seenEvents[event.id] === undefined;
+    return this.filter.unseenVariants(event, ctx).length > 0;
+  }
+
+  private boostedPool(
+    normal: readonly StoryEvent[],
+    queued: readonly WeightedScheduledCandidate[],
+  ): StoryEvent[] {
+    const out = [...normal];
+    for (const candidate of queued) {
+      for (let i = 0; i < SCHEDULED_WEIGHT_BONUS; i += 1) {
+        out.push(candidate.event);
+      }
+    }
+    return out;
   }
 }

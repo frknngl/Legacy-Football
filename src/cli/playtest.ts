@@ -33,8 +33,17 @@ import { FileSystemContentSource } from '../loading/FileSystemContentSource.js';
 import { GameEngine, type TurnReport } from '../runtime/GameEngine.js';
 import { Rng } from '../selection/Rng.js';
 import { randomOpenChoice, runSimulatedMatch } from './runMatch.js';
+import {
+  averageCountStats,
+  countMapStats,
+  mergeCountMaps,
+  OccurrenceCollector,
+  buildMetricsManifest,
+  seedSeries,
+  writeManifest,
+} from './narrativeMetrics.js';
 import { selectWorld } from './world.js';
-import { botTurn } from './bot.js';
+import { BOT_POLICY_VERSION, botTurn } from './bot.js';
 
 function numberOf(value: unknown): number {
   return typeof value === 'number' ? value : 0;
@@ -176,11 +185,7 @@ async function measure(
   const lastSeen = new Map<string, number>();
   const lockedBy = new Map<string, number>();
   const scenesPerTurn = new Map<number, number>();
-  /** Son sayilan olay -- ayni olayin dugumleri tekrar sayilmasin. */
-  let lastEventKey: string | undefined;
-  const shownStory = new Map<string, number>();
-  const shownAmbient = new Map<string, number>();
-  let firstRepeatTurn: number | undefined;
+  const occurrences = new OccurrenceCollector(AMBIENT);
 
   let storyTurns = 0;
   let quietTurns = 0;
@@ -224,28 +229,17 @@ async function measure(
       // cikiyordu. "Sahneler patlamalar halinde geliyor" sonucu bu
       // sayim hatasinin eseriydi -- olcum aracinin kendi kusurunu
       // icerik kusuru diye raporlamasi.
-      const category = node.category ?? 'bilinmiyor';
-      const eventKey = node.variantId ? `${node.eventId}#${node.variantId}` : node.eventId;
+      const seen = occurrences.observe(node, turn);
 
-      // Tekrar sayimi: olay basina, dugum basina DEGIL. Ayni olayin
-      // branch ve outcome dugumleri tek sahnedir.
-      if (eventKey !== lastEventKey) {
-        const bucket = AMBIENT.has(category) ? shownAmbient : shownStory;
-        const before = bucket.get(eventKey) ?? 0;
-        bucket.set(eventKey, before + 1);
-        if (before === 1 && firstRepeatTurn === undefined) firstRepeatTurn = turn;
-      }
-
-      if (!AMBIENT.has(category) && eventKey !== lastEventKey) {
-        lastEventKey = eventKey;
+      if (!seen.ambient && seen.countedOccurrence) {
         sawStory = true;
-        const previous = lastSeen.get(category);
+        const previous = lastSeen.get(seen.category);
         if (previous !== undefined) {
-          const list = gaps.get(category) ?? [];
+          const list = gaps.get(seen.category) ?? [];
           list.push(turn - previous);
-          gaps.set(category, list);
+          gaps.set(seen.category, list);
         }
-        lastSeen.set(category, turn);
+        lastSeen.set(seen.category, turn);
         inThisTurn += 1;
       }
 
@@ -397,24 +391,21 @@ async function measure(
           engine,
           world.simulator,
           {
-          // MAC ANLARI da sayilir. Bunlar `drain()`den gecmez --
-          // `runSimulatedMatch` kendi ic dongusunde tuketir. Sayilmazsa
-          // sahne butcesinin %21'i olcumun disinda kalir ve tekrar
-          // raporu oldugundan iyi gorunur.
-          chooseMoment: (node) => {
-            const key = node.variantId ? `${node.eventId}#${node.variantId}` : node.eventId;
-            const before = shownAmbient.get(key) ?? 0;
-            shownAmbient.set(key, before + 1);
-            if (before === 1 && firstRepeatTurn === undefined) firstRepeatTurn = report.turn;
-            return randomOpenChoice(node, (max) => rng.int(max));
+            onPresented: (node) => {
+              occurrences.observe(node, report.turn);
+            },
+            // MAC ANLARI da sayilir. Bunlar `drain()`den gecmez --
+            // `runSimulatedMatch` kendi ic dongusunde tuketir. Sayilmazsa
+            // sahne butcesinin %21'i olcumun disinda kalir ve tekrar
+            // raporu oldugundan iyi gorunur.
+            chooseMoment: (_node) => randomOpenChoice(_node, (max) => rng.int(max)),
           },
-        },
           { season: engine.snapshot().season, week },
         );
-          // KADRO REKABETI olcumu: bu mac ilk 11'de mi baslandi.
+        // KADRO REKABETI olcumu: bu mac ilk 11'de mi baslandi.
         if (engine.snapshot().flags['is_starter'] === false) benched += 1;
         else started += 1;
-      world.recordHeroMatch();
+        world.recordHeroMatch();
         for (const competitionId of world.advanceWeek(week, engine.snapshot().clubId)) {
           engine.reportWorldEvent({ kind: 'trophy', competitionId });
         }
@@ -460,9 +451,9 @@ async function measure(
     started,
     benched,
     scenesPerTurn,
-    shownStory,
-    shownAmbient,
-    firstRepeatTurn,
+    shownStory: new Map(occurrences.shownStory),
+    shownAmbient: new Map(occurrences.shownAmbient),
+    firstRepeatTurn: occurrences.firstRepeatTurn,
     stoppedBy,
     ended: engine.snapshot().ending,
   };
@@ -532,6 +523,9 @@ async function main(): Promise<void> {
 
   const seeds = Number.parseInt(arg('seeds', '6'), 10);
   const maxTurns = Number.parseInt(arg('turns', '900'), 10);
+  const seedBase = Number.parseInt(arg('seedBase', '1000'), 10);
+  const seedStep = Number.parseInt(arg('seedStep', '37'), 10);
+  const manifestPath = arg('manifest', '');
   const archetype = arg('archetype', 'street') as Archetype;
   const dbPath = arg('world', '');
 
@@ -543,9 +537,10 @@ async function main(): Promise<void> {
 
   console.log(`=== PLAYTEST | ${seeds} tohum x ${maxTurns} tur | ${archetype} ===\n`);
 
+  const seedList = seedSeries(seeds, seedBase, seedStep);
   const runs: CareerMeasure[] = [];
-  for (let i = 0; i < seeds; i += 1) {
-    runs.push(await measure(loaded.registry, 1000 + i * 37, archetype, maxTurns, dbPath));
+  for (const seed of seedList) {
+    runs.push(await measure(loaded.registry, seed, archetype, maxTurns, dbPath));
   }
 
   // --- 1. RITIM
@@ -571,25 +566,29 @@ async function main(): Promise<void> {
   // Ambiyans ve hikaye AYRI: bir penalti aninin tekrar etmesi normaldir,
   // bir aile sahnesinin tekrar etmesi degildir. Tek bir ortalama bu iki
   // ayri gercegi tek sayida eritir ve yaniltir.
-  const merge = (pick: (r: CareerMeasure) => Map<string, number>) => {
-    const total = new Map<string, number>();
-    for (const r of runs) {
-      for (const [k, n] of pick(r)) total.set(k, (total.get(k) ?? 0) + n);
-    }
-    const shows = [...total.values()].reduce((s, v) => s + v, 0);
-    return { total, shows, unique: total.size, ratio: total.size === 0 ? 0 : shows / total.size };
-  };
-  const story = merge((r) => r.shownStory);
-  const ambient = merge((r) => r.shownAmbient);
+  const storyRuns = runs.map((r) => r.shownStory);
+  const ambientRuns = runs.map((r) => r.shownAmbient);
+  const story = averageCountStats(storyRuns);
+  const ambient = averageCountStats(ambientRuns);
+  const storyMerged = mergeCountMaps(storyRuns);
+  const ambientMerged = mergeCountMaps(ambientRuns);
+  const storyTotal = countMapStats(storyMerged);
+  const ambientTotal = countMapStats(ambientMerged);
 
   console.log('\nTEKRAR');
   console.log(
-    `  HIKAYE    : ${story.shows} gosterim / ${story.unique} benzersiz  ` +
+    `  HIKAYE (kariyer ort.)    : ${story.shows} gosterim / ${story.unique} benzersiz  ` +
       `-> ${story.ratio.toFixed(1)}x tekrar`,
   );
   console.log(
-    `  AMBIYANS  : ${ambient.shows} gosterim / ${ambient.unique} benzersiz  ` +
+    `  AMBIYANS (kariyer ort.)  : ${ambient.shows} gosterim / ${ambient.unique} benzersiz  ` +
       `-> ${ambient.ratio.toFixed(1)}x tekrar`,
+  );
+  console.log(
+    `  HIKAYE (tum kariyer)     : ${storyTotal.shows} gosterim / ${storyTotal.unique} benzersiz`,
+  );
+  console.log(
+    `  AMBIYANS (tum kariyer)   : ${ambientTotal.shows} gosterim / ${ambientTotal.unique} benzersiz`,
   );
   const repeats = runs
     .map((r) => r.firstRepeatTurn)
@@ -598,7 +597,7 @@ async function main(): Promise<void> {
     `  Ilk tekrarin turu (ort)  : ${repeats.length === 0 ? '-- (tekrar yok)' : avg(repeats)}`,
   );
 
-  const worst = [...story.total, ...ambient.total]
+  const worst = [...storyMerged, ...ambientMerged]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10);
   console.log('  EN COK TEKRAR EDEN 10 METIN:');
@@ -608,7 +607,7 @@ async function main(): Promise<void> {
 
   // Kategori bazinda tekrar -- nerede en kotu?
   const byCat = new Map<string, { shows: number; uniq: Set<string> }>();
-  for (const [key, n] of [...story.total, ...ambient.total]) {
+  for (const [key, n] of [...storyMerged, ...ambientMerged]) {
     const cat = key.split('_')[1] ?? '?';
     const cell = byCat.get(cat) ?? { shows: 0, uniq: new Set<string>() };
     cell.shows += n;
@@ -769,6 +768,31 @@ async function main(): Promise<void> {
   }
   for (const [k, n] of [...endings].sort((a, b) => b[1] - a[1])) {
     console.log(`  ${k.padEnd(34)} ${n}`);
+  }
+
+  const manifest = buildMetricsManifest({
+    tool: 'playtest',
+    registry: loaded.registry,
+    world: dbPath === '' ? 'mock' : dbPath,
+    archetype,
+    requestedSeeds: seeds,
+    requestedTurns: maxTurns,
+    seeds: seedList,
+    playedTurns: runs.map((r) => r.turns),
+    botVersion: BOT_POLICY_VERSION,
+  });
+
+  if (manifestPath !== '') {
+    await writeManifest(manifest, manifestPath);
+    console.log('\nMANIFEST');
+    console.log(`  Yazildi                 : ${manifestPath}`);
+  } else {
+    console.log('\nMANIFEST');
+    console.log(`  Icerik hash             : ${manifest.contentHash}`);
+    console.log(`  Dunya                   : ${manifest.world}`);
+    console.log(`  Bot surumu              : ${manifest.botVersion}`);
+    console.log(`  Tohumlar                : ${manifest.seeds.join(', ')}`);
+    console.log(`  Oynanan turlar          : ${manifest.playedTurns.join(', ')}`);
   }
 }
 

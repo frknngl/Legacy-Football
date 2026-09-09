@@ -51,7 +51,15 @@ import type {
 } from '../domain/match.js';
 import { emptyDelta } from '../domain/match.js';
 import type { GameState, SaveEnvelope } from '../domain/state.js';
-import { eventNodes, eventRoot, type Choice, type StoryEvent, type StoryNode } from '../domain/story.js';
+import {
+  eventNodes,
+  eventRoot,
+  eventStorySignature,
+  storyBeatKey,
+  type Choice,
+  type StoryEvent,
+  type StoryNode,
+} from '../domain/story.js';
 import { ConditionEvaluator } from '../evaluation/ConditionEvaluator.js';
 import { EffectApplier, type EffectSource } from '../evaluation/EffectApplier.js';
 import { NameForge } from '../evaluation/NameForge.js';
@@ -185,6 +193,7 @@ export interface PresentedChoice {
 }
 
 export interface PresentedNode {
+  readonly occurrenceId: string;
   readonly eventId: string;
   readonly variantId?: string;
   readonly nodeId: string;
@@ -215,6 +224,7 @@ export interface TurnReport {
 }
 
 interface ActiveEvent {
+  occurrenceId: string;
   event: StoryEvent;
   variantId: string | undefined;
   nodeId: string;
@@ -305,7 +315,9 @@ export type WorldEvent =
 
 export class GameEngine {
   private state!: GameState;
-  private rng!: Rng;
+  private rngSelection!: Rng;
+  private rngCasting!: Rng;
+  private rngSimulation!: Rng;
   private active: ActiveEvent | undefined;
   private momentQueue: BrokeredMoment[] = [];
   private matchDelta: MatchOutcomeDelta = emptyDelta();
@@ -479,6 +491,7 @@ export class GameEngine {
     PersonaAccumulator.sync(personaState, flags);
 
     const seed = this.options.seed ?? Math.floor(Math.random() * 2 ** 31);
+    const rngStreams = this.defaultRngStreams(seed);
 
     this.state = {
       flags,
@@ -513,9 +526,14 @@ export class GameEngine {
       cooldowns: {},
       familyCooldowns: {},
       categoryCooldowns: {},
+      storyArcTurns: {},
+      storyBeatTurns: {},
+      storyBeatCounts: {},
+      storySignatureTurns: {},
       scheduledEvents: [],
       consequenceLog: [],
       history: [],
+      nextOccurrenceId: 1,
       ratingHistory: [],
       // Kariyer MENAJERSIZ baslar. Kimse ilk sozlesmesini menajerle
       // imzalamaz; menajer bulmak ilk sezonun kendi hikayesi.
@@ -539,9 +557,10 @@ export class GameEngine {
       },
       rngSeed: seed,
       rngCursor: 0,
+      rngStreams,
     };
 
-    this.rng = new Rng(seed);
+    this.hydrateRngStreams();
     this.active = undefined;
     this.notices = [];
 
@@ -558,18 +577,18 @@ export class GameEngine {
       choice.clubId !== undefined && this.options.roster?.club(choice.clubId) !== undefined
         ? choice.clubId
         : this.pickStartingClub(def.startClubTier);
-    this.casting?.castInitial(this.state, this.castingContext(), this.rng);
+    this.casting?.castInitial(this.state, this.castingContext(), this.rngCasting);
 
     const arc = this.nemesis.arcFor(archetype);
     if (arc) {
       this.state.nemesis.arcId = arc.id;
       this.state.nemesis.slotRef = arc.slotRef;
       if (this.options.world) {
-        this.nemesis.placeInWorld(this.state, this.options.world, 'nobody', this.rng);
+        this.nemesis.placeInWorld(this.state, this.options.world, 'nobody', this.rngCasting);
       }
     }
     this.nemesis.sync(this.state);
-    this.state.rngCursor = this.rng.position;
+    this.syncRngStreams();
 
     return this.report();
   }
@@ -581,7 +600,7 @@ export class GameEngine {
     if (!roster) return '';
     const candidates = roster.clubs().filter((c) => c.tier === tier);
     const pool = candidates.length > 0 ? candidates : roster.clubs();
-    return pool[this.rng.int(pool.length)]?.id ?? '';
+    return pool[this.rngCasting.int(pool.length)]?.id ?? '';
   }
 
   private castingContext(opponentClubId?: string): CastingContext {
@@ -625,8 +644,8 @@ export class GameEngine {
       this.options.roster?.club(this.state.clubId)?.countryName,
     );
     const previous = numberFlag(f, 'yillik_enflasyon') || country.mean;
-    const rate = seasonRate(country, previous, this.rng.next());
-    this.state.rngCursor = this.rng.position;
+    const rate = seasonRate(country, previous, this.rngSimulation.next());
+    this.syncRngStreams();
 
     f['yillik_enflasyon'] = rate;
     f['enflasyon_endeksi'] = nextIndex(numberFlag(f, 'enflasyon_endeksi') || 100, rate);
@@ -645,8 +664,8 @@ export class GameEngine {
     this.archive.prune(this.state, this.registry.slots);
 
     if (this.options.world) {
-      const risen = this.nemesis.advanceSeason(this.state, this.options.world, this.rng);
-      this.state.rngCursor = this.rng.position;
+      const risen = this.nemesis.advanceSeason(this.state, this.options.world, this.rngSimulation);
+      this.syncRngStreams();
       if (risen) {
         const who = this.casting?.view(this.state, this.state.nemesis.slotRef)?.name;
         this.notices.push(`${who ?? 'Rakibin'} yukseliyor: ${risen}`);
@@ -805,8 +824,8 @@ export class GameEngine {
       // Tavan mevcut seviyenin ALTINA dusebildiginde `room` sifir kalir ve
       // oyuncu hic gelismez -- alt ligde yaslanan adam. Dagilimin yaklasik
       // besde biri buraya duser.
-      f['potansiyel'] = Math.min(99, Math.max(30, Math.round(base - 6 + this.rng.int(31))));
-      this.state.rngCursor = this.rng.position;
+      f['potansiyel'] = Math.min(99, Math.max(30, Math.round(base - 6 + this.rngSimulation.int(31))));
+      this.syncRngStreams();
     }
 
     const matches = numberFlag(f, 'sezon_mac_sayisi');
@@ -882,12 +901,12 @@ export class GameEngine {
     if (!roster || !this.casting) return;
 
     const pool = roster.clubs().filter((c) => c.tier === tier && c.id !== this.state.clubId);
-    const next = pool[this.rng.int(pool.length)];
-    this.state.rngCursor = this.rng.position;
+    const next = pool[this.rngCasting.int(pool.length)];
+    this.syncRngStreams();
     if (!next) return;
 
-    this.casting.transferTo(this.state, next.id, this.castingContext(), this.rng);
-    this.state.rngCursor = this.rng.position;
+    this.casting.transferTo(this.state, next.id, this.castingContext(), this.rngCasting);
+    this.syncRngStreams();
     this.notices.push(`Yeni kulup: ${next.name}`);
   }
 
@@ -1004,9 +1023,9 @@ export class GameEngine {
         persona: this.state.persona,
         scheduledEvents: this.state.scheduledEvents,
       },
-      this.rng,
+      this.rngSelection,
     );
-    this.state.rngCursor = this.rng.position;
+    this.syncRngStreams();
 
     if (selection) {
       if (selection.scheduledBy) {
@@ -1094,7 +1113,8 @@ export class GameEngine {
 
     // Rakip kadrodan mac slotlari dokulur; eski kulubunse arsiv sahneye doner.
     this.opponentClubId = this.resolveOpponentClub(context.opponentName);
-    this.casting?.castMatchSlots(this.state, this.castingContext(this.opponentClubId), this.rng);
+    this.casting?.castMatchSlots(this.state, this.castingContext(this.opponentClubId), this.rngCasting);
+    this.syncRngStreams();
     this.refreshCasting();
   }
 
@@ -1112,8 +1132,8 @@ export class GameEngine {
       );
     }
 
-    const result = this.broker.broker([moment], this.eligibilityContext(), this.rng);
-    this.state.rngCursor = this.rng.position;
+    const result = this.broker.broker([moment], this.eligibilityContext(), this.rngSelection);
+    this.syncRngStreams();
 
     const entry = result.queue[0];
     if (!entry) return undefined;
@@ -1163,8 +1183,8 @@ export class GameEngine {
   } {
     this.beginMatch(input.context);
 
-    const result = this.broker.broker(input.pendingMoments, this.eligibilityContext(), this.rng);
-    this.state.rngCursor = this.rng.position;
+    const result = this.broker.broker(input.pendingMoments, this.eligibilityContext(), this.rngSelection);
+    this.syncRngStreams();
     this.momentQueue = [...result.queue];
 
     this.nextMoment();
@@ -1411,7 +1431,8 @@ export class GameEngine {
     }
 
     const chance = negotiationChance(current.profile, current.state, proposed);
-    const accepted = this.rng.next() < chance;
+    const accepted = this.rngSimulation.next() < chance;
+    this.syncRngStreams();
 
     this.state.agent = accepted
       ? { ...current.state, commission: proposed }
@@ -1439,7 +1460,9 @@ export class GameEngine {
       current === undefined
         ? 0.06 * (ctx.windowOpen ? 3 : 1) * AGENTLESS_OFFER_FACTOR
         : offerChance(current.profile, current.state, ctx);
-    return this.rng.next() < chance;
+    const ok = this.rngSimulation.next() < chance;
+    this.syncRngStreams();
+    return ok;
   }
 
   /**
@@ -1558,16 +1581,51 @@ export class GameEngine {
   }
 
   save(): SaveEnvelope {
-    this.state.rngCursor = this.rng.position;
+    this.requireStarted();
+    // Acik karar zinciri kaydedilirse yuklemede secim dugumu kaybolur ama
+    // onEnter etkisi kalir; yarim durum geri donusuzdur. Bu yuzden kayit yalnizca
+    // stabil noktada (aktif olay yokken) alinabilir.
+    if (this.active || this.momentQueue.length > 0) {
+      throw new EngineStateError('Acik bir karar varken kayit alinamaz. Once sahneyi tamamlayin.');
+    }
+    this.syncRngStreams();
     return this.saves.save(this.state);
   }
 
   load(envelope: SaveEnvelope): void {
     this.state = this.saves.load(envelope);
-    this.rng = new Rng(this.state.rngSeed, this.state.rngCursor);
+    this.hydrateRngStreams();
     this.active = undefined;
     this.momentQueue = [];
     this.notices = [];
+  }
+
+  private defaultRngStreams(seed: number): GameState['rngStreams'] {
+    return {
+      selection: { seed: this.streamSeed(seed, 0x9e3779b9), cursor: 0 },
+      casting: { seed: this.streamSeed(seed, 0x7f4a7c15), cursor: 0 },
+      simulation: { seed: this.streamSeed(seed, 0x243f6a88), cursor: 0 },
+    };
+  }
+
+  private hydrateRngStreams(): void {
+    const streams = this.state.rngStreams;
+    this.rngSelection = new Rng(streams.selection.seed, streams.selection.cursor);
+    this.rngCasting = new Rng(streams.casting.seed, streams.casting.cursor);
+    this.rngSimulation = new Rng(streams.simulation.seed, streams.simulation.cursor);
+    this.syncRngStreams();
+  }
+
+  private syncRngStreams(): void {
+    this.state.rngStreams.selection.cursor = this.rngSelection.position;
+    this.state.rngStreams.casting.cursor = this.rngCasting.position;
+    this.state.rngStreams.simulation.cursor = this.rngSimulation.position;
+    // Geriye donuk uyum: legacy cursor secim akisina bagli kalir.
+    this.state.rngCursor = this.rngSelection.position;
+  }
+
+  private streamSeed(seed: number, salt: number): number {
+    return (seed ^ salt) >>> 0;
   }
 
   // ------------------------------------------------------------- ic isleyis
@@ -1787,11 +1845,11 @@ export class GameEngine {
 
     const chance = sackChance(pressure);
     if (chance <= 0) return;
-    if (this.rng.next() >= chance) {
-      this.state.rngCursor = this.rng.position;
+    if (this.rngSimulation.next() >= chance) {
+      this.syncRngStreams();
       return;
     }
-    this.state.rngCursor = this.rng.position;
+    this.syncRngStreams();
 
     // --- KOVULDU
     const outgoing = this.state.actors[this.state.casting['manager'] ?? '']?.name;
@@ -1799,9 +1857,9 @@ export class GameEngine {
       this.state,
       'manager',
       this.castingContext(),
-      this.rng,
+      this.rngCasting,
     );
-    this.state.rngCursor = this.rng.position;
+    this.syncRngStreams();
     if (!replaced) return;
 
     f['yonetim_baskisi'] = pressureAfterSack(pressure);
@@ -1855,8 +1913,8 @@ export class GameEngine {
     const rejection = betRejection(game, option, stake, wealth);
     if (rejection !== undefined) throw new EngineStateError(rejection);
 
-    const result = resolveBet(option!, Math.round(stake), this.rng.next());
-    this.state.rngCursor = this.rng.position;
+    const result = resolveBet(option!, Math.round(stake), this.rngSimulation.next());
+    this.syncRngStreams();
 
     const f = this.state.flags;
     f['servet'] = Math.max(0, wealth + result.delta);
@@ -2242,7 +2300,7 @@ export class GameEngine {
 
     const f = this.state.flags;
     const inflation = numberFlag(f, 'yillik_enflasyon');
-    const crash = rollCrash(this.rng.next());
+    const crash = rollCrash(this.rngSimulation.next());
     if (crash !== undefined) this.state.market.lastCrashTurn = this.state.turn;
 
     for (const def of catalog) {
@@ -2251,11 +2309,11 @@ export class GameEngine {
         def,
         current,
         inflation,
-        this.rng.next(),
+        this.rngSimulation.next(),
         crash,
       );
     }
-    this.state.rngCursor = this.rng.position;
+    this.syncRngStreams();
 
     if (this.state.market.holdings.length === 0) return;
 
@@ -2579,9 +2637,9 @@ export class GameEngine {
       turn: this.state.turn,
       lifeState: this.state.lifeState,
       mediaPressure: numberFlag(f, 'medya_baskisi'),
-      roll: this.rng.next(),
+      roll: this.rngSimulation.next(),
     });
-    this.state.rngCursor = this.rng.position;
+    this.syncRngStreams();
 
     pl.closeness = clamp100(pl.closeness + drift.closeness);
     pl.strain = clamp100(pl.strain + drift.strain);
@@ -2782,20 +2840,22 @@ export class GameEngine {
    * ve hicbir sey de okumuyordu. Artik hem yaziliyor hem sonuc doguruyor.
    *
    * AYRI RNG AKISI:
-   *   Motorun ana `this.rng` akisina dokunmuyoruz. Dokunsaydik her turda bir
-   *   cekilis daha yapilir ve mevcut tohumlarin urettigi butun kariyerler
-   *   kayardi -- 276 testin bir kismi determinizme dayaniyor. Bunun yerine
-   *   (tohum, tur) ikilisinden turetilmis yerel bir akis: yine deterministik,
-   *   ama mevcut dunyayi bozmuyor.
+   *   Yorgunluk cekilisi `simulation` akisinda yurur. Secim/casting
+   *   akislari bundan etkilenmez; bu da bir alt sistemin yeni rastgele
+   *   cekilisi eklendiginde diger alt sistemlerin kaderini kaydirmamasini
+   *   garanti eder.
    */
   private rollFatigueInjury(risk: number): void {
     if (this.state.lifeState !== 'playing' && this.state.lifeState !== 'loaned') return;
     if (this.state.flags['is_injured'] === true) return;
 
-    const stream = new Rng((this.state.rngSeed ^ 0x7f4a7c15 ^ (this.state.turn * 2654435761)) >>> 0);
-    if (stream.next() >= weeklyInjuryChance(risk)) return;
+    if (this.rngSimulation.next() >= weeklyInjuryChance(risk)) {
+      this.syncRngStreams();
+      return;
+    }
 
-    const weeks = injuryWeeks(risk, stream.next());
+    const weeks = injuryWeeks(risk, this.rngSimulation.next());
+    this.syncRngStreams();
     this.state.flags['injury_weeks'] = weeks;
     this.state.flags['is_injured'] = true;
     this.setLifeState('injured');
@@ -3009,6 +3069,10 @@ export class GameEngine {
       flagSetTurn: this.state.flagSetTurn,
       seenEvents: this.state.seenEvents,
       seenVariants: this.state.seenVariants,
+      storyArcTurns: this.state.storyArcTurns,
+      storyBeatTurns: this.state.storyBeatTurns,
+      storyBeatCounts: this.state.storyBeatCounts,
+      storySignatureTurns: this.state.storySignatureTurns,
       cooldownState: {
         cooldowns: this.state.cooldowns,
         familyCooldowns: this.state.familyCooldowns,
@@ -3039,10 +3103,13 @@ export class GameEngine {
     if (variantId !== undefined) {
       this.state.seenVariants[`${event.id}#${variantId}`] = this.state.turn;
     }
+    this.recordStoryMemory(event);
     this.consequences.record(event, this.state);
+    const occurrenceId = this.nextOccurrenceId();
 
     this.history.push(this.state.history, {
       turn: this.state.turn,
+      occurrenceId,
       eventId: event.id,
       family: event.family,
       category: event.category,
@@ -3052,6 +3119,7 @@ export class GameEngine {
     });
 
     this.active = {
+      occurrenceId,
       event,
       variantId,
       nodeId: rootId,
@@ -3086,8 +3154,8 @@ export class GameEngine {
       if (node.kind !== 'roll') return;
 
       // `roll` node'u oyuncuya SORULMAZ; motor stat agirlikli cozer ve devam eder.
-      const rolled = this.rolls.resolve(node, this.state.flags, this.rng);
-      this.state.rngCursor = this.rng.position;
+      const rolled = this.rolls.resolve(node, this.state.flags, this.rngSelection);
+      this.syncRngStreams();
       if (!rolled) {
         this.active = undefined;
         return;
@@ -3145,9 +3213,16 @@ export class GameEngine {
 
   /** Bir mac anina girer; metin yer tutucularini o anin baglamiyla doldurur. */
   private enterMoment(entry: BrokeredMoment): void {
+    const scorelineBefore = entry.moment.scorelineBefore ?? entry.moment.scoreline;
+    const scorelineAfter = entry.moment.scorelineAfter ?? entry.moment.scoreline;
+    const scorelineProvisional = entry.moment.scorelineProvisional ?? entry.moment.scoreline;
+
     // Moment metinlerinin {opponent}/{minute}/{scoreline} yer tutuculari icin.
     this.state.flags['inc_minute'] = entry.moment.minute;
     this.state.flags['inc_scoreline'] = entry.moment.scoreline;
+    this.state.flags['inc_scoreline_before'] = scorelineBefore;
+    this.state.flags['inc_scoreline_after'] = scorelineAfter;
+    this.state.flags['inc_scoreline_provisional'] = scorelineProvisional;
     this.state.flags['inc_opponent'] = entry.moment.opponent;
     this.enterEvent(entry.selection.event, entry.selection.variantId, true, entry.moment);
   }
@@ -3159,7 +3234,7 @@ export class GameEngine {
   private recordChoice(active: ActiveEvent, choiceId: string): void {
     active.lastChoiceId = choiceId;
     const last = this.state.history[this.state.history.length - 1];
-    if (last && last.eventId === active.event.id) {
+    if (last && last.occurrenceId === active.occurrenceId) {
       (last.choiceIds as string[]).push(choiceId);
     }
   }
@@ -3306,8 +3381,8 @@ export class GameEngine {
       this.state.flags['lifeState'] = state;
       this.notices.push(`Hayat durumu: ${state}`);
       // Hucre arkadasi ancak hapisteyken vardir; kapi kapaninca sahne de kapanir.
-      this.casting?.castStateSlots(this.state, this.castingContext(), this.rng);
-      this.state.rngCursor = this.rng.position;
+      this.casting?.castStateSlots(this.state, this.castingContext(), this.rngCasting);
+      this.syncRngStreams();
     }
     return ok;
   }
@@ -3410,7 +3485,10 @@ export class GameEngine {
       locals: {
         opponent: String(this.state.flags['inc_opponent'] ?? this.state.flags['opponent_name'] ?? ''),
         minute: Number(this.state.flags['inc_minute'] ?? 0),
-        scoreline: String(this.state.flags['inc_scoreline'] ?? ''),
+        scoreline: String(this.state.flags['inc_scoreline'] ?? this.state.flags['inc_scoreline_after'] ?? ''),
+        scoreline_before: String(this.state.flags['inc_scoreline_before'] ?? this.state.flags['inc_scoreline'] ?? ''),
+        scoreline_after: String(this.state.flags['inc_scoreline_after'] ?? this.state.flags['inc_scoreline'] ?? ''),
+        scoreline_provisional: String(this.state.flags['inc_scoreline_provisional'] ?? this.state.flags['inc_scoreline'] ?? ''),
       },
       ...this.identityContext(),
     };
@@ -3424,6 +3502,7 @@ export class GameEngine {
             .map(({ hidden: _hidden, ...rest }) => rest);
 
     return {
+      occurrenceId: active.occurrenceId,
       eventId: active.event.id,
       nodeId: node.id,
       title: this.interpolator.interpolate(node.title, interpolation),
@@ -3497,6 +3576,33 @@ export class GameEngine {
       ...(presented !== undefined ? { presented } : {}),
       ...(ending !== undefined ? { ending } : {}),
     };
+  }
+
+  private nextOccurrenceId(): string {
+    const current = this.state.nextOccurrenceId;
+    const id = `occ_${current}`;
+    this.state.nextOccurrenceId = current + 1;
+    return id;
+  }
+
+  private recordStoryMemory(event: StoryEvent): void {
+    const story = event.story;
+    if (!story) return;
+
+    if (story.arc !== undefined) {
+      this.state.storyArcTurns[story.arc] = this.state.turn;
+    }
+
+    const beatKey = storyBeatKey(story);
+    if (beatKey !== undefined) {
+      this.state.storyBeatTurns[beatKey] = this.state.turn;
+      this.state.storyBeatCounts[beatKey] = (this.state.storyBeatCounts[beatKey] ?? 0) + 1;
+    }
+
+    const signature = eventStorySignature(event);
+    if (signature !== undefined) {
+      this.state.storySignatureTurns[signature] = this.state.turn;
+    }
   }
 }
 

@@ -110,6 +110,12 @@
     "momentType": {
       "type": "string"
     },
+    "story": {
+      "$ref": "#/definitions/storyMeta"
+    },
+    "repeatPolicy": {
+      "$ref": "#/definitions/repeatPolicy"
+    },
     "once": {
       "type": "boolean"
     },
@@ -270,6 +276,58 @@
         },
         "dogruluk": {
           "type": "number"
+        }
+      }
+    },
+    "storyMeta": {
+      "type": "object",
+      "description": "Faz B anlati kimligi: defter imzasi ve arc/beat etiketleri.",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "arc": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "beat": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "slot": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "signature": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[a-z0-9_:-]+$"
+        }
+      }
+    },
+    "repeatPolicy": {
+      "type": "object",
+      "description": "Olay bazli tekrar freni: arc/beat/imza araligi ve beat kullanim siniri.",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "arcGapTurns": {
+          "type": "number",
+          "minimum": 0
+        },
+        "beatGapTurns": {
+          "type": "number",
+          "minimum": 0
+        },
+        "signatureGapTurns": {
+          "type": "number",
+          "minimum": 0
+        },
+        "maxBeatUses": {
+          "type": "integer",
+          "minimum": 1
         }
       }
     },

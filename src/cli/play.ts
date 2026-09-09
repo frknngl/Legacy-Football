@@ -49,6 +49,45 @@ const c = {
   grey: (s: string) => `\x1b[90m${s}\x1b[0m`,
 };
 
+function errorMessage(err: unknown): string {
+  if (err instanceof Error && err.message.trim().length > 0) return err.message;
+  return String(err);
+}
+
+function errnoCode(err: unknown): string | undefined {
+  if (typeof err !== 'object' || err === null) return undefined;
+  const code = (err as { code?: unknown }).code;
+  return typeof code === 'string' ? code : undefined;
+}
+
+function describeSaveError(err: unknown): string {
+  const message = errorMessage(err);
+  if (/Acik bir karar varken kayit alinamaz/.test(message)) return message;
+
+  const code = errnoCode(err);
+  if (code === 'EACCES' || code === 'EPERM') {
+    return `Kaydedilemedi: ${SAVE_PATH} icin yazma izni yok.`;
+  }
+  return `Kaydedilemedi: ${message}`;
+}
+
+function describeLoadError(err: unknown): string {
+  const code = errnoCode(err);
+  if (code === 'ENOENT') {
+    return `Kayit dosyasi bulunamadi: ${SAVE_PATH}`;
+  }
+  if (code === 'EACCES' || code === 'EPERM') {
+    return `Kayit acilamadi: ${SAVE_PATH} icin okuma izni yok.`;
+  }
+  if (err instanceof SyntaxError) {
+    return `Kayit bozuk: ${SAVE_PATH} JSON olarak okunamadi.`;
+  }
+
+  const message = errorMessage(err);
+  if (message.startsWith('Kayit ')) return message;
+  return `Yukleme basarisiz: ${message}`;
+}
+
 function wrap(text: string, width = 78): string {
   const out: string[] = [];
   for (const paragraph of text.split('\n')) {
@@ -1282,9 +1321,13 @@ async function main(): Promise<void> {
     }
 
     if (input === ':save') {
-      await mkdir('.saves', { recursive: true });
-      await writeFile(SAVE_PATH, JSON.stringify(engine.save(), null, 2), 'utf-8');
-      console.log(c.green(`Kaydedildi: ${SAVE_PATH}`));
+      try {
+        await mkdir('.saves', { recursive: true });
+        await writeFile(SAVE_PATH, JSON.stringify(engine.save(), null, 2), 'utf-8');
+        console.log(c.green(`Kaydedildi: ${SAVE_PATH}`));
+      } catch (err) {
+        console.log(c.red(describeSaveError(err)));
+      }
       continue;
     }
 
@@ -1292,8 +1335,9 @@ async function main(): Promise<void> {
       try {
         engine.load(JSON.parse(await readFile(SAVE_PATH, 'utf-8')));
         console.log(c.green('Yuklendi.'));
-      } catch {
-        console.log(c.red('Kayit bulunamadi.'));
+      } catch (err) {
+        console.log(c.red(describeLoadError(err)));
+        console.log(c.grey('Mevcut oyun durumu korunuyor.'));
       }
       continue;
     }

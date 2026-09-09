@@ -48,6 +48,7 @@ export interface ConsequenceTrace {
 /** Gecmis halka tamponundaki bir kayit. */
 export interface HistoryEntry {
   readonly turn: number;
+  readonly occurrenceId: string;
   readonly eventId: string;
   readonly variantId?: string;
   readonly family: string;
@@ -76,6 +77,17 @@ export interface NemesisState {
 }
 
 export type PersonaState = Record<PersonaAxis, number>;
+
+export interface RngStreamState {
+  seed: number;
+  cursor: number;
+}
+
+export interface RngStreamsState {
+  selection: RngStreamState;
+  casting: RngStreamState;
+  simulation: RngStreamState;
+}
 
 /**
  * Tum oyun durumu. SaveGame bunu serilestirir.
@@ -140,10 +152,20 @@ export interface GameState {
   familyCooldowns: Record<string, number>;
   /** category -> son gorulme turu. Ayni TONUN ust uste tekrarini engeller. */
   categoryCooldowns: Record<string, number>;
+  /** story.arc -> son gorulme turu. */
+  storyArcTurns: Record<string, number>;
+  /** "arc#beat" -> son gorulme turu. */
+  storyBeatTurns: Record<string, number>;
+  /** "arc#beat" -> kariyer boyunca kac kez oynandi. */
+  storyBeatCounts: Record<string, number>;
+  /** story.signature -> son gorulme turu. */
+  storySignatureTurns: Record<string, number>;
 
   scheduledEvents: ScheduledEvent[];
   consequenceLog: ConsequenceTrace[];
   history: HistoryEntry[];
+  /** Bir sonraki olay gorunum kimligi (`occ_1`, `occ_2`, ...). */
+  nextOccurrenceId: number;
 
   /** Son bes macin reytingi -- `form` bundan turetilir. */
   ratingHistory: number[];
@@ -151,6 +173,8 @@ export interface GameState {
   rngSeed: number;
   /** RNG kac kez cagrildi -- kaydet/yukle sonrasi determinizm icin. */
   rngCursor: number;
+  /** Faz B: birbirini etkilemeyen ayri RNG akisleri. */
+  rngStreams: RngStreamsState;
 
   /**
    * MENAJER -- su anki. Yoksa Hero menajersiz.
@@ -227,4 +251,4 @@ export interface SaveEnvelope {
   readonly state: GameState;
 }
 
-export const SAVE_SCHEMA_VERSION = 2;
+export const SAVE_SCHEMA_VERSION = 3;

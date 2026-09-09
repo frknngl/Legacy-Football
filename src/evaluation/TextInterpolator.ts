@@ -30,7 +30,14 @@ export const CLUB_FIELDS = ['name', 'city', 'stadium', 'rival'] as const;
 export const OPPONENT_FIELDS = ['name', 'city', 'stadium'] as const;
 export const MEMORY_FIELDS = ['actor', 'season', 'week', 'turn', 'seasonsAgo'] as const;
 /** Mac baglami -- host'un sundugu moment'ten gelir. */
-export const MATCH_LOCALS = ['opponent', 'minute', 'scoreline'] as const;
+export const MATCH_LOCALS = [
+  'opponent',
+  'minute',
+  'scoreline',
+  'scoreline_before',
+  'scoreline_after',
+  'scoreline_provisional',
+] as const;
 
 /** Bir slotu dolduran aktorun metne acilan yuzu. */
 export interface ActorView {

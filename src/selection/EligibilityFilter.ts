@@ -17,7 +17,7 @@
 
 import type { Archetype, ClubTier, Era, LifeState, MediaEra, Stature } from '../domain/axes.js';
 import type { FlagValue } from '../domain/flags.js';
-import type { StoryEvent } from '../domain/story.js';
+import { eventStorySignature, storyBeatKey, type StoryEvent } from '../domain/story.js';
 import { ConditionEvaluator } from '../evaluation/ConditionEvaluator.js';
 import { CooldownTracker, type CooldownState } from './CooldownTracker.js';
 
@@ -33,6 +33,10 @@ export interface EligibilityContext {
   readonly flagSetTurn: Readonly<Record<string, number>>;
   readonly seenEvents: Readonly<Record<string, number>>;
   readonly seenVariants: Readonly<Record<string, number>>;
+  readonly storyArcTurns: Readonly<Record<string, number>>;
+  readonly storyBeatTurns: Readonly<Record<string, number>>;
+  readonly storyBeatCounts: Readonly<Record<string, number>>;
+  readonly storySignatureTurns: Readonly<Record<string, number>>;
   readonly cooldownState: CooldownState;
 }
 
@@ -47,11 +51,19 @@ export type RejectReason =
   | 'cooldown_self'
   | 'cooldown_family'
   | 'cooldown_category'
+  | 'story_arc_gap'
+  | 'story_beat_gap'
+  | 'story_signature_gap'
+  | 'story_beat_cap'
   | 'once';
 
 function allows<T>(allowed: readonly T[] | undefined, actual: T): boolean {
   // Eksen belirtilmemisse olay TUM degerlere aciktir.
   return allowed === undefined || allowed.includes(actual);
+}
+
+function blockedByGap(lastSeenAt: number | undefined, currentTurn: number, gap: number): boolean {
+  return lastSeenAt !== undefined && currentTurn - lastSeenAt < gap;
 }
 
 export class EligibilityFilter {
@@ -78,6 +90,43 @@ export class EligibilityFilter {
     if (blocked === 'self') return 'cooldown_self';
     if (blocked === 'family') return 'cooldown_family';
     if (blocked === 'category') return 'cooldown_category';
+
+    const story = event.story;
+    const policy = event.repeatPolicy;
+    if (story !== undefined && policy !== undefined) {
+      if (
+        story.arc !== undefined &&
+        policy.arcGapTurns !== undefined &&
+        blockedByGap(ctx.storyArcTurns[story.arc], ctx.turn, policy.arcGapTurns)
+      ) {
+        return 'story_arc_gap';
+      }
+
+      const beatKey = storyBeatKey(story);
+      if (
+        beatKey !== undefined &&
+        policy.beatGapTurns !== undefined &&
+        blockedByGap(ctx.storyBeatTurns[beatKey], ctx.turn, policy.beatGapTurns)
+      ) {
+        return 'story_beat_gap';
+      }
+      if (
+        beatKey !== undefined &&
+        policy.maxBeatUses !== undefined &&
+        (ctx.storyBeatCounts[beatKey] ?? 0) >= policy.maxBeatUses
+      ) {
+        return 'story_beat_cap';
+      }
+
+      const signature = eventStorySignature(event);
+      if (
+        signature !== undefined &&
+        policy.signatureGapTurns !== undefined &&
+        blockedByGap(ctx.storySignatureTurns[signature], ctx.turn, policy.signatureGapTurns)
+      ) {
+        return 'story_signature_gap';
+      }
+    }
 
     if (
       !this.evaluator.evaluate(event.trigger, {

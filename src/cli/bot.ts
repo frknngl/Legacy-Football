@@ -35,6 +35,9 @@ export interface BotOutcome {
   loanTaken: boolean;
 }
 
+/** Bot davranis sozlesmesi -- olcum manifestinde kayda gecer. */
+export const BOT_POLICY_VERSION = 'bot-v2-shared-turn-policy';
+
 const NOTHING: BotOutcome = {
   agentSigned: false,
   agentQuit: false,

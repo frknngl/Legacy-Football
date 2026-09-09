@@ -34,7 +34,9 @@ import type {
   CooldownSpec,
   EventVariant,
   NodeKind,
+  RepeatPolicy,
   RollOutcome,
+  StoryMeta,
   StoryEvent,
   StoryNode,
   WeightExpression,
@@ -304,6 +306,66 @@ function parsePersona(
   return out;
 }
 
+function parseStoryMeta(v: unknown, ctx: ParseContext, path: string): StoryMeta | undefined {
+  if (v === undefined) return undefined;
+  if (!isObj(v)) {
+    ctx.error(path, 'story bir nesne olmali.');
+    return undefined;
+  }
+
+  const out: Record<string, unknown> = {};
+
+  for (const key of ['arc', 'beat', 'slot', 'signature'] as const) {
+    const raw = v[key];
+    if (raw === undefined) continue;
+    const value = str(raw);
+    if (value === undefined || value.trim().length === 0) {
+      ctx.error(`${path}.${key}`, 'Bos olmayan bir metin bekleniyordu.');
+      continue;
+    }
+    out[key] = value;
+  }
+
+  return Object.keys(out).length > 0 ? (out as StoryMeta) : undefined;
+}
+
+function parseRepeatPolicy(v: unknown, ctx: ParseContext, path: string): RepeatPolicy | undefined {
+  if (v === undefined) return undefined;
+  if (!isObj(v)) {
+    ctx.error(path, 'repeatPolicy bir nesne olmali.');
+    return undefined;
+  }
+
+  const out: Record<string, number> = {};
+
+  const gap = (key: 'arcGapTurns' | 'beatGapTurns' | 'signatureGapTurns'): void => {
+    const raw = v[key];
+    if (raw === undefined) return;
+    const value = num(raw);
+    if (value === undefined || value < 0) {
+      ctx.error(`${path}.${key}`, 'Sifir veya pozitif sayi bekleniyordu.');
+      return;
+    }
+    out[key] = value;
+  };
+
+  gap('arcGapTurns');
+  gap('beatGapTurns');
+  gap('signatureGapTurns');
+
+  const maxBeatUsesRaw = v['maxBeatUses'];
+  if (maxBeatUsesRaw !== undefined) {
+    const maxBeatUses = num(maxBeatUsesRaw);
+    if (maxBeatUses === undefined || maxBeatUses < 1 || !Number.isInteger(maxBeatUses)) {
+      ctx.error(`${path}.maxBeatUses`, '1 veya daha buyuk bir tamsayi bekleniyordu.');
+    } else {
+      out['maxBeatUses'] = maxBeatUses;
+    }
+  }
+
+  return Object.keys(out).length > 0 ? (out as RepeatPolicy) : undefined;
+}
+
 // ---------------------------------------------------------------- node/secim
 
 function parseWeightExpression(
@@ -531,6 +593,12 @@ export function parseEvent(v: unknown, ctx: ParseContext, sourceFile: string): S
 
   const momentType = str(v['momentType']);
   if (momentType !== undefined) out['momentType'] = momentType;
+
+  const story = parseStoryMeta(v['story'], ctx, 'story');
+  if (story !== undefined) out['story'] = story;
+
+  const repeatPolicy = parseRepeatPolicy(v['repeatPolicy'], ctx, 'repeatPolicy');
+  if (repeatPolicy !== undefined) out['repeatPolicy'] = repeatPolicy;
 
   // Tek varyant mi, cok varyant mi?
   const hasVariants = Array.isArray(v['variants']);

@@ -448,9 +448,43 @@ export class MatchSimulator implements MatchHost {
   scoreline(): string {
     const live = this.live;
     if (!live) return '0-0';
-    return live.heroSide === 'home'
-      ? `${live.homeGoals}-${live.awayGoals}`
-      : `${live.awayGoals}-${live.homeGoals}`;
+    return this.scorelineFor(live, 0, 0);
+  }
+
+  private scoreSnapshot(
+    type: MomentType,
+    live: LiveMatch,
+  ): { display: string; before: string; provisional: string; after: string } {
+    const before = this.scorelineFor(live, 0, 0);
+    const provisional = this.provisionalScoreline(type, live);
+    const after = before;
+    // Geriye uyumlu `scoreline`: mevcut metinler bunu dogrudan kullaniyor.
+    const display = type === 'celebration_choice' ? provisional : after;
+    return { display, before, provisional, after };
+  }
+
+  private provisionalScoreline(type: MomentType, live: LiveMatch): string {
+    switch (type) {
+      case 'var_review_against':
+      case 'offside_marginal':
+      case 'ghost_goal':
+      case 'celebration_choice':
+        return this.scorelineFor(live, 1, 0);
+      case 'var_review_for':
+        return this.scorelineFor(live, 0, 1);
+      default:
+        return this.scorelineFor(live, 0, 0);
+    }
+  }
+
+  private scorelineFor(
+    live: LiveMatch,
+    heroGoalsDelta: number,
+    opponentGoalsDelta: number,
+  ): string {
+    const own = (live.heroSide === 'home' ? live.homeGoals : live.awayGoals) + heroGoalsDelta;
+    const other = (live.heroSide === 'home' ? live.awayGoals : live.homeGoals) + opponentGoalsDelta;
+    return `${Math.max(0, own)}-${Math.max(0, other)}`;
   }
 
   currentFixture(): Fixture | undefined {
@@ -529,11 +563,15 @@ export class MatchSimulator implements MatchHost {
       if (biased !== undefined) chosen = biased;
     }
 
+    const score = this.scoreSnapshot(chosen, live);
     live.usedMoments.add(chosen);
     return {
       type: chosen,
       minute: event.minute,
-      scoreline: this.scoreline(),
+      scoreline: score.display,
+      scorelineBefore: score.before,
+      scorelineProvisional: score.provisional,
+      scorelineAfter: score.after,
       opponent: this.opponentName(live),
       importance: live.fixture.importance,
     };

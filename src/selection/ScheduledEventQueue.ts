@@ -70,19 +70,22 @@ export class ScheduledEventQueue {
     entry: ScheduledEvent,
     queue: ScheduledEvent[],
     isEligible: (eventId: string) => boolean,
+    options: { consume?: boolean } = {},
   ): DueResult | 'defer' | 'drop' {
+    const consume = options.consume ?? true;
+
     if (isEligible(entry.eventId)) {
-      this.remove(queue, entry);
+      if (consume) this.remove(queue, entry);
       return { eventId: entry.eventId, entry, bypassEligibility: false };
     }
 
     if (entry.onIneligible === 'fire') {
-      this.remove(queue, entry);
+      if (consume) this.remove(queue, entry);
       return { eventId: entry.eventId, entry, bypassEligibility: true };
     }
 
     if (entry.onIneligible === 'cancel') {
-      this.remove(queue, entry);
+      if (consume) this.remove(queue, entry);
       if (entry.replaceWith !== undefined) {
         return {
           eventId: entry.replaceWith,
@@ -97,13 +100,15 @@ export class ScheduledEventQueue {
     // defer
     const deferred = entry.deferredTurns + 1;
     if (deferred > entry.maxDeferTurns) {
-      this.remove(queue, entry);
+      if (consume) this.remove(queue, entry);
       if (entry.replaceWith !== undefined) {
         return { eventId: entry.replaceWith, entry, bypassEligibility: true };
       }
       return 'drop';
     }
-    this.replace(queue, entry, { ...entry, deferredTurns: deferred, dueTurn: entry.dueTurn + 1 });
+    if (consume) {
+      this.replace(queue, entry, { ...entry, deferredTurns: deferred, dueTurn: entry.dueTurn + 1 });
+    }
     return 'defer';
   }
 

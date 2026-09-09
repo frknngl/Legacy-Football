@@ -13,6 +13,12 @@ import type { FlagValue } from '../domain/flags.js';
 import type { MatchContext, MatchResultReport } from '../domain/match.js';
 
 const FORM_WINDOW = 5;
+const DEFAULT_TEAM_LEAGUE_POSITION = 10;
+const DEFAULT_UNBEATEN_STREAK = 0;
+const DEFAULT_SCORELESS_STREAK = 0;
+const DEFAULT_SEASON_GOALS = 0;
+const DEFAULT_SEASON_ASSISTS = 0;
+const DEFAULT_SEASON_APPS = 0;
 
 export class MatchContextGate {
   /** Mac oncesi: host'un sundugu baglami okunabilir flag'lere yazar. */
@@ -20,12 +26,12 @@ export class MatchContextGate {
     flags['opponent_name'] = ctx.opponentName;
     flags['match_importance'] = ctx.importance;
     flags['is_starter'] = ctx.isStarter;
-    if (ctx.teamLeaguePosition !== undefined) flags['team_league_position'] = ctx.teamLeaguePosition;
-    if (ctx.unbeatenStreak !== undefined) flags['unbeaten_streak'] = ctx.unbeatenStreak;
-    if (ctx.scorelessStreak !== undefined) flags['scoreless_streak'] = ctx.scorelessStreak;
-    if (ctx.seasonGoals !== undefined) flags['season_goals'] = ctx.seasonGoals;
-    if (ctx.seasonAssists !== undefined) flags['season_assists'] = ctx.seasonAssists;
-    if (ctx.seasonApps !== undefined) flags['season_apps'] = ctx.seasonApps;
+    flags['team_league_position'] = ctx.teamLeaguePosition ?? DEFAULT_TEAM_LEAGUE_POSITION;
+    flags['unbeaten_streak'] = ctx.unbeatenStreak ?? DEFAULT_UNBEATEN_STREAK;
+    flags['scoreless_streak'] = ctx.scorelessStreak ?? DEFAULT_SCORELESS_STREAK;
+    flags['season_goals'] = ctx.seasonGoals ?? DEFAULT_SEASON_GOALS;
+    flags['season_assists'] = ctx.seasonAssists ?? DEFAULT_SEASON_ASSISTS;
+    flags['season_apps'] = ctx.seasonApps ?? DEFAULT_SEASON_APPS;
   }
 
   /** Mac sonrasi: gercek sonucu yazar ve `form’u gunceller. */

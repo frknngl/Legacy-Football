@@ -41,7 +41,11 @@ export class MatchMomentBroker {
     const used = new Set<string>();
 
     for (const moment of moments) {
-      const selection = this.selector.forMoment(moment.type, ctx, rng);
+      const selection = this.selector.forMoment(
+        moment.type,
+        this.contextForMoment(ctx, moment),
+        rng,
+      );
       if (!selection || used.has(selection.event.id)) {
         dropped.push(moment);
         continue;
@@ -60,5 +64,26 @@ export class MatchMomentBroker {
     }
 
     return { queue, dropped };
+  }
+
+  private contextForMoment(
+    base: EligibilityContext,
+    moment: PendingMoment,
+  ): EligibilityContext {
+    const scorelineBefore = moment.scorelineBefore ?? moment.scoreline;
+    const scorelineAfter = moment.scorelineAfter ?? moment.scoreline;
+    const scorelineProvisional = moment.scorelineProvisional ?? moment.scoreline;
+    return {
+      ...base,
+      flags: {
+        ...base.flags,
+        inc_minute: moment.minute,
+        inc_scoreline: moment.scoreline,
+        inc_scoreline_before: scorelineBefore,
+        inc_scoreline_after: scorelineAfter,
+        inc_scoreline_provisional: scorelineProvisional,
+        inc_opponent: moment.opponent,
+      },
+    };
   }
 }

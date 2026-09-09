@@ -104,6 +104,30 @@ export interface CooldownSpec {
   readonly family: number;
 }
 
+/** Olayin anlati defteri kimligi. */
+export interface StoryMeta {
+  /** Uzun kol (ornegin transfer_agent_arc). */
+  readonly arc?: string;
+  /** Arc icindeki halka (ornegin teklif_1, teklif_2, kopus). */
+  readonly beat?: string;
+  /** Sahnenin oznel yuzu: hangi slotun etrafinda donuyor. */
+  readonly slot?: string;
+  /** Defter imzasi; verilirse anti-tekrar kapilari bunu okur. */
+  readonly signature?: string;
+}
+
+/** Olay bazli tekrar sozlesmesi. */
+export interface RepeatPolicy {
+  /** Ayni arc etiketinden bir olay en erken kac tur sonra gelebilir. */
+  readonly arcGapTurns?: number;
+  /** Ayni beat etiketi en erken kac tur sonra gelebilir. */
+  readonly beatGapTurns?: number;
+  /** Ayni imza en erken kac tur sonra gelebilir. */
+  readonly signatureGapTurns?: number;
+  /** Ayni beat etiketi bir kariyerde en fazla kac kez oynanir. */
+  readonly maxBeatUses?: number;
+}
+
 /**
  * Bir senaryo agaci.
  *
@@ -142,6 +166,11 @@ export interface StoryEvent {
   /** Bu olay hangi PendingMoment tipini karsiliyor (yalnizca match kategorisi). */
   readonly momentType?: string;
 
+  /** Faz B: olaylar arasi kalici anlati imzasi. */
+  readonly story?: StoryMeta;
+  /** Faz B: olay bazli tekrar freni. */
+  readonly repeatPolicy?: RepeatPolicy;
+
   /** Tek varyantli olaylar icin. */
   readonly rootNode?: string;
   readonly nodes?: Readonly<Record<string, StoryNode>>;
@@ -151,6 +180,17 @@ export interface StoryEvent {
   readonly lint?: LintWaiver;
   /** Hangi dosyadan geldi -- hata mesajlari icin. */
   readonly sourceFile?: string;
+}
+
+/** `arc` + `beat` ikilisini tek anahtarda birlestirir. */
+export function storyBeatKey(story: StoryMeta): string | undefined {
+  if (story.beat === undefined) return undefined;
+  return `${story.arc ?? '_'}#${story.beat}`;
+}
+
+/** Olayin repeat-policy imza anahtari. */
+export function eventStorySignature(event: StoryEvent): string | undefined {
+  return event.story?.signature;
 }
 
 function pickVariant(event: StoryEvent, variantId?: string): EventVariant | undefined {
