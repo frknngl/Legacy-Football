@@ -789,6 +789,16 @@ async function main(): Promise<void> {
   } else {
     console.log('\nMANIFEST');
     console.log(`  Icerik hash             : ${manifest.contentHash}`);
+    // KAYNAK KIMLIGI: icerik hash'i tek basina bir olcumu geri getirmiyor.
+    // Olculdu -- iki kosunun manifesti birebir ayniyken sonuclari
+    // farkliydi; fark koddaydi ve manifest onu yakalamiyordu.
+    console.log(`  Kaynak hash             : ${manifest.sourceHash}`);
+    if (manifest.commit !== undefined) {
+      console.log(
+        `  Commit                  : ${manifest.commit.slice(0, 12)}` +
+          (manifest.dirty === true ? '  (calisma agaci KIRLI -- commit tek basina yetmez)' : ''),
+      );
+    }
     console.log(`  Dunya                   : ${manifest.world}`);
     console.log(`  Bot surumu              : ${manifest.botVersion}`);
     console.log(`  Tohumlar                : ${manifest.seeds.join(', ')}`);

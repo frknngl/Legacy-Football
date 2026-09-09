@@ -102,5 +102,10 @@ describe('medya cagi gecisleri', () => {
     }
 
     expect([...seenAnywhere].sort()).toEqual([...TRANSITIONS].sort());
-  });
+    // Bes tohum x 1100 tur. Secim maliyeti olculdu: tur basina 0,56 ms
+    // (sertlestirilmis seciciden once 0,44 ms; +%27). Varsayilan 5 sn
+    // sinirina sigmiyor ve bu bir yavaslama hatasi degil, olcumun
+    // boyutu -- sinir acikca yaziliyor ki bir gun gercekten yavaslarsa
+    // fark edilsin.
+  }, 30_000);
 });

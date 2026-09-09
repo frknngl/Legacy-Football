@@ -6,6 +6,8 @@
  */
 
 import { createHash } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
+import { readFileSync, readdirSync, type Dirent } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import type { Archetype } from '../domain/axes.js';
@@ -169,6 +171,24 @@ export interface MetricsManifest {
   readonly seeds: readonly number[];
   readonly playedTurns: readonly number[];
   readonly contentHash: string;
+  /**
+   * KAYNAK KIMLIGI -- olcumun kod tarafi.
+   *
+   * NEDEN VAR: manifest icerigi sabitliyordu ama KODU sabitlemiyordu.
+   * Olculdu -- `phase-b-rhythm3` ve `phase-b-rhythm5` manifestleri zaman
+   * damgasi disinda BIREBIR aynidir (ayni icerik hash'i, ayni tohumlar,
+   * ayni dunya, ayni surum etiketi) ama ambiyans tekrarlari 12,5x ve
+   * 8,8x cikmistir. Kosular belirlenimcidir (iki kez dogrulandi), yani
+   * fark yalnizca kodda olabilir -- ve manifest onu yakalamadigi icin
+   * hangi ayarin kazandigi GERI GETIRILEMEZ oldu.
+   *
+   * `engineVersion` yetmiyor: o `package.json` surumu ve kod
+   * degistiginde degismiyor.
+   */
+  readonly sourceHash: string;
+  /** Varsa git commit'i ve calisma agacinin temiz olup olmadigi. */
+  readonly commit?: string;
+  readonly dirty?: boolean;
 }
 
 export interface BuildManifestInput {
@@ -197,7 +217,70 @@ export function buildMetricsManifest(input: BuildManifestInput): MetricsManifest
     seeds: [...input.seeds],
     playedTurns: [...input.playedTurns],
     contentHash: contentHash(input.registry),
+    sourceHash: sourceHash(),
+    ...gitIdentity(),
   };
+}
+
+/**
+ * `src/` agacinin icerik hash'i.
+ *
+ * Bir olcumu tekrar uretmek icin gereken ikinci yari. Dosya adlari ve
+ * icerikleri sirali olarak hash'lenir; okunamayan dosya sessizce
+ * atlanmaz, adi hash'e girer -- aksi halde silinen bir dosya farki
+ * gizlerdi.
+ */
+export function sourceHash(root = 'src'): string {
+  const hash = createHash('sha256');
+  for (const file of walkFiles(root)) {
+    hash.update(file);
+    hash.update('\0');
+    try {
+      hash.update(readFileSync(file));
+    } catch {
+      hash.update('<okunamadi>');
+    }
+    hash.update('\0');
+  }
+  return hash.digest('hex');
+}
+
+function walkFiles(dir: string): string[] {
+  const out: string[] = [];
+  let entries: Dirent[];
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return out;
+  }
+  for (const entry of [...entries].sort((a, b) => a.name.localeCompare(b.name))) {
+    const full = `${dir}/${entry.name}`;
+    if (entry.isDirectory()) out.push(...walkFiles(full));
+    else if (entry.isFile()) out.push(full);
+  }
+  return out;
+}
+
+/**
+ * Git commit'i ve calisma agacinin temizligi.
+ *
+ * `dirty: true` ise commit tek basina olcumu geri getirmez -- rapor
+ * bunu SOYLEMELI, yoksa yanlis bir guven verir.
+ */
+function gitIdentity(): { commit?: string; dirty?: boolean } {
+  try {
+    const commit = execFileSync('git', ['rev-parse', 'HEAD'], {
+      encoding: 'utf-8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    const status = execFileSync('git', ['status', '--porcelain'], {
+      encoding: 'utf-8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    return { commit, dirty: status.length > 0 };
+  } catch {
+    return {};
+  }
 }
 
 export function seedSeries(count: number, base: number, step: number): number[] {
