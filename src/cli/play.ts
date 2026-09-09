@@ -344,6 +344,45 @@ async function agentTurn(
  * Miktari OYUNCU secer -- kumarin bir karar olmasinin tek sebebi bu.
  * Eskiden `social` sahneleri `servet`e sabit bir sayi yaziyordu.
  */
+/**
+ * TELEFON.
+ *
+ * Bu masa modelin TERMINAL render'idir. Ayni `engine.phone()` ciktisini
+ * bir web arayuzu kart olarak, 3D bir sahne ekrana doku olarak
+ * cizebilir -- motor hicbirini bilmez.
+ */
+function phoneDesk(engine: GameEngine): void {
+  const p = engine.phone();
+  const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
+
+  console.log('');
+  console.log(c.bold('TELEFON') + c.grey(`   ${money(p.followers)} takipci`) +
+    (p.unread > 0 ? c.red(`   ${p.unread} yeni`) : ''));
+
+  for (const n of p.notifications) {
+    console.log(n.urgent ? c.red(`  ! ${n.text}`) : c.yellow(`  · ${n.text}`));
+  }
+
+  if (p.feed.length > 0) {
+    console.log('');
+    console.log(c.grey('  AKIS'));
+    for (const item of p.feed.slice(0, 6)) {
+      const tone = item.tone === 'olumlu' ? c.green('+') : item.tone === 'olumsuz' ? c.red('-') : c.grey('·');
+      console.log(`    ${tone} ${c.grey(`[${item.source}]`)} ${item.text}`);
+    }
+  }
+
+  if (p.threads.length > 0) {
+    console.log('');
+    console.log(c.grey('  MESAJLAR'));
+    for (const t of p.threads.slice(0, 6)) {
+      const mark = t.unread ? c.red('*') : ' ';
+      const quiet = t.silentTurns >= 12 ? c.grey(`  (${t.silentTurns} hafta sessiz)`) : '';
+      console.log(`   ${mark} ${t.name.padEnd(22)} ${c.grey(t.preview)}${quiet}`);
+    }
+  }
+}
+
 async function casinoDesk(
   engine: GameEngine,
   ask: (q: string) => Promise<string>,
@@ -816,12 +855,17 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :telefon | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
 
     if (input === ':q') break;
+
+    if (input === ':telefon') {
+      phoneDesk(engine);
+      continue;
+    }
 
     if (input === ':kumar') {
       await casinoDesk(engine, ask);

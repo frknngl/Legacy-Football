@@ -115,6 +115,8 @@ import { pressureAfterSack, sackChance, sackPressure } from './ManagerTenure.js'
 import { sponsorDrift, sponsorIncome, sponsorTarget } from '../domain/sponsor.js';
 import { pressureDecay, reputationDrift, reputationTarget } from '../domain/media.js';
 import { betRejection, resolveBet, type BetResult, type GameDefinition } from '../domain/gambling.js';
+import { followerDrift, followerTarget, type PhoneModel } from '../domain/phone.js';
+import { PhoneBuilder } from './PhoneBuilder.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -1782,6 +1784,26 @@ export class GameEngine {
     return result;
   }
 
+
+  /**
+   * TELEFON MODELI -- gorselden BAGIMSIZ veri.
+   *
+   * Terminal onu liste olarak basar, bir web arayuzu kart olarak cizer,
+   * 3D bir sahne ekrana doku olarak yansitir. Ucu de AYNI modeli okur ve
+   * motor hicbirini bilmez.
+   *
+   * Model TURETILMIS: kariyerin zaten urettigi veriden hesaplanir, yeni
+   * durum alani yok. Ayrica beslenen bir kutu olsaydi gunun birinde
+   * gercekle celisirdi ve kayit gocu gerektirirdi.
+   */
+  phone(): PhoneModel {
+    this.requireStarted();
+    const labels = new Map<string, string>(
+      this.registry.config.slots.map((slot) => [slot.id, slot.label]),
+    );
+    return PhoneBuilder.build(this.state, labels);
+  }
+
   private tickEconomy(): void {
     const f = this.state.flags;
 
@@ -1796,6 +1818,15 @@ export class GameEngine {
     const wage = numberFlag(f, 'haftalik_gelir');
     f['servet'] = numberFlag(f, 'servet') + wage;
     WalletLedger.record(this.state, wage, 'maas', 'Haftalik maas');
+
+    // --- TAKIPCI: sohretin yansimasi, kendiliginden buyuyen sayac degil
+    const followers = numberFlag(f, 'sosyal_medya_takipci');
+    const fIdx = statureIndex(this.state.stature) / (STATURES.length - 1);
+    const fDrift = followerDrift(
+      followers,
+      followerTarget(fIdx, numberFlag(f, 'medya_itibari'), numberFlag(f, 'taraftar_destegi')),
+    );
+    if (fDrift !== 0) f['sosyal_medya_takipci'] = Math.max(0, followers + fDrift);
 
     // --- MEDYA: BASKI SONER, ITIBAR TOPARLANIR
     //
