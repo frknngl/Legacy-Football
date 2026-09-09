@@ -30,7 +30,52 @@ yalnızca "ölü olay 15'e indi" cümlesi fazla iyimserdi.
 
 ---
 
-## 1. Kota bekleyenler (model/içerik işi)
+## 1. Kota bekleyenler — **BÜYÜK KISMI YAPILDI (9 Eylül)**
+
+| İş | Önce | Sonra |
+|---|---|---|
+| Olay sayısı | 165 | **215** |
+| Kısa outcome | **401** düğüm / 108 olay | **0** |
+| Doğrulayıcı uyarısı | 688 | **296** |
+| Kapsama (20 tohum) | %93 | %93 (215 olayın 200'ü) |
+| Hikâye tekrarı | 20,4× | **16,8×** |
+| Sıfır hücre (kategori×çağ) | 20+ | 3 (hepsi bilinçli tasarım) |
+
+**Kota bugün doldu** (iki anahtar da 500/gün). Kalanlar yarına:
+
+- **Ambiyans tekrarı 184×** — 46 metin 8465 gösterimi karşılıyor. En
+  yüksek etkili iş bu. `match` olaylarının çoğu 2-4 varyantta; hedef 6+.
+- `reaction`da yalnızca 2 olay varyantsız, ikisi de geçiş taşıdığı için
+  `_has_transition` tarafından dışlanıyor. `expects_incidents` gibi bir
+  **geçiş sözleşmesi** yazılırsa açılır (6 olay etkileniyor).
+- 182 yetim `mem_*` (değişmedi).
+
+### Bugün eklenen özgün içerik (elle yazıldı)
+
+**İsyan zinciri (3 halka):** soyunma odasında ağırlığını kullanmak →
+yeni hocanın ilk sorusu ("kimin yüzünden gitti?") → yıllar sonra
+gazetecinin dosyasındaki cümle. Motorun yazdığı `mem_hoca_kovuldu` izini
+artık içerik okuyor.
+
+**Tefeci zinciri (2 halka):** borç 60.000'i geçince araba kapıda →
+yıllar sonra mutfak masasındaki eski dekont. Kredi sistemine bağlı.
+
+### Yazım hattında açılan kilitler
+
+- **`arc` hiç çalışmıyordu** — zincirin tohumu iz yazmak zorunda ama
+  okuyucusu henüz üretilmediği için yetim kuralı reddediyordu. Kapı
+  kendi kendini kilitlemişti. Artık zincirin ilan ettiği izler ara
+  adımda tolere ediliyor, sonda toleranssız tam doğrulama yapılıyor.
+- **`write --era` yoktu** — boşluğa nişan alarak üretmek mümkün değildi.
+- **Prompt çağı yalnızca listeliyordu**, sesini anlatmıyordu. `_ERA_VOICE`
+  eklendi: "çırak odaya giremez, kapıda bekler."
+- **`ingest` artık çoklu dosya** alıyor — elle zincir yazmak mümkün.
+- **`enrich` komutu** yazıldı: olay başına tek çağrı, model yalnızca
+  metin döndürür, yapıyı çağıran yerine koyar.
+
+---
+
+## 1b. Eski liste (referans)
 
 | İş | Ölçüm | Not |
 |---|---|---|
