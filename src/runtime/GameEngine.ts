@@ -113,6 +113,7 @@ import { STATURES, statureIndex } from '../domain/axes.js';
 import { DEFAULT_THRESHOLD, latePenalty, loanOffers, type LoanOffer, type LoanState } from '../domain/loan.js';
 import { pressureAfterSack, sackChance, sackPressure } from './ManagerTenure.js';
 import { sponsorDrift, sponsorIncome, sponsorTarget } from '../domain/sponsor.js';
+import { pressureDecay, reputationDrift, reputationTarget } from '../domain/media.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -1725,6 +1726,28 @@ export class GameEngine {
     const wage = numberFlag(f, 'haftalik_gelir');
     f['servet'] = numberFlag(f, 'servet') + wage;
     WalletLedger.record(this.state, wage, 'maas', 'Haftalik maas');
+
+    // --- MEDYA: BASKI SONER, ITIBAR TOPARLANIR
+    //
+    // Iki bayrak da ZIT uclarda kilitliydi: `medya_baskisi` medyani
+    // 99,99 (tavanda), `medya_itibari` medyani 15 (dipte). Baskiyi
+    // yalnizca icerik yukseltiyor, hicbir sey dusurmuyordu; itibara ise
+    // icerik net -851 yaziyor ve toparlanma yoktu. Ikisi de SABIT hale
+    // gelmis, yani okunmalari anlamsizlasmisti.
+    const pressure = numberFlag(f, 'medya_baskisi');
+    const decay = pressureDecay(pressure);
+    if (decay !== 0) f['medya_baskisi'] = clamp100(pressure + decay);
+
+    const reputation = numberFlag(f, 'medya_itibari');
+    const repDrift = reputationDrift(
+      reputation,
+      reputationTarget(
+        numberFlag(f, 'taraftar_destegi'),
+        numberFlag(f, 'disiplin_sicili'),
+        statureIndex(this.state.stature) / (STATURES.length - 1),
+      ),
+    );
+    if (repDrift !== 0) f['medya_itibari'] = clamp100(reputation + repDrift);
 
     // --- SPONSORLUK
     //

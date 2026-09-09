@@ -16,6 +16,7 @@
 import { describe, expect, it } from 'vitest';
 import { SPONSOR_FLOOR, sponsorDrift, sponsorIncome, sponsorTarget } from '../src/domain/sponsor.js';
 import { moraleTarget } from '../src/runtime/ChemistryTracker.js';
+import { pressureDecay, reputationDrift, reputationTarget } from '../src/domain/media.js';
 
 describe('Aile -> moral', () => {
   it('iyi aile iliskisi moral hedefini YUKSELTIYOR', () => {
@@ -114,5 +115,36 @@ describe('Sponsor iliskisinin kaymasi', () => {
 
   it('hedefteyken kaymiyor', () => {
     expect(sponsorDrift(45, 45)).toBe(0);
+  });
+});
+
+describe('Medya: baski soner, itibar toparlanir', () => {
+  it('yuksek baski HIZLI duser -- gundem doludur', () => {
+    expect(Math.abs(pressureDecay(100))).toBeGreaterThan(Math.abs(pressureDecay(30)));
+  });
+
+  it('baski tabana inince durur -- futbolcu her zaman biraz gozlem altinda', () => {
+    expect(pressureDecay(5)).toBe(0);
+  });
+
+  it('baski her zaman ASAGI iner, yukari degil', () => {
+    for (const p of [20, 50, 80, 100]) expect(pressureDecay(p)).toBeLessThanOrEqual(0);
+  });
+
+  it('temiz sicil itibar hedefini yukseltiyor', () => {
+    expect(reputationTarget(90, 0, 0.5)).toBeGreaterThan(reputationTarget(90, 80, 0.5));
+  });
+
+  it('taninmayan oyuncu hakkinda yazi cikmaz', () => {
+    expect(reputationTarget(90, 0, 1)).toBeGreaterThan(reputationTarget(90, 0, 0));
+  });
+
+  it('itibar kaymasi moralden YAVAS -- yillarin birikimi', () => {
+    // Moral en cok 5/hafta; itibar bundan belirgin sekilde yavas olmali.
+    expect(Math.abs(reputationDrift(0, 85))).toBeLessThan(5);
+  });
+
+  it('hedefteyken kaymiyor', () => {
+    expect(reputationDrift(40, 40)).toBe(0);
   });
 });

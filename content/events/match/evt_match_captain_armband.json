@@ -394,6 +394,169 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahadan Cikis",
+          "kind": "branch",
+          "text": "Oyun durdu. Yedek kulübesi tabelayı kaldırdı. {actor.captain.name} saha kenarına yürüyor. Terden sırılsıklam olan forma omuzlarına yük gibi çökmüş. Kaptanın kolundaki o kumaş parçası, sanki cildine yapışmış, çıkması imkansız bir leke gibi. Tribünlerden yükselen uğultu, isminin ritmiyle birleşiyor. Saha kenarında duran teknik direktör, gözlerini başka bir yere odaklamış. {actor.captain.name} bantı bileğinden sıyırırken, yanına yaklaşan {actor.captain.name} beklentiyle parlayan bakışlarını hissediyor. Herkes bir sonraki hamlesini bekliyor.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Pazubandını yavaşça çıkarıp yanımdaki kıdemli isme uzat, göz temasından kaçın.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Bantı avucunda sıkıca tutarak kenara gel, kimseye bakmadan kulübenin uzak köşesine yürü.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Bantı elinde tutmaya devam et, görev değişikliğine dair hiçbir işaret verme.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Bantı saha içinde {actor.captain.name} koluna kendin tak, bu sorumluluğu ona mühürle.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "teknik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "Oyun zekası yeterli değil",
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Devredilen Sorumluluk",
+          "kind": "outcome",
+          "text": "Bant el değiştirdi. Tribünler kısa bir an duraksadı, sonra yerlerine oturdular. O ağırlık artık başkasının omuzlarında.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İnat",
+          "kind": "outcome",
+          "text": "Kimse elini uzatmaya cesaret edemedi. Bant hala senin cebinde, bir sonraki maçın hayaletine dönüştü bile.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Kimse ne olduğunu anlamadı. Soyunma odasında bu sessizlik, büyük bir fırtınanın habercisi.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yeni Lider",
+          "kind": "outcome",
+          "text": "Bantı onun koluna taktığında aranızdaki o görünmez bağ gerildi. Artık o da senin yükünü taşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_gave_armband"
+            }
+          ]
+        }
+      }
     }
   ]
 }
