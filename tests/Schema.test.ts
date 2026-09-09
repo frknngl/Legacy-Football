@@ -113,6 +113,38 @@ describe('event.schema.json', () => {
     parseEvent(broken, ctx, 'test');
     expect(ctx.ok).toBe(false);
   });
+
+  it('repeatPolicy.maxBeatUses sifirdan buyuk olmali', () => {
+    const broken = {
+      id: 'evt_test_repeat_policy',
+      family: 'fam_test_repeat_policy',
+      category: 'media',
+      tier: 'minor',
+      cooldown: { self: 10, family: 5 },
+      story: {
+        arc: 'agent_arc',
+        beat: 'offer_1',
+        signature: 'media:agent:offer_1',
+      },
+      repeatPolicy: {
+        maxBeatUses: 0,
+      },
+      rootNode: 'n_root',
+      nodes: {
+        n_root: {
+          title: 'Baslik',
+          kind: 'outcome',
+          text: 'Metin.',
+        },
+      },
+    };
+
+    expect(validate(broken)).toBe(false);
+
+    const ctx = new ParseContext('test');
+    parseEvent(broken, ctx, 'test');
+    expect(ctx.ok).toBe(false);
+  });
 });
 
 describe('core.schema.json', () => {

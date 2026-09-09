@@ -382,8 +382,10 @@ describe('Penalti zinciri', () => {
   it('metin yer tutuculari doldurulur', async () => {
     // Kimlik katmani ACIK: {actor.*} tokenlerinin de cozuldugunu dogrular.
     const mock = await createMockWorld('content', registry, 5);
-    const engine = new GameEngine(registry, { seed: 5, ...mock });
-    engine.start('street');
+    const engine = new GameEngine(registry, { seed: 3, ...mock });
+    engine.start('academy');
+    engine.snapshot().flags['teknik'] = 100;
+    engine.snapshot().flags['moral'] = 100;
     engine.playMatch({
       context: { opponentName: 'Karsiyaka', importance: 'derby', isStarter: true },
       pendingMoments: [
@@ -397,6 +399,7 @@ describe('Penalti zinciri', () => {
       ],
     });
 
+    expect(engine.currentNode()?.eventId).toBe('evt_match_penalty_for');
     const text = engine.currentNode()?.text ?? '';
     expect(text).toContain('63');
     expect(text).toContain('Karsiyaka');

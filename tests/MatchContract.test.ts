@@ -51,6 +51,28 @@ function moment(type: PendingMoment['type'], minute: number, scoreline: string):
   return { type, minute, scoreline, opponent: 'Goztepe', importance: 'derby' };
 }
 
+function momentWithScoreSnapshot(
+  type: PendingMoment['type'],
+  minute: number,
+  scoreline: string,
+  snapshots: {
+    scorelineBefore: string;
+    scorelineProvisional: string;
+    scorelineAfter: string;
+  },
+): PendingMoment {
+  return {
+    type,
+    minute,
+    scoreline,
+    scorelineBefore: snapshots.scorelineBefore,
+    scorelineProvisional: snapshots.scorelineProvisional,
+    scorelineAfter: snapshots.scorelineAfter,
+    opponent: 'Goztepe',
+    importance: 'derby',
+  };
+}
+
 describe('Duraklamali sozlesme', () => {
   it('beginMatch baglami yazar ve roportaj penceresini kapatir', async () => {
     const engine = await engineFor(4);
@@ -63,6 +85,29 @@ describe('Duraklamali sozlesme', () => {
     // Onceki macin incident'i yeni macta TASINMAZ.
     expect(engine.snapshot().flags['inc_missed_penalty']).toBe(false);
     expect(engine.currentNode()).toBeUndefined();
+  });
+
+  it('opsiyonel baglam verilmezse onceki mac degeri tasinmaz', async () => {
+    const engine = await engineFor(4);
+    engine.beginMatch({
+      ...CONTEXT,
+      teamLeaguePosition: 2,
+      unbeatenStreak: 7,
+      scorelessStreak: 3,
+      seasonGoals: 11,
+      seasonAssists: 5,
+      seasonApps: 17,
+    });
+
+    engine.beginMatch({ ...CONTEXT, isStarter: false });
+
+    expect(engine.snapshot().flags['team_league_position']).toBe(10);
+    expect(engine.snapshot().flags['unbeaten_streak']).toBe(0);
+    expect(engine.snapshot().flags['scoreless_streak']).toBe(0);
+    expect(engine.snapshot().flags['season_goals']).toBe(0);
+    expect(engine.snapshot().flags['season_assists']).toBe(0);
+    expect(engine.snapshot().flags['season_apps']).toBe(0);
+    expect(engine.snapshot().flags['is_starter']).toBe(false);
   });
 
   it('presentMoment tek ani sunar ve motoru orada durdurur', async () => {
@@ -79,6 +124,43 @@ describe('Duraklamali sozlesme', () => {
     expect(node!.text).toContain('63');
     expect(node!.text).toContain('Goztepe');
     expect(node!.text).not.toContain('{');
+  });
+
+  it('moment score snapshot baglamini flaglere yazar', async () => {
+    const engine = await engineFor(4);
+    engine.beginMatch(CONTEXT);
+
+    engine.presentMoment(
+      momentWithScoreSnapshot('var_review_against', 63, '1-1', {
+        scorelineBefore: '1-1',
+        scorelineProvisional: '2-1',
+        scorelineAfter: '1-1',
+      }),
+    );
+
+    const flags = engine.snapshot().flags;
+    expect(flags['inc_scoreline']).toBe('1-1');
+    expect(flags['inc_scoreline_before']).toBe('1-1');
+    expect(flags['inc_scoreline_provisional']).toBe('2-1');
+    expect(flags['inc_scoreline_after']).toBe('1-1');
+  });
+
+  it('VAR iptal metni provisional skoru kullanir', async () => {
+    const engine = await engineFor(4);
+    engine.beginMatch(CONTEXT);
+
+    const decision = engine.presentMoment(
+      momentWithScoreSnapshot('var_review_against', 71, '1-1', {
+        scorelineBefore: '1-1',
+        scorelineProvisional: '2-1',
+        scorelineAfter: '1-1',
+      }),
+    );
+    expect(decision).toBeDefined();
+
+    const node = engine.currentNode();
+    expect(node?.eventId).toBe('evt_match_var_against');
+    expect(node?.text).toContain('Skor 2-1 olacaktı.');
   });
 
   it('karsiligi olmayan moment undefined doner, motor durmaz', async () => {

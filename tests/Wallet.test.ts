@@ -142,6 +142,11 @@ describe('Eski kayit uyumu', () => {
     const engine = new GameEngine(registry, { seed: 31, ...mock });
     engine.start('street');
     engine.advanceTurn();
+    for (let guard = 0; guard < 20 && engine.currentNode(); guard += 1) {
+      const open = engine.availableChoices().find((choice) => !choice.locked);
+      if (!open) break;
+      engine.choose(open.id);
+    }
 
     const save = JSON.parse(JSON.stringify(engine.save())) as SaveEnvelope;
     // Eski kayitta bu alanlar hic YOKTU; taklit etmek icin siliyoruz.

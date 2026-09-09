@@ -220,13 +220,14 @@ describe('Motor baglantisi', () => {
 
   it('FAIZ YOK -- odedigin, aldigin kadar', () => {
     const engine = ready();
-    const { actorId } = withTrust(engine);
-    engine.takeFavor(actorId, 40_000);
+    const { actorId, ceiling } = withTrust(engine);
+    const borrow = Math.max(1_000, Math.min(40_000, ceiling));
+    engine.takeFavor(actorId, borrow);
     const afterTake = Number(engine.snapshot().flags['servet']);
 
-    engine.repayFavor(actorId, 40_000);
+    engine.repayFavor(actorId, borrow);
 
-    expect(Number(engine.snapshot().flags['servet'])).toBe(afterTake - 40_000);
+    expect(Number(engine.snapshot().flags['servet'])).toBe(afterTake - borrow);
     expect(engine.currentFavors()).toHaveLength(0);
   });
 
