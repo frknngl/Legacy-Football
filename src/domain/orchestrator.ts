@@ -7,6 +7,7 @@ import type { Archetype, ClubTier, Era, LifeState, MediaEra, Stature } from './a
 import type { NameConfig, NemesisDefinition, Position, SlotDefinition } from './actors.js';
 import type { Ending } from './endings.js';
 import type { FlagDefinition, FlagValue } from './flags.js';
+import type { GameDefinition } from './gambling.js';
 
 export interface EraDefinition {
   readonly id: Era;
@@ -149,6 +150,8 @@ export interface OrchestratorConfig {
   readonly nemeses: readonly NemesisDefinition[];
   readonly endings: readonly Ending[];
   readonly turn: TurnConfig;
+  /** Kumar katalogu -- `content/economy/games.json`. */
+  readonly games: readonly GameDefinition[];
   readonly cadence: CadenceConfig;
   readonly release: ReleaseConfig;
   /**

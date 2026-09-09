@@ -40,6 +40,7 @@ import {
   parseRelease,
   parseRoles,
 } from './parseOrchestrator.js';
+import { parseGames } from './parseGames.js';
 
 export interface LoadIssue extends ParseIssue {
   readonly file: string;
@@ -66,6 +67,7 @@ const ORCHESTRATOR_FILES = {
   cadence: 'orchestrator/cadence.json',
   release: 'orchestrator/release.json',
   orphanBaseline: 'orchestrator/orphan-baseline.json',
+  games: 'economy/games.json',
 } as const;
 
 export class ContentLoader {
@@ -242,6 +244,13 @@ export class ContentLoader {
       flags.push(def);
     }
 
+    // KUMAR KATALOGU -- oyun matematigi ICERIKTE durur, kodda degil.
+    // Kasanin avantajini ayarlamak kod degisikligi gerektirmemeli.
+    // OPSIYONEL: katalog yoksa kumar masasi acilmaz, oyun yine calisir.
+    // `need()` kullanilamaz -- eksik dosyayi ZORUNLU sayip yuklemeyi
+    // dusururdu ve mevcut testler (sentetik korpus) bu dosyayi tasimiyor.
+    const games = parseGames(byPath.get(ORCHESTRATOR_FILES.games)?.data);
+
     const config: OrchestratorConfig = {
       schemaVersion: 1,
       flags,
@@ -258,6 +267,7 @@ export class ContentLoader {
       cadence,
       release,
       orphanBaseline,
+      games,
     };
 
     const fatal =

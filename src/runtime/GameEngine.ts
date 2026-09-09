@@ -114,6 +114,7 @@ import { DEFAULT_THRESHOLD, latePenalty, loanOffers, type LoanOffer, type LoanSt
 import { pressureAfterSack, sackChance, sackPressure } from './ManagerTenure.js';
 import { sponsorDrift, sponsorIncome, sponsorTarget } from '../domain/sponsor.js';
 import { pressureDecay, reputationDrift, reputationTarget } from '../domain/media.js';
+import { betRejection, resolveBet, type BetResult, type GameDefinition } from '../domain/gambling.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -1710,6 +1711,75 @@ export class GameEngine {
         ? 'Teknik direktor gorevden alindi.'
         : `${outgoing} gorevden alindi. Yerine ${incoming ?? 'yeni bir isim'} geldi.`,
     );
+  }
+
+
+  // --------------------------------------------------------------- KUMAR
+
+  /**
+   * Su an oturulabilecek masalar.
+   *
+   * Servet yetmiyorsa masa LISTELENMEZ: "girebilirsin ama param yok"
+   * ekrani karar degil, gurultudur.
+   */
+  gameOptions(): readonly GameDefinition[] {
+    this.requireStarted();
+    const wealth = numberFlag(this.state.flags, 'servet');
+    return this.registry.config.games.filter((g) => wealth >= g.minWealth);
+  }
+
+  /**
+   * Bahsi oynar.
+   *
+   * MIKTARI OYUNCU SECER -- kumarin bir KARAR olmasinin tek sebebi bu.
+   * Eskiden `social` sahneleri `servet`e sabit bir sayi yaziyordu:
+   * "masaya oturdun ve 150.000 kaybettin" bir karar degil bir cumledir.
+   *
+   * Tutar `son_bahis_tutari` bayragina yazilir; icerik onu `ValueRef` ile
+   * okuyabilir ("gecen hafta masada biraktigin para kadar").
+   *
+   * Sonuc tohumlu RNG ile cozulur: ayni tohum + ayni secimler = ayni
+   * kariyer. Kaydet/yukle bahsi degistirmez.
+   */
+  placeBet(gameId: string, optionId: string, stake: number): BetResult {
+    this.requireStarted();
+    const game = this.registry.config.games.find((g) => g.id === gameId);
+    if (game === undefined) throw new EngineStateError(`Bilinmeyen masa: ${gameId}`);
+
+    const option = game.options.find((o) => o.id === optionId);
+    const wealth = numberFlag(this.state.flags, 'servet');
+    const rejection = betRejection(game, option, stake, wealth);
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    const result = resolveBet(option!, Math.round(stake), this.rng.next());
+    this.state.rngCursor = this.rng.position;
+
+    const f = this.state.flags;
+    f['servet'] = Math.max(0, wealth + result.delta);
+    // Icerigin okuyabilecegi iz: ne kadar oynadi, kazandi mi.
+    f['son_bahis_tutari'] = result.stake;
+    f['mem_kumar_oynadi'] = true;
+    this.state.flagSetTurn['mem_kumar_oynadi'] = this.state.turn;
+
+    // Kaybeden oyuncu borclanmaya yaklasir; `evt_dark_betting_offer`
+    // ve tefeci kolu bu bayragi okuyor.
+    if (!result.won && result.stake >= 50_000) {
+      f['mem_gambling_debt'] = true;
+      this.state.flagSetTurn['mem_gambling_debt'] = this.state.turn;
+    }
+
+    WalletLedger.record(
+      this.state,
+      result.delta,
+      'bahis',
+      `${game.label} -- ${result.option.label}`,
+    );
+    this.notices.push(
+      result.won
+        ? `${game.label}: kazandin, +${result.delta.toLocaleString('tr-TR')} TL.`
+        : `${game.label}: kaybettin, ${result.delta.toLocaleString('tr-TR')} TL.`,
+    );
+    return result;
   }
 
   private tickEconomy(): void {

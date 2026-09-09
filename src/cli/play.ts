@@ -338,6 +338,61 @@ async function agentTurn(
  * Kumar ve kredi gelmeden once bu gorunur olmali -- kaybin okunmadigi
  * bir ekonomide risk almak bir karar degil, gurultudur.
  */
+/**
+ * KUMAR MASASI.
+ *
+ * Miktari OYUNCU secer -- kumarin bir karar olmasinin tek sebebi bu.
+ * Eskiden `social` sahneleri `servet`e sabit bir sayi yaziyordu.
+ */
+async function casinoDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<void> {
+  const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
+  const games = engine.gameOptions();
+
+  console.log('');
+  console.log(c.bold('MASALAR'));
+  if (games.length === 0) {
+    console.log(c.grey('  Hicbir masaya oturacak paran yok.'));
+    return;
+  }
+  games.forEach((g, i) => {
+    console.log(`  ${c.bold(String(i + 1))}) ${g.label}` + c.grey(`   ${g.note ?? ''}`));
+  });
+  console.log(c.grey('  <enter> vazgec'));
+
+  const gi = Number.parseInt((await ask('  > ')).trim(), 10) - 1;
+  const game = games[gi];
+  if (game === undefined) return;
+
+  console.log('');
+  console.log(c.bold(`  ${game.label}`));
+  game.options.forEach((o, i) => {
+    console.log(`    ${c.bold(String(i + 1))}) ${o.label}`);
+  });
+  const oi = Number.parseInt((await ask('    > ')).trim(), 10) - 1;
+  const option = game.options[oi];
+  if (option === undefined) return;
+
+  const wealth = Number(engine.snapshot().flags['servet'] ?? 0);
+  console.log(
+    c.grey(`    Bakiye ${money(wealth)} TL  |  ${money(game.minStake)}-${money(game.maxStake)} TL`),
+  );
+  const stake = Number.parseInt((await ask('    Ne kadar? ')).trim(), 10);
+
+  try {
+    const result = engine.placeBet(game.id, option.id, stake);
+    console.log(
+      result.won
+        ? c.green(`    Kazandin. +${money(result.delta)} TL`)
+        : c.red(`    Kaybettin. ${money(result.delta)} TL`),
+    );
+  } catch (error) {
+    console.log(c.red(`    ${(error as Error).message}`));
+  }
+}
+
 async function walletDesk(
   engine: GameEngine,
   ask: (q: string) => Promise<string>,
@@ -761,12 +816,17 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
 
     if (input === ':q') break;
+
+    if (input === ':kumar') {
+      await casinoDesk(engine, ask);
+      continue;
+    }
 
     if (input === ':cuzdan') {
       await walletDesk(engine, ask);
