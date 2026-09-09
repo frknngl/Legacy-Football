@@ -8,6 +8,7 @@ import type { NameConfig, NemesisDefinition, Position, SlotDefinition } from './
 import type { Ending } from './endings.js';
 import type { FlagDefinition, FlagValue } from './flags.js';
 import type { GameDefinition } from './gambling.js';
+import type { AssetDefinition } from './assets.js';
 
 export interface EraDefinition {
   readonly id: Era;
@@ -152,6 +153,8 @@ export interface OrchestratorConfig {
   readonly turn: TurnConfig;
   /** Kumar katalogu -- `content/economy/games.json`. */
   readonly games: readonly GameDefinition[];
+  /** Varlik katalogu -- `content/economy/assets.json`. */
+  readonly assets: readonly AssetDefinition[];
   readonly cadence: CadenceConfig;
   readonly release: ReleaseConfig;
   /**

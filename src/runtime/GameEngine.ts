@@ -117,6 +117,7 @@ import { pressureDecay, reputationDrift, reputationTarget } from '../domain/medi
 import { betRejection, resolveBet, type BetResult, type GameDefinition } from '../domain/gambling.js';
 import { followerDrift, followerTarget, type PhoneModel } from '../domain/phone.js';
 import { PhoneBuilder } from './PhoneBuilder.js';
+import { displayWeight, driftValues, purchaseRejection, saleValue, totalUpkeep, type AssetDefinition, type OwnedAsset } from '../domain/assets.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -467,6 +468,7 @@ export class GameEngine {
       formerAgents: [],
       wallet: [],
       walletTotals: {},
+      assets: [],
       rngSeed: seed,
       rngCursor: 0,
     };
@@ -888,6 +890,7 @@ export class GameEngine {
     this.tickEconomy();
     this.tickLoan();
     this.tickManager();
+    this.tickAssets();
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
@@ -1802,6 +1805,102 @@ export class GameEngine {
       this.registry.config.slots.map((slot) => [slot.id, slot.label]),
     );
     return PhoneBuilder.build(this.state, labels);
+  }
+
+
+  // --------------------------------------------------------------- VARLIK
+
+  /** Katalogdaki tum varliklar -- host fiyatiyla birlikte gosterir. */
+  assetCatalog(): readonly AssetDefinition[] {
+    return this.registry.config.assets;
+  }
+
+  /** Sahip olunan varliklar, BUGUNKU degerleriyle. */
+  ownedAssets(): readonly OwnedAsset[] {
+    this.requireStarted();
+    return this.state.assets;
+  }
+
+  /**
+   * Varlik alir.
+   *
+   * NEDEN BIR KARAR: uc eksen ayrisiyor -- getiri, gider, goze batma.
+   * Araba pahali, deger kaybeder ama gorunur; arsa gorunmez ve
+   * kazandirir. Ayni parayla alinan iki varlik on yil sonra bambaska
+   * rakamlardir (1M -> araba 165 bin, arsa 4M).
+   */
+  buyAsset(assetId: string): OwnedAsset {
+    this.requireStarted();
+    const def = this.registry.config.assets.find((a) => a.id === assetId);
+    const wealth = numberFlag(this.state.flags, 'servet');
+    const rejection = purchaseRejection(def, wealth, this.state.assets);
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    this.state.flags['servet'] = wealth - def!.price;
+    const owned: OwnedAsset = {
+      id: def!.id,
+      boughtTurn: this.state.turn,
+      value: def!.price,
+    };
+    this.state.assets.push(owned);
+    WalletLedger.record(this.state, -def!.price, 'varlik', def!.label);
+    this.notices.push(`${def!.label} alindi.`);
+    return owned;
+  }
+
+  /**
+   * Varlik satar. Acele satista %12 kesinti var: elden cikarmak zaman
+   * ister, hemen satmak alicinin isine gelir.
+   */
+  sellAsset(assetId: string): number {
+    this.requireStarted();
+    const index = this.state.assets.findIndex((a) => a.id === assetId);
+    if (index < 0) throw new EngineStateError('Bu varlik senin degil.');
+
+    const [sold] = this.state.assets.splice(index, 1);
+    const amount = saleValue(sold!);
+    this.state.flags['servet'] = numberFlag(this.state.flags, 'servet') + amount;
+
+    const label =
+      this.registry.config.assets.find((a) => a.id === assetId)?.label ?? assetId;
+    WalletLedger.record(this.state, amount, 'varlik', `${label} satildi`);
+    this.notices.push(`${label} satildi: ${amount.toLocaleString('tr-TR')} TL.`);
+    return amount;
+  }
+
+  /**
+   * Haftalik varlik tiki: gider kesilir, degerler kayar.
+   *
+   * Gider odenemezse varlik ELDEN CIKMAZ -- borca yazilir. Bir evi
+   * aidat odenmedi diye kaybetmek oyunun anlatacagi bir hikaye degil;
+   * borcun buyumesi ise zaten kurulu bir kol.
+   */
+  private tickAssets(): void {
+    if (this.state.assets.length === 0) return;
+    const f = this.state.flags;
+    const catalog = this.registry.config.assets;
+
+    const upkeep = totalUpkeep(this.state.assets, catalog);
+    if (upkeep > 0) {
+      const wealth = numberFlag(f, 'servet');
+      if (wealth >= upkeep) {
+        f['servet'] = wealth - upkeep;
+      } else {
+        f['servet'] = 0;
+        f['borc'] = numberFlag(f, 'borc') + (upkeep - wealth);
+      }
+      WalletLedger.record(this.state, -upkeep, 'varlik', 'Varlik giderleri');
+    }
+
+    driftValues(this.state.assets, catalog);
+
+    // GOSTERIS: gorunur bir hayat markalari cezbeder, taraftari sogutur.
+    // Sessiz bir arsa hicbirini yapmaz.
+    const show = displayWeight(this.state.assets, catalog);
+    if (show > 0) {
+      f['iliski_sponsor'] = clamp100(numberFlag(f, 'iliski_sponsor') + show * 0.004);
+      f['taraftar_destegi'] = clamp100(numberFlag(f, 'taraftar_destegi') - show * 0.002);
+    }
   }
 
   private tickEconomy(): void {

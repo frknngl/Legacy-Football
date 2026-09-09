@@ -41,6 +41,7 @@ import {
   parseRoles,
 } from './parseOrchestrator.js';
 import { parseGames } from './parseGames.js';
+import { parseAssets } from './parseAssets.js';
 
 export interface LoadIssue extends ParseIssue {
   readonly file: string;
@@ -68,6 +69,7 @@ const ORCHESTRATOR_FILES = {
   release: 'orchestrator/release.json',
   orphanBaseline: 'orchestrator/orphan-baseline.json',
   games: 'economy/games.json',
+  assets: 'economy/assets.json',
 } as const;
 
 export class ContentLoader {
@@ -250,6 +252,7 @@ export class ContentLoader {
     // `need()` kullanilamaz -- eksik dosyayi ZORUNLU sayip yuklemeyi
     // dusururdu ve mevcut testler (sentetik korpus) bu dosyayi tasimiyor.
     const games = parseGames(byPath.get(ORCHESTRATOR_FILES.games)?.data);
+    const assets = parseAssets(byPath.get(ORCHESTRATOR_FILES.assets)?.data);
 
     const config: OrchestratorConfig = {
       schemaVersion: 1,
@@ -268,6 +271,7 @@ export class ContentLoader {
       release,
       orphanBaseline,
       games,
+      assets,
     };
 
     const fatal =

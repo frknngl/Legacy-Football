@@ -9,6 +9,7 @@ import type { PlayerAvailability } from './match.js';
 import type { AgentState } from './agent.js';
 import type { WalletEntry, WalletTotals } from './wallet.js';
 import type { LoanState } from './loan.js';
+import type { OwnedAsset } from './assets.js';
 
 /** Kuyruga alinmis, vadesi gelince calisacak olay. */
 export interface ScheduledEvent {
@@ -181,6 +182,11 @@ export interface GameState {
    * "kredisi yok" demek ve dogru anlam bu.
    */
   loan?: LoanState | undefined;
+  /**
+   * Sahip olunan varliklar. Eksikse bos dizi -- eski kayitlar
+   * backfill ister (`SaveGame`).
+   */
+  assets: OwnedAsset[];
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

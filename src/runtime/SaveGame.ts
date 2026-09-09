@@ -52,6 +52,7 @@ export class SaveGame {
     // gecmis hareketler kaydedilmemis, ama bundan sonrakiler yazilir.
     state.wallet ??= [];
     state.walletTotals ??= {};
+    state.assets ??= [];
     state.ratingHistory ??= [];
     state.availability ??= { available: true, matchesRemaining: 0 };
     // v1 -> v2: kimlik katmani. Eski kayitta kadro yoktur; bos baslar ve

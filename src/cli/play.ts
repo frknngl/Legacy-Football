@@ -351,6 +351,75 @@ async function agentTurn(
  * bir web arayuzu kart olarak, 3D bir sahne ekrana doku olarak
  * cizebilir -- motor hicbirini bilmez.
  */
+/**
+ * VARLIK MASASI.
+ *
+ * Oyuncu para biriktiriyor ve onunla YAPACAK BIR SEY bulamiyordu
+ * (servet medyani 5,4 milyon, harcama yeri yok). Uc eksen ayrisiyor:
+ * getiri, gider, goze batma.
+ */
+async function assetDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<void> {
+  const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
+  const owned = engine.ownedAssets();
+  const catalog = engine.assetCatalog();
+  const wealth = Number(engine.snapshot().flags['servet'] ?? 0);
+
+  console.log('');
+  console.log(c.bold('VARLIKLAR') + c.grey(`   bakiye ${money(wealth)} TL`));
+
+  if (owned.length > 0) {
+    console.log(c.grey('  Sende olanlar'));
+    for (const item of owned) {
+      const def = catalog.find((d) => d.id === item.id);
+      const paid = def?.price ?? item.value;
+      const arrow = item.value >= paid ? c.green('▲') : c.red('▼');
+      console.log(
+        `    ${arrow} ${(def?.label ?? item.id).padEnd(26)} ${money(item.value).padStart(12)} TL` +
+          c.grey(`   (alis ${money(paid)}, gider ${money(def?.upkeep ?? 0)}/hafta)`),
+      );
+    }
+  }
+
+  const buyable = catalog.filter((d) => !owned.some((o) => o.id === d.id));
+  if (buyable.length > 0) {
+    console.log('');
+    console.log(c.grey('  Alinabilir'));
+    buyable.forEach((d, i) => {
+      const trend = d.yearlyDrift >= 0 ? c.green(`+%${Math.round(d.yearlyDrift * 100)}/yil`) : c.red(`%${Math.round(d.yearlyDrift * 100)}/yil`);
+      const afford = wealth >= d.price ? '' : c.red('  (paran yetmiyor)');
+      console.log(
+        `    ${c.bold(String(i + 1))}) ${d.label.padEnd(26)} ${money(d.price).padStart(12)} TL  ${trend}${afford}`,
+      );
+      if (d.note) console.log(c.grey(`       ${d.note}`));
+    });
+  }
+
+  console.log(c.grey('  <enter> vazgec | s<no> sat'));
+  const answer = (await ask('  > ')).trim();
+  if (answer === '') return;
+
+  try {
+    if (answer.startsWith('s')) {
+      const si = Number.parseInt(answer.slice(1), 10) - 1;
+      const target = owned[si];
+      if (target === undefined) return;
+      const got = engine.sellAsset(target.id);
+      console.log(c.green(`    Satildi: ${money(got)} TL`));
+      return;
+    }
+    const bi = Number.parseInt(answer, 10) - 1;
+    const pick = buyable[bi];
+    if (pick === undefined) return;
+    engine.buyAsset(pick.id);
+    console.log(c.green(`    ${pick.label} senin.`));
+  } catch (error) {
+    console.log(c.red(`    ${(error as Error).message}`));
+  }
+}
+
 function phoneDesk(engine: GameEngine): void {
   const p = engine.phone();
   const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
@@ -855,12 +924,17 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :telefon | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :varlik | :telefon | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
 
     if (input === ':q') break;
+
+    if (input === ':varlik') {
+      await assetDesk(engine, ask);
+      continue;
+    }
 
     if (input === ':telefon') {
       phoneDesk(engine);
