@@ -34,6 +34,8 @@ export interface BotOutcome {
   toRival: boolean;
   /** Secilen agir sakatlik tedavisi -- yoksa undefined. */
   treatment?: string;
+  /** Bu turda kendi karariyla emekli oldu mu. */
+  retired?: boolean;
   loanTaken: boolean;
 }
 
@@ -153,6 +155,17 @@ export function botTurn(
         }
       }
     }
+  }
+
+  // --- EMEKLILIK
+  //
+  // Bot cogunlukla devam eder, ara sira birakir. Hep devam eden bir bot
+  // "kendi karariyla birakma" dalini, hep birakan da "bir sezon daha"nin
+  // bedelini hic olcemezdi.
+  if (engine.retirementPrompt() !== undefined) {
+    const retire = rng.next() < 0.35;
+    const outcome = engine.decideRetirement(retire);
+    out.retired = outcome.retired;
   }
 
   // --- AGIR SAKATLIK TEDAVISI

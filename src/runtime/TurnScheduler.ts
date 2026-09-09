@@ -19,15 +19,11 @@ export interface TurnClock {
   readonly age: number;
 }
 
-export type RetirementStage =
-  /** Emeklilik gundemde degil. */
-  | 'none'
-  /** Pencere acildi; emeklilik olaylari cikabilir ama karar zorunlu degil. */
-  | 'window'
-  /** Oyuncu karar verebilir. */
-  | 'choice'
-  /** Zorunlu. */
-  | 'forced';
+// Tip `domain/retirement.ts`de durur ve buradan yeniden disa acilir:
+// katman kurali geregi `domain` `runtime`i tanimaz, tersi serbesttir.
+// Iki ayri tanim vardi; ikincisi bu satirla kaldirildi.
+export type { RetirementStage } from '../domain/retirement.js';
+import type { RetirementStage } from '../domain/retirement.js';
 
 export class TurnScheduler {
   constructor(

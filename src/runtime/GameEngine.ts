@@ -148,6 +148,14 @@ import {
 } from '../domain/assets.js';
 import { forCountry, nextIndex, seasonRate, weeklyFactor } from '../domain/inflation.js';
 import {
+  extraDecline,
+  formWarning,
+  legacyDamage,
+  shouldAsk,
+  type RetirementOutcome,
+  type RetirementPrompt,
+} from '../domain/retirement.js';
+import {
   collapseWeeks,
   collapses,
   defaultTreatment,
@@ -565,6 +573,7 @@ export class GameEngine {
       // Kariyer YALNIZ baslar. Kimse on yedi yasinda hayat arkadasiyla
       // gelmez; tanisma da hikayenin kendisi.
       injury: { fragility: 0 },
+      retirement: { playedOn: 0 },
       privateLife: {
         stage: 'tanisma',
         closeness: 40,
@@ -677,6 +686,7 @@ export class GameEngine {
 
   private onSeasonChange(): void {
     this.tickInflation();
+    this.tickRetirement();
     this.develop();
     this.awardSeason();
     this.tickContract();
@@ -2861,6 +2871,132 @@ export class GameEngine {
       inj.fragility = healFragility(inj.fragility, config);
       f['sakatlik_kirilganligi'] = inj.fragility;
     }
+  }
+
+
+  // ------------------------------------------------------------ EMEKLILIK
+
+  /**
+   * Karar bekleyen "bir sezon daha" sorusu -- yoksa `undefined`.
+   *
+   * `window` (33+) asamasinda sorulmaz: otuz uc yasindaki bir futbolcuya
+   * her sezon "birakiyor musun" demek karari degersizlestirir. O asama
+   * icerik icin bir kapidir. Gercek karar `choice` (38+) ile baslar.
+   */
+  retirementPrompt(): RetirementPrompt | undefined {
+    this.requireStarted();
+    if (this.state.retirement.pendingSeason !== this.state.season) return undefined;
+
+    const stage = this.scheduler.retirementStage(this.state.age);
+    if (!shouldAsk(stage)) return undefined;
+
+    const form = numberFlag(this.state.flags, 'form');
+    const playedOn = this.state.retirement.playedOn;
+    return {
+      stage: 'choice',
+      age: this.state.age,
+      playedOn,
+      seasonsLeft: Math.max(
+        0,
+        this.registry.config.turn.forcedRetirementAge - this.state.age,
+      ),
+      decline: extraDecline(playedOn + 1),
+      formWarning: formWarning(form, stage),
+    };
+  }
+
+  /**
+   * "Bir sezon daha" ya da "burada birak".
+   *
+   * Zamaninda birakmak nasil hatirlandigini KORUR; devam etmek
+   * kazandirabilir ama hatirlanisini riske atar. Iki bedel ayni para
+   * biriminden degil ve karari gercek kilan bu.
+   */
+  decideRetirement(retire: boolean): RetirementOutcome {
+    this.requireStarted();
+    const prompt = this.retirementPrompt();
+    if (prompt === undefined) {
+      throw new EngineStateError('Su an emeklilik karari bekleyen bir sey yok.');
+    }
+
+    this.state.retirement.pendingSeason = undefined;
+
+    if (retire) {
+      // KENDI KARARIYLA birakmak, zorunlu emeklilikten baska bir seydir
+      // ve sonlanma metni bunu bilmelidir.
+      this.state.flags['mem_kendi_birakti'] = true;
+      this.state.flagSetTurn['mem_kendi_birakti'] = this.state.turn;
+      this.beginRetirement();
+      return { retired: true, label: 'Burada birakiyorsun.' };
+    }
+
+    this.state.retirement.playedOn += 1;
+    this.state.flags['mem_bir_sezon_daha'] = true;
+    this.state.flagSetTurn['mem_bir_sezon_daha'] = this.state.turn;
+
+    const decline = extraDecline(this.state.retirement.playedOn);
+    if (decline !== 0) {
+      const f = this.state.flags;
+      f['fizik'] = clamp100(numberFlag(f, 'fizik') + decline);
+      f['kondisyon'] = clamp100(numberFlag(f, 'kondisyon') + decline);
+    }
+    this.notices.push(`Bir sezon daha. Bacaklarin ${Math.abs(decline)} puan odedi.`);
+    return { retired: false, label: 'Bir sezon daha.' };
+  }
+
+  /**
+   * Emeklilige gecis -- veda donemi baslar.
+   *
+   * `checkEnding` ile AYNI yol: kariyer hemen kapanmaz,
+   * `retirementEpilogueTurns` kadar oynanir. Bu sure `retired` durumuna
+   * kapili icerigin sahneye cikabildigi tek penceredir.
+   */
+  private beginRetirement(): void {
+    if (this.state.retiredAtTurn !== undefined) return;
+    this.state.flags['retired'] = true;
+    this.state.retiredAtTurn = this.state.turn;
+    // EMEKLILIK REDDEDILEMEZ. `setLifeState` gecis tablosuna bakar ve
+    // eskiden `national_duty`den `retired`a gecis TANIMLI DEGILDI:
+    // bayrak true olurken hayat durumu eski halinde kaliyordu. Tablo
+    // duzeltildi; burada da sessiz basarisizligi gorunur kiliyoruz.
+    if (!this.setLifeState('retired')) {
+      this.state.lifeState = 'retired';
+      this.state.flags['lifeState'] = 'retired';
+    }
+    const epilogue = Math.max(0, this.registry.config.turn.retirementEpilogueTurns);
+    if (epilogue > 0) {
+      this.notices.push(`Kariyerin sona erdi. Veda donemi: ${epilogue} hafta.`);
+    }
+  }
+
+  /**
+   * Sezon basinda emeklilik karari acilir ve FAZLA OYNAMANIN faturasi
+   * kesilir.
+   *
+   * Itibar bedeli yalnizca KOTU oynayana: "bir yil fazla oynadi" cumlesi
+   * kotu oynayan veteran icin kurulur, iyi oynayan icin kurulmaz.
+   */
+  private tickRetirement(): void {
+    if (this.state.retiredAtTurn !== undefined) return;
+    const stage = this.scheduler.retirementStage(this.state.age);
+    if (!shouldAsk(stage)) return;
+
+    // FAZLA OYNAMANIN ITIBAR FATURASI -- gecen sezonun formuna gore.
+    const damage = legacyDamage(
+      numberFlag(this.state.flags, 'form'),
+      this.state.retirement.playedOn,
+    );
+    if (damage !== 0) {
+      this.state.flags['medya_itibari'] = clamp100(
+        numberFlag(this.state.flags, 'medya_itibari') + damage,
+      );
+      this.state.flags['mem_gecikmis_veda'] = true;
+      this.state.flagSetTurn['mem_gecikmis_veda'] = this.state.turn;
+      this.notices.push('Basin yasini yaziyor, oyununu degil.');
+    }
+
+    this.state.retirement.pendingSeason = this.state.season;
+    this.notices.push('Bir sezon daha mi?');
   }
 
   private tickEconomy(): void {

@@ -11,6 +11,7 @@ build-time bir aractir, motor gibi bagimlilik disiplinine tabidir.
 from __future__ import annotations
 
 import json
+import os
 import time
 import urllib.error
 import urllib.request
@@ -29,6 +30,33 @@ TRANSIENT_STATUS = frozenset({429, 500, 502, 503, 504})
 MAX_ATTEMPTS = 4
 
 
+def discover_keys() -> list[str]:
+    """Ortamdaki tum `GEMINI_API_KEY*` degiskenlerini SIRALI dondurur.
+
+    Sira: once eksiz `GEMINI_API_KEY`, sonra sayiya gore `_2`, `_3`...
+    Sayisiz ekler (ornegin `_YEDEK`) en sona alfabetik girer. Deger
+    DONDURULUR ama hicbir yerde yazdirilmaz.
+    """
+    def rank(name: str) -> tuple[int, int, str]:
+        suffix = name[len("GEMINI_API_KEY"):].lstrip("_")
+        if suffix == "":
+            return (0, 0, "")
+        if suffix.isdigit():
+            return (1, int(suffix), "")
+        return (2, 0, suffix)
+
+    names = sorted(
+        (n for n in os.environ if n.startswith("GEMINI_API_KEY")),
+        key=rank,
+    )
+    out: list[str] = []
+    for name in names:
+        value = env_key(name)
+        if value and value not in out:
+            out.append(value)
+    return out
+
+
 class GeminiProvider(Provider):
     name = "gemini"
 
@@ -43,16 +71,11 @@ class GeminiProvider(Provider):
         # Bu yuzden `GEMINI_API_KEY`, `GEMINI_API_KEY_2`, `_3`...
         # sirayla okunur. Bir anahtar 429 verirse digerine gecilir;
         # hepsi tukenirse hata yukselir.
-        self._keys = [
-            k
-            for k in (
-                env_key("GEMINI_API_KEY"),
-                env_key("GEMINI_API_KEY_2"),
-                env_key("GEMINI_API_KEY_3"),
-                env_key("GEMINI_API_KEY_4"),
-            )
-            if k
-        ]
+        # KESIF DINAMIK: eskiden dort isim SABIT KODLUYDU
+        # (`GEMINI_API_KEY`, `_2`, `_3`, `_4`) ve besinci bir anahtar
+        # eklendiginde SESSIZCE yok sayiliyordu -- ne hata ne uyari.
+        # Artik ortamdaki her `GEMINI_API_KEY*` degiskeni okunur.
+        self._keys = discover_keys()
         self._keyIndex = 0
         self.model = model or env_key("GEMINI_MODEL") or DEFAULT_MODEL
         self.timeout = timeout
@@ -212,7 +235,19 @@ def probe_keys(model: str | None = None) -> list[tuple[str, str]]:
     import urllib.request
 
     out: list[tuple[str, str]] = []
-    names = ["GEMINI_API_KEY", "GEMINI_API_KEY_2", "GEMINI_API_KEY_3", "GEMINI_API_KEY_4"]
+    # SABIT LISTE DEGIL: eskiden burada dort isim yaziliydi ve besinci
+    # bir anahtar eklendiginde tani onu HIC gormuyordu -- kullanici
+    # ekledigini sanip beklerken hat uc anahtarla calismaya devam
+    # ediyordu. Artik ortamdaki her `GEMINI_API_KEY*` sinanir.
+    def rank(n: str) -> tuple[int, int, str]:
+        suffix = n[len("GEMINI_API_KEY"):].lstrip("_")
+        if suffix == "":
+            return (0, 0, "")
+        if suffix.isdigit():
+            return (1, int(suffix), "")
+        return (2, 0, suffix)
+
+    names = sorted((n for n in os.environ if n.startswith("GEMINI_API_KEY")), key=rank)
 
     for name in names:
         key = env_key(name)

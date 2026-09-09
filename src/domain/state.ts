@@ -247,6 +247,14 @@ export interface GameState {
    * riskine eklenir, saglikli haftalarda yavasca iyilesir.
    */
   injury: InjuryState;
+  /**
+   * EMEKLILIK -- "bir sezon daha" karari.
+   *
+   * `playedOn` kac kez devam dendigi: her tekrarda fiziksel bedel artar.
+   * `pendingSeason` karari bekleyen sezon; cevapsiz kalirsa oyuncu
+   * oynamaya DEVAM eder -- kimse cevap vermeyerek emekli olmaz.
+   */
+  retirement: { playedOn: number; pendingSeason?: number | undefined };
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

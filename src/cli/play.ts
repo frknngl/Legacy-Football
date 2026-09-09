@@ -854,6 +854,58 @@ async function healthDesk(
   }
 }
 
+/**
+ * EMEKLILIK MASASI -- "bir sezon daha".
+ *
+ * Ekranda gorunmesi gereken sey yas degil TAKAS: zamaninda birakmak
+ * nasil hatirlandigini korur, devam etmek kazandirabilir ama
+ * hatirlanisini riske atar.
+ */
+async function retirementDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<boolean> {
+  const prompt = engine.retirementPrompt();
+  if (prompt === undefined) return false;
+
+  const flags = engine.snapshot().flags;
+  console.log('');
+  console.log(c.bold('BIR SEZON DAHA MI?') + c.grey(`   ${prompt.age} yasindasin`));
+  console.log(
+    c.grey(
+      `  form ${Math.round(Number(flags['form'] ?? 0))} | ` +
+        `fizik ${Math.round(Number(flags['fizik'] ?? 0))} | ` +
+        `zorunlu emeklilige ${prompt.seasonsLeft} sezon`,
+    ),
+  );
+  if (prompt.playedOn > 0) {
+    console.log(c.grey(`  ${prompt.playedOn} kez "bir sezon daha" dedin.`));
+  }
+  if (prompt.formWarning) {
+    console.log(c.red('  Formun dustu. Devam edersen basin yasini yazar, oyununu degil.'));
+  }
+
+  console.log('');
+  console.log(
+    `    ${c.bold('1')}) Bir sezon daha  ` +
+      c.grey(`fizik ve kondisyon ${prompt.decline}`),
+  );
+  console.log(`    ${c.bold('2')}) Burada birak  ` + c.grey('kendi karariyla'));
+  console.log(c.grey('  <enter> simdilik karar verme (oynamaya devam edersin)'));
+
+  const answer = (await ask('  > ')).trim();
+  if (answer !== '1' && answer !== '2') return false;
+
+  try {
+    const out = engine.decideRetirement(answer === '2');
+    console.log(out.retired ? c.yellow(`    ${out.label}`) : c.green(`    ${out.label}`));
+    return out.retired;
+  } catch (error) {
+    console.log(c.red(`    ${(error as Error).message}`));
+    return false;
+  }
+}
+
 async function walletDesk(
   engine: GameEngine,
   ask: (q: string) => Promise<string>,
@@ -1308,7 +1360,7 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :arkadas | :ozel | :saglik | :telefon | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :arkadas | :ozel | :saglik | :emeklilik | :telefon | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
@@ -1332,6 +1384,11 @@ async function main(): Promise<void> {
 
     if (input === ':arkadas') {
       await favorDesk(engine, ask);
+      continue;
+    }
+
+    if (input === ':emeklilik') {
+      await retirementDesk(engine, ask);
       continue;
     }
 
@@ -1427,6 +1484,14 @@ async function main(): Promise<void> {
         // olaylardan BAGIMSIZ isler, cunku transfer bir sahne degil bir
         // surec -- her hafta arka planda birileri seni izliyor.
         await agentTurn(engine, sim, ask);
+        // EMEKLILIK KARARI KENDILIGINDEN ACILIR. Oyuncunun `:emeklilik`
+        // yazmasini beklemek karari gorunmez kilardi -- ve bu, otuz
+        // sezonluk bir kariyerin en insani karari.
+        await retirementDesk(engine, ask);
+        // AGIR SAKATLIK da oyle: doktor bekliyorsa masa aciliyor.
+        if (engine.pendingTreatment() !== undefined) {
+          await healthDesk(engine, ask);
+        }
       } catch (err) {
         console.log(c.red((err as Error).message));
       }

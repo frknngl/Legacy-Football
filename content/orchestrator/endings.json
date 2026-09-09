@@ -562,6 +562,44 @@
         "op": "isSet"
       },
       "text": "Bir kez agriyi kimseye soylemedin. O hafta oynadin ve kimse fark etmedi. Bedelini kimin odedigini yalnizca sen biliyorsun ve hala odemeye devam ediyorsun."
+    },
+    {
+      "id": "koda_kendi_birakti",
+      "priority": 92,
+      "requires": {
+        "flag": "mem_kendi_birakti",
+        "op": "isSet"
+      },
+      "text": "Kimse seni birakmadi; sen biraktin. Son macin ne zaman oldugunu biliyordun ve o gun sahaya bunu bilerek ciktin -- futbolcularin cogunun yasamadigi tek luks budur."
+    },
+    {
+      "id": "koda_gecikmis_veda",
+      "priority": 72,
+      "requires": {
+        "flag": "mem_gecikmis_veda",
+        "op": "isSet"
+      },
+      "text": "Son iki sezonu konusmuyorlar. Sen de konusmuyorsun. Bir yil fazla oynadin ve o yil, oncesindeki her seyin uzerine ince bir toz gibi indi."
+    },
+    {
+      "id": "koda_bir_sezon_daha",
+      "priority": 40,
+      "requires": {
+        "allOf": [
+          {
+            "flag": "mem_bir_sezon_daha",
+            "op": "isSet"
+          },
+          {
+            "flag": "mem_gecikmis_veda",
+            "op": "notIn",
+            "value": [
+              true
+            ]
+          }
+        ]
+      },
+      "text": "Birakabilecegin bir yil vardi ve birakmadin. Dogru karardi: o sezon oynadigin futbol, birakmis olsaydin hic var olmayacakti."
     }
   ],
   "_codaNotu": "EPILOG KODALARI. Sonlanmadan BAGIMSIZDIR: hangi sonla bitilirse bitilsin, kosulu tutan cumleler epiloga eklenir. Sebep: motor yirmi kadar `mem_*` izi yaziyordu (evlilik, ayrilik, borsa, kumar, turnuva, gol kralligi, rakibe transfer) ve HICBIRI okunmuyordu -- otuz sezonda verilen kararlarin cogu son ekranda hic gorunmuyordu. On sekiz sonlanma x her iz icin ayri metin yazmak yerine kodalar tek noktada durur. `requires` bir OKUMADIR: `OrphanMemoryFlagRule` bunu sayar."
