@@ -119,6 +119,16 @@ import { followerDrift, followerTarget, type PhoneModel } from '../domain/phone.
 import { PhoneBuilder } from './PhoneBuilder.js';
 import { canRent, displayWeight, driftValues, inflateValues, purchaseRejection, rentIncome, saleValue, totalUpkeep, type AssetDefinition, type OwnedAsset } from '../domain/assets.js';
 import { forCountry, nextIndex, seasonRate, weeklyFactor } from '../domain/inflation.js';
+import {
+  dividendFor,
+  portfolioValue,
+  rollCrash,
+  stepPrice,
+  tradeRejection,
+  unrealised,
+  type Holding,
+  type MarketQuote,
+} from '../domain/market.js';
 
 export const CONTINUE_CHOICE_ID = '__continue';
 
@@ -470,6 +480,7 @@ export class GameEngine {
       wallet: [],
       walletTotals: {},
       assets: [],
+      market: { prices: {}, holdings: [] },
       rngSeed: seed,
       rngCursor: 0,
     };
@@ -920,6 +931,7 @@ export class GameEngine {
     this.tickLoan();
     this.tickManager();
     this.tickAssets();
+    this.tickMarkets();
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
@@ -1984,6 +1996,190 @@ export class GameEngine {
     if (show > 0) {
       f['iliski_sponsor'] = clamp100(numberFlag(f, 'iliski_sponsor') + show * 0.004);
       f['taraftar_destegi'] = clamp100(numberFlag(f, 'taraftar_destegi') - show * 0.002);
+    }
+  }
+
+
+  // --------------------------------------------------------------- PIYASA
+
+  /**
+   * Piyasa tablosu -- her enstrumanin BUGUNKU fiyati ve pozisyonun.
+   *
+   * Kumar masasi tek atistir; burasi tutulan pozisyondur. Ekranda
+   * gorulmesi gereken sey fiyat degil FARK: nereden girdin, simdi
+   * neredesin. Karar "alayim mi" degil "cikayim mi"dir.
+   */
+  marketQuotes(): readonly MarketQuote[] {
+    this.requireStarted();
+    const prices = this.state.market.prices;
+    return this.registry.config.markets.map((def) => {
+      const price = prices[def.id] ?? def.basePrice;
+      const held = this.state.market.holdings.find((h) => h.id === def.id);
+      return {
+        instrument: def,
+        price,
+        // Kariyer basina gore nerede: "girmedigim halde kacirdim" hissi
+        // de bir bilgidir.
+        sinceStart: Math.round(((price - def.basePrice) / def.basePrice) * 100),
+        ...(held === undefined
+          ? {}
+          : {
+              units: held.units,
+              value: Math.round(held.units * price),
+              profit: unrealised(held, price),
+            }),
+      };
+    });
+  }
+
+  /**
+   * Pozisyon acar ya da buyutur -- TUTAR ile, birim ile degil.
+   *
+   * Oyuncu "kac lot" diye dusunmez, "yuz bin lira koyayim" diye dusunur.
+   * Birim kesirli olabilir; kripto zaten boyle alinir.
+   *
+   * Ortalama maliyet guncellenir: ayni enstrumana ikinci kez girmek
+   * girisini ASAGI ya da YUKARI ceker, ve dususte ekleme yapmak
+   * ("maliyet dusurme") gercek bir hamle olur.
+   */
+  buyPosition(instrumentId: string, amount: number): Holding {
+    this.requireStarted();
+    const def = this.registry.config.markets.find((i) => i.id === instrumentId);
+    const wealth = numberFlag(this.state.flags, 'servet');
+    const rejection = tradeRejection(def, amount, wealth);
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    const price = this.state.market.prices[def!.id] ?? def!.basePrice;
+    const spend = Math.round(amount);
+    const units = spend / price;
+
+    this.state.flags['servet'] = wealth - spend;
+
+    const existing = this.state.market.holdings.find((h) => h.id === def!.id);
+    if (existing === undefined) {
+      this.state.market.holdings.push({ id: def!.id, units, avgCost: price });
+    } else {
+      const total = existing.units + units;
+      existing.avgCost = (existing.avgCost * existing.units + price * units) / total;
+      existing.units = total;
+    }
+
+    WalletLedger.record(this.state, -spend, 'yatirim', `${def!.label} alindi`);
+    this.notices.push(`${def!.label}: ${spend.toLocaleString('tr-TR')} TL girdi.`);
+    return this.state.market.holdings.find((h) => h.id === def!.id)!;
+  }
+
+  /**
+   * Pozisyonu kapatir. `ratio` 1 ise tamami, 0,5 ise yarisi.
+   *
+   * KESINTI YOK -- varlik satisindaki %12'nin karsiligi burada yok,
+   * cunku piyasa likittir: satmak zaman istemez. Riskin bedeli fiyatin
+   * kendisinde zaten var.
+   */
+  sellPosition(instrumentId: string, ratio = 1): number {
+    this.requireStarted();
+    const held = this.state.market.holdings.find((h) => h.id === instrumentId);
+    if (held === undefined) throw new EngineStateError('Bu enstrumanda pozisyonun yok.');
+
+    const def = this.registry.config.markets.find((i) => i.id === instrumentId);
+    const price = this.state.market.prices[instrumentId] ?? def?.basePrice ?? 0;
+    const share = Math.max(0.01, Math.min(1, ratio));
+    const units = held.units * share;
+    const amount = Math.round(units * price);
+    const profit = Math.round(units * (price - held.avgCost));
+
+    held.units -= units;
+    // Kalan toz miktar pozisyonu sonsuza kadar acik tutmasin.
+    if (held.units * price < 1) {
+      this.state.market.holdings.splice(this.state.market.holdings.indexOf(held), 1);
+    }
+
+    this.state.flags['servet'] = numberFlag(this.state.flags, 'servet') + amount;
+    WalletLedger.record(
+      this.state,
+      amount,
+      'yatirim',
+      `${def?.label ?? instrumentId} satildi`,
+    );
+
+    // Buyuk bir vurgun ya da buyuk bir cakilma iz birakir: icerik bunu
+    // okuyabilsin ("borsada yandigin haftayi hatirliyor musun").
+    const f = this.state.flags;
+    if (profit >= 250_000) {
+      f['mem_borsa_vurgunu'] = true;
+      this.state.flagSetTurn['mem_borsa_vurgunu'] = this.state.turn;
+    } else if (profit <= -250_000) {
+      f['mem_borsa_yandi'] = true;
+      this.state.flagSetTurn['mem_borsa_yandi'] = this.state.turn;
+    }
+
+    this.notices.push(
+      profit >= 0
+        ? `${def?.label ?? instrumentId}: ${amount.toLocaleString('tr-TR')} TL cikti (+${profit.toLocaleString('tr-TR')}).`
+        : `${def?.label ?? instrumentId}: ${amount.toLocaleString('tr-TR')} TL cikti (${profit.toLocaleString('tr-TR')}).`,
+    );
+    return amount;
+  }
+
+  /**
+   * HAFTALIK PIYASA -- pozisyonun olmasa da yurur.
+   *
+   * Bu onemli: piyasa oyuncuyu BEKLEMEZ. Girmediginde de fiyatlar
+   * hareket eder, girdiginde onlari bulmus olursun. Aksi halde "ne zaman
+   * girsem" diye bir soru kalmazdi.
+   *
+   * Fiyat uc bilesenden yurur: reel surukleme, ENFLASYON ve gurultu.
+   * Enflasyon bileseni sart -- Anadolu'da (%27,5) hisse de nakitle
+   * birlikte erirse "enflasyondan hisseye kacmak" imkansiz olurdu.
+   */
+  private tickMarkets(): void {
+    const catalog = this.registry.config.markets;
+    if (catalog.length === 0) return;
+
+    const f = this.state.flags;
+    const inflation = numberFlag(f, 'yillik_enflasyon');
+    const crash = rollCrash(this.rng.next());
+    if (crash !== undefined) this.state.market.lastCrashTurn = this.state.turn;
+
+    for (const def of catalog) {
+      const current = this.state.market.prices[def.id] ?? def.basePrice;
+      this.state.market.prices[def.id] = stepPrice(
+        def,
+        current,
+        inflation,
+        this.rng.next(),
+        crash,
+      );
+    }
+    this.state.rngCursor = this.rng.position;
+
+    if (this.state.market.holdings.length === 0) return;
+
+    // TEMETTU -- tutarken de oder. Kriptonun odemedigi sey bu; "bekle ve
+    // gor" onun icin bedava degil.
+    const priceOf = (id: string): number =>
+      this.state.market.prices[id] ?? catalog.find((i) => i.id === id)?.basePrice ?? 0;
+    const dividend = dividendFor(this.state.market.holdings, catalog, priceOf);
+    if (dividend > 0) {
+      f['servet'] = numberFlag(f, 'servet') + dividend;
+      WalletLedger.record(this.state, dividend, 'yatirim', 'Temettu');
+    }
+
+    // Portfoy DIKKAT ISTER: her hafta ekrana bakmak sahadan calar.
+    // Kucuk ama gercek -- ve buyuk pozisyon daha cok calar.
+    const value = portfolioValue(this.state.market.holdings, priceOf);
+    const wealth = Math.max(1, numberFlag(f, 'servet') + value);
+    const exposure = value / wealth;
+    if (exposure > 0.4) {
+      f['tukenmislik'] = clamp100(numberFlag(f, 'tukenmislik') + exposure * 0.25);
+    }
+
+    if (crash !== undefined && value > 0) {
+      this.notices.push(
+        crash.hits.length > 1
+          ? 'Piyasalar cakildi. Portfoyune bakmak istemeyebilirsin.'
+          : 'Kripto bir gecede eridi.',
+      );
     }
   }
 

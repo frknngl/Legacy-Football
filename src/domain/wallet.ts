@@ -27,8 +27,17 @@ export const WALLET_KINDS = [
   'komisyon',
   /** Sozlesme imza bonusu, transfer geliri. */
   'sozlesme',
-  /** Kumar, bahis, borsa. */
+  /** Kumar ve bahis -- tek atis. */
   'bahis',
+  /**
+   * Borsa ve kripto -- TUTULAN pozisyon.
+   *
+   * Bahisten AYRI kategori: ikisi ayni satirda gorunurse rulette
+   * kaybettigin para ile hisseden aldigin temettu birbirini goturur ve
+   * "hangisi bana kazandiriyor" sorusu cevapsiz kalir. Ayrimin butun
+   * amaci bu soruyu cevaplanabilir tutmak.
+   */
+  'yatirim',
   /** Kredi cekimi (+) ve taksit (-). */
   'kredi',
   /** Ev, araba, arsa: alis (-) ve haftalik gider (-). */
@@ -47,6 +56,7 @@ export const WALLET_LABELS: Readonly<Record<WalletKind, string>> = {
   komisyon: 'Menajer komisyonu',
   sozlesme: 'Sozlesme ve transfer',
   bahis: 'Kumar ve bahis',
+  yatirim: 'Borsa ve kripto',
   kredi: 'Kredi',
   varlik: 'Varlik',
   sponsor: 'Sponsorluk',

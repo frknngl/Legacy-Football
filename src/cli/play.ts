@@ -515,6 +515,84 @@ async function casinoDesk(
   }
 }
 
+/**
+ * BORSA MASASI.
+ *
+ * Kumar masasindan farkli bir sey gostermeli: orada "kac katina
+ * oynuyorsun" vardi, burada "nereden girdin, simdi neredesin" var.
+ * Ekranin tasidigi asil bilgi fiyat degil FARK.
+ */
+async function marketDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<void> {
+  const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
+  const quotes = engine.marketQuotes();
+  const wealth = Number(engine.snapshot().flags['servet'] ?? 0);
+
+  if (quotes.length === 0) {
+    console.log(c.grey('  Piyasa katalogu yuklenmemis.'));
+    return;
+  }
+
+  console.log('');
+  console.log(c.bold('BORSA VE KRIPTO') + c.grey(`   bakiye ${money(wealth)} TL`));
+
+  const open = quotes.filter((q) => q.units !== undefined);
+  if (open.length > 0) {
+    console.log(c.grey('  Acik pozisyonlar'));
+    for (const q of open) {
+      const pnl = q.profit ?? 0;
+      const tag = pnl >= 0 ? c.green(`+${money(pnl)}`) : c.red(money(pnl));
+      console.log(
+        `    ${q.instrument.label.padEnd(24)} ${money(q.value ?? 0).padStart(12)} TL  ${tag}`,
+      );
+    }
+    console.log('');
+  }
+
+  console.log(c.grey('  Tablo'));
+  quotes.forEach((q, i) => {
+    const trend =
+      q.sinceStart >= 0
+        ? c.green(`+%${q.sinceStart}`.padStart(7))
+        : c.red(`%${q.sinceStart}`.padStart(7));
+    const gate = wealth >= q.instrument.minWealth ? '' : c.red('  (servetin yetmiyor)');
+    console.log(
+      `    ${c.bold(String(i + 1))}) ${q.instrument.label.padEnd(24)} ${money(q.price).padStart(10)} TL ${trend}${gate}`,
+    );
+    if (q.instrument.note) console.log(c.grey(`       ${q.instrument.note}`));
+  });
+
+  console.log(c.grey('  <enter> vazgec | <no> <tutar> al | s<no> tamamini sat | y<no> yarisini sat'));
+  const answer = (await ask('  > ')).trim();
+  if (answer === '') return;
+
+  try {
+    if (answer.startsWith('s') || answer.startsWith('y')) {
+      const index = Number.parseInt(answer.slice(1), 10) - 1;
+      const target = quotes[index];
+      if (target === undefined) return;
+      const got = engine.sellPosition(target.instrument.id, answer.startsWith('y') ? 0.5 : 1);
+      console.log(c.green(`    Satildi: ${money(got)} TL`));
+      return;
+    }
+    const [pick, raw] = answer.split(/\s+/);
+    const index = Number.parseInt(pick ?? '', 10) - 1;
+    const target = quotes[index];
+    if (target === undefined) return;
+    const amount = Number.parseInt((raw ?? '').replace(/\D/g, ''), 10);
+    if (!Number.isFinite(amount)) {
+      console.log(c.grey('    Tutar yaz: "1 250000"'));
+      return;
+    }
+    engine.buyPosition(target.instrument.id, amount);
+    console.log(c.green(`    ${target.instrument.label}: ${money(amount)} TL girdi.`));
+  } catch (error) {
+    console.log(c.red(`    ${(error as Error).message}`));
+  }
+}
+
 async function walletDesk(
   engine: GameEngine,
   ask: (q: string) => Promise<string>,
@@ -528,6 +606,25 @@ async function walletDesk(
     `  Bakiye ${c.bold(money(Number(state.flags['servet'] ?? 0)) + ' TL')}` +
       c.grey(`   haftalik maas ${money(Number(state.flags['haftalik_gelir'] ?? 0))} TL`),
   );
+
+  // NET DEGER -- nakit tek basina yaniltir. Parasinin yarisi arsada,
+  // ceyregi hissede olan bir oyuncunun bakiyesi dusuk gorunur ve
+  // "fakirlestim" diye yanlis karar verir. Uc kalem ayri gosterilir
+  // cunku LIKIDITELERI farkli: nakit bugun, hisse bu hafta, arsa aylar.
+  const cash = Number(state.flags['servet'] ?? 0);
+  const portfolio = engine
+    .marketQuotes()
+    .reduce((sum, q) => sum + (q.value ?? 0), 0);
+  const property = engine.ownedAssets().reduce((sum, a) => sum + a.value, 0);
+  if (portfolio > 0 || property > 0) {
+    const parts = [c.grey(`nakit ${money(cash)}`)];
+    if (portfolio > 0) parts.push(c.grey(`portfoy ${money(portfolio)}`));
+    if (property > 0) parts.push(c.grey(`varlik ${money(property)}`));
+    console.log(
+      `  Net deger ${c.bold(money(cash + portfolio + property) + ' TL')}   ` +
+        parts.join(c.grey(' | ')),
+    );
+  }
 
   // ENFLASYON gorunur olmali -- gorunmezse oyuncu neden fakirlestigini
   // anlamaz. Anadolu'da 15 sezonda 1M TL, 20 bin TL alim gucune duser.
@@ -950,7 +1047,7 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :varlik | :telefon | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :telefon | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
@@ -964,6 +1061,11 @@ async function main(): Promise<void> {
 
     if (input === ':telefon') {
       phoneDesk(engine);
+      continue;
+    }
+
+    if (input === ':borsa') {
+      await marketDesk(engine, ask);
       continue;
     }
 

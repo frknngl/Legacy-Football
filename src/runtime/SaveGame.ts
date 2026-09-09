@@ -53,6 +53,11 @@ export class SaveGame {
     state.wallet ??= [];
     state.walletTotals ??= {};
     state.assets ??= [];
+    // Piyasa: eski kayitlarda yok. Bos fiyat tablosu dogru anlam --
+    // `tickMarkets` ilk haftada katalog fiyatlarindan tohumlar.
+    state.market ??= { prices: {}, holdings: [] };
+    state.market.prices ??= {};
+    state.market.holdings ??= [];
     state.ratingHistory ??= [];
     state.availability ??= { available: true, matchesRemaining: 0 };
     // v1 -> v2: kimlik katmani. Eski kayitta kadro yoktur; bos baslar ve

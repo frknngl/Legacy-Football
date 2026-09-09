@@ -10,6 +10,7 @@ import type { AgentState } from './agent.js';
 import type { WalletEntry, WalletTotals } from './wallet.js';
 import type { LoanState } from './loan.js';
 import type { OwnedAsset } from './assets.js';
+import type { MarketState } from './market.js';
 
 /** Kuyruga alinmis, vadesi gelince calisacak olay. */
 export interface ScheduledEvent {
@@ -187,6 +188,15 @@ export interface GameState {
    * backfill ister (`SaveGame`).
    */
   assets: OwnedAsset[];
+  /**
+   * BORSA VE KRIPTO.
+   *
+   * Fiyatlar DURUMDUR, turetilmez: pozisyonun degeri "simdi ne kadar"
+   * degil "girdiginden beri ne oldu"dur ve bunu ancak yuruyen bir fiyat
+   * tasiyabilir. Eksikse bos -- eski kayitlar backfill ister
+   * (`SaveGame`).
+   */
+  market: MarketState;
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

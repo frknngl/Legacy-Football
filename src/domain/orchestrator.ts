@@ -10,6 +10,7 @@ import type { FlagDefinition, FlagValue } from './flags.js';
 import type { GameDefinition } from './gambling.js';
 import type { AssetDefinition } from './assets.js';
 import type { InflationConfig } from './inflation.js';
+import type { Instrument } from './market.js';
 
 export interface EraDefinition {
   readonly id: Era;
@@ -158,6 +159,8 @@ export interface OrchestratorConfig {
   readonly assets: readonly AssetDefinition[];
   /** Enflasyon -- `content/economy/inflation.json`. */
   readonly inflation: InflationConfig;
+  /** Borsa ve kripto katalogu -- `content/economy/markets.json`. */
+  readonly markets: readonly Instrument[];
   readonly cadence: CadenceConfig;
   readonly release: ReleaseConfig;
   /**

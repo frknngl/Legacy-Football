@@ -49,45 +49,58 @@ describe('medya cagi gecisleri', () => {
     }
   });
 
-  it('25 sezonluk kariyerde dort cagin dordu de sahneye gelir', async () => {
-    const seed = 31337;
-    const engine = new GameEngine(registry, {
-      seed,
-      ...(await createMockWorld('content', registry, seed)),
-    });
-    const rng = new Rng(seed ^ 0x2545f491);
+  /**
+   * TEK TOHUM DEGIL, SOZLESME.
+   *
+   * Bu test eskiden tek tohumla (31337) kosuyordu ve dort cagin dordunu
+   * de gordugunu iddia ediyordu. Olculdu: iddia SANSTI. On iki tohumun
+   * onunda dordu de geliyor, ikisinde bir cag kaciriliyor -- ve kariyer
+   * kisaldigi icin degil (hepsi 1013 tur, hepsi deepfake cagina variyor),
+   * `media` kategorisinin havuz payi dar oldugu icin: 200 turluk bir cag
+   * penceresinde sahneye gelen medya olayi sayisi 1 ila 4.
+   *
+   * Bu yuzden test artik ULASILABILIRLIGI siniyor: her cag olayi
+   * tohumlar arasinda EN AZ BIR kez gelmeli (yani hicbiri olu degil) ve
+   * geldigi her seferde KENDI caginda gelmeli. Ikincisi asil sozlesme --
+   * kuyrugun bir olayi yanlis caga tasimasi gercek bir hatadir; belli
+   * bir tohumun belli bir olayi kacirmasi degildir.
+   */
+  it('her gecis olayi ULASILABILIR ve yalnizca kendi caginda geliyor', async () => {
+    const seeds = [31337, 7, 99, 2024, 555];
+    const seenAnywhere = new Set<string>();
 
-    const seen = new Set<string>();
-    const eraOfSighting = new Map<string, string>();
+    for (const seed of seeds) {
+      const engine = new GameEngine(registry, {
+        seed,
+        ...(await createMockWorld('content', registry, seed)),
+      });
+      const rng = new Rng(seed ^ 0x2545f491);
+      engine.start('street' as Archetype);
 
-    engine.start('street' as Archetype);
+      for (let i = 0; i < 1100; i += 1) {
+        if (engine.snapshot().ending !== undefined) break;
 
-    for (let i = 0; i < 1100; i += 1) {
-      const snap = engine.snapshot();
-      if (snap.ending !== undefined) break;
+        const report = engine.advanceTurn();
+        const id = report.presented?.eventId;
+        if (id !== undefined && TRANSITIONS.includes(id as (typeof TRANSITIONS)[number])) {
+          seenAnywhere.add(id);
+          // ASIL SOZLESME: olay kendi caginda gelmeli. Kuyruk bir cag
+          // olayini sonraki caga tasirsa bu satir yakalar.
+          expect(engine.snapshot().mediaEra, `${id} yanlis cagda geldi`).toBe(
+            id.replace('evt_media_era_', ''),
+          );
+        }
 
-      const report = engine.advanceTurn();
-      const id = report.presented?.eventId;
-      if (id !== undefined && TRANSITIONS.includes(id as (typeof TRANSITIONS)[number])) {
-        seen.add(id);
-        eraOfSighting.set(id, engine.snapshot().mediaEra);
-      }
-
-      let guard = 0;
-      while (engine.currentNode() && guard < 20) {
-        guard += 1;
-        const open = engine.availableChoices().filter((c) => !c.locked);
-        if (open.length === 0) break;
-        engine.choose(open[rng.int(open.length)]!.id);
+        let guard = 0;
+        while (engine.currentNode() && guard < 20) {
+          guard += 1;
+          const open = engine.availableChoices().filter((c) => !c.locked);
+          if (open.length === 0) break;
+          engine.choose(open[rng.int(open.length)]!.id);
+        }
       }
     }
 
-    expect([...seen].sort()).toEqual([...TRANSITIONS].sort());
-
-    // Her olay kendi caginda goruldu -- kuyruk yanlis tura dusurmedi.
-    expect(eraOfSighting.get('evt_media_era_twitter')).toBe('twitter');
-    expect(eraOfSighting.get('evt_media_era_instagram')).toBe('instagram');
-    expect(eraOfSighting.get('evt_media_era_tiktok')).toBe('tiktok');
-    expect(eraOfSighting.get('evt_media_era_deepfake')).toBe('deepfake');
+    expect([...seenAnywhere].sort()).toEqual([...TRANSITIONS].sort());
   });
 });
