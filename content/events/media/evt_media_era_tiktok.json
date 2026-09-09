@@ -6,10 +6,21 @@
   "weight": 100,
   "once": true,
   "scheduledOnly": true,
-  "cooldown": { "self": 40, "family": 20 },
-  "mediaEras": ["tiktok"],
-  "lifeStates": ["playing", "loaned", "national_duty", "injured", "suspended", "transfer_listed"],
-
+  "cooldown": {
+    "self": 40,
+    "family": 20
+  },
+  "mediaEras": [
+    "tiktok"
+  ],
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty",
+    "injured",
+    "suspended",
+    "transfer_listed"
+  ],
   "rootNode": "n_root",
   "nodes": {
     "n_root": {
@@ -21,49 +32,144 @@
           "id": "c_full",
           "text": "\"Yayınla. Bir kişi bile izlerse değer.\"",
           "effects": [
-            { "flag": "iliski_journalist", "op": "add", "value": 15 },
-            { "flag": "npc_journalist_arc", "op": "add", "value": 1 },
-            { "flag": "medya_itibari", "op": "add", "value": 8 },
-            { "flag": "medya_baskisi", "op": "add", "value": 10 },
-            { "flag": "moral", "op": "add", "value": -5 }
+            {
+              "flag": "iliski_journalist",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
           ],
-          "persona": { "dogruluk": 8, "durus": 4 }
+          "persona": {
+            "dogruluk": 8,
+            "durus": 4
+          }
         },
         {
           "id": "c_own_clip",
           "text": "Kendi klibini çek. Aynı formatta, aynı uzunlukta.",
           "effects": [
-            { "flag": "sosyal_medya_takipci", "op": "add", "value": 900000 },
-            { "flag": "sokak_itibari", "op": "add", "value": 12 },
-            { "flag": "medya_itibari", "op": "add", "value": -8 },
-            { "flag": "tukenmislik", "op": "add", "value": 12 }
+            {
+              "flag": "sosyal_medya_takipci",
+              "op": "add",
+              "value": 900000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 12
+            }
           ],
-          "persona": { "mizac": 7, "durus": 6 }
+          "persona": {
+            "mizac": 7,
+            "durus": 6
+          }
         },
         {
           "id": "c_find_kid",
           "text": "Çocuğu bul. Klibi birlikte çekin.",
           "effects": [
-            { "flag": "taraftar_destegi", "op": "add", "value": 18 },
-            { "flag": "medya_itibari", "op": "add", "value": 12 },
-            { "flag": "sosyal_medya_takipci", "op": "add", "value": 250000 },
-            { "flag": "kondisyon", "op": "add", "value": -5 },
-            { "flag": "mem_saved_teammate", "op": "set", "value": true }
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "sosyal_medya_takipci",
+              "op": "add",
+              "value": 250000
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
           ],
-          "persona": { "sadakat": 8, "dogruluk": 7 }
+          "persona": {
+            "sadakat": 8,
+            "dogruluk": 7
+          }
         },
         {
           "id": "c_nothing",
           "text": "Hiçbir şey yapma. Altı saniye altı saniyedir.",
           "effects": [
-            { "flag": "profesyonellik", "op": "add", "value": 6 },
-            { "flag": "medya_baskisi", "op": "add", "value": 18 },
-            { "flag": "taraftar_destegi", "op": "add", "value": -10 },
-            { "flag": "mental_dayaniklilik", "op": "add", "value": 6 }
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            }
           ],
-          "persona": { "mizac": -7, "durus": -5 }
+          "persona": {
+            "mizac": -7,
+            "durus": -5
+          }
         }
       ]
     }
+  },
+  "story": {
+    "arc": "fam_media_era",
+    "beat": "evt_media_era_tiktok",
+    "signature": "media:fam_media_era"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 6
   }
 }

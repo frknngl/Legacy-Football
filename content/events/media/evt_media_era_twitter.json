@@ -6,10 +6,21 @@
   "weight": 100,
   "once": true,
   "scheduledOnly": true,
-  "cooldown": { "self": 40, "family": 20 },
-  "mediaEras": ["twitter"],
-  "lifeStates": ["playing", "loaned", "national_duty", "injured", "suspended", "transfer_listed"],
-
+  "cooldown": {
+    "self": 40,
+    "family": 20
+  },
+  "mediaEras": [
+    "twitter"
+  ],
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty",
+    "injured",
+    "suspended",
+    "transfer_listed"
+  ],
   "rootNode": "n_root",
   "nodes": {
     "n_root": {
@@ -21,46 +32,129 @@
           "id": "c_read",
           "text": "Kırk iki sayfayı da oku. Sonuna kadar.",
           "effects": [
-            { "flag": "moral", "op": "add", "value": -14 },
-            { "flag": "mental_dayaniklilik", "op": "add", "value": 5 },
-            { "flag": "mem_reads_own_criticism", "op": "set", "value": true }
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
           ],
-          "persona": { "dogruluk": 3, "mizac": -4 }
+          "persona": {
+            "dogruluk": 3,
+            "mizac": -4
+          }
         },
         {
           "id": "c_sign",
           "text": "Açıklamayı imzala. Kurumsal dil kalkan olsun.",
           "effects": [
-            { "flag": "medya_itibari", "op": "add", "value": 8 },
-            { "flag": "yonetim_baskisi", "op": "add", "value": -10 },
-            { "flag": "sokak_itibari", "op": "add", "value": -10 },
-            { "flag": "moral", "op": "add", "value": -5 }
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
           ],
-          "persona": { "durus": -7, "sadakat": 4 }
+          "persona": {
+            "durus": -7,
+            "sadakat": 4
+          }
         },
         {
           "id": "c_account",
           "text": "Kendi hesabını aç. Aracısız konuş.",
           "effects": [
-            { "flag": "sosyal_medya_takipci", "op": "add", "value": 60000 },
-            { "flag": "medya_baskisi", "op": "add", "value": 15 },
-            { "flag": "iliski_agent", "op": "add", "value": -10 },
-            { "flag": "mem_media_war", "op": "set", "value": true }
+            {
+              "flag": "sosyal_medya_takipci",
+              "op": "add",
+              "value": 60000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
           ],
-          "persona": { "durus": 9, "mizac": 6 }
+          "persona": {
+            "durus": 9,
+            "mizac": 6
+          }
         },
         {
           "id": "c_ignore",
           "text": "Telefonu {actor.youngster.first:dat} geri ver. \"Bir daha gösterme.\"",
           "effects": [
-            { "flag": "profesyonellik", "op": "add", "value": 8 },
-            { "flag": "form", "op": "add", "value": 5 },
-            { "flag": "iliski_youngster", "op": "add", "value": -6 },
-            { "flag": "npc_youngster_arc", "op": "add", "value": 1 }
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
+            }
           ],
-          "persona": { "mizac": -6, "durus": -3 }
+          "persona": {
+            "mizac": -6,
+            "durus": -3
+          }
         }
       ]
     }
+  },
+  "story": {
+    "arc": "fam_media_era",
+    "beat": "evt_media_era_twitter",
+    "signature": "media:fam_media_era"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 6
   }
 }

@@ -6,8 +6,10 @@
   "weight": 100,
   "once": true,
   "scheduledOnly": true,
-  "cooldown": { "self": 999, "family": 8 },
-
+  "cooldown": {
+    "self": 999,
+    "family": 8
+  },
   "rootNode": "n_root",
   "nodes": {
     "n_root": {
@@ -19,51 +21,154 @@
           "id": "c_score",
           "text": "Kos. Gol at.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
-            { "flag": "iliski_nemesis", "op": "add", "value": -35 },
-            { "flag": "taraftar_destegi", "op": "add", "value": -20 },
-            { "flag": "medya_baskisi", "op": "add", "value": 25 },
-            { "flag": "mem_rival_humiliated", "op": "set", "value": true }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 7
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -35
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "mem_rival_humiliated",
+              "op": "set",
+              "value": true
+            }
           ],
-          "persona": { "dogruluk": -12, "sadakat": -6 }
+          "persona": {
+            "dogruluk": -12,
+            "sadakat": -6
+          }
         },
         {
           "id": "c_stop",
           "text": "Topu aut'a at. Yanina cok.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
-            { "flag": "iliski_nemesis", "op": "add", "value": 35 },
-            { "flag": "taraftar_destegi", "op": "add", "value": 20 },
-            { "flag": "medya_itibari", "op": "add", "value": 18 },
-            { "flag": "form", "op": "add", "value": -8 },
-            { "flag": "mem_rival_helped", "op": "set", "value": true }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 7
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 35
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mem_rival_helped",
+              "op": "set",
+              "value": true
+            }
           ],
-          "persona": { "dogruluk": 14, "sadakat": 6 }
+          "persona": {
+            "dogruluk": 14,
+            "sadakat": 6
+          }
         },
         {
           "id": "c_doctor",
           "text": "Topu birak, {actor.doctor.first:acc} cagir, sonra geri cekil.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
-            { "flag": "iliski_nemesis", "op": "add", "value": 12 },
-            { "flag": "profesyonellik", "op": "add", "value": 10 },
-            { "flag": "iliski_doctor", "op": "add", "value": 8 },
-            { "flag": "form", "op": "add", "value": -5 }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 7
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -5
+            }
           ],
-          "persona": { "dogruluk": 7, "mizac": -4 }
+          "persona": {
+            "dogruluk": 7,
+            "mizac": -4
+          }
         },
         {
           "id": "c_walk",
           "text": "Hicbir sey yapma. Oyun devam etsin, sen yurumeye devam et.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 7 },
-            { "flag": "iliski_nemesis", "op": "add", "value": -10 },
-            { "flag": "mental_dayaniklilik", "op": "add", "value": 8 },
-            { "flag": "iliski_takim", "op": "add", "value": -6 }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 7
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -6
+            }
           ],
-          "persona": { "mizac": -9, "durus": -6 }
+          "persona": {
+            "mizac": -9,
+            "durus": -6
+          }
         }
       ]
     }
+  },
+  "story": {
+    "arc": "fam_rival_arc",
+    "beat": "evt_rival_injury_moment",
+    "signature": "rival:fam_rival_arc"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 6
   }
 }

@@ -6,8 +6,10 @@
   "weight": 100,
   "once": true,
   "scheduledOnly": true,
-  "cooldown": { "self": 999, "family": 8 },
-
+  "cooldown": {
+    "self": 999,
+    "family": 8
+  },
   "rootNode": "n_root",
   "nodes": {
     "n_root": {
@@ -19,50 +21,149 @@
           "id": "c_sit",
           "text": "O sandalyeye otur.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
-            { "flag": "iliski_nemesis", "op": "add", "value": 20 },
-            { "flag": "iliski_national_captain", "op": "add", "value": 10 },
-            { "flag": "medya_itibari", "op": "add", "value": 10 },
-            { "flag": "sokak_itibari", "op": "add", "value": -10 }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 6
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_national_captain",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
           ],
-          "persona": { "mizac": -5, "dogruluk": 6 }
+          "persona": {
+            "mizac": -5,
+            "dogruluk": 6
+          }
         },
         {
           "id": "c_far",
           "text": "Salonun obur ucuna otur.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
-            { "flag": "iliski_nemesis", "op": "add", "value": -12 },
-            { "flag": "iliski_takim", "op": "add", "value": -8 },
-            { "flag": "medya_baskisi", "op": "add", "value": 12 }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 6
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 12
+            }
           ],
-          "persona": { "mizac": 6, "durus": 4 }
+          "persona": {
+            "mizac": 6,
+            "durus": 4
+          }
         },
         {
           "id": "c_manager",
           "text": "Yemegi atla. {actor.national_manager.first:gen} kapisini cal.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
-            { "flag": "iliski_national_manager", "op": "add", "value": -10 },
-            { "flag": "npc_national_manager_arc", "op": "add", "value": 1 },
-            { "flag": "liderlik", "op": "add", "value": 6 },
-            { "flag": "iliski_takim", "op": "add", "value": -5 }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 6
+            },
+            {
+              "flag": "iliski_national_manager",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_national_manager_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -5
+            }
           ],
-          "persona": { "durus": 10, "mizac": 6 }
+          "persona": {
+            "durus": 10,
+            "mizac": 6
+          }
         },
         {
           "id": "c_work",
           "text": "Yemekten sonra sahaya cik. Tek basina, karanlikta.",
           "effects": [
-            { "flag": "npc_nemesis_arc", "op": "set", "value": 6 },
-            { "flag": "form", "op": "add", "value": 8 },
-            { "flag": "profesyonellik", "op": "add", "value": 8 },
-            { "flag": "tukenmislik", "op": "add", "value": 10 },
-            { "flag": "iliski_nemesis", "op": "add", "value": -5 }
+            {
+              "flag": "npc_nemesis_arc",
+              "op": "set",
+              "value": 6
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_nemesis",
+              "op": "add",
+              "value": -5
+            }
           ],
-          "persona": { "mizac": -7, "sadakat": 4 }
+          "persona": {
+            "mizac": -7,
+            "sadakat": 4
+          }
         }
       ]
     }
+  },
+  "story": {
+    "arc": "fam_rival_arc",
+    "beat": "evt_rival_national_bench",
+    "signature": "rival:fam_rival_arc"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 6
   }
 }

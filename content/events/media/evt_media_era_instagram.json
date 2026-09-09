@@ -6,10 +6,21 @@
   "weight": 100,
   "once": true,
   "scheduledOnly": true,
-  "cooldown": { "self": 40, "family": 20 },
-  "mediaEras": ["instagram"],
-  "lifeStates": ["playing", "loaned", "national_duty", "injured", "suspended", "transfer_listed"],
-
+  "cooldown": {
+    "self": 40,
+    "family": 20
+  },
+  "mediaEras": [
+    "instagram"
+  ],
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty",
+    "injured",
+    "suspended",
+    "transfer_listed"
+  ],
   "rootNode": "n_root",
   "nodes": {
     "n_root": {
@@ -21,52 +32,164 @@
           "id": "c_sign",
           "text": "İmzala. Metinleri de onlar yazsın.",
           "effects": [
-            { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": 200000, "perTier": 450000 } },
-            { "flag": "iliski_sponsor", "op": "add", "value": 25 },
-            { "flag": "sosyal_medya_takipci", "op": "add", "value": 400000 },
-            { "flag": "sokak_itibari", "op": "add", "value": -14 },
-            { "flag": "iliski_takim", "op": "add", "value": -8 }
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 200000,
+                "perTier": 450000
+              }
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "sosyal_medya_takipci",
+              "op": "add",
+              "value": 400000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -8
+            }
           ],
-          "persona": { "dogruluk": -8, "sadakat": -4 }
+          "persona": {
+            "dogruluk": -8,
+            "sadakat": -4
+          }
         },
         {
           "id": "c_own_voice",
           "text": "\"İmzalarım ama metinleri ben yazarım.\"",
           "effects": [
-            { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": 90000, "perTier": 200000 } },
-            { "flag": "iliski_sponsor", "op": "add", "value": 5 },
-            { "flag": "medya_itibari", "op": "add", "value": 10 },
-            { "flag": "sosyal_medya_takipci", "op": "add", "value": 120000 },
-            { "flag": "medya_baskisi", "op": "add", "value": 10 }
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 90000,
+                "perTier": 200000
+              }
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sosyal_medya_takipci",
+              "op": "add",
+              "value": 120000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
           ],
-          "persona": { "durus": 8, "dogruluk": 6 }
+          "persona": {
+            "durus": 8,
+            "dogruluk": 6
+          }
         },
         {
           "id": "c_refuse",
           "text": "Kalk. \"Ben bir varlık değilim.\"",
           "effects": [
-            { "flag": "iliski_sponsor", "op": "add", "value": -25 },
-            { "flag": "iliski_agent", "op": "add", "value": -18 },
-            { "flag": "sokak_itibari", "op": "add", "value": 18 },
-            { "flag": "moral", "op": "add", "value": 10 },
-            { "flag": "mem_media_war", "op": "set", "value": true }
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -18
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
           ],
-          "persona": { "durus": 12, "dogruluk": 10, "sadakat": -3 }
+          "persona": {
+            "durus": 12,
+            "dogruluk": 10,
+            "sadakat": -3
+          }
         },
         {
           "id": "c_youngster",
           "text": "\"Beni değil, {actor.youngster.first:acc} alın. O daha çok ihtiyaç duyuyor.\"",
-          "requires": { "flag": "persona_sadakat", "op": "gte", "value": 60 },
+          "requires": {
+            "flag": "persona_sadakat",
+            "op": "gte",
+            "value": 60
+          },
           "lockLabel": "[Sadakat 60]",
           "effects": [
-            { "flag": "iliski_youngster", "op": "add", "value": 25 },
-            { "flag": "npc_youngster_arc", "op": "add", "value": 1 },
-            { "flag": "iliski_sponsor", "op": "add", "value": -12 },
-            { "flag": "iliski_agent", "op": "add", "value": -10 }
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -10
+            }
           ],
-          "persona": { "sadakat": 12, "dogruluk": 5 }
+          "persona": {
+            "sadakat": 12,
+            "dogruluk": 5
+          }
         }
       ]
     }
+  },
+  "story": {
+    "arc": "fam_media_era",
+    "beat": "evt_media_era_instagram",
+    "signature": "media:fam_media_era"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 6
   }
 }
