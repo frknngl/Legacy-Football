@@ -34,142 +34,6 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Yüzleşme",
-      "kind": "branch",
-      "text": "Stüdyonun soğuk ışıkları altındasın. {actor.pundit.name}, elindeki tableti masaya yavaşça bırakıyor. Yirmi yedi hafta önce, o canlı yayında mikrofonu elinin tersiyle itip söylediklerin, stüdyonun sessizliğinde yankılanıyor. O günkü öfken, bugün bir alacaklı gibi karşına dikildi. {actor.pundit.name} başını kaldırıyor, gözleri gülmüyor; sadece bekliyor. Kapı ardında kapalı, kaçış yok.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Hata yaptığımı kabul ediyorum, bu sözlerin bir bedeli varsa ödemeye hazırım.",
-          "target": "n_sonuc_guvenli",
-          "effects": [
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -5000
-            }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "Söylediklerim o gün de doğruydu, bugün de. Hiçbir şeyi geri almıyorum.",
-          "target": "n_sonuc_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 25
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 15
-            }
-          ],
-          "persona": {
-            "durus": 10
-          }
-        },
-        {
-          "id": "c_gri",
-          "text": "Geçmişi kapatalım. İstediğin özel haberi veririm, yeter ki bu konuyu bir daha açma.",
-          "target": "n_sonuc_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 10000
-            },
-            {
-              "flag": "iliski_pundit",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
-            }
-          ],
-          "persona": {
-            "mizac": -5
-          }
-        }
-      ]
-    },
-    "n_sonuc_guvenli": {
-      "title": "Kabul",
-      "kind": "outcome",
-      "text": "{actor.pundit.name} hafifçe gülümsüyor, parmakları titreyen bir kalemle not defterine bir şeyler karalarken stüdyodaki ağır hava yavaşça dağılıyor. İtibarını kurtarmak adına geri adım attın, fakat masanın öbür ucunda duyulan o mekanik kalem sesi, vicdanında derin bir sızı bırakıyor. Stüdyonun floresan lambaları tepenizde vızıltıyla yanıp sönerken, verdiğin bu taviz içeride bir yerleri sessizce kanatıyordu.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_riskli": {
-      "title": "İnkar",
-      "kind": "outcome",
-      "text": "{actor.pundit.name} sandalyesini geriye itip kalkıyor. Kameralar kayıtta. Yarın sabah gazetelerde sadece senin değil, öfkenin de manşet olacağını ikiniz de biliyorsunuz.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_gri": {
-      "title": "Takas",
-      "kind": "outcome",
-      "text": "Göz göze geliyorsunuz. Sessiz bir mutabakat. İçerideki o huzursuzluk, cebine giren para ve kurtulan itibarın yanında önemsiz kalıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "once": true,
   "story": {
     "arc": "fam_arc_pundit_maske_dusmesi",
@@ -181,5 +45,318 @@
     "beatGapTurns": 45,
     "signatureGapTurns": 30,
     "maxBeatUses": 6
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yüzleşme",
+          "kind": "branch",
+          "text": "Stüdyonun soğuk ışıkları altındasın. {actor.pundit.name}, elindeki tableti masaya yavaşça bırakıyor. Yirmi yedi hafta önce, o canlı yayında mikrofonu elinin tersiyle itip söylediklerin, stüdyonun sessizliğinde yankılanıyor. O günkü öfken, bugün bir alacaklı gibi karşına dikildi. {actor.pundit.name} başını kaldırıyor, gözleri gülmüyor; sadece bekliyor. Kapı ardında kapalı, kaçış yok.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Hata yaptığımı kabul ediyorum, bu sözlerin bir bedeli varsa ödemeye hazırım.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -5000
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Söylediklerim o gün de doğruydu, bugün de. Hiçbir şeyi geri almıyorum.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Geçmişi kapatalım. İstediğin özel haberi veririm, yeter ki bu konuyu bir daha açma.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                },
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Kabul",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} hafifçe gülümsüyor, parmakları titreyen bir kalemle not defterine bir şeyler karalarken stüdyodaki ağır hava yavaşça dağılıyor. İtibarını kurtarmak adına geri adım attın, fakat masanın öbür ucunda duyulan o mekanik kalem sesi, vicdanında derin bir sızı bırakıyor. Stüdyonun floresan lambaları tepenizde vızıltıyla yanıp sönerken, verdiğin bu taviz içeride bir yerleri sessizce kanatıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "İnkar",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} sandalyesini geriye itip kalkıyor. Kameralar kayıtta. Yarın sabah gazetelerde sadece senin değil, öfkenin de manşet olacağını ikiniz de biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Takas",
+          "kind": "outcome",
+          "text": "Göz göze geliyorsunuz. Sessiz bir mutabakat. İçerideki o huzursuzluk, cebine giren para ve kurtulan itibarın yanında önemsiz kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının dışındaki otoparkta, arabanın kaputuna yaslanmış bekliyor. Yağmur, {actor.pundit.name} üzerinden süzülüp yerdeki yağlı su birikintisine karışıyor. Ses çıkarmıyor. Sadece sana doğru, ekranlarda herkesin önünde senin özel hayatını didiklediği o meşhur ifadesiyle bakıyor. Elinde bir ses kayıt cihazı değil, senin kariyerini bitirebilecek bir dosya var. Sessizlik, bir tehdidin en çıplak hali.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı elinden kap ve yola devam et. Kimse senin geçmişini sorgulayamaz.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce uzaklaş. Ne kadar çok konuşursan o kadar çok malzeme veriyorsun.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cüzdanından bir tomar para çıkar ve ıslandığına değeceğini söyle.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -12
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Ona bildiği tüm sırları ifşa etme teklifi yap. Beraber batacaksınız.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "set",
+                  "value": 1
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Sokak İtibarı 68]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sert Çıkış",
+          "kind": "outcome",
+          "text": "Dosyayı aldın ama o, arkandan attığı o meşhur gülüşü ile karanlığa karıştı. Yarın sabahki manşetler şimdiden belli.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğukkanlılık",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek en doğrusuydu. Ancak sırtındaki o bakış, uzun süre peşini bırakmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Parayı alırken yüzüne bakmadı. Satın aldığın şey sessizlikti, ama onurun fiyatı sandığından yüksekti.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Karanlık İttifak",
+          "kind": "outcome",
+          "text": "Artık aynı gemidesiniz. O senin kalemin, sen ise onun sahnedeki gölgesi. İkiniz de eskisinden çok daha güçlüsünüz.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

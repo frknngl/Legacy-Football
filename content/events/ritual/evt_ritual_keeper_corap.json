@@ -18,173 +18,6 @@
     "playing",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Yıkanmayan",
-      "kind": "branch",
-      "text": "{actor.keeper.name:gen} bir çorabı var. Yıkatmıyor.\n\nAltı maçtır gol yemedi ve altı maçtır aynı çorapla oynuyor. Malzemeci iki kez almaya çalıştı, iki kez geri verdi.\n\nBugün soyunma odasında koku bir mesele hâline geldi. {actor.veteran.name} camı açtı ve \"Ya bu ya ben,\" dedi.\n\n{actor.keeper.name} sana bakıyor. Neden sana bakıyor bilmiyorsun ama bakıyor.",
-      "choices": [
-        {
-          "id": "c_kaleci",
-          "text": "Kalecinin tarafını tut. \"Altı maç altı maçtır.\"",
-          "target": "n_kaleci",
-          "effects": [
-            {
-              "flag": "iliski_keeper",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": -6
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": 4
-            }
-          ],
-          "persona": {
-            "sadakat": 5
-          }
-        },
-        {
-          "id": "c_veteran",
-          "text": "Camı açık tut. \"Kokuyor gerçekten.\"",
-          "target": "n_veteran",
-          "effects": [
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "iliski_keeper",
-              "op": "add",
-              "value": -9
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 3
-            }
-          ],
-          "persona": {
-            "dogruluk": 4
-          }
-        },
-        {
-          "id": "c_kendi",
-          "text": "Hiçbir şey deme ama kendi çorabını da yıkatma.",
-          "target": "n_kendi",
-          "effects": [
-            {
-              "flag": "iliski_keeper",
-              "op": "add",
-              "value": 14
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": -4
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "mizac": 6
-          }
-        },
-        {
-          "id": "c_uyar",
-          "text": "Kaleciyi kenara cek. \"Bir cocugun buna bagimli oldugunu gordum. Iyi bitmedi.\"",
-          "requires": {
-            "flag": "mem_ritual_cocugu_bozdu",
-            "op": "eq",
-            "value": true
-          },
-          "target": "n_kaleci",
-          "effects": [
-            {
-              "flag": "iliski_keeper",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -4
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": -3
-            }
-          ],
-          "persona": {
-            "dogruluk": 7
-          },
-          "lockLabel": "[Bir cocugun ritueli kirilmisti]"
-        }
-      ]
-    },
-    "n_kaleci": {
-      "title": "Altı Maç",
-      "kind": "outcome",
-      "text": "\"Altı maç altı maçtır.\"\n\n{actor.keeper.name} başını salladı. {actor.veteran.name} camı kapatmadı ama bir şey de demedi.\n\nYedinci maçta üç gol yediler. Çorap ertesi gün çöpteydi ve kimse bundan bir daha bahsetmedi.",
-      "onEnter": [
-        {
-          "flag": "mem_ugur_kaleciyi_destekledi",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_veteran": {
-      "title": "Açık Cam",
-      "kind": "outcome",
-      "text": "\"Kokuyor gerçekten.\"\n\nSoyunma odası güldü. {actor.keeper.name} gülmedi.\n\nO gün çorabı yıkattı ve yedinci maçta kalesini gole kapattı. Yani haklı olan sendin — ama {actor.keeper.name} bunu asla kabul etmedi ve seninle üç hafta konuşmadı.\n\nHaklı olmak, futbolda beklediğin kadar işe yaramıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_ugur_bozdu",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_kendi": {
-      "title": "İkinci Çorap",
-      "kind": "outcome",
-      "text": "Bir şey demedin. Ertesi gün kendi çorabını da malzemeciye vermedin.\n\n{actor.keeper.name} fark etti. Hiçbir şey söylemedi, sadece dolabının yanına geçti ve orada durdu.\n\nO sezon soyunma odasında beş kişi çorap yıkatmadı. Kimse başlatmadı, kimse bitirmedi. Böyle şeyler böyle oluyor.",
-      "onEnter": [
-        {
-          "flag": "mem_ugur_katildi",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_ritual_ugur",
     "beat": "evt_ritual_keeper_corap",
@@ -194,5 +27,291 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yıkanmayan",
+          "kind": "branch",
+          "text": "{actor.keeper.name:gen} bir çorabı var. Yıkatmıyor.\n\nAltı maçtır gol yemedi ve altı maçtır aynı çorapla oynuyor. Malzemeci iki kez almaya çalıştı, iki kez geri verdi.\n\nBugün soyunma odasında koku bir mesele hâline geldi. {actor.veteran.name} camı açtı ve \"Ya bu ya ben,\" dedi.\n\n{actor.keeper.name} sana bakıyor. Neden sana bakıyor bilmiyorsun ama bakıyor.",
+          "choices": [
+            {
+              "id": "c_kaleci",
+              "text": "Kalecinin tarafını tut. \"Altı maç altı maçtır.\"",
+              "target": "n_kaleci",
+              "effects": [
+                {
+                  "flag": "iliski_keeper",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_veteran",
+              "text": "Camı açık tut. \"Kokuyor gerçekten.\"",
+              "target": "n_veteran",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_keeper",
+                  "op": "add",
+                  "value": -9
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_kendi",
+              "text": "Hiçbir şey deme ama kendi çorabını da yıkatma.",
+              "target": "n_kendi",
+              "effects": [
+                {
+                  "flag": "iliski_keeper",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_uyar",
+              "text": "Kaleciyi kenara cek. \"Bir cocugun buna bagimli oldugunu gordum. Iyi bitmedi.\"",
+              "requires": {
+                "flag": "mem_ritual_cocugu_bozdu",
+                "op": "eq",
+                "value": true
+              },
+              "target": "n_kaleci",
+              "effects": [
+                {
+                  "flag": "iliski_keeper",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 7
+              },
+              "lockLabel": "[Bir cocugun ritueli kirilmisti]"
+            }
+          ]
+        },
+        "n_kaleci": {
+          "title": "Altı Maç",
+          "kind": "outcome",
+          "text": "\"Altı maç altı maçtır.\"\n\n{actor.keeper.name} başını salladı. {actor.veteran.name} camı kapatmadı ama bir şey de demedi.\n\nYedinci maçta üç gol yediler. Çorap ertesi gün çöpteydi ve kimse bundan bir daha bahsetmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_ugur_kaleciyi_destekledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_veteran": {
+          "title": "Açık Cam",
+          "kind": "outcome",
+          "text": "\"Kokuyor gerçekten.\"\n\nSoyunma odası güldü. {actor.keeper.name} gülmedi.\n\nO gün çorabı yıkattı ve yedinci maçta kalesini gole kapattı. Yani haklı olan sendin — ama {actor.keeper.name} bunu asla kabul etmedi ve seninle üç hafta konuşmadı.\n\nHaklı olmak, futbolda beklediğin kadar işe yaramıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ugur_bozdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kendi": {
+          "title": "İkinci Çorap",
+          "kind": "outcome",
+          "text": "Bir şey demedin. Ertesi gün kendi çorabını da malzemeciye vermedin.\n\n{actor.keeper.name} fark etti. Hiçbir şey söylemedi, sadece dolabının yanına geçti ve orada durdu.\n\nO sezon soyunma odasında beş kişi çorap yıkatmadı. Kimse başlatmadı, kimse bitirmedi. Böyle şeyler böyle oluyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ugur_katildi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Uğurun Bedeli",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki malzeme deposundasın. Havalandırma çalışmıyor. {actor.keeper.name} köşede, dizleri titreyerek oturuyor. Önünde o kirli, parçalanmış çorap duruyor. Kulüp doktoru kapıda, elinde bir çift temiz, steril çorapla bekliyor. İkisi de gözünü sana dikmiş. Biri 'hijyen' diyor, diğeri 'ruhumu koru'. Sessizlik sadece çamaşır suyu kokusu ve nemli duvarların sesiyle bölünüyor. Karar senin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Doktorun elinden temiz olanı al, {actor.keeper.name} eline zorla tutuştur.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Doktoru dışarı çıkar, {actor.keeper.name} daha fazla para teklif et, o çorabı yakıp kurtulmasını sağla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -2000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sırtını dön ve çık. Kimin ne giydiğine karışma, kendi işine bak.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "mizac": 3
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Profesyonel Karar",
+          "kind": "outcome",
+          "text": "Temiz olanı giydi. Sahaya çıktığında gözlerinde o eski kendinden emin ifade yoktu. İlk hatasında sana baktı, sessizce.",
+          "onEnter": [
+            {
+              "flag": "mem_ugur_bozdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Satın Alınmış Huzur",
+          "kind": "outcome",
+          "text": "Zarfları verdiğinde bir an duraksadı. Çorabı çöp kutusuna attı. Artık temiz ama içinde bir boşlukla oynuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ugur_katildi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Göz Yummak",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek şey, o kirli kumaşın ayakkabıya girerken çıkardığı o ince, yırtılma sesiydi. Sadakatini kazandın.",
+          "onEnter": [
+            {
+              "flag": "mem_ugur_kaleciyi_destekledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

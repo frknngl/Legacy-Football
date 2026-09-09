@@ -27,6 +27,17 @@ ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/{model}:gene
 # ortasinda 503 alindiginda tum zinciri geri aldirir -- uretimi modelin o anki
 # yuk durumuna baglamak demektir.
 TRANSIENT_STATUS = frozenset({429, 500, 502, 503, 504})
+
+# ANAHTARI OLDUREN DURUMLAR.
+#
+# OLCULEN SORUN: yalnizca 429 (kota) sonraki anahtara geciyordu. 401 ve
+# 403 -- yani "bu anahtar gecersiz/devre disi" -- ANINDA hata firlatiyor
+# ve butun kosuyu bitiriyordu. Listedeki ilk olu anahtar, arkasindaki
+# GECERLI anahtarlari kullanilmaz yapiyordu.
+#
+# Olculdu: iki gecerli anahtar varken bir uretim kosusu 1040 kez 401
+# aldi ve SIFIR varyant yazdi.
+DEAD_KEY_STATUS = frozenset({401, 403})
 MAX_ATTEMPTS = 4
 
 
@@ -85,12 +96,12 @@ class GeminiProvider(Provider):
         """Su an kullanilan anahtar."""
         return self._keys[self._keyIndex] if self._keyIndex < len(self._keys) else None
 
-    def _nextKey(self) -> bool:
+    def _nextKey(self, reason: str = "kota doldu") -> bool:
         """Sonraki anahtara gec. Baska anahtar yoksa False."""
         if self._keyIndex + 1 >= len(self._keys):
             return False
         self._keyIndex += 1
-        print(f"   kota doldu, {self._keyIndex + 1}. anahtara geciliyor")
+        print(f"   {reason}, {self._keyIndex + 1}. anahtara geciliyor")
         return True
 
     @property
@@ -174,7 +185,11 @@ class GeminiProvider(Provider):
                 detail = err.read().decode("utf-8", errors="replace")[:400]
                 # KOTA (429): beklemek ise yaramaz -- gunluk sinir.
                 # Once baska anahtar var mi diye bak; varsa ANINDA gec.
-                if err.code == 429 and self._nextKey():
+                # KOTA (429) ya da OLU ANAHTAR (401/403): beklemek ise
+                # yaramaz. Baska anahtar varsa ANINDA gec.
+                if (err.code == 429 or err.code in DEAD_KEY_STATUS) and self._nextKey(
+                    reason="kota doldu" if err.code == 429 else f"anahtar gecersiz ({err.code})"
+                ):
                     request.add_header("x-goog-api-key", self._key or "")
                     continue
                 if err.code in TRANSIENT_STATUS and attempt < MAX_ATTEMPTS:
