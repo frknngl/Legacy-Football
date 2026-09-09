@@ -340,6 +340,158 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahadaki Kalinti",
+          "kind": "branch",
+          "text": "Mac bitti. Tribünlerden sahaya yağan yabancı maddeler arasında, senin formana bulaşmış bir leke gibi duran o yabancı madde. {actor.referee.name}, orta sahada notlarını alırken göz ucuyla sana bakıyor. Stat boşalıyor, ışıklar cılızlaşıyor. Yerdeki nesneye basıp geçmek ile onu sahiplenmek arasındaki o kısa anın ağırlığı, maçın skorundan daha ağır geliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Nesneyi yerden alıp tribünlere doğru sertçe geri fırlat.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Görmezden gel, başını öne eğ ve soyunma odasının yolunu tut.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Nesneyi cebine at, yarın kulüp binasında bir koz olarak kullan.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Mental Dayanıklılık 70]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Geri Dönüş",
+          "kind": "outcome",
+          "text": "Tribünler ayağa kalktı. Yaptığın hareketin yankısı, yarın sabahki manşetleri şimdiden belirliyor. {actor.referee.name} gözlerini kısıp kartını hazırlarken, sen sahayı terk ediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_object_thrown"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Arkanı dönüp yürüdün. Arkanda kalan öfke, zeminde sahipsiz bir çöp gibi kaldı. Profesyonel duruşun herkes tarafından takdir edildi, ancak içindeki o buruk tat, soyunma odasına kadar seninle geldi.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_object_thrown"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Kazanç",
+          "kind": "outcome",
+          "text": "Cebindeki ağırlık, aslında bir suskunluk bedeli. O nesneyi kimse görmedi, {actor.referee.name} sadece çimlere baktığını sandı. Gelecek günler için bir kartın daha oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_object_thrown"
+            }
+          ]
+        }
+      }
     }
   ]
 }

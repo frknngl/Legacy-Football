@@ -418,6 +418,197 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Müdahale",
+          "kind": "branch",
+          "text": "Dakika seksen dokuz. Tribünlerin uğultusu bir anda bıçak gibi kesiliyor. Kale boş. {actor.captain.name} yere yığılmış, elleriyle çimlerin içine gömülü. Topun beyaz çizgiyi geçmesine santimler kalmış. O an, havada süzülen topun aslında hayatının geri kalanını temsil ettiğini hissediyorsun. Sahadaki sessizlik, vicdanındaki gürültüden daha sağır edici.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Topu kaleye girmeden tokatla. Kırmızı kartı kabul et, takımı oyunda tut.",
+              "target": "n_red",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_moral",
+              "text": "Sadece izle. {actor.captain.name} ile göz göze gel, yenilgiyi kabullen.",
+              "target": "n_stood",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Topu elinle değil, sakatlığı göze alarak yüzünle durdur. Sözleşme primi kurtulur.",
+              "target": "n_suspend_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_kilit",
+              "text": "Çizgide akrobatik bir hamle yap, kuralları zorla ama sınırda kal.",
+              "target": "n_suspend_3",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Mental Dayanıklılık 80]"
+            }
+          ]
+        },
+        "n_red": {
+          "title": "Kart",
+          "kind": "outcome",
+          "text": "Elini topa vurduğun an, stadyumun yıkıldığını hissettin. Hakem tereddütsüz düdüğü çaldı. {actor.captain.name} yerden kalkıp sana baktı; bu bakışta hem minnet hem de bir ömür sürecek bir borç vardı. Soyunma odasına giden tünelde, attığın o tokatın ağırlığı artık seninle.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_red_card"
+            },
+            {
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Kasti el ile müdahale"
+            }
+          ]
+        },
+        "n_stood": {
+          "title": "Kabulleniş",
+          "kind": "outcome",
+          "text": "Top ağlara girdiğinde ses çıkmadı. Sadece {actor.captain.name} ile birbirinize baktınız. Bazen bir şeyi kurtarmaya çalışmamak, aslında o şeyi kurtarmaktan daha zor gelir. Maç bitti, sessizlik yuvaya döndü.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_stood_up"
+            },
+            {
+              "op": "suspend",
+              "matches": 0,
+              "reason": "Centilmenlik"
+            }
+          ]
+        },
+        "n_suspend_1": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Çarpışma anı. Yüzünde patlayan acı ile topun çizgiyi geçmediğini gördün. Kulüp primi cebine girecek ancak o anki bencilliğin, takım arkadaşların tarafından sessizce not edildi.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Sakatlık şüphesi"
+            }
+          ]
+        },
+        "n_suspend_3": {
+          "title": "Tükeniş",
+          "kind": "outcome",
+          "text": "Vücudunu imkansız bir açıyla çizgiye savurdun. Top durdu, takım kurtuldu ancak sen bittin. {actor.captain.name} seni yerden kaldırırken vücudundaki sızıyı değil, omuzlarındaki yükü hissetti.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Fiziksel zorlanma"
+            }
+          ]
+        }
+      }
     }
   ]
 }

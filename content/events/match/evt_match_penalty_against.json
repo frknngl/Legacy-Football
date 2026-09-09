@@ -543,6 +543,147 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Nokta Basinda Sessizlik",
+          "kind": "branch",
+          "text": "Top penaltı noktasında, kireç izleri çimlerin üzerinde parlıyor. {actor.referee.name}, düdüğünü ağzına götürürken bakışlarını bir an için üzerinde tutuyor; sanki az önce yaşanan o çekişmenin aslında senin hatan olduğunu çok iyi biliyormuş gibi. Stadyumdaki uğultu kesildi. Kulaklarında sadece kendi nefesin var. Omuzlarındaki ağırlık, formanın kumaşından içeri sızıyor.",
+          "choices": [
+            {
+              "id": "c_argue",
+              "text": "Yüzüne tükürür gibi yaklaşıp, bu kararın hayatımdaki en büyük hırsızlık olduğunu haykır.",
+              "target": "n_argue",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_professional",
+              "text": "Sessizce arkana dön. Tartışmanın enerjini tüketmesine izin verme, oyuna odaklan.",
+              "target": "n_professional",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_referee",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_bribe",
+              "text": "Göz temasını bozmadan, gelecek sezon için anlaştığınız o bonusu hatırla ve başını onayla.",
+              "target": "n_bribe",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            }
+          ]
+        },
+        "n_argue": {
+          "title": "İtirazın Bedeli",
+          "kind": "outcome",
+          "text": "Kartını havaya kaldırdığında yüzündeki o soğukkanlı ifadeyi unutmayacaksın. Takım arkadaşlarının şaşkın bakışları arasında sahadan ayrılırken, sadece bir hakemi değil, maçın tüm kontrolünü kaybettiğini anlıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_argued_ref"
+            }
+          ]
+        },
+        "n_professional": {
+          "title": "Profesyonel Maske",
+          "kind": "outcome",
+          "text": "Herkes sana öfkeyle haykırmanı beklerken sen sadece çimlere bakıp yürüdün. Kaleci, topun başına geçen oyuncuya kilitlendiğinde, senin o anki sakinliğin sahada tuhaf bir huzursuzluk yarattı.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ref_conflict"
+            }
+          ]
+        },
+        "n_bribe": {
+          "title": "Görünmez Anlaşma",
+          "kind": "outcome",
+          "text": "Düdük çaldı, top ağlara gitti. {actor.referee.name} arkasını dönüp orta sahaya doğru yürürken, cebine girecek olan paranın soğukluğu vicdanının sıcaklığına galip geldi. Bu penaltı, kariyerindeki en pahalı hatan oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_saved_point"
+            }
+          ]
+        }
+      }
     }
   ]
 }

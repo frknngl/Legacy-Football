@@ -506,6 +506,148 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki teknik alanın çıkışında, ışıklar titreyerek yanıyor. {actor.manager.name} köşede, duvara yaslanmış bir şekilde, elindeki tabletin ekranındaki görüntüleri izliyor. Az önce sahada kaçırdığın o son dakika fırsatının tekrarı dönüyor. {actor.manager.name} sana doğru dönmüyor, sadece ekrandaki hareketleri durdurup sesi tamamen kısıyor. Sessizlik, sahadaki o son saniyelerden daha ağır. Bir şey söylemeni bekliyor ya da belki de sessizliğinle kendi kendine hüküm vermeni.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Tabletini al, ekranı kapat. 'Bunu sil, yarın kulübe bir teklif gelecek, o zamana kadar bu sahneyi unutalım.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerinin içine bak ve 'Hata yaptım, sorumluluğu alıyorum' diyerek odadan çık.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ekrana bir kez vur ve 'O pası vermesi gereken oydu, topu bana getiremedi' diyerek ekipman odasına yürü.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 50
+              },
+              "lockLabel": "[Liderlik 50]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.manager.name} başını yavaşça sallıyor. Ekranı kapatıyor. Bu an, ikinizin arasında bir sır olarak kalacak, ama sahada kaçırdığın o golün yarattığı boşluk zihninde yerini şüpheye bırakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_missed_sitter"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sırtındaki Yük",
+          "kind": "outcome",
+          "text": "Dürüstlüğün odayı soğutuyor. {actor.manager.name} hiçbir şey söylemeden arkasını dönüyor. Profesyonellik bazen en ağır cezadır.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_saved_point"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kırık Köprüler",
+          "kind": "outcome",
+          "text": "Cümlelerin koridorda yankılanıyor. {actor.manager.name} duruyor ama dönmüyor. Artık hiçbir şey eskisi gibi olmayacak, takımın dengesi geri dönülemez bir şekilde sarsıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_scored_winner"
+            }
+          ]
+        }
+      }
     }
   ]
 }

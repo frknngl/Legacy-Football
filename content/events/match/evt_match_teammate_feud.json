@@ -532,6 +532,204 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünel Girişi",
+          "kind": "branch",
+          "text": "Maçın son düdüğü çaldı. {actor.captain.name} yanından geçerken durdu. Bir anlık sessizlik. Yüzünde, tüm yenilginin ağırlığını senin omuzlarına yıkan o ifade var. Takım arkadaşların etrafında toplanmış, herkesin gözü ikinizde. Sessizlik o kadar yoğun ki, sahadaki uğultu uzak bir anı gibi geliyor. Bir kelime, her şeyi ya bitirecek ya da ateşe verecek.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Gözlerini ayırmadan, 'Takımın asıl sorunu sensin' diye bağır.",
+              "target": "n_out_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessizce yere tükür ve elindeki yüksek primli sponsor çekini işaret et.",
+              "target": "n_out_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğip sadece 'Haklısın kaptan' de ve oradan uzaklaş.",
+              "target": "n_out_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Omuzuna sertçe vur, 'Çok konuştun, şimdi sahada göster' diyerek içeri yürü.",
+              "target": "n_out_stat",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Profesyonellik 68]",
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_out_risk": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Sözlerin tünelde yankılandı. {actor.captain.name} şaşkınlıkla durdu, geri kalan herkes bir adım geriledi. İpler koptu.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            },
+            {
+              "incident": "inc_fought_opponent",
+              "op": "match"
+            }
+          ]
+        },
+        "n_out_gri": {
+          "title": "Ticaret",
+          "kind": "outcome",
+          "text": "Sahadaki öfkeni cüzdanınla takas ettin. {actor.captain.name} sana küçümseyerek baktı, sen ise başını çevirdin.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "incident": "inc_substituted_angry",
+              "op": "match"
+            }
+          ]
+        },
+        "n_out_guvenli": {
+          "title": "Teslimiyet",
+          "kind": "outcome",
+          "text": "Sessizliği seçtin. Herkesin önünde boyun eğmek, kazandığın profesyonel puanlardan çok daha ağır geldi.",
+          "onEnter": [
+            {
+              "flag": "mem_betrayed_captain",
+              "op": "set",
+              "value": true
+            },
+            {
+              "incident": "inc_stood_up",
+              "op": "match"
+            }
+          ]
+        },
+        "n_out_stat": {
+          "title": "İplerin Rengi",
+          "kind": "outcome",
+          "text": "Söylediklerinle kaptanlığı üstlendin ama aranızdaki buzlar daha da keskinleşti.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "incident": "inc_injured_teammate",
+              "op": "match"
+            }
+          ]
+        }
+      }
     }
   ]
 }

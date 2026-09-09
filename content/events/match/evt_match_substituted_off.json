@@ -14,179 +14,323 @@
     "loaned",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Dorduncu hakem",
-      "kind": "branch",
-      "text": "{minute}. dakika, skor {scoreline}. Dorduncu hakem tabelayi kaldiriyor ve uzerinde senin numaran var.\n\nKotu oynamadin. Iyi de oynamadin.\n\n{actor.manager.name} sana bakmiyor bile; kollarini kavusturmus sahaya bakiyor.\n\nYerini alacak cocuk cizgide sicriyor. On dokuz yasinda ve senin gozune bakamiyor.",
-      "choices": [
-        {
-          "id": "c_clap",
-          "text": "Cikarken cocugun eline vur. Sonra hocanin yanina otur.",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Dorduncu hakem",
+          "kind": "branch",
+          "text": "{minute}. dakika, skor {scoreline}. Dorduncu hakem tabelayi kaldiriyor ve uzerinde senin numaran var.\n\nKotu oynamadin. Iyi de oynamadin.\n\n{actor.manager.name} sana bakmiyor bile; kollarini kavusturmus sahaya bakiyor.\n\nYerini alacak cocuk cizgide sicriyor. On dokuz yasinda ve senin gozune bakamiyor.",
+          "choices": [
             {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": 12
+              "id": "c_clap",
+              "text": "Cikarken cocugun eline vur. Sonra hocanin yanina otur.",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "target": "n_clapped",
+              "persona": {
+                "sadakat": 7,
+                "mizac": -5
+              }
             },
             {
-              "flag": "iliski_youngster",
-              "op": "add",
-              "value": 12
+              "id": "c_shirt",
+              "text": "Formani cikar ve yere at. Kamera zaten sende.",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "yonetim_baskisi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "target": "n_threw",
+              "persona": {
+                "mizac": 12,
+                "durus": 8
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -8
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": -3
+              "id": "c_slow",
+              "text": "Yavas yuru. Cok yavas. Otuz saniye kazandir.",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "target": "n_slow",
+              "persona": {
+                "mizac": 6,
+                "sadakat": 5
+              }
             }
-          ],
-          "target": "n_clapped",
-          "persona": {
-            "sadakat": 7,
-            "mizac": -5
-          }
+          ]
         },
-        {
-          "id": "c_shirt",
-          "text": "Formani cikar ve yere at. Kamera zaten sende.",
-          "effects": [
+        "n_clapped": {
+          "title": "El teması",
+          "kind": "outcome",
+          "text": "Cocugun eline vurup geciyorsun. O sana bir sey soylemek istiyor ama beceremiyor.\n\nYedek kulubesinde {actor.manager.name} bir sure sonra yanina oturuyor: bugun kotu degildin, diyor. Sadece bugun onun gunuydu.\n\nBu, ozur degil. Ama en yakin seyi.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 14
+              "op": "match",
+              "rating": 0.2,
+              "incident": "inc_substituted_angry"
             },
             {
-              "flag": "taraftar_destegi",
+              "flag": "npc_youngster_arc",
               "op": "add",
-              "value": 6
+              "value": 1
             },
             {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": -25
-            },
-            {
-              "flag": "yonetim_baskisi",
-              "op": "add",
-              "value": 15
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": false
             }
-          ],
-          "target": "n_threw",
-          "persona": {
-            "mizac": 12,
-            "durus": 8
-          }
+          ]
         },
-        {
-          "id": "c_slow",
-          "text": "Yavas yuru. Cok yavas. Otuz saniye kazandir.",
-          "effects": [
+        "n_threw": {
+          "title": "Yere",
+          "kind": "outcome",
+          "text": "Forma yerde. Kamera once formaya, sonra {actor.manager.name} yuzune gidiyor. Adam kipirdamiyor.\n\nMac sonu aciklama yapmasi gerekiyor ve yapiyor: takim ici mesele.\n\nSali gunu antrenmanda ilk on birde yoksun ve nedenini soran olmuyor.",
+          "onEnter": [
             {
-              "flag": "iliski_takim",
+              "op": "match",
+              "rating": -0.9,
+              "incident": "inc_substituted_angry"
+            },
+            {
+              "op": "lifeState",
+              "to": "transfer_listed",
+              "forTurns": 2
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "mem_fought_coach",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_slow": {
+          "title": "Otuz saniye",
+          "kind": "outcome",
+          "text": "Cok yavas yuruyorsun. Tribun ne yaptigini anliyor ve alkislamaya basliyor.\n\n{actor.referee.name} sari kart gosteriyor: oyunu geciktirmek.\n\nSkoru koruyorsunuz. {actor.captain.name} mac sonunda tek kelime soyluyor: iyiydi.",
+          "onEnter": [
+            {
+              "op": "match",
+              "yellowCards": 1,
+              "rating": 0.3,
+              "incident": "inc_substituted_angry"
+            },
+            {
+              "flag": "iliski_captain",
               "op": "add",
               "value": 8
             },
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": -8
-            },
-            {
               "flag": "disiplin_sicili",
               "op": "add",
-              "value": 5
+              "value": 4
             }
-          ],
-          "target": "n_slow",
-          "persona": {
-            "mizac": 6,
-            "sadakat": 5
-          }
+          ]
         }
-      ]
+      }
     },
-    "n_clapped": {
-      "title": "El teması",
-      "kind": "outcome",
-      "text": "Cocugun eline vurup geciyorsun. O sana bir sey soylemek istiyor ama beceremiyor.\n\nYedek kulubesinde {actor.manager.name} bir sure sonra yanina oturuyor: bugun kotu degildin, diyor. Sadece bugun onun gunuydu.\n\nBu, ozur degil. Ama en yakin seyi.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.2,
-          "incident": "inc_substituted_angry"
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kenar yönetimi",
+          "kind": "branch",
+          "text": "Tabela yandı. Senin numaran, kırmızı ışıkta bir infaz gibi parlıyor. {actor.manager.name} kulübede oturmuş, yanındaki yardımcıyla bir şeyler fısıldıyor. Sana dönüp bakmıyorlar bile. Sanki orada, sahanın ortasında hiç var olmamışsın gibi. Tribünlerdeki uğultu, yavaş yavaş adının yerine başkasının ismini hecelemeye başlıyor. Saha kenarındaki yedek oyuncu, eldivenlerini hırsla çekiştirerek oyuna girmeyi bekliyor. Kendi gölgen, yerini ona bırakman için seni itiyor.",
+          "choices": [
+            {
+              "id": "c_quiet_exit",
+              "text": "Başını önüne eğ, sessizce kenara gel. Kimseyle göz göze gelme.",
+              "target": "n_professional",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_public_disdain",
+              "text": "Yavaşça yürürken {actor.manager.name}’in önünden geç, gözlerini bir an bile ayırma.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_substituted_angry"
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_contract_leverage",
+              "text": "Eldivenlerini çıkar, sinirli ama kontrollü. Yarın menajerini ara, buradaki sonunun geldiğini söyle.",
+              "target": "n_transfer",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "op": "lifeState",
+                  "to": "transfer_listed"
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_substituted_angry"
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 40
+              },
+              "lockLabel": "[Profesyonel]"
+            }
+          ]
         },
-        {
-          "flag": "npc_youngster_arc",
-          "op": "add",
-          "value": 1
+        "n_professional": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Kulübenin en ücra köşesine oturdun. Havlu kafanda, etrafındaki dünya bulanık. Senin yerin başkası tarafından dolduruldu bile.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
         },
-        {
-          "flag": "mem_saved_teammate",
-          "op": "set",
-          "value": false
+        "n_risk": {
+          "title": "Gerginlik",
+          "kind": "outcome",
+          "text": "Bakışların sahadaki herkesi rahatsız etti. {actor.manager.name} not defterini kapattı. Artık sadece bir oyuncu değil, bir sorun kaynağısın.",
+          "onEnter": [
+            {
+              "flag": "mem_fought_coach",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_transfer": {
+          "title": "Yol ayrımı",
+          "kind": "outcome",
+          "text": "Bu formayı çıkardığın an, aslında her şeyi bitirdin. Kapı aralandı, dışarısı belirsiz ama burada kalmaktan daha iyi görünüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fought_coach",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_threw": {
-      "title": "Yere",
-      "kind": "outcome",
-      "text": "Forma yerde. Kamera once formaya, sonra {actor.manager.name} yuzune gidiyor. Adam kipirdamiyor.\n\nMac sonu aciklama yapmasi gerekiyor ve yapiyor: takim ici mesele.\n\nSali gunu antrenmanda ilk on birde yoksun ve nedenini soran olmuyor.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": -0.9,
-          "incident": "inc_substituted_angry"
-        },
-        {
-          "op": "lifeState",
-          "to": "transfer_listed",
-          "forTurns": 2
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 25
-        },
-        {
-          "flag": "mem_fought_coach",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_slow": {
-      "title": "Otuz saniye",
-      "kind": "outcome",
-      "text": "Cok yavas yuruyorsun. Tribun ne yaptigini anliyor ve alkislamaya basliyor.\n\n{actor.referee.name} sari kart gosteriyor: oyunu geciktirmek.\n\nSkoru koruyorsunuz. {actor.captain.name} mac sonunda tek kelime soyluyor: iyiydi.",
-      "onEnter": [
-        {
-          "op": "match",
-          "yellowCards": 1,
-          "rating": 0.3,
-          "incident": "inc_substituted_angry"
-        },
-        {
-          "flag": "iliski_captain",
-          "op": "add",
-          "value": 8
-        },
-        {
-          "flag": "disiplin_sicili",
-          "op": "add",
-          "value": 4
-        }
-      ]
+      }
     }
-  }
+  ]
 }

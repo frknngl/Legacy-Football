@@ -506,6 +506,154 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünelin Sonu",
+          "kind": "branch",
+          "text": "Tünel loş. Isınma sahasından gelen son top sesleri duvarlarda yankılanıyor. {actor.doctor.name} elinde şırıngayla gölge gibi köşede duruyor. Dizindeki uyuşukluk hissi, bacağının sana ait olmadığını hatırlatıyor. Dışarıda taraftarın ritmik temposu zemini titretirken, stadyumun gürültüsü kapalı kapının ardında boğuk bir uğultuya dönüşüyor. {actor.doctor.name} tek kelime etmiyor, sadece bekliyor. Gözleri, üzerindeki formanın armasına odaklı.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bırak kalsın. Bugün kendimi saklamam gerekiyor.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Vur iğneyi. Bu maçı onlarsız bitiremem.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Şunu yaparsak... sonraki transfer döneminde primini alırsın. Kimse bilmeyecek.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 1000
+              },
+              "lockLabel": "[Yeterli fon]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İkinci Yarı Yok",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} başını sallayıp şırıngayı çöp kutusuna atıyor. Çıkış tünelinde tek başınasın. Adımların artık daha net, dizindeki sızı ise gerçeğin soğuk bir hatırlatıcısı.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Bilinçli Körlük",
+          "kind": "outcome",
+          "text": "Soğuk sıvı eklemlerine yayılırken {actor.doctor.name} gözlerini kaçırıyor. Saha ışıkları gözünü alıyor. Artık hiçbir şey hissetmiyorsun, bu da en büyük tehlike.",
+          "onEnter": [
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_injured_in_match"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} şırıngayı uzatıyor, bakışları cüzdanında. Anlaşma, bir el sıkışmasından daha sessiz bir şekilde tamamlanıyor. Artık bu sırrın bir ortağı var.",
+          "onEnter": [
+            {
+              "flag": "mem_took_injection",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_injured_in_match"
+            }
+          ]
+        }
+      }
     }
   ]
 }

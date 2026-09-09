@@ -676,6 +676,204 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gözdeki Işık",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları çimlere keskin gölgeler düşürüyor. Ceza sahası sessiz. Kaleci öne çıktı, nefes alışı bile duyuluyor. O sırada yanındaki {actor.captain.name} geride kalıyor, depar atmayı bırakıp olduğu yerde duruyor. Senin hareketini bekliyor. Gözleri senin gözlerinde; sadece bir oyuncuyu değil, tam olarak seni görüyor. Sanki bu pozisyonun dışındaki bütün hayatını, bütün yükünü biliyor gibi bakıyor. Zaman durdu.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kalecinin uzanamayacağı köşeye sert vur. Sorumluluk sadece bende.",
+              "target": "n_scored",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kalecinin üzerine sür, teması bekle. Penaltı maçın kaderini garantiler.",
+              "target": "n_dived",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Topu {actor.captain.name} önüne bırak. O golü o atsın, aramızdaki bağ güçlensin.",
+              "target": "n_missed",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Derin bir nefes al, {actor.captain.name} ile sessizce selamlaş ve şutunu çek.",
+              "target": "n_saved",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Saygınlık]",
+              "persona": {
+                "durus": 3
+              }
+            }
+          ]
+        },
+        "n_scored": {
+          "title": "İsabetli",
+          "kind": "outcome",
+          "text": "Top ağlarda. {actor.captain.name} sana doğru geliyor, gözlerinde hala o tuhaf, derin bakış var. Seni bir figüran gibi değil, bir ortak gibi selamlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_scored_winner"
+            }
+          ]
+        },
+        "n_dived": {
+          "title": "Yerde",
+          "kind": "outcome",
+          "text": "Yere kapaklandın. Hakem tereddüt etse de düdüğü çalıyor. {actor.captain.name} arkandan bakıyor; o anki tanınma hissi yerini soğuk bir mesafeye bırakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_dived"
+            }
+          ]
+        },
+        "n_missed": {
+          "title": "Paylaşılan",
+          "kind": "outcome",
+          "text": "Pasın biraz kısa kaldı, savunma topa müdahale etti. {actor.captain.name} topun peşinden koşarken başını çevirip sana baktı. O bakışta hayal kırıklığı yok; sadece paylaşılan bir mağlubiyetin ağırlığı var.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_missed_sitter"
+            }
+          ]
+        },
+        "n_saved": {
+          "title": "Kritik An",
+          "kind": "outcome",
+          "text": "Kaleci uzanıp topu tokatladı. {actor.captain.name} yanına geldi, elini omzuna koydu. Sesini çıkarmadı ama omuzundaki baskı her şeyi anlattı: birbirimizi artık biliyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_saved_point"
+            }
+          ]
+        }
+      }
     }
   ]
 }

@@ -524,6 +524,200 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Çizgideki Karar",
+          "kind": "branch",
+          "text": "Stadyum ışıkları altında, hakemin elindeki kulaklık kablosu bir pranga gibi boynunu sıkıyor. {actor.captain.name} yanına geliyor, nefes nefese, gözlerinde yorgun bir kabulleniş var. Hakem ekranın önünden ayrılıp orta noktaya doğru yürüyor. Stadın uğultusu tek bir noktaya, o beyaz noktaya odaklanmış. Herkes nefesini tutmuş, kararın düşmesini bekliyor. {actor.captain.name} bir şey söylemek için dudaklarını aralıyor ama sesi o anki uğultuda kayboluyor.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Hakemin yolunu kes, önünde dur ve sadece gülümse. Bırak tüm öfke o gülüşe çarpsın.",
+              "target": "n_outcome_red",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_red_card"
+                },
+                {
+                  "op": "suspend",
+                  "matches": 3,
+                  "reason": "Hakeme yönelik uygunsuz davranış"
+                }
+              ]
+            },
+            {
+              "id": "c_safe",
+              "text": "{actor.captain.name} omzunu sık ve başını devam et dercesine salla. Kendi içindeki yangını sahada soğut.",
+              "target": "n_outcome_professional",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_var_against"
+                }
+              ]
+            },
+            {
+              "id": "c_grey",
+              "text": "Kenardaki dördüncü hakeme doğru eğil, sessizce o büyük transfer teklifindeki boşluğu anımsat. Bir elin cebinde, diğeri havada.",
+              "target": "n_outcome_money",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_ref_conflict"
+                },
+                {
+                  "op": "suspend",
+                  "matches": 1,
+                  "reason": "Soruşturma süreci"
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Tüm takımın sana baktığını hisset. Hakemin yanına git, en nizami Türkçe ile kararını sorgula. Sesin titrememeli.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_argued_ref"
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Mental Dayanıklılık 68+]"
+            }
+          ]
+        },
+        "n_outcome_red": {
+          "title": "Kırmızı Çizgi",
+          "kind": "outcome",
+          "text": "Hakemin gözleri seninkilerle buluştuğu an, kararı çoktan vermişti. Elini arka cebine attığında stadyumun sesi bir anda kesildi. Şimdi soyunma odasına giden o uzun koridorda, attığın her adım kariyerinin en ağır yükünü taşıyor.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            }
+          ]
+        },
+        "n_outcome_professional": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Hakem kararını işaret etti. Gol iptal. Sahadaki herkes donup kaldı. Sen sadece yürüdün, çimlerin üzerindeki izini bırakarak. Kendi doğruların başkalarının oyununda bir hiçti.",
+          "onEnter": [
+            {
+              "op": "match",
+              "incident": "inc_goal_disallowed"
+            }
+          ]
+        },
+        "n_outcome_money": {
+          "title": "Satın Alınmış Adalet",
+          "kind": "outcome",
+          "text": "Hakem sana baktı, başını hafifçe öne eğdi. Karar değişmedi ama cebindeki sıcaklık, ruhundaki boşluğu daha da belirginleştirdi. Artık sadece futbol oynamıyorsun, bir satranç tahtasında piyonu yönetiyorsun.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Hakem raporu"
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Son Söz",
+          "kind": "outcome",
+          "text": "Hakemle olan diyaloğun, sahadaki tüm baskıyı senin omuzlarına yıktı. Herkes sustu, sadece senin nefes alışın duyuluyordu. Karar değişmedi belki ama herkes o an orada, senin dik duruşunu izledi.",
+          "onEnter": [
+            {
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      }
     }
   ]
 }
