@@ -192,3 +192,57 @@ def _redact(text: str) -> str:
     if key and key in text:
         return text.replace(key, "<REDACTED>")
     return text
+
+
+def probe_keys(model: str | None = None) -> list[tuple[str, str]]:
+    """Her anahtari AYRI AYRI sinar; (degisken adi, durum) dondurur.
+
+    NEDEN GEREKLI: hat anahtarlari sirayla deneyip ilk calisani kullanir.
+    Bu uretimde dogru davranis ama tani icin korlestiricidir -- "kota
+    doldu" mesaji hangi anahtarin bittigini, hangisinin hic calismadigini
+    soylemez. Yeni bir anahtar eklendiginde "gercekten calisiyor mu"
+    sorusunun tek durust cevabi her birini tek tek denemektir.
+
+    ANAHTAR DEGERI HICBIR ZAMAN DONDURULMEZ ya da yazdirilmaz; yalnizca
+    degiskenin ADI ve sonucu.
+
+    Uretim kotasi harcamaz: model listesi cagrisi kullanilir.
+    """
+    import urllib.error
+    import urllib.request
+
+    out: list[tuple[str, str]] = []
+    names = ["GEMINI_API_KEY", "GEMINI_API_KEY_2", "GEMINI_API_KEY_3", "GEMINI_API_KEY_4"]
+
+    for name in names:
+        key = env_key(name)
+        if not key:
+            continue
+        request = urllib.request.Request(
+            "https://generativelanguage.googleapis.com/v1beta/models",
+            headers={"x-goog-api-key": key},
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=20) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+            usable = [
+                m["name"].removeprefix("models/")
+                for m in payload.get("models", [])
+                if "generateContent" in m.get("supportedGenerationMethods", [])
+            ]
+            want = model or DEFAULT_MODEL
+            if want in usable:
+                out.append((name, f"GECERLI ({len(usable)} model, {want} var)"))
+            else:
+                out.append((name, f"GECERLI ama '{want}' YOK ({len(usable)} model)"))
+        except urllib.error.HTTPError as err:
+            code = err.code
+            if code == 429:
+                out.append((name, "KOTA DOLU (429)"))
+            elif code in (400, 401, 403):
+                out.append((name, f"GECERSIZ ANAHTAR ({code})"))
+            else:
+                out.append((name, f"HTTP {code}"))
+        except urllib.error.URLError as err:
+            out.append((name, f"ERISILEMEDI: {err.reason}"))
+    return out

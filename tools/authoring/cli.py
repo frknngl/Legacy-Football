@@ -1292,6 +1292,25 @@ def cmd_doctor(args, root: Path) -> int:
     else:
         print("  olu beyan    : yok")
 
+    # Her anahtari AYRI AYRI sina.
+    #
+    # Hat anahtarlari sirayla deneyip ilk calisani kullanir -- uretimde
+    # dogru, TANIDA korlestirici: "kota doldu" mesaji hangi anahtarin
+    # bittigini, hangisinin hic calismadigini soylemez. Yeni bir anahtar
+    # eklendiginde "gercekten calisiyor mu" sorusunun tek durust cevabi
+    # her birini tek tek denemektir. Uretim kotasi harcamaz.
+    print("\n=== ANAHTARLAR ===")
+    try:
+        from .providers.gemini import probe_keys
+
+        rows = probe_keys()
+        if not rows:
+            print("  tanimli anahtar yok")
+        for name, state in rows:
+            print(f"  {name:22} {state}")
+    except Exception as err:  # tani komutu asla cokmemeli
+        print(f"  sinanamadi: {err}")
+
     print("\n=== SIZINTI KONTROLU ===")
     from .providers.base import env_key
 
