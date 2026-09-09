@@ -522,7 +522,14 @@ function incidentsOf(nodes: Record<string, StoryNode>): Set<string> {
 
 export const VariantDistinctnessRule: ValidationRule = {
   name: 'VariantDistinctnessRule',
-  defaultSeverity: 'warn',
+  // `warn` -> `error` (9 Eylul 2026).
+  //
+  // Kural yazildiginda 55 cift 4/4 ayni iskeletteydi; hepsi aninda hata
+  // olsaydi dogrulayici kilitlenir ve hicbir is yapilamazdi. Temizlik
+  // bitti: bulgu 55 -> 0. Kapi artik kapali, cunku bu kural GELECEGI
+  // koruyor -- korpus buyudukce ayni iskeletin tekrar uretilmesi en
+  // olasi bozulma bicimi.
+  defaultSeverity: 'error',
   description:
     'Ayni olayin iki varyanti secenek sayisi / kilit deseni / bayrak setinden en az IKISINDE ayrismali.',
   check({ events }): Finding[] {
