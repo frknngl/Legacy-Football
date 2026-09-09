@@ -348,7 +348,7 @@ def _contract_violations(event: dict, brief: Brief) -> list[str]:
                 f'SOZLESME: brief\'in istedigi iz yazilmamis: "{missing}". '
                 "Bir `outcome` node'unun `onEnter` alaninda `set` ile yaz."
             )
-    elif not writes:
+    elif not writes and promised_w:
         # VARYANT: olayin izlerinden EN AZ BIRINI yazmali, hepsini degil.
         #
         # Eskiden varyanttan olayin TUM izlerini yazmasi isteniyordu.
@@ -359,7 +359,15 @@ def _contract_violations(event: dict, brief: Brief) -> list[str]:
         #
         # Dogru kural: izlerin ALT KUMESI, bos olmamak sartiyla.
         # Fazladan iz yazmak yukarida zaten yasak.
-        allowed = ", ".join(sorted(promised_w)) or "hicbiri"
+        #
+        # DIKKAT: `promised_w` BOSSA bu kural CALISMAZ (`and promised_w`).
+        # Olayin hic izi yoksa varyanttan iz istemek imkansizi istemektir:
+        # "izlerinden birini sec: hicbiri". Olculdu -- `evt_match_var_against`
+        # gibi izsiz mac olaylarinda uc denemenin ucu de bu celiskiyle
+        # reddediliyordu. Iz birakma zorunlulugunu zaten
+        # `ConsequenceHookRule` denetliyor; orada incident de gecerli bir
+        # iz sayiliyor ve mac olaylari izlerini oyle birakiyor.
+        allowed = ", ".join(sorted(promised_w))
         out.append(
             "SOZLESME: varyant en az bir iz yazmali. "
             f"Bu olayin izlerinden birini secip `onEnter` ile yaz: {allowed}."

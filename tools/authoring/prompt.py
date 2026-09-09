@@ -429,6 +429,27 @@ def _vocabulary() -> str:
     )
     lines = ["", "IZIN VERILEN DEGERLER (schema/event.schema.json'dan okundu):"]
     lines += [f"  {name:15}: {', '.join(values)}" for name, values in rows]
+
+    # BAYRAK ADLARI TURKCEDIR.
+    #
+    # OLCULEN SORUN: model bayrak adlarini INGILIZCEYE ceviriyordu --
+    # "professionalism", "media_pressure", "leadership". Hepsi
+    # `UndeclaredFlagRule`a takiliyor ve bir deneme bosa gidiyor. Sema
+    # bayrak adlarini tasimadigi icin burada acikca sayiliyor.
+    lines += [
+        "",
+        "BAYRAK ADLARI TURKCEDIR -- CEVIRME. Sik kullanilanlar:",
+        "  stat     : teknik, fizik, kondisyon, form, moral, liderlik,",
+        "             profesyonellik, mental_dayaniklilik, sokak_itibari,",
+        "             taraftar_destegi, medya_itibari",
+        "  pressure : medya_baskisi, yonetim_baskisi, tukenmislik,",
+        "             skandal_seviyesi, disiplin_sicili, sakatlik_riski",
+        "  resource : servet, borc, haftalik_gelir, piyasa_carpani",
+        "  relation : iliski_takim, iliski_aile, iliski_sponsor, iliski_basin",
+        "  iz       : mem_* onekiyle baslar (brief'in verdigi adi kullan)",
+        "  \"professionalism\" / \"media_pressure\" gibi INGILIZCE adlar",
+        "  sahneyi REDDETTIRIR.",
+    ]
     return "\n".join(lines)
 
 
