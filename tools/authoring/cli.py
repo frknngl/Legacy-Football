@@ -611,17 +611,35 @@ _ENRICH_FLOOR = {"minor": 12, "major": 18, "epic": 20}
 _ENRICH_IDEAL = {"minor": 30, "major": 45, "epic": 55}
 
 
-def _short_outcomes(event: dict) -> list[str]:
-    """Tier esiginin ALTINDA kalan `outcome` dugumlerinin kimlikleri."""
-    floor = _ENRICH_FLOOR.get(event.get("tier", "minor"), 12)
-    pool: dict[str, dict] = dict(event.get("nodes", {}))
+def _node_sets(event: dict):
+    """(sahip, dugumler) ikilileri: ana olay ve her varyant AYRI.
+
+    DIKKAT: varyantlar ana olayla AYNI dugum kimliklerini kullanir
+    (`n_gri`, `n_guvenli`...). Hepsini tek havuzda toplamak, bir metni
+    hepsine birden yazmak demektir -- ve birebir ayni metinler
+    `TextQualityRule`a klon olarak takilir. Ilk yazimda tam olarak bu
+    oldu ve zenginlestirmelerin yarisi bu yuzden reddedildi.
+    """
+    yield "", event.get("nodes", {})
     for variant in event.get("variants", []):
-        pool.update(variant.get("nodes", {}))
-    return [
-        nid
-        for nid, node in pool.items()
-        if node.get("kind") == "outcome" and len(node.get("text", "").split()) < floor
-    ]
+        yield variant.get("id", ""), variant.get("nodes", {})
+
+
+def _qualify(owner: str, node_id: str) -> str:
+    return f"{owner}::{node_id}" if owner else node_id
+
+
+def _short_outcomes(event: dict) -> list[str]:
+    """Tier esiginin ALTINDA kalan `outcome` dugumleri -- NITELIKLI kimlikle."""
+    floor = _ENRICH_FLOOR.get(event.get("tier", "minor"), 12)
+    out: list[str] = []
+    for owner, nodes in _node_sets(event):
+        for nid, node in nodes.items():
+            if node.get("kind") != "outcome":
+                continue
+            if len(node.get("text", "").split()) < floor:
+                out.append(_qualify(owner, nid))
+    return out
 
 
 def _splice_texts(event: dict, texts: dict[str, str]) -> dict:
@@ -632,14 +650,15 @@ def _splice_texts(event: dict, texts: dict[str, str]) -> dict:
     degismesi YAPISAL olarak imkansiz: yalnizca `text` alanlari degisir.
     """
     out = json.loads(json.dumps(event))
-    for nid, text in texts.items():
+    for qualified, text in texts.items():
         if not isinstance(text, str) or not text.strip():
             continue
-        if nid in out.get("nodes", {}):
-            out["nodes"][nid]["text"] = text.strip()
-        for variant in out.get("variants", []):
-            if nid in variant.get("nodes", {}):
-                variant["nodes"][nid]["text"] = text.strip()
+        owner, _, nid = qualified.rpartition("::")
+        for candidate_owner, nodes in _node_sets(out):
+            if candidate_owner != owner:
+                continue
+            if nid in nodes:
+                nodes[nid]["text"] = text.strip()
     return out
 
 

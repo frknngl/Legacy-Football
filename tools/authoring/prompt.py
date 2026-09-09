@@ -476,9 +476,13 @@ def build_enrich(event: dict, node_ids: list[str], floor: int, ideal: int) -> st
     lines.append("")
     lines.append("ZENGINLESTIRILECEK METINLER:")
 
-    pool = dict(event.get("nodes", {}))
+    # NITELIKLI kimlik: "varyantId::dugumId". Varyantlar ana olayla ayni
+    # dugum adlarini kullanir; tek havuzda toplamak metni hepsine birden
+    # yazdirir ve klon denetimine takilir.
+    pool: dict[str, dict] = {nid: node for nid, node in event.get("nodes", {}).items()}
     for variant in event.get("variants", []):
-        pool.update(variant.get("nodes", {}))
+        for nid, node in variant.get("nodes", {}).items():
+            pool[f'{variant.get("id", "")}::{nid}'] = node
 
     for nid in node_ids:
         node = pool.get(nid, {})
