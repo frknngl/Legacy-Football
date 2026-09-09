@@ -14,218 +14,410 @@
     "loaned",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Cizgide",
-      "kind": "branch",
-      "text": "{minute}. dakika, skor {scoreline}. Kaleci cikmis, savunma dagilmis ve top bos kaleye dogru yuvarlaniyor.\n\nCizgide bir tek sen varsin. Top yavas. Kafayla ulasamazsin.\n\nElini uzatirsan durur. Herkes gorur, hakem gorur, kirmizi kart kesin ve penalti kesin. Ama gol olmaz.\n\nYarim saniye.",
-      "choices": [
-        {
-          "id": "c_handle",
-          "text": "Elini uzat. Bedelini sonra odersin.",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Cizgide",
+          "kind": "branch",
+          "text": "{minute}. dakika, skor {scoreline}. Kaleci cikmis, savunma dagilmis ve top bos kaleye dogru yuvarlaniyor.\n\nCizgide bir tek sen varsin. Top yavas. Kafayla ulasamazsin.\n\nElini uzatirsan durur. Herkes gorur, hakem gorur, kirmizi kart kesin ve penalti kesin. Ama gol olmaz.\n\nYarim saniye.",
+          "choices": [
             {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 18
+              "id": "c_handle",
+              "text": "Elini uzat. Bedelini sonra odersin.",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "target": "n_handled",
+              "persona": {
+                "sadakat": 10,
+                "dogruluk": -8,
+                "mizac": 6
+              }
             },
             {
-              "flag": "sokak_itibari",
+              "id": "c_let",
+              "text": "Cek elini. Gol olsun.",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                }
+              ],
+              "target": "n_let_it_in",
+              "persona": {
+                "dogruluk": 10,
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_slide",
+              "text": "Kayarak git. Ayakla cikarmayi dene, elini kullanma.",
+              "effects": [
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "sakatlik_riski",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "target": "n_roll_slide",
+              "persona": {
+                "dogruluk": 6,
+                "mizac": 4
+              }
+            }
+          ]
+        },
+        "n_roll_slide": {
+          "title": "Kayma",
+          "kind": "roll",
+          "text": "Kendini yere atiyorsun. Ayagin topa dogru uzaniyor.",
+          "outcomes": [
+            {
+              "target": "n_cleared",
+              "weight": {
+                "base": 35,
+                "modifiers": [
+                  {
+                    "flag": "fizik",
+                    "scale": 0.4
+                  },
+                  {
+                    "flag": "kondisyon",
+                    "scale": 0.25
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_let_it_in",
+              "weight": {
+                "base": 55
+              }
+            }
+          ]
+        },
+        "n_handled": {
+          "title": "Kirmizi",
+          "kind": "outcome",
+          "text": "Top eline carpiyor ve duruyor. Bir saniye sessizlik, sonra stadyum patliyor.\n\n{actor.referee.name} kosarak geliyor ve kirmizi karti cikariyor. Penalti.\n\nTunele yururken takim arkadaslarin siranin ustunden sana bakiyor. {actor.captain.name} yumrugunu havaya kaldiriyor.\n\nPenaltiyi atiyorlar. Yine de yediniz. Ama sen bunu yapmasaydin gol kesindi ve bu farki sadece o odada oturanlar bilir.",
+          "onEnter": [
+            {
+              "op": "match",
+              "redCard": true,
+              "rating": -1,
+              "incident": "inc_red_card"
+            },
+            {
+              "op": "match",
+              "incident": "inc_stood_up"
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Kirmizi kart cezasi"
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "medya_baskisi",
               "op": "add",
               "value": 15
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
             }
-          ],
-          "target": "n_handled",
-          "persona": {
-            "sadakat": 10,
-            "dogruluk": -8,
-            "mizac": 6
-          }
+          ]
         },
-        {
-          "id": "c_let",
-          "text": "Cek elini. Gol olsun.",
-          "effects": [
+        "n_let_it_in": {
+          "title": "Gol",
+          "kind": "outcome",
+          "text": "Elini geri cekiyorsun. Top cizgiyi geciyor.\n\nKimse sana bagirmiyor. {actor.captain.name} yalnizca bir saniye bakiyor ve donuyor.\n\nMac sonunda kimse bu ani konusmuyor. Ama iki hafta sonra soyunma odasinda birisi sakayla karisik bir sey soyluyor ve odada kimse gulmuyor.",
+          "onEnter": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": -15
+              "op": "match",
+              "rating": -0.7,
+              "incident": "inc_stood_up"
             },
             {
               "flag": "moral",
               "op": "add",
-              "value": -12
+              "value": -10
+            },
+            {
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
-          ],
-          "target": "n_let_it_in",
-          "persona": {
-            "dogruluk": 10,
-            "sadakat": -8
-          }
+          ]
         },
-        {
-          "id": "c_slide",
-          "text": "Kayarak git. Ayakla cikarmayi dene, elini kullanma.",
-          "effects": [
+        "n_cleared": {
+          "title": "Ayak ucu",
+          "kind": "outcome",
+          "text": "Ayagin topa cizginin bir karis onunde degiyor. Top korner cizgisine gidiyor.\n\nYerde kaliyorsun. Dizin agriyor ama kalkmiyorsun; bu bir saniyeyi biraz daha uzatmak istiyorsun.\n\n{actor.keeper.name} seni yerden kaldiriyor ve hicbir sey soylemiyor.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 1.2,
+              "incident": "inc_stood_up"
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 12
+            },
             {
               "flag": "kondisyon",
               "op": "add",
-              "value": -8
+              "value": -6
             },
             {
-              "flag": "sakatlik_riski",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -3
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
             }
-          ],
-          "target": "n_roll_slide",
-          "persona": {
-            "dogruluk": 6,
-            "mizac": 4
-          }
+          ]
         }
-      ]
+      }
     },
-    "n_roll_slide": {
-      "title": "Kayma",
-      "kind": "roll",
-      "text": "Kendini yere atiyorsun. Ayagin topa dogru uzaniyor.",
-      "outcomes": [
-        {
-          "target": "n_cleared",
-          "weight": {
-            "base": 35,
-            "modifiers": [
-              {
-                "flag": "fizik",
-                "scale": 0.4
-              },
-              {
-                "flag": "kondisyon",
-                "scale": 0.25
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Çizgi",
+          "kind": "branch",
+          "text": "Dakika doksan. Kaleci kalesini terk etti, top boş kaleye doğru yavaşça süzülüyor. {actor.captain.name} ceza sahasının dışında, elleri belinde, çaresizce bakıyor. Çizgiye sadece sen yakınsın. Topun filelerle buluşmasına bir nefeslik mesafe var. Havada asılı kalan o an, stadyumdaki binlerce kişinin nefesini kestiği o boşlukta, sadece topun dönen deri dokusunu duyuyorsun.",
+          "choices": [
+            {
+              "id": "c_hand",
+              "text": "Topu tokatla. Kırmızı kartı ve cezayı göze al, yeter ki o gol atılmasın.",
+              "target": "n_red_card",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_red_card"
+                },
+                {
+                  "op": "suspend",
+                  "matches": 3,
+                  "reason": "Kasti el ile müdahale"
+                }
+              ],
+              "persona": {
+                "durus": -5
               }
-            ]
-          }
+            },
+            {
+              "id": "c_hero",
+              "text": "Vücudunla topa siper ol. Her yerini feda et ama kuralları çiğneme.",
+              "target": "n_hero",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_stood_up"
+                },
+                {
+                  "op": "suspend",
+                  "matches": 0,
+                  "reason": "Disiplin kontrolü"
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_captain",
+              "text": "Kaptanın bakışlarına odaklan ve topu sadece izle. Yenilgiyi kabul et.",
+              "target": "n_cap",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "op": "suspend",
+                  "matches": 0,
+                  "reason": "Profesyonel duruş"
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_exhaust",
+              "text": "Son bir hamleyle kendini çizgiye at. Kondisyonun yetmese de o topu çıkar.",
+              "target": "n_exhaust",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "op": "suspend",
+                  "matches": 1,
+                  "reason": "Sakatlık riski yönetimi"
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Kitlelerin Desteği]"
+            }
+          ]
         },
-        {
-          "target": "n_let_it_in",
-          "weight": {
-            "base": 55
-          }
+        "n_red_card": {
+          "title": "Bedeli Ödemek",
+          "kind": "outcome",
+          "text": "Hakem düdüğü çaldı. Elin, topun fileye girmesini engelledi. Kırmızı kart havada. Soyunma odasına giden tünelde, attığın o 'zafer' dolu bakışın ağırlığı omuzlarında.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_hero": {
+          "title": "Onurlu Mağlubiyet",
+          "kind": "outcome",
+          "text": "Top göğsüne çarptı ama kale çizgisini geçti. Stadyumda bir uğultu. {actor.captain.name} yanına geldi, omuzuna sertçe vurdu. Hiçbir şey demedi, sadece yürüdü.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_cap": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Top fileleri titretti. Sen olduğun yerde kaldın. {actor.captain.name} ile göz göze geldin; aranızdaki bağın ne kadar kırılgan olduğunu o an anladın.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_exhaust": {
+          "title": "Son Nefes",
+          "kind": "outcome",
+          "text": "Topu çizgiden uzaklaştırdın. Çimlerin üzerine yığıldın. Kaslarındaki o keskin sızı, tribünlerden gelen isminin yankısıyla birleşti. Bedeli ağırdı ama saha içinde kurduğun o saygı baki kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_handled": {
-      "title": "Kirmizi",
-      "kind": "outcome",
-      "text": "Top eline carpiyor ve duruyor. Bir saniye sessizlik, sonra stadyum patliyor.\n\n{actor.referee.name} kosarak geliyor ve kirmizi karti cikariyor. Penalti.\n\nTunele yururken takim arkadaslarin siranin ustunden sana bakiyor. {actor.captain.name} yumrugunu havaya kaldiriyor.\n\nPenaltiyi atiyorlar. Yine de yediniz. Ama sen bunu yapmasaydin gol kesindi ve bu farki sadece o odada oturanlar bilir.",
-      "onEnter": [
-        {
-          "op": "match",
-          "redCard": true,
-          "rating": -1,
-          "incident": "inc_red_card"
-        },
-        {
-          "op": "match",
-          "incident": "inc_stood_up"
-        },
-        {
-          "op": "suspend",
-          "matches": 1,
-          "reason": "Kirmizi kart cezasi"
-        },
-        {
-          "flag": "mem_saved_teammate",
-          "op": "set",
-          "value": true
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 15
-        }
-      ]
-    },
-    "n_let_it_in": {
-      "title": "Gol",
-      "kind": "outcome",
-      "text": "Elini geri cekiyorsun. Top cizgiyi geciyor.\n\nKimse sana bagirmiyor. {actor.captain.name} yalnizca bir saniye bakiyor ve donuyor.\n\nMac sonunda kimse bu ani konusmuyor. Ama iki hafta sonra soyunma odasinda birisi sakayla karisik bir sey soyluyor ve odada kimse gulmuyor.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": -0.7,
-          "incident": "inc_stood_up"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": -10
-        },
-        {
-          "flag": "npc_captain_arc",
-          "op": "add",
-          "value": 1
-        }
-      ]
-    },
-    "n_cleared": {
-      "title": "Ayak ucu",
-      "kind": "outcome",
-      "text": "Ayagin topa cizginin bir karis onunde degiyor. Top korner cizgisine gidiyor.\n\nYerde kaliyorsun. Dizin agriyor ama kalkmiyorsun; bu bir saniyeyi biraz daha uzatmak istiyorsun.\n\n{actor.keeper.name} seni yerden kaldiriyor ve hicbir sey soylemiyor.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 1.2,
-          "incident": "inc_stood_up"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": 12
-        },
-        {
-          "flag": "kondisyon",
-          "op": "add",
-          "value": -6
-        },
-        {
-          "flag": "mem_saved_teammate",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

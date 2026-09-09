@@ -5,202 +5,691 @@
   "tier": "major",
   "momentType": "red_card_provocation",
   "weight": 18,
-  "cooldown": { "self": 10, "family": 6 },
-  "lifeStates": ["playing", "loaned", "national_duty"],
-
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Kulağına",
-      "kind": "branch",
-      "text": "{minute}. dakika, skor {scoreline}. {opponent} stoperi bütün maç arkanda. Her topta bir tekme, her duran topta bir omuz. Hakem üç kez uyardı, kart çıkarmadı.\n\nŞimdi korner bekliyorsunuz ve adam kulağına eğiliyor. Söylediği şeyin futbolla ilgisi yok. Ailenle ilgili.\n\nGeri çekilip sana bakıyor ve gülümsüyor. Bunu bekliyor. Herkes bunu bekliyor — yan hakem bile bu tarafa dönmüş.",
-      "choices": [
-        {
-          "id": "c_walk_away",
-          "text": "Dön ve uzaklaş. Hiçbir şey olmamış gibi pozisyonunu al.",
-          "target": "n_walked",
-          "effects": [
-            { "flag": "profesyonellik", "op": "add", "value": 10 },
-            { "flag": "iliski_manager", "op": "add", "value": 8 },
-            { "flag": "moral", "op": "add", "value": -12 },
-            { "flag": "sokak_itibari", "op": "add", "value": -8 }
-          ],
-          "persona": { "mizac": -9, "durus": -4 }
+  "cooldown": {
+    "self": 10,
+    "family": 6
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "national_duty"
+  ],
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kulağına",
+          "kind": "branch",
+          "text": "{minute}. dakika, skor {scoreline}. {opponent} stoperi bütün maç arkanda. Her topta bir tekme, her duran topta bir omuz. Hakem üç kez uyardı, kart çıkarmadı.\n\nŞimdi korner bekliyorsunuz ve adam kulağına eğiliyor. Söylediği şeyin futbolla ilgisi yok. Ailenle ilgili.\n\nGeri çekilip sana bakıyor ve gülümsüyor. Bunu bekliyor. Herkes bunu bekliyor — yan hakem bile bu tarafa dönmüş.",
+          "choices": [
+            {
+              "id": "c_walk_away",
+              "text": "Dön ve uzaklaş. Hiçbir şey olmamış gibi pozisyonunu al.",
+              "target": "n_walked",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -9,
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_headbutt",
+              "text": "Alnını alnına daya. Ne olacaksa olsun.",
+              "target": "n_roll_clash",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -12
+                }
+              ],
+              "persona": {
+                "mizac": 12,
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_ref",
+              "text": "Hakeme git. Ne dediğini kelimesi kelimesine tekrarla.",
+              "target": "n_roll_report",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "dogruluk": 8,
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_smile",
+              "text": "Gülümse. Sonraki kırk dakika onu bitir.",
+              "target": "n_roll_revenge",
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Mental 65]",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "mizac": 6,
+                "durus": 4
+              }
+            }
+          ]
         },
-        {
-          "id": "c_headbutt",
-          "text": "Alnını alnına daya. Ne olacaksa olsun.",
-          "target": "n_roll_clash",
-          "effects": [
-            { "flag": "sokak_itibari", "op": "add", "value": 14 },
-            { "flag": "taraftar_destegi", "op": "add", "value": 8 },
-            { "flag": "disiplin_sicili", "op": "add", "value": 10 },
-            { "flag": "iliski_manager", "op": "add", "value": -12 }
-          ],
-          "persona": { "mizac": 12, "durus": 5 }
+        "n_walked": {
+          "title": "Kırk santim",
+          "kind": "outcome",
+          "text": "Dönüyorsun. Kırk santim yürüyorsun ve o kırk santim hayatının en uzun mesafesi.\n\nKorner geliyor, kafaya çıkıyorsun, top aut. Oyun devam ediyor.\n\nMaçtan sonra {actor.manager.name} soyunma odasında yanına oturuyor: \"Bugün seni büyüttüm.\" Sonra bir şey daha ekliyor: \"Ama içinde kaldı. Onunla ne yapacağını bul.\"",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.3,
+              "incident": "inc_stood_up"
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": false
+            }
+          ]
         },
-        {
-          "id": "c_ref",
-          "text": "Hakeme git. Ne dediğini kelimesi kelimesine tekrarla.",
-          "target": "n_roll_report",
-          "effects": [
-            { "flag": "medya_itibari", "op": "add", "value": 6 },
-            { "flag": "sokak_itibari", "op": "add", "value": -10 },
-            { "flag": "iliski_takim", "op": "add", "value": -5 },
-            { "flag": "moral", "op": "add", "value": 4 }
-          ],
-          "persona": { "dogruluk": 8, "mizac": -5 }
+        "n_roll_clash": {
+          "title": "Alın",
+          "kind": "roll",
+          "text": "İki adım. Alnın alnına değiyor. Adam abartılı bir şekilde yere düşüyor. Hakem koşarak geliyor.",
+          "outcomes": [
+            {
+              "target": "n_both_yellow",
+              "weight": {
+                "base": 35,
+                "modifiers": [
+                  {
+                    "flag": "medya_itibari",
+                    "scale": 0.25
+                  },
+                  {
+                    "flag": "disiplin_sicili",
+                    "scale": -0.3
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_red",
+              "weight": {
+                "base": 45,
+                "modifiers": [
+                  {
+                    "flag": "disiplin_sicili",
+                    "scale": 0.6
+                  },
+                  {
+                    "flag": "persona_mizac",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            }
+          ]
         },
-        {
-          "id": "c_smile",
-          "text": "Gülümse. Sonraki kırk dakika onu bitir.",
-          "target": "n_roll_revenge",
-          "requires": { "flag": "mental_dayaniklilik", "op": "gte", "value": 65 },
-          "lockLabel": "[Mental 65]",
-          "effects": [
-            { "flag": "mental_dayaniklilik", "op": "add", "value": 5 },
-            { "flag": "kondisyon", "op": "add", "value": -8 },
-            { "flag": "moral", "op": "add", "value": 6 },
-            { "flag": "tukenmislik", "op": "add", "value": 6 }
-          ],
-          "persona": { "mizac": 6, "durus": 4 }
+        "n_both_yellow": {
+          "title": "İkisine de",
+          "kind": "outcome",
+          "text": "Hakem ikinize de sarı gösteriyor. Adam yerden kalkarken hâlâ gülüyor ama gözleri gülmüyor — istediğini alamadı.\n\n{actor.captain.first} seni omzundan çekiyor: \"Bir daha yapma. Bir daha yaparsan seni ben çıkarırım.\"",
+          "onEnter": [
+            {
+              "op": "match",
+              "yellowCards": 1,
+              "rating": -0.3,
+              "incident": "inc_fought_opponent"
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": -4
+            }
+          ]
+        },
+        "n_red": {
+          "title": "Tünel",
+          "kind": "outcome",
+          "text": "Kırmızı. Adam yerde, elleriyle yüzünü tutuyor; hiçbir yerine dokunmadın.\n\nTünele yürürken kendi taraftarın alkışlıyor ve bu alkış seni daha da kötü hissettiriyor. Soyunma odasında tek başına oturuyorsun, kramponların hâlâ ayağında, kırk dakika.\n\n{actor.manager.name} kapıdan girip hiçbir şey söylemiyor. Sadece bakıyor. Sonra çıkıyor.",
+          "onEnter": [
+            {
+              "op": "match",
+              "redCard": true,
+              "rating": -2.2,
+              "incident": "inc_red_card"
+            },
+            {
+              "op": "match",
+              "incident": "inc_fought_opponent"
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Kırmızı kart cezası"
+            }
+          ]
+        },
+        "n_roll_report": {
+          "title": "Rapor",
+          "kind": "roll",
+          "text": "Hakeme gidip söylüyorsun. Kelimesi kelimesine. Hakem duraksıyor, dördüncü hakeme bakıyor.",
+          "outcomes": [
+            {
+              "target": "n_reported_acted",
+              "weight": {
+                "base": 35,
+                "modifiers": [
+                  {
+                    "flag": "medya_itibari",
+                    "scale": 0.3
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_reported_ignored",
+              "weight": {
+                "base": 50,
+                "modifiers": [
+                  {
+                    "flag": "disiplin_sicili",
+                    "scale": 0.3
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_reported_acted": {
+          "title": "Deftere",
+          "kind": "outcome",
+          "text": "Hakem adamı çağırıp deftere yazıyor. Sarı kart. Rapora geçecek.\n\n{opponent} tribünü seni yuhalıyor: \"şikâyetçi.\" Kendi soyunma odanda da bir sessizlik var; kimse yanlış yaptığını söylemiyor ama kimse doğru yaptığını da söylemiyor.\n\nHafta içinde disiplin kurulu ifadeni isteyecek.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.2,
+              "incident": "inc_ref_conflict"
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_reported_ignored": {
+          "title": "Duymadım",
+          "kind": "outcome",
+          "text": "\"Ben bir şey duymadım,\" diyor hakem. \"Oyna.\"\n\nAdam arkanda gülüyor. Bir daha aynı şeyi söylüyor, bu sefer daha yüksek sesle, çünkü artık bedeli olmadığını biliyor.\n\nKorneri kullanıyorsun. Elin titriyor.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": -0.6,
+              "incident": "inc_ref_conflict"
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 5
+            }
+          ]
+        },
+        "n_roll_revenge": {
+          "title": "Kırk dakika",
+          "kind": "roll",
+          "text": "Gülümsüyorsun ve dönüp gidiyorsun. Sonraki kırk dakika onun tarafına koşuyorsun. Her topta.",
+          "outcomes": [
+            {
+              "target": "n_revenge_won",
+              "weight": {
+                "base": 30,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": 0.4
+                  },
+                  {
+                    "flag": "kondisyon",
+                    "scale": 0.3
+                  },
+                  {
+                    "flag": "mental_dayaniklilik",
+                    "scale": 0.25
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_revenge_cost",
+              "weight": {
+                "base": 40,
+                "modifiers": [
+                  {
+                    "flag": "tukenmislik",
+                    "scale": 0.4
+                  },
+                  {
+                    "flag": "kondisyon",
+                    "scale": -0.2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_revenge_won": {
+          "title": "Yetmiş dokuz",
+          "kind": "outcome",
+          "text": "Yetmiş dokuzuncu dakikada onu çalımlayıp ceza sahasına giriyorsun ve golü atıyorsun. Sevinmiyorsun. Sadece dönüp ona bakıyorsun.\n\nO an bir şey söylemiyor. Maç sonunda formasını değiştirmek için yanına geliyor; sen vermiyorsun.\n\nHer şeyin bedeli var ve bunun bedeli sadece bacakların.",
+          "onEnter": [
+            {
+              "op": "match",
+              "goals": 1,
+              "rating": 1.6,
+              "incident": "inc_scored_winner"
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": false
+            }
+          ]
+        },
+        "n_revenge_cost": {
+          "title": "Boşa koşu",
+          "kind": "outcome",
+          "text": "Kırk dakika boyunca onu kovaladın ve maçı unuttun. İki net pozisyonu kaçırdın, üç pas hatası yaptın, seksen ikide bacağın tutuldu.\n\nKenara çıkarken adam sana el sallıyor.\n\nSoyunma odasında {actor.doctor.name} bacağına bakıyor ve sormadan biliyor: \"Ona koştun değil mi?\"",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": -1.1,
+              "injuryWeeks": 1,
+              "incident": "inc_injured_in_match"
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-
-    "n_walked": {
-      "title": "Kırk santim",
-      "kind": "outcome",
-      "text": "Dönüyorsun. Kırk santim yürüyorsun ve o kırk santim hayatının en uzun mesafesi.\n\nKorner geliyor, kafaya çıkıyorsun, top aut. Oyun devam ediyor.\n\nMaçtan sonra {actor.manager.name} soyunma odasında yanına oturuyor: \"Bugün seni büyüttüm.\" Sonra bir şey daha ekliyor: \"Ama içinde kaldı. Onunla ne yapacağını bul.\"",
-      "onEnter": [
-        { "op": "match", "rating": 0.3, "incident": "inc_stood_up" },
-        { "flag": "tukenmislik", "op": "add", "value": 12 },
-        { "flag": "mem_saved_teammate", "op": "set", "value": false }
-      ]
-    },
-
-    "n_roll_clash": {
-      "title": "Alın",
-      "kind": "roll",
-      "text": "İki adım. Alnın alnına değiyor. Adam abartılı bir şekilde yere düşüyor. Hakem koşarak geliyor.",
-      "outcomes": [
-        {
-          "target": "n_both_yellow",
-          "weight": { "base": 35, "modifiers": [{ "flag": "medya_itibari", "scale": 0.25 }, { "flag": "disiplin_sicili", "scale": -0.3 }] }
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünel Çıkışı",
+          "kind": "branch",
+          "text": "Soyunma odasının loş ışığı, {actor.manager.name}’in yüzündeki sert çizgileri daha da belirginleştiriyor. Koridorun diğer ucundan gelen küfürlü sesler yankılanıyor. Rakip oyuncu, yüzüne tükürüp yanından geçerken {actor.manager.name} bir adım atıyor. Kan ter içindesin. Nefesin kesik. Rakip oyuncu sana dönüp sırıtıyor; az önce sahada yaptığı o çirkin hamlenin bir benzerini işaret ederek tekrarlıyor. {actor.manager.name} sana bakıyor. Gözleri ne yapacağını biliyor.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Rakibin üzerine yürü, kimse izlemiyorken omuz at ve sahaya gir.",
+              "target": "n_red_card",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_fought_opponent"
+                },
+                {
+                  "op": "suspend",
+                  "matches": 3,
+                  "reason": "Saha içi şiddet"
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gray",
+              "text": "Rakibin yanından geçerken cüzdanından düşürdüğü o ağır zarfı fark et, sessizce yerden al ve çantana at.",
+              "target": "n_scored",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_scored_winner"
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Gözlerini kaçır, {actor.manager.name} ile hiçbir şey olmamış gibi sahaya dön.",
+              "target": "n_stood",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_stood_up"
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Hakemi bekle, rakibin az önceki provokasyonunu teknik alana gidip tane tane anlat.",
+              "target": "n_ref",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_ref_conflict"
+                },
+                {
+                  "op": "suspend",
+                  "matches": 1,
+                  "reason": "Hakemle tartışma"
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Profesyonellik 80]"
+            }
+          ]
         },
-        {
-          "target": "n_red",
-          "weight": { "base": 45, "modifiers": [{ "flag": "disiplin_sicili", "scale": 0.6 }, { "flag": "persona_mizac", "scale": 0.2 }] }
-        }
-      ]
-    },
-
-    "n_both_yellow": {
-      "title": "İkisine de",
-      "kind": "outcome",
-      "text": "Hakem ikinize de sarı gösteriyor. Adam yerden kalkarken hâlâ gülüyor ama gözleri gülmüyor — istediğini alamadı.\n\n{actor.captain.first} seni omzundan çekiyor: \"Bir daha yapma. Bir daha yaparsan seni ben çıkarırım.\"",
-      "onEnter": [
-        { "op": "match", "yellowCards": 1, "rating": -0.3, "incident": "inc_fought_opponent" },
-        { "flag": "medya_baskisi", "op": "add", "value": 10 },
-        { "flag": "iliski_captain", "op": "add", "value": -4 }
-      ]
-    },
-
-    "n_red": {
-      "title": "Tünel",
-      "kind": "outcome",
-      "text": "Kırmızı. Adam yerde, elleriyle yüzünü tutuyor; hiçbir yerine dokunmadın.\n\nTünele yürürken kendi taraftarın alkışlıyor ve bu alkış seni daha da kötü hissettiriyor. Soyunma odasında tek başına oturuyorsun, kramponların hâlâ ayağında, kırk dakika.\n\n{actor.manager.name} kapıdan girip hiçbir şey söylemiyor. Sadece bakıyor. Sonra çıkıyor.",
-      "onEnter": [
-        { "op": "match", "redCard": true, "rating": -2.2, "incident": "inc_red_card" },
-        { "op": "match", "incident": "inc_fought_opponent" },
-        { "flag": "medya_baskisi", "op": "add", "value": 25 },
-        { "flag": "disiplin_sicili", "op": "add", "value": 12 },
-        { "flag": "iliski_manager", "op": "add", "value": -15 },
-        { "flag": "yonetim_baskisi", "op": "add", "value": 12 },
-        { "op": "suspend", "matches": 1, "reason": "Kırmızı kart cezası" }
-      ]
-    },
-
-    "n_roll_report": {
-      "title": "Rapor",
-      "kind": "roll",
-      "text": "Hakeme gidip söylüyorsun. Kelimesi kelimesine. Hakem duraksıyor, dördüncü hakeme bakıyor.",
-      "outcomes": [
-        {
-          "target": "n_reported_acted",
-          "weight": { "base": 35, "modifiers": [{ "flag": "medya_itibari", "scale": 0.3 }] }
+        "n_red_card": {
+          "title": "İz",
+          "kind": "outcome",
+          "text": "Kavga çıktı. Hakem seni gördü. Soyunma odasının kapısı yüzüne kapandığında, içerideki sessizlik her şeyi anlatıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_red_card"
+            }
+          ]
         },
-        {
-          "target": "n_reported_ignored",
-          "weight": { "base": 50, "modifiers": [{ "flag": "disiplin_sicili", "scale": 0.3 }] }
-        }
-      ]
-    },
-
-    "n_reported_acted": {
-      "title": "Deftere",
-      "kind": "outcome",
-      "text": "Hakem adamı çağırıp deftere yazıyor. Sarı kart. Rapora geçecek.\n\n{opponent} tribünü seni yuhalıyor: \"şikâyetçi.\" Kendi soyunma odanda da bir sessizlik var; kimse yanlış yaptığını söylemiyor ama kimse doğru yaptığını da söylemiyor.\n\nHafta içinde disiplin kurulu ifadeni isteyecek.",
-      "onEnter": [
-        { "op": "match", "rating": 0.2, "incident": "inc_ref_conflict" },
-        { "flag": "medya_itibari", "op": "add", "value": 10 },
-        { "flag": "iliski_takim", "op": "add", "value": -8 },
-        { "flag": "mem_stood_against_racism", "op": "set", "value": true }
-      ]
-    },
-
-    "n_reported_ignored": {
-      "title": "Duymadım",
-      "kind": "outcome",
-      "text": "\"Ben bir şey duymadım,\" diyor hakem. \"Oyna.\"\n\nAdam arkanda gülüyor. Bir daha aynı şeyi söylüyor, bu sefer daha yüksek sesle, çünkü artık bedeli olmadığını biliyor.\n\nKorneri kullanıyorsun. Elin titriyor.",
-      "onEnter": [
-        { "op": "match", "rating": -0.6, "incident": "inc_ref_conflict" },
-        { "flag": "moral", "op": "add", "value": -14 },
-        { "flag": "medya_baskisi", "op": "add", "value": 6 },
-        { "flag": "mental_dayaniklilik", "op": "add", "value": 5 }
-      ]
-    },
-
-    "n_roll_revenge": {
-      "title": "Kırk dakika",
-      "kind": "roll",
-      "text": "Gülümsüyorsun ve dönüp gidiyorsun. Sonraki kırk dakika onun tarafına koşuyorsun. Her topta.",
-      "outcomes": [
-        {
-          "target": "n_revenge_won",
-          "weight": { "base": 30, "modifiers": [{ "flag": "teknik", "scale": 0.4 }, { "flag": "kondisyon", "scale": 0.3 }, { "flag": "mental_dayaniklilik", "scale": 0.25 }] }
+        "n_scored": {
+          "title": "İz",
+          "kind": "outcome",
+          "text": "Zarf ağır, vicdanın daha ağır. Maçı kazandın ama aynaya bakarken gözlerini kaçırıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_hid_injury",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_injured_in_match"
+            }
+          ]
         },
-        {
-          "target": "n_revenge_cost",
-          "weight": { "base": 40, "modifiers": [{ "flag": "tukenmislik", "scale": 0.4 }, { "flag": "kondisyon", "scale": -0.2 }] }
+        "n_stood": {
+          "title": "İz",
+          "kind": "outcome",
+          "text": "Başını öne eğdin ve geçtin. Profesyonelsin. Ama arkandaki kahkahalar hala kulaklarında çınlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ref": {
+          "title": "İz",
+          "kind": "outcome",
+          "text": "Hakemle konuştun. Maç devam edecek ama tüm tribünlerin nefretini üzerine çektin.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-
-    "n_revenge_won": {
-      "title": "Yetmiş dokuz",
-      "kind": "outcome",
-      "text": "Yetmiş dokuzuncu dakikada onu çalımlayıp ceza sahasına giriyorsun ve golü atıyorsun. Sevinmiyorsun. Sadece dönüp ona bakıyorsun.\n\nO an bir şey söylemiyor. Maç sonunda formasını değiştirmek için yanına geliyor; sen vermiyorsun.\n\nHer şeyin bedeli var ve bunun bedeli sadece bacakların.",
-      "onEnter": [
-        { "op": "match", "goals": 1, "rating": 1.6, "incident": "inc_scored_winner" },
-        { "flag": "moral", "op": "add", "value": 14 },
-        { "flag": "sokak_itibari", "op": "add", "value": 10 },
-        { "flag": "kondisyon", "op": "add", "value": -6 },
-        { "flag": "mem_saved_teammate", "op": "set", "value": false }
-      ]
-    },
-
-    "n_revenge_cost": {
-      "title": "Boşa koşu",
-      "kind": "outcome",
-      "text": "Kırk dakika boyunca onu kovaladın ve maçı unuttun. İki net pozisyonu kaçırdın, üç pas hatası yaptın, seksen ikide bacağın tutuldu.\n\nKenara çıkarken adam sana el sallıyor.\n\nSoyunma odasında {actor.doctor.name} bacağına bakıyor ve sormadan biliyor: \"Ona koştun değil mi?\"",
-      "onEnter": [
-        { "op": "match", "rating": -1.1, "injuryWeeks": 1, "incident": "inc_injured_in_match" },
-        { "flag": "moral", "op": "add", "value": -12 },
-        { "flag": "tukenmislik", "op": "add", "value": 15 },
-        { "flag": "iliski_doctor", "op": "add", "value": 6 },
-        { "flag": "mem_hid_injury", "op": "set", "value": true }
-      ]
+      }
     }
-  }
+  ]
 }
