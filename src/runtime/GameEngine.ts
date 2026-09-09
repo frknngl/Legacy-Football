@@ -26,6 +26,7 @@ import type { RosterProvider, WorldFeed, WorldProvider } from '../domain/roster.
 import type { ScaleContext } from '../domain/effects.js';
 import {
   isClubTierEffect,
+  isFlagEffect,
   isLifeStateEffect,
   isMatchDeltaEffect,
   isScheduleEffect,
@@ -123,7 +124,20 @@ import { pressureDecay, reputationDrift, reputationTarget } from '../domain/medi
 import { betRejection, resolveBet, type BetResult, type GameDefinition } from '../domain/gambling.js';
 import { followerDrift, followerTarget, type PhoneModel } from '../domain/phone.js';
 import { PhoneBuilder } from './PhoneBuilder.js';
-import { canRent, displayWeight, driftValues, inflateValues, purchaseRejection, rentIncome, saleValue, totalUpkeep, type AssetDefinition, type OwnedAsset } from '../domain/assets.js';
+import {
+  arrearsRejection,
+  canRent,
+  chargeUpkeep,
+  displayWeight,
+  driftValues,
+  inflateValues,
+  purchaseRejection,
+  rentIncome,
+  saleValue,
+  totalUpkeep,
+  type AssetDefinition,
+  type OwnedAsset,
+} from '../domain/assets.js';
 import { forCountry, nextIndex, seasonRate, weeklyFactor } from '../domain/inflation.js';
 import {
   favorCeiling,
@@ -1950,10 +1964,40 @@ export class GameEngine {
     if (rented && !canRent(def)) {
       throw new EngineStateError(`${def?.label ?? assetId} kiraya verilemez.`);
     }
+    if (rented && (owned.arrears ?? 0) > 0) {
+      throw new EngineStateError(
+        `${def?.label ?? assetId}: once birikmis gideri kapatmalisin.`,
+      );
+    }
     owned.rented = rented;
     this.notices.push(
       rented ? `${def?.label ?? assetId} kiraya verildi.` : `${def?.label ?? assetId} kiradan cikarildi.`,
     );
+  }
+
+  /**
+   * Bir varligin birikmis giderini kapatir.
+   *
+   * Motorun oyuncuya sundugu CIKIS: borc otomatik yazilmadigi icin
+   * birikmis gideri temizlemek de otomatik degil. Kapatmak, kiraya
+   * vermeyi yeniden mumkun kilar.
+   */
+  payArrears(assetId: string): number {
+    this.requireStarted();
+    const owned = this.state.assets.find((a) => a.id === assetId);
+    const wealth = numberFlag(this.state.flags, 'servet');
+    const rejection = arrearsRejection(owned, wealth);
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    const owed = owned!.arrears ?? 0;
+    owned!.arrears = 0;
+    this.state.flags['servet'] = wealth - owed;
+
+    const label =
+      this.registry.config.assets.find((a) => a.id === assetId)?.label ?? assetId;
+    WalletLedger.record(this.state, -owed, 'varlik', `${label} birikmis gider`);
+    this.notices.push(`${label}: birikmis gider kapatildi.`);
+    return owed;
   }
 
   private tickAssets(): void {
@@ -1961,16 +2005,32 @@ export class GameEngine {
     const f = this.state.flags;
     const catalog = this.registry.config.assets;
 
+    // GIDER ODENEMEZSE BORC YAZILMAZ.
+    //
+    // `borc` oyuncunun BILEREK girdigi bir yuktur: krediyi o ceker,
+    // tefeciye o gider. Aidatini odeyemedigin icin sirtina otomatik borc
+    // binmesi, hic vermedigin bir karari vermis saymaktir -- ve bu, borc
+    // kolunun butun anlamini (kimden, ne pahasina, ne zaman) siler.
+    //
+    // Odenemeyen gider varligin KENDI uzerinde birikir. Sonucu var ama
+    // secim oyuncuda kalir: kapat, kiraya cikar, sat ya da birak.
     const upkeep = totalUpkeep(this.state.assets, catalog);
     if (upkeep > 0) {
-      const wealth = numberFlag(f, 'servet');
-      if (wealth >= upkeep) {
-        f['servet'] = wealth - upkeep;
-      } else {
-        f['servet'] = 0;
-        f['borc'] = numberFlag(f, 'borc') + (upkeep - wealth);
+      const paid = chargeUpkeep(this.state.assets, catalog, numberFlag(f, 'servet'));
+      f['servet'] = numberFlag(f, 'servet') - paid;
+      if (paid > 0) {
+        WalletLedger.record(this.state, -paid, 'varlik', 'Varlik giderleri');
       }
-      WalletLedger.record(this.state, -upkeep, 'varlik', 'Varlik giderleri');
+      const unpaid = upkeep - paid;
+      if (unpaid > 0) {
+        // Bakimsiz mulkun kiracisi kalmaz -- gelir de kesilir.
+        for (const item of this.state.assets) {
+          if ((item.arrears ?? 0) > 0) item.rented = false;
+        }
+        this.notices.push(
+          `Varlik giderlerinin ${Math.round(unpaid).toLocaleString('tr-TR')} TL'si odenemedi. Birikiyor.`,
+        );
+      }
     }
 
     // KIRA GELIRI -- kiraya verilen mulk gideri karsilar ve ustune verir.
@@ -2931,11 +2991,40 @@ export class GameEngine {
   }
 
   private isChoiceUnlocked(choice: Choice): boolean {
+    if (this.spendGap(choice) > 0) return false;
     return this.evaluator.evaluate(choice.requires, {
       flags: this.state.flags,
       flagSetTurn: this.state.flagSetTurn,
       turn: this.state.turn,
     });
+  }
+
+  /**
+   * Bu secim parani asiyor mu -- asiyorsa ne kadar.
+   *
+   * NEDEN KILIT, NEDEN OTOMATIK BORC DEGIL: `servet` eskiden
+   * `shortfallTo: "borc"` tasiyordu, yani parasi yetmeyen bir harcama
+   * sessizce borca donusuyordu. O borcun kimden alindigi, faizi, vadesi
+   * yoktu -- hicbir yerden gelen bir yuk. Ve `borc` oyuncunun BILEREK
+   * girdigi bir sey olmali: krediyi o ceker, tefeciye o gider,
+   * arkadasindan o ister. Odeyemedigin secim artik kilitli gorunur.
+   *
+   * Olculdu: 85 harcama iceren dugumun HICBIRINDE tum secenekler para
+   * harcamiyor, yani bu kilit hicbir sahneyi cikissiz birakamaz.
+   *
+   * Yalnizca duz sayisal `add` etkiler sayilir; olceklenen degerler ve
+   * `ValueRef` disarida birakilir -- kilit, emin olunan durumda kurulur.
+   */
+  private spendGap(choice: Choice): number {
+    let cost = 0;
+    for (const effect of choice.effects) {
+      if (!isFlagEffect(effect)) continue;
+      if (effect.flag !== 'servet' || effect.op !== 'add') continue;
+      if (typeof effect.value !== 'number' || effect.value >= 0) continue;
+      cost -= effect.value;
+    }
+    if (cost === 0) return 0;
+    return Math.max(0, cost - numberFlag(this.state.flags, 'servet'));
   }
 
   /** Flag efektlerini uygular; schedule/lifeState/suspend efektlerini yonlendirir. */
@@ -3187,6 +3276,20 @@ export class GameEngine {
         hidden: false,
       };
     }
+    // PARA KILIDI once soylenir: "liderlik 65" degil "paran yetmiyor"
+    // dogru sebeptir ve oyuncunun yapabilecegi bir sey vardir.
+    const gap = this.spendGap(choice);
+    if (gap > 0) {
+      return {
+        id: choice.id,
+        text: this.interpolator.interpolate(choice.text, interpolation),
+        locked: true,
+        hidden: false,
+        lockLabel: '[Paran yetmiyor]',
+        lockReason: `${Math.round(gap).toLocaleString('tr-TR')} TL eksik`,
+      };
+    }
+
     const fail = this.evaluator.firstFailingLeaf(choice.requires, {
       flags: this.state.flags,
       flagSetTurn: this.state.flagSetTurn,

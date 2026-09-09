@@ -230,3 +230,103 @@ describe('Eski kayit uyumu', () => {
     expect(fresh.currentLoan()).toBeUndefined();
   });
 });
+
+describe('BORC ZORUNLU DEGIL -- kimden, ne pahasina, ne zaman senin kararin', () => {
+  /**
+   * `servet` eskiden `shortfallTo: "borc"` tasiyordu: parasi yetmeyen bir
+   * harcama sessizce borca donusuyordu. O borcun kimden alindigi, faizi ve
+   * vadesi yoktu -- hicbir yerden gelen bir yuk.
+   *
+   * Oysa borc kolunun BUTUN anlami bu ucunde: bankadan mi tefeciden mi
+   * arkadastan mi, ne pahasina, ne zaman. Otomatik yazilan borc o soruyu
+   * yok ediyordu. Olculdu: 12 kariyerde hic kredi cekmeden bir kariyerde
+   * 22.297 TL borc olusuyordu.
+   */
+  it('parasi yetmeyen secim KILITLENIR, borca donusmez', () => {
+    const engine = started(31);
+    const flags = engine.snapshot().flags;
+    flags['servet'] = 0;
+    const before = Number(flags['borc'] ?? 0);
+
+    // Korpusta para harcayan 99 secim var; parasi sifir olan oyuncuya
+    // hicbiri ACIK gorunmemeli.
+    let sawLockedSpend = false;
+    for (let i = 0; i < 200; i += 1) {
+      if (engine.snapshot().ending !== undefined) break;
+      engine.snapshot().flags['servet'] = 0;
+      engine.advanceTurn();
+      for (let g = 0; g < 40; g += 1) {
+        if (!engine.currentNode()) break;
+        const all = engine.availableChoices();
+        if (all.some((c) => c.locked && c.lockLabel === '[Paran yetmiyor]')) {
+          sawLockedSpend = true;
+        }
+        const open = all.filter((c) => !c.locked);
+        if (open.length === 0) break;
+        engine.choose(open[0]!.id);
+      }
+    }
+
+    // Servet her turda sifirlandi; buna ragmen borc BUYUMEDI.
+    expect(Number(engine.snapshot().flags['borc'] ?? 0)).toBe(before);
+    expect(sawLockedSpend, 'para kilidi hic devreye girmedi -- test bir sey sinamiyor').toBe(true);
+  });
+
+  it('para kilidi hicbir sahneyi CIKISSIZ birakmiyor', () => {
+    // Olculdu: harcama iceren 85 dugumun hicbirinde TUM secenekler para
+    // harcamiyor. Yani kilit bir dugumu kapatamaz.
+    const engine = started(31);
+    for (let i = 0; i < 150; i += 1) {
+      if (engine.snapshot().ending !== undefined) break;
+      engine.snapshot().flags['servet'] = 0;
+      engine.advanceTurn();
+      for (let g = 0; g < 40; g += 1) {
+        const node = engine.currentNode();
+        if (!node) break;
+        const all = engine.availableChoices();
+        if (all.length > 0) {
+          expect(
+            all.some((c) => !c.locked),
+            `${node.eventId}/${node.nodeId}: parasiz oyuncuya acik secenek kalmadi`,
+          ).toBe(true);
+        }
+        const open = all.filter((c) => !c.locked);
+        if (open.length === 0) break;
+        engine.choose(open[0]!.id);
+      }
+    }
+  });
+
+  it('kilit sebebi PARA oldugunu soyluyor -- oyuncu ne yapacagini bilsin', () => {
+    const engine = started(31);
+    engine.snapshot().flags['servet'] = 0;
+    for (let i = 0; i < 200; i += 1) {
+      if (engine.snapshot().ending !== undefined) break;
+      engine.snapshot().flags['servet'] = 0;
+      engine.advanceTurn();
+      for (let g = 0; g < 40; g += 1) {
+        if (!engine.currentNode()) break;
+        const hit = engine.availableChoices().find((c) => c.lockLabel === '[Paran yetmiyor]');
+        if (hit !== undefined) {
+          expect(hit.lockReason).toMatch(/TL eksik/);
+          return;
+        }
+        const open = engine.availableChoices().filter((c) => !c.locked);
+        if (open.length === 0) break;
+        engine.choose(open[0]!.id);
+      }
+    }
+    throw new Error('para kilidi hic gorulmedi');
+  });
+
+  it('BILEREK alinan borc hala calisiyor -- kisitlanan zorlama, secim degil', () => {
+    const engine = started(31);
+    engine.snapshot().flags['haftalik_gelir'] = 50_000;
+    const offers = engine.loanOffers();
+    expect(offers.length).toBeGreaterThan(0);
+
+    engine.takeLoan(offers[0]!);
+
+    expect(Number(engine.snapshot().flags['borc'])).toBeGreaterThan(0);
+  });
+});

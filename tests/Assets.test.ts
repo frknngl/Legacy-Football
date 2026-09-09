@@ -190,7 +190,13 @@ describe('Motor baglantisi', () => {
     expect(before).toBeGreaterThan(0);
   });
 
-  it('gider odenemezse varlik ELDEN CIKMAZ, borca yazilir', () => {
+  it('gider odenemezse BORC YAZILMAZ -- varligin uzerinde birikir', () => {
+    // Bu testin ONCEKI hali tam tersini iddia ediyordu: odenmeyen aidat
+    // `borc` bayragina yaziliyordu. Yanlisti. `borc` oyuncunun BILEREK
+    // girdigi bir yuk: krediyi o ceker, tefeciye o gider. Aidatini
+    // odeyemedigin icin sirtina otomatik borc binmesi, hic vermedigin
+    // bir karari vermis saymaktir -- ve borc kolunun butun anlamini
+    // (kimden, ne pahasina, ne zaman) siler.
     const engine = rich();
     const def = engine.assetCatalog().find((a) => a.upkeep > 1000)!;
     engine.buyAsset(def.id);
@@ -202,10 +208,54 @@ describe('Motor baglantisi', () => {
 
     engine.advanceTurn();
 
-    // Bir evi aidat odenmedi diye kaybetmek oyunun anlatacagi bir hikaye
-    // degil; borcun buyumesi ise zaten kurulu bir kol.
+    // Varlik elden cikmaz -- bir evi aidat odenmedi diye kaybetmek
+    // oyunun anlatacagi bir hikaye degil.
     expect(engine.ownedAssets()).toHaveLength(1);
-    expect(Number(engine.snapshot().flags['borc'])).toBeGreaterThan(debtBefore);
+    // Ve borc BUYUMEZ.
+    expect(Number(engine.snapshot().flags['borc'] ?? 0)).toBe(debtBefore);
+    // Yuk varligin kendi uzerinde durur.
+    expect(engine.ownedAssets()[0]!.arrears ?? 0).toBeGreaterThan(0);
+  });
+
+  it('BIRIKMIS GIDER kapatilabilir -- cikis oyuncunun elinde', () => {
+    const engine = rich();
+    const def = engine.assetCatalog().find((a) => a.upkeep > 1000)!;
+    engine.buyAsset(def.id);
+    engine.snapshot().flags['servet'] = 0;
+    engine.snapshot().flags['haftalik_gelir'] = 1;
+    engine.advanceTurn();
+
+    const owed = engine.ownedAssets()[0]!.arrears!;
+    expect(owed).toBeGreaterThan(0);
+    engine.snapshot().flags['servet'] = owed + 1000;
+
+    const paid = engine.payArrears(def.id);
+
+    expect(paid).toBe(owed);
+    expect(engine.ownedAssets()[0]!.arrears).toBe(0);
+  });
+
+  it('BAKIMSIZ mulk kiraya verilemez -- gelir de kesilir', () => {
+    const engine = rich();
+    const rentable = engine.assetCatalog().find((a) => a.rentYield !== undefined)!;
+    engine.buyAsset(rentable.id);
+    engine.setRented(rentable.id, true);
+
+    engine.snapshot().flags['servet'] = 0;
+    engine.snapshot().flags['haftalik_gelir'] = 1;
+    engine.advanceTurn();
+
+    // Kiraci kalmaz: mesele kendi kendini buyutur.
+    expect(engine.ownedAssets()[0]!.rented).toBe(false);
+    expect(() => engine.setRented(rentable.id, true)).toThrow();
+  });
+
+  it('satista birikmis gider MAHSUP ediliyor -- satmak cikis ama bedava degil', () => {
+    const clean = { id: 'x', boughtTurn: 0, value: 100_000 };
+    const dirty = { id: 'x', boughtTurn: 0, value: 100_000, arrears: 20_000 };
+    expect(saleValue(dirty)).toBe(saleValue(clean) - 20_000);
+    // Yuk degerden buyukse satis sifira dayanir, eksiye dusmez.
+    expect(saleValue({ id: 'x', boughtTurn: 0, value: 1000, arrears: 999_999 })).toBe(0);
   });
 
   it('GOSTERIS sponsoru cezbediyor, taraftari soguduyor', () => {

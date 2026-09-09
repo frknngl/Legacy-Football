@@ -57,6 +57,16 @@ export interface OwnedAsset {
   value: number;
   /** Kiraya verildi mi. */
   rented?: boolean;
+  /**
+   * ODENMEMIS GIDER -- bu varliga ait birikmis aidat/bakim.
+   *
+   * NEDEN BORC DEGIL: `borc` oyuncunun BILEREK girdigi bir yuktur --
+   * krediyi o ceker, tefeciye o gider. Aidatini odeyemedigin icin
+   * sirtina otomatik borc binmesi, hic vermedigin bir karari vermis
+   * saymaktir. Birikmis gider varligin KENDI uzerinde durur: onu
+   * kapatmak, satmak ya da birakmak yine oyuncunun karari olur.
+   */
+  arrears?: number;
 }
 
 /** Haftalik toplam gider. */
@@ -128,7 +138,53 @@ export function purchaseRejection(
  * satmak alicinin isine gelir. %12 kesinti bunu temsil eder.
  */
 export function saleValue(asset: OwnedAsset): number {
-  return Math.round(asset.value * 0.88);
+  // Birikmis gider satista MAHSUP edilir: alici o yuku devralmaz.
+  // Boylece "satarak kurtulmak" gercek bir cikis yolu olur ama bedava
+  // degildir.
+  return Math.max(0, Math.round(asset.value * 0.88) - (asset.arrears ?? 0));
+}
+
+/**
+ * Odenemeyen gideri varliklarin UZERINE yazar.
+ *
+ * Elde ne varsa oncelikle gidere gider; kalani `borc` olarak degil,
+ * varligin kendi birikmis gideri olarak durur. En pahali varliktan
+ * baslanir -- bir kariyerde once villanin aidati birikir, arsanin
+ * vergisi degil.
+ *
+ * @returns nakitten odenen tutar
+ */
+export function chargeUpkeep(
+  owned: readonly OwnedAsset[],
+  catalog: readonly AssetDefinition[],
+  wealth: number,
+): number {
+  let budget = Math.max(0, wealth);
+  const ordered = [...owned].sort((a, b) => b.value - a.value);
+  for (const item of ordered) {
+    const def = catalog.find((d) => d.id === item.id);
+    if (!def || def.upkeep <= 0) continue;
+    if (budget >= def.upkeep) {
+      budget -= def.upkeep;
+    } else {
+      const unpaid = def.upkeep - budget;
+      budget = 0;
+      item.arrears = Math.round((item.arrears ?? 0) + unpaid);
+    }
+  }
+  return Math.max(0, wealth) - budget;
+}
+
+/** Bir varligin birikmis gideri odenebilir mi. */
+export function arrearsRejection(
+  asset: OwnedAsset | undefined,
+  wealth: number,
+): string | undefined {
+  if (asset === undefined) return 'Bu varlik senin degil.';
+  const owed = asset.arrears ?? 0;
+  if (owed <= 0) return 'Bu varligin birikmis gideri yok.';
+  if (wealth < owed) return 'Bu kadar paran yok.';
+  return undefined;
 }
 
 
@@ -140,6 +196,9 @@ export function rentIncome(
   let sum = 0;
   for (const item of owned) {
     if (item.rented !== true) continue;
+    // Bakimsiz mulkun kiracisi kalmaz. Birikmis gider bu yuzden yalnizca
+    // bir sayi degil: geliri de kesiyor ve mesele kendi kendini buyutuyor.
+    if ((item.arrears ?? 0) > 0) continue;
     const def = catalog.find((d) => d.id === item.id);
     if (def?.rentYield === undefined) continue;
     sum += (item.value * def.rentYield) / 52;

@@ -387,6 +387,14 @@ async function assetDesk(
         c.grey(`        gider ${money(def?.upkeep ?? 0)}/hafta`) +
           (rentable ? c.grey(`  |  kira ${money(rent)}/hafta`) : ''),
       );
+      // BIRIKMIS GIDER: borc degil, varligin kendi yuku. Gorunur olmali
+      // ki oyuncu kapatmayi, satmayi ya da birakmayi SECEBILSIN.
+      if ((item.arrears ?? 0) > 0) {
+        console.log(
+          c.red(`        birikmis gider ${money(item.arrears!)} TL`) +
+            c.grey('  -- kiraya verilemez'),
+        );
+      }
     }
   }
 
@@ -404,11 +412,19 @@ async function assetDesk(
     });
   }
 
-  console.log(c.grey('  <enter> vazgec | s<no> sat | k<no> kiraya ver/cikar'));
+  console.log(c.grey('  <enter> vazgec | s<no> sat | k<no> kiraya ver/cikar | b<no> birikmis gideri kapat'));
   const answer = (await ask('  > ')).trim();
   if (answer === '') return;
 
   try {
+    if (answer.startsWith('b')) {
+      const bi = Number.parseInt(answer.slice(1), 10) - 1;
+      const target = owned[bi];
+      if (target === undefined) return;
+      const paid = engine.payArrears(target.id);
+      console.log(c.green(`    Kapatildi: ${money(paid)} TL`));
+      return;
+    }
     if (answer.startsWith('k')) {
       const ki = Number.parseInt(answer.slice(1), 10) - 1;
       const target = owned[ki];

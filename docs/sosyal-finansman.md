@@ -88,3 +88,44 @@ borç)` ile karşılaştırılıyor.
 `Favor` içinde ad saklanmıyor, yalnızca aktör ve slot kimliği.
 Saklansaydı transferde, lakap değişiminde ya da evlilikte bayatlardı.
 Host `engine.personName(slotId)` ile kadroya soruyor — kaynak tek.
+
+---
+
+# Borç zorunlu değil
+
+Borç kolunun bütün anlamı üç soruda: **kimden**, **ne pahasına**, **ne
+zaman**. Otomatik yazılan bir borç bu üçünü de siler — kimden alındığı,
+faizi ve vadesi olmayan bir yük olur.
+
+İki yerde borç oyuncuya sorulmadan yazılıyordu:
+
+**1. Varlık gideri ödenemediğinde.** Villanın aidatını ödeyemeyince
+`borc` büyüyordu. Artık büyümüyor: ödenemeyen gider **varlığın kendi
+üzerinde** birikir (`arrears`). Sonucu var — bakımsız mülkün kiracısı
+kalmaz, satışta mahsup edilir — ama çıkış oyuncunun elinde: kapat, sat
+ya da bırak.
+
+**2. Parası yetmeyen harcama.** `servet` bayrağı `shortfallTo: "borc"`
+taşıyordu: 50.000 TL'lik bir seçimi 27.000 TL ile yapınca aradaki fark
+sessizce borca dönüşüyordu. Ölçüldü: hiç kredi çekmeyen 12 kariyerin
+birinde 4. turda 22.297 TL borç oluşuyordu.
+
+Politika kaldırıldı. Ödeyemediğin seçim artık **kilitli** görünüyor:
+
+```
+3) [Paran yetmiyor] Cebinden öde, kimse duymasın   (22.297 TL eksik)
+```
+
+Kilit önce söylenir — "liderlik 65" değil "paran yetmiyor" doğru sebep,
+çünkü oyuncunun yapabileceği bir şey var.
+
+**Kilit hiçbir sahneyi çıkışsız bırakamaz.** Ölçüldü: korpusta para
+harcayan 99 seçim, bunları içeren 85 düğüm var ve **hiçbirinde tüm
+seçenekler para harcamıyor**. Bir test bunu her koşuda yeniden sınıyor.
+
+Doğrulama: 12 kariyer, hiç kredi çekilmeden, her turda servet sıfırlanarak
+→ **borç oluşmadı**. Bilerek alınan borç (banka, tefeci, arkadaş) aynen
+çalışıyor; kısıtlanan zorlama, seçim değil.
+
+NPC'lerin para istemesi bundan etkilenmiyor — o hikâyenin kendisi ve
+teklifi reddetmek her zaman açık bir seçenek.
