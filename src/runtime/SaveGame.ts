@@ -58,6 +58,7 @@ export class SaveGame {
     state.market ??= { prices: {}, holdings: [] };
     state.market.prices ??= {};
     state.market.holdings ??= [];
+    state.favors ??= [];
     state.ratingHistory ??= [];
     state.availability ??= { available: true, matchesRemaining: 0 };
     // v1 -> v2: kimlik katmani. Eski kayitta kadro yoktur; bos baslar ve

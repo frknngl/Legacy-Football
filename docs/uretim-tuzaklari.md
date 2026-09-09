@@ -118,3 +118,36 @@ yakaladı.
 - Denge ölçümü **rastgele seçim** politikasıyla.
 - Yeni bir sözleşme türü eklerken sor: *"kardeş varyant bunu taşımazsa ne
   kırılır?"* — cevap "hiçbir kural yakalamaz" ise kural yazılmalı.
+
+---
+
+## Kapı, eş zamanlı `core.json` düzenlemelerini sessizce siliyordu
+
+**Belirti:** `content/orchestrator/core.json`'a elle eklenen iki bayrak
+beyanı kayboldu. Kayıp hiçbir yerde görünmedi: dosya geçerli JSON kaldı,
+test kırılmadı, `git status` "değişiklik yok" dedi, `git log` dosyayı hiç
+değişmemiş gösterdi. Değişikliğin yapıldığı da silindiği de görünmüyordu.
+
+**Kök neden** — `QualityGate.check()`:
+
+```python
+core_backup = core.read_text(...)        # 1. anlık kopya
+ensure_declared(core, ...)               # 2. geçici iz beyanı
+try:    self._run_validator(...)         # 3. doğrula
+finally: core.write_text(core_backup)    # 4. TAMAMINI geri yaz
+```
+
+4. adım dosyanın **tamamını** 1. adımdaki hâline döndürüyor. Kapı
+çalışırken (bir doğrulama turu saniyeler sürüyor) dosyaya başka biri
+dokunduysa, o düzenleme geri yazmayla yok oluyor. Model hattı arka planda
+koşarken paralel iş yapmak tam olarak bu durumu üretiyor.
+
+**Düzeltme:** anlık kopya-geri yazma yerine **hedefli silme**.
+`ensure_declared` zaten eklediklerini döndürüyordu; `finally` artık
+dosyayı yeniden okuyup yalnızca o anahtarları düşürüyor
+(`flags.remove_declared`). Eş zamanlı düzenleme korunuyor, geçici beyan
+yine temizleniyor.
+
+**Ders:** bir aracın "geri al" adımı, aracın kendi yaptığını geri almalı
+— dosyanın o anki hâlini değil. Anlık kopya-geri yazma tek süreçli bir
+dünyanın varsayımıdır ve o varsayım burada doğru değil.

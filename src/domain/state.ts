@@ -11,6 +11,7 @@ import type { WalletEntry, WalletTotals } from './wallet.js';
 import type { LoanState } from './loan.js';
 import type { OwnedAsset } from './assets.js';
 import type { MarketState } from './market.js';
+import type { Favor } from './favor.js';
 
 /** Kuyruga alinmis, vadesi gelince calisacak olay. */
 export interface ScheduledEvent {
@@ -197,6 +198,14 @@ export interface GameState {
    * (`SaveGame`).
    */
   market: MarketState;
+  /**
+   * Arkadaslardan alinan borclar.
+   *
+   * Bankadan AYRI tutuluyor cunku para birimi farkli: banka faizle,
+   * arkadas ILISKIYLE odetir. Ayni kutuya koymak ikisini tek bir
+   * "borc" sayisina indirger ve secimi yok ederdi.
+   */
+  favors: Favor[];
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

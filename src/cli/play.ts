@@ -593,6 +593,76 @@ async function marketDesk(
   }
 }
 
+/**
+ * ARKADAS MASASI -- sosyal finansman.
+ *
+ * Banka ve tefeci masasi PARA gosterir; burasi ISIM gosterir. Fark
+ * kasitli: "kimden alayim" bir hesap degil bir karakter sorusudur ve
+ * ekran onu boyle sormali.
+ */
+async function favorDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<void> {
+  const money = (n: number): string => Math.round(n).toLocaleString('tr-TR');
+  const owed = engine.currentFavors();
+  const offers = engine.favorOffers();
+  const wealth = Number(engine.snapshot().flags['servet'] ?? 0);
+
+  console.log('');
+  console.log(c.bold('ARKADASLAR') + c.grey(`   bakiye ${money(wealth)} TL`));
+
+  if (owed.length > 0) {
+    console.log(c.grey('  Borclu oldugun'));
+    owed.forEach((f, i) => {
+      const left = f.amount - f.paid;
+      const weeks = engine.snapshot().turn - f.takenTurn;
+      console.log(
+        `    ${c.bold('o' + String(i + 1))}) ${(engine.personName(f.slotId) ?? f.slotId).padEnd(24)} ${money(left).padStart(12)} TL ` +
+          c.grey(`${weeks} haftadir`),
+      );
+    });
+    console.log('');
+  }
+
+  if (offers.length === 0) {
+    console.log(c.grey('  Su an kimseden borc isteyemezsin. Guven yetmiyor.'));
+  } else {
+    console.log(c.grey('  Isteyebilecegin'));
+    offers.forEach((o, i) => {
+      console.log(
+        `    ${c.bold(String(i + 1))}) ${o.name.padEnd(24)} en fazla ${money(o.ceiling).padStart(12)} TL  ${c.grey(o.reason)}`,
+      );
+    });
+  }
+
+  console.log(c.grey('  <enter> vazgec | <no> <tutar> iste | o<no> <tutar> ode'));
+  const answer = (await ask('  > ')).trim();
+  if (answer === '') return;
+
+  try {
+    const [pick, raw] = answer.split(/[ ]+/);
+    const amount = Number.parseInt((raw ?? '').replace(/[^0-9]/g, ''), 10);
+    if (!Number.isFinite(amount)) {
+      console.log(c.grey('    Tutar yaz: "1 250000"'));
+      return;
+    }
+    if ((pick ?? '').startsWith('o')) {
+      const target = owed[Number.parseInt((pick ?? '').slice(1), 10) - 1];
+      if (target === undefined) return;
+      const paid = engine.repayFavor(target.actorId, amount);
+      console.log(c.green(`    ${money(paid)} TL odendi.`));
+      return;
+    }
+    const offer = offers[Number.parseInt(pick ?? '', 10) - 1];
+    if (offer === undefined) return;
+    engine.takeFavor(offer.actorId, amount);
+    console.log(c.green(`    ${offer.name} ${money(amount)} TL verdi.`));
+  } catch (error) {
+    console.log(c.red(`    ${(error as Error).message}`));
+  }
+}
+
 async function walletDesk(
   engine: GameEngine,
   ask: (q: string) => Promise<string>,
@@ -1047,7 +1117,7 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :telefon | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :arkadas | :telefon | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
@@ -1066,6 +1136,11 @@ async function main(): Promise<void> {
 
     if (input === ':borsa') {
       await marketDesk(engine, ask);
+      continue;
+    }
+
+    if (input === ':arkadas') {
+      await favorDesk(engine, ask);
       continue;
     }
 

@@ -199,6 +199,31 @@ değiştirirdi).
 Ayrıca `sosyal_medya_takipci` canlandırıldı: artık şöhretin yansıması,
 kendiliğinden büyüyen bir sayaç değil (8.728 – 3.448.054 bandı).
 
+### Faz 7 — enflasyon, kira ve piyasalar ✅ (9 Eylül 2026)
+
+**Enflasyon** (2015-2024 gerçek TÜFE): Anadolu %27,5, Gallia %1,8 — **on
+beş kat** fark. Asimetrik kurgulandı, yoksa görünmez olurdu: nakit erir,
+varlık korur, **maaş geride kalır** (sözleşme nominal), **borç erir**.
+Ev/arsa kiraya verilebiliyor. Ayrıntı: **[enflasyon.md](enflasyon.md)**.
+
+**Borsa ve kripto** kumardan *yapısal* olarak ayrıldı: kumar tek atış,
+piyasa tutulan pozisyon; asıl karar "ne zaman çıkacağın". Fiyat üç
+bileşenden yürüyor — reel sürükleme, **enflasyon** ve gürültü. Enflasyon
+bileşeni şart, yoksa Anadolu'da hisse de nakitle birlikte erer ve
+"enflasyondan hisseye kaçmak" diye bir strateji kalmaz.
+
+Cüzdanda ayrı kategori (`yatirim`): kumarla aynı satırda görünseydi
+rulet kaybı temettüyü götürür ve "hangisi kazandırıyor" cevapsız
+kalırdı. Ayrıntı: **[piyasalar.md](piyasalar.md)**.
+
+Yan ürün — bir ölçüm: piyasa her tur RNG çektiği için tohum dizisi
+kaydı ve `MediaEra` testi düştü. Test **tek tohumla** "dört çağın dördü
+de gelir" diye iddia ediyordu; iddia şanstı (12 tohumun 10'unda geliyor).
+Kök neden piyasa değil: **200 turluk bir çağ penceresinde `media`
+kategorisinden sahneye gelen olay sayısı 1 ila 4**, ve ağırlığı dört
+katına çıkarmak sonucu değiştirmedi (10/12 → 10/12). Darboğaz olayın
+ağırlığı değil kategorinin havuz payı — içerik programının konusu.
+
 ### Üretim tuzakları — ayrı belgede
 
 Model hattıyla içerik üretirken bulunan sessiz bozulmalar, araç
@@ -210,16 +235,37 @@ kardeşiyle taşıması gereken sözleşmedir. İki yeni kural yazıldı
 (`MomentOutcomeIncidentRule`, `ScheduleReachabilityRule`), 40 sonuç
 düğümü ve 12 sevk onarıldı.
 
+### Faz 8 — sosyal finansman ✅ (9 Eylül 2026)
+
+Takım arkadaşından borç. Banka **parayla**, tefeci **güvenlikle**,
+arkadaş **ilişkiyle** ödetiyor — üç kolun para birimi farklı olmasa
+seçim tek boyutlu kalırdı ("ne kadar acelem var").
+
+Faizsiz ve vadesiz, ama beklemek bedava değil: sekizinci haftadan sonra
+güven hızlanarak eriyor ve 60. haftada arkadaşlık bitiyor. Borç
+silinmiyor, **defterden düşüyor** — kişi vazgeçmiştir. İcra yok, tehdit
+yok; o tefeci kolunun işi.
+
+Kapatmak aldığından **fazlasını** geri veriyor (−4 alırken, +9
+kapatırken): sözünü tutmak, hiç istememekten güçlü bir sinyaldir.
+Ayrıntı: **[sosyal-finansman.md](sosyal-finansman.md)**.
+
+Yan ürün — araçta bir tuzak bulundu ve kapatıldı: `QualityGate` doğrulama
+öncesi `core.json`'un anlık kopyasını alıp `finally` içinde **tamamını**
+geri yazıyordu, yani kapı çalışırken dosyaya elle yapılan her düzenlemeyi
+sessizce siliyordu. Artık yalnızca kendi eklediğini geri alıyor.
+[uretim-tuzaklari.md](uretim-tuzaklari.md)
+
 ### Sırada
 
-Faz 4 — isyan ve tepkisel senaryolar (yeni `WorldEvent` turu + `manager` slotunun yeniden dokumu). Agirlikli olarak YAZIM isi.
+Faz 4 — isyan ve tepkisel senaryolar (yeni `WorldEvent` turu +
+`manager` slotunun yeniden dokunması). Ağırlıklı olarak **yazım** işi.
 
 ---
 
 ## Riskler
 
-- **Proje git deposu değil.** Üç büyük modül eklenirken geri alma yok.
-  Genişlemeden önce sürüm kontrolü kurulmalı.
+- ~~Proje git deposu değil.~~ ✅ Kuruldu (sızıntı kancasıyla birlikte).
 - Telefonu modelden önce görselden başlatmak, motora UI varsayımı sızdırır.
 - Moral bağı onarılmazsa sosyal yaşam ve finansal risk sahada hissedilmez.
 - Yürürlükteki karar: tekrarsız senaryo bitene kadar yeni geliştirme yok.

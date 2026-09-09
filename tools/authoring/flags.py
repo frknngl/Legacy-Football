@@ -94,3 +94,26 @@ def prune_unused(core_path: Path, events_dir: Path) -> list[str]:
         used |= collect_memory_flags(data)
 
     return sorted(memory - used)
+
+
+def remove_declared(core_path: Path, flags: list[str]) -> None:
+    """Verilen `mem_*` beyanlarini `core.json`dan siler.
+
+    NEDEN ANLIK KOPYA-GERI YAZMA DEGIL: kapi eskiden dosyanin tamamini
+    yedekleyip `finally` icinde geri yaziyordu. Bu, kapi calisirken
+    `core.json`a EL ILE yapilan her degisikligi sessizce yok ediyordu --
+    olculdu, iki bayrak beyani boyle kayboldu ve kayip hicbir yerde
+    gorunmedi (dosya gecerli JSON kaldi, test kirilmadi, git 'degisiklik
+    yok' dedi).
+
+    Dosyayi YENIDEN okuyup yalnizca kapinin ekledigi anahtarlari
+    dusurmek, es zamanli duzenlemeyi korur.
+    """
+    if not flags:
+        return
+    core = json.loads(core_path.read_text(encoding="utf-8"))
+    drop = set(flags)
+    core["flags"] = [f for f in core.get("flags", []) if f.get("key") not in drop]
+    core_path.write_text(
+        json.dumps(core, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )

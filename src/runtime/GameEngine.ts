@@ -15,7 +15,13 @@
  */
 
 import type { Archetype, ClubTier, Era, LifeState, MediaEra, Stature } from '../domain/axes.js';
-import { POSITIONS, slotBoundFlag, slotChemistryFlag, type Position } from '../domain/actors.js';
+import {
+  POSITIONS,
+  isRosterPerson,
+  slotBoundFlag,
+  slotChemistryFlag,
+  type Position,
+} from '../domain/actors.js';
 import type { RosterProvider, WorldFeed, WorldProvider } from '../domain/roster.js';
 import type { ScaleContext } from '../domain/effects.js';
 import {
@@ -119,6 +125,16 @@ import { followerDrift, followerTarget, type PhoneModel } from '../domain/phone.
 import { PhoneBuilder } from './PhoneBuilder.js';
 import { canRent, displayWeight, driftValues, inflateValues, purchaseRejection, rentIncome, saleValue, totalUpkeep, type AssetDefinition, type OwnedAsset } from '../domain/assets.js';
 import { forCountry, nextIndex, seasonRate, weeklyFactor } from '../domain/inflation.js';
+import {
+  favorCeiling,
+  favorRejection,
+  friendshipBroken,
+  outstanding,
+  repayRejection,
+  trustErosion,
+  type Favor,
+  type FavorOffer,
+} from '../domain/favor.js';
 import {
   dividendFor,
   portfolioValue,
@@ -481,6 +497,7 @@ export class GameEngine {
       walletTotals: {},
       assets: [],
       market: { prices: {}, holdings: [] },
+      favors: [],
       rngSeed: seed,
       rngCursor: 0,
     };
@@ -932,6 +949,7 @@ export class GameEngine {
     this.tickManager();
     this.tickAssets();
     this.tickMarkets();
+    this.tickFavors();
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
@@ -2180,6 +2198,201 @@ export class GameEngine {
           ? 'Piyasalar cakildi. Portfoyune bakmak istemeyebilirsin.'
           : 'Kripto bir gecede eridi.',
       );
+    }
+  }
+
+
+  // -------------------------------------------------- SOSYAL FINANSMAN
+
+  /**
+   * Kimden borc isteyebilirsin.
+   *
+   * Banka ve tefeci PARAYLA odetiyor; arkadas ILISKIYLE. Ucuncu kolun
+   * varlik sebebi bu -- ayni bedeli daha ucuza sunsaydi otekileri olu
+   * secenek yapardi.
+   *
+   * Iki carpan: GUVEN ve KAZANC. Sana guvenen ama kendisi de yeni
+   * baslayan bir genc cok az verebilir; seni orta derecede seven bir
+   * yildiz cok. Yalnizca guvene bakmak kadroyu bankaya cevirirdi.
+   */
+  favorOffers(): readonly FavorOffer[] {
+    this.requireStarted();
+    const wage = numberFlag(this.state.flags, 'haftalik_gelir');
+    const out: FavorOffer[] = [];
+
+    for (const slot of this.registry.config.slots) {
+      // Yalnizca INSAN iliskileri: sponsor ya da basin sana borc vermez.
+      if (slot.source !== 'squad' && slot.source !== 'staff') continue;
+      const actorId = this.state.casting[slot.id];
+      if (actorId === undefined) continue;
+      const actor = this.state.actors[actorId];
+      if (actor === undefined || !actor.alive) continue;
+      if (this.state.favors.some((fv) => fv.actorId === actorId)) continue;
+
+      const ceiling = favorCeiling(actor.trust, this.lenderWage(actor), wage);
+      if (ceiling <= 0) continue;
+
+      const name = this.casting?.view(this.state, slot.id)?.name ?? actor.name;
+      out.push({
+        actorId,
+        slotId: slot.id,
+        name: String(name),
+        ceiling,
+        reason:
+          actor.trust >= 80
+            ? 'Sormadan verir.'
+            : actor.trust >= 68
+              ? 'Sorar ama verir.'
+              : 'Zor da olsa verir.',
+      });
+    }
+    return out.sort((a, b) => b.ceiling - a.ceiling);
+  }
+
+  /**
+   * Borc verenin haftalik kazanci -- kadroda maas alani yok, turetiliyor.
+   *
+   * `tickEconomy`nin kendi maas tahminiyle AYNI omurga: kulup itibari
+   * carpi kalite. Farkli bir formul kullanmak, ayni ligdeki iki
+   * futbolcunun bambaska dunyalarda yasamasi anlamina gelirdi.
+   */
+  private lenderWage(actor: ActorState): number {
+    const person = actor.sourceId ? this.options.roster?.lookup(actor.sourceId) : undefined;
+    const clubRep = this.options.roster?.club(actor.clubId ?? this.state.clubId)?.reputation ?? 40;
+    const quality = person !== undefined && isRosterPerson(person) ? person.quality : 60;
+    const idx = numberFlag(this.state.flags, 'enflasyon_endeksi') || 100;
+    // Kalite 60 ortalamadir; 85'lik bir yildiz kabaca dort kat kazanir.
+    const factor = Math.max(0.3, (quality - 40) / 25);
+    return Math.round(2_500 + clubRep * 120 * factor * (idx / 100));
+  }
+
+  /**
+   * Bir slottaki kisinin GORUNEN adi.
+   *
+   * Host'lar isim tasimamali: `Favor` icinde ad saklasaydik transferde,
+   * evlilikte ya da lakap degisiminde bayatlardi. Kaynak tek: kadro.
+   */
+  personName(slotId: string): string | undefined {
+    this.requireStarted();
+    const view = this.casting?.view(this.state, slotId);
+    return view === undefined ? undefined : String(view.name);
+  }
+
+  /** Sana borc verenler. */
+  currentFavors(): readonly Favor[] {
+    this.requireStarted();
+    return this.state.favors;
+  }
+
+  /**
+   * Arkadastan borc alir.
+   *
+   * FAIZ YOK, VADE DE YOK -- arkadas taksit istemez. Ama beklemek
+   * bedava degil: `tickFavors` her hafta guveni biraz daha asindirir.
+   */
+  takeFavor(actorId: string, amount: number): Favor {
+    this.requireStarted();
+    const offer = this.favorOffers().find((o) => o.actorId === actorId);
+    const rejection = favorRejection(
+      offer,
+      amount,
+      this.state.favors.some((f) => f.actorId === actorId),
+    );
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    const sum = Math.round(amount);
+    const favor: Favor = {
+      actorId,
+      slotId: offer!.slotId,
+      amount: sum,
+      takenTurn: this.state.turn,
+      paid: 0,
+    };
+    this.state.favors.push(favor);
+    this.state.flags['servet'] = numberFlag(this.state.flags, 'servet') + sum;
+
+    // Istemek bile bir seydir: para el degistirdigi an iliski degisir.
+    // Guven bir miktar DUSER (artik bir sey borclusun), yakinlik ARTAR.
+    const actor = this.state.actors[actorId];
+    if (actor !== undefined) {
+      actor.trust = clamp100(actor.trust - 4);
+      actor.relation = clamp100(actor.relation + 2);
+      actor.lastInteractionTurn = this.state.turn;
+    }
+
+    this.state.flags['mem_arkadastan_borc'] = true;
+    this.state.flagSetTurn['mem_arkadastan_borc'] = this.state.turn;
+
+    WalletLedger.record(this.state, sum, 'kredi', `${offer!.name} borc verdi`);
+    this.notices.push(`${offer!.name} ${sum.toLocaleString('tr-TR')} TL verdi.`);
+    return favor;
+  }
+
+  /**
+   * Borcu (kismen) oder.
+   *
+   * Kapatmak guveni ALDIGINDAN FAZLA geri verir: sozunu tutmak, hic
+   * borc istememekten daha guclu bir sinyaldir.
+   */
+  repayFavor(actorId: string, amount: number): number {
+    this.requireStarted();
+    const favor = this.state.favors.find((f) => f.actorId === actorId);
+    const wealth = numberFlag(this.state.flags, 'servet');
+    const rejection = repayRejection(favor, amount, wealth);
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    const pay = Math.min(Math.round(amount), outstanding(favor!));
+    favor!.paid += pay;
+    this.state.flags['servet'] = wealth - pay;
+
+    const actor = this.state.actors[actorId];
+    const name = this.casting?.view(this.state, favor!.slotId)?.name ?? actor?.name ?? actorId;
+
+    if (outstanding(favor!) <= 0) {
+      this.state.favors.splice(this.state.favors.indexOf(favor!), 1);
+      if (actor !== undefined) {
+        // Aldiginin fazlasi: sozunu tutmak, hic istememekten guclu.
+        actor.trust = clamp100(actor.trust + 9);
+        actor.relation = clamp100(actor.relation + 4);
+      }
+      this.notices.push(`${name} ile hesap kapandi.`);
+    } else {
+      this.notices.push(`${name}: ${pay.toLocaleString('tr-TR')} TL odendi.`);
+    }
+
+    WalletLedger.record(this.state, -pay, 'kredi', `${name} borcu odendi`);
+    return pay;
+  }
+
+  /**
+   * Haftalik: odenmemis borc guveni asindirir.
+   *
+   * Ilk sekiz hafta bedelsiz -- kimse ertesi hafta parasini istemez.
+   * Sonra hizlanir, ve `PATIENCE_WEEKS` dolunca arkadaslik biter: borc
+   * unutulmaz, KISI vazgecer. Yaptirim bu; icra yok, tehdit yok. Zaten
+   * yeterli.
+   */
+  private tickFavors(): void {
+    if (this.state.favors.length === 0) return;
+
+    for (const favor of [...this.state.favors]) {
+      const actor = this.state.actors[favor.actorId];
+      if (actor === undefined) continue;
+
+      const erosion = trustErosion(favor, this.state.turn);
+      if (erosion > 0) actor.trust = clamp100(actor.trust - erosion);
+
+      if (friendshipBroken(favor, this.state.turn)) {
+        const name =
+          this.casting?.view(this.state, favor.slotId)?.name ?? actor.name;
+        actor.trust = clamp100(actor.trust - 25);
+        actor.relation = clamp100(actor.relation - 20);
+        // Borc silinmez, DEFTERDEN duser: artik para meselesi degil.
+        this.state.favors.splice(this.state.favors.indexOf(favor), 1);
+        this.state.flags['mem_arkadasligi_yakti'] = true;
+        this.state.flagSetTurn['mem_arkadasligi_yakti'] = this.state.turn;
+        this.notices.push(`${name} parasini bir daha istemedi. Bir daha aramadi da.`);
+      }
     }
   }
 

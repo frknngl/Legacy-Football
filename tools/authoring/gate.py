@@ -17,7 +17,7 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
-from .flags import collect_memory_flags, ensure_declared
+from .flags import collect_memory_flags, ensure_declared, remove_declared
 
 
 @dataclass
@@ -57,8 +57,10 @@ class QualityGate:
         aittir (`commit`). Kapinin isi denetlemek, yayimlamak degil.
         """
         core = self.root / "content" / "orchestrator" / "core.json"
-        core_backup = core.read_text(encoding="utf-8")
-        ensure_declared(core, collect_memory_flags(event), event.get("id", ""))
+        # Dosyanin TAMAMINI yedekleyip geri yazmiyoruz: kapi calisirken
+        # `core.json`a el ile yapilan bir duzenleme, o geri yazmayla
+        # sessizce yok oluyordu. Yalnizca kendi ekledigimizi geri aliriz.
+        added = ensure_declared(core, collect_memory_flags(event), event.get("id", ""))
 
         target = self.events_dir / category / f"{event.get('id', 'tmp')}.json"
         existed = target.exists()
@@ -71,7 +73,7 @@ class QualityGate:
         try:
             return self._run_validator(pending_traces)
         finally:
-            core.write_text(core_backup, encoding="utf-8")
+            remove_declared(core, added)
             if backup is not None:
                 target.write_text(backup, encoding="utf-8")
             elif target.exists():
