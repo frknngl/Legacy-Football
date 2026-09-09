@@ -256,6 +256,33 @@ geri yazıyordu, yani kapı çalışırken dosyaya elle yapılan her düzenlemey
 sessizce siliyordu. Artık yalnızca kendi eklediğini geri alıyor.
 [uretim-tuzaklari.md](uretim-tuzaklari.md)
 
+### Faz 9 — özel hayat ✅ (9 Eylül 2026)
+
+Hayat arkadaşı: mesaj, arama, akşam, maç gecesi kaçamağı, sezon arası
+tatil. **Yeni bir zincir kurmuyor** — motorda zaten kurulu ve ölçülmüş
+`iliski_aile → moraleTarget → moral → heroDayFactor → nitelikler` yolunun
+girişine yazıyor.
+
+Asıl kıtlık **zaman**: her temasın bedeli `kondisyon` ve `tukenmislik`
+üzerinden ödeniyor. Ölçüldü, altı tohum, dört politika:
+
+| Politika | Moral | Kondisyon | Aşama |
+|---|---:|---:|---|
+| İhmal | **15,0** | 92 | ayrılık |
+| Sadece mesaj | 29,7 | 92 | tanışma |
+| **Dengeli** | **37,7** | 90 | evli |
+| Her hafta buluş | 28,2 | **73** | evli |
+
+**Optimum ortada** — takıntılı ilgi dengeliden kötü. Modülü bir karar
+yapan tam olarak bu.
+
+İki düzeltme ölçümden geldi: (1) tavan yokken dört haftada bir atılan
+**bedava mesaj** her şeyi çözüyordu ve pahalı eylemleri ölü seçeneğe
+çeviriyordu → tavan merdiveni (mesaj 52, arama 76, gerisi 100);
+(2) çekim yokken **altı tohumun altısında da ayrılık tam 25. turda**
+oluyordu → tohumlu çekim ve gerginlik çöküşü.
+Ayrıntı: **[ozel-hayat.md](ozel-hayat.md)**.
+
 ### Sırada
 
 Faz 4 — isyan ve tepkisel senaryolar (yeni `WorldEvent` turu +

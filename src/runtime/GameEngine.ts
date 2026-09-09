@@ -140,6 +140,19 @@ import {
 } from '../domain/assets.js';
 import { forCountry, nextIndex, seasonRate, weeklyFactor } from '../domain/inflation.js';
 import {
+  BREAKUP_STRAIN,
+  closenessGain,
+  contactRejection,
+  familyScore,
+  nextStage,
+  separationCost,
+  shouldBreakUp,
+  strainRelief,
+  weeklyDrift,
+  type ContactKind,
+  type PrivateLifeState,
+} from '../domain/privateLife.js';
+import {
   favorCeiling,
   favorRejection,
   friendshipBroken,
@@ -512,6 +525,18 @@ export class GameEngine {
       assets: [],
       market: { prices: {}, holdings: [] },
       favors: [],
+      // Kariyer YALNIZ baslar. Kimse on yedi yasinda hayat arkadasiyla
+      // gelmez; tanisma da hikayenin kendisi.
+      privateLife: {
+        stage: 'tanisma',
+        closeness: 40,
+        strain: 0,
+        lastContactTurn: 0,
+        stageSince: 0,
+        unanswered: 0,
+        usedThisWeek: {},
+        highStrainWeeks: 0,
+      },
       rngSeed: seed,
       rngCursor: 0,
     };
@@ -964,6 +989,7 @@ export class GameEngine {
     this.tickAssets();
     this.tickMarkets();
     this.tickFavors();
+    this.tickPrivateLife();
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
@@ -2454,6 +2480,154 @@ export class GameEngine {
         this.notices.push(`${name} parasini bir daha istemedi. Bir daha aramadi da.`);
       }
     }
+  }
+
+
+  // ----------------------------------------------------------- OZEL HAYAT
+
+  /** Ozel hayatin durumu -- host bunu gosterir. */
+  privateLife(): PrivateLifeState {
+    this.requireStarted();
+    return this.state.privateLife;
+  }
+
+  /**
+   * Su an yapilabilecek temaslar -- ve yapilamayanlarin SEBEBI.
+   *
+   * Sebep gorunur olmali: "kamptasin, sesin gidebilir sen gidemezsin"
+   * bir kisitlama degil bir HIKAYEDIR ve oyuncunun onu gormesi gerekir.
+   */
+  contactOptions(): readonly {
+    kind: ContactKind;
+    available: boolean;
+    reason?: string;
+  }[] {
+    this.requireStarted();
+    const offSeason = this.state.week >= 40;
+    return this.registry.config.privateLife.contacts.map((kind) => {
+      const reason = contactRejection(kind, this.state.privateLife, this.state.lifeState, offSeason);
+      return reason === undefined
+        ? { kind, available: true }
+        : { kind, available: false, reason };
+    });
+  }
+
+  /**
+   * Hayat arkadasiyla temas kurar.
+   *
+   * Bedeli `kondisyon` ve `tukenmislik` uzerinden odenir -- asil kitlik
+   * ZAMAN. Karsiligi yakinlik, o da `iliski_aile` uzerinden moral
+   * hedefine ve oradan sahaya gider. Yeni bir kuplaj yok; kurulu ve
+   * olculmus bir dongunun girisi besleniyor.
+   */
+  contactPartner(kindId: string): void {
+    this.requireStarted();
+    const kind = this.registry.config.privateLife.contacts.find((c) => c.id === kindId);
+    const pl = this.state.privateLife;
+    const offSeason = this.state.week >= 40;
+    const rejection = contactRejection(kind, pl, this.state.lifeState, offSeason);
+    if (rejection !== undefined) throw new EngineStateError(rejection);
+
+    const f = this.state.flags;
+    f['kondisyon'] = clamp100(numberFlag(f, 'kondisyon') + kind!.kondisyon);
+    f['tukenmislik'] = clamp100(numberFlag(f, 'tukenmislik') + kind!.tukenmislik);
+
+    pl.closeness = clamp100(pl.closeness + closenessGain(kind!, pl.closeness));
+    pl.strain = clamp100(pl.strain + strainRelief(kind!));
+    pl.lastContactTurn = this.state.turn;
+    // Cevaplamak birikmis sessizligi kapatir -- gormezden gelmek bir
+    // eylemdi, cevap vermek de oyle.
+    pl.unanswered = 0;
+    pl.usedThisWeek[kind!.id] = (pl.usedThisWeek[kind!.id] ?? 0) + 1;
+
+    // Kadro katmanindaki `partner` slotu da hareket etsin: telefon akisi
+    // ve icerik oradan besleniyor.
+    const actorId = this.state.casting['partner'];
+    const actor = actorId === undefined ? undefined : this.state.actors[actorId];
+    if (actor !== undefined) {
+      actor.relation = clamp100(actor.relation + kind!.closeness * 0.4);
+      actor.lastInteractionTurn = this.state.turn;
+    }
+
+    if (kindId === 'kacamak') {
+      f['mem_mac_gecesi_kacti'] = true;
+      this.state.flagSetTurn['mem_mac_gecesi_kacti'] = this.state.turn;
+    }
+
+    const who = this.personName('partner') ?? 'O';
+    this.notices.push(`${who}: ${kind!.label.toLocaleLowerCase('tr-TR')}.`);
+  }
+
+  /**
+   * Haftalik ozel hayat tiki.
+   *
+   * Ihmal SIMDI bedava, SONRA pahali. Uzaktayken iki kat hizli, SAKATKEN
+   * yarim -- kariyerin en kotu donemi ozel hayatin en iyi donemi
+   * olabilir ve bu asimetri kasitli.
+   */
+  private tickPrivateLife(): void {
+    const pl = this.state.privateLife;
+    const f = this.state.flags;
+    pl.usedThisWeek = {};
+
+    if (pl.stage === 'yok' || pl.stage === 'ayrilik') {
+      f['iliski_aile'] = familyScore(pl);
+      return;
+    }
+
+    const drift = weeklyDrift(pl, {
+      turn: this.state.turn,
+      lifeState: this.state.lifeState,
+      mediaPressure: numberFlag(f, 'medya_baskisi'),
+      roll: this.rng.next(),
+    });
+    this.state.rngCursor = this.rng.position;
+
+    pl.closeness = clamp100(pl.closeness + drift.closeness);
+    pl.strain = clamp100(pl.strain + drift.strain);
+    if (drift.reachedOut) pl.unanswered += 1;
+
+    // ASAMA ILERLEMESI -- zaman ve yakinlik birlikte gerekir. Gerginlik
+    // yuksekken kimse bir sonraki adimi atmaz.
+    const step = nextStage(pl, this.registry.config.privateLife, this.state.turn);
+    if (step !== undefined) {
+      pl.stage = step.to;
+      pl.stageSince = this.state.turn;
+      this.notices.push(step.label);
+      if (step.to === 'evli') {
+        f['mem_evlendi'] = true;
+        this.state.flagSetTurn['mem_evlendi'] = this.state.turn;
+      }
+    }
+
+    // AYRILIK -- gerginlik esikte ve uzun suredir orada.
+    if (pl.strain >= BREAKUP_STRAIN) {
+      pl.highStrainWeeks += 1;
+    } else {
+      pl.highStrainWeeks = 0;
+    }
+    if (shouldBreakUp(pl, pl.highStrainWeeks)) {
+      const cost = separationCost(pl.stage, numberFlag(f, 'servet'));
+      const married = pl.stage === 'evli';
+      pl.stage = 'ayrilik';
+      pl.stageSince = this.state.turn;
+      pl.closeness = 0;
+      pl.highStrainWeeks = 0;
+      f['mem_ayrilik'] = true;
+      this.state.flagSetTurn['mem_ayrilik'] = this.state.turn;
+      if (cost > 0) {
+        f['servet'] = Math.max(0, numberFlag(f, 'servet') - cost);
+        WalletLedger.record(this.state, -cost, 'olay', 'Mal paylasimi');
+      }
+      this.notices.push(
+        married
+          ? `Bitti. Mal paylasimi ${cost.toLocaleString('tr-TR')} TL.`
+          : 'Bitti. Uzun suredir bitmisti zaten.',
+      );
+    }
+
+    // MORALIN ZEMINI -- moraleTarget bunu okuyor.
+    f['iliski_aile'] = familyScore(pl);
   }
 
   private tickEconomy(): void {

@@ -12,6 +12,7 @@ import type { LoanState } from './loan.js';
 import type { OwnedAsset } from './assets.js';
 import type { MarketState } from './market.js';
 import type { Favor } from './favor.js';
+import type { PrivateLifeState } from './privateLife.js';
 
 /** Kuyruga alinmis, vadesi gelince calisacak olay. */
 export interface ScheduledEvent {
@@ -206,6 +207,14 @@ export interface GameState {
    * "borc" sayisina indirger ve secimi yok ederdi.
    */
   favors: Favor[];
+  /**
+   * OZEL HAYAT.
+   *
+   * `iliski_aile` bayragina yaziyor ve oradan `moraleTarget` -> `moral`
+   * -> `heroDayFactor` zinciriyle sahaya bagli. Ayri bir "form bonusu"
+   * degil: kurulu ve olculmus bir dongunun girisi.
+   */
+  privateLife: PrivateLifeState;
 
   /** Kariyer sonlandiysa hangi sonla. */
   ending?: string;

@@ -44,6 +44,7 @@ import { parseGames } from './parseGames.js';
 import { parseAssets } from './parseAssets.js';
 import { parseInflation } from './parseInflation.js';
 import { parseMarkets } from './parseMarkets.js';
+import { parsePrivateLife } from './parsePrivateLife.js';
 
 export interface LoadIssue extends ParseIssue {
   readonly file: string;
@@ -74,6 +75,7 @@ const ORCHESTRATOR_FILES = {
   assets: 'economy/assets.json',
   inflation: 'economy/inflation.json',
   markets: 'economy/markets.json',
+  privateLife: 'social/private-life.json',
 } as const;
 
 export class ContentLoader {
@@ -259,6 +261,7 @@ export class ContentLoader {
     const assets = parseAssets(byPath.get(ORCHESTRATOR_FILES.assets)?.data);
     const inflation = parseInflation(byPath.get(ORCHESTRATOR_FILES.inflation)?.data);
     const markets = parseMarkets(byPath.get(ORCHESTRATOR_FILES.markets)?.data);
+    const privateLife = parsePrivateLife(byPath.get(ORCHESTRATOR_FILES.privateLife)?.data);
 
     const config: OrchestratorConfig = {
       schemaVersion: 1,
@@ -280,6 +283,7 @@ export class ContentLoader {
       assets,
       inflation,
       markets,
+      privateLife,
     };
 
     const fatal =

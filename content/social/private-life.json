@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "_note": "OZEL HAYAT DENGESI ICERIKTE. Asil kitlik ZAMAN: her temasin bedeli `kondisyon` ve `tukenmislik` uzerinden odenir, karsiligi yakinlik olarak alinir. Dikkat: `aksam` tukenmisligi DUSURUR ama kondisyonu yer -- dinlenmek ile gec yatmak ayni gecede olur. `kacamak` bunun uc hali: en cok veren, en cok alan. TAVAN MERDIVENI: her temasin tek basina cikarabilecegi bir yakinlik siniri var (mesaj 52, arama 76, gerisi 100). Olculdu -- tavan yokken bedava mesaj her seyi cozuyordu.",
+  "contacts": [
+    {
+      "id": "mesaj",
+      "label": "Mesaj at",
+      "kondisyon": 0,
+      "tukenmislik": 0,
+      "closeness": 2,
+      "perWeek": 2,
+      "note": "Otobuste, tesiste, yemekten once. Bir iliskiyi ayakta tutar ama kuramaz.",
+      "maxCloseness": 52
+    },
+    {
+      "id": "arama",
+      "label": "Ara",
+      "kondisyon": 0,
+      "tukenmislik": -1,
+      "closeness": 5,
+      "perWeek": 2,
+      "note": "Yirmi dakika. Uzaktayken elindeki tek sey bu -- ve bir yere kadar goturur.",
+      "maxCloseness": 76
+    },
+    {
+      "id": "aksam",
+      "label": "Aksami birlikte gecir",
+      "kondisyon": -5,
+      "tukenmislik": -4,
+      "closeness": 11,
+      "perWeek": 1,
+      "lifeStates": [
+        "playing",
+        "injured",
+        "rehab_clinic",
+        "transfer_listed"
+      ],
+      "minStage": "iliski",
+      "note": "Telefonu kapat. Dinlendirir ama gec yatarsin; ikisi ayni gecede olur.",
+      "maxCloseness": 100
+    },
+    {
+      "id": "kacamak",
+      "label": "Mac gecesi kac, sabah don",
+      "kondisyon": -12,
+      "tukenmislik": 3,
+      "closeness": 16,
+      "perWeek": 1,
+      "lifeStates": [
+        "playing",
+        "transfer_listed"
+      ],
+      "minStage": "iliski",
+      "note": "Kimse bilmeyecek. Yarin sahada sen bileceksin.",
+      "maxCloseness": 100
+    },
+    {
+      "id": "tatil",
+      "label": "Sezon arasi tatil",
+      "kondisyon": 8,
+      "tukenmislik": -18,
+      "closeness": 22,
+      "perWeek": 1,
+      "offSeasonOnly": true,
+      "minStage": "iliski",
+      "note": "Iki hafta, telefon kapali. Yilda bir kez ve tam da bu yuzden degerli.",
+      "maxCloseness": 100
+    }
+  ],
+  "stages": [
+    {
+      "from": "tanisma",
+      "to": "iliski",
+      "minCloseness": 55,
+      "minWeeks": 6,
+      "label": "Artik bir ilişkiniz var."
+    },
+    {
+      "from": "iliski",
+      "to": "birlikte",
+      "minCloseness": 72,
+      "minWeeks": 30,
+      "label": "Aynı eve taşındınız."
+    },
+    {
+      "from": "birlikte",
+      "to": "evli",
+      "minCloseness": 85,
+      "minWeeks": 52,
+      "label": "Evlendiniz."
+    }
+  ]
+}

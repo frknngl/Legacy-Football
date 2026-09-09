@@ -59,6 +59,20 @@ export class SaveGame {
     state.market.prices ??= {};
     state.market.holdings ??= [];
     state.favors ??= [];
+    // Ozel hayat: eski kayitlarda yok. `tanisma` dogru baslangic --
+    // kariyer yalniz baslar ve tanisma hikayenin kendisi.
+    state.privateLife ??= {
+      stage: 'tanisma',
+      closeness: 40,
+      strain: 0,
+      lastContactTurn: 0,
+      stageSince: 0,
+      unanswered: 0,
+      usedThisWeek: {},
+      highStrainWeeks: 0,
+    };
+    state.privateLife.usedThisWeek ??= {};
+    state.privateLife.highStrainWeeks ??= 0;
     state.ratingHistory ??= [];
     state.availability ??= { available: true, matchesRemaining: 0 };
     // v1 -> v2: kimlik katmani. Eski kayitta kadro yoktur; bos baslar ve

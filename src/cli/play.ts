@@ -679,6 +679,86 @@ async function favorDesk(
   }
 }
 
+/**
+ * OZEL HAYAT MASASI.
+ *
+ * Asil kitlik ZAMAN, o yuzden ekranda gorunmesi gereken sey yakinlik
+ * degil BEDEL: her temasin kondisyondan ve tukenmislikten ne goturdugu.
+ * Yapilamayanlar da SEBEBIYLE gosterilir -- "kamptasin, sesin gidebilir
+ * sen gidemezsin" bir kisitlama degil bir hikayedir.
+ */
+async function privateLifeDesk(
+  engine: GameEngine,
+  ask: (q: string) => Promise<string>,
+): Promise<void> {
+  const pl = engine.privateLife();
+  const who = engine.personName('partner') ?? 'O';
+  const flags = engine.snapshot().flags;
+
+  const STAGE_LABEL: Record<string, string> = {
+    yok: 'kimse yok',
+    tanisma: 'yeni tanistiniz',
+    iliski: 'birliktesiniz',
+    birlikte: 'ayni evdesiniz',
+    evli: 'evlisiniz',
+    ayrilik: 'bitti',
+  };
+
+  const bar = (n: number, good = true): string => {
+    const filled = Math.round(n / 10);
+    const s = '#'.repeat(filled) + '.'.repeat(10 - filled);
+    if (n >= 70) return good ? c.green(s) : c.red(s);
+    if (n >= 40) return c.yellow(s);
+    return good ? c.red(s) : c.green(s);
+  };
+
+  console.log('');
+  console.log(c.bold('OZEL HAYAT') + c.grey(`   ${who} -- ${STAGE_LABEL[pl.stage] ?? pl.stage}`));
+  console.log(`  Yakinlik  ${bar(pl.closeness)} ${String(Math.round(pl.closeness)).padStart(3)}`);
+  console.log(`  Gerginlik ${bar(pl.strain, false)} ${String(Math.round(pl.strain)).padStart(3)}`);
+  const silent = engine.snapshot().turn - pl.lastContactTurn;
+  if (silent > 2) console.log(c.grey(`  ${silent} haftadir konusmadiniz.`));
+  if (pl.unanswered > 0) {
+    console.log(c.red(`  ${pl.unanswered} cevaplanmamis mesaj.`));
+  }
+  console.log(
+    c.grey(
+      `  kondisyon ${Math.round(Number(flags['kondisyon'] ?? 0))} | ` +
+        `tukenmislik ${Math.round(Number(flags['tukenmislik'] ?? 0))}`,
+    ),
+  );
+
+  const options = engine.contactOptions();
+  console.log('');
+  options.forEach((o, i) => {
+    const cost =
+      `${o.kind.kondisyon >= 0 ? '+' : ''}${o.kind.kondisyon} kondisyon, ` +
+      `${o.kind.tukenmislik >= 0 ? '+' : ''}${o.kind.tukenmislik} tukenmislik`;
+    if (o.available) {
+      console.log(`    ${c.bold(String(i + 1))}) ${o.kind.label.padEnd(30)} ${c.grey(cost)}`);
+    } else {
+      console.log(c.grey(`    -  ${o.kind.label.padEnd(30)} `) + c.red(o.reason ?? ''));
+    }
+    if (o.kind.note) console.log(c.grey(`       ${o.kind.note}`));
+  });
+
+  console.log(c.grey('  <enter> vazgec | <no> sec'));
+  const answer = (await ask('  > ')).trim();
+  if (answer === '') return;
+
+  try {
+    const pick = options[Number.parseInt(answer, 10) - 1];
+    if (pick === undefined) return;
+    engine.contactPartner(pick.kind.id);
+    const after = engine.privateLife();
+    console.log(
+      c.green(`    Yakinlik ${Math.round(pl.closeness)} -> ${Math.round(after.closeness)}`),
+    );
+  } catch (error) {
+    console.log(c.red(`    ${(error as Error).message}`));
+  }
+}
+
 async function walletDesk(
   engine: GameEngine,
   ask: (q: string) => Promise<string>,
@@ -1133,7 +1213,7 @@ async function main(): Promise<void> {
       ...(clubId === undefined ? {} : { clubId }),
     }),
   );
-  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :arkadas | :telefon | :menajer | :state | :why | :save | :load | :q'));
+  console.log(c.grey('\nKomutlar: <enter> hafta gec | 1-9 sec | :mac | :cuzdan | :kumar | :borsa | :varlik | :arkadas | :ozel | :telefon | :menajer | :state | :why | :save | :load | :q'));
 
   for (;;) {
     const input = (await ask('\n> ')).trim();
@@ -1157,6 +1237,11 @@ async function main(): Promise<void> {
 
     if (input === ':arkadas') {
       await favorDesk(engine, ask);
+      continue;
+    }
+
+    if (input === ':ozel') {
+      await privateLifeDesk(engine, ask);
       continue;
     }
 
