@@ -133,6 +133,29 @@ export class WeightedPicker {
     },
   ): StoryEvent | undefined {
     if (events.length === 0) return undefined;
+
+    // ACIK INCIDENT VARSA HAVUZ DARALIR -- carpan degil, SIRA.
+    //
+    // OLCULEN SORUN: incident onceligi bir agirlik carpaniydi (x12) ve
+    // korpus buyudukce SEYRELDI. 165 olayken yeterliydi; 215 olayken
+    // `evt_react_var_controversy` (60 x 12 = 720) siradan olaylarin
+    // toplamina karsi ~%14'te kaldi ve zincir testi 8 turluk pencereyi
+    // kacirdi (olay 11. turda cikti).
+    //
+    // Bu, kodun kendi yorumunun soyledigi seyle celisiyordu: "bu
+    // olaylarin siradan bir sahneyle YARISMASI degil, siranin onune
+    // GECMESI gerekiyor". Carpan "daha guclu yaris" demektir; niyet
+    // "once sen" idi.
+    //
+    // Artik acik bir incident'e bagli aday VARSA secim yalnizca onlarin
+    // arasinda yapilir. Icerik buyudukce bozulmaz: oran degil KUME.
+    if (ctx.flags !== undefined) {
+      const urgent = events.filter((e) => referencesOpenIncident(e, ctx.flags!));
+      if (urgent.length > 0) {
+        return rng.weighted(urgent, (e) => this.effectiveWeight(e, ctx));
+      }
+    }
+
     return rng.weighted(events, (e) => this.effectiveWeight(e, ctx));
   }
 }
