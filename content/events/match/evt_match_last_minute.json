@@ -14,321 +14,498 @@
     "loaned",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Son korner",
-      "kind": "branch",
-      "text": "Doksan artı dört. {opponent} deplasmanında {scoreline}. Hakem \"son atak\" işareti yaptı ve siz korner kullanıyorsunuz.\n\nKaleci bile ceza sahasına geldi. {actor.manager.name} çizgide bağırıyor ama kimse duymuyor; otuz bin kişi aynı anda bağırıyor.\n\nTop havada. Sen arka direktesin ve top tam oraya geliyor — ama önünde iki kişi var ve arkanda kimse.",
-      "choices": [
-        {
-          "id": "c_head",
-          "text": "Kafayı vur. İki kişinin arasından atla.",
-          "target": "n_roll_head",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son korner",
+          "kind": "branch",
+          "text": "Doksan artı dört. {opponent} deplasmanında {scoreline}. Hakem \"son atak\" işareti yaptı ve siz korner kullanıyorsunuz.\n\nKaleci bile ceza sahasına geldi. {actor.manager.name} çizgide bağırıyor ama kimse duymuyor; otuz bin kişi aynı anda bağırıyor.\n\nTop havada. Sen arka direktesin ve top tam oraya geliyor — ama önünde iki kişi var ve arkanda kimse.",
+          "choices": [
             {
-              "flag": "fizik",
-              "op": "add",
-              "value": 2
+              "id": "c_head",
+              "text": "Kafayı vur. İki kişinin arasından atla.",
+              "target": "n_roll_head",
+              "effects": [
+                {
+                  "flag": "fizik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "sakatlik_riski",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
             },
             {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -6
+              "id": "c_chest",
+              "text": "Göğsüne indir, yere düşür, sonra vur. Yarım saniye kazan.",
+              "target": "n_roll_control",
+              "effects": [
+                {
+                  "flag": "teknik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "mizac": -4
+              }
             },
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 4
-            },
-            {
-              "flag": "sakatlik_riski",
-              "op": "add",
-              "value": 6
+              "id": "c_lay",
+              "text": "Geriye indir. Arkadan gelen vursun.",
+              "target": "n_roll_layoff",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "sadakat": 6,
+                "mizac": -5
+              }
             }
-          ],
-          "persona": {
-            "mizac": 5
-          }
+          ]
         },
-        {
-          "id": "c_chest",
-          "text": "Göğsüne indir, yere düşür, sonra vur. Yarım saniye kazan.",
-          "target": "n_roll_control",
-          "effects": [
+        "n_roll_head": {
+          "title": "Havada",
+          "kind": "roll",
+          "text": "İki gövdenin arasından yükseliyorsun. Alnın topa değiyor.",
+          "outcomes": [
             {
-              "flag": "teknik",
-              "op": "add",
-              "value": 2
+              "target": "n_scored",
+              "weight": {
+                "base": 22,
+                "modifiers": [
+                  {
+                    "flag": "fizik",
+                    "scale": 0.5
+                  },
+                  {
+                    "flag": "form",
+                    "scale": 0.3
+                  }
+                ]
+              }
             },
             {
-              "flag": "profesyonellik",
+              "target": "n_missed",
+              "weight": {
+                "base": 55,
+                "modifiers": [
+                  {
+                    "flag": "fizik",
+                    "scale": -0.25
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_roll_control": {
+          "title": "Yarım saniye",
+          "kind": "roll",
+          "text": "Top göğsünden yere düşüyor. Bir defans üzerine geliyor.",
+          "outcomes": [
+            {
+              "target": "n_scored",
+              "weight": {
+                "base": 20,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": 0.6
+                  },
+                  {
+                    "flag": "mental_dayaniklilik",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_blocked",
+              "weight": {
+                "base": 55,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": -0.3
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_roll_layoff": {
+          "title": "Geri",
+          "kind": "roll",
+          "text": "Topu geriye indiriyorsun. Ayak sesi duyuyorsun ama kimin olduğunu görmüyorsun.",
+          "outcomes": [
+            {
+              "target": "n_assist",
+              "weight": {
+                "base": 35,
+                "modifiers": [
+                  {
+                    "flag": "iliski_takim",
+                    "scale": 0.3
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_blocked",
+              "weight": {
+                "base": 45,
+                "modifiers": [
+                  {
+                    "flag": "iliski_takim",
+                    "scale": -0.15
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_scored": {
+          "title": "Doksan artı dört",
+          "kind": "outcome",
+          "text": "Ağlar. Ses değil, basınç — otuz bin kişinin sesi aynı anda üzerine çöküyor.\n\nKöşe bayrağına koşuyorsun ve altında on bir kişi üstüne yığılıyor. En altta sen varsın, nefes alamıyorsun ve gülüyorsun.\n\n{actor.manager.name} kenarda diz çökmüş. Bu adamın diz çöktüğünü hiç görmemiştin.",
+          "onEnter": [
+            {
+              "op": "match",
+              "goals": 1,
+              "rating": 2,
+              "incident": "inc_scored_winner"
+            },
+            {
+              "flag": "moral",
               "op": "add",
-              "value": 3
+              "value": 18
             },
             {
               "flag": "taraftar_destegi",
               "op": "add",
-              "value": -3
+              "value": 15
             },
             {
-              "flag": "kondisyon",
+              "flag": "sosyal_medya_takipci",
               "op": "add",
-              "value": -3
-            }
-          ],
-          "persona": {
-            "mizac": -4
-          }
-        },
-        {
-          "id": "c_lay",
-          "text": "Geriye indir. Arkadan gelen vursun.",
-          "target": "n_roll_layoff",
-          "effects": [
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": -6
+              "value": 60000
             },
             {
               "flag": "medya_baskisi",
               "op": "add",
-              "value": 5
+              "value": -12
+            }
+          ]
+        },
+        "n_assist": {
+          "title": "Arkadan gelen",
+          "kind": "outcome",
+          "text": "Arkadan gelen kaleci oluyor. Kendi kalecisi, doksan artı dörtte, ceza sahasının içinde.\n\nVuruyor ve giriyor.\n\nAdam kaleye doğru koşuyor ve sen onun arkasından koşuyorsun ve o gece bu görüntü ülkenin her yerinde dönüyor. Kimse senin pasını hatırlamayacak. Sen hatırlayacaksın.",
+          "onEnter": [
+            {
+              "op": "match",
+              "assists": 1,
+              "rating": 1.2,
+              "incident": "inc_saved_point"
             },
             {
-              "flag": "liderlik",
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_missed": {
+          "title": "Üstten",
+          "kind": "outcome",
+          "text": "Alnın topun altına giriyor ve top üstten auta gidiyor. Hakem düdüğü çalıyor. Maç bitti.\n\nYere oturuyorsun. Kimse sana gelmiyor; herkes kendi acısıyla meşgul.\n\nTribünden bir çocuk sesi geliyor, net duyuyorsun: \"Bir işe yaramıyorsun.\" Sekiz yaşında falan.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": -0.9,
+              "incident": "inc_missed_sitter"
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 4
+            }
+          ]
+        },
+        "n_blocked": {
+          "title": "Blok",
+          "kind": "outcome",
+          "text": "Bir bacak araya giriyor ve top tribüne gidiyor. Düdük.\n\n{actor.manager.name} çizgide ellerini kafasına koymuş duruyor. Kimseye bakmadan tünele yürüyor.\n\nOtobüste kimse konuşmuyor. Sen camdan dışarı bakıyor ve o yarım saniyeyi tekrar tekrar oynatıyorsun.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": -0.5,
+              "incident": "inc_missed_sitter"
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "mental_dayaniklilik",
               "op": "add",
               "value": 3
             }
-          ],
-          "persona": {
-            "sadakat": 6,
-            "mizac": -5
-          }
+          ]
         }
-      ]
+      }
     },
-    "n_roll_head": {
-      "title": "Havada",
-      "kind": "roll",
-      "text": "İki gövdenin arasından yükseliyorsun. Alnın topa değiyor.",
-      "outcomes": [
-        {
-          "target": "n_scored",
-          "weight": {
-            "base": 22,
-            "modifiers": [
-              {
-                "flag": "fizik",
-                "scale": 0.5
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Maçın Kırılma Noktası",
+          "kind": "branch",
+          "text": "Soyunma odasının loş ışığı, {actor.manager.name}’in teri kurumuş, nefes nefese kalmış suratına vuruyor. Doksan dakikanın ağırlığı üzerinizde; az önce kaçırdığınız o mutlak gol pozisyonunun uğultusu kulaklarınızda çınlıyor. {actor.manager.name}, elindeki taktik tahtasını kenara fırlatıp size doğru bir adım atıyor. Gözlerinde ne bir öfke ne de bir merhamet var; sadece çıplak bir beklenti. Tüm oda suskun. Herkes sizin ağzınızdan çıkacak bir cümleye, atacağınız bir adıma bakıyor. Omuzlarınızdaki baskı, kemiklerinizi ezecek kadar ağır.",
+          "choices": [
+            {
+              "id": "c_taktik_sorumluluk",
+              "text": "Sessizliği bozup sorumluluğu tamamen üstlenin, hatayı kendinize yükleyin.",
+              "target": "n_winner",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_pazarlik_guc",
+              "text": "Kayıt dışı bir prim teklifini kabul ederek olayı kulüp içindeki krizden kişisel bir meseleye indirgeyin.",
+              "target": "n_missed",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_taraftar_yolu",
+              "text": "Medya önüne çıkıp suçluyu doğrudan işaret edin, öfkeyi üzerinizden atın.",
+              "target": "n_saved",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_liderlik_kilit",
+              "text": "{actor.manager.name} ile baş başa kalın, takım içindeki çatlağı kendi prestijinizle kapatın.",
+              "target": "n_winner",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
               },
-              {
-                "flag": "form",
-                "scale": 0.3
-              }
-            ]
-          }
-        },
-        {
-          "target": "n_missed",
-          "weight": {
-            "base": 55,
-            "modifiers": [
-              {
-                "flag": "fizik",
-                "scale": -0.25
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "n_roll_control": {
-      "title": "Yarım saniye",
-      "kind": "roll",
-      "text": "Top göğsünden yere düşüyor. Bir defans üzerine geliyor.",
-      "outcomes": [
-        {
-          "target": "n_scored",
-          "weight": {
-            "base": 20,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": 0.6
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
               },
-              {
-                "flag": "mental_dayaniklilik",
-                "scale": 0.2
-              }
-            ]
-          }
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
         },
-        {
-          "target": "n_blocked",
-          "weight": {
-            "base": 55,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": -0.3
-              }
-            ]
-          }
+        "n_missed": {
+          "title": "İtibar Kaybı",
+          "kind": "outcome",
+          "text": "Zarfı ceketinizin iç cebine yerleştirdiniz. Artık kimse o kaçan golü konuşmuyor; sadece sizin suskunluğunuz, takımın üzerindeki ağır gölgeyi daha da derinleştiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_missed_sitter"
+            }
+          ]
+        },
+        "n_saved": {
+          "title": "Sokak Zaferi",
+          "kind": "outcome",
+          "text": "Mikrofonlara döktüğünüz her kelime, taraftarın gözünde bir kahramanlık nişanı gibi parladı. Ancak kulüp binasına adım attığınızda yüzünüze kapanan kapıların sesi, bedelin ne kadar ağır olduğunu hatırlatıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_saved_point"
+            }
+          ]
+        },
+        "n_winner": {
+          "title": "Zorunlu Olgunluk",
+          "kind": "outcome",
+          "text": "{actor.manager.name}’in gözlerindeki o belli belirsiz onaylama ifadesi, kaybettiğiniz enerjinin tek karşılığı. Takım arkasını kolladınız, ama artık oyunun kuralları sizin için daha sertleşti.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_scored_winner"
+            }
+          ]
         }
-      ]
-    },
-    "n_roll_layoff": {
-      "title": "Geri",
-      "kind": "roll",
-      "text": "Topu geriye indiriyorsun. Ayak sesi duyuyorsun ama kimin olduğunu görmüyorsun.",
-      "outcomes": [
-        {
-          "target": "n_assist",
-          "weight": {
-            "base": 35,
-            "modifiers": [
-              {
-                "flag": "iliski_takim",
-                "scale": 0.3
-              }
-            ]
-          }
-        },
-        {
-          "target": "n_blocked",
-          "weight": {
-            "base": 45,
-            "modifiers": [
-              {
-                "flag": "iliski_takim",
-                "scale": -0.15
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "n_scored": {
-      "title": "Doksan artı dört",
-      "kind": "outcome",
-      "text": "Ağlar. Ses değil, basınç — otuz bin kişinin sesi aynı anda üzerine çöküyor.\n\nKöşe bayrağına koşuyorsun ve altında on bir kişi üstüne yığılıyor. En altta sen varsın, nefes alamıyorsun ve gülüyorsun.\n\n{actor.manager.name} kenarda diz çökmüş. Bu adamın diz çöktüğünü hiç görmemiştin.",
-      "onEnter": [
-        {
-          "op": "match",
-          "goals": 1,
-          "rating": 2,
-          "incident": "inc_scored_winner"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": 18
-        },
-        {
-          "flag": "taraftar_destegi",
-          "op": "add",
-          "value": 15
-        },
-        {
-          "flag": "sosyal_medya_takipci",
-          "op": "add",
-          "value": 60000
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": -12
-        }
-      ]
-    },
-    "n_assist": {
-      "title": "Arkadan gelen",
-      "kind": "outcome",
-      "text": "Arkadan gelen kaleci oluyor. Kendi kalecisi, doksan artı dörtte, ceza sahasının içinde.\n\nVuruyor ve giriyor.\n\nAdam kaleye doğru koşuyor ve sen onun arkasından koşuyorsun ve o gece bu görüntü ülkenin her yerinde dönüyor. Kimse senin pasını hatırlamayacak. Sen hatırlayacaksın.",
-      "onEnter": [
-        {
-          "op": "match",
-          "assists": 1,
-          "rating": 1.2,
-          "incident": "inc_saved_point"
-        },
-        {
-          "flag": "iliski_takim",
-          "op": "add",
-          "value": 15
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": 12
-        },
-        {
-          "flag": "mem_saved_teammate",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_missed": {
-      "title": "Üstten",
-      "kind": "outcome",
-      "text": "Alnın topun altına giriyor ve top üstten auta gidiyor. Hakem düdüğü çalıyor. Maç bitti.\n\nYere oturuyorsun. Kimse sana gelmiyor; herkes kendi acısıyla meşgul.\n\nTribünden bir çocuk sesi geliyor, net duyuyorsun: \"Bir işe yaramıyorsun.\" Sekiz yaşında falan.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": -0.9,
-          "incident": "inc_missed_sitter"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": -14
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 14
-        },
-        {
-          "flag": "mental_dayaniklilik",
-          "op": "add",
-          "value": 4
-        }
-      ]
-    },
-    "n_blocked": {
-      "title": "Blok",
-      "kind": "outcome",
-      "text": "Bir bacak araya giriyor ve top tribüne gidiyor. Düdük.\n\n{actor.manager.name} çizgide ellerini kafasına koymuş duruyor. Kimseye bakmadan tünele yürüyor.\n\nOtobüste kimse konuşmuyor. Sen camdan dışarı bakıyor ve o yarım saniyeyi tekrar tekrar oynatıyorsun.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": -0.5,
-          "incident": "inc_missed_sitter"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": -10
-        },
-        {
-          "flag": "iliski_manager",
-          "op": "add",
-          "value": -5
-        },
-        {
-          "flag": "mental_dayaniklilik",
-          "op": "add",
-          "value": 3
-        }
-      ]
+      }
     }
-  }
+  ]
 }

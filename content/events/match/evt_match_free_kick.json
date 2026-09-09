@@ -14,267 +14,393 @@
     "loaned",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Yirmi iki metre",
-      "kind": "branch",
-      "text": "{minute}. dakika, skor {scoreline}. Faul yirmi iki metreden, tam ceza sahasinin ustunde. Baraj kuruluyor.\n\nTopu {actor.star_teammate.name} aldi -- bu sezon iki tane atti, ikisi de bu mesafeden. Ama sen de topun basindasin ve ikiniz de birbirinize bakiyorsunuz.\n\nKenardan {actor.manager.first} bagiriyor, ne dedigi anlasilmiyor.",
-      "choices": [
-        {
-          "id": "c_take",
-          "text": "Topu al. Bu benim.",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yirmi iki metre",
+          "kind": "branch",
+          "text": "{minute}. dakika, skor {scoreline}. Faul yirmi iki metreden, tam ceza sahasinin ustunde. Baraj kuruluyor.\n\nTopu {actor.star_teammate.name} aldi -- bu sezon iki tane atti, ikisi de bu mesafeden. Ama sen de topun basindasin ve ikiniz de birbirinize bakiyorsunuz.\n\nKenardan {actor.manager.first} bagiriyor, ne dedigi anlasilmiyor.",
+          "choices": [
             {
-              "flag": "iliski_star_teammate",
-              "op": "add",
-              "value": -10
+              "id": "c_take",
+              "text": "Topu al. Bu benim.",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "target": "n_roll_self",
+              "persona": {
+                "mizac": 6,
+                "durus": 4
+              }
             },
             {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
+              "id": "c_leave",
+              "text": "Geri cekil. Barajin icine gir, sicramaya hazirlan.",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "target": "n_left",
+              "persona": {
+                "sadakat": 6,
+                "mizac": -4
+              }
+            },
+            {
+              "id": "c_trick",
+              "text": "Ustunden gec, o vursun. Kimse bilmesin.",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "target": "n_roll_trick",
+              "requires": {
+                "flag": "teknik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Teknik 65]",
+              "persona": {
+                "mizac": 5,
+                "sadakat": 4
+              }
+            }
+          ]
+        },
+        "n_roll_self": {
+          "title": "Duvar",
+          "kind": "roll",
+          "text": "Uc adim geri. Baraj zipliyor.",
+          "outcomes": [
+            {
+              "target": "n_scored",
+              "weight": {
+                "base": 14,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": 0.5
+                  },
+                  {
+                    "flag": "form",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_missed",
+              "weight": {
+                "base": 70,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": -0.2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_roll_trick": {
+          "title": "Ustunden",
+          "kind": "roll",
+          "text": "Topun ustunden geciyorsun. {actor.star_teammate.first} arkandan geliyor.",
+          "outcomes": [
+            {
+              "target": "n_scored_assist",
+              "weight": {
+                "base": 18,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": 0.35
+                  },
+                  {
+                    "flag": "iliski_star_teammate",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_missed",
+              "weight": {
+                "base": 65
+              }
+            }
+          ]
+        },
+        "n_scored": {
+          "title": "Ustten dondu",
+          "kind": "outcome",
+          "text": "Top barajin ustunden dondu ve direkle kalecinin arasindaki bosluga girdi.\n\nKosarken kimseyi aramiyorsun. Kale arkasina gidip duruyorsun ve otuz bin kisi senin adini soyluyor.\n\n{actor.star_teammate.name} en son gelen oluyor. Sarilirken kulagina bir sey soyluyor ama alkistan duymuyorsun.",
+          "onEnter": [
+            {
+              "op": "match",
+              "goals": 1,
+              "rating": 1.7,
+              "incident": "inc_scored_winner"
             },
             {
               "flag": "moral",
               "op": "add",
-              "value": -3
-            }
-          ],
-          "target": "n_roll_self",
-          "persona": {
-            "mizac": 6,
-            "durus": 4
-          }
-        },
-        {
-          "id": "c_leave",
-          "text": "Geri cekil. Barajin icine gir, sicramaya hazirlan.",
-          "effects": [
-            {
-              "flag": "iliski_star_teammate",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 6
+              "value": 14
             },
             {
               "flag": "taraftar_destegi",
               "op": "add",
-              "value": -4
+              "value": 12
             },
             {
-              "flag": "kondisyon",
+              "flag": "sosyal_medya_takipci",
               "op": "add",
-              "value": -3
+              "value": 55000
             }
-          ],
-          "target": "n_left",
-          "persona": {
-            "sadakat": 6,
-            "mizac": -4
-          }
+          ]
         },
-        {
-          "id": "c_trick",
-          "text": "Ustunden gec, o vursun. Kimse bilmesin.",
-          "effects": [
+        "n_scored_assist": {
+          "title": "Iki kisilik oyun",
+          "kind": "outcome",
+          "text": "Sen ustunden gectin, {actor.star_teammate.name} kose direge gonderdi. Baraj yanlis tarafa zipladi.\n\nSevinirken sana kosuyor ve seni yerden kaldiriyor. Bu golu ikiniz yazdiniz ama istatistikte yalnizca onun adi olacak.\n\nIkiniz de bunu biliyorsunuz ve ikiniz de umursamiyorsunuz.",
+          "onEnter": [
+            {
+              "op": "match",
+              "assists": 1,
+              "rating": 1,
+              "incident": "inc_saved_point"
+            },
             {
               "flag": "iliski_star_teammate",
               "op": "add",
-              "value": 8
+              "value": 15
             },
             {
-              "flag": "sokak_itibari",
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_left": {
+          "title": "Baraj icinde",
+          "kind": "outcome",
+          "text": "Barajin icine giriyorsun ve topa arkani donuyorsun -- kimse bunu sevmez ama isin dogrusu budur.\n\n{actor.star_teammate.name} vuruyor, top kaleciye gidiyor. Korner.\n\nDonerken sana basini salliyor. Kucuk bir sey ama bu sezon boyunca hatirlayacagi kucuk bir sey.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.2,
+              "incident": "inc_saved_point"
+            },
+            {
+              "flag": "iliski_star_teammate",
               "op": "add",
-              "value": 8
+              "value": 6
             },
             {
               "flag": "kondisyon",
               "op": "add",
               "value": -4
+            }
+          ]
+        },
+        "n_missed": {
+          "title": "Baraj",
+          "kind": "outcome",
+          "text": "Top baraja carpip korner cizgisine gidiyor.\n\nTribunden bir homurdanma yukseliyor. {actor.manager.name} kenarda ellerini beline koymus, yere bakiyor.\n\nOrta yuvarlaga donerken kimse bir sey soylemiyor. Bu maclarda en cok duyulan ses budur: soylenmeyen sey.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": -0.5,
+              "incident": "inc_missed_sitter"
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -7
             },
             {
               "flag": "medya_baskisi",
               "op": "add",
-              "value": 4
+              "value": 6
             }
-          ],
-          "target": "n_roll_trick",
-          "requires": {
-            "flag": "teknik",
-            "op": "gte",
-            "value": 65
-          },
-          "lockLabel": "[Teknik 65]",
-          "persona": {
-            "mizac": 5,
-            "sadakat": 4
-          }
+          ]
         }
-      ]
+      }
     },
-    "n_roll_self": {
-      "title": "Duvar",
-      "kind": "roll",
-      "text": "Uc adim geri. Baraj zipliyor.",
-      "outcomes": [
-        {
-          "target": "n_scored",
-          "weight": {
-            "base": 14,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": 0.5
-              },
-              {
-                "flag": "form",
-                "scale": 0.2
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Barajın Ardındaki Gölge",
+          "kind": "branch",
+          "text": "Stadyumun uğultusu kulaklarında çınlıyor. {actor.star_teammate.name} topu penaltı noktasına yakın bir yere dikmiş, gözleri kaleci ile senin arasında gidip geliyor. Takımın en büyük gol silahı o, ama senin sezon içindeki duran top istatistiklerin bu sene onunla yarışıyor. Yanına geldi, elini omzuna koydu. Dudakları kıpırdıyor ama sesi rüzgarda eriyor. Gözlerinde o tanıdık hırs var; biriniz topu kaleye gönderecek, diğeri ise barajdaki o boşluğu yaratmak için kendini tehlikeye atacak. Seçimin, galibiyetin faturasını kesecek.",
+          "choices": [
+            {
+              "id": "c_take_ball",
+              "text": "Gözlerinin içine bakmadan topu ondan al. Senin vuruşun, senin zaferin.",
+              "target": "n_scored_winner",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_scored_winner"
+                }
+              ],
+              "persona": {
+                "durus": 8
               }
-            ]
-          }
-        },
-        {
-          "target": "n_missed",
-          "weight": {
-            "base": 70,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": -0.2
+            },
+            {
+              "id": "c_shield_teammate",
+              "text": "Barajın içine geç. {actor.star_teammate.name} vursun, sen kalecinin görüşünü kapat.",
+              "target": "n_saved_point",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -2
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_saved_point"
+                }
+              ],
+              "persona": {
+                "sadakat": 10
               }
-            ]
-          }
-        }
-      ]
-    },
-    "n_roll_trick": {
-      "title": "Ustunden",
-      "kind": "roll",
-      "text": "Topun ustunden geciyorsun. {actor.star_teammate.first} arkandan geliyor.",
-      "outcomes": [
-        {
-          "target": "n_scored_assist",
-          "weight": {
-            "base": 18,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": 0.35
-              },
-              {
-                "flag": "iliski_star_teammate",
-                "scale": 0.2
+            },
+            {
+              "id": "c_decoy_run",
+              "text": "Topa doğru koş ama vurma. Kalecinin dengesini boz, top direkten dönsün.",
+              "target": "n_missed_sitter",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_missed_sitter"
+                }
+              ],
+              "persona": {
+                "mizac": -5
               }
-            ]
-          }
+            }
+          ]
         },
-        {
-          "target": "n_missed",
-          "weight": {
-            "base": 65
-          }
+        "n_scored_winner": {
+          "title": "Kişisel Zafer",
+          "kind": "outcome",
+          "text": "Top ağlara takıldı. Tribünler senin adını haykırıyor. {actor.star_teammate.name} kenarda sana bakışındaki o sönük ifadeyi kimse görmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_saved_point": {
+          "title": "Gölgede Kalmak",
+          "kind": "outcome",
+          "text": "Barajda aldığın o sert darbenin acısı maç bittiğinde çıkacak. Takım kazandı, istatistikler onun hanesine yazıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_missed_sitter": {
+          "title": "Planlanmış Hata",
+          "kind": "outcome",
+          "text": "Herkes kaçan golü konuşuyor. Sen ise sadece o anki göz temasını hatırlıyorsun; ikiniz de ne olduğunu biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_scored": {
-      "title": "Ustten dondu",
-      "kind": "outcome",
-      "text": "Top barajin ustunden dondu ve direkle kalecinin arasindaki bosluga girdi.\n\nKosarken kimseyi aramiyorsun. Kale arkasina gidip duruyorsun ve otuz bin kisi senin adini soyluyor.\n\n{actor.star_teammate.name} en son gelen oluyor. Sarilirken kulagina bir sey soyluyor ama alkistan duymuyorsun.",
-      "onEnter": [
-        {
-          "op": "match",
-          "goals": 1,
-          "rating": 1.7,
-          "incident": "inc_scored_winner"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": 14
-        },
-        {
-          "flag": "taraftar_destegi",
-          "op": "add",
-          "value": 12
-        },
-        {
-          "flag": "sosyal_medya_takipci",
-          "op": "add",
-          "value": 55000
-        }
-      ]
-    },
-    "n_scored_assist": {
-      "title": "Iki kisilik oyun",
-      "kind": "outcome",
-      "text": "Sen ustunden gectin, {actor.star_teammate.name} kose direge gonderdi. Baraj yanlis tarafa zipladi.\n\nSevinirken sana kosuyor ve seni yerden kaldiriyor. Bu golu ikiniz yazdiniz ama istatistikte yalnizca onun adi olacak.\n\nIkiniz de bunu biliyorsunuz ve ikiniz de umursamiyorsunuz.",
-      "onEnter": [
-        {
-          "op": "match",
-          "assists": 1,
-          "rating": 1,
-          "incident": "inc_saved_point"
-        },
-        {
-          "flag": "iliski_star_teammate",
-          "op": "add",
-          "value": 15
-        },
-        {
-          "flag": "mem_saved_teammate",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_left": {
-      "title": "Baraj icinde",
-      "kind": "outcome",
-      "text": "Barajin icine giriyorsun ve topa arkani donuyorsun -- kimse bunu sevmez ama isin dogrusu budur.\n\n{actor.star_teammate.name} vuruyor, top kaleciye gidiyor. Korner.\n\nDonerken sana basini salliyor. Kucuk bir sey ama bu sezon boyunca hatirlayacagi kucuk bir sey.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.2,
-          "incident": "inc_saved_point"
-        },
-        {
-          "flag": "iliski_star_teammate",
-          "op": "add",
-          "value": 6
-        },
-        {
-          "flag": "kondisyon",
-          "op": "add",
-          "value": -4
-        }
-      ]
-    },
-    "n_missed": {
-      "title": "Baraj",
-      "kind": "outcome",
-      "text": "Top baraja carpip korner cizgisine gidiyor.\n\nTribunden bir homurdanma yukseliyor. {actor.manager.name} kenarda ellerini beline koymus, yere bakiyor.\n\nOrta yuvarlaga donerken kimse bir sey soylemiyor. Bu maclarda en cok duyulan ses budur: soylenmeyen sey.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": -0.5,
-          "incident": "inc_missed_sitter"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": -7
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 6
-        }
-      ]
+      }
     }
-  }
+  ]
 }
