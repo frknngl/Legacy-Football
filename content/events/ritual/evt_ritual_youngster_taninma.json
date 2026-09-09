@@ -18,11 +18,8 @@
     "icon",
     "legend"
   ],
-  "clubTiers": [
-    "contender",
-    "elite"
-  ],
   "lifeStates": [
+    "playing",
     "national_duty"
   ],
   "trigger": {
@@ -33,123 +30,164 @@
   "rootNode": "n_root",
   "nodes": {
     "n_root": {
-      "title": "Görülme Anı",
+      "title": "Aynı Sırayla",
       "kind": "branch",
-      "text": "Otel lobisinin en ücra köşesinde, antrenman yorgunluğuyla çayını yudumluyorsun. Yan masada {actor.keeper.name}, telefonuna bakmadan, doğrudan senin gözlerinin içine bakarak konuşuyor. 'Kimsenin fark etmediği o pası gördüm,' diyor. Sesi kısık ama odadaki herkesi susturacak bir ağırlığı var. İlk kez bir teknik adam ya da menajer değil, seninle aynı çamuru çiğneyen biri seni gerçekten görüyor. Masadaki boş sandalyeyi işaret ediyor. Önünde iki yol var: Ya bu anın yarattığı ağırlığı kabul edip masaya oturacaksın ya da sadece bir maç arkadaşı gibi mesafeni koruyacaksın.",
+      "text": "Bir süredir fark ediyordun ama bugün kesinleşti.\n\n{actor.youngster.name} maçtan önce ne yapıyorsan aynısını yapıyor. Aynı sırayla: sağ tozluk önce, saat çıkar, çantanın yan cebine; su üç yudum, üçten fazla değil; kapıdan çıkarken üsteki demire vur.\n\nSenin bile farkında olmadığın şeyler bunlar. Birinin seni bu kadar dikkatli izlemiş olması hoşuna gitti ve sonra hoşuna gitmedi.\n\nÇünkü sen bu sıraya bir sebepten başlamıştın ve o sebep artık yok. O çocuk bilmediği bir şeyi taklit ediyor.",
       "choices": [
         {
-          "id": "c_risk",
-          "text": "Sokağın dilini masaya taşımak, ona arkanı yaslamak.",
-          "target": "n_outcome_risk",
+          "id": "c_birak",
+          "text": "Bir şey deme. Kendi bulsun.",
+          "target": "n_roll",
           "effects": [
             {
-              "flag": "sokak_itibari",
+              "flag": "iliski_youngster",
               "op": "add",
-              "value": 15
+              "value": 3
             },
             {
-              "flag": "medya_baskisi",
+              "flag": "liderlik",
               "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "value": -4
             }
           ],
           "persona": {
-            "mizac": 8
+            "durus": 3
           }
         },
         {
-          "id": "c_safe",
-          "text": "Sadece bir selam verip, profesyonel mesafeyle odana çekilmek.",
-          "target": "n_outcome_safe",
+          "id": "c_anlat",
+          "text": "Otur ve anlat: bu sıranın neden başladığını.",
+          "target": "n_roll",
           "effects": [
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "dogruluk": 6
+          }
+        },
+        {
+          "id": "c_boz",
+          "text": "Kendi sıranı boz. Görsün ki bir şey değişmiyor.",
+          "target": "n_roll",
+          "effects": [
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": -5
+            },
             {
               "flag": "profesyonellik",
               "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "value": 7
             },
             {
               "flag": "moral",
               "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
+              "value": -6
             }
           ],
           "persona": {
-            "durus": 7
+            "mizac": 5
+          }
+        }
+      ]
+    },
+    "n_roll": {
+      "title": "Cumartesi",
+      "kind": "roll",
+      "text": "Cumartesi geliyor ve ritüelin ne yapacağını kimse seçemez.",
+      "outcomes": [
+        {
+          "target": "n_tuttu",
+          "weight": {
+            "base": 45,
+            "modifiers": [
+              {
+                "flag": "iliski_youngster",
+                "scale": 0.3
+              },
+              {
+                "flag": "liderlik",
+                "scale": 0.25
+              },
+              {
+                "flag": "mem_ritual_devraldi",
+                "scale": 12
+              }
+            ]
           }
         },
         {
-          "id": "c_grey",
-          "text": "Teklifini dinleyip, gelecekteki olası bir ortaklık için kartını bırakmak.",
-          "target": "n_outcome_grey",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "dogruluk": -5
+          "target": "n_kirildi",
+          "weight": {
+            "base": 40,
+            "modifiers": [
+              {
+                "flag": "medya_baskisi",
+                "scale": 0.25
+              },
+              {
+                "flag": "tukenmislik",
+                "scale": 0.2
+              }
+            ]
           }
         }
       ]
     },
-    "n_outcome_risk": {
-      "title": "İttifak Kuruldu",
+    "n_tuttu": {
+      "title": "İkisi de Vurdu",
       "kind": "outcome",
-      "text": "{actor.keeper.name} gülümseyerek arkasına yaslandı. Artık sadece bir takım arkadaşı değilsiniz; koridorlarda konuşulacak bir ortaklığın içindesiniz. Bu bağın bedeli ağır olacak.",
+      "text": "Cumartesi tünelden çıkarken ikiniz de üstteki demire vurdunuz. Arka arkaya, iki tık.\n\n{actor.keeper.name} duydu ve döndü. Sonraki hafta o da vurdu. Sonraki ay yedi kişi vuruyordu.\n\nSezon sonunda malzemeci demirin boyasının o noktada aşındığını fark etti ve boyamadı.\n\nSenin bir sebepten başlattığın ve sebebini unuttuğun şey, artık kendi başına bir sebep. {actor.youngster.name} bunu senden aldı ve sen ona hiç öğretmedin — sadece izin verdin.",
       "onEnter": [
         {
           "flag": "mem_ritual_taninma_youngster",
           "op": "set",
           "value": true
+        },
+        {
+          "flag": "iliski_youngster",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": 6
         }
       ]
     },
-    "n_outcome_safe": {
-      "title": "Mesafe Korundu",
+    "n_kirildi": {
+      "title": "Sen Yokken",
       "kind": "outcome",
-      "text": "Kafanı hafifçe eğip odana doğru yürüdün. Arkanda, o masada kalan beklenti hayal kırıklığıyla soğudu. Doğru olanı yaptın ama yalnızlık biraz daha ağırlaştı.",
+      "text": "Kupa maçında dinlendirildin. {actor.youngster.name} ilk on birde.\n\nSoyunma odasında saatini çıkardı, çantanın yan cebine koydu, üç yudum su içti. Sonra kapıya geldi ve durdu. Demire vuracaktı ama sen orada değildin ve sıranın nasıl bittiğini bilmiyordu.\n\nOtuz saniye kapının önünde durdu. Antrenör bağırdı.\n\nO maçta iki top kaybetti ve elli yedinci dakikada çıktı. Ritüel taşıdığın şeyi taşımaz; sadece taşıyanı taşır, o da yalnızca kendisi için.",
       "onEnter": [
         {
           "flag": "mem_ritual_taninma_youngster",
           "op": "set",
           "value": true
-        }
-      ]
-    },
-    "n_outcome_grey": {
-      "title": "Sessiz Ortaklık",
-      "kind": "outcome",
-      "text": "Masadan kalktığında cebinde artık bir kartvizit var. {actor.keeper.name} bakışındaki o derinlik, bir futbol maçından daha fazlasını teklif ediyor. Kazandın, ama neyi feda ettiğini henüz bilmiyorsun.",
-      "onEnter": [
+        },
         {
-          "flag": "mem_ritual_taninma_youngster",
+          "flag": "iliski_youngster",
+          "op": "add",
+          "value": -6
+        },
+        {
+          "flag": "mem_ritual_cocugu_bozdu",
           "op": "set",
           "value": true
         }

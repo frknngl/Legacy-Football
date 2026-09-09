@@ -19,6 +19,7 @@
     "superstar"
   ],
   "lifeStates": [
+    "playing",
     "loaned",
     "national_duty"
   ],
@@ -30,96 +31,209 @@
   "rootNode": "n_root",
   "nodes": {
     "n_root": {
-      "title": "Gölgenin Ağırlığı",
+      "title": "Emanet",
       "kind": "branch",
-      "text": "Antrenman sahasının köşesinde {actor.keeper.name} ile top toplayıcıların yanından geçiyorsun. {actor.physio.name}, sahadaki genç oyuncuyu işaret edip gülümsüyor. 'Görüyor musun?' diyor kısık sesle. 'Seni ilk geldiğin gün hatırlatıyor. Aynı hırs, aynı kontrolsüz enerji.' Genç oyuncu sert bir şut çekip kaleye gönderiyor. Kaleci eldivenlerini düzeltirken bakışları bir anlığına sana takılıyor. Sahada yerini dolduracak birinin heyecanı, senin omuzlarındaki yorgunluğu daha da belirginleştiriyor. İkisi de sessizce cevabını bekliyor.",
+      "text": "{actor.veteran.name} dört yüz maçtır sahaya sağ ayakla giriyor ve çizgiye elini değdiriyor. Kimseye anlatmadı, kimse de sormadı; sadece herkes biliyor.\n\nBu hafta kadroda yok. Sırt. Belki üç hafta, belki daha uzun.\n\nSoyunma odası boşalırken yanına geldi. Utanmış gibiydi, ki onu hiç öyle görmemiştin.\n\n\"Sen yap,\" dedi. \"Ben tribündeyim. Bozulmasın.\"\n\nSeni seçti. Kaptanı değil, kaleciyi değil, seni.",
       "choices": [
         {
-          "id": "c_1",
-          "text": "Ona başarılar dile, kendi yoluna git.",
-          "target": "n_outcome_prof",
+          "id": "c_yap",
+          "text": "Yap. Tünelde önden çık, çizgiye eğil.",
+          "target": "n_yaptin",
           "effects": [
             {
-              "flag": "profesyonellik",
+              "flag": "iliski_veteran",
               "op": "add",
-              "value": 10
+              "value": 12
             },
             {
               "flag": "moral",
               "op": "add",
-              "value": -5
+              "value": 3
             },
             {
-              "flag": "sokak_itibari",
+              "flag": "iliski_takim",
               "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "value": -4
             }
           ],
           "persona": {
-            "dogruluk": 8
+            "sadakat": 6
           }
         },
         {
-          "id": "c_2",
-          "text": "Gençle göz göze gel, ona saha içinde sert bir ders ver.",
-          "target": "n_outcome_risk",
+          "id": "c_sessiz",
+          "text": "Yap ama kimse görmesin. Isınmaya ilk sen çık.",
+          "target": "n_yaptin",
           "effects": [
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": 7
+            },
             {
               "flag": "sokak_itibari",
               "op": "add",
-              "value": 10
+              "value": 3
             },
             {
-              "flag": "medya_baskisi",
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "durus": 3
+          }
+        },
+        {
+          "id": "c_ret",
+          "text": "\"Benim kendi şeylerim var. Karıştırmayalım.\"",
+          "target": "n_reddettin",
+          "effects": [
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": -11
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_yaptin": {
+      "title": "Üçüncü Hafta",
+      "kind": "branch",
+      "text": "İki hafta yaptın. İki hafta kazandınız ve kimse bağlantı kurmadı; herkes bağlantı kurdu.\n\nÜçüncü hafta dörde bir yediniz. Deplasman, yağmur, seyirci ıslık.\n\nTünelde dönerken {actor.youngster.name} arkandan seslendi: \"Abi çizgiye değdin mi bugün?\"\n\nDeğmiştin. Ve şimdi otuz kişi senin değip değmediğini konuşuyor. {actor.veteran.name} hâlâ tribünde ve hâlâ dönmedi.\n\nBir şeyi taşımak, o şeyin ağırlığını da almak demekmiş.",
+      "choices": [
+        {
+          "id": "c_devam",
+          "text": "Devam et. Bozulan sen değilsin.",
+          "target": "n_tasidin",
+          "effects": [
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": 9
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "sadakat": 7
+          }
+        },
+        {
+          "id": "c_birak",
+          "text": "Bırak. Çorap değil bu, yük.",
+          "target": "n_biraktin",
+          "effects": [
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_anlat",
+          "text": "Soyunma odasına anlat. Neden yaptığını bilsinler.",
+          "target": "n_anlattin",
+          "effects": [
+            {
+              "flag": "iliski_takim",
               "op": "add",
               "value": 8
             },
             {
-              "flag": "disiplin_sicili",
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "liderlik",
               "op": "add",
               "value": 5
             }
           ],
           "persona": {
-            "durus": -5
+            "dogruluk": 6
           }
         },
         {
-          "id": "c_3",
-          "text": "Menajere dön, çocuğun transfer değerini övüp aradan çekil.",
-          "target": "n_outcome_gri",
+          "id": "c_tahta",
+          "text": "Tunel kapisinin ustundeki tahtayi goster. \"Burada boyle seyler tasinir.\"",
+          "requires": {
+            "flag": "mem_kulup_hafizasi_korudu",
+            "op": "eq",
+            "value": true
+          },
+          "target": "n_tasidin",
           "effects": [
             {
-              "flag": "servet",
+              "flag": "iliski_takim",
               "op": "add",
-              "value": 15
+              "value": 12
             },
             {
-              "flag": "moral",
+              "flag": "iliski_veteran",
               "op": "add",
-              "value": -10
+              "value": 10
             },
             {
-              "flag": "medya_itibari",
+              "flag": "liderlik",
               "op": "add",
-              "value": -5
+              "value": 7
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 4
             }
           ],
           "persona": {
-            "sadakat": -8
-          }
+            "sadakat": 8
+          },
+          "lockLabel": "[Kulup hafizasini savunmustun]"
         }
       ]
     },
-    "n_outcome_prof": {
-      "title": "Sessiz Kabulleniş",
+    "n_reddettin": {
+      "title": "Kendi Şeylerin",
       "kind": "outcome",
-      "text": "Başınla selam verip uzaklaşıyorsun. {actor.physio.name} arkandan bakıyor. Kendi mirasını başkasına devretmenin hafifliği ve ağırlığı aynı anda içinde.",
+      "text": "\"Benim kendi şeylerim var.\"\n\n{actor.veteran.name} başını salladı. Kızmadı, tartışmadı, sadece çantasını aldı ve çıktı.\n\nO hafta sahaya çıkarken tünelde bir boşluk vardı. Kimse önden gidip çizgiye eğilmedi. Dört yüz maçlık bir şey, bir cumartesi öylece bitti.\n\nDöndüğünde bunu hiç açmadı. Sen de açmadın. Ama bazı akşamlar antrenman sonrası yanından geçerken, adamın sana bir şey emanet edip geri aldığını ikiniz de hatırlıyorsunuz.",
       "onEnter": [
         {
           "flag": "mem_ritual_golge_veteran",
@@ -128,10 +242,27 @@
         }
       ]
     },
-    "n_outcome_risk": {
-      "title": "Son Gösteri",
+    "n_tasidin": {
+      "title": "Taşıdın",
       "kind": "outcome",
-      "text": "Sahaya iniyorsun. İlk pozisyonda genç oyuncuyu gölgede bırakacak bir manevra yapıyorsun. Herkes susuyor. {actor.keeper.name} durumu anlıyor; bu senin sahan, senin zamanın.",
+      "text": "Devam ettin. Yedi hafta daha, iyi günde ve kötüde.\n\n{actor.veteran.name} döndüğü gün tünelde durdu ve seni önden geçirdi. Kendi ritüelini sana bıraktı — geri almadı.\n\nSoyunma odası bunu gördü. Kimse alkışlamadı, öyle şeyler alkışlanmaz, ama o günden sonra sahaya ilk sen çıktın ve kimse sırayı tartışmadı.\n\nBir yerden sonra o çizgiye senin için eğilmeye başladın. Bunun ne zaman olduğunu söyleyemezsin.",
+      "onEnter": [
+        {
+          "flag": "mem_ritual_golge_veteran",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_ritual_devraldi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_biraktin": {
+      "title": "Bıraktın",
+      "kind": "outcome",
+      "text": "Dördüncü hafta önden çıkmadın. Kimse bir şey demedi ve bu, bir şey demelerinden kötüydü.\n\nMaçı kazandınız. Bu da ayrı bir sorun oldu: artık ritüelin işe yaramadığını kanıtlamış gibiydin ve kimse bunu istememişti.\n\n{actor.veteran.name} döndükten sonra kendi başladı yine. Sana bir şey demedi. Sadece bir daha hiçbir şey emanet etmedi.",
       "onEnter": [
         {
           "flag": "mem_ritual_golge_veteran",
@@ -140,13 +271,18 @@
         }
       ]
     },
-    "n_outcome_gri": {
-      "title": "Pazarlık Masası",
+    "n_anlattin": {
+      "title": "Anlattın",
       "kind": "outcome",
-      "text": "Geleceğin paraya dönüştüğü o kısa an. {actor.physio.name} bir şey söylemiyor ama bakışlarındaki hayal kırıklığı, aldığın paranın değerini düşürüyor.",
+      "text": "Salı sabahı anlattın. Sırt sakatlığını, tribünü, \"bozulmasın\" cümlesini.\n\nSoyunma odası önce sustu, sonra {actor.keeper.name} güldü ve \"ben de kendiminkini anlatayım o zaman\" dedi. Yarım saat kimse sahaya çıkmadı.\n\nO sezon sekiz kişinin kimseye söylemediği bir şeyi olduğu ortaya çıktı. Takım bundan güçlendi.\n\n{actor.veteran.name} döndüğünde bunu duymuştu. \"Anlatılacak şey değildi,\" dedi ve haklıydı — ama takım için doğru olan buydu ve ikisi aynı şey değil.",
       "onEnter": [
         {
           "flag": "mem_ritual_golge_veteran",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_ritual_acikladi",
           "op": "set",
           "value": true
         }

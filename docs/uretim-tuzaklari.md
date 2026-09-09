@@ -151,3 +151,47 @@ yine temizleniyor.
 **Ders:** bir aracın "geri al" adımı, aracın kendi yaptığını geri almalı
 — dosyanın o anki hâlini değil. Anlık kopya-geri yazma tek süreçli bir
 dünyanın varsayımıdır ve o varsayım burada doğru değil.
+
+---
+
+## Ölçüm hangi *host* ile yapıldı — iki kez aynı tuzağa düştüm
+
+**Belirti:** Ritual olaylarının neden sahneye gelmediğini araştırırken
+"kariyerler `starter`ın üstüne hiç çıkmıyor, `star`+ ile kapılanmış 13
+olay ölü" sonucuna vardım. Sayı ikna ediciydi: şöhret puanı medyanı
+**123**, `star` eşiği **220**, ve iki büyük çarpan (`kupa_sayisi` ×25,
+`milli_mac_sayisi` ×1,5) her kariyerde **sıfır**.
+
+**İddia yanlıştı ve sebebi ölçümün kendisiydi — üstelik iki katmanlı:**
+
+1. Probum `GameEngine`i **doğrudan** sürüyordu. Ama `reportWorldEvent`
+   bir **host → motor** kapısıdır; motor onu kendi kendine çağırmaz.
+   Kupa ve milli maç yalnızca bir host raporlarsa birikir. Doğrudan
+   sürülen motorda ikisi de tanımı gereği sıfır kalır.
+
+2. Düzeltip `playtest` ile ölçtüm — ama `--world` vermedim. Mock dünyada
+   `calledUp` **tanımlı değil**, yani milli davet dalı hiç çalışmıyor ve
+   `milli_mac_sayisi` yine sıfır kalıyor.
+
+**Gerçek tablo** (`playtest --seeds=10 --turns=1000 --world=data/world.db`):
+
+| | |
+|---|---|
+| star | 4/10 kariyer |
+| superstar | 4/10 |
+| icon | 3/10 |
+| legend | 1/10 |
+
+Merdiven çalışıyor. `star`+ içeriği ölü değil, **seyrek**.
+
+**Ders:** bir motor ölçümünde ilk soru "hangi tohum" değil, **"hangi
+host ve hangi dünya"**. Bu dosyada zaten iki ölçüm politikası yanılgısı
+kayıtlı (hep-ilk-seçim, az tohum); bu üçüncüsü ve en sinsisi, çünkü
+çıkan sayı tutarlı ve hikâyesi inandırıcı. Motoru doğrudan süren bir
+prob, host'un doldurduğu her şeyi sıfır görür ve bunu bir bulguymuş gibi
+raporlar.
+
+**Kural:** dünya durumuna bağlı bir şey ölçülecekse `playtest`/`simulate`
+kullanılır ve `--world=data/world.db` verilir. Doğrudan motor sürmek
+yalnızca host'tan bağımsız mekanikler için geçerlidir (fiyat adımı,
+borç matematiği, cüzdan defteri).
