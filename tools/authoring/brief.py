@@ -112,6 +112,17 @@ class Brief:
     # kaynagidir; varyant onlari tasimazsa mac SONUCSUZ kalir ve
     # tepki/zincir sahneleri sessizce olur.
     expects_incidents: tuple[str, ...] = ()
+    #: Varyantin TASIMASI ZORUNLU durum gecisleri.
+    #:
+    #: Kanonik bicim: "lifeState:incarcerated", "suspend:3",
+    #: "clubTier:lower", "schedule:evt_x".
+    #:
+    #: Bir olay `lifeState` ya da `clubTier` degistiriyorsa yalnizca
+    #: sahne degil bir KAPIDIR: hapisten cikis, lige donus,
+    #: sakatliktan donme. Varyant o gecisi yazmazsa oyuncu kapinin
+    #: arkasinda kalir -- ve bunu hicbir kural yakalamaz, cunku her
+    #: iki varyant da TEK BASINA gecerlidir.
+    expects_transitions: tuple[str, ...] = ()
     reads_memory: tuple[str, ...] = ()
     chain_role: ChainRole = "standalone"
     chain_id: str | None = None

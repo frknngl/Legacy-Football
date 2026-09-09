@@ -217,6 +217,34 @@ def _incident_lines(brief: Brief) -> list[str]:
     ]
 
 
+def _transition_lines(brief: Brief) -> list[str]:
+    """Varyantin TASIMASI ZORUNLU durum gecisleri.
+
+    `_incident_lines` ile ayni gerekce: bir olay `lifeState` ya da
+    `clubTier` degistiriyorsa yalnizca sahne degil bir KAPIDIR (hapisten
+    cikis, lige donus, sakatliktan donme). Varyant o kapiyi acmazsa
+    oyuncu arkasinda kalir -- ve hicbir kural yakalamaz, cunku her iki
+    varyant da tek basina gecerlidir.
+    """
+    if not brief.expects_transitions:
+        return []
+
+    shapes = {
+        "lifeState": '{"op": "lifeState", "to": "<deger>"}',
+        "clubTier": '{"op": "clubTier", "to": "<deger>"}',
+        "suspend": '{"op": "suspend", "matches": <sayi>, "reason": "..."}',
+        "schedule": '{"op": "schedule", "event": "<id>", "inTurns": <n>, "priority": "forced"}',
+    }
+    out = ["", "ACILACAK KAPILAR (ZORUNLU):"]
+    for item in brief.expects_transitions:
+        kind, _, value = item.partition(":")
+        out.append(f"  - {kind} -> {value}   sekil: {shapes.get(kind, '?')}")
+    out.append("  Bu sahne bir GECIS. Sonuclarindan birinde bu efekt(ler)")
+    out.append("  OLMALI. Yazilmazsa oyuncu kapinin arkasinda kalir:")
+    out.append("  hapisten cikamaz, ligine donemez, cezasi hic islemez.")
+    return out
+
+
 def build(brief: Brief, example: dict | None = None, avoid: list[dict] | None = None) -> str:
     """Brief'i yazim promptuna cevirir.
 
@@ -257,6 +285,7 @@ def build(brief: Brief, example: dict | None = None, avoid: list[dict] | None = 
         "",
         f"YAPI: {_shape(brief)}",
         *_incident_lines(brief),
+        *_transition_lines(brief),
         f"ACILIS METNI: {low}-{high} kelime.",
         "",
         "SECENEK DESENI (bu deseni doldur, sirasini koruma zorunlulugun yok):",

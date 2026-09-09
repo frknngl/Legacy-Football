@@ -265,6 +265,36 @@ def _memory_usage(node: object) -> tuple[set[str], set[str]]:
     return writes, reads
 
 
+def _transitions(node: object) -> set[str]:
+    """Olayin actigi DURUM GECISLERI -- kanonik imzalariyla.
+
+    "lifeState:incarcerated", "suspend:3", "clubTier:lower",
+    "schedule:evt_x" bicimindedir. Varyantin ayni kapilari acmasi
+    gerektigini `_contract_violations` bu kumeye bakarak denetler.
+    """
+    out: set[str] = set()
+
+    def walk(value: object) -> None:
+        if isinstance(value, dict):
+            op = value.get("op")
+            if op == "lifeState":
+                out.add(f"lifeState:{value.get('to')}")
+            elif op == "clubTier":
+                out.add(f"clubTier:{value.get('to')}")
+            elif op == "suspend":
+                out.add(f"suspend:{value.get('matches')}")
+            elif op == "schedule":
+                out.add(f"schedule:{value.get('event')}")
+            for child in value.values():
+                walk(child)
+        elif isinstance(value, list):
+            for child in value:
+                walk(child)
+
+    walk(node)
+    return out
+
+
 def _incidents(node: object) -> set[str]:
     """Olayin ACTIGI incident'ler.
 
@@ -353,6 +383,25 @@ def _contract_violations(event: dict, brief: Brief) -> list[str]:
                 f'SOZLESME: bu olay "{missing}" olayini acar; varyant da acmali. '
                 "Bir `outcome` node'unun `onEnter` alanina "
                 f'{{"op": "match", "incident": "{missing}"}} ekleyin.'
+            )
+
+    # DURUM GECISI SOZLESMESI.
+    #
+    # Ayni gerekce `expects_incidents` ile bire bir: varyant olayin actigi
+    # kapiyi acmazsa oyuncu kapinin arkasinda kalir ve hicbir kural bunu
+    # yakalamaz -- her iki varyant da tek basina gecerlidir.
+    #
+    # Bu sozlesme yazilana kadar gecis tasiyan olaylar varyant uretiminden
+    # TAMAMEN disariydi (`_variant_targets`), yani sahne butcesinin bir
+    # kismi erisilemez kaliyordu.
+    expected_tr = set(brief.expects_transitions or ())
+    if expected_tr:
+        got_tr = _transitions(event)
+        for missing in sorted(expected_tr - got_tr):
+            kind, _, value = missing.partition(":")
+            out.append(
+                f'SOZLESME: bu olay bir KAPI aciyor ({kind} -> {value}); varyant da '
+                f"acmali, yoksa oyuncu kapinin arkasinda kalir."
             )
 
     for missing in sorted(promised_r - reads):
@@ -946,8 +995,14 @@ def _variant_targets(
         # ama varyant o sozlesmeyi degistirmez -- olay govdesi korunur ve
         # `EventSelector.forMoment` de varyant secer. Eski eleme, sahne
         # butcesinin %21'ini erisim disinda birakiyordu.
-        if _has_transition(data):
-            continue
+        # GECIS TASIYAN OLAYLAR ARTIK ELENMEZ.
+        #
+        # Eskiden elenirlerdi: varyant kapiyi acmazsa oyuncu arkasinda
+        # kalir ve hicbir kural yakalamaz. Ama eleme, en cok tekrar eden
+        # sahnelerin bir kismini erisim disinda birakiyordu.
+        #
+        # Artik `expects_transitions` sozlesmesi var: varyant olayin
+        # actigi HER kapiyi acmak zorunda, yoksa kapidan gecemez.
         out.append((path, data, have, order.get(data.get("tier", "beat"), 3)))
 
     out.sort(key=lambda row: (row[2], row[3], row[1]["id"]))
@@ -1093,6 +1148,7 @@ def _variant_brief(data: dict, planner: Planner, v, rng: random.Random) -> Brief
         cell=cell,
         writes_memory=tuple(sorted(writes)),
         expects_incidents=tuple(sorted(_incidents(data))),
+        expects_transitions=tuple(sorted(_transitions(data))),
         variant_of=data["id"],
         choices=planner._choice_specs(tier, slot, cell.life_state, beat),
         premise=(
