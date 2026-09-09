@@ -211,6 +211,8 @@ def _incident_lines(brief: Brief) -> list[str]:
         f"ACILACAK OLAYLAR (ZORUNLU): {listed}",
         "  Bu sahne bir MAC ANI. Sonuclarinin en az birinde su bicimde",
         '  bir efekt OLMALI:  {"op": "match", "incident": "<yukaridakilerden biri>"}',
+        "  YALNIZCA bunlar. FAZLADAN bir incident acma -- kardes",
+        "  varyantlari gecersiz kilar ve sahne reddedilir.",
         "  Hangi sonucun hangi olayi acacagini sen secersin ama HEPSI",
         "  bir yerde acilmali. Acilmazsa mac sonucsuz kalir ve o maca",
         "  bagli tepki sahneleri hic cikmaz.",

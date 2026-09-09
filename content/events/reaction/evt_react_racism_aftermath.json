@@ -727,6 +727,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık ve Aydınlık",
+          "kind": "branch",
+          "text": "Kulübün vip salonundaki ışıklar kısık. Havada pahalı bir puro dumanı ve rutubetli duvarların kokusu birbirine karışıyor. {actor.journalist.name} masanın diğer ucunda, önündeki boş içki kadehine bakıyor. Olayın ertesi günü, zaferin gölgesi hala stadyumun üzerinde asılı. Şampiyonluk kutlamasından geriye sadece senin terli formanın ağırlığı ve dışarıda uğuldayan taraftar sesleri kaldı. Sessizlik, bir tehdit gibi odanın içine çökmüş durumda.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Masadaki içki bardağını ona doğru it. \"Yazacaklarını biliyorum, tek bir kelimesini bile değiştirmeyeceksin.\"",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cebinden çıkardığın ağır, mühürlü zarfı, masanın altından ona uzat. \"İyi bir hikaye pahalıdır, öyle değil mi?\"",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ceketinin düğmelerini ilikle ve kapıya yönel. \"Söyleyecek tek bir sözüm yok. Sadece işime odaklanıyorum.\"",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Sandalyeyi çekip tam karşısına otur. \"Seninle dostluğumuz baki, gel her şeyi açıkça konuşalım.\"",
+              "target": "n_stat",
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Destek]",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sessiz Bir Tehdit",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} sana bakmadan başını sallıyor. Kapı kapandığında, kazandığın zaferin artık sadece bir baskı unsuru olduğunu anlıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Satın Alınmış Vicdan",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı elinde kayboluyor. Odayı terk ederken aynadaki aksinin artık daha yabancı göründüğünü fark ediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_public_apology",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Yalnızlık",
+          "kind": "outcome",
+          "text": "Stadyumun soğuk koridorlarında yankılanan adımların dışında hiçbir ses yok. Profesyonel olmanın bedeli, her gün biraz daha yalnızlaşmak.",
+          "onEnter": [
+            {
+              "flag": "mem_dated_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Bedelli Dostluk",
+          "kind": "outcome",
+          "text": "Saatler süren konuşmanın sonunda, ikinizin de omuzlarındaki yük hafiflemiş görünmüyor. Ancak bir el sıkışması, gerçeği yeniden yazmaya yetecek kadar güçlü.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

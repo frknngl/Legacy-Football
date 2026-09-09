@@ -386,6 +386,21 @@ def _contract_violations(event: dict, brief: Brief) -> list[str]:
     expected_inc = set(brief.expects_incidents or ())
     if expected_inc:
         got = _incidents(event)
+
+        # FAZLADAN incident de yasak -- iz kuralinin aynisi.
+        #
+        # OLCULEN SORUN: varyant olayin actiklarina EK bir incident
+        # aciyordu; o zaman ORIJINAL govde (`v_asil`) kardeslerine
+        # uymuyor ve `VariantIncidentRule` onu reddediyordu. Yani model
+        # dogru olani yaziyor, kural baska bir sahneyi dusuruyordu.
+        for extra in sorted(got - expected_inc):
+            listed = ", ".join(sorted(expected_inc))
+            out.append(
+                f'SOZLESME: bu varyant FAZLADAN "{extra}" olayini aciyor. '
+                f"Yalnizca sunlari acabilir: {listed}. Fazladan acilan olay "
+                "kardes varyantlari gecersiz kilar."
+            )
+
         for missing in sorted(expected_inc - got):
             out.append(
                 f'SOZLESME: bu olay "{missing}" olayini acar; varyant da acmali. '
