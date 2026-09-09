@@ -387,6 +387,204 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Otoparkın en karanlık köşesinde, kulüp otobüsüne giden yolun üzerinde tek bir araç çalışır vaziyette duruyor. Far ışıkları {actor.opponent_keeper.name}’in yüzünü aydınlatıyor. O gece o topun çizgiyi geçtiğini o da biliyordu, sen de biliyorsun. Sessizliği sadece motorun düşük devirli uğultusu bozuyor. Yanına yaklaştığında cam yavaşça aşağı iniyor. Bir teklif değil, bir tür hesaplaşma bekliyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Cebindeki prim prim zarfını açık pencereden içeri bırak. Sessizliğini satın al.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kaputuna sertçe vur. Olayı tüm basına senin anlatacağını bağırarak söyle.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başınla selam verip hiçbir şey demeden yanından geç. Saha içi kurallar saha içinde kalır.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_opponent_keeper",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Arabanın kapısını aç, yan koltuğuna otur. O anki hatayı değil, kariyerini nasıl şekillendireceğinizi konuşmaya başla.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_opponent_keeper",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Sokak İtibarı 68]"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bir Mutabakat",
+          "kind": "outcome",
+          "text": "Zarfı aldığı an gözlerindeki o bıkkın ifade yerini soğuk bir kabullenişe bıraktı. Olayın kapanacağını biliyorsun ama bu leke, formanın altına işledi.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İpler Kopuyor",
+          "kind": "outcome",
+          "text": "Çığlıkların boş otoparkta yankılanıyor. {actor.opponent_keeper.name} hiçbir karşılık vermeden gaza basıyor. Yarın manşetler senin ifadenle dolacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Otoparkın soğuk betonunda yürümeye devam ediyorsun. Arkandan gelen motor sesi uzaklaşıyor. Doğru olanı yaptın, ama içindeki o boşluk hissi geçmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Yeni Bir İttifak",
+          "kind": "outcome",
+          "text": "Arabanın içi sigara dumanı ve gerginlikle dolu. İkiniz de biliyorsunuz ki artık sadece rakipler değil, birbirinin sırrını tutan iki suç ortağısınız.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ghost_goal"
+            }
+          ]
+        }
+      }
     }
   ]
 }

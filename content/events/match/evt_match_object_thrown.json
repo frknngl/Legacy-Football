@@ -14,179 +14,332 @@
     "loaned",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Tribunden",
-      "kind": "branch",
-      "text": "{minute}. dakika, skor {scoreline}. Korner bayraginin yaninda topu bekliyorsun ve bir sey omzuna carpiyor.\n\nCakmak. Yere bakiyorsun; iki tane daha var.\n\n{actor.referee.name} gormedi. Yan hakem gordu ve bakislarini kacirdi.\n\nKale arkasi guluyor. Bir cocuk sesi net duyuluyor.",
-      "choices": [
-        {
-          "id": "c_report",
-          "text": "Cakmagi al, hakeme goster. Kayitlara gecsin.",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tribunden",
+          "kind": "branch",
+          "text": "{minute}. dakika, skor {scoreline}. Korner bayraginin yaninda topu bekliyorsun ve bir sey omzuna carpiyor.\n\nCakmak. Yere bakiyorsun; iki tane daha var.\n\n{actor.referee.name} gormedi. Yan hakem gordu ve bakislarini kacirdi.\n\nKale arkasi guluyor. Bir cocuk sesi net duyuluyor.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 10
+              "id": "c_report",
+              "text": "Cakmagi al, hakeme goster. Kayitlara gecsin.",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "target": "n_reported",
+              "persona": {
+                "dogruluk": 8,
+                "durus": 5
+              }
             },
             {
-              "flag": "profesyonellik",
+              "id": "c_pocket",
+              "text": "Cakmagi cebine at ve korneri kullan.",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "target": "n_pocketed",
+              "persona": {
+                "mizac": 5,
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_throw",
+              "text": "Geri at. Aynen geldigi yere.",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 18
+                }
+              ],
+              "target": "n_threw_back",
+              "persona": {
+                "mizac": 12,
+                "durus": 6
+              }
+            }
+          ]
+        },
+        "n_reported": {
+          "title": "Kayitlara",
+          "kind": "outcome",
+          "text": "Cakmagi hakeme veriyorsun. Anons yapiliyor, mac uc dakika duruyor.\n\nRakip tribun seni yuhaliyor. Kendi tribunun de bir bolumu yuhaliyor -- oyunu gecikirdigin icin.\n\nRapor yazilir. Kulup para cezasi alir. Kimse tesekkur etmez.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.2,
+              "incident": "inc_object_thrown"
+            },
+            {
+              "flag": "medya_itibari",
               "op": "add",
               "value": 6
             },
             {
-              "flag": "iliski_fan_leader",
-              "op": "add",
-              "value": -12
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -8
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": false
             }
-          ],
-          "target": "n_reported",
-          "persona": {
-            "dogruluk": 8,
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_pocket",
-          "text": "Cakmagi cebine at ve korneri kullan.",
-          "effects": [
+        "n_pocketed": {
+          "title": "Cepte",
+          "kind": "outcome",
+          "text": "Cakmagi cebine atiyorsun ve korneri kullaniyorsun. Kimse bir sey gormedi.\n\nMac sonunda soyunma odasinda cebinden cikariyorsun ve masaya birakiyorsun. Kimse sormuyor.\n\nO cakmak dolabinda kaliyor. Neden sakladigini bilmiyorsun.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 12
+              "op": "match",
+              "rating": 0.3,
+              "incident": "inc_object_thrown"
             },
             {
-              "flag": "taraftar_destegi",
+              "flag": "mental_dayaniklilik",
               "op": "add",
               "value": 6
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -6
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -4
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": false
             }
-          ],
-          "target": "n_pocketed",
-          "persona": {
-            "mizac": 5,
-            "durus": 4
-          }
+          ]
         },
-        {
-          "id": "c_throw",
-          "text": "Geri at. Aynen geldigi yere.",
-          "effects": [
+        "n_threw_back": {
+          "title": "Geri",
+          "kind": "outcome",
+          "text": "Cakmagi geri atiyorsun. Tribun bir anda ayaga kalkiyor.\n\nUc bardak daha geliyor. {actor.referee.name} maci durduruyor.\n\nYarin bu goruntu her yerde ve kimse cakmagin ilk kimden geldigini konusmuyor.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "iliski_fan_leader",
-              "op": "add",
-              "value": -18
+              "op": "match",
+              "yellowCards": 1,
+              "rating": -0.6,
+              "incident": "inc_object_thrown"
             },
             {
               "flag": "disiplin_sicili",
               "op": "add",
-              "value": 12
+              "value": 10
             },
             {
               "flag": "medya_baskisi",
               "op": "add",
-              "value": 18
+              "value": 15
+            },
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
             }
-          ],
-          "target": "n_threw_back",
-          "persona": {
-            "mizac": 12,
-            "durus": 6
-          }
+          ]
         }
-      ]
+      }
     },
-    "n_reported": {
-      "title": "Kayitlara",
-      "kind": "outcome",
-      "text": "Cakmagi hakeme veriyorsun. Anons yapiliyor, mac uc dakika duruyor.\n\nRakip tribun seni yuhaliyor. Kendi tribunun de bir bolumu yuhaliyor -- oyunu gecikirdigin icin.\n\nRapor yazilir. Kulup para cezasi alir. Kimse tesekkur etmez.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.2,
-          "incident": "inc_object_thrown"
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Koridorun Sessizligi",
+          "kind": "branch",
+          "text": "Soyunma odasi koridorunda ilerlerken {actor.referee.name} ile burun buruna geliyorsun. Macin hemen ardindan, disarida hala kiyamet kopuyor. Az once tribunden uzerine atilan o yabanci madde, hakemin masasinin uzerinde, delil torbasi icinde duruyor. O, sana bakmiyor. Bakislari duvardaki catlakta. Az onceki kararlarinin yarattigi o ugultulu sessizlik, ikinizin arasinda bir asit gibi genisliyor.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Masadan delil torbasini al ve yere firlat.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_object_thrown"
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Gozlerinin icine bakip hicbir sey soylemeden yanindan gec.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Cebinden cikardigin yuklu miktari masaya birak, sessizce cik.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "op": "match",
+                  "incident": "inc_object_thrown"
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 10000
+              },
+              "lockLabel": "[Yeterli butce yok]"
+            }
+          ]
         },
-        {
-          "flag": "medya_itibari",
-          "op": "add",
-          "value": 6
+        "n_outcome_risk": {
+          "title": "Gerginlik Tirmaniyor",
+          "kind": "outcome",
+          "text": "Torba yere carptiginda icindeki metal parca ses cikardi. {actor.referee.name} basini sana cevirdi, bakislarinda bir tehdit degil, bir yorgunluk vardi. Bu odadan ciktiginda herkes senin ismini konusuyor olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
         },
-        {
-          "flag": "mem_stood_against_racism",
-          "op": "set",
-          "value": false
+        "n_outcome_safe": {
+          "title": "Sessiz Direnis",
+          "kind": "outcome",
+          "text": "Kapiyi kapattiginda {actor.referee.name} hala ayni noktada duruyordu. Hakli oldugunu biliyorsun ama bu haklilik kursaginda aci bir tat birakiyor. Insanlar senin karsilik vermeni beklemisti.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Bedeli Odenmis Sessizlik",
+          "kind": "outcome",
+          "text": "Masaya biraktigin sey, odayi daha da daraltti. {actor.referee.name} sadece basini salladi. Ne bir itiraz, ne bir tesekkur. Artik sadece oyunun degil, baska bir denklemin de parcasi oldun.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_pocketed": {
-      "title": "Cepte",
-      "kind": "outcome",
-      "text": "Cakmagi cebine atiyorsun ve korneri kullaniyorsun. Kimse bir sey gormedi.\n\nMac sonunda soyunma odasinda cebinden cikariyorsun ve masaya birakiyorsun. Kimse sormuyor.\n\nO cakmak dolabinda kaliyor. Neden sakladigini bilmiyorsun.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.3,
-          "incident": "inc_object_thrown"
-        },
-        {
-          "flag": "mental_dayaniklilik",
-          "op": "add",
-          "value": 6
-        },
-        {
-          "flag": "mem_reads_own_criticism",
-          "op": "set",
-          "value": false
-        }
-      ]
-    },
-    "n_threw_back": {
-      "title": "Geri",
-      "kind": "outcome",
-      "text": "Cakmagi geri atiyorsun. Tribun bir anda ayaga kalkiyor.\n\nUc bardak daha geliyor. {actor.referee.name} maci durduruyor.\n\nYarin bu goruntu her yerde ve kimse cakmagin ilk kimden geldigini konusmuyor.",
-      "onEnter": [
-        {
-          "op": "match",
-          "yellowCards": 1,
-          "rating": -0.6,
-          "incident": "inc_object_thrown"
-        },
-        {
-          "flag": "disiplin_sicili",
-          "op": "add",
-          "value": 10
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 15
-        },
-        {
-          "flag": "mem_media_war",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

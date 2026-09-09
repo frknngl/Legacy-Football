@@ -14,178 +14,335 @@
     "loaned",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Bir omuz",
-      "kind": "branch",
-      "text": "{minute}. dakika, skor {scoreline}. Attin. Ag saliniyor, tribun ayakta, sen kale arkasina kosuyorsun.\n\nSonra ekrandaki cizgiler.\n\nBir omuz. Belki bir ayakkabi burnu. Karar: ofsayt.\n\nSevincin ortasinda duruyorsun ve sevinci geri almak diye bir sey olmadigini fark ediyorsun. Kollarin hala havada.",
-      "choices": [
-        {
-          "id": "c_laugh",
-          "text": "Gul. Kaleye don, yeniden bastan.",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Bir omuz",
+          "kind": "branch",
+          "text": "{minute}. dakika, skor {scoreline}. Attin. Ag saliniyor, tribun ayakta, sen kale arkasina kosuyorsun.\n\nSonra ekrandaki cizgiler.\n\nBir omuz. Belki bir ayakkabi burnu. Karar: ofsayt.\n\nSevincin ortasinda duruyorsun ve sevinci geri almak diye bir sey olmadigini fark ediyorsun. Kollarin hala havada.",
+          "choices": [
             {
-              "flag": "mental_dayaniklilik",
-              "op": "add",
-              "value": 10
+              "id": "c_laugh",
+              "text": "Gul. Kaleye don, yeniden bastan.",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "target": "n_laughed",
+              "persona": {
+                "mizac": -6,
+                "durus": -3
+              }
             },
             {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 6
+              "id": "c_rage",
+              "text": "Yan hakeme yuru. Bu kadari da fazla.",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "target": "n_raged",
+              "persona": {
+                "mizac": 10,
+                "durus": 7
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": -3
+              "id": "c_focus",
+              "text": "Hicbir sey soyleme. Sonraki topu iste.",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "target": "n_focused",
+              "persona": {
+                "mizac": -4,
+                "sadakat": 4
+              }
             }
-          ],
-          "target": "n_laughed",
-          "persona": {
-            "mizac": -6,
-            "durus": -3
-          }
+          ]
         },
-        {
-          "id": "c_rage",
-          "text": "Yan hakeme yuru. Bu kadari da fazla.",
-          "effects": [
+        "n_laughed": {
+          "title": "Bir omuz kadar",
+          "kind": "outcome",
+          "text": "Guluyorsun ve bu gulus kameraya yakalaniyor. Ertesi gun o kare paylasilir: golu iptal edilirken gulen adam.\n\nBazilari bunu olgunluk sayar, bazilari umursamazlik.\n\nSen ise sadece agliyor gorunmek istemedin.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
+              "op": "match",
+              "rating": 0.1,
+              "incident": "inc_marginal_offside"
             },
             {
-              "flag": "taraftar_destegi",
+              "flag": "medya_itibari",
               "op": "add",
-              "value": 10
+              "value": 8
+            },
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "add",
+              "value": 0
+            }
+          ]
+        },
+        "n_raged": {
+          "title": "Yan hakem",
+          "kind": "outcome",
+          "text": "Yan hakemin uzerine yuruyorsun. {actor.referee.name} araya giriyor ve seni gogsunden itiyor.\n\nSari kart.\n\nKale arkasi seni alkisliyor. Kenardaki {actor.manager.name} alkislamiyor; iki eliyle yuzunu ovuyor.",
+          "onEnter": [
+            {
+              "op": "match",
+              "yellowCards": 1,
+              "rating": -0.4,
+              "incident": "inc_marginal_offside"
+            },
+            {
+              "op": "match",
+              "incident": "inc_argued_ref"
             },
             {
               "flag": "disiplin_sicili",
               "op": "add",
-              "value": 8
+              "value": 6
             },
             {
-              "flag": "medya_baskisi",
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -8
+            }
+          ]
+        },
+        "n_focused": {
+          "title": "Sonraki top",
+          "kind": "outcome",
+          "text": "Hicbir sey soylemiyorsun. Orta yuvarlaga yuruyup elini kaldiriyorsun: topu istiyorsun.\n\nKalan yirmi dakikada dokuz kez topa dokunuyorsun; sezon ortalamanin iki kati.\n\nGol gelmiyor. Ama {actor.manager.name} mac sonunda sana bakip basini salliyor ve bu sezon ilk kez.",
+          "onEnter": [
+            {
+              "op": "match",
+              "rating": 0.6,
+              "incident": "inc_marginal_offside"
+            },
+            {
+              "flag": "iliski_manager",
               "op": "add",
               "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -8
             }
-          ],
-          "target": "n_raged",
-          "persona": {
-            "mizac": 10,
-            "durus": 7
-          }
-        },
-        {
-          "id": "c_focus",
-          "text": "Hicbir sey soyleme. Sonraki topu iste.",
-          "effects": [
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Dudukten Sonraki Sessizlik",
+          "kind": "branch",
+          "text": "Topun aglara degis sesi hala kulaginda. Hakemin duduk sesiyle o ses birbirine karisiyor. {actor.manager.name} saha kenarinda, cizginin tam uzerinde duruyor. Göz göze geliyorsunuz. Omuzları düşmüyor, aksine dikleşiyor. Sana bakıyor. Sadece sana. Golün geçersizliğini değil, o anki duruşunu onaylar gibi. Arkandaki tribunlerin uğultusu bir anlığına kesiliyor. Stadyumun ışıkları altında herkesin gördüğü o anlık hata değil, senin o anki tepkin. Hakem orta noktayı gösterirken, o hala sana bakmaya devam ediyor.",
+          "choices": [
             {
-              "flag": "form",
-              "op": "add",
-              "value": 8
+              "id": "c_sessiz_kabulleniş",
+              "text": "Başını hafifçe öne eğip oyun alanına dön. Onu hayal kırıklığına uğratmadığını kanıtla.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 6
+              "id": "c_karanlik_anlasma",
+              "text": "Gözlerini ayırmadan hafifçe gülümse. O hakeme durumu nasıl düzelteceğini bildiğini fısıldar gibi.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "disiplin_sicili",
+                "op": "gte",
+                "value": 30
+              },
+              "lockLabel": "[Sicil bozuk]"
             },
             {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -4
+              "id": "c_itiraz_atesi",
+              "text": "Çimleri tekmele ve hakemin üzerine yürü. Otoriteye meydan okuduğunu herkes görsün.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
             }
-          ],
-          "target": "n_focused",
-          "persona": {
-            "mizac": -4,
-            "sadakat": 4
-          }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İçsel Disiplin",
+          "kind": "outcome",
+          "text": "Hakemin kararını değiştiremeyeceğini biliyorsun. O bakış, sadece bir futbolcuya değil, bir profesyonele yöneltilmiş bir onaydı. Sahada kalmaya devam ediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_marginal_offside"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Gölgedeki Bağ",
+          "kind": "outcome",
+          "text": "Bakışınla verdiğin mesaj net. Omuz silkiyorsun. Oyunun içindeki kirli dengeleri, kulüp koridorlarındaki fısıltıları anladığını biliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_argued_ref"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sahadaki İsyancı",
+          "kind": "outcome",
+          "text": "Kartı göze alıyorsun. Tribünlerin desteği arkanda yükseliyor ama maçın geri kalanında herkesin hedef tahtası sensin. Yönetim bunu not edecek.",
+          "onEnter": [
+            {
+              "flag": "mem_reads_own_criticism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_argued_ref"
+            }
+          ]
         }
-      ]
-    },
-    "n_laughed": {
-      "title": "Bir omuz kadar",
-      "kind": "outcome",
-      "text": "Guluyorsun ve bu gulus kameraya yakalaniyor. Ertesi gun o kare paylasilir: golu iptal edilirken gulen adam.\n\nBazilari bunu olgunluk sayar, bazilari umursamazlik.\n\nSen ise sadece agliyor gorunmek istemedin.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.1,
-          "incident": "inc_marginal_offside"
-        },
-        {
-          "flag": "medya_itibari",
-          "op": "add",
-          "value": 8
-        },
-        {
-          "flag": "mem_reads_own_criticism",
-          "op": "add",
-          "value": 0
-        }
-      ]
-    },
-    "n_raged": {
-      "title": "Yan hakem",
-      "kind": "outcome",
-      "text": "Yan hakemin uzerine yuruyorsun. {actor.referee.name} araya giriyor ve seni gogsunden itiyor.\n\nSari kart.\n\nKale arkasi seni alkisliyor. Kenardaki {actor.manager.name} alkislamiyor; iki eliyle yuzunu ovuyor.",
-      "onEnter": [
-        {
-          "op": "match",
-          "yellowCards": 1,
-          "rating": -0.4,
-          "incident": "inc_marginal_offside"
-        },
-        {
-          "op": "match",
-          "incident": "inc_argued_ref"
-        },
-        {
-          "flag": "disiplin_sicili",
-          "op": "add",
-          "value": 6
-        },
-        {
-          "flag": "iliski_manager",
-          "op": "add",
-          "value": -8
-        }
-      ]
-    },
-    "n_focused": {
-      "title": "Sonraki top",
-      "kind": "outcome",
-      "text": "Hicbir sey soylemiyorsun. Orta yuvarlaga yuruyup elini kaldiriyorsun: topu istiyorsun.\n\nKalan yirmi dakikada dokuz kez topa dokunuyorsun; sezon ortalamanin iki kati.\n\nGol gelmiyor. Ama {actor.manager.name} mac sonunda sana bakip basini salliyor ve bu sezon ilk kez.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": 0.6,
-          "incident": "inc_marginal_offside"
-        },
-        {
-          "flag": "iliski_manager",
-          "op": "add",
-          "value": 10
-        },
-        {
-          "flag": "kondisyon",
-          "op": "add",
-          "value": -8
-        }
-      ]
+      }
     }
-  }
+  ]
 }

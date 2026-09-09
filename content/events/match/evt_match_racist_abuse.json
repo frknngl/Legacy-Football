@@ -742,6 +742,220 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahadaki yankı",
+          "kind": "branch",
+          "text": "Maç durdu. Oyunun hız kestiği o tuhaf boşlukta, {actor.captain.name} yanına geldi. Terden sırılsıklam formasının yakasını çekiştiriyor. Gözleri boşluğa bakıyor, ama kulakları yukarıda. Tribünlerin en tepesinden gelen o ses, stadyumdaki herkesin dilinde olan ama kimsenin adını koymadığı bir ritme dönüştü. {actor.captain.name} sadece bakıyor. Söyleyecek tek bir kelimesi yok. Ses, senin adınla birleşerek bir aşağılama senfonisine dönüşürken, top ayağının dibinde hareketsiz duruyor. Hakem düdüğü ağzına götürmüş, bekliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Topu rastgele tribünlere sertçe yolla ve oyundan çık.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Duymazdan gel. {actor.captain.name} ile göz teması kurma ve oyunu başlat.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kameraya gülümse ve maça devam et; prim ödemeni riske atma.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_stand_up",
+              "text": "Hakemin yanına git, koluna yapış ve maçı durdurmasını emret.",
+              "target": "n_outcome_stood",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Top tribüne çarptığında stadyum sustu. Kırmızı kart çıkarken sadece kendi nefes alışverişini duydun. Bu geceki öfken, yarın manşetlerde.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_substituted_angry"
+            },
+            {
+              "op": "match",
+              "incident": "inc_racist_abuse"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_react_racism_aftermath",
+              "inTurns": 1,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Profesyonel sessizlik",
+          "kind": "outcome",
+          "text": "Pasını verdin. Oyun devam etti. İçindeki boşluk, her pasınla biraz daha büyüdü.",
+          "onEnter": [
+            {
+              "flag": "mem_stayed_silent_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_scored_winner"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_react_racism_aftermath",
+              "inTurns": 1,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın alınmış sükunet",
+          "kind": "outcome",
+          "text": "Kameralara soğukkanlı bir ifade verdin. Primin hesabına yattı, ama sahada kim olduğun artık silik bir gölge.",
+          "onEnter": [
+            {
+              "flag": "mem_stayed_silent_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_celebrated_provocatively"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_react_racism_aftermath",
+              "inTurns": 1,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_outcome_stood": {
+          "title": "Gerilimin zirvesi",
+          "kind": "outcome",
+          "text": "Hakemin yüzündeki o şaşkınlık, durumu ne kadar derinleştirdiğinin kanıtı. Kartlar havada uçuşuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_stood_against_racism",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_ref_conflict"
+            },
+            {
+              "op": "match",
+              "incident": "inc_stood_up"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_react_racism_aftermath",
+              "inTurns": 1,
+              "priority": "forced"
+            }
+          ]
+        }
+      }
     }
   ]
 }
