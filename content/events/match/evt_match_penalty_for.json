@@ -14,345 +14,522 @@
     "loaned",
     "national_duty"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Nokta",
-      "kind": "branch",
-      "text": "{minute}. dakika, {opponent} karşısında skor {scoreline}. Hakem noktayı gösterdiğinde stadyum bir anda sesini kaybediyor — o tuhaf, kulak çınlatan sessizlik. {actor.captain.name} topu kapıyor, sana bakmıyor bile; pazubandı olan o, karar da onun sanıyor. Kale arkasındaki tribün senin adını söylüyor. {actor.agent.name:gen} sabah söylediği cümle kafanda dönüyor: \"Bu sezon bir tane büyük an lazım, bir tane.\"",
-      "choices": [
-        {
-          "id": "c_take",
-          "text": "Topu {actor.captain.first:gen} elinden al. \"Ben atıyorum.\"",
-          "target": "n_roll_self",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Nokta",
+          "kind": "branch",
+          "text": "{minute}. dakika, {opponent} karşısında skor {scoreline}. Hakem noktayı gösterdiğinde stadyum bir anda sesini kaybediyor — o tuhaf, kulak çınlatan sessizlik. {actor.captain.name} topu kapıyor, sana bakmıyor bile; pazubandı olan o, karar da onun sanıyor. Kale arkasındaki tribün senin adını söylüyor. {actor.agent.name:gen} sabah söylediği cümle kafanda dönüyor: \"Bu sezon bir tane büyük an lazım, bir tane.\"",
+          "choices": [
             {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": -10
+              "id": "c_take",
+              "text": "Topu {actor.captain.first:gen} elinden al. \"Ben atıyorum.\"",
+              "target": "n_roll_self",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "mizac": 5,
+                "durus": 4
+              }
             },
             {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 6
+              "id": "c_leave",
+              "text": "Geri çekil. Bu onun görevi, bugün değil.",
+              "target": "n_left_it",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "mem_gave_up_penalty",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "sadakat": 5,
+                "mizac": -4
+              }
+            },
+            {
+              "id": "c_ask",
+              "text": "{actor.captain.first:dat} dön: \"Bacağın tutmuyor. Bırak ben atayım.\"",
+              "target": "n_roll_self",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "durus": 5,
+                "sadakat": 3
+              }
+            },
+            {
+              "id": "c_panenka",
+              "text": "Al ve kaşıklayarak at. Ya efsane olursun ya da malzeme.",
+              "target": "n_roll_panenka",
+              "requires": {
+                "flag": "persona_mizac",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mizaç 60]",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": 8,
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_roll_self": {
+          "title": "Koşu",
+          "kind": "roll",
+          "text": "Topu noktaya koyuyorsun. Kalecinin gözlerine bakmamayı öğrendin; ayakkabının bağına bakıyorsun.",
+          "outcomes": [
+            {
+              "target": "n_scored",
+              "weight": {
+                "base": 25,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": 0.7
+                  },
+                  {
+                    "flag": "moral",
+                    "scale": 0.25
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_missed",
+              "weight": {
+                "base": 55,
+                "modifiers": [
+                  {
+                    "flag": "medya_baskisi",
+                    "scale": 0.3
+                  },
+                  {
+                    "flag": "teknik",
+                    "scale": -0.35
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_roll_panenka": {
+          "title": "Kaşık",
+          "kind": "roll",
+          "text": "Kısa bir koşu. Kaleci erken yatıyor. Ayağın topun altına giriyor ve zaman geriliyor.",
+          "outcomes": [
+            {
+              "target": "n_scored_panenka",
+              "weight": {
+                "base": 10,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": 0.55
+                  },
+                  {
+                    "flag": "persona_mizac",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_missed",
+              "weight": {
+                "base": 70,
+                "modifiers": [
+                  {
+                    "flag": "teknik",
+                    "scale": -0.2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_scored": {
+          "title": "Ağlar",
+          "kind": "outcome",
+          "text": "Top direğin dibinden ağlara gidiyor. Tribün patlıyor. {actor.captain.first} sana koşan ilk kişi değil — üçüncü. Bunu fark ediyorsun ve fark ettiğini unutmayacaksın.",
+          "onEnter": [
+            {
+              "op": "match",
+              "goals": 1,
+              "rating": 1.2,
+              "incident": "inc_scored_penalty"
             },
             {
               "flag": "moral",
               "op": "add",
-              "value": -4
-            }
-          ],
-          "persona": {
-            "mizac": 5,
-            "durus": 4
-          }
-        },
-        {
-          "id": "c_leave",
-          "text": "Geri çekil. Bu onun görevi, bugün değil.",
-          "target": "n_left_it",
-          "effects": [
-            {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 6
+              "value": 10
             },
             {
               "flag": "taraftar_destegi",
               "op": "add",
-              "value": -8
+              "value": 8
             },
             {
               "flag": "medya_baskisi",
               "op": "add",
-              "value": 6
+              "value": -5
+            }
+          ]
+        },
+        "n_scored_panenka": {
+          "title": "Kibir ve zarafet",
+          "kind": "outcome",
+          "text": "Top havada asılı kalıyor, kaleci yerde, ağlar yavaşça şişiyor. Stadyum önce susuyor, sonra deliriyor. {actor.manager.name} kenarda kollarını kavuşturmuş; alkışlamıyor.",
+          "onEnter": [
+            {
+              "op": "match",
+              "goals": 1,
+              "rating": 1.6,
+              "incident": "inc_scored_penalty"
             },
             {
-              "flag": "mem_gave_up_penalty",
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "mem_scored_final_penalty",
               "op": "set",
               "value": true
             }
-          ],
-          "persona": {
-            "sadakat": 5,
-            "mizac": -4
-          }
+          ]
         },
-        {
-          "id": "c_ask",
-          "text": "{actor.captain.first:dat} dön: \"Bacağın tutmuyor. Bırak ben atayım.\"",
-          "target": "n_roll_self",
-          "requires": {
-            "flag": "liderlik",
-            "op": "gte",
-            "value": 65
-          },
-          "lockLabel": "[Liderlik 65]",
-          "effects": [
+        "n_missed": {
+          "title": "Direk",
+          "kind": "outcome",
+          "text": "Sesi duyuyorsun — topun demire çarpma sesi, otuz bin kişinin nefesini aynı anda tutmasından daha yüksek. Geri dönerken kimseye bakmıyorsun. Kale arkasında bir çocuk ağlıyor, formasında senin numaran var.",
+          "onEnter": [
             {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": 4
+              "op": "match",
+              "rating": -1.4,
+              "incident": "inc_missed_penalty"
             },
             {
-              "flag": "liderlik",
+              "flag": "moral",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "mem_missed_final_penalty",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_left_it": {
+          "title": "Bir adım geri",
+          "kind": "outcome",
+          "text": "{actor.captain.first} topu noktaya koyuyor ve atıyor. Sevinirken sana bakıyor; teşekkür mü, meydan okuma mı, anlamıyorsun. Tribünden bir ıslık geliyor. Yarın {actor.pundit.name:gen} programında bu on saniye üç kez dönecek.",
+          "onEnter": [
+            {
+              "op": "match",
+              "assists": 0,
+              "rating": -0.2,
+              "incident": "inc_refused_penalty"
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
               "op": "add",
               "value": 5
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -3
             },
             {
               "flag": "npc_captain_arc",
               "op": "add",
               "value": 1
             }
-          ],
-          "persona": {
-            "durus": 5,
-            "sadakat": 3
-          }
-        },
-        {
-          "id": "c_panenka",
-          "text": "Al ve kaşıklayarak at. Ya efsane olursun ya da malzeme.",
-          "target": "n_roll_panenka",
-          "requires": {
-            "flag": "persona_mizac",
-            "op": "gte",
-            "value": 60
-          },
-          "lockLabel": "[Mizaç 60]",
-          "effects": [
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Nokta Atışı",
+          "kind": "branch",
+          "text": "Top beyaz noktada tek başına duruyor. Çimler ezilmiş, rutubet kokusu terin önüne geçiyor. {actor.captain.name} yanına geliyor, nefes nefese. Kaptanlık pazubandı kolunda kaymış, gözleri stadyumun en üst katına, boşluğa bakıyor. Bir şeyler fısıldıyor ama gürültüden seçilmiyor. Sadece elindeki topu sana doğru uzatıyor. Parmakları titriyor.",
+          "choices": [
             {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": -14
+              "id": "c_safe",
+              "text": "Topu geri çevir. 'Senin sorumluluğun kaptan, devam et.'",
+              "target": "n_refused",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
             },
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
+              "id": "c_risky",
+              "text": "Topu çekip al. Tek kelime etmeden noktaya yürü.",
+              "target": "n_missed",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
             },
             {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": -8
+              "id": "c_grey",
+              "text": "Kaptanın kulağına fısılda: 'Bu maçtan sonra transferi garantileriz, topu bana bırak.'",
+              "target": "n_scored",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bak ve güven vererek koluna dokun. 'Birlikte atacağız.'",
+              "target": "n_scored",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]",
+              "persona": {
+                "mizac": 5
+              }
             }
-          ],
-          "persona": {
-            "mizac": 8,
-            "durus": 5
-          }
+          ]
+        },
+        "n_missed": {
+          "title": "İkinci Bir Şans Yok",
+          "kind": "outcome",
+          "text": "Top kalecinin eldivenlerinde patlıyor. Dönüşünde topa vuramadın, sadece yere bakıyorsun. Taraftarın uğultusu uğultuya dönüşüyor, yerini derin bir boşluğa bırakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_missed_final_penalty",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_missed_penalty"
+            }
+          ]
+        },
+        "n_refused": {
+          "title": "Görev Bilinci",
+          "kind": "outcome",
+          "text": "Top kaptanın ayağına gidiyor. Çıkardığı şut direğe çarpıp dışarı çıkıyor. Sorumluluktan kaçmanın ağırlığı, kaçan golün hayal kırıklığından daha ağır geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_gave_up_penalty",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_refused_penalty"
+            }
+          ]
+        },
+        "n_scored": {
+          "title": "Sorumluluğun Bedeli",
+          "kind": "outcome",
+          "text": "Fileler sarsılıyor. Stadın sesi yükseliyor ama kutlamalara katılmıyorsun. {actor.captain.name} saha kenarında, gözlerini senden kaçırıyor. Kazandın ama takımın içinde bir şey koptu.",
+          "onEnter": [
+            {
+              "flag": "mem_scored_final_penalty",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "match",
+              "incident": "inc_scored_penalty"
+            }
+          ]
         }
-      ]
-    },
-    "n_roll_self": {
-      "title": "Koşu",
-      "kind": "roll",
-      "text": "Topu noktaya koyuyorsun. Kalecinin gözlerine bakmamayı öğrendin; ayakkabının bağına bakıyorsun.",
-      "outcomes": [
-        {
-          "target": "n_scored",
-          "weight": {
-            "base": 25,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": 0.7
-              },
-              {
-                "flag": "moral",
-                "scale": 0.25
-              }
-            ]
-          }
-        },
-        {
-          "target": "n_missed",
-          "weight": {
-            "base": 55,
-            "modifiers": [
-              {
-                "flag": "medya_baskisi",
-                "scale": 0.3
-              },
-              {
-                "flag": "teknik",
-                "scale": -0.35
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "n_roll_panenka": {
-      "title": "Kaşık",
-      "kind": "roll",
-      "text": "Kısa bir koşu. Kaleci erken yatıyor. Ayağın topun altına giriyor ve zaman geriliyor.",
-      "outcomes": [
-        {
-          "target": "n_scored_panenka",
-          "weight": {
-            "base": 10,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": 0.55
-              },
-              {
-                "flag": "persona_mizac",
-                "scale": 0.2
-              }
-            ]
-          }
-        },
-        {
-          "target": "n_missed",
-          "weight": {
-            "base": 70,
-            "modifiers": [
-              {
-                "flag": "teknik",
-                "scale": -0.2
-              }
-            ]
-          }
-        }
-      ]
-    },
-    "n_scored": {
-      "title": "Ağlar",
-      "kind": "outcome",
-      "text": "Top direğin dibinden ağlara gidiyor. Tribün patlıyor. {actor.captain.first} sana koşan ilk kişi değil — üçüncü. Bunu fark ediyorsun ve fark ettiğini unutmayacaksın.",
-      "onEnter": [
-        {
-          "op": "match",
-          "goals": 1,
-          "rating": 1.2,
-          "incident": "inc_scored_penalty"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": 10
-        },
-        {
-          "flag": "taraftar_destegi",
-          "op": "add",
-          "value": 8
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": -5
-        }
-      ]
-    },
-    "n_scored_panenka": {
-      "title": "Kibir ve zarafet",
-      "kind": "outcome",
-      "text": "Top havada asılı kalıyor, kaleci yerde, ağlar yavaşça şişiyor. Stadyum önce susuyor, sonra deliriyor. {actor.manager.name} kenarda kollarını kavuşturmuş; alkışlamıyor.",
-      "onEnter": [
-        {
-          "op": "match",
-          "goals": 1,
-          "rating": 1.6,
-          "incident": "inc_scored_penalty"
-        },
-        {
-          "flag": "sokak_itibari",
-          "op": "add",
-          "value": 12
-        },
-        {
-          "flag": "taraftar_destegi",
-          "op": "add",
-          "value": 14
-        },
-        {
-          "flag": "iliski_manager",
-          "op": "add",
-          "value": -6
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 8
-        },
-        {
-          "flag": "mem_scored_final_penalty",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_missed": {
-      "title": "Direk",
-      "kind": "outcome",
-      "text": "Sesi duyuyorsun — topun demire çarpma sesi, otuz bin kişinin nefesini aynı anda tutmasından daha yüksek. Geri dönerken kimseye bakmıyorsun. Kale arkasında bir çocuk ağlıyor, formasında senin numaran var.",
-      "onEnter": [
-        {
-          "op": "match",
-          "rating": -1.4,
-          "incident": "inc_missed_penalty"
-        },
-        {
-          "flag": "moral",
-          "op": "add",
-          "value": -14
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 18
-        },
-        {
-          "flag": "taraftar_destegi",
-          "op": "add",
-          "value": -6
-        },
-        {
-          "flag": "mem_missed_final_penalty",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_left_it": {
-      "title": "Bir adım geri",
-      "kind": "outcome",
-      "text": "{actor.captain.first} topu noktaya koyuyor ve atıyor. Sevinirken sana bakıyor; teşekkür mü, meydan okuma mı, anlamıyorsun. Tribünden bir ıslık geliyor. Yarın {actor.pundit.name:gen} programında bu on saniye üç kez dönecek.",
-      "onEnter": [
-        {
-          "op": "match",
-          "assists": 0,
-          "rating": -0.2,
-          "incident": "inc_refused_penalty"
-        },
-        {
-          "flag": "medya_baskisi",
-          "op": "add",
-          "value": 10
-        },
-        {
-          "flag": "iliski_takim",
-          "op": "add",
-          "value": 5
-        },
-        {
-          "flag": "npc_captain_arc",
-          "op": "add",
-          "value": 1
-        }
-      ]
+      }
     }
-  }
+  ]
 }
