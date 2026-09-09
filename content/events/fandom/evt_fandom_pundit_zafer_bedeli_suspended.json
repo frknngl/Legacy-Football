@@ -328,6 +328,180 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kilitli Kapı",
+          "kind": "branch",
+          "text": "Stüdyo koridorunun soğuk ışıkları, yerdeki cilalı taşlara vuruyor. {actor.pundit.name}, elinde kalın bir dosyayla, yapımcı odasının kapısı önünde duruyor. İçeriden gelen kahkahalar, {actor.pundit.name} kapıyı hafifçe araladığında kesiliyor. Masanın başındaki kişi, dosyaya değil doğrudan gözlerinin içine bakıyor. Söyleyecek tek bir kelime yok; sadece başını iki yana sallıyor. Kapı yavaşça, ancak bir daha açılmamak üzere yüzüne kapanıyor. Koridorun sessizliği, kulaklarını tırmalayan tek ses.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Dosyayı çantana atıp yan kapıdan çık. Kimseyle göz göze gelme.",
+              "target": "n_sonuc_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_profesyonellik",
+              "text": "Dosyayı kapının önünde bırakıp, başını dik tutarak binadan ayrıl.",
+              "target": "n_sonuc_profesyonel",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Odaya geri dön, bağırmak için değil; sadece olup biteni herkesin duymasını sağla.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "İçeridekilerin zayıf noktasını hatırla. Onları şahsen ara; dosyayı koz olarak masaya sür.",
+              "target": "n_sonuc_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı 74]"
+            }
+          ]
+        },
+        "n_sonuc_servet": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Otoparka ulaştığında hava kararmıştı. Elindeki dosya ağır, zihnin ise boş. Kimseye hesap vermeyeceksin, ama kendi aynanda gördüğün o ifade artık yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_profesyonel": {
+          "title": "Soğukkanlılık",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek en zoruydu. Kimse seni alkışlamadı, kimse arkandan gelmedi. Sadece profesyonel bir nezaketle bu kapıyı kapattın, ardında kalan her şeyle birlikte.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Gürültülü Bir Ayrılık",
+          "kind": "outcome",
+          "text": "Koridorlarda yankılanan sesin, binanın dışına taştı. Şimdi herkes seni konuşuyor; kimisi kahraman diyor, kimisi ise batan geminin son çığlığı. Yalnızsın ama sesin henüz kısılmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_kilitli": {
+          "title": "Kirli Pazarlık",
+          "kind": "outcome",
+          "text": "Telefondaki sesin tonu değişti. Kapı sana açıldı ama bedeli ruhunun bir parçasını daha aşındırmak oldu. İçeri girerken kazandığını sanıyorsun, oysa sadece geciktiriyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

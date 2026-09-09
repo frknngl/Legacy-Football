@@ -30,141 +30,315 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Bir Hesap",
-      "kind": "branch",
-      "text": "Antrenman sahasından uzakta, revirin loş ışığında tek başınasın. {actor.childhood_friend.name} kapıda belirdiğinde, yirmi hafta önce o karanlık kulüp odasında {actor.fixer.name} ile kurduğun kirli pazarlığı hatırlıyorsun. Masadaki o zarf, o gün attığın imza; kariyerini kurtaran o hamlenin tek bir faturası vardı. Arkadaşın konuşmuyor, sadece o günkü mutabakatın kağıda dökülmüş suretini yatağının ucuna bırakıyor. Gözleri, sakat bacağında değil, alması gereken payda.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Banka hesabına erişim ver. Faturayı öde, konuyu kapat.",
-          "target": "n_outcome_pay",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Hesap",
+          "kind": "branch",
+          "text": "Antrenman sahasından uzakta, revirin loş ışığında tek başınasın. {actor.childhood_friend.name} kapıda belirdiğinde, yirmi hafta önce o karanlık kulüp odasında {actor.fixer.name} ile kurduğun kirli pazarlığı hatırlıyorsun. Masadaki o zarf, o gün attığın imza; kariyerini kurtaran o hamlenin tek bir faturası vardı. Arkadaşın konuşmuyor, sadece o günkü mutabakatın kağıda dökülmüş suretini yatağının ucuna bırakıyor. Gözleri, sakat bacağında değil, alması gereken payda.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "id": "c_guvenli",
+              "text": "Banka hesabına erişim ver. Faturayı öde, konuyu kapat.",
+              "target": "n_outcome_pay",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_riskli",
+              "text": "İnkar et. Kapıdan çıkıp gitmesini söyle. Bu işin sonu iyi bitmeyecek.",
+              "target": "n_outcome_deny",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -20
+              "id": "c_gri",
+              "text": "Yeni bir borç senedi imzala. Parayı başkasından alıp buraya aktar.",
+              "target": "n_outcome_borrow",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
             }
-          ],
-          "persona": {
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "İnkar et. Kapıdan çıkıp gitmesini söyle. Bu işin sonu iyi bitmeyecek.",
-          "target": "n_outcome_deny",
-          "effects": [
+        "n_outcome_pay": {
+          "title": "Hesap Kapatıldı",
+          "kind": "outcome",
+          "text": "Sessizce başını sallayıp onayı verdiğinde, telefonunun ekranında parlayan rakamlar bir çırpıda silinip gidiyordu. O karanlık odanın ve kirli pazarlığın yarattığı ağırlık, omuzlarından yavaşça çekilip revirin soğuk zeminine döküldü. Banka hesabındaki o boşluk içini sızlatsa da, {actor.childhood_friend.name} elindeki dekontu alıp hiçbir şey demeden kapıdan çıktı. Artık odada sadece revirdeki antiseptik kokusu ve kapının ardından gelen uzak antrenman sesleri kaldı.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 10
+              "flag": "mem_social_ayartma_fixer_yakin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "dogruluk": -8
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Yeni bir borç senedi imzala. Parayı başkasından alıp buraya aktar.",
-          "target": "n_outcome_borrow",
-          "effects": [
+        "n_outcome_deny": {
+          "title": "Gerilim Tırmanıyor",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} dudaklarının kenarında belli belirsiz, zehirli bir gülümsemeyle sana bakarken odadaki hava bir anda ağırlaştı. Yanından geçerken omzuna attığı sert darbe, aranızdaki tüm geçmişin ve samimiyetin artık birer tortudan ibaret olduğunu yüzüne vurdu. Kapı arkasından kapanırken çıkan tok ses, yarın sabah gazete manşetlerinde isminin yer alacağı o huzursuz gerçeği mühürledi. Sessizlik çöktüğünde sadece dışarıdaki rüzgarın camlara vuruşunu duyabiliyordun.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "iliski_childhood_friend",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_social_ayartma_fixer_yakin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": -5
-          }
+          ]
+        },
+        "n_outcome_borrow": {
+          "title": "Zincirleme Reaksiyon",
+          "kind": "outcome",
+          "text": "Yeni bir sözleşme, yeni bir yükümlülük. {actor.childhood_friend.name} kağıdı alıp gidiyor, ancak zihninde bu yeni borcun ağırlığı birikmeye başlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_pay": {
-      "title": "Hesap Kapatıldı",
-      "kind": "outcome",
-      "text": "Sessizce başını sallayıp onayı verdiğinde, telefonunun ekranında parlayan rakamlar bir çırpıda silinip gidiyordu. O karanlık odanın ve kirli pazarlığın yarattığı ağırlık, omuzlarından yavaşça çekilip revirin soğuk zeminine döküldü. Banka hesabındaki o boşluk içini sızlatsa da, {actor.childhood_friend.name} elindeki dekontu alıp hiçbir şey demeden kapıdan çıktı. Artık odada sadece revirdeki antiseptik kokusu ve kapının ardından gelen uzak antrenman sesleri kaldı.",
-      "onEnter": [
-        {
-          "flag": "mem_social_ayartma_fixer_yakin",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Semtin Kokusu",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin otoparkında, yağmur şiddetini artırıyor. {actor.childhood_friend.name} arabanın camına vuruyor. Yüzü çamur ve hayal kırıklığı içinde. İçerideki deri koltukların kokusu ile dışarıdaki ucuz sigara dumanı birbirine karışıyor. {actor.childhood_friend.name} elindeki yırtık dekontu sileceklerin altına sıkıştırıyor. Göz göze geldiğinizde artık bir yıldız değil, o eski mahalledeki çelimsiz çocuksun. Söylediği tek şey: 'O gün verdiğin söz, bu faturanın ağırlığından daha hafifti.'",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Cüzdanındaki tüm nakiti çıkarıp ona fırlat. Arkana bakmadan gaza bas.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Arabadan in. Onu herkesin göreceği şekilde kenara çek ve sesini yükselt.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini kapat, camı yarıya kadar aç. 'Burada kimseyi tanımıyorum' de.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Onu araca al. Yüzündeki maskenin nasıl parçalandığını izlemesine izin ver.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Profil]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Sessizlik en büyük borç ödeme biçimidir. Parayı aldı, tek kelime etmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Sokakların Sesi",
+          "kind": "outcome",
+          "text": "Bağırdın. Güç gösterisi işe yaradı ama otoparktaki güvenlik kameraları her şeyi kaydetti.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kopan Bağlar",
+          "kind": "outcome",
+          "text": "İçindeki o eski suçluluk duygusu bir anlık keskin bir acıyla söndü. Artık tamamen profesyonelsin.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Maskesiz",
+          "kind": "outcome",
+          "text": "Yıllardır sakladığın o çocuk, seninle aynı koltuğa oturdu. İkiniz de yorgunsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_deny": {
-      "title": "Gerilim Tırmanıyor",
-      "kind": "outcome",
-      "text": "{actor.childhood_friend.name} dudaklarının kenarında belli belirsiz, zehirli bir gülümsemeyle sana bakarken odadaki hava bir anda ağırlaştı. Yanından geçerken omzuna attığı sert darbe, aranızdaki tüm geçmişin ve samimiyetin artık birer tortudan ibaret olduğunu yüzüne vurdu. Kapı arkasından kapanırken çıkan tok ses, yarın sabah gazete manşetlerinde isminin yer alacağı o huzursuz gerçeği mühürledi. Sessizlik çöktüğünde sadece dışarıdaki rüzgarın camlara vuruşunu duyabiliyordun.",
-      "onEnter": [
-        {
-          "flag": "mem_social_ayartma_fixer_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_borrow": {
-      "title": "Zincirleme Reaksiyon",
-      "kind": "outcome",
-      "text": "Yeni bir sözleşme, yeni bir yükümlülük. {actor.childhood_friend.name} kağıdı alıp gidiyor, ancak zihninde bu yeni borcun ağırlığı birikmeye başlıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_social_ayartma_fixer_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  },
-  "once": true
+  ]
 }

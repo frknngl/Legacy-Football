@@ -17,115 +17,260 @@
     "playing",
     "retired"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Bir Borç",
-      "kind": "branch",
-      "text": "Emekliliğin sessizliği, büyük stadyumların gürültüsünden daha sağır edici. Masanın üzerinde duran sarı zarf, {actor.childhood_friend.name} tarafından bırakılmış. Yıllardır beraber yürüdüğünüz o tozlu sokakların kokusu, zarfın üzerindeki rutubetle odaya siniyor. {actor.childhood_friend.name} artık yok; sadece geride bıraktığı bu el yazısı ve ödenmemiş bir hesap var. Pencereden dışarı bakıyorsun, şehir değişmiş. Sadece sen ve o aynı yerdesiniz, ama aranızdaki mesafe artık bir ömür kadar uzun.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Zarfı hiç açmadan yak. Biten bir hikaye, sadece küllerle hatırlanmalı.",
-          "target": "n_outcome_1",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borç",
+          "kind": "branch",
+          "text": "Emekliliğin sessizliği, büyük stadyumların gürültüsünden daha sağır edici. Masanın üzerinde duran sarı zarf, {actor.childhood_friend.name} tarafından bırakılmış. Yıllardır beraber yürüdüğünüz o tozlu sokakların kokusu, zarfın üzerindeki rutubetle odaya siniyor. {actor.childhood_friend.name} artık yok; sadece geride bıraktığı bu el yazısı ve ödenmemiş bir hesap var. Pencereden dışarı bakıyorsun, şehir değişmiş. Sadece sen ve o aynı yerdesiniz, ama aranızdaki mesafe artık bir ömür kadar uzun.",
+          "choices": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_guvenli",
+              "text": "Zarfı hiç açmadan yak. Biten bir hikaye, sadece küllerle hatırlanmalı.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
+              "id": "c_riskli",
+              "text": "Zarfı yerel bir gazeteye götür. Hikaye, senin değil, onun hatası.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfın içindeki parayı al ve bir hayır kurumuna bağışla. Temiz bir vicdan, en pahalı lükstür.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
             }
-          ],
-          "persona": {
-            "durus": 8
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Zarfı yerel bir gazeteye götür. Hikaye, senin değil, onun hatası.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Küller",
+          "kind": "outcome",
+          "text": "Alevler kağıdı yavaşça yutarken, {actor.childhood_friend.name} ile paylaştığın sırlar da yok oluyor. Artık sana ait tek bir iz bile kalmadı. Geçmiş, bir hayaletten ibaret.",
+          "onEnter": [
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_personal_terk_edilis_childhood_friend",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "sadakat": -10
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Zarfın içindeki parayı al ve bir hayır kurumuna bağışla. Temiz bir vicdan, en pahalı lükstür.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_2": {
+          "title": "İfşa",
+          "kind": "outcome",
+          "text": "Manşetler yarın seni değil, o eski dostluğu yargılayacak. {actor.childhood_friend.name} bir isimden, bir skandala dönüştü. İtibarın temizleniyor ama aynadaki yüzün artık sana yabancı.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 5000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_personal_terk_edilis_childhood_friend",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "dogruluk": 5
-          }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Parayı sisteme soktun. {actor.childhood_friend.name} ile arandaki bağ, bir makbuzla mühürlendi. Yardım ettiğin insanlar minnettar, ancak ruhundaki o boşluk kapanmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_1": {
-      "title": "Küller",
-      "kind": "outcome",
-      "text": "Alevler kağıdı yavaşça yutarken, {actor.childhood_friend.name} ile paylaştığın sırlar da yok oluyor. Artık sana ait tek bir iz bile kalmadı. Geçmiş, bir hayaletten ibaret.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_terk_edilis_childhood_friend",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Otoparkta",
+          "kind": "branch",
+          "text": "Antrenman sahasının dışındaki tel örgülerde, paslı zincirin ucunda sallanan bir kilit. {actor.childhood_friend.name} arabanın kaputuna yaslanmış, elinde senin ilk profesyonel sözleşmende giydiğin o eski tekmelikler var. \"Geriye sadece bunlar mı kaldı?\" diye soruyor, sesi yorgun. Bir zamanlar omuz omuza verdiğiniz kavgaların, yediğiniz o soğuk ekmeklerin hiçbir hükmü kalmamış gibi bakıyor. Bir şeyler söylemeni bekliyor ama ne söylesen aradaki o derin çatlağı kapatmayacak. Elindeki tekmelikleri çöp kutusuna doğru havaya kaldırıyor; düşürmekle bırakmak arasında bir an.",
+          "choices": [
+            {
+              "id": "c_sessiz_kabul",
+              "text": "Tekmelikleri al, sessizce arabanın bagajına koy. Kimse geçmişi kazmamalı.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_hesap_sorma",
+              "text": "Onunla otoparkın ortasında tartış. Herkes duysun, bu ihaneti o başlattı.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -6
+              }
+            },
+            {
+              "id": "c_odeme_teklif",
+              "text": "Ona bir tomar para uzat. 'Artık dünyalarımız farklı, bu hesabı kapatalım.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 20000
+              },
+              "lockLabel": "[Yeterli Nakit Yok]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Gözlerinin içine bakmadan arabanı çalıştırdın. Arkanda kalan toz bulutunun içinde {actor.childhood_friend.name} silinip gitti. Artık sadece bir profesyonelsin.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Gürültülü Kopuş",
+          "kind": "outcome",
+          "text": "Bağırışlarınız otoparkın duvarlarında yankılandı. Çevredeki insanlar durup size baktı. Artık geri dönüşü olmayan o keskin çizgiyi çektin, ikiniz için de.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Satın Alınan Geçmiş",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} parayı aldı ama bakışlarındaki o tanıdık ışık söndü. Sadece bir yabancıyla el sıkışıp vedalaştın. Vicdanın, banka hesabındaki eksilmeyi telafi etmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "İfşa",
-      "kind": "outcome",
-      "text": "Manşetler yarın seni değil, o eski dostluğu yargılayacak. {actor.childhood_friend.name} bir isimden, bir skandala dönüştü. İtibarın temizleniyor ama aynadaki yüzün artık sana yabancı.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_terk_edilis_childhood_friend",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": "Bedel",
-      "kind": "outcome",
-      "text": "Parayı sisteme soktun. {actor.childhood_friend.name} ile arandaki bağ, bir makbuzla mühürlendi. Yardım ettiğin insanlar minnettar, ancak ruhundaki o boşluk kapanmayacak.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_terk_edilis_childhood_friend",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

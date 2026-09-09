@@ -331,6 +331,175 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin çıkışında, paslanmış servis kapısının önündeyiz. Yağmur, zemindeki çamuru ayakkabılarına yapıştırıyor. {actor.fan_leader.name} duvara yaslanmış, elinde tuttuğu bir avuç eski kulüp rozetini birbirine sürterek metalik bir ses çıkarıyor. Gözleri doğrudan senin üzerinde. Çevrede kimse yok, güvenlik kameraları bile bu kör noktayı görmezden geliyor. {actor.fan_leader.name} dudaklarını ısırıyor; söyleyeceği şeyin senin için bir yıkım, kendisi içinse bir kurtuluş olduğunun farkında. Sessizlik, bir kararın ağırlığıyla iyice ağırlaşıyor.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Rozetlerin olduğu avucunu tutup sıkıca kapat. 'Bunu unut, yarın her şey düzelmiş olacak.'",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Yüzüne bakmadan omzuna sertçe vur. 'Bir dahaki maça pankartları hazırla, gerisini bana bırak.'",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Arkanı dönüp git. Adım seslerinin yağmurla birleşmesine izin ver. Hiçbir şey demeden ilerle.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Ona doğru bir adım at, yorgunluğunu hissettir. 'Bunu neden şimdi yapıyorsun? İnsanları tüketiyorsun.'",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Yüksek Bağlılık]"
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Avucuna bıraktığı soğuk metal parçaları, kazancın ağırlığı gibi elinde kalıyor. O, hiçbir şey demeden karanlığa karışıyor. Bu anın lekesi artık senin gölgen.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Tehlikeli Ortaklık",
+          "kind": "outcome",
+          "text": "Bakışları, bir suç ortağının sadakatiyle parlıyor. Bu gece kurulan bu bağ, gelecekteki disiplin raporlarının ilk satırı olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Uzak Durmak",
+          "kind": "outcome",
+          "text": "Arkanı dönüp yürüdüğünde, arkandan tek bir ses bile duymuyorsun. Sadece yağmurun sesi. Doğru olanı yaptın, ama bedeli yalnızlık.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Tükenmişlik",
+          "kind": "outcome",
+          "text": "Sözlerinin etkisini yüzündeki o kırgın ifadede görüyorsun. İkiniz de aynı yükü paylaşıyorsunuz, omuzların bu ağırlığı daha fazla taşımayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_taninma_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

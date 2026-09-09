@@ -21,150 +21,295 @@
     "playing",
     "injured"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Otuz Dokuzuncu Tekrar",
-      "kind": "branch",
-      "text": "Stüdyoda sekiz saattir duruyorsun. Tek cümle var:\n\n*\"Hız, cesaret ister.\"*\n\nOtuz dokuz kez söyledin. Yönetmen her seferinde \"Bir daha, ama daha inanarak\" diyor.\n\nCümleye inanmıyorsun çünkü cümle bir şey demiyor. Bunu söylemek yasak değil ama söyleyen kimseyi de görmedin.\n\n{actor.agent.name} kapının yanında telefonuna bakıyor. Sözleşmede \"gün başı\" yazıyor; gün bitmek üzere ve bu, onun problemi değil.",
-      "choices": [
-        {
-          "id": "c_devam",
-          "text": "Kırkıncı kez söyle. Sonra kırk birinci.",
-          "target": "n_devam",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Otuz Dokuzuncu Tekrar",
+          "kind": "branch",
+          "text": "Stüdyoda sekiz saattir duruyorsun. Tek cümle var:\n\n*\"Hız, cesaret ister.\"*\n\nOtuz dokuz kez söyledin. Yönetmen her seferinde \"Bir daha, ama daha inanarak\" diyor.\n\nCümleye inanmıyorsun çünkü cümle bir şey demiyor. Bunu söylemek yasak değil ama söyleyen kimseyi de görmedin.\n\n{actor.agent.name} kapının yanında telefonuna bakıyor. Sözleşmede \"gün başı\" yazıyor; gün bitmek üzere ve bu, onun problemi değil.",
+          "choices": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 180000
+              "id": "c_devam",
+              "text": "Kırkıncı kez söyle. Sonra kırk birinci.",
+              "target": "n_devam",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 180000
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 7
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "sadakat": 4
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 7
+              "id": "c_degistir",
+              "text": "Cümleyi kendin değiştir. Kendi ağzına oturanı söyle.",
+              "target": "n_degistir",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 120000
+                }
+              ],
+              "persona": {
+                "durus": 9
+              }
             },
             {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -8
+              "id": "c_cik",
+              "text": "Mikrofonu masaya bırak ve çık.",
+              "target": "n_cik",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -60000
+                },
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -16
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 9
+                }
+              ],
+              "persona": {
+                "mizac": 11
+              }
             }
-          ],
-          "persona": {
-            "sadakat": 4
-          }
+          ]
         },
-        {
-          "id": "c_degistir",
-          "text": "Cümleyi kendin değiştir. Kendi ağzına oturanı söyle.",
-          "target": "n_degistir",
-          "effects": [
+        "n_devam": {
+          "title": "Elli İkinci",
+          "kind": "outcome",
+          "text": "Elli ikincide \"Tamam!\" dediler.\n\nReklam üç ay yayında kaldı. Sokakta çocuklar o cümleyi taklit ederek bağırdı; hepsi aynı tonda, hepsi yanlış tonda.\n\nPara hesaba geçti. Cümle hâlâ bir şey demiyor.",
+          "onEnter": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": 9
-            },
-            {
-              "flag": "iliski_agent",
-              "op": "add",
-              "value": -8
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 120000
+              "flag": "mem_reklam_tamamlandi",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": 9
-          }
+          ]
         },
-        {
-          "id": "c_cik",
-          "text": "Mikrofonu masaya bırak ve çık.",
-          "target": "n_cik",
-          "effects": [
+        "n_degistir": {
+          "title": "Kendi Cümlen",
+          "kind": "outcome",
+          "text": "\"Hız cesaret istemez,\" dedin. \"Hız, geç kalmaktan korkmaktır.\"\n\nStüdyo sustu. Yönetmen bir şey demedi, çekti.\n\nMarka az ödedi, kampanya küçük çıktı — ve o cümle yıllarca senin cümlen olarak dolaştı. {actor.agent.name} hâlâ kızgın.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -60000
-            },
-            {
-              "flag": "iliski_agent",
-              "op": "add",
-              "value": -16
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 9
+              "flag": "mem_reklam_kendi_cumlesi",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": 11
-          }
-        }
-      ]
-    },
-    "n_devam": {
-      "title": "Elli İkinci",
-      "kind": "outcome",
-      "text": "Elli ikincide \"Tamam!\" dediler.\n\nReklam üç ay yayında kaldı. Sokakta çocuklar o cümleyi taklit ederek bağırdı; hepsi aynı tonda, hepsi yanlış tonda.\n\nPara hesaba geçti. Cümle hâlâ bir şey demiyor.",
-      "onEnter": [
-        {
-          "flag": "mem_reklam_tamamlandi",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_degistir": {
-      "title": "Kendi Cümlen",
-      "kind": "outcome",
-      "text": "\"Hız cesaret istemez,\" dedin. \"Hız, geç kalmaktan korkmaktır.\"\n\nStüdyo sustu. Yönetmen bir şey demedi, çekti.\n\nMarka az ödedi, kampanya küçük çıktı — ve o cümle yıllarca senin cümlen olarak dolaştı. {actor.agent.name} hâlâ kızgın.",
-      "onEnter": [
-        {
-          "flag": "mem_reklam_kendi_cumlesi",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_cik": {
-      "title": "Kapı",
-      "kind": "outcome",
-      "text": "Mikrofonu masaya bıraktın. Kimse arkandan bir şey söylemedi çünkü kimse ne söyleyeceğini bilmiyordu.\n\nCezayı ödedin. Marka sözleşmeyi yenilemedi.\n\nSekiz ay sonra başka bir marka aradı ve ilk cümlesi şuydu: \"Size hazır metin vermeyeceğiz.\"",
-      "onEnter": [
-        {
-          "flag": "mem_reklam_terk_etti",
-          "op": "set",
-          "value": true
+          ]
         },
-        {
-          "flag": "mem_sozlesme_bozdu",
-          "op": "set",
-          "value": true
+        "n_cik": {
+          "title": "Kapı",
+          "kind": "outcome",
+          "text": "Mikrofonu masaya bıraktın. Kimse arkandan bir şey söylemedi çünkü kimse ne söyleyeceğini bilmiyordu.\n\nCezayı ödedin. Marka sözleşmeyi yenilemedi.\n\nSekiz ay sonra başka bir marka aradı ve ilk cümlesi şuydu: \"Size hazır metin vermeyeceğiz.\"",
+          "onEnter": [
+            {
+              "flag": "mem_reklam_terk_etti",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_sozlesme_bozdu",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda",
+          "kind": "branch",
+          "text": "Stüdyonun soğuk ışıkları altında, beyaz bir fonun önünde tek başınasın. {actor.agent.name} kameranın hemen arkasında, parmaklarıyla saati işaret ediyor. Yönetmen sesleniyor: 'Bu kez markanın ruhuna hitap et. Samimiyet, sadece samimiyet.' Elindeki senaryo, hayatında hiç söylemeyeceğin cümlelerle dolu. Oysa az önce menajerin, bu çekimin kariyerinin finansal kırılma noktası olduğunu fısıldadı. Işıklar gözlerini yakıyor.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Metni buruşturup at. Kendi cümlelerini kur ve kameraya bakıp 'Bu marka benim oyunuma değil, sadece parama talip' de.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Senaryoyu ezberlemiş gibi kusursuz oku. Duygusuz, mekanik, profesyonel.",
+              "target": "n_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Teklif edilen büyük çeki sessizce cebine sok. Reklamda oynamayı reddet ama parayı kabul et.",
+              "target": "n_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -10
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 0
+              },
+              "lockLabel": "[Müzakere Yeteneği]"
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "İsyanın Sesi",
+          "kind": "outcome",
+          "text": "{actor.agent.name} şok içinde sana bakıyor. Yönetmen 'kes' diye bağırıyor ama sen çoktan stüdyonun kapısına yürümüş durumdasın.",
+          "onEnter": [
+            {
+              "flag": "mem_reklam_kendi_cumlesi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_safe": {
+          "title": "Kusursuzluk",
+          "kind": "outcome",
+          "text": "Kayıt bitti. Ekranlarda göreceğin kişi sen değilsin, sadece bir ürün. {actor.agent.name} sana onaylayıcı bir baş hareketi yapıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_reklam_tamamlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_grey": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Görüntülerin asla yayınlanmayacak. Sözleşmedeki maddeyi kullandın. {actor.agent.name} ile aranızda ağır, tanımlanamaz bir sessizlik var.",
+          "onEnter": [
+            {
+              "flag": "mem_sozlesme_bozdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
-  }
+  ]
 }

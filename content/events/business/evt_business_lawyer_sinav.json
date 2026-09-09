@@ -306,6 +306,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Durak",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki otoparkta, {actor.lawyer.name} aracının kapısını açık bırakmış, bagajın kenarına oturmuş bekliyor. Ortamda rutubet ve egzoz kokusu karışık. Elindeki dijital tabletin ekranı, yaklaşan sınavın sonuçlarını gösteren bir sekmede takılı kalmış. {actor.lawyer.name} başını kaldırıp sana bakıyor; gözlerinde ne bir teselli ne de profesyonel bir mesafe var. Sadece bir sessizlik. Yarın açıklanacak o liste, kariyerinin geri kalanını şekillendirecek olan kapının anahtarı. Ama kapı zaten kilitli değil, sadece yanlış tarafa açılıyor.",
+          "choices": [
+            {
+              "id": "c_a",
+              "text": "Tableti elinden al ve kır. Kimsenin bilmediği bir hata, hiç yaşanmamış bir hatadır.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_b",
+              "text": "Ekranı sessizce kapatıp {actor.lawyer.name} ile el sıkış. Prosedür neyse o, kuralları sen koymadın.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_c",
+              "text": "Tableti olduğu gibi bırak ve tribünlerin üst katına çık. Gerçeği taraftara sen anlatacaksın.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "İz Silindi",
+          "kind": "outcome",
+          "text": "Ekran tuzla buz oldu. Parçalar beton zemine saçılırken {actor.lawyer.name} sadece önüne baktı. Artık geri dönüş yok, sadece bir bedel ve onun getirdiği sessiz zenginlik var.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Prosedür",
+          "kind": "outcome",
+          "text": "El sıkışma kısa sürdü. {actor.lawyer.name} dosyaları topladı ve otoparktan ayrıldı. Doğru olanı yaptın, ama aynadaki yansıman artık eskisi kadar keskin bakmıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Açık Kartlar",
+          "kind": "outcome",
+          "text": "Arkanı dönüp merdivenlere yöneldin. Sesin yankılanıyor. {actor.lawyer.name} arkandan bir şey söylemedi, sadece sistemin dişlilerinin dönmeye başladığını duydun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

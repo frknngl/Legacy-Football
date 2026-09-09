@@ -374,6 +374,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yanan Ekran",
+          "kind": "branch",
+          "text": "Antrenman sahasının revirindesin. Uzaktan gelen top sesleri, bacağındaki alçının ağırlığıyla birleşince sinirlerini bozuyor. Telefonunun ekranı yanıp sönüyor. {actor.pundit.name} bir ses kaydı göndermiş. Kulaklığı taktığında, dışarıdaki yağmurun sesini bastıran o tanıdık, sakin ses duyuluyor. Stüdyoda, senin iyileşme sürecini 'yalan bir kaçış' olarak tanımladığı ve kulüp içindeki iç çekişmeleri detaylandırdığı o anlık yayın kaydı bu. Konuşmanın sonunda, senin isminle beraber bir 'emeklilik hazırlığı' imasında bulunuyor. Ekran, bu ihanetin soğuk ışığıyla parlamaya devam ediyor.",
+          "choices": [
+            {
+              "id": "c_taraftar_cephesi",
+              "text": "Sosyal medyadan canlı yayın açıp, bacağındaki sargıyı göstererek stüdyodaki yalanları tek tek çürüt.",
+              "target": "n_taraftar_zaferi",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_sessiz_profesyonellik",
+              "text": "Telefonu kapat, odadan çık ve rehabilitasyonuna kaldığın yerden devam et. Hiçbir şey olmamış gibi davran.",
+              "target": "n_sessiz_zafer",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_kilitli_anlasma",
+              "text": "Kayıdı sakla. {actor.pundit.name} ile iletişime geç; bu yayının bedelini sessiz kalması için yüklü bir ödeme yaparak ödet.",
+              "target": "n_gri_anlasma",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 100000
+              },
+              "lockLabel": "[Servet Yetersiz]"
+            }
+          ]
+        },
+        "n_taraftar_zaferi": {
+          "title": "Kitlelerin Desteği",
+          "kind": "outcome",
+          "text": "Yaptığın açıklama, taraftarların stüdyoyu basmasına neden oldu. {actor.pundit.name} geri adım atmak zorunda kaldı ama artık kulüp koridorlarında bir 'sorun çıkaran' olarak mimlendin. İtibarın sokakta zirvede, ancak yönetim gözünde artık tehlikelisin.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sessiz_zafer": {
+          "title": "İçsel Dayanıklılık",
+          "kind": "outcome",
+          "text": "Kimse senin ne hissettiğini bilmeyecek. İçindeki öfkeyi antrenman sahasındaki terle erittin. {actor.pundit.name} seni alt edemedi çünkü sen tepki bile vermedin. Bu, kariyerinin en yalnız ama en sağlam duruşu oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri_anlasma": {
+          "title": "Kirli Bir Sayfa",
+          "kind": "outcome",
+          "text": "Zarflar el değiştirdi. Yayın sustu. {actor.pundit.name} ertesi gün seni yere göğe sığdıramadı. Banka hesabından eksilen o para, aslında vicdanının bedeliydi. Kimse bilmeyecek, ama aynada kendine baktığında o sesi duyacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

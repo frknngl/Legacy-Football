@@ -330,6 +330,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapı",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarında, çimlerin üzerine düşen gölgeler uzuyor. {actor.star_teammate.name} kulüp binasının çelik kapısını ardında bırakmak üzere. Kilidin 'tık' sesi boşlukta çınlıyor. İçeride kalması gereken bir dosya, bir gelecek vaadi veya basit bir söz vardı. {actor.star_teammate.name} durmuyor; başını bile çevirmeden otomobiline yöneliyor. Motorun çalıştığı an, senin ona doğru attığın adımın yarım kalışıyla örtüşüyor. Aranızdaki cam, şimdi sadece bir soğukluk değil, aşılması imkansız bir mesafeye dönüştü.",
+          "choices": [
+            {
+              "id": "c_para",
+              "text": "Yerdeki dosyayı alıp içeri gir. Bugünlük mali beklentilerini başka birine dayatacak.",
+              "target": "n_outcome_para",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Arkalarından bağır. Herkesin duyacağı bir tonda, aranızdaki gerilimi sokağa taşı.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce soyunma odasına dön. Formalarını topla ve hiçbir şey olmamış gibi çalışmaya devam et.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kapıya omuz at, içeri gir ve {actor.star_teammate.name} ile yüzleş. Herkesin sustuğu o anı kendi lehine çevir.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı 74]"
+            }
+          ]
+        },
+        "n_outcome_para": {
+          "title": "Kişisel Çıkar",
+          "kind": "outcome",
+          "text": "Dosya elinde, sessizliğin bedelini ödedin. {actor.star_teammate.name} seni asla görmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "İpler Kopuyor",
+          "kind": "outcome",
+          "text": "Bağırışın rüzgarda eridi ama herkes duydu. {actor.star_teammate.name} bir kez bile dönüp bakmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Sessizlik, en ağır yük. {actor.star_teammate.name} uzaklaşırken sen kendi yolunu çizmeyi seçtin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Kapıyı zorladın, {actor.star_teammate.name} durmak zorunda kaldı. Bakışlarınız kilitlendi; artık geri dönüş yok.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

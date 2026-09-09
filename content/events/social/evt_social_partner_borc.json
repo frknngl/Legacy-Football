@@ -32,125 +32,292 @@
     "op": "eq",
     "value": 0
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Hesaplar",
-      "kind": "branch",
-      "text": "Antrenman sahasının çıkışında, motorunun üzerinde {actor.partner.name} bekliyor. Kaskını çıkarmamış, rüzgarın sesiyle karışık bir sessizlik. Yanına yaklaştığında, ceketinin iç cebinden yıpranmış bir zarf çıkarıp aynasına bırakıyor. 'İyi kazandın,' diyor, sesindeki soğukluk kaskın camından yansıyor. 'Ama söz verdiğin gün geçti. Şimdi borcunu ödeme vakti. Ya buraya bırakırsın ya da herkes bu zarfın içinde ne yazdığını merak etmeye başlar.' Çevredeki birkaç genç oyuncu meraklı bakışlarını üzerinize dikiyor. {actor.partner.name} gazı hafifçe çeviriyor, motorun sesi kalabalığı susturuyor.",
-      "choices": [
-        {
-          "id": "c_odeme_yap",
-          "text": "Cüzdanını çıkarıp desteyi {actor.partner.name} eline bırak. 'Tamamı burada. Bir daha buraya gelme.'",
-          "target": "n_kazanc_hesap",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışında, motorunun üzerinde {actor.partner.name} bekliyor. Kaskını çıkarmamış, rüzgarın sesiyle karışık bir sessizlik. Yanına yaklaştığında, ceketinin iç cebinden yıpranmış bir zarf çıkarıp aynasına bırakıyor. 'İyi kazandın,' diyor, sesindeki soğukluk kaskın camından yansıyor. 'Ama söz verdiğin gün geçti. Şimdi borcunu ödeme vakti. Ya buraya bırakırsın ya da herkes bu zarfın içinde ne yazdığını merak etmeye başlar.' Çevredeki birkaç genç oyuncu meraklı bakışlarını üzerinize dikiyor. {actor.partner.name} gazı hafifçe çeviriyor, motorun sesi kalabalığı susturuyor.",
+          "choices": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": -50000
+              "id": "c_odeme_yap",
+              "text": "Cüzdanını çıkarıp desteyi {actor.partner.name} eline bırak. 'Tamamı burada. Bir daha buraya gelme.'",
+              "target": "n_kazanc_hesap",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": 5
+              "id": "c_reddet_profesyonel",
+              "text": "Gözlerinin içine bak ve omuz silk. 'Burası iş yeri, burası sokak değil. Avukatımla görüş, sonra gelirsin.'",
+              "target": "n_profesyonel_bedel",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -2
+              "id": "c_tehdit_et",
+              "text": "Motorun gidonuna elini at, yüzüne doğru eğil. 'Kimi tehdit ettiğini unutma. Bu zarfı yırtar, seni de buradan kovdururum.'",
+              "target": "n_riskli_kapanis",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
             }
-          ],
-          "persona": {
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_reddet_profesyonel",
-          "text": "Gözlerinin içine bak ve omuz silk. 'Burası iş yeri, burası sokak değil. Avukatımla görüş, sonra gelirsin.'",
-          "target": "n_profesyonel_bedel",
-          "effects": [
+        "n_kazanc_hesap": {
+          "title": "Ödenen Bedel",
+          "kind": "outcome",
+          "text": "{actor.partner.name} zarfı alıp kaskının ardında gözden kayboluyor. Cüzdanındaki boşluk, uzun süre unutamayacağın bir sızı bırakıyor. İş, sonunda parayla çözüldü ama artık o adamın gözünde bir 'bankamatik'ten farkın yok.",
+          "onEnter": [
             {
-              "flag": "mental_dayaniklilik",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -15
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": 1
             }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
+          ]
         },
-        {
-          "id": "c_tehdit_et",
-          "text": "Motorun gidonuna elini at, yüzüne doğru eğil. 'Kimi tehdit ettiğini unutma. Bu zarfı yırtar, seni de buradan kovdururum.'",
-          "target": "n_riskli_kapanis",
-          "effects": [
+        "n_profesyonel_bedel": {
+          "title": "Sınırlar",
+          "kind": "outcome",
+          "text": "{actor.partner.name} bir an duraksıyor, tükürüp motorunu çalıştırıyor. 'Sen değişmişsin,' diyor uzaklaşırken. Arkanda bıraktığın o profesyonel tavır, saha içinde seni güçlendiriyor ama eski dostların gözündeki değerini sıfırlıyor.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 10
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": 1
             }
-          ],
-          "persona": {
-            "mizac": -5
-          }
+          ]
+        },
+        "n_riskli_kapanis": {
+          "title": "Güç Gösterisi",
+          "kind": "outcome",
+          "text": "{actor.partner.name} geri adım atıyor ama bakışındaki kin, ayrılırken ardında bıraktığı egzoz dumanından daha ağır. Gücünü kanıtladın, sokaklarda adın artık korkuyla anılıyor ama yarın gazetelerde bu olayın farklı bir versiyonunu okuyacağını biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": 1
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_kazanc_hesap": {
-      "title": "Ödenen Bedel",
-      "kind": "outcome",
-      "text": "{actor.partner.name} zarfı alıp kaskının ardında gözden kayboluyor. Cüzdanındaki boşluk, uzun süre unutamayacağın bir sızı bırakıyor. İş, sonunda parayla çözüldü ama artık o adamın gözünde bir 'bankamatik'ten farkın yok.",
-      "onEnter": [
-        {
-          "flag": "mem_social_borc_partner",
-          "op": "set",
-          "value": 1
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Mutfak tezgahının üzerindeki loş ışık, {actor.partner.name} yüzündeki çizgileri derinleştiriyor. Masanın üzerinde, bir zamanlar hayatınızı kurduğunuz hayallerin belgeleri değil, borcun soğuk dökümü duruyor. {actor.partner.name} gözlerini masadan ayırmadan, parmaklarıyla boş bir bardağın kenarını çeviriyor. Dışarıda gece yarısı antrenman sahasının sessizliği çökmüş. Bir cevap bekliyor, ama bu seferki soru 'ne kadar' değil, 'ne zamana kadar' kaçabileceği.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Tüm birikimi tek seferde aktar. En azından bir daha bu konunun açılmayacağına dair söz iste.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Menajerinle konuş, kulüp içi primlerden avans iste ve durumu medyaya yansımadan örtbas et.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Dışarıdaki o belirsiz çevreyle kendin görüşmeyi teklif et. Bedeli ne olursa olsun, {actor.partner.name} bu yükten çıkar.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Sakin kal ve durumu masaya yatır. Birlikte bir çıkış yolu bulana kadar masadan kalkmayacaksın.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Bankadaki haneler azaldı ama evdeki gerilim dindi. {actor.partner.name} artık sana eskisi gibi bakmıyor; bir minnet değil, bir suç ortaklığı var artık aranızda.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Karanlık Pazarlık",
+          "kind": "outcome",
+          "text": "Kulüpteki ağırlığını kullanarak durumu çözdün. Ancak artık birilerine borçlusun; sahadaki her koşunun, her mücadelenin arkasında bu borcun gölgesi var.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Kendi Yöntemlerin",
+          "kind": "outcome",
+          "text": "Sokağın dilini biliyorsun. Borç kapandı, {actor.partner.name} özgür. Ama aynaya her baktığında, o gece kiminle konuştuğunu hatırlamanın ağırlığı omzunda.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Ortak İrade",
+          "kind": "outcome",
+          "text": "Sabahın ilk ışıklarına kadar konuştunuz. {actor.partner.name} sonunda gülümsedi. Fiziken tükendin, antrenmanlarda zorlanacaksın ama yanında artık bir yabancı değil, bir yol arkadaşı var.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_profesyonel_bedel": {
-      "title": "Sınırlar",
-      "kind": "outcome",
-      "text": "{actor.partner.name} bir an duraksıyor, tükürüp motorunu çalıştırıyor. 'Sen değişmişsin,' diyor uzaklaşırken. Arkanda bıraktığın o profesyonel tavır, saha içinde seni güçlendiriyor ama eski dostların gözündeki değerini sıfırlıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_social_borc_partner",
-          "op": "set",
-          "value": 1
-        }
-      ]
-    },
-    "n_riskli_kapanis": {
-      "title": "Güç Gösterisi",
-      "kind": "outcome",
-      "text": "{actor.partner.name} geri adım atıyor ama bakışındaki kin, ayrılırken ardında bıraktığı egzoz dumanından daha ağır. Gücünü kanıtladın, sokaklarda adın artık korkuyla anılıyor ama yarın gazetelerde bu olayın farklı bir versiyonunu okuyacağını biliyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_social_borc_partner",
-          "op": "set",
-          "value": 1
-        }
-      ]
+      }
     }
-  }
+  ]
 }

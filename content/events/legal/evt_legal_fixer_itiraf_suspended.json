@@ -340,6 +340,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Bekleyen İmzalar",
+          "kind": "branch",
+          "text": "{actor.fixer.name} ile şehrin dışındaki bu terk edilmiş spor kompleksinin soyunma odasında karşı karşıyasın. İçerisi yoğun bir rutubet ve eski krampon kokusuyla dolu. {actor.fixer.name}, duvara yaslanmış, elinde eski bir deri çanta tutuyor. İçinde senin adına düzenlenmiş ama senin asla imzalamadığın bir dizi sözleşme var. Dışarıda şimşekler çakıyor, içerideki ışıklar titreyerek sönüyor. {actor.fixer.name} gözlerini sana dikmiş, çantanın kapağını yavaşça aralıyor. Kendi adını taşıyan kağıtların üzerinde, görmediğin bir başkasının mürekkebi hala taze duruyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Çantayı elinden al, hiçbir şey söylemeden dışarı çık ve kağıtları en yakın çöp konteynerinde yak.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı olduğu gibi ona bırak. Sessizliğini satın al, paranın bir kısmını hesaba geçmesine göz yum.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Avukatını arayacağını söyle. Çantayı masaya bırak, arkanı dön ve oradan uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Küller ve Sessizlik",
+          "kind": "outcome",
+          "text": "Kağıtlar alevlerin arasında kıvrılırken {actor.fixer.name} sadece izliyor. Yarın kimse kanıt bulamayacak ama ismin o dosyalarla birlikte yanıp kül olmadı. Birileri mutlaka soru soracak.",
+          "onEnter": [
+            {
+              "flag": "mem_legal_itiraf_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Kirli Bir Ortaklık",
+          "kind": "outcome",
+          "text": "Zarfı almadan arkana bakmadan çıkıyorsun. {actor.fixer.name} gülümseyerek çantayı kapatıyor. Artık bu oyunda yalnız değilsin, zincirlerine bir halka daha eklendi.",
+          "onEnter": [
+            {
+              "flag": "mem_legal_itiraf_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Bir Uzaklaşma",
+          "kind": "outcome",
+          "text": "Kapıyı sertçe çarpıyorsun. Yağmurun altına çıktığında nefes alabiliyorsun ama içeride bıraktığın o dosya, seni hiçbir zaman tam olarak bırakmayacak bir gölge gibi arkanda.",
+          "onEnter": [
+            {
+              "flag": "mem_legal_itiraf_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

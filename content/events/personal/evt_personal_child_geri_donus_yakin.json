@@ -358,6 +358,178 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bağlar",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin otoparkında, eski bir hurda aracın kaputu açık. {actor.child.name} yağlı elleriyle motoru kurcalıyor, senin lüks aracının gölgesinde kalmış. Başını kaldırıp sana bakıyor; yüzünde ne bir beklenti ne de bir öfke var, sadece bir kabulleniş. Cebinde hem kulübün ona verdiği disiplin uyarısı hem de senin gizlice sakladığın nakit para var. Hangisini ona uzatırsan, diğerine ihanet etmiş olacaksın. {actor.child.name} elini uzatıyor, sadece bir yanıt bekliyor.",
+          "choices": [
+            {
+              "id": "c_ayrim",
+              "text": "Nakit parayı avucuna sıkıştır ve 'bunu unut' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_taraf",
+              "text": "Kulüpten gelen uyarı kağıdını ona bırak ve sırtını dön.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_prof",
+              "text": "Sessizce aracına bin ve uzaklaş. Kimseyi tanımıyorsun.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_kilit",
+              "text": "Ona gerçek bir iş teklif et, hemen buradaki lojistik birime girsin.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_child",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Kulüpteki Gücün Yetmiyor]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Bedeli Ödemek",
+          "kind": "outcome",
+          "text": "Para ellerinden kayıp yere düşüyor. {actor.child.name} eğilip almıyor bile. Bakışlarındaki o boşluk, herhangi bir disiplin cezasından daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sokağın Yüzü",
+          "kind": "outcome",
+          "text": "{actor.child.name} kağıdı alıyor, okumadan yırtıyor. Otoparkta yankılanan kağıt sesi, ilişkinizin sonu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Görmezden Gelmek",
+          "kind": "outcome",
+          "text": "Arabanın kapısı sertçe kapanıyor. Dikiz aynasında, {actor.child.name} arkandan bakarken bile ona dönmüyorsun. Profesyonellik, vicdanı susturmanın en temiz yolu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Ağır Bir Yük",
+          "kind": "outcome",
+          "text": "Kabul ediyor. Ama artık o senin gölgen, sen de onun kefilisin. Kendi kariyerinin yanında, onun her hatasını da taşımak zorundasın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

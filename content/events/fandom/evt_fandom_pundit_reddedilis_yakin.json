@@ -29,141 +29,325 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Kapanan Kapılar",
-      "kind": "branch",
-      "text": "{actor.pundit.name}, stüdyo ışıklarının altında geriye yaslanmış. Altı ay önce o loş otel lobisinde, {actor.journalist.name} ile kurduğun o gizli anlaşmayı hatırlıyor olmalısın. Medyanın gücünü arkana alıp yükselmek için verdiğin o sözler, şimdi {actor.pundit.name}’in önündeki ekranda birer birer tersine dönüyor. Bugün, tüm kapılar yüzüne kapandı. {actor.pundit.name} ağır bir sessizlikle telefonunu kenara itiyor; sana bakmıyor bile.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Faturaları kabul et. Sessizce masadaki tazminat evrakını imzala.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapılar",
+          "kind": "branch",
+          "text": "{actor.pundit.name}, stüdyo ışıklarının altında geriye yaslanmış. Altı ay önce o loş otel lobisinde, {actor.journalist.name} ile kurduğun o gizli anlaşmayı hatırlıyor olmalısın. Medyanın gücünü arkana alıp yükselmek için verdiğin o sözler, şimdi {actor.pundit.name}’in önündeki ekranda birer birer tersine dönüyor. Bugün, tüm kapılar yüzüne kapandı. {actor.pundit.name} ağır bir sessizlikle telefonunu kenara itiyor; sana bakmıyor bile.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 15
+              "id": "c_guvenli",
+              "text": "Faturaları kabul et. Sessizce masadaki tazminat evrakını imzala.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_riskli",
+              "text": "Masadan kalk ve tüm iddiaları reddet. Herkesin üzerine yürü.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 30
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -20
+              "id": "c_gri",
+              "text": "Başka bir menajerle masaya otur, durumu düzeltmek için yeni bir borcun altına gir.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
             }
-          ],
-          "persona": {
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Masadan kalk ve tüm iddiaları reddet. Herkesin üzerine yürü.",
-          "target": "n_outcome_riskli",
-          "effects": [
+        "n_outcome_guvenli": {
+          "title": "Bedeli Ödemek",
+          "kind": "outcome",
+          "text": "İmzalar atıldı ve hukuk metinlerinin soğuk mürekkebi kağıtları mühürledi. Kariyerin bir süreliğine gölgeye çekilirken stüdyodaki floresanların vızıltısı kulaklarını tırmaladı. En azından profesyonel saygınlığın kağıt üzerinde kurtuldu ama {actor.pundit.name}’in yüzündeki o küçümseyici gülümseme, bu sessiz teslimiyetin aslında kariyerinin gelecekteki onurundan kopardığı parçayı hatırlatır gibiydi.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 25
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 30
+              "flag": "mem_media_taninma_journalist_yakin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": 8
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Başka bir menajerle masaya otur, durumu düzeltmek için yeni bir borcun altına gir.",
-          "target": "n_outcome_gri",
-          "effects": [
+        "n_outcome_riskli": {
+          "title": "İnkâr",
+          "kind": "outcome",
+          "text": "Kayıt cihazlarını masanın üzerine savurdun; plastik kasaların zemine çarpma sesi odadaki gerilimi ikiye katladı. Sokak seni bir kahraman gibi bağrına bastı ama medya artık kan kokusu almış bir avcı sürüsü gibi peşinde. {actor.pundit.name} camın ardında sana bakmayı kesti ve ağır bir hareketle yayını kesti, sen odadan çıkarken içerideki hava aniden soğudu.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "iliski_pundit",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_media_taninma_journalist_yakin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "sadakat": -5
-          }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Yeni Bir Zincir",
+          "kind": "outcome",
+          "text": "Borç silindi, kağıt üzerindeki kısıtlamalar kalktı ve stüdyonun ağır kapıları tekrar ardına kadar açıldı. Ancak {actor.pundit.name} ile olan bağın artık sadece paradan ibaret; göz göze geldiğinizde aranızda sadece işlenmemiş, soğuk bir ticari nezaket kaldı. Dışarıdaki şehrin uğultusu duyulurken, odanın içinde yanan tek bir spot ışığı aranızdaki uçurumu daha da belirgin kılıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_guvenli": {
-      "title": "Bedeli Ödemek",
-      "kind": "outcome",
-      "text": "İmzalar atıldı ve hukuk metinlerinin soğuk mürekkebi kağıtları mühürledi. Kariyerin bir süreliğine gölgeye çekilirken stüdyodaki floresanların vızıltısı kulaklarını tırmaladı. En azından profesyonel saygınlığın kağıt üzerinde kurtuldu ama {actor.pundit.name}’in yüzündeki o küçümseyici gülümseme, bu sessiz teslimiyetin aslında kariyerinin gelecekteki onurundan kopardığı parçayı hatırlatır gibiydi.",
-      "onEnter": [
-        {
-          "flag": "mem_media_taninma_journalist_yakin",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Koridoru",
+          "kind": "branch",
+          "text": "Dar koridorda yürürken köşeyi döndüğünde duraksıyorsun. {actor.pundit.name} duvara yaslanmış, elindeki çakmağın metalik sesi yankılanıyor. Göz göze geliyorsunuz. Daha önce seni canlı yayında paramparça eden o adam, şimdi karşında. Kaçacak yer yok, geri dönmek teslim olmak demek. Sadece bir saniye geçiyor; bakışlarında ne bir pişmanlık var ne de bir şaşkınlık. Sadece seni izliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Hiçbir şey olmamış gibi yanından geçip git.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Adımların yavaşlıyor. Tam önünde durup yüzüne tükürür gibi gülümse.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın kulüp kartını ona uzat, sessizce omuzuna dokun.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Yavaşça yanına yaklaş, aranızdaki mesafeyi kapatıp kısık sesle kulağına gerçeği fısılda.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Başını eğdin ve devam ettin. Arkandan gelen tek şey çakmağın bir kez daha çakılması oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Gerilim",
+          "kind": "outcome",
+          "text": "Gözlerinin içine baktın. O, gözlerini kaçırmadı ama çenesindeki o küçük kasın seğirdiğini gördün. Risk aldın, kazandın.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Parayı kabul etti, başıyla seni onayladı. İkiniz de artık aynı karanlık ağın birer parçasısınız.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Güç Oyunu",
+          "kind": "outcome",
+          "text": "Söylediklerin karşısında buz kesildi. İlk kez, iplerin senin elinde olduğunu anladı.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "İnkâr",
-      "kind": "outcome",
-      "text": "Kayıt cihazlarını masanın üzerine savurdun; plastik kasaların zemine çarpma sesi odadaki gerilimi ikiye katladı. Sokak seni bir kahraman gibi bağrına bastı ama medya artık kan kokusu almış bir avcı sürüsü gibi peşinde. {actor.pundit.name} camın ardında sana bakmayı kesti ve ağır bir hareketle yayını kesti, sen odadan çıkarken içerideki hava aniden soğudu.",
-      "onEnter": [
-        {
-          "flag": "mem_media_taninma_journalist_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Yeni Bir Zincir",
-      "kind": "outcome",
-      "text": "Borç silindi, kağıt üzerindeki kısıtlamalar kalktı ve stüdyonun ağır kapıları tekrar ardına kadar açıldı. Ancak {actor.pundit.name} ile olan bağın artık sadece paradan ibaret; göz göze geldiğinizde aranızda sadece işlenmemiş, soğuk bir ticari nezaket kaldı. Dışarıdaki şehrin uğultusu duyulurken, odanın içinde yanan tek bir spot ışığı aranızdaki uçurumu daha da belirgin kılıyordu.",
-      "onEnter": [
-        {
-          "flag": "mem_media_taninma_journalist_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  },
-  "once": true
+  ]
 }

@@ -322,6 +322,178 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ayna Kırığı",
+          "kind": "branch",
+          "text": "Otoparkın en uç köşesi. Arabanın içi, dışarıdaki yağmurun ritmiyle sarsılıyor. {actor.agent.name}, yolcu koltuğunda oturuyor; elindeki tabletin ekran ışığı yüzünde soğuk, mavi bir iz bırakmış. İğne izli dizin koltuğun altına sıkışmış, uyuşuk. Hiç konuşmuyor. Sadece ekrandaki başlığı yavaşça sana çeviriyor. Kendi kariyerinin en savunmasız anı, bir başkasının kaleminden çıkmış bir ifşa metnine dönüşmüş. O an, {actor.agent.name} ilk defa maskesini indirip sana bakıyor; profesyonel bir nezaketin değil, bir suç ortağının çıplak bakışıyla. Artık ikiniz de aynısınız.",
+          "choices": [
+            {
+              "id": "c_servet_odakli",
+              "text": "Tableti elinden al ve camdan dışarı fırlat. \"Bunu silmenin bedeli neyse öde, kimse gerçeği bilmesin.\"",
+              "target": "n_outcome_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli_karsilik",
+              "text": "Camı tamamen aç. \"Bırak yayınlasınlar. Yarın sahaya o sargıyla çıkarım, herkes nasıl bittiğimi görsün.\"",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_profesyonel_vazgecis",
+              "text": "Sessizce emniyet kemerini çöz. \"İstediğini yap. Emekliliğimi senin yazman, doktorların söylemesinden daha az canımı yakıyor.\"",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Elini temsilcinin omzuna koy. \"Birbirimizi son kez kurtaralım. Hikayeyi biz yazalım, onlar sadece okusun.\"",
+              "target": "n_outcome_tukenmis",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 12
+              },
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[İtibar 74]"
+            }
+          ]
+        },
+        "n_outcome_servet": {
+          "title": "Sessizliğin Bedeli",
+          "kind": "outcome",
+          "text": "{actor.agent.name} başını sallıyor. Gözlerinde ne bir acıma ne de bir şaşkınlık var. Sadece bir ticaretin soğukkanlılığı. Otoparkın karanlığında, kaybettiğin servetin değil, satın aldığın yalanın ağırlığı çörekleniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Açık Kart",
+          "kind": "outcome",
+          "text": "{actor.agent.name} tabletin ekranını sertçe kapatıyor. Bu senin kumarın. Geleceğini riske atarak, taraftarın sana olan o tuhaf, tutkulu nefret-sevgi dengesini besliyorsun. Yağmur yağmaya devam ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Perde Kapanıyor",
+          "kind": "outcome",
+          "text": "{actor.agent.name} hiçbir şey demeden kapıyı açıyor. Dışarıdaki soğuk, arabanın içine doluyor. Profesyonelliğin verdiği o keskin, acı tat dilinde. Kariyerin sona eriyor, belki de olması gereken tam olarak bu.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_tukenmis": {
+          "title": "İkinci Bir Ömür",
+          "kind": "outcome",
+          "text": "{actor.agent.name} sana ilk defa bir insan gibi bakıyor. Bir ortağın, bir arkadaşın. Birlikte bir kurgu inşa ediyorsunuz. Bu yalanın içine gömülmek, fiziksel sakatlığından daha fazla enerjini emiyor, ama şimdilik ayaktasın.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

@@ -343,6 +343,115 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapı",
+          "kind": "branch",
+          "text": "Kulüp binasının en üst katı. Koridorda yankılanan ayak sesleri aniden kesiliyor. Kapının koluna uzanan el, içerideki tartışmanın durduğunu fark ettiğinde havada asılı kalıyor. Aralıktan sızan ışık, {actor.keeper.name}’in gölgesini zemine düşürüyor. İçerideki ses, soğuk ve net: 'Onunla artık bir gelecek planlamıyoruz, masayı kaldırın.' Kapı kolu kilitli değil, ancak bir milim bile kıpırdayamıyor. İçeriden gelen sandalye çekilme sesi, vedanın kaçınılmazlığını mühürlüyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "İçeri gir, sessizliği boz ve herkesin yüzüne bakarak odayı terk et.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Teklif edilen tazminat tutarını imzalamak için içeri gir, hiçbir şey olmamış gibi davran.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Duvara yaslan, kapının açılmasını bekle ve hiçbir şey duymamış gibi binadan çık.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Onurlu Çıkış",
+          "kind": "outcome",
+          "text": "Kapıyı sertçe ittin. İçeridekilerin donuk bakışları arasında tek kelime etmeden masaya bir imza attın. Arkana bakmadan koridorda yürüdüğünde, çıkış kapısının soğuk rüzgarı yüzünü yaladı. Artık buraya ait değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "İçeri girdin. Kalem ucunun kâğıtta çıkardığı o ince ses, odadaki tek gerçekti. Herkesin gözleri yerlere bakarken, elinde bir zarfla odadan ayrıldın. Konforun, sesinin yerini aldı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Karanlık Bekleyiş",
+          "kind": "outcome",
+          "text": "Kapı kolu titredi ama tutmadın. İçeridekiler çıkıp gidene kadar duvarın gölgesinde eridin. Kimse orada olduğunu fark etmedi. Profesyonelce, sessizce ve tamamen yalnız başına binayı terk ettin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

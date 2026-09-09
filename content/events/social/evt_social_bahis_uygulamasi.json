@@ -331,6 +331,175 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Bildirimi",
+          "kind": "branch",
+          "text": "Kulüp tesislerinin ortak alanında, herkes çekilmişken tek başına oturuyorsun. {actor.star_teammate.name} yanına geliyor. Elindeki tableti senin görüş açına bırakıyor. Ekranda bir bahis platformunun yönetim paneli açık. \"Bu hafta kendi maçımıza oynamamız için sistem açıldı,\" diyor. Sesi titremiyor bile. \"Senin ismin üzerinden bir hesap oluşturduk. Oranlar yüksek, kimsenin haberi olmaz.\" {actor.star_teammate.name} masanın üzerine bir kalem bırakıyor. Sadece onaylaman gerekiyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Kalemi al ve imzayı at. \"Kayıpları bölüşürüz, kazancı yarı yarıya.\"",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Tableti sertçe it. \"Beni bu bataklığa çekemezsin. Gidip bunu tribündeki çocuklara anlat.\"",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ayağa kalk, yüzüne bile bakma. \"Hemen o hesabı kapat {actor.star_teammate.first}. Yoksa yarın sabah yönetimin önündeyim.\"",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bak. \"Seni kurtaracağım ama bu son. Bir daha asla.\"",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Takım İlişkisi 55+]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "İmzayı attın. {actor.star_teammate.name} ekranı kapatıp hızla odadan çıktı. Cebindeki ağırlık, attığın imzanın vicdani yükünden daha hafif.",
+          "onEnter": [
+            {
+              "flag": "mem_kayit_disi_hesap",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tehditkâr Red",
+          "kind": "outcome",
+          "text": "{actor.star_teammate.name} donup kaldı. Cevabın aranızdaki köprüleri yaktı ama en azından ismin henüz lekelenmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_takim_arkadasini_karsina_aldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sert Uyarı",
+          "kind": "outcome",
+          "text": "Korkuyla karışık bir nefretle baktı sana. Söylediklerini yapacağına emin. Bugün bir arkadaş kaybettin ama kariyerini korudun.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_uyardi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Fedakârlık",
+          "kind": "outcome",
+          "text": "Ona bir şans daha verdin. {actor.star_teammate.name} durumu düzelteceğine dair söz verdi. Şimdi tüm yük senin omuzlarında.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_kaptana_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

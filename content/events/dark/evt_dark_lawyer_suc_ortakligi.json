@@ -341,6 +341,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının en uzak köşesindeki depo binası. Lambalar cızırdıyor. {actor.lawyer.name} eski bir sandığın üzerine oturmuş, elinde hiçbir dosya yok. Sadece bir şarjörün metalik sesi yankılanıyor. Kapı arkamdan kapandı. Buraya neden geldiğimi ikimiz de biliyoruz. {actor.lawyer.name} gözlerini yavaşça bana çeviriyor, başıyla boş sandalyeyi işaret ediyor. Sessizlik, bir kararın ağırlığıyla odadaki havayı tüketiyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Sandığa tekme at ve arkana bakmadan çık. Kimseyle ortaklık kurmayacaksın.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Otur ve {actor.lawyer.name} ile göz teması kurmadan konuşmaya başla.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı al ve içerideki sessizliği kabul et. Gelecek, bugün satın alınıyor.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "lt",
+                "value": 50
+              },
+              "lockLabel": "[Tecrübesiz]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Reddedişin Bedeli",
+          "kind": "outcome",
+          "text": "Sessizlik bozuluyor. {actor.lawyer.name} gülümsüyor ama bu bir dost gülücüğü değil. Odayı terk ederken arkamdan gelen adım sesleri, bu kapıyı bir daha kapatamayacağımı fısıldıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Detaylar konuşuluyor, isimler havada uçuşuyor. {actor.lawyer.name} not almıyor, sadece izliyor. Bu oda artık hayatımın en güvenli ve en kirli yeri.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "İmzalanmış Kader",
+          "kind": "outcome",
+          "text": "Çantanın ağırlığı, vicdanımın hafifliğine bir tezat oluşturuyor. {actor.lawyer.name} başıyla selam verip karanlığa karışıyor. Artık bu oyunda bir piyon değil, ortağım.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

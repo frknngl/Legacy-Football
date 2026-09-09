@@ -29,125 +29,287 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Son Fatura",
-      "kind": "branch",
-      "text": "Odanın içi rutubet ve ucuz sigara kokuyor. {actor.fixer.name} karşı koltukta, bir zamanlar avucunun içine sıkıştırdığın o kirli zarfın dijital kopyasını tablet ekranında gösteriyor. Bir yıl önceydi. {actor.agent.name} ile o karanlık ofiste imzaladığın belgeler, şimdi başkalarının masasında. Artık kaçış yok, mızrak çuvala sığmıyor. Pencereden dışarı bakıyorsun; sahadaki son ışıklar da sönmek üzere. {actor.fixer.name} sadece bekliyor. Sessizlik, bir mahkeme salonundaki yemin kadar ağır.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Tüm belgeleri imzala ve suçu üstlen. Kariyerim zaten bitti, en azından dürüst bir adam gibi çekileyim.",
-          "target": "n_outcome_1",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Fatura",
+          "kind": "branch",
+          "text": "Odanın içi rutubet ve ucuz sigara kokuyor. {actor.fixer.name} karşı koltukta, bir zamanlar avucunun içine sıkıştırdığın o kirli zarfın dijital kopyasını tablet ekranında gösteriyor. Bir yıl önceydi. {actor.agent.name} ile o karanlık ofiste imzaladığın belgeler, şimdi başkalarının masasında. Artık kaçış yok, mızrak çuvala sığmıyor. Pencereden dışarı bakıyorsun; sahadaki son ışıklar da sönmek üzere. {actor.fixer.name} sadece bekliyor. Sessizlik, bir mahkeme salonundaki yemin kadar ağır.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 20
+              "id": "c_guvenli",
+              "text": "Tüm belgeleri imzala ve suçu üstlen. Kariyerim zaten bitti, en azından dürüst bir adam gibi çekileyim.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50
+                },
+                {
+                  "op": "lifeState",
+                  "to": "retired"
+                }
+              ]
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 15
+              "id": "c_riskli",
+              "text": "Ekrandakileri reddet. {actor.agent.name} ile hiçbir bağım olmadığını, hepsinin bir kumpas olduğunu söyleyeceğim.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 40
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "op": "suspend",
+                  "matches": 10,
+                  "reason": "sorusturma"
+                }
+              ]
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -20
+              "id": "c_gri",
+              "text": "Bu işi kapatmak için gereken parayı öde. {actor.fixer.name}, yeni bir borçlanma anlaşması hazırla.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -100
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "npc_fixer_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Perde Kapanıyor",
+          "kind": "outcome",
+          "text": "Kalemini imza için kağıda bastırdığında, odadaki rutubetli hava ciğerlerine zehirli bir sarmaşık gibi doldu. {actor.fixer.name} tableti kapatıp arkasına yaslandı; gözlerindeki o soğuk zafer ifadesi, kariyerinin son ışıklarını tamamen söndürdü. Artık tribünlerin uğultusunu sadece televizyondan duyabileceksin, saha çizgileri senin için artık ulaşılamaz bir sınır hattı oldu."
+        },
+        "n_outcome_2": {
+          "title": "Karanlıkta Kaçış",
+          "kind": "outcome",
+          "text": "Sandalyesini geriye itip masaya sert bir tekme savurduğunda, metalin betona çarpma sesi odada yankılandı. {actor.fixer.name} hiçbir şey söylemeden yerinden kalktı. Kapıdan dışarı fırladığında, dışarıdaki sağanak yağmurun soğuğu yüzüne bir tokat gibi çarptı. Flaşlar patlamaya başladı; hayatın artık sahada değil, peşindeki gölgelerden kaçabildiğin kadar dar bir koridorda geçecek."
+        },
+        "n_outcome_3": {
+          "title": "İkinci Bir Zincir",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} masanın üzerindeki dosyayı sana doğru ittiğinde, kağıtların kenarındaki keskin doku parmak uçlarını acıttı. Dudaklarının kenarında beliren o çarpık gülümseme, kurtulduğunu sandığın o karanlığın sadece şekil değiştirdiğini belli ediyordu. Masanın üzerindeki lamba titreyerek yandı; üzerindeki borç bir nebze azaldı ama ruhun artık başka bir elin sıkı kavrayışına teslim edildi."
+        }
+      }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Park Yeri",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki otoparkta, havalandırmadan gelen keskin bir rutubet kokusu var. {actor.fixer.name} yaslandığı beton kolonun gölgesinde sigarasını söndürüyor. Önünde duran bagaj kapağının üzerinde iki dosya var. Biri, hiç oynamadığın bir kulüp hesabından gelen transfer primlerini belgeliyor. Diğeri ise boş. {actor.fixer.name} sadece çenesiyle boş olanı işaret ediyor. Birkaç yıl önce karıştığın o ufak tartışmanın faturası, bugün bu sahte imzaya kesilmiş. Sessizliği sadece uzaktan gelen güvenlik devriyesinin ayak sesleri bölüyor. Zaman daralıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı sessizce al ve oradan uzaklaş. Profesyonelce sustur.",
+              "target": "n_suspend",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
             },
             {
-              "flag": "servet",
-              "op": "add",
-              "value": -50
+              "id": "c_riskli",
+              "text": "Tüm dosyaları yırtıp {actor.fixer.name} ayaklarının dibine at.",
+              "target": "n_suspend",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
             },
+            {
+              "id": "c_gri",
+              "text": "Kendi şartlarını söyle. Bu kirli işin bedeli biraz daha yüksek olmalı.",
+              "target": "n_retired",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Masadaki her şeyi yak. {actor.fixer.name} ile olan eski defteri aç, gözlerinin içine bak.",
+              "target": "n_suspend",
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sokak İtibarı 55]",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_suspend": {
+          "title": "Sonuç: Uzaklaştırma",
+          "kind": "outcome",
+          "text": "Kararın kesinleşti. İdari soruşturma kaçınılmaz görünüyor. Formalar dolaba kaldırılıyor, saha çizgileri artık senin için çok uzak. Bu sessizlik, yılların yorgunluğunu ikiye katlıyor.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 10,
+              "reason": "legal_sorusturma"
+            }
+          ]
+        },
+        "n_retired": {
+          "title": "Sonuç: Erken Veda",
+          "kind": "outcome",
+          "text": "Hesabına yatan tutar, hayatının sonuna kadar yetecek. Ama sahadaki son maçına çıktığını ikiniz de biliyorsunuz. Çimlerin kokusu artık yerini banka dekontlarının soğukluğuna bıraktı. Oyun bitti.",
+          "onEnter": [
             {
               "op": "lifeState",
               "to": "retired"
             }
           ]
-        },
-        {
-          "id": "c_riskli",
-          "text": "Ekrandakileri reddet. {actor.agent.name} ile hiçbir bağım olmadığını, hepsinin bir kumpas olduğunu söyleyeceğim.",
-          "target": "n_outcome_2",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 30
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 40
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 50
-            },
-            {
-              "op": "suspend",
-              "matches": 10,
-              "reason": "sorusturma"
-            }
-          ]
-        },
-        {
-          "id": "c_gri",
-          "text": "Bu işi kapatmak için gereken parayı öde. {actor.fixer.name}, yeni bir borçlanma anlaşması hazırla.",
-          "target": "n_outcome_3",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -100
-            },
-            {
-              "flag": "iliski_fixer",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "npc_fixer_arc",
-              "op": "add",
-              "value": 1
-            }
-          ]
         }
-      ]
-    },
-    "n_outcome_1": {
-      "title": "Perde Kapanıyor",
-      "kind": "outcome",
-      "text": "Kalemini imza için kağıda bastırdığında, odadaki rutubetli hava ciğerlerine zehirli bir sarmaşık gibi doldu. {actor.fixer.name} tableti kapatıp arkasına yaslandı; gözlerindeki o soğuk zafer ifadesi, kariyerinin son ışıklarını tamamen söndürdü. Artık tribünlerin uğultusunu sadece televizyondan duyabileceksin, saha çizgileri senin için artık ulaşılamaz bir sınır hattı oldu."
-    },
-    "n_outcome_2": {
-      "title": "Karanlıkta Kaçış",
-      "kind": "outcome",
-      "text": "Sandalyesini geriye itip masaya sert bir tekme savurduğunda, metalin betona çarpma sesi odada yankılandı. {actor.fixer.name} hiçbir şey söylemeden yerinden kalktı. Kapıdan dışarı fırladığında, dışarıdaki sağanak yağmurun soğuğu yüzüne bir tokat gibi çarptı. Flaşlar patlamaya başladı; hayatın artık sahada değil, peşindeki gölgelerden kaçabildiğin kadar dar bir koridorda geçecek."
-    },
-    "n_outcome_3": {
-      "title": "İkinci Bir Zincir",
-      "kind": "outcome",
-      "text": "{actor.fixer.name} masanın üzerindeki dosyayı sana doğru ittiğinde, kağıtların kenarındaki keskin doku parmak uçlarını acıttı. Dudaklarının kenarında beliren o çarpık gülümseme, kurtulduğunu sandığın o karanlığın sadece şekil değiştirdiğini belli ediyordu. Masanın üzerindeki lamba titreyerek yandı; üzerindeki borç bir nebze azaldı ama ruhun artık başka bir elin sıkı kavrayışına teslim edildi."
+      }
     }
-  },
-  "once": true
+  ]
 }

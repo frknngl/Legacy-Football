@@ -27,175 +27,352 @@
     "op": "gte",
     "value": 0
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Yüzleşme",
-      "kind": "branch",
-      "text": "Basın odasının loş ışığında, köşedeki plastik sandalyeye gömülmüşsün. Kapı aralandığında {actor.journalist.name} içeri giriyor. Göz göze geliyorsunuz. {actor.pundit.name} yanındaki koltukta ayak ayak üstüne atmış, elindeki kalemi ritmik bir şekilde masaya vuruyor. Odada sadece havalandırmanın cılız vızıltısı var. {actor.journalist.name} çantasından ses kayıt cihazını çıkarıp masaya bırakıyor. Bakışları, hakkında yazdığı o son yazı kadar keskin ve beklenti dolu. Kaçacak yer yok.",
-      "choices": [
-        {
-          "id": "c_gri",
-          "text": "Sessizce çantana uzanıp zarfı masaya it. Tek kelime etme, sadece çıkışa yönel.",
-          "target": "n_outcome_gri",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yüzleşme",
+          "kind": "branch",
+          "text": "Basın odasının loş ışığında, köşedeki plastik sandalyeye gömülmüşsün. Kapı aralandığında {actor.journalist.name} içeri giriyor. Göz göze geliyorsunuz. {actor.pundit.name} yanındaki koltukta ayak ayak üstüne atmış, elindeki kalemi ritmik bir şekilde masaya vuruyor. Odada sadece havalandırmanın cılız vızıltısı var. {actor.journalist.name} çantasından ses kayıt cihazını çıkarıp masaya bırakıyor. Bakışları, hakkında yazdığı o son yazı kadar keskin ve beklenti dolu. Kaçacak yer yok.",
+          "choices": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 20000
+              "id": "c_gri",
+              "text": "Sessizce çantana uzanıp zarfı masaya it. Tek kelime etme, sadece çıkışa yönel.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
+              "id": "c_guvenli",
+              "text": "Kameraya bakarak, 'Gerekeni sahada söyledim,' de ve odayı terk et.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
+              "id": "c_riskli",
+              "text": "{actor.journalist.name} üzerine yürü, kayıt cihazını masadan süpür ve yüzüne tükürür gibi konuş.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Masaya otur, {actor.journalist.name} ile göz hizasına gel ve gerçekleri anlatmaya başla.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Sokak İtibarı 68]"
             }
-          ],
-          "persona": {
-            "durus": -5
-          }
+          ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Kameraya bakarak, 'Gerekeni sahada söyledim,' de ve odayı terk et.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Zarf masada, isimsiz bir vaat gibi öylece duruyordu. {actor.journalist.name} tek kelime etmeden çantasını toparladı; yüzündeki o sorgulayıcı ifade yerini soğuk bir kabullenişe bıraktı. Kapı arkasından yavaşça kapandığında, odadaki rutubetli hava ve masadaki mürekkep kokusu, paylaştığınız bu gizli anlaşmanın ağırlığıyla daha da ağırlaştı.",
+          "onEnter": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "form",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": 8
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "{actor.journalist.name} üzerine yürü, kayıt cihazını masadan süpür ve yüzüne tükürür gibi konuş.",
-          "target": "n_outcome_riskli",
-          "effects": [
+        "n_outcome_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde {actor.pundit.name} ile göz göze geldin. Hafif, neredeyse fark edilmeyecek kadar silik bir gülümsemeyle başını eğdi. Bu mesafeli onaylama, odadaki gerginliği dağıtmak yerine seni daha yalnız kıldı; kapı kolunun soğuk metalini tutarken, profesyonelliğin sınırları içinde tek başına olduğunun farkındalığıyla koridora adım attın.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 10
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": 10
-          }
+          ]
         },
-        {
-          "id": "c_stat",
-          "text": "Masaya otur, {actor.journalist.name} ile göz hizasına gel ve gerçekleri anlatmaya başla.",
-          "target": "n_outcome_stat",
-          "effects": [
+        "n_outcome_riskli": {
+          "title": "Kıvılcım",
+          "kind": "outcome",
+          "text": "Odanın kapısı menteşelerinden gelen keskin bir gıcırtıyla gürültüyle kapandı. {actor.journalist.name} odadan çıkarken attığı her adım, yarınki manşetlerin ayak sesleri gibi yankılandı. Masanın üzerindeki su bardağı, kapının çarpma etkisiyle hafifçe titredi; artık geri dönüşü yoktu, yarın herkes senin öfkeni ve bu ani patlamanın sonuçlarını konuşacaktı.",
+          "onEnter": [
             {
-              "flag": "iliski_journalist",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 5
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
             }
-          ],
-          "requires": {
-            "flag": "sokak_itibari",
-            "op": "gte",
-            "value": 68
-          },
-          "lockLabel": "[Sokak İtibarı 68]"
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Gerçeklerin Yükü",
+          "kind": "outcome",
+          "text": "Konuştukça içindeki o huzursuzluk yerini bir boşluğa bıraktı, kelimeler döküldükçe hafiflediğini hissettin. Ancak {actor.journalist.name} odadan ayrılıp kapı tamamen kapandığında, geride bıraktığın itirafların duvarlarda yankılandığını duydun. Omuzlarındaki o görünmez yük, artık sadece senin taşıman gereken, dürüstlüğün getirdiği kaçınılmaz bir gerçekliğe dönüştü.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_gri": {
-      "title": "Sessiz Anlaşma",
-      "kind": "outcome",
-      "text": "Zarf masada, isimsiz bir vaat gibi öylece duruyordu. {actor.journalist.name} tek kelime etmeden çantasını toparladı; yüzündeki o sorgulayıcı ifade yerini soğuk bir kabullenişe bıraktı. Kapı arkasından yavaşça kapandığında, odadaki rutubetli hava ve masadaki mürekkep kokusu, paylaştığınız bu gizli anlaşmanın ağırlığıyla daha da ağırlaştı.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_yuzlesme_journalist",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Arka Kapı",
+          "kind": "branch",
+          "text": "Stadyumun otoparkında, yağmur şiddetini artırıyor. {actor.journalist.name} aracının kapısına yaslanmış, elindeki not defterini parmaklarıyla ritmik bir şekilde tıkırdatıyor. Etrafta kimse yok. Sessizlik, sadece lastiklerin altındaki ıslak asfaltın sesiyle bölünüyor. Bu görüşme, yarın manşetleri belirleyecek. {actor.journalist.name} bir adım öne çıkıp telefonu kayıt modunda kaldırıyor. Hiçbir soru sormuyor, sadece bekliyor.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Cüzdanını çıkarıp bir deste parayı aracın kaputuna bırak. 'Yarın çok iyi şeyler yaz,' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kayıt cihazını elinden alıp sertçe asfalta fırlat. 'Bir daha beni takip etme,' diye tıslayıp yürü.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Yüzüne bile bakmadan başını öne eğ, adımlarını hızlandırarak soğukta uzaklaş.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Elini omzuna koy. 'İnsanların duyması gerekeni değil, doğruları yaz,' diyerek bakışlarını kilitle.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              },
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Destek Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} parayı gördüğünde gözleri parlamıyor, sadece hafifçe başını sallıyor. Bu zafer, vicdanında küçük ama derin bir delik açtı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İsyanın Bedeli",
+          "kind": "outcome",
+          "text": "Cihaz tuzla buz olurken {actor.journalist.name} geri çekiliyor. Yarın manşetler seni yerden yere vuracak ama sokaklarda ismin bir kahraman gibi anılacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Suskunluk",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde yağmur hızlanıyor. Kimseye bir şey ispatlamadın, kimseye bir şey vermedin. Kendine sakladığın o ağır sessizlik, odana döndüğünde seni yalnız bırakmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Zoraki Saygı",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} senin ciddiyetini anlıyor. Not defterini kapatıp geri çekiliyor. İkiniz de bu konuşmanın seni ne kadar yorduğunu biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "Profesyonel Mesafe",
-      "kind": "outcome",
-      "text": "Arkanı döndüğünde {actor.pundit.name} ile göz göze geldin. Hafif, neredeyse fark edilmeyecek kadar silik bir gülümsemeyle başını eğdi. Bu mesafeli onaylama, odadaki gerginliği dağıtmak yerine seni daha yalnız kıldı; kapı kolunun soğuk metalini tutarken, profesyonelliğin sınırları içinde tek başına olduğunun farkındalığıyla koridora adım attın.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_yuzlesme_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Kıvılcım",
-      "kind": "outcome",
-      "text": "Odanın kapısı menteşelerinden gelen keskin bir gıcırtıyla gürültüyle kapandı. {actor.journalist.name} odadan çıkarken attığı her adım, yarınki manşetlerin ayak sesleri gibi yankılandı. Masanın üzerindeki su bardağı, kapının çarpma etkisiyle hafifçe titredi; artık geri dönüşü yoktu, yarın herkes senin öfkeni ve bu ani patlamanın sonuçlarını konuşacaktı.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_yuzlesme_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_stat": {
-      "title": "Gerçeklerin Yükü",
-      "kind": "outcome",
-      "text": "Konuştukça içindeki o huzursuzluk yerini bir boşluğa bıraktı, kelimeler döküldükçe hafiflediğini hissettin. Ancak {actor.journalist.name} odadan ayrılıp kapı tamamen kapandığında, geride bıraktığın itirafların duvarlarda yankılandığını duydun. Omuzlarındaki o görünmez yük, artık sadece senin taşıman gereken, dürüstlüğün getirdiği kaçınılmaz bir gerçekliğe dönüştü.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_yuzlesme_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

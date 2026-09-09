@@ -40,140 +40,317 @@
     ]
   },
   "once": true,
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Son Fatura",
-      "kind": "branch",
-      "text": "{actor.agent.name} masanın üzerine kalın bir dosya bıraktı. O ofiste, terapistinin karşısında geçen o ağır günün tortuları hala üzerindeydi. O gün, gerçekleri gömmek için verdiğin kararın bedeli bugün kapına dayandı. {actor.psychologist.name}, bir zamanlar sadece seni dinlerken, şimdi sessiz bir şahide dönüştü. Masadaki dosya, o günkü sessizliğin ve üzerine kurulan yalanların mali dökümü. Dışarıda taraftarın ve medyanın sesi uğulduyor. İçeride ise hava ağır, nefes almak güç. {actor.agent.name} sadece bakıyor; ya borcu temizleyeceksin ya da yeni bir düğüm daha atacaksın.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Dosyayı imzala, borcu kendi cebinden öde. Bu defter burada kapansın.",
-          "target": "n_guvenli",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Fatura",
+          "kind": "branch",
+          "text": "{actor.agent.name} masanın üzerine kalın bir dosya bıraktı. O ofiste, terapistinin karşısında geçen o ağır günün tortuları hala üzerindeydi. O gün, gerçekleri gömmek için verdiğin kararın bedeli bugün kapına dayandı. {actor.psychologist.name}, bir zamanlar sadece seni dinlerken, şimdi sessiz bir şahide dönüştü. Masadaki dosya, o günkü sessizliğin ve üzerine kurulan yalanların mali dökümü. Dışarıda taraftarın ve medyanın sesi uğulduyor. İçeride ise hava ağır, nefes almak güç. {actor.agent.name} sadece bakıyor; ya borcu temizleyeceksin ya da yeni bir düğüm daha atacaksın.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 10
+              "id": "c_guvenli",
+              "text": "Dosyayı imzala, borcu kendi cebinden öde. Bu defter burada kapansın.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 15
+              "id": "c_riskli",
+              "text": "Belgelerin sahte olduğunu söyle. Kimsenin geçmişi didiklemesine izin verme.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -25000
+              "id": "c_ahlaki_gri",
+              "text": "Başka bir kaynak bul, dosyayı {actor.agent.name} ile birlikte başka bir hesaba yükle.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
             }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Belgelerin sahte olduğunu söyle. Kimsenin geçmişi didiklemesine izin verme.",
-          "target": "n_riskli",
-          "effects": [
+        "n_guvenli": {
+          "title": "Temiz Sayfa",
+          "kind": "outcome",
+          "text": "İmza, kağıtta kurumadan her şeyin sona erdiğini hissettin. Bedeli ağır oldu ama arkanda artık konuşulacak bir açık bırakmadın.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 15
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": 10
-          }
+          ]
         },
-        {
-          "id": "c_ahlaki_gri",
-          "text": "Başka bir kaynak bul, dosyayı {actor.agent.name} ile birlikte başka bir hesaba yükle.",
-          "target": "n_gri",
-          "effects": [
+        "n_riskli": {
+          "title": "Sessizlik Duvarı",
+          "kind": "outcome",
+          "text": "Söylediğin her yalan, attığın her adımda yankılanan bir çatlaga dönüştü. {actor.agent.name} tek kelime etmeden masadaki dosyayı topladı, parmaklarının deri dosyaya sürtünme sesi odadaki tek net gürültüydü. Kapıyı hızla kapatıp çıktığında, koridordaki uğultu içeri sızdı. Artık tribünlerin gözü üzerinde; attığın her hatalı pasın bedelini, bu yalanın soğuk gölgesiyle ödeyeceksin.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 15000
-            },
-            {
-              "flag": "iliski_agent",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": -5
-          }
+          ]
+        },
+        "n_gri": {
+          "title": "Yeni Borç",
+          "kind": "outcome",
+          "text": "Yükün bir kısmını başkasına devretmek nefes almanı sağladı belki ama masadaki koku, rutubetli ve ağır bir suç ortaklığı kokusuydu. {actor.agent.name} arkasına bakmadan ofisten çıkarken, aranızdaki profesyonel saygı tamamen silinmiş, yerini birbirinize muhtaç olduğunuz soğuk bir pazarlığa bırakmıştı. Artık kurulan her cümle bir diğerini garanti altına almalıydı; güvenin bittiği yerde sadece sözleşmeler konuşuyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_guvenli": {
-      "title": "Temiz Sayfa",
-      "kind": "outcome",
-      "text": "İmza, kağıtta kurumadan her şeyin sona erdiğini hissettin. Bedeli ağır oldu ama arkanda artık konuşulacak bir açık bırakmadın.",
-      "onEnter": [
-        {
-          "flag": "mem_mind_kirilma_psychologist_orta",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Stadyumun otopark çıkışında, otoyol ışıklarının titrek vurduğu loş köşede bekliyor. Kapüşonu başının üzerinde. Yanından geçerken aniden önünü kesiyor. Omuzları çökmüş, gözlerinde yıllardır saklanan o korkak ifade. {actor.agent.name} artık ne bir menajer ne de bir yol gösterici. Sadece borçlu bir adam. Arabanın anahtarlarını sıkıca tutuyorsun. Sessizlik, yağmurun metale vuran sesiyle bölünüyor. Bu odada, bu ıssız otoparkta, aranızdaki tüm köprülerin yandığını ikiniz de biliyorsunuz.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Cüzdanındaki nakit yığınını yere bırak ve tek kelime etmeden arkana bakmadan yürü.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Yüzüne tükür ve ismini bir daha ağzına almaması için onu sertçe uyar.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Onunla yeni bir bahis teklifi üzerinden pazarlığa otur, bu kez şartları sen belirle.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Onu kolundan yakala ve senin için kurduğu kumpasın hesabını orada sor.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "set",
+                  "value": 0
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde yağmur şiddetleniyor. Paranın yerdeki ıslak betonla birleşmesini umursamıyorsun. O, arkanda bir gölge gibi kalıyor. İçinde tuhaf bir hafiflik var, ama bir parçan o parayla birlikte o karanlık geçmişte asılı kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sert Çıkış",
+          "kind": "outcome",
+          "text": "Söylediklerin yankılanıyor. Yüzündeki o korkak ifade aniden nefrete dönüşüyor. Bu gece sadece bir menajeri değil, yeni bir düşmanı da uyandırdın. Yarın manşetlerde senin agresif tavrın olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Kirlenmiş Kazanç",
+          "kind": "outcome",
+          "text": "Cüzdanın doluyor ama ruhun ağırlaşıyor. Anlaştığınız rakamı duyunca yüzünde oluşan o çarpık gülümsemeyi yansıtan bir cam bulmak istiyorsun. Artık bu oyunu sadece sahada oynamıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Ellerin titriyor. İkiniz de yorgunsunuz. Onu duvara yasladığında, aslında kendi hatalarını sarsıyorsun. Kimse görmedi, kimse duymadı ama bu gece senin için hiçbir şey eskisi gibi olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_riskli": {
-      "title": "Sessizlik Duvarı",
-      "kind": "outcome",
-      "text": "Söylediğin her yalan, attığın her adımda yankılanan bir çatlaga dönüştü. {actor.agent.name} tek kelime etmeden masadaki dosyayı topladı, parmaklarının deri dosyaya sürtünme sesi odadaki tek net gürültüydü. Kapıyı hızla kapatıp çıktığında, koridordaki uğultu içeri sızdı. Artık tribünlerin gözü üzerinde; attığın her hatalı pasın bedelini, bu yalanın soğuk gölgesiyle ödeyeceksin.",
-      "onEnter": [
-        {
-          "flag": "mem_mind_kirilma_psychologist_orta",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_gri": {
-      "title": "Yeni Borç",
-      "kind": "outcome",
-      "text": "Yükün bir kısmını başkasına devretmek nefes almanı sağladı belki ama masadaki koku, rutubetli ve ağır bir suç ortaklığı kokusuydu. {actor.agent.name} arkasına bakmadan ofisten çıkarken, aranızdaki profesyonel saygı tamamen silinmiş, yerini birbirinize muhtaç olduğunuz soğuk bir pazarlığa bırakmıştı. Artık kurulan her cümle bir diğerini garanti altına almalıydı; güvenin bittiği yerde sadece sözleşmeler konuşuyordu.",
-      "onEnter": [
-        {
-          "flag": "mem_mind_kirilma_psychologist_orta",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

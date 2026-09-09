@@ -17,130 +17,304 @@
     "loaned",
     "transfer_listed"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Karanlık Masa",
-      "kind": "branch",
-      "text": "Odanın içi tütün ve bayat kahve kokuyor. {actor.agent.name} masanın üzerine bir evrak yığını bırakıyor. Mürekkep henüz kurumamış. 'Senin imzanla, senin transferin üzerinden dönen bir offshore ağı,' diyor. Gözleri doğrudan senin gözlerine kilitli. İmzayı sen atmadın ama kalem senin adına tutulmuş. Dışarıda basın senin yeni kulübe geçişini konuşuyor, içeride ise adın bilmediğin bir suçun altına kazınıyor. {actor.agent.name} sessizce masanın ucundaki kırmızı klasörü itiyor. 'Ya bunu onaylarsın, ya da yarın sabah o dosyalarla birlikte spor sayfalarının manşetinde olursun.'",
-      "choices": [
-        {
-          "id": "c_riskli",
-          "text": "Klasörü alıp masadan uzaklaş. Şimdilik hiçbir şeyi imzalamıyorsun.",
-          "target": "n_outcome_risk",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Masa",
+          "kind": "branch",
+          "text": "Odanın içi tütün ve bayat kahve kokuyor. {actor.agent.name} masanın üzerine bir evrak yığını bırakıyor. Mürekkep henüz kurumamış. 'Senin imzanla, senin transferin üzerinden dönen bir offshore ağı,' diyor. Gözleri doğrudan senin gözlerine kilitli. İmzayı sen atmadın ama kalem senin adına tutulmuş. Dışarıda basın senin yeni kulübe geçişini konuşuyor, içeride ise adın bilmediğin bir suçun altına kazınıyor. {actor.agent.name} sessizce masanın ucundaki kırmızı klasörü itiyor. 'Ya bunu onaylarsın, ya da yarın sabah o dosyalarla birlikte spor sayfalarının manşetinde olursun.'",
+          "choices": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
+              "id": "c_riskli",
+              "text": "Klasörü alıp masadan uzaklaş. Şimdilik hiçbir şeyi imzalamıyorsun.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
             },
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
+              "id": "c_gri",
+              "text": "Kalemi al ve sayfayı çevir. Belki de bu kadar paradan sonra sessiz kalmak en iyisidir.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
             },
             {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "id": "c_guvenli",
+              "text": "Hemen yönetimi ara. {actor.agent.name} ile ilişiğini kesmek, kariyerini kurtarmanın tek yolu.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
             }
-          ],
-          "persona": {
-            "durus": 8
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Kalemi al ve sayfayı çevir. Belki de bu kadar paradan sonra sessiz kalmak en iyisidir.",
-          "target": "n_outcome_gri",
-          "effects": [
+        "n_outcome_risk": {
+          "title": "Tehlikeli Oyun",
+          "kind": "outcome",
+          "text": "{actor.agent.name} arkandan gülüyor. Şimdi sessizsin, ama bu sessizliğin bedelini yakında manşetlerde ödeyeceksin. Bir süre daha sahadaki varlığın, gölgelerin gözetiminde olacak.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 50
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": -5
-          }
+          ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Hemen yönetimi ara. {actor.agent.name} ile ilişiğini kesmek, kariyerini kurtarmanın tek yolu.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+        "n_outcome_gri": {
+          "title": "Karanlık Kazanç",
+          "kind": "outcome",
+          "text": "İmza atıldı. Hesap numaran değişti, ancak aynadaki yüzün artık biraz daha yabancı. Başarının bedeli, vicdanının bir kısmını bu odaya bırakmak oldu.",
+          "onEnter": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "form",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "dogruluk": 10
-          }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Sayfa",
+          "kind": "outcome",
+          "text": "Telefonu kapattığında odadaki hava değişti. {actor.agent.name} eşyalarını toplayıp gidiyor. Kariyerin temiz ama artık arkanda çok güçlü bir düşman ve kariyerini riske atan bir belirsizlik bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_risk": {
-      "title": "Tehlikeli Oyun",
-      "kind": "outcome",
-      "text": "{actor.agent.name} arkandan gülüyor. Şimdi sessizsin, ama bu sessizliğin bedelini yakında manşetlerde ödeyeceksin. Bir süre daha sahadaki varlığın, gölgelerin gözetiminde olacak.",
-      "onEnter": [
-        {
-          "flag": "mem_dark_suc_ortakligi_agent",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katında, havalandırma pervanesinin ritmik gıcırtısı duyuluyor. Koridorun sonunda {actor.agent.name} bir elinde anahtarlık, diğerinde yakılmış bir sigarayla duruyor. Kaçış yok. Yanından geçip gitmek istediğinde elindeki anahtarlığı duvara çarparak sesi kesiyor. Işıklar cılız, duman gri. Konuşmaya başladığında sesi duvarlara çarpıp sana geri dönüyor. O, senin kariyerini yönetmekle kalmamış, ona bir isim takıp kafese kapatmış. Şimdi karşında, terli formanın üzerinde bir leke gibi duruyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sessizliği bölme. Elindeki çantayı onun ayağının dibine bırak ve payını al.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sigarasını elinden al, yere atıp üzerine bas. 'Bir daha karşıma çıkma' de.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Yüzüne bile bakmadan yanından geç. Profesyonelce, soğukkanlılıkla soyunma odasına yönel.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Ona yaklaş, fısılda: 'Bu iş bitti ama seni hala kullanabilirim.'",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı 74]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Kirli Anlaşma",
+          "kind": "outcome",
+          "text": "Çanta artık boş. Gözlerindeki o hayal kırıklığı, bir futbolcunun sonuna dair en net resim.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Sokak Adaleti",
+          "kind": "outcome",
+          "text": "Gözlerinde bir anlık bir korku parladı. Bu, kariyerinin en tehlikeli anıydı ama en azından artık senin kararların sana ait.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde arkandan gelen küfürleri duymuyorsun. Oyun, saha içinden ibaret değil.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Zehirli Ortaklık",
+          "kind": "outcome",
+          "text": "Ona ne yapacağını söylediğinde yüzündeki o çarpık gülümsemeyi gördün. Kendini kurtardığını sanıyorsun, aslında sadece ipleri daha sıkı tutuyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Karanlık Kazanç",
-      "kind": "outcome",
-      "text": "İmza atıldı. Hesap numaran değişti, ancak aynadaki yüzün artık biraz daha yabancı. Başarının bedeli, vicdanının bir kısmını bu odaya bırakmak oldu.",
-      "onEnter": [
-        {
-          "flag": "mem_dark_suc_ortakligi_agent",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "Temiz Sayfa",
-      "kind": "outcome",
-      "text": "Telefonu kapattığında odadaki hava değişti. {actor.agent.name} eşyalarını toplayıp gidiyor. Kariyerin temiz ama artık arkanda çok güçlü bir düşman ve kariyerini riske atan bir belirsizlik bıraktın.",
-      "onEnter": [
-        {
-          "flag": "mem_dark_suc_ortakligi_agent",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

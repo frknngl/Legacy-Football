@@ -24,180 +24,359 @@
       true
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Tribünlerin Gölgesi",
-      "kind": "branch",
-      "text": "{actor.fan_leader.name}, antrenman çıkışında aracının kapısına yaslanmış bekliyor. Gözleri doğrudan senin gözlerinde; ne bir gülümseme ne de bir tehdit var yüzünde. Sadece, taraftarın senin için neler feda ettiğini hatırlatan o ağır sessizlik. Arkada {actor.journalist.name} ve {actor.pundit.name} uzaktan sizi izliyor, objektifleri şimdiden odaklanmış durumda. Şehirdeki huzursuzluğu bitirmek ya da onu kendi lehine derinleştirmek arasında tek bir an var. {actor.fan_leader.name} elindeki meşaleyi söndürüp çöp kutusuna atıyor, yanına yaklaşıyor ve tek bir fısıltıyla şunları söylüyor: 'Sahadaki başarının rengi, bizim sokaktaki terimizle aynı olsun istiyoruz.'",
-      "choices": [
-        {
-          "id": "c_riskli",
-          "text": "Ona göz kırpıp kulüp içindeki gizli bir stratejiyi çıtlatmak. Bu, tribünleri sana bağlar ama yarın gazete manşetlerinde bir 'köstebek' olarak anılırsın.",
-          "target": "n_outcome_riskli",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tribünlerin Gölgesi",
+          "kind": "branch",
+          "text": "{actor.fan_leader.name}, antrenman çıkışında aracının kapısına yaslanmış bekliyor. Gözleri doğrudan senin gözlerinde; ne bir gülümseme ne de bir tehdit var yüzünde. Sadece, taraftarın senin için neler feda ettiğini hatırlatan o ağır sessizlik. Arkada {actor.journalist.name} ve {actor.pundit.name} uzaktan sizi izliyor, objektifleri şimdiden odaklanmış durumda. Şehirdeki huzursuzluğu bitirmek ya da onu kendi lehine derinleştirmek arasında tek bir an var. {actor.fan_leader.name} elindeki meşaleyi söndürüp çöp kutusuna atıyor, yanına yaklaşıyor ve tek bir fısıltıyla şunları söylüyor: 'Sahadaki başarının rengi, bizim sokaktaki terimizle aynı olsun istiyoruz.'",
+          "choices": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
+              "id": "c_riskli",
+              "text": "Ona göz kırpıp kulüp içindeki gizli bir stratejiyi çıtlatmak. Bu, tribünleri sana bağlar ama yarın gazete manşetlerinde bir 'köstebek' olarak anılırsın.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
             },
             {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
+              "id": "c_ahlaki_gri",
+              "text": "Sessizce cebinden çıkardığın bir miktar parayı kulübün resmi olmayan bağış fonu adına ona uzatmak. Görünürde bir şey yok, sadece vicdanında bir sızı.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
             },
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
+              "id": "c_guvenli",
+              "text": "Ona profesyonel bir mesafeyle bakıp, 'Ben sadece işimi yaparım, sahada görüşürüz' diyerek arabana binip gitmek.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
             },
             {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "id": "c_stat_kilitli",
+              "text": "Ona bir sonraki maçın primini taraftar organizasyonuna bağışlayacağına dair söz vermek. Yorucu bir sezon seni bekliyor.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Taraftar Desteği 60+]"
             }
-          ],
-          "persona": {
-            "durus": -5
-          }
+          ]
         },
-        {
-          "id": "c_ahlaki_gri",
-          "text": "Sessizce cebinden çıkardığın bir miktar parayı kulübün resmi olmayan bağış fonu adına ona uzatmak. Görünürde bir şey yok, sadece vicdanında bir sızı.",
-          "target": "n_outcome_gri",
-          "effects": [
+        "n_outcome_riskli": {
+          "title": "Sırrın Bedeli",
+          "kind": "outcome",
+          "text": "O akşam {actor.journalist.name}, köşe yazısında senin karanlık pazarlığını imalı bir dille ifşa etti. İtibarın gazete manşetlerinde bir bir dökülürken, antrenman sahasına her adım atışında tribünlerin o sağır edici tezahüratı yankılanıyor; artık her topa dokunuşunda taraftarın sana olan o tehlikeli sadakatini iliklerine kadar hissediyorsun.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "dogruluk": -8
-          }
+          ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Ona profesyonel bir mesafeyle bakıp, 'Ben sadece işimi yaparım, sahada görüşürüz' diyerek arabana binip gitmek.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+        "n_outcome_gri": {
+          "title": "Kirli Bir Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.fan_leader.name} parayı aldı ve hiçbir şey olmamış gibi arkasını döndü. Elin artık biraz daha boş, vicdanın ise biraz daha ağır.",
+          "onEnter": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "form",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": 8
-          }
+          ]
         },
-        {
-          "id": "c_stat_kilitli",
-          "text": "Ona bir sonraki maçın primini taraftar organizasyonuna bağışlayacağına dair söz vermek. Yorucu bir sezon seni bekliyor.",
-          "target": "n_outcome_kilitli",
-          "effects": [
+        "n_outcome_guvenli": {
+          "title": "Soğuk Mesafe",
+          "kind": "outcome",
+          "text": "{actor.fan_leader.name} hiçbir şey söylemeden sadece başını aşağı yukarı salladı ve arkasını dönüp sisli sokaklarda gözden kayboldu. O an aranızdaki görünmez bağ tamamen koptu; artık stadyumun çimleri üzerinde ne kadar koşarsan koş, onlar için sadece formasını terleten ama ruhunu satmayan bir yabancısın.",
+          "onEnter": [
             {
-              "flag": "iliski_fan_leader",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 10
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
             }
-          ],
-          "requires": {
-            "flag": "taraftar_destegi",
-            "op": "gte",
-            "value": 60
-          },
-          "lockLabel": "[Taraftar Desteği 60+]"
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Fedakarlık",
+          "kind": "outcome",
+          "text": "Verdiğin o ağır söz, şehrin ara sokaklarından kulüp binasının koridorlarına kadar bir efsane gibi yayıldı. Artık her maçta normalden çok daha fazla koşman, terinin son damlasına kadar savaşman gerekecek ama tribünler sessizliğe büründüğünde, şehrin tüm anahtarlarının senin ellerinde olduğunu çok iyi biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_riskli": {
-      "title": "Sırrın Bedeli",
-      "kind": "outcome",
-      "text": "O akşam {actor.journalist.name}, köşe yazısında senin karanlık pazarlığını imalı bir dille ifşa etti. İtibarın gazete manşetlerinde bir bir dökülürken, antrenman sahasına her adım atışında tribünlerin o sağır edici tezahüratı yankılanıyor; artık her topa dokunuşunda taraftarın sana olan o tehlikeli sadakatini iliklerine kadar hissediyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_zafer_bedeli_fan_leader",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Arka Çıkışı",
+          "kind": "branch",
+          "text": "Stadyumun soğuk beton koridorunda yankılanan ayak seslerin, {actor.fan_leader.name} sokağa açılan demir kapının önünde durduğunu görünce kesiliyor. Elinde bir dosya yok, sadece buruşuk bir taraftar atkısı. Geçen haftaki mağlubiyetin sessizliği hala kulaklarında. {actor.fan_leader.name} sana doğru bir adım atıyor, ardından kapıyı kendi arkasına çekip anahtarı kilitliyor. Göz göze geliyorsunuz. Odanın içi, dışarıdaki tezahüratların boğuk sesiyle inliyor. İstemediğin o gerçeği yüzüne vurmak için bekliyor. Kapı artık yüzüne kapandı, içeridekiler senin hakkında çoktan kararını vermiş.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce arkana dön ve kulüp binasına giden başka bir yol ara.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ona yaklaş, yakasından tut ve neden bu kapıyı kapattığını sor.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cüzdanını çıkar, içinden büyük bir miktarı sessizce ona uzat.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "İsmini kullanarak onunla pazarlık yapmaya çalış, taraftarın sesini kullan.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Geri Adım",
+          "kind": "outcome",
+          "text": "Yolunu değiştiriyorsun. Arkanda kilitli kapının sesi, geceye karışıyor. Kimse seni görmedi, kimse ne yaptığını sormadı. Profesyonelliğin bir zırh gibi, ama içeride bir şeyler eksik.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "{actor.fan_leader.name} geri adım atmıyor. Yarın sabah gazetelerde bu tartışmanın görüntülerini göreceksin. Kariyerin için ağır bir yük, ama en azından sesini duyurdun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Bedel",
+          "kind": "outcome",
+          "text": "Zarfı alıyor. Gözlerindeki soğukluk kaybolmuyor ama kapı bir anlığına aralanıyor. Bu para, dürüstlüğünün üzerine çekilmiş bir sis perdesi gibi. Herkesin bildiği ama kimsenin söylemediği o anlaşmayı yaptın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Sokakların Dili",
+          "kind": "outcome",
+          "text": "{actor.fan_leader.name} şaşırıyor. Senin gibi birinin bu kapıda durup kendisiyle konuşması, taraftarlar arasındaki tüm dengeyi değiştiriyor. Kapı açılıyor, ama yorgunluk damarlarında hissediliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Kirli Bir Anlaşma",
-      "kind": "outcome",
-      "text": "{actor.fan_leader.name} parayı aldı ve hiçbir şey olmamış gibi arkasını döndü. Elin artık biraz daha boş, vicdanın ise biraz daha ağır.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_zafer_bedeli_fan_leader",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "Soğuk Mesafe",
-      "kind": "outcome",
-      "text": "{actor.fan_leader.name} hiçbir şey söylemeden sadece başını aşağı yukarı salladı ve arkasını dönüp sisli sokaklarda gözden kayboldu. O an aranızdaki görünmez bağ tamamen koptu; artık stadyumun çimleri üzerinde ne kadar koşarsan koş, onlar için sadece formasını terleten ama ruhunu satmayan bir yabancısın.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_zafer_bedeli_fan_leader",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_kilitli": {
-      "title": "Fedakarlık",
-      "kind": "outcome",
-      "text": "Verdiğin o ağır söz, şehrin ara sokaklarından kulüp binasının koridorlarına kadar bir efsane gibi yayıldı. Artık her maçta normalden çok daha fazla koşman, terinin son damlasına kadar savaşman gerekecek ama tribünler sessizliğe büründüğünde, şehrin tüm anahtarlarının senin ellerinde olduğunu çok iyi biliyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_zafer_bedeli_fan_leader",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

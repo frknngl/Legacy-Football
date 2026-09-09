@@ -27,170 +27,342 @@
     "op": "ne",
     "value": true
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Masadaki İki İsim",
-      "kind": "branch",
-      "text": "{actor.sporting_director.name} önündeki kağıtları yavaşça masaya yayıyor. Pencereden gelen ışık, masadaki iki sözleşme taslağının üzerinden geçiyor. Biri, kulübün geleceği için planlanan büyük bir satışın parçası. Diğeri, {actor.captain.name} ile olan dostluğun ve takım içindeki dengelerin teminatı. {actor.sporting_director.name} arkasına yaslanıyor, gözlüklerini çıkarıp masadaki boşluğa bakıyor. Bir cevap beklediği aşikar, ama ağzından tek bir kelime çıkmıyor. Sadece parmaklarıyla masanın kenarına ritmik bir şekilde vuruyor.",
-      "choices": [
-        {
-          "id": "c_servet",
-          "text": "Kontratı imzalayıp dosyayı geri itiyorum. Gelecek, duygulardan daha somut.",
-          "target": "n_outcome_1",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki İki İsim",
+          "kind": "branch",
+          "text": "{actor.sporting_director.name} önündeki kağıtları yavaşça masaya yayıyor. Pencereden gelen ışık, masadaki iki sözleşme taslağının üzerinden geçiyor. Biri, kulübün geleceği için planlanan büyük bir satışın parçası. Diğeri, {actor.captain.name} ile olan dostluğun ve takım içindeki dengelerin teminatı. {actor.sporting_director.name} arkasına yaslanıyor, gözlüklerini çıkarıp masadaki boşluğa bakıyor. Bir cevap beklediği aşikar, ama ağzından tek bir kelime çıkmıyor. Sadece parmaklarıyla masanın kenarına ritmik bir şekilde vuruyor.",
+          "choices": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 500000
+              "id": "c_servet",
+              "text": "Kontratı imzalayıp dosyayı geri itiyorum. Gelecek, duygulardan daha somut.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
+              "id": "c_sokak",
+              "text": "{actor.captain.name} yanımda değilse bu imza sadece bir kağıt parçası. Reddediyorum.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "id": "c_guvenli",
+              "text": "Tereddüt etmeden kalemi {actor.sporting_director.name} tarafına uzatıyorum. Planına sadığım.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Bakışlarım {actor.captain.name} ile olan anılarımıza gidiyor. İki tarafın da istediği yolda birleşiyorum.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Takım Sadakati Yüksek]"
             }
-          ],
-          "persona": {
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_sokak",
-          "text": "{actor.captain.name} yanımda değilse bu imza sadece bir kağıt parçası. Reddediyorum.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Sessiz Bir Kabul",
+          "kind": "outcome",
+          "text": "Kalem mürekkebinin kağıt üzerindeki hışırtısı odayı doldurdu. {actor.sporting_director.name}, imzaladığı belgeyi yavaşça eline alıp tek bir kelime etmeden arkasını döndü. Kapının menteşelerinden gelen gıcırtı sessizliği böldüğünde, odanın içindeki hava artık daha soğuk ve mesafeli bir hale bürünmüştü; artık sadece iş konuşulacaktı.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": -5
-          }
+          ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Tereddüt etmeden kalemi {actor.sporting_director.name} tarafına uzatıyorum. Planına sadığım.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_2": {
+          "title": "Köprüleri Yıkmak",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} kağıtları yırtmadı, sadece yavaşça masanın en uzak köşesine itti. Bakışlarını bir anlığına pencereye, dışarıdaki boş sahaya çevirdi. Bu sessiz restleşmenin kulüp içindeki dengeleri nasıl sarsacağını ikimiz de biliyorduk; attığı her adımda, odadaki ağır atmosferin yükü omuzlarıma biraz daha bindi.",
+          "onEnter": [
             {
-              "flag": "iliski_sporting_director",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "sadakat": 5
-          }
+          ]
         },
-        {
-          "id": "c_stat",
-          "text": "Bakışlarım {actor.captain.name} ile olan anılarımıza gidiyor. İki tarafın da istediği yolda birleşiyorum.",
-          "target": "n_outcome_4",
-          "effects": [
+        "n_outcome_3": {
+          "title": " Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Sözleşmenin üzerindeki mürekkep kurumadan {actor.sporting_director.name} elini omzuma koydu. Deri koltuğun gıcırtısı eşliğinde doğrulurken, parmaklarının kumaş üzerindeki baskısını iliklerime kadar hissettim. Bu dokunuşun ardında yatan profesyonel soğukluk, odadaki tüm samimiyeti bir anda silip süpürdü; ikimiz de artık farklı dünyaların insanlarıydık.",
+          "onEnter": [
             {
-              "flag": "iliski_sporting_director",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 5
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
             }
-          ],
-          "requires": {
-            "flag": "iliski_takim",
-            "op": "gte",
-            "value": 74
-          },
-          "lockLabel": "[Takım Sadakati Yüksek]"
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Zoraki Uzlaşı",
+          "kind": "outcome",
+          "text": "Herkesin tatmin olduğu bir orta yol bulmuştuk ama kendi ilkelerimden verdiğim tavizin ağırlığı boğazıma düğümlendi. {actor.sporting_director.name} arkasına yaslanıp gözlerini tavana diktiğinde, ben odadan çıkarken attığım her adımda zemindeki parkelerin çıkardığı ses bile bana kendi kaybımı hatırlattı; kapıyı kapatırken geride kalan sadece belgeler değil, biraz da kendimdi.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_1": {
-      "title": "Sessiz Bir Kabul",
-      "kind": "outcome",
-      "text": "Kalem mürekkebinin kağıt üzerindeki hışırtısı odayı doldurdu. {actor.sporting_director.name}, imzaladığı belgeyi yavaşça eline alıp tek bir kelime etmeden arkasını döndü. Kapının menteşelerinden gelen gıcırtı sessizliği böldüğünde, odanın içindeki hava artık daha soğuk ve mesafeli bir hale bürünmüştü; artık sadece iş konuşulacaktı.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_sadakat_sinavi_sporting_director",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_terk_edilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Kulüp tesislerinin otoparkında, {actor.sporting_director.name} aracının kapısını sertçe kapatıyor. Motorun sesi, geceyi bölen tek gürültü. {actor.sporting_director.name} tek kelime etmeden bagajdan eski bir spor çantasını yere atıyor. İçindekiler asfalta saçılıyor; bir çift yıpranmış krampon, birkaç forma, yarım kalmış bir rüya. Arkasını dönüp gidiyor. Sessizlik. Sadece uzaktaki ana yolun uğultusu duyuluyor. Gitmesi gereken kişi çoktan uzaklaşmış, yerdeki eşyalar ise başka birinin dünyasına aitmiş gibi yabancı görünüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kramponları çantaya geri doldur. Yarın antrenmana erkenden gidilecek.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Çantayı olduğu gibi bırak. Bu kramponlarla bir daha sahaya çıkmayacaksın.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Çantanın içindeki gizli prim zarfını al. O gitti, borçlar ise baki kaldı.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Telefonunu çıkar ve {actor.sporting_director.name} arayarak durumu sorgula. Bir cevap hak ediyorsun.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 5
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Liderlik 55]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Eşyalarını topladın. Otopark boşaldı. Soğuk asfaltın üzerine sinen yalnızlık artık senin yükün.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İsyanın İlk Adımı",
+          "kind": "outcome",
+          "text": "Çanta orada kaldı. Birine ait olan o eski hayatın artık senin için bir önemi yok. Dönüp yürüdün.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Bedeli Ödenmiş Vicdan",
+          "kind": "outcome",
+          "text": "Zarfı ceketinin içine gizledin. Odanın ışığı kapalı, elindeki para ise soğuk ve ağır. Yarın her şey farklı olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yüzleşme Arayışı",
+          "kind": "outcome",
+          "text": "Telefon çaldı, çalıyor. Ses tonun kararlı. Karşı taraftaki sessizliği bozmanın vakti geldi.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "Köprüleri Yıkmak",
-      "kind": "outcome",
-      "text": "{actor.sporting_director.name} kağıtları yırtmadı, sadece yavaşça masanın en uzak köşesine itti. Bakışlarını bir anlığına pencereye, dışarıdaki boş sahaya çevirdi. Bu sessiz restleşmenin kulüp içindeki dengeleri nasıl sarsacağını ikimiz de biliyorduk; attığı her adımda, odadaki ağır atmosferin yükü omuzlarıma biraz daha bindi.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_sadakat_sinavi_sporting_director",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": " Profesyonel Mesafe",
-      "kind": "outcome",
-      "text": "Sözleşmenin üzerindeki mürekkep kurumadan {actor.sporting_director.name} elini omzuma koydu. Deri koltuğun gıcırtısı eşliğinde doğrulurken, parmaklarının kumaş üzerindeki baskısını iliklerime kadar hissettim. Bu dokunuşun ardında yatan profesyonel soğukluk, odadaki tüm samimiyeti bir anda silip süpürdü; ikimiz de artık farklı dünyaların insanlarıydık.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_sadakat_sinavi_sporting_director",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_4": {
-      "title": "Zoraki Uzlaşı",
-      "kind": "outcome",
-      "text": "Herkesin tatmin olduğu bir orta yol bulmuştuk ama kendi ilkelerimden verdiğim tavizin ağırlığı boğazıma düğümlendi. {actor.sporting_director.name} arkasına yaslanıp gözlerini tavana diktiğinde, ben odadan çıkarken attığım her adımda zemindeki parkelerin çıkardığı ses bile bana kendi kaybımı hatırlattı; kapıyı kapatırken geride kalan sadece belgeler değil, biraz da kendimdi.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_sadakat_sinavi_sporting_director",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

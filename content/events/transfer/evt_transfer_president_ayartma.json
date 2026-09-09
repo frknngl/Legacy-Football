@@ -351,6 +351,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_terk_edilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karantina Bölgesi",
+          "kind": "branch",
+          "text": "Antrenman sahasının en ücra köşesindeki duş kabinlerinin beton zeminindeyim. Havlu nemli, hava ağır. {actor.president.name} kapının eşiğinde, gölgesi ıslak zemine uzanıyor. Konuşmuyor. Elindeki dijital tableti yavaşça yere, paslı bir dolabın üzerine bırakıyor. Ekranda bir fesih sözleşmesi parlıyor; bir süredir oynamadığım, kimsenin aramadığı o unutulmuş günlerin özeti. Kapıdan çıkıp gittiğinde, geride sadece o cihazın cılız mavi ışığı kalıyor.",
+          "choices": [
+            {
+              "id": "c_imza_para",
+              "text": "Tableti alıp onay butonuna basıyorum. Gelecek, bir transfer ücretinden daha değerli.",
+              "target": "n_kazanc",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_imza_profesyonel",
+              "text": "Sessizce imzayı atıyorum. {actor.president.name} ile köprüleri yakmak, oyunuma engel olmamalı.",
+              "target": "n_profesyonel",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_red_risk",
+              "text": "Tableti kırmaya değer mi? Hayır, sadece bu pisliği süpürüp çöpe atıyorum.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            }
+          ]
+        },
+        "n_kazanc": {
+          "title": "Soğuk Hesap",
+          "kind": "outcome",
+          "text": "Banka hesabıma düşen rakam, duş suyunun soğukluğunu unutturuyor. Sadakat, vadesi geçmiş bir borç gibi siliniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_profesyonel": {
+          "title": "Resmi Veda",
+          "kind": "outcome",
+          "text": "Sözleşmeyi usulüne göre imzalayıp masaya bıraktım. Artık herkes için sadece bir satır hatasıyım. Profesyonellik, duyguların en pahalı mezarı.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Gözlerinin içine bakarak tableti yere fırlattım. Kırılan ekran, yollarımızın ayrılış biçimi gibi darmadağın. Yarın gazetelerde asi oyuncu ilan edilecek olsam da, bu gece kendimim.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

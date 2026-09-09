@@ -27,138 +27,278 @@
     "injured",
     "playing"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Defterler",
-      "kind": "branch",
-      "text": "Mutfaktaki buzluktan gelen motor sesi sessizliği bölüyor. {actor.cousin.name}, masanın ucunda oturmuş, önündeki yıpranmış dosyayı parmaklarıyla geriyor. Yan odada {actor.partner.name} ile akşam yemeği planları konuşuluyor ama kuzenin bakışları başka yerde. 'Bunu kulübe verirsen, benim sonum olur,' diyor fısıltıyla. Eğer bu belgeler ortaya çıkarsa, kariyerin büyük bir skandalın tam ortasında kalacak. Sessizce masaya yığılmış fotoğraflara bakıyorsun. {actor.childhood_friend.name} ise kapı aralığından durumu izliyor; onun için bu sadece bir sadakat testi değil, eski mahallede kimin yanında saf tutacağının ilanı.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Dosyayı elinden al ve yak. 'Bunu hiç görmedim, sen de hatırlama.'",
-          "target": "n_outcome_guvenli",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Defterler",
+          "kind": "branch",
+          "text": "Mutfaktaki buzluktan gelen motor sesi sessizliği bölüyor. {actor.cousin.name}, masanın ucunda oturmuş, önündeki yıpranmış dosyayı parmaklarıyla geriyor. Yan odada {actor.partner.name} ile akşam yemeği planları konuşuluyor ama kuzenin bakışları başka yerde. 'Bunu kulübe verirsen, benim sonum olur,' diyor fısıltıyla. Eğer bu belgeler ortaya çıkarsa, kariyerin büyük bir skandalın tam ortasında kalacak. Sessizce masaya yığılmış fotoğraflara bakıyorsun. {actor.childhood_friend.name} ise kapı aralığından durumu izliyor; onun için bu sadece bir sadakat testi değil, eski mahallede kimin yanında saf tutacağının ilanı.",
+          "choices": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_guvenli",
+              "text": "Dosyayı elinden al ve yak. 'Bunu hiç görmedim, sen de hatırlama.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5,
+                "sadakat": -5
+              }
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "id": "c_riskli",
+              "text": "Dosyayı {actor.cousin.name:dat} geri ver. 'Neyi göze alıyorsan, arkasındayım.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 8,
+                "durus": 5
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
+              "id": "c_gri",
+              "text": "Fotoğrafları al, zarfa koy. 'Bunun bir bedeli var, herkesin ortak olduğu bir bedel.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5,
+                "mizac": 3
+              }
             }
-          ],
-          "persona": {
-            "dogruluk": 5,
-            "sadakat": -5
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Dosyayı {actor.cousin.name:dat} geri ver. 'Neyi göze alıyorsan, arkasındayım.'",
-          "target": "n_outcome_riskli",
-          "effects": [
+        "n_outcome_guvenli": {
+          "title": "Sessizlik Bedeli",
+          "kind": "outcome",
+          "text": "Kağıtlar küle dönüştüğünde kuzeninin gözlerindeki o parıltı sönüyor. Artık hiçbir şey eskisi gibi değil.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "flag": "mem_personal_sadakat_sinavi_cousin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "sadakat": 8,
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Fotoğrafları al, zarfa koy. 'Bunun bir bedeli var, herkesin ortak olduğu bir bedel.'",
-          "target": "n_outcome_gri",
-          "effects": [
+        "n_outcome_riskli": {
+          "title": "Kan Bağı",
+          "kind": "outcome",
+          "text": "Dosyayı ona geri verdin. Bir gün bu kağıtların manşetleri süsleyeceğini biliyorsun ama şu an aranızdaki bağ her şeyden ağır.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -12
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -8
+              "flag": "mem_personal_sadakat_sinavi_cousin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": -5,
-            "mizac": 3
-          }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Hesaplı Sessizlik",
+          "kind": "outcome",
+          "text": "Zarfı kendine sakladın. Güç artık senin elinde, ama vicdanındaki o boşluk büyümeye başladı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_sadakat_sinavi_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_guvenli": {
-      "title": "Sessizlik Bedeli",
-      "kind": "outcome",
-      "text": "Kağıtlar küle dönüştüğünde kuzeninin gözlerindeki o parıltı sönüyor. Artık hiçbir şey eskisi gibi değil.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_sadakat_sinavi_cousin",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin Gölgesi",
+          "kind": "branch",
+          "text": "Antrenman sahasının otoparkı boşalmış. {actor.cousin.name}, kaputu paslanmış aracının önünde, sigarasının dumanını ağır ağır havaya üflüyor. Gözleri yorgun, bakışları sabit. Yanına yaklaştığında, ceketinin iç cebinden çıkardığı bir dekontu yavaşça dikiz aynasına sıkıştırıyor. Söz söylemiyor, sadece çenesini hafifçe kaldırıp o meşhur, eski borcun vadesinin dolduğunu hatırlatan o soğuk bakışı atıyor. Etrafta ne bir kamera ne de tanık var; sadece rüzgârın tel örgülerde çıkardığı o tiz ses duyuluyor.",
+          "choices": [
+            {
+              "id": "c_odeme_yap",
+              "text": "Cüzdanı çıkar, eline tutuştur. 'Bu son olsun.'",
+              "target": "n_odeme_yap",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_reddet",
+              "text": "Omuz silk, arkana bakmadan arabanın kapısını aç. 'Artık tanımıyorum seni.'",
+              "target": "n_reddet",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_tehdit",
+              "text": "Dekontu al ve gözlerinin önünde yırt. 'Beni tekrar rahatsız edersen, sahadaki rakiplerimden daha beterini yaparım.'",
+              "target": "n_tehdit",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]"
+            }
+          ]
+        },
+        "n_odeme_yap": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Dekontu alıp hızla uzaklaşıyor. Cebindeki boşluk canını yaksa da, arkanı döndüğünde bir daha gelmeyeceğinden emin gibisin. Şimdilik.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_sadakat_sinavi_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_reddet": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "{actor.cousin.name} arkandan küfür ediyor. Ses otoparkın duvarlarında yankılanıyor. Yaptığın profesyonelceydi ama arkanda bıraktığın o ses, uzun süre kulaklarında çınlayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_sadakat_sinavi_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_tehdit": {
+          "title": "Sert Duruş",
+          "kind": "outcome",
+          "text": "Kağıt parçaları yere dağılıyor. {actor.cousin.name} bir an duraksıyor, ardından tükürüp gidiyor. Korkmadığını kanıtladın ama bu, bir gün mutlaka kendine dönecek bir düşman yarattığın anlamına geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_sadakat_sinavi_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Kan Bağı",
-      "kind": "outcome",
-      "text": "Dosyayı ona geri verdin. Bir gün bu kağıtların manşetleri süsleyeceğini biliyorsun ama şu an aranızdaki bağ her şeyden ağır.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_sadakat_sinavi_cousin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Hesaplı Sessizlik",
-      "kind": "outcome",
-      "text": "Zarfı kendine sakladın. Güç artık senin elinde, ama vicdanındaki o boşluk büyümeye başladı.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_sadakat_sinavi_cousin",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

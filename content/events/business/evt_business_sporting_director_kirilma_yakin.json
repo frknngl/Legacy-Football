@@ -31,132 +31,309 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Hesaplaşma Vakti",
-      "kind": "branch",
-      "text": "{actor.sporting_director.name} ofisin kapısını arkasından kilitledi. Masanın üzerine bir dosya bıraktı; yirmi beş hafta önce, o karanlık odaya girdiğinde imzaladığın belgelerin bir kopyası. {actor.agent.name} o gün seni, bu ödemenin aslında bir yatırım olduğuna ikna etmişti. Şimdi ise piyasa şartları değişti, faizler arttı ve {actor.sporting_director.name}’in sabrı tükendi. Oda sessiz. Sadece dışarıdaki antrenman sahasından gelen top sesleri duyuluyor. Masadaki dosya, sadece bir borcu değil, kariyerinin üzerine inşa ettiğin o kirli zaferin gerçek maliyetini haykırıyor.",
-      "choices": [
-        {
-          "id": "c_odeme",
-          "text": "Dosyayı imzala ve hesabı kapat. Bu lekeyi temizlemenin tek yolu bu.",
-          "target": "n_sonuc_guvenli",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Hesaplaşma Vakti",
+          "kind": "branch",
+          "text": "{actor.sporting_director.name} ofisin kapısını arkasından kilitledi. Masanın üzerine bir dosya bıraktı; yirmi beş hafta önce, o karanlık odaya girdiğinde imzaladığın belgelerin bir kopyası. {actor.agent.name} o gün seni, bu ödemenin aslında bir yatırım olduğuna ikna etmişti. Şimdi ise piyasa şartları değişti, faizler arttı ve {actor.sporting_director.name}’in sabrı tükendi. Oda sessiz. Sadece dışarıdaki antrenman sahasından gelen top sesleri duyuluyor. Masadaki dosya, sadece bir borcu değil, kariyerinin üzerine inşa ettiğin o kirli zaferin gerçek maliyetini haykırıyor.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "id": "c_odeme",
+              "text": "Dosyayı imzala ve hesabı kapat. Bu lekeyi temizlemenin tek yolu bu.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                }
+              ]
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 8
+              "id": "c_inkar",
+              "text": "Masadan kalk ve hiçbir şey olmamış gibi kapıya yürü. Bırak arkandan bağırsınlar.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -20
+              "id": "c_yeni_borc",
+              "text": "{actor.sporting_director.name}’e başka bir kaynak göster. Yeni bir transferin komisyonunu ona bağla.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
             }
           ]
         },
-        {
-          "id": "c_inkar",
-          "text": "Masadan kalk ve hiçbir şey olmamış gibi kapıya yürü. Bırak arkandan bağırsınlar.",
-          "target": "n_sonuc_riskli",
-          "effects": [
+        "n_sonuc_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "İmza atıldı. {actor.sporting_director.name} dosyayı alıp çıktı. Cebindeki para azaldı ama omuzlarındaki ağırlık biraz olsun hafifledi. Artık o günkü hırsının bedelini ödedin.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 10
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
             }
           ]
         },
-        {
-          "id": "c_yeni_borc",
-          "text": "{actor.sporting_director.name}’e başka bir kaynak göster. Yeni bir transferin komisyonunu ona bağla.",
-          "target": "n_sonuc_gri",
-          "effects": [
+        "n_sonuc_riskli": {
+          "title": "Fırtına Başlıyor",
+          "kind": "outcome",
+          "text": "Arkanı dönüp çıktın. {actor.sporting_director.name} arkandan sadece tek bir cümle kurdu: 'Bu hesap kapanmadı, sadece ertelendi.' Kapı kapandığında, yarınki manşetlerin ne olacağını biliyordun.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 10
-            },
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Yeni Bir Bağlantı",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} hafifçe gülümsedi, ancak gözlerinde hiçbir sıcaklık yoktu. Masadaki kağıtları yavaşça yırtıp çöp kutusuna fırlattığında çıkan o tiz kağıt sesi, odanın boğucu sessizliğini bıçak gibi kesti. Artık birbirimize göbekten bağlıyız, dedi fısıltıyla. Masanın üzerinden gelen serin hava tenine değdiğinde, kazandığını anladın; fakat bu zaferin bedeli, artık atacağın her adımın onun gölgesi altında kalacak olmasıydı.",
+          "onEnter": [
             {
-              "flag": "iliski_sporting_director",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
             }
           ]
         }
-      ]
+      }
     },
-    "n_sonuc_guvenli": {
-      "title": "Temiz Bir Sayfa",
-      "kind": "outcome",
-      "text": "İmza atıldı. {actor.sporting_director.name} dosyayı alıp çıktı. Cebindeki para azaldı ama omuzlarındaki ağırlık biraz olsun hafifledi. Artık o günkü hırsının bedelini ödedin.",
-      "onEnter": [
-        {
-          "flag": "mem_money_zafer_bedeli_agent_yakin",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Altı Otoparkı",
+          "kind": "branch",
+          "text": "Stadın bodrum katında, beton kolonların arasında duruyorsunuz. {actor.sporting_director.name}, elindeki tableti kaputu üzerine bıraktı. Motorun fan sesi uğulduyor. Ekranda, henüz kamuoyuna sızmamış transfer bonuslarının dökümü parlıyor. 'Herkesin bir fiyatı vardır,' diyor {actor.sporting_director.name}, gözlerini tavandaki floresanlara dikerek. 'Ama bazılarınınki, sadece kariyerin bittiği gün belli olur. Şirketimiz senin payını artırmaya hazır. Yeter ki o geceki gizli görüşme, bu dosya içinde gömülü kalsın.' Sessizlik, otoparkın soğukluğundan daha keskin.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Tableti al, dosyayı sil. Bu parayı hak ettin.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sırtını dön ve uzaklaş. Eğer bir gün sızacaksa, senin ellerinle olsun.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Reddet. Kimseyle pazarlık yapmayacaksın.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Dosyayı incele, {actor.sporting_director.name} ile denetim planını yap.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Profesyonellik 74]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Ekrandaki yeşil ışık, işlemin tamamlandığını haber veriyor. {actor.sporting_director.name} başını hafifçe eğip arabasına biniyor. Artık dosyayı değil, vicdanındaki o boşluğu taşıyacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Ateşle Oynamak",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde {actor.sporting_director.name}’in yüzündeki o bakışı görüyorsun. Bu, bir köprünün yıkılış sesi. Yarın gazete manşetlerinde adın geçtiğinde, nedenini en iyi sen biliyor olacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Çıkış",
+          "kind": "outcome",
+          "text": "Otoparkın çıkışına doğru yürürken adımların yankılanıyor. Kimse peşinden gelmedi. Ama her adımda, elinden kaçan o paranın ağırlığı omuzlarında.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Stratejik İttifak",
+          "kind": "outcome",
+          "text": "Saatlerce masanın başında dosya analizi yaptınız. Gözlerin yorgunluktan kan çanağına döndü. Kulübün kontrolü artık senin elinde, ancak kendi bedenine ayıracak vaktin kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_sonuc_riskli": {
-      "title": "Fırtına Başlıyor",
-      "kind": "outcome",
-      "text": "Arkanı dönüp çıktın. {actor.sporting_director.name} arkandan sadece tek bir cümle kurdu: 'Bu hesap kapanmadı, sadece ertelendi.' Kapı kapandığında, yarınki manşetlerin ne olacağını biliyordun.",
-      "onEnter": [
-        {
-          "flag": "mem_money_zafer_bedeli_agent_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_gri": {
-      "title": "Yeni Bir Bağlantı",
-      "kind": "outcome",
-      "text": "{actor.sporting_director.name} hafifçe gülümsedi, ancak gözlerinde hiçbir sıcaklık yoktu. Masadaki kağıtları yavaşça yırtıp çöp kutusuna fırlattığında çıkan o tiz kağıt sesi, odanın boğucu sessizliğini bıçak gibi kesti. Artık birbirimize göbekten bağlıyız, dedi fısıltıyla. Masanın üzerinden gelen serin hava tenine değdiğinde, kazandığını anladın; fakat bu zaferin bedeli, artık atacağın her adımın onun gölgesi altında kalacak olmasıydı.",
-      "onEnter": [
-        {
-          "flag": "mem_money_zafer_bedeli_agent_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  },
-  "once": true
+  ]
 }

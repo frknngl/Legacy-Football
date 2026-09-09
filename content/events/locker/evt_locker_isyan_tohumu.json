@@ -21,183 +21,355 @@
   "lifeStates": [
     "playing"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Duşların Sesi",
-      "kind": "branch",
-      "text": "Antrenman bitti, saha boşaldı, ama kimse duşa girmedi. {actor.rival_teammate.name} bandajını çözmeyi bırakmış, {actor.star_teammate.name} telefonunu ters çevirmiş. Konu üç haftadır aynı: {actor.manager.name} kimi oynatıyor, kimi oynatmıyor, neden. {actor.captain.name} sessiz — ve sessizliği bir cevap. Sonra {actor.star_teammate.name} sana dönüyor, yüksek sesle değil, herkesin duyacağı kadar alçak sesle: \"Sen bir şey desen dinlerler.\" Odadaki on altı kişi aynı anda seni bekliyor. Bu odada senin ağırlığın var; ağırlığın nereye düşerse oda oraya kayacak.",
-      "choices": [
-        {
-          "id": "c_kiskirt",
-          "text": "\"Haklısınız. Ama bunu ben söylemem, siz söylersiniz.\" Odayı ateşle, adını temiz tut.",
-          "requires": {
-            "flag": "liderlik",
-            "op": "gte",
-            "value": 72
-          },
-          "lockLabel": "Liderlik 72",
-          "target": "n_out_kiskirt",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Duşların Sesi",
+          "kind": "branch",
+          "text": "Antrenman bitti, saha boşaldı, ama kimse duşa girmedi. {actor.rival_teammate.name} bandajını çözmeyi bırakmış, {actor.star_teammate.name} telefonunu ters çevirmiş. Konu üç haftadır aynı: {actor.manager.name} kimi oynatıyor, kimi oynatmıyor, neden. {actor.captain.name} sessiz — ve sessizliği bir cevap. Sonra {actor.star_teammate.name} sana dönüyor, yüksek sesle değil, herkesin duyacağı kadar alçak sesle: \"Sen bir şey desen dinlerler.\" Odadaki on altı kişi aynı anda seni bekliyor. Bu odada senin ağırlığın var; ağırlığın nereye düşerse oda oraya kayacak.",
+          "choices": [
             {
-              "flag": "yonetim_baskisi",
-              "op": "add",
-              "value": 22
+              "id": "c_kiskirt",
+              "text": "\"Haklısınız. Ama bunu ben söylemem, siz söylersiniz.\" Odayı ateşle, adını temiz tut.",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 72
+              },
+              "lockLabel": "Liderlik 72",
+              "target": "n_out_kiskirt",
+              "effects": [
+                {
+                  "flag": "yonetim_baskisi",
+                  "op": "add",
+                  "value": 22
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "mem_isyan_tohumu_atti",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "sadakat": -10,
+                "durus": 6
+              }
             },
             {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 8
+              "id": "c_yuzune",
+              "text": "\"Kimse arkasından konuşmayacak. Yarın hep beraber odasına çıkıyoruz.\"",
+              "target": "n_out_yuzune",
+              "effects": [
+                {
+                  "flag": "yonetim_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "mem_odayi_hocaya_goturdu",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "dogruluk": 10,
+                "durus": 8
+              }
             },
             {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": -12
+              "id": "c_kapat",
+              "text": "\"Üç haftadır kaybediyoruz, sebebi o değil. Duşa girin.\"",
+              "target": "n_out_kapat",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "mem_odayi_hocanin_yanina_cekti",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "sadakat": 12,
+                "mizac": -4
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": -8
-            },
-            {
-              "flag": "mem_isyan_tohumu_atti",
-              "op": "set",
-              "value": true
+              "id": "c_sus",
+              "text": "Havlunu al, duşa gir. Bu senin kavgan değil.",
+              "target": "n_out_sus",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "mem_odada_sustu",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
             }
-          ],
-          "persona": {
-            "sadakat": -10,
-            "durus": 6
-          }
+          ]
         },
-        {
-          "id": "c_yuzune",
-          "text": "\"Kimse arkasından konuşmayacak. Yarın hep beraber odasına çıkıyoruz.\"",
-          "target": "n_out_yuzune",
-          "effects": [
+        "n_out_kiskirt": {
+          "title": "Kibrit",
+          "kind": "outcome",
+          "text": "Ertesi sabah gazetede iki cümle var: \"Soyunma odası ikiye bölündü.\" Kaynak belirtilmemiş, ama {actor.manager.name} antrenmanda kimseye bakmıyor. Sen bir şey söylemedin; söyleyenlerin hepsi senin cümleni tekrarladı. Odada ağırlığın arttı, hocanın koltuğu ısındı. {actor.captain.name} yanından geçerken omzuna hafifçe vuruyor — onay mı uyarı mı, anlamadın. Bu tür kibritleri yakanlar genelde ateşin nereye gideceğini de seçemezler."
+        },
+        "n_out_yuzune": {
+          "title": "On Altı Kişi, Bir Kapı",
+          "kind": "outcome",
+          "text": "Ertesi gün koridorda on altı kişi bekliyor ve önlerinde sen varsın. {actor.manager.name} kapıyı açtığında yüzünde önce şaşkınlık, sonra bir şey daha var: saygı. Kimse bağırmadı. Yarım saat sonra çıktığınızda hiçbir şey çözülmemişti ama artık herkes birbirinin gözüne bakabiliyordu. Yönetim kattan olanları duydu ve duyduğu şey hoşuna gitmedi — bu kadar örgütlü bir oda, kovulacak bir hocanın habercisidir."
+        },
+        "n_out_kapat": {
+          "title": "Duşa Girin",
+          "kind": "outcome",
+          "text": "Odada kimse cevap vermedi. {actor.star_teammate.name} havlusunu aldı, {actor.rival_teammate.name} bandajını yerine bıraktı ve tek kelime etmeden çıktı. Sen haklıydın ve bunun hiçbir işe yaramadığını da biliyorsun. {actor.manager.name} akşam telefonla aradı, teşekkür etmedi ama sesinden anladın. Bir soyunma odasında haklı olmak, sevilmekle aynı şey değildir; bu farkı öğrenmek genelde bir sezon sürer."
+        },
+        "n_out_sus": {
+          "title": "Sıcak Su",
+          "kind": "outcome",
+          "text": "Duşun altında on dakika kaldın. Dışarıdaki sesler önce yükseldi, sonra dağıldı. Çıktığında oda boştu; kimse seni beklememişti. Bir daha da beklemeyecekler. Bu odada ağırlığın vardı ve onu kullanmamayı seçtin — bu da bir seçim, ama bedelini kimseye anlatamazsın. {actor.captain.name} çantasını alırken sadece başını salladı, o kadar."
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapalı Kapının Ardındaki Sessizlik",
+          "kind": "branch",
+          "text": "Tesisin en kuytu koridorunda, {actor.manager.name}’in ofis kapısındasın. İçeridekilerle olan toplantı bitmiş. Herkes ağır adımlarla uzaklaşıyor. Elinde takımı ilgilendiren o kritik dosya, biraz önce yüzüne kapanan kapının tokmağında terliyor. İçeriden gelen tek ses, bir sandalye ayağının zeminde çıkardığı o tiz, sinir bozucu gıcırtı. Kimse dönüp bakmıyor. Takımın geri kalanı, senin bu kapı önünde yaşadığın o ilk saniyelik şoku bir zaafiyet gibi kaydediyor. Şimdi ya o kapıya geri vuracaksın ya da bu yenilgiyi bir fısıltı gibi soyunma odasına taşıyıp, yavaş yavaş büyüteceksin.",
+          "choices": [
             {
-              "flag": "yonetim_baskisi",
-              "op": "add",
-              "value": 10
+              "id": "c_sessiz_kabullenis",
+              "text": "Arkanı dön ve sessizce koridorda yürü. Kimse zayıflığını görmemeli.",
+              "target": "n_sustu",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": -5
+              "id": "c_isyan_baslat",
+              "text": "Soyunma odasının ortasına dön. Herkesin duyacağı şekilde, verilen kararın aslında herkesin sonunu hazırladığını bağır.",
+              "target": "n_isyan_atti",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
             },
             {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 6
+              "id": "c_karanlik_pazarlik",
+              "text": "Dosyayı gizlice yanındaki gazeteciye sızdır. {actor.manager.name} yarın manşetlerde kendi yarattığı enkazla boğuşsun.",
+              "target": "n_medya_kullandi",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "mem_odayi_hocaya_goturdu",
-              "op": "set",
-              "value": true
+              "id": "c_guclu_muhalefet",
+              "text": "Takımın en ağır toplarını topla. Kapıya hep beraber dayanıp, kararı geri aldırmanın tek yolunun bu olduğunu onlara anlat.",
+              "target": "n_odayi_hocaya_goturdu",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
             }
-          ],
-          "persona": {
-            "dogruluk": 10,
-            "durus": 8
-          }
+          ]
         },
-        {
-          "id": "c_kapat",
-          "text": "\"Üç haftadır kaybediyoruz, sebebi o değil. Duşa girin.\"",
-          "target": "n_out_kapat",
-          "effects": [
-            {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -6
-            },
-            {
-              "flag": "mem_odayi_hocanin_yanina_cekti",
-              "op": "set",
-              "value": true
-            }
-          ],
-          "persona": {
-            "sadakat": 12,
-            "mizac": -4
-          }
-        },
-        {
-          "id": "c_sus",
-          "text": "Havlunu al, duşa gir. Bu senin kavgan değil.",
-          "target": "n_out_sus",
-          "effects": [
-            {
-              "flag": "liderlik",
-              "op": "add",
-              "value": -8
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": -6
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 4
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": 3
-            },
+        "n_sustu": {
+          "title": "Suskunluk Bedeli",
+          "kind": "outcome",
+          "text": "Kapı açılmadı. Sen oradan uzaklaşırken, içerideki ses de kesildi. Artık herkes senin ne kadar 'profesyonel' olduğuna dair efsaneler uyduracak, ama o koridorda bıraktığın özgüvenin yerini ağır bir boşluk aldı.",
+          "onEnter": [
             {
               "flag": "mem_odada_sustu",
               "op": "set",
               "value": true
             }
-          ],
-          "persona": {
-            "durus": -8
-          }
+          ]
+        },
+        "n_isyan_atti": {
+          "title": "İsyanın İlk Kıvılcımı",
+          "kind": "outcome",
+          "text": "Soyunma odasına girdiğinde hava ağırdı. Kelimelerin, oyuncuların gözlerindeki o saklı öfkeyle birleşti. Artık takımın içinde bir 'hoca' değil, sadece bir düşman var. Bu kıvılcım, sezonun geri kalanını ateşe verecek.",
+          "onEnter": [
+            {
+              "flag": "mem_isyan_tohumu_atti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_medya_kullandi": {
+          "title": "İtibarsız Kazanç",
+          "kind": "outcome",
+          "text": "Telefonuna düşen mesajla işlemin tamamlandığını anladın. Banka hesabın doldu, ama yarın sabahki gazetelerin senin fotoğrafını nasıl bir 'hain' olarak süsleyeceği gerçeği, odadaki havayı zehirliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_odayi_hocanin_yanina_cekti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_odayi_hocaya_goturdu": {
+          "title": "Kolektif Baskı",
+          "kind": "outcome",
+          "text": "Arkanda bıraktığın o kalabalık gölge, kapının önünde devleşti. Artık yalnız değilsin. Hoca, kapıyı açıp karşısında seni ve koca bir orduyu gördüğünde, geri adım atmanın ne demek olduğunu acı bir şekilde öğrenecek.",
+          "onEnter": [
+            {
+              "flag": "mem_odayi_hocaya_goturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_out_kiskirt": {
-      "title": "Kibrit",
-      "kind": "outcome",
-      "text": "Ertesi sabah gazetede iki cümle var: \"Soyunma odası ikiye bölündü.\" Kaynak belirtilmemiş, ama {actor.manager.name} antrenmanda kimseye bakmıyor. Sen bir şey söylemedin; söyleyenlerin hepsi senin cümleni tekrarladı. Odada ağırlığın arttı, hocanın koltuğu ısındı. {actor.captain.name} yanından geçerken omzuna hafifçe vuruyor — onay mı uyarı mı, anlamadın. Bu tür kibritleri yakanlar genelde ateşin nereye gideceğini de seçemezler."
-    },
-    "n_out_yuzune": {
-      "title": "On Altı Kişi, Bir Kapı",
-      "kind": "outcome",
-      "text": "Ertesi gün koridorda on altı kişi bekliyor ve önlerinde sen varsın. {actor.manager.name} kapıyı açtığında yüzünde önce şaşkınlık, sonra bir şey daha var: saygı. Kimse bağırmadı. Yarım saat sonra çıktığınızda hiçbir şey çözülmemişti ama artık herkes birbirinin gözüne bakabiliyordu. Yönetim kattan olanları duydu ve duyduğu şey hoşuna gitmedi — bu kadar örgütlü bir oda, kovulacak bir hocanın habercisidir."
-    },
-    "n_out_kapat": {
-      "title": "Duşa Girin",
-      "kind": "outcome",
-      "text": "Odada kimse cevap vermedi. {actor.star_teammate.name} havlusunu aldı, {actor.rival_teammate.name} bandajını yerine bıraktı ve tek kelime etmeden çıktı. Sen haklıydın ve bunun hiçbir işe yaramadığını da biliyorsun. {actor.manager.name} akşam telefonla aradı, teşekkür etmedi ama sesinden anladın. Bir soyunma odasında haklı olmak, sevilmekle aynı şey değildir; bu farkı öğrenmek genelde bir sezon sürer."
-    },
-    "n_out_sus": {
-      "title": "Sıcak Su",
-      "kind": "outcome",
-      "text": "Duşun altında on dakika kaldın. Dışarıdaki sesler önce yükseldi, sonra dağıldı. Çıktığında oda boştu; kimse seni beklememişti. Bir daha da beklemeyecekler. Bu odada ağırlığın vardı ve onu kullanmamayı seçtin — bu da bir seçim, ama bedelini kimseye anlatamazsın. {actor.captain.name} çantasını alırken sadece başını salladı, o kadar."
+      }
     }
-  }
+  ]
 }

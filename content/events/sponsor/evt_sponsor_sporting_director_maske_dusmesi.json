@@ -30,171 +30,358 @@
     "op": "eq",
     "value": 0
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Karanlık Ofis",
-      "kind": "branch",
-      "text": "Antrenman sahasının bodrum katı. {actor.sporting_director.name} masanın arkasında, gölgeler yüzünün yarısını gizliyor. Önünde kalın bir dosya ve imzalanmamış bir sponsorluk sözleşmesi var. {actor.agent.name} dışarıda, kapı kolunda eli. İçerideki hava ağır, ilaç kokuyor. {actor.sporting_director.name} dosyayı yavaşça sana doğru itiyor. 'Sahadaki sakatlığın teknik bir detay,' diyor sesi fısıltı gibi. 'Bu ise senin geleceğin. İmzayı at, o fotoğrafı sosyal medyada paylaş, sakatlık sürecinde bile markanın yüzü olduğunu göster. Yalanın bedeli yok, sadece kazancı var.' {actor.star_teammate.name} koridordan bağırıyor, neşesi kapıdan sızıyor. {actor.sporting_director.name} bekliyor.",
-      "choices": [
-        {
-          "id": "c_gri",
-          "text": "Kalemi al ve imzayı at. İyileşme sürecini markanın kampanyasına dönüştür.",
-          "target": "n_outcome_gri",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Ofis",
+          "kind": "branch",
+          "text": "Antrenman sahasının bodrum katı. {actor.sporting_director.name} masanın arkasında, gölgeler yüzünün yarısını gizliyor. Önünde kalın bir dosya ve imzalanmamış bir sponsorluk sözleşmesi var. {actor.agent.name} dışarıda, kapı kolunda eli. İçerideki hava ağır, ilaç kokuyor. {actor.sporting_director.name} dosyayı yavaşça sana doğru itiyor. 'Sahadaki sakatlığın teknik bir detay,' diyor sesi fısıltı gibi. 'Bu ise senin geleceğin. İmzayı at, o fotoğrafı sosyal medyada paylaş, sakatlık sürecinde bile markanın yüzü olduğunu göster. Yalanın bedeli yok, sadece kazancı var.' {actor.star_teammate.name} koridordan bağırıyor, neşesi kapıdan sızıyor. {actor.sporting_director.name} bekliyor.",
+          "choices": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
+              "id": "c_gri",
+              "text": "Kalemi al ve imzayı at. İyileşme sürecini markanın kampanyasına dönüştür.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
+              "id": "c_riskli",
+              "text": "Dosyayı reddet. Sakatlığının arkasına sığınmayı reddedip taraftara gerçeği anlat.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
+              "id": "c_guvenli",
+              "text": "Sessiz kal. Sözleşmeyi elinin tersiyle it ve hiçbir şey olmamış gibi odadan çık.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Gülümseyerek kabul et. Hem markayı hem de kulübü memnun etmek için iki kat çalış.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
             }
           ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Dosyayı reddet. Sakatlığının arkasına sığınmayı reddedip taraftara gerçeği anlat.",
-          "target": "n_outcome_riskli",
-          "effects": [
+        "n_outcome_gri": {
+          "title": "Yeni Bir Kimlik",
+          "kind": "outcome",
+          "text": "Kalem kâğıt üzerinde tok bir sesle dans etti, mürekkep yavaşça kurudu. {actor.sporting_director.name} oturduğu deri koltuktan ağır ağır doğrulurken yüzünde o ince, zafer kazanmış gülümseme yayıldı. Odanın içindeki ağır ilaç kokusu yerini keskin bir imza mürekkebi kokusuna bıraktı. Artık sahadaki sakatlığın bir anlamı kalmamıştı; bir markanın kusursuz yüzü olarak vitrinlere yerleştirildin.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": 1
             }
           ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Sessiz kal. Sözleşmeyi elinin tersiyle it ve hiçbir şey olmamış gibi odadan çık.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+        "n_outcome_riskli": {
+          "title": "Sırtını Dönmek",
+          "kind": "outcome",
+          "text": "Kapıyı sertçe çarparak çıktığında, {actor.sporting_director.name} yerinden bile kıpırdamadı; sadece gözlerini dosyanın üzerinden çekip senin gidişini izledi. Koridorun soğuk ışıkları altında adımların yankılanırken, arkandan yükselen sessizliğin aslında ağır bir tehdit içerdiğini hissettin. Bu kararla birlikte kulüp içindeki korunaklı limanından ayrıldın, artık fırtınanın tam merkezinde, belirsiz bir geleceğe doğru tek başına yürüyorsun.",
+          "onEnter": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "iliski_sporting_director",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": 1
             }
           ]
         },
-        {
-          "id": "c_stat",
-          "text": "Gülümseyerek kabul et. Hem markayı hem de kulübü memnun etmek için iki kat çalış.",
-          "target": "n_outcome_stat",
-          "effects": [
+        "n_outcome_guvenli": {
+          "title": "İkinci Plan",
+          "kind": "outcome",
+          "text": "Kapıyı sessizce çekip kapattığında, {actor.sporting_director.name} odada yalnız kaldı; ne bir ses ne de bir hareket duyuldu. Koridorda yürürken, aranızdaki o görünmez bağın çoktan koptuğunu ve yerini buz gibi bir mesafeye bıraktığını fark ettin. Artık birbirinizin gözlerine bakamayacağınız kadar büyük bir uçurum var aranızda. Ayakkabılarının zemindeki takırtısı, köprüleri yakmış olmanın sessizliğiyle birleşti.",
+          "onEnter": [
             {
-              "flag": "iliski_sporting_director",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 15
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": 1
             }
-          ],
-          "requires": {
-            "flag": "medya_itibari",
-            "op": "gte",
-            "value": 68
-          },
-          "lockLabel": "[Yüksek Medya İtibarı]"
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Ağır Yük",
+          "kind": "outcome",
+          "text": "Masadan kalktığında omuzlarındaki ağırlığın, sahadaki sakatlığından daha ağır olduğunu hissettin. {actor.sporting_director.name} masanın üzerindeki dosyayı kapatırken tatmin olmuş bir ifadeyle sandalyeye yaslandı, ama sen lavaboya gidip aynaya baktığında gözlerindeki o yabancıyla karşılaştın. Kulübün pazarlama stratejisi için harcadığın bu enerji, bedenindeki iyileşme sürecini değil, kişiliğindeki yıpranmayı gözler önüne serdi.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": 1
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_gri": {
-      "title": "Yeni Bir Kimlik",
-      "kind": "outcome",
-      "text": "Kalem kâğıt üzerinde tok bir sesle dans etti, mürekkep yavaşça kurudu. {actor.sporting_director.name} oturduğu deri koltuktan ağır ağır doğrulurken yüzünde o ince, zafer kazanmış gülümseme yayıldı. Odanın içindeki ağır ilaç kokusu yerini keskin bir imza mürekkebi kokusuna bıraktı. Artık sahadaki sakatlığın bir anlamı kalmamıştı; bir markanın kusursuz yüzü olarak vitrinlere yerleştirildin.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_maske_dusmesi_sporting_director",
-          "op": "set",
-          "value": 1
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tribün Altı Bekleyiş",
+          "kind": "branch",
+          "text": "Stadyumun bodrumundaki su boruları gürültüyle inliyor. {actor.sporting_director.name} elindeki tabletin ışığında bir sözleşme metnini kaydırıyor. Yanındaki duvarda, senin adının yazılı olduğu ama üzerinde derin bir çizik bulunan bir tahta asılı. Sakat ayağın üzerine basamıyorsun, buz torbası sızlatıyor. Direksiyon onda. 'Kariyerin bir sakatlık raporuna mı bağlı, yoksa benim vereceğim karara mı?' diye soruyor. Gözleri sana bakmıyor, ekrana kilitli.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Şartları kabul ediyorum. İyileşme sürecim için gereken kaynağı kulübe aktarın.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bu sözleşmeyi imzalamam. Taraftarın önünde maske takarak yürüyemem.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sayıları yükseltirsen, ne gördüğümü unuturum.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Bu kulüp benim evim. Masanın üzerine vurduğun o kağıtları kaldır.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İmzalı Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} başını salladı. Kalem havada asılı kaldı. Artık bu binanın en karanlık sırrını paylaşıyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Kapı sertçe kapandı. {actor.sporting_director.name} arkasından tek bir kelime bile etmedi. Sokak bu kararı, senin sahada göstereceğin ilk hatalı pasla tartacak.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödenmiş Vicdan",
+          "kind": "outcome",
+          "text": "Hesabındaki artış, ofisteki gerilimi saniyeler içinde sildi. {actor.sporting_director.name} gülümsedi. Artık aynı gemidesiniz, batarsanız beraber.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Otorite Savaşı",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} ilk defa sana bir rakip gibi baktı. Bu odadan bir kazanan çıkacaktı ve sen masayı devirdin.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Sırtını Dönmek",
-      "kind": "outcome",
-      "text": "Kapıyı sertçe çarparak çıktığında, {actor.sporting_director.name} yerinden bile kıpırdamadı; sadece gözlerini dosyanın üzerinden çekip senin gidişini izledi. Koridorun soğuk ışıkları altında adımların yankılanırken, arkandan yükselen sessizliğin aslında ağır bir tehdit içerdiğini hissettin. Bu kararla birlikte kulüp içindeki korunaklı limanından ayrıldın, artık fırtınanın tam merkezinde, belirsiz bir geleceğe doğru tek başına yürüyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_maske_dusmesi_sporting_director",
-          "op": "set",
-          "value": 1
-        }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "İkinci Plan",
-      "kind": "outcome",
-      "text": "Kapıyı sessizce çekip kapattığında, {actor.sporting_director.name} odada yalnız kaldı; ne bir ses ne de bir hareket duyuldu. Koridorda yürürken, aranızdaki o görünmez bağın çoktan koptuğunu ve yerini buz gibi bir mesafeye bıraktığını fark ettin. Artık birbirinizin gözlerine bakamayacağınız kadar büyük bir uçurum var aranızda. Ayakkabılarının zemindeki takırtısı, köprüleri yakmış olmanın sessizliğiyle birleşti.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_maske_dusmesi_sporting_director",
-          "op": "set",
-          "value": 1
-        }
-      ]
-    },
-    "n_outcome_stat": {
-      "title": "Ağır Yük",
-      "kind": "outcome",
-      "text": "Masadan kalktığında omuzlarındaki ağırlığın, sahadaki sakatlığından daha ağır olduğunu hissettin. {actor.sporting_director.name} masanın üzerindeki dosyayı kapatırken tatmin olmuş bir ifadeyle sandalyeye yaslandı, ama sen lavaboya gidip aynaya baktığında gözlerindeki o yabancıyla karşılaştın. Kulübün pazarlama stratejisi için harcadığın bu enerji, bedenindeki iyileşme sürecini değil, kişiliğindeki yıpranmayı gözler önüne serdi.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_maske_dusmesi_sporting_director",
-          "op": "set",
-          "value": 1
-        }
-      ]
+      }
     }
-  }
+  ]
 }

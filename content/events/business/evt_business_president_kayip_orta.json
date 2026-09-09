@@ -34,146 +34,314 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Son Fatura",
-      "kind": "branch",
-      "text": "{actor.president.name} ofisin loş ışığında, masanın üzerindeki kalın dosyayı işaret ediyor. Masanın köşesinde, o karanlık gecede imzalanan gizli sözleşmenin bir kopyası duruyor. O gün, {actor.agent.name} ile kurduğun o zehirli bağı, kariyerinin yükselişi için ödenen bedeli hatırlıyorsun. 45 hafta önce, sahada parlamak için imzaladığın o kağıt, bugün kulüp başkanının masasında bir yıkım aracına dönüştü. {actor.president.name} gözlerini gözlerinden ayırmıyor. Sessizlik, bir kararın ağırlığıyla odadaki havayı tüketiyor.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Sessizce başını salla ve o dosyayı imzala. Bedelini ödeyip konuyu kapat.",
-          "target": "n_outcome_1",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Fatura",
+          "kind": "branch",
+          "text": "{actor.president.name} ofisin loş ışığında, masanın üzerindeki kalın dosyayı işaret ediyor. Masanın köşesinde, o karanlık gecede imzalanan gizli sözleşmenin bir kopyası duruyor. O gün, {actor.agent.name} ile kurduğun o zehirli bağı, kariyerinin yükselişi için ödenen bedeli hatırlıyorsun. 45 hafta önce, sahada parlamak için imzaladığın o kağıt, bugün kulüp başkanının masasında bir yıkım aracına dönüştü. {actor.president.name} gözlerini gözlerinden ayırmıyor. Sessizlik, bir kararın ağırlığıyla odadaki havayı tüketiyor.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 15
+              "id": "c_guvenli",
+              "text": "Sessizce başını salla ve o dosyayı imzala. Bedelini ödeyip konuyu kapat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -200000
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_riskli",
+              "text": "Masadan kalk ve hiçbir şey olmamış gibi arkana bakmadan çık git.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -200000
+              "id": "c_ahlaki_gri",
+              "text": "Teklifi kabul et, bir borcun altına daha girip sessizliği satın al.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
             }
-          ],
-          "persona": {
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Masadan kalk ve hiçbir şey olmamış gibi arkana bakmadan çık git.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Kapanış",
+          "kind": "outcome",
+          "text": "Mürekkep kururken her şeyin bittiğini anlıyorsun. Artık o temsilciyle olan bağın koptu, ancak bu bedeli ödemek seni sessizliğe mahkum etti.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
+              "flag": "npc_agent_arc",
               "op": "add",
-              "value": 10
-            },
+              "value": -1
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İnkar",
+          "kind": "outcome",
+          "text": "Cevabını vermeden arkanı dönüp ağır adımlarla odayı terk ettin. Kapının kolu avucunda soğuk ve metalik bir his bırakırken, arkanda kalan {actor.president.name}‘in sessizce sandalyesine gömüldüğünü işittin. Sertçe çarptığın kapı, binanın koridorlarında yankılanarak huzursuzluğu daha da derinleştirdi. Yarın sabah gazete bayilerinde manşetleri süsleyecek olan kendi ismini okuduğunda, bu kaçışın seni kurtarmaya yetmediğini tüm şehirle birlikte sen de göreceksin.",
+          "onEnter": [
             {
-              "flag": "taraftar_destegi",
+              "flag": "npc_agent_arc",
               "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 20
+              "value": 1
             },
             {
               "flag": "skandal_seviyesi",
               "op": "add",
-              "value": 15
+              "value": 20
             }
-          ],
-          "persona": {
-            "mizac": -8
-          }
+          ]
         },
-        {
-          "id": "c_ahlaki_gri",
-          "text": "Teklifi kabul et, bir borcun altına daha girip sessizliği satın al.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_3": {
+          "title": "Yeni Bir Borç",
+          "kind": "outcome",
+          "text": "El sıkışıyorsunuz. Başkan gülümsüyor ama bu gülümseme bir kelepçe gibi. Artık sadece sahada değil, ofisin koridorlarında da rehin kaldın.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 100000
+              "flag": "lifeState",
+              "op": "set",
+              "value": "suspended"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Defterler",
+          "kind": "branch",
+          "text": "{actor.president.name} stadyumun otoparkında, soğuk metal bir bariyerin önünde duruyor. Sigarasının ucu karanlıkta bir ateş böceği gibi parlıyor. Elinde tuttuğu eski bir antrenman yeleği var; üzerine o günlerin tozu sinmiş. Hiçbir şey sormuyor, sadece yeleği üzerine fırlatıyor. Kumaşın ağır ve nemli dokusu, o eski karanlık sözleşmenin ağırlığını hatırlatıyor. {actor.president.name} gözlerini yoldan ayırmadan, fısıltıyla geçmişin taksitlerini hatırlatıyor. Stadyum ışıkları çok uzakta, cılız birer yıldız gibi yanıp sönüyor. Dönüş yolu yok, sadece uzatılan el ve beklenen bir yanıt var.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce yeleği arabanın koltuğuna bırak. Bu borcun bittiğini anladığını bilmesi yeter.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
             },
+            {
+              "id": "c_riskli",
+              "text": "Yeleği ayaklarının altına at ve yüzüne tükür. Bu hesabı ancak böyle kapatabilirsin.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Cüzdanından çıkardığın deste yeleğin cebine sıkıştır. İnsanların fiyatını ödediğin sürece, geçmişin hiçbir önemi yok.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Bir sonraki transferde onun istediği ismi kulübe getireceğine söz ver. Sadece gitmesi yeterli.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "Varlık ve nüfuz sahibi"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Kendi Yolunda",
+          "kind": "outcome",
+          "text": "{actor.president.name} arkasını dönüp gidiyor. Sessizlik ağır bir yük gibi omuzlarında. Profesyonel olmanın bedeli, bazen insanın kendine olan saygısını bir kenara bırakmasıdır.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sokakların Kanunu",
+          "kind": "outcome",
+          "text": "Sözler havada asılı kalıyor. {actor.president.name} gülümseyerek uzaklaşıyor ama gözlerindeki o soğukluk daha da derinleşiyor. Artık sahadaki her hamlen daha fazla dikkat çekecek.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Disiplin sorgulaması"
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Satın Alınan Huzur",
+          "kind": "outcome",
+          "text": "Para, en gürültülü anıları bile susturmanın en hızlı yolu. {actor.president.name} parayı alırken yüzüne bakmıyor bile. Gerçek bir bağ yok, sadece bir ticari işlem bitti.",
+          "onEnter": []
+        },
+        "n_outcome_4": {
+          "title": "Başka Bir İpoteğin Başlangıcı",
+          "kind": "outcome",
+          "text": "{actor.president.name} elini sıkıyor, avucundaki ter soğuk. Bu borç bitti ama yarınki yeni oyuncu tercihlerin artık sana ait değil. Özgürlüğün bir kısmı daha gitti.",
+          "onEnter": [
             {
               "flag": "iliski_president",
               "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
+              "value": 5
             }
-          ],
-          "persona": {
-            "sadakat": -5
-          }
+          ]
         }
-      ]
-    },
-    "n_outcome_1": {
-      "title": "Kapanış",
-      "kind": "outcome",
-      "text": "Mürekkep kururken her şeyin bittiğini anlıyorsun. Artık o temsilciyle olan bağın koptu, ancak bu bedeli ödemek seni sessizliğe mahkum etti.",
-      "onEnter": [
-        {
-          "flag": "npc_agent_arc",
-          "op": "add",
-          "value": -1
-        }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "İnkar",
-      "kind": "outcome",
-      "text": "Cevabını vermeden arkanı dönüp ağır adımlarla odayı terk ettin. Kapının kolu avucunda soğuk ve metalik bir his bırakırken, arkanda kalan {actor.president.name}‘in sessizce sandalyesine gömüldüğünü işittin. Sertçe çarptığın kapı, binanın koridorlarında yankılanarak huzursuzluğu daha da derinleştirdi. Yarın sabah gazete bayilerinde manşetleri süsleyecek olan kendi ismini okuduğunda, bu kaçışın seni kurtarmaya yetmediğini tüm şehirle birlikte sen de göreceksin.",
-      "onEnter": [
-        {
-          "flag": "npc_agent_arc",
-          "op": "add",
-          "value": 1
-        },
-        {
-          "flag": "skandal_seviyesi",
-          "op": "add",
-          "value": 20
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": "Yeni Bir Borç",
-      "kind": "outcome",
-      "text": "El sıkışıyorsunuz. Başkan gülümsüyor ama bu gülümseme bir kelepçe gibi. Artık sadece sahada değil, ofisin koridorlarında da rehin kaldın.",
-      "onEnter": [
-        {
-          "flag": "lifeState",
-          "op": "set",
-          "value": "suspended"
-        }
-      ]
+      }
     }
-  },
-  "once": true
+  ]
 }

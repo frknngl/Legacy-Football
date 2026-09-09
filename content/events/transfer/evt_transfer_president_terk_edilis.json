@@ -369,6 +369,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Çimlerin Kokusu",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki tellerin arkasında duruyorsun. Hava soğuk, çimlerin nemli kokusu yıllar önce kaçtığın o ilk günkü gibi. {actor.president.name} kulübede oturuyor; elinde bir tablet değil, eski usul bir not defteri var. Seni görünce ayağa kalkmıyor. Sadece elindeki kalemi yavaşça defterin üzerine bırakıyor. Gözleri, sen henüz kimsenin tanımadığı o çocukken baktığı gibi üzerinle geziniyor. Sessizlik, bir zamanlar seni kovan bu adamın yanında artık bir güç gösterisi.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Saha kenarına yaklaşıp yanına oturuyorum. Geçmişin hesabını değil, bugünün şovunu konuşalım.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Gözlerinin içine bakarak sadece rakamı söylüyorum. İsimlerin önemi yok, sadece bu çimlerde ne kadar hak ettiğim var.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başımı selam verir gibi eğip yanından geçiyorum. Buraya dönmek bir hataydı, bir daha tekrarlamayacağım.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Gösterişli Dönüş",
+          "kind": "outcome",
+          "text": "{actor.president.name} hafifçe gülümsüyor. Bu imza, şehrin tüm sokaklarında yankılanacak bir meydan okuma. Bedeli ağır olacak ama bugün senin oyunun oynanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Kazanç",
+          "kind": "outcome",
+          "text": "Kalemi uzatıyor. Rakamlar kağıdın üzerine dökülürken gözlerindeki o eski ifadeyi görüyorum: hayal kırıklığı ve hayranlık aynı potada. Ruhunu biraz eksilttin ama cebin doldu.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İkinci Şansın Reddi",
+          "kind": "outcome",
+          "text": "Arkanı dönüp giderken {actor.president.name} bir şey söylemek için hamle yapıyor ama vazgeçiyor. Kendi doğrularınla baş başasın, bu terk edilişin acısı nihayet sessizliğe gömüldü.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_terk_edilis_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

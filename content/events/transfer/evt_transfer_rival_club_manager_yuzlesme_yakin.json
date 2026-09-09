@@ -29,141 +29,316 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Bir Hesap",
-      "kind": "branch",
-      "text": "Kulüp binasının loş koridorunda adım sesleri yankılanıyor. {actor.rival_club_manager.name} tam önünde duruyor. Yirmi dokuz hafta önce o soyunma odasında verdiğin karar, sanki dün gece yaşanmış gibi havada asılı. O günkü sessizliğin, bugün burada, bir rakip kulübün yöneticisinin soğuk bakışlarında vücut buluyor. Ne bir selam, ne bir nezaket cümlesi. Sadece o gün yarım bıraktığın hesabın ağırlığı. {actor.rival_club_manager.name} eliyle kapıyı işaret ediyor; ya şimdi ödeyeceksin ya da bu yükle sahaya çıkmaya devam edeceksin.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Çantayı masaya bırak. O günkü borcun artık kapandığını söyle ve imzanı at.",
-          "target": "n_son_guvenli",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Hesap",
+          "kind": "branch",
+          "text": "Kulüp binasının loş koridorunda adım sesleri yankılanıyor. {actor.rival_club_manager.name} tam önünde duruyor. Yirmi dokuz hafta önce o soyunma odasında verdiğin karar, sanki dün gece yaşanmış gibi havada asılı. O günkü sessizliğin, bugün burada, bir rakip kulübün yöneticisinin soğuk bakışlarında vücut buluyor. Ne bir selam, ne bir nezaket cümlesi. Sadece o gün yarım bıraktığın hesabın ağırlığı. {actor.rival_club_manager.name} eliyle kapıyı işaret ediyor; ya şimdi ödeyeceksin ya da bu yükle sahaya çıkmaya devam edeceksin.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "id": "c_guvenli",
+              "text": "Çantayı masaya bırak. O günkü borcun artık kapandığını söyle ve imzanı at.",
+              "target": "n_son_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_riskli",
+              "text": "Gözlerinin içine bak ve o gün hiçbir şeyin senin hatan olmadığını savun. Kapıyı çarparak çık.",
+              "target": "n_son_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -15
+              "id": "c_gri",
+              "text": "Başka birinin üzerinden yeni bir borç anlaşması teklif et. Bu işi bugün burada gömelim.",
+              "target": "n_son_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_rival_club_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
             }
-          ],
-          "persona": {
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Gözlerinin içine bak ve o gün hiçbir şeyin senin hatan olmadığını savun. Kapıyı çarparak çık.",
-          "target": "n_son_riskli",
-          "effects": [
+        "n_son_guvenli": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Kağıtlar imzalandı. {actor.rival_club_manager.name} sadece başıyla onay verdi. Hafiflemiş hissediyorsun ama cüzdanındaki boşluk ve içindeki burukluk, o günkü kararın gerçek bedeli.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 15
+              "flag": "mem_locker_yuzlesme_veteran_yakin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": 8
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Başka birinin üzerinden yeni bir borç anlaşması teklif et. Bu işi bugün burada gömelim.",
-          "target": "n_son_gri",
-          "effects": [
+        "n_son_riskli": {
+          "title": "Gerilim Tırmanıyor",
+          "kind": "outcome",
+          "text": "İnkarın odadaki havayı kesti. {actor.rival_club_manager.name} arkandan sadece soğuk bir şekilde gülümsedi. Yarın gazetelerde ne yazacağını biliyorsun, bu sessizlik artık bir fırtınaya dönüştü.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "iliski_rival_club_manager",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_locker_yuzlesme_veteran_yakin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "dogruluk": -8
-          }
+          ]
+        },
+        "n_son_gri": {
+          "title": "Yeni Bir Zincir",
+          "kind": "outcome",
+          "text": "El sıkıştınız. Yeni bir borç, eskisini örttü. {actor.rival_club_manager.name} artık senin ortağın. Bu, geçmişi temizlemenin en kirli yolu ve ikiniz de bunu biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_son_guvenli": {
-      "title": "Bedel Ödendi",
-      "kind": "outcome",
-      "text": "Kağıtlar imzalandı. {actor.rival_club_manager.name} sadece başıyla onay verdi. Hafiflemiş hissediyorsun ama cüzdanındaki boşluk ve içindeki burukluk, o günkü kararın gerçek bedeli.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_yuzlesme_veteran_yakin",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Gece yarısı. Otoparktaki tek lamba cılız bir vızıltı çıkarıyor. {actor.rival_club_manager.name} yaslandığı lüks aracın kaputunda bir anahtar seti çeviriyor. Metalik ses, beton zeminde yankılanıyor. Önündeki bagaj kapağı aralık; içi düzgünce dizilmiş, markası belli olmayan tomar tomar nakitle dolu. {actor.rival_club_manager.name} sana bakmıyor bile, sadece uzak köşedeki nöbetçi kulübesine odaklanmış. \"Sözleşmen ay sonunda bitiyor,\" diyor sesi fısıltıdan hallice. \"Gençlerin arasında daha ne kadar diz çürüteceksin? Bu kutu, senin emekliliğini garantiler. İmzayı at, stadyumun arka çıkışından kaybol.\"",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Anahtarları al ve bagajı kapatmadan yürü. Bu paranın kokusu bir ömür çıkmaz.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bagajı sertçe kapat, metalin çıkardığı gürültü sessizliği bölsün. \"Bunu taraftarların görmesi lazım,\" diye mırıldan.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarflardan birini alıp paltosunun iç cebine at. \"Daha fazlasına ihtiyacım var,\" de.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Elini adamın omzuna koy. Gözlerine bakıp, \"Benim kariyerim senin bu küçük oyunlarından daha büyük,\" de.",
+              "target": "n_sonuc_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_rival_club_manager",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Geri Dönüş Yok",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gidiyorsun. Bagajdaki paranın ağırlığı zihninde, attığın her adımda daha da hafifliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Gerilim",
+          "kind": "outcome",
+          "text": "{actor.rival_club_manager.name} yüzündeki şaşkınlık, zaferin ilk ışığı gibi. Yarın manşetlerde olacaksın, ama huzurlu değil.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Kirli Bir Başlangıç",
+          "kind": "outcome",
+          "text": "Zarf cebinde ağırlaşıyor. {actor.rival_club_manager.name} gülümseyerek araca biniyor. Artık aynı taraftasınız.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_kilitli": {
+          "title": "Onurlu Çıkış",
+          "kind": "outcome",
+          "text": "{actor.rival_club_manager.name} yavaşça uzaklaşıyor. Arkasında bıraktığı tek şey, boş bir otopark ve giderek artan bir yorgunluk.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_son_riskli": {
-      "title": "Gerilim Tırmanıyor",
-      "kind": "outcome",
-      "text": "İnkarın odadaki havayı kesti. {actor.rival_club_manager.name} arkandan sadece soğuk bir şekilde gülümsedi. Yarın gazetelerde ne yazacağını biliyorsun, bu sessizlik artık bir fırtınaya dönüştü.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_yuzlesme_veteran_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_son_gri": {
-      "title": "Yeni Bir Zincir",
-      "kind": "outcome",
-      "text": "El sıkıştınız. Yeni bir borç, eskisini örttü. {actor.rival_club_manager.name} artık senin ortağın. Bu, geçmişi temizlemenin en kirli yolu ve ikiniz de bunu biliyorsunuz.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_yuzlesme_veteran_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  },
-  "once": true
+  ]
 }

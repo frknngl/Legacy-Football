@@ -5,131 +5,516 @@
   "tier": "epic",
   "weight": 70,
   "once": true,
-  "cooldown": { "self": 80, "family": 40 },
-  "lifeStates": ["playing", "loaned", "transfer_listed", "national_duty"],
+  "cooldown": {
+    "self": 80,
+    "family": 40
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "transfer_listed",
+    "national_duty"
+  ],
   "trigger": {
     "anyOf": [
-      { "flag": "mem_bribed_police", "op": "turnsSince", "value": 60 },
-      { "flag": "mem_mafia_favor_owed", "op": "turnsSince", "value": 45 },
-      { "flag": "mem_used_federation_contact", "op": "turnsSince", "value": 50 }
+      {
+        "flag": "mem_bribed_police",
+        "op": "turnsSince",
+        "value": 60
+      },
+      {
+        "flag": "mem_mafia_favor_owed",
+        "op": "turnsSince",
+        "value": 45
+      },
+      {
+        "flag": "mem_used_federation_contact",
+        "op": "turnsSince",
+        "value": 50
+      }
     ]
   },
-
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Bir iyilik bir iyiliktir",
-      "kind": "branch",
-      "text": "Tesisin otoparkında, arabanin yanında bekliyor. Takım elbiseli değil; gri bir kazak, elinde bir dosya. {actor.fixer.name} hiçbir zaman tehdit etmez, hep hatırlatır.\n\n\"Uzun zaman oldu,\" diyor. Dosyayı kaputun üstüne koyuyor ve açmıyor. \"İçinde ne var biliyorsun.\"\n\nBiliyorsun.\n\n\"Pazar günü bir maç var,\" diyor. \"İlk yarıda bir sarı kart. Sadece bir sarı kart. Kim ne anlar?\"\n\nArabaya yaslanıyor. Acelesi yok. Hiç olmadı.",
-      "choices": [
-        {
-          "id": "c_accept",
-          "text": "\"Bir sarı kart.\" Başını salla.",
-          "target": "n_accepted",
-          "effects": [
-            { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": 80000, "perTier": 140000 } },
-            { "flag": "iliski_fixer", "op": "add", "value": 25 },
-            { "flag": "skandal_seviyesi", "op": "add", "value": 20 },
-            { "flag": "moral", "op": "add", "value": -20 },
-            { "flag": "mem_accepted_fixing", "op": "set", "value": true },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Bir iyilik bir iyiliktir",
+          "kind": "branch",
+          "text": "Tesisin otoparkında, arabanin yanında bekliyor. Takım elbiseli değil; gri bir kazak, elinde bir dosya. {actor.fixer.name} hiçbir zaman tehdit etmez, hep hatırlatır.\n\n\"Uzun zaman oldu,\" diyor. Dosyayı kaputun üstüne koyuyor ve açmıyor. \"İçinde ne var biliyorsun.\"\n\nBiliyorsun.\n\n\"Pazar günü bir maç var,\" diyor. \"İlk yarıda bir sarı kart. Sadece bir sarı kart. Kim ne anlar?\"\n\nArabaya yaslanıyor. Acelesi yok. Hiç olmadı.",
+          "choices": [
+            {
+              "id": "c_accept",
+              "text": "\"Bir sarı kart.\" Başını salla.",
+              "target": "n_accepted",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": {
+                    "scaleBy": "stature",
+                    "base": 80000,
+                    "perTier": 140000
+                  }
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "mem_accepted_fixing",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "op": "schedule",
+                  "event": "evt_legal_betting_investigation",
+                  "inTurns": 80,
+                  "priority": "forced",
+                  "onIneligible": "defer",
+                  "maxDeferTurns": 40
+                }
+              ],
+              "persona": {
+                "dogruluk": -18,
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_refuse",
+              "text": "Dosyayı al ve yırt. \"Yayınla o zaman.\"",
+              "target": "n_refused",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": -30
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 35
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mem_refused_fixing",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "dogruluk": 15,
+                "mizac": 12,
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_report",
+              "text": "\"Tamam.\" Sonra doğruca savcılığa git.",
+              "target": "n_reported",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": -40
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "mem_reported_fixing",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "op": "lifeState",
+                  "to": "national_duty",
+                  "forTurns": 2
+                }
+              ],
+              "persona": {
+                "dogruluk": 18,
+                "durus": 8,
+                "sadakat": -6
+              }
+            },
+            {
+              "id": "c_pay",
+              "text": "\"Ne kadar? Borcu kapatıyorum.\"",
+              "target": "n_paid",
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 400000
+              },
+              "lockLabel": "[Servet 400.000]",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": {
+                    "scaleBy": "stature",
+                    "base": -300000,
+                    "perTier": -180000
+                  }
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "dogruluk": -4,
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_accepted": {
+          "title": "Pazar günü",
+          "kind": "outcome",
+          "text": "Pazar günü otuz dördüncü dakikada geç bir müdahale yapıyorsun. Hakem sarı gösteriyor. Kimse bir şey fark etmiyor.\n\nHesabına para geçiyor. Rakamı bir kez bakıp bir daha bakmıyorsun.\n\nO geceden sonra bir daha hiçbir maçta rahat olmuyorsun. Her sarı kartta, her faulde, kafanın arkasında bir ses: *kim ne anlar?*\n\nBirisi anlar. Her zaman birisi anlar. Sadece ne zaman olacağını bilmiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_sold_derby",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": -10
+            }
+          ]
+        },
+        "n_refused": {
+          "title": "Yırtılan kâğıt",
+          "kind": "outcome",
+          "text": "Dosyayı alıp yırtıyorsun. {actor.fixer.first} izliyor, hiç kıpırdamıyor.\n\n\"Bu bende kalan tek kopya değildi,\" diyor sakin sakin. \"Sen bunu biliyorsun ve yine de yırttın. Buna saygı duyarım.\"\n\nArabasına biniyor. Camı indirip son bir şey söylüyor:\n\n\"Ben sana bir daha gelmeyeceğim. Ama benden başkaları gelecek ve onlar benim kadar sabırlı değil.\"\n\nÜç hafta sonra o görüntüler internete düşüyor.",
+          "onEnter": [
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ]
+        },
+        "n_reported": {
+          "title": "İfade",
+          "kind": "outcome",
+          "text": "{actor.prosecutor.name} seni dört saat dinliyor ve tek bir kez bile şaşırmıyor. Sonunda kalemi bırakıp arkasına yaslanıyor.\n\n\"Bu ifadeyi verdiğinizde hayatınız değişir,\" diyor. \"Kötüye de değişebilir. Bunu bilerek imzalayın.\"\n\nİmzalıyorsun.\n\nİki gün sonra evinin önünde bir polis aracı duruyor ve altı ay orada duracak. {actor.childhood_friend.name} artık telefonlarını açmıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_turned_informant",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "iliski_childhood_friend",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 12
+            }
+          ]
+        },
+        "n_paid": {
+          "title": "Kapanan hesap",
+          "kind": "outcome",
+          "text": "{actor.fixer.first} parayı saymıyor. Zarfı cebine koyup dosyayı sana uzatıyor.\n\n\"Hesap kapandı,\" diyor. \"Bu benim için bir iş, senin için bir kâbus. Aramızdaki fark bu.\"\n\nArabaya biniyor. Sonra camı indiriyor:\n\n\"Bir şey söyleyeyim mi? Ödeyenler hep geri gelir. Ödemeyenler bir daha gelmez.\"\n\nDosyayı arabanin bagajına atıyorsun. Aylarca orada duracak.",
+          "onEnter": [
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": false
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Beklenen",
+          "kind": "branch",
+          "text": "Antrenman sahasının arkasındaki stadyum ışıkları çoktan sönmüş. {actor.fixer.name}, kale arkası tribününün demir parmaklıklarına yaslanmış, elindeki yanan izmariti çimlere fırlatıyor. Yüzünün yarısı gölgede. Yanına yaklaştığında, sadece o eski, ucuz kolonya kokusunu alıyorsun. Hiçbir şey demiyor. Sadece ceketinin iç cebinden çıkardığı bir ses kayıt cihazını metal zemine bırakıyor. Kayıtta senin sesin var. Geçen sezonki o son maçta, kendi kalene attığın golün hemen öncesi.",
+          "choices": [
+            {
+              "id": "c_saf",
+              "text": "Cihazı al ve sessizce polise git. Kariyerim biterse bitsin.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Kayıt cihazını stadyumun dışındaki nehre fırlat. İkimiz de burada hiçbir şey duymadık.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cihazı ona geri uzat. Bir sonraki transfer priminden istediği payı vermeyi kabul et.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_mental",
+              "text": "Gözlerinin içine bak ve cihazı parçala. Ona, bunu bir daha yapamayacağını soğukkanlılıkla anlat.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "İtirafın Bedeli",
+          "kind": "outcome",
+          "text": "Ertesi gün karakolun kapısından içeri girerken kameraların flaşları patlıyor. {actor.fixer.name} çoktan ortadan kayboldu, geriye sadece senin ifaden kaldı. Milli takım kampına çağrılmayı beklerken, savcılık davetiyesi geldi.",
+          "onEnter": [
+            {
+              "flag": "mem_reported_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
             {
               "op": "schedule",
               "event": "evt_legal_betting_investigation",
-              "inTurns": 80,
-              "priority": "forced",
-              "onIneligible": "defer",
-              "maxDeferTurns": 40
+              "inTurns": 2,
+              "priority": "forced"
             }
-          ],
-          "persona": { "dogruluk": -18, "sadakat": -5 }
+          ]
         },
-        {
-          "id": "c_refuse",
-          "text": "Dosyayı al ve yırt. \"Yayınla o zaman.\"",
-          "target": "n_refused",
-          "effects": [
-            { "flag": "iliski_fixer", "op": "add", "value": -30 },
-            { "flag": "skandal_seviyesi", "op": "add", "value": 35 },
-            { "flag": "medya_baskisi", "op": "add", "value": 30 },
-            { "flag": "sokak_itibari", "op": "add", "value": 15 },
-            { "flag": "mem_refused_fixing", "op": "set", "value": true }
-          ],
-          "persona": { "dogruluk": 15, "mizac": 12, "durus": 10 }
+        "n_outcome_2": {
+          "title": "Karanlık Anlaşma",
+          "kind": "outcome",
+          "text": "Suya düşen o cihaz, vicdanındaki ağırlığı temizlemiyor. Ancak {actor.fixer.name} gülümseyerek arkasını dönüp gidiyor. Taraftarların seni sevmesi için artık tek yol, sahadaki her saniyeni bir borç gibi ödemek.",
+          "onEnter": [
+            {
+              "flag": "mem_accepted_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 5,
+              "priority": "forced"
+            }
+          ]
         },
-        {
-          "id": "c_report",
-          "text": "\"Tamam.\" Sonra doğruca savcılığa git.",
-          "target": "n_reported",
-          "effects": [
-            { "flag": "iliski_fixer", "op": "add", "value": -40 },
-            { "flag": "medya_itibari", "op": "add", "value": 25 },
-            { "flag": "skandal_seviyesi", "op": "add", "value": 15 },
-            { "flag": "moral", "op": "add", "value": -12 },
-            { "flag": "mem_reported_fixing", "op": "set", "value": true },
-            { "op": "lifeState", "to": "national_duty", "forTurns": 2 }
-          ],
-          "persona": { "dogruluk": 18, "durus": 8, "sadakat": -6 }
+        "n_outcome_3": {
+          "title": "Sessizlik Ücreti",
+          "kind": "outcome",
+          "text": "Zarflar ve rakamlar hayatının bir parçası oldu artık. {actor.fixer.name} ile arandaki bağ, bir iş ortaklığından çok bir prangaya dönüştü. Banka hesabından eksilen her miktar, kariyerinin üzerindeki lekeyi biraz daha gizliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 4,
+              "priority": "forced"
+            }
+          ]
         },
-        {
-          "id": "c_pay",
-          "text": "\"Ne kadar? Borcu kapatıyorum.\"",
-          "target": "n_paid",
-          "requires": { "flag": "servet", "op": "gte", "value": 400000 },
-          "lockLabel": "[Servet 400.000]",
-          "effects": [
-            { "flag": "servet", "op": "add", "value": { "scaleBy": "stature", "base": -300000, "perTier": -180000 } },
-            { "flag": "iliski_fixer", "op": "add", "value": -10 },
-            { "flag": "skandal_seviyesi", "op": "add", "value": -10 },
-            { "flag": "moral", "op": "add", "value": -6 }
-          ],
-          "persona": { "dogruluk": -4, "mizac": -5 }
+        "n_outcome_4": {
+          "title": "Kırılma Noktası",
+          "kind": "outcome",
+          "text": "Plastik parçaları çimlerin üzerine yayılırken, gözlerindeki o kararlılığı gördü. Artık seninle oynamayacağını biliyor ama geri dönüşü olmayan bir yola girdiğini de hissediyorsun. Telefonun çalmaya başladığında kimin aradığını tahmin edebiliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 3,
+              "priority": "forced"
+            }
+          ]
         }
-      ]
-    },
-
-    "n_accepted": {
-      "title": "Pazar günü",
-      "kind": "outcome",
-      "text": "Pazar günü otuz dördüncü dakikada geç bir müdahale yapıyorsun. Hakem sarı gösteriyor. Kimse bir şey fark etmiyor.\n\nHesabına para geçiyor. Rakamı bir kez bakıp bir daha bakmıyorsun.\n\nO geceden sonra bir daha hiçbir maçta rahat olmuyorsun. Her sarı kartta, her faulde, kafanın arkasında bir ses: *kim ne anlar?*\n\nBirisi anlar. Her zaman birisi anlar. Sadece ne zaman olacağını bilmiyorsun.",
-      "onEnter": [
-        { "flag": "mem_sold_derby", "op": "set", "value": true },
-        { "flag": "npc_fixer_arc", "op": "add", "value": 2 },
-        { "flag": "mental_dayaniklilik", "op": "add", "value": -10 }
-      ]
-    },
-
-    "n_refused": {
-      "title": "Yırtılan kâğıt",
-      "kind": "outcome",
-      "text": "Dosyayı alıp yırtıyorsun. {actor.fixer.first} izliyor, hiç kıpırdamıyor.\n\n\"Bu bende kalan tek kopya değildi,\" diyor sakin sakin. \"Sen bunu biliyorsun ve yine de yırttın. Buna saygı duyarım.\"\n\nArabasına biniyor. Camı indirip son bir şey söylüyor:\n\n\"Ben sana bir daha gelmeyeceğim. Ama benden başkaları gelecek ve onlar benim kadar sabırlı değil.\"\n\nÜç hafta sonra o görüntüler internete düşüyor.",
-      "onEnter": [
-        { "flag": "npc_fixer_arc", "op": "add", "value": 2 },
-        { "flag": "medya_baskisi", "op": "add", "value": 20 },
-        { "flag": "moral", "op": "add", "value": 10 }
-      ]
-    },
-
-    "n_reported": {
-      "title": "İfade",
-      "kind": "outcome",
-      "text": "{actor.prosecutor.name} seni dört saat dinliyor ve tek bir kez bile şaşırmıyor. Sonunda kalemi bırakıp arkasına yaslanıyor.\n\n\"Bu ifadeyi verdiğinizde hayatınız değişir,\" diyor. \"Kötüye de değişebilir. Bunu bilerek imzalayın.\"\n\nİmzalıyorsun.\n\nİki gün sonra evinin önünde bir polis aracı duruyor ve altı ay orada duracak. {actor.childhood_friend.name} artık telefonlarını açmıyor.",
-      "onEnter": [
-        { "flag": "mem_turned_informant", "op": "set", "value": true },
-        { "flag": "npc_fixer_arc", "op": "add", "value": 3 },
-        { "flag": "iliski_childhood_friend", "op": "add", "value": -25 },
-        { "flag": "taraftar_destegi", "op": "add", "value": 12 }
-      ]
-    },
-
-    "n_paid": {
-      "title": "Kapanan hesap",
-      "kind": "outcome",
-      "text": "{actor.fixer.first} parayı saymıyor. Zarfı cebine koyup dosyayı sana uzatıyor.\n\n\"Hesap kapandı,\" diyor. \"Bu benim için bir iş, senin için bir kâbus. Aramızdaki fark bu.\"\n\nArabaya biniyor. Sonra camı indiriyor:\n\n\"Bir şey söyleyeyim mi? Ödeyenler hep geri gelir. Ödemeyenler bir daha gelmez.\"\n\nDosyayı arabanin bagajına atıyorsun. Aylarca orada duracak.",
-      "onEnter": [
-        { "flag": "npc_fixer_arc", "op": "add", "value": 1 },
-        { "flag": "mem_mafia_favor_owed", "op": "set", "value": false },
-        { "flag": "mental_dayaniklilik", "op": "add", "value": -5 }
-      ]
+      }
     }
-  }
+  ]
 }

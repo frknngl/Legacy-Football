@@ -29,110 +29,287 @@
       true
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Masadaki Sözleşme",
-      "kind": "branch",
-      "text": "{actor.sporting_director.name} ofisin camlarını kapattı. Dışarıda antrenman sahasının gürültüsü kesildi, oda ağır bir sessizliğe gömüldü. Masanın üzerinde yeni bir sponsorluk dosyası duruyor. Yanında {actor.agent.name} gözlerini kaçırıyor. Yönetici, dosyayı parmağıyla hafifçe itip bana bakıyor. Sadece futbolu değil, kulübün kimliğini, benim mirasını ve bu imza karşılığında neleri feda edeceğimi sorgulayan bir sessizlik bu. Şirket, saha dışındaki duruşumun, sahadaki performansımın önüne geçmesini istiyor.",
-      "choices": [
-        {
-          "id": "c_riskli",
-          "text": "Sponsorun etik kurallarını reddet, bu formayı pazarlamalarına izin verme.",
-          "target": "n_outcome_1",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Sözleşme",
+          "kind": "branch",
+          "text": "{actor.sporting_director.name} ofisin camlarını kapattı. Dışarıda antrenman sahasının gürültüsü kesildi, oda ağır bir sessizliğe gömüldü. Masanın üzerinde yeni bir sponsorluk dosyası duruyor. Yanında {actor.agent.name} gözlerini kaçırıyor. Yönetici, dosyayı parmağıyla hafifçe itip bana bakıyor. Sadece futbolu değil, kulübün kimliğini, benim mirasını ve bu imza karşılığında neleri feda edeceğimi sorgulayan bir sessizlik bu. Şirket, saha dışındaki duruşumun, sahadaki performansımın önüne geçmesini istiyor.",
+          "choices": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
+              "id": "c_riskli",
+              "text": "Sponsorun etik kurallarını reddet, bu formayı pazarlamalarına izin verme.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
             },
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
+              "id": "c_gri",
+              "text": "Şirketin tüm şartlarını kabul et, hesabına yatan rakamın üzerini ört.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sözleşmeyi imzala ama sadece saha içi performansına odaklanacağını belirt.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 2
+              }
             }
-          ],
-          "persona": {
-            "durus": 8
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Şirketin tüm şartlarını kabul et, hesabına yatan rakamın üzerini ört.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Tercihlerin Bedeli",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} başını hafifçe salladı. Saygı mıydı bu, yoksa bir uyarı mı? Odadan çıkarken arkamda bıraktığım o boş kağıt, gelecek sezonun finansal dengelerini sarsacak ama tribünlerin dilinde adım yankılanacak.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": -5
-          }
+          ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Sözleşmeyi imzala ama sadece saha içi performansına odaklanacağını belirt.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_2": {
+          "title": "Sessiz Bir Mutabakat",
+          "kind": "outcome",
+          "text": "Kalem ucunu kağıda bastırdım. Mürekkep, geleceğimi karartan o imzayı attı. {actor.agent.name} rahat bir nefes aldı. Cüzdanım ağırlaştı ama aynadaki yansımam artık biraz daha yabancı.",
+          "onEnter": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 5
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Orta Yolun Çöküşü",
+          "kind": "outcome",
+          "text": "Şartları kabul ettim ancak sınırları çizdim. {actor.sporting_director.name} gözlerini kırpmadan kağıdı aldı. Profesyonel bir mesafe korudum belki ama içten içe bu pazarlığın ruhumdan eksilttiği parçayı hissediyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Altı Koridoru",
+          "kind": "branch",
+          "text": "Antrenman biteli saatler oldu. Işıklar cılız, beton soğuk. {actor.sporting_director.name} duvarın dibinde, elinde bir dijital tabletle seni bekliyor. Kapıdan çıkmanı beklediği an, yorgunluğun kemiklerine işlediğini hissediyorsun. {actor.sporting_director.name} tabletin ekranını sana döndürüyor: Yeni sponsorun reklam filmi çekimleri ve taraftar etkinlikleri listesi. Hepsi maç takviminin en sıkışık olduğu haftaya sığdırılmış. \"Bu para kariyerinin son dönemine büyük bir nakit akışı sağlar,\" diyor. Sesi ikna etmekten ziyade, bir pazarlığı bitirmeye çalışıyor gibi. Sessizlik uzuyor, koridorun sonunda damlayan bir borunun ritmi dışında hiçbir ses yok.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sözleşmeyi al. Dinlenmeye ihtiyacım yok, paraya ihtiyacım var.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
+              "id": "c_risky",
+              "text": "Kamerayı sadece sahada isterim. Etkinliklere katılmayacağım.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Vücudumun buna dayanması imkansız. Teklifi reddediyorum.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 3
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Kulübüm için değer. Ne gerekiyorsa yapacağım.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Taraftar Desteği]",
+              "persona": {
+                "sadakat": 10
+              }
             }
-          ],
-          "persona": {
-            "dogruluk": 2
-          }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Tablet çantana giriyor. {actor.sporting_director.name} başını hafifçe sallayıp ayrılıyor. Hesap numaranı bildiğini ima eden o bakış, uzun süre zihninde kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "İnatçılık",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} gülümsüyor ama gözlerinde bir gerginlik var. \"Basın bunu kendine göre yorumlayacaktır,\" diyor. Gidiyor; arkasında ağır bir medya fırtınası bırakarak.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Dürüstlük",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} tek kelime etmeden tableti kapatıyor. Karanlığa doğru yürürken arkasına bakmıyor bile. Profesyonelliğinin karşılığını, sessizlikle ödüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Sırtında Yük",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} elini omzuna koyuyor. \"Teşekkürler,\" diyor. Omuzlarındaki ağırlık, bu onaydan sonra iki katına çıkıyor. Sahne bitti, sezon şimdi başlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_1": {
-      "title": "Tercihlerin Bedeli",
-      "kind": "outcome",
-      "text": "{actor.sporting_director.name} başını hafifçe salladı. Saygı mıydı bu, yoksa bir uyarı mı? Odadan çıkarken arkamda bıraktığım o boş kağıt, gelecek sezonun finansal dengelerini sarsacak ama tribünlerin dilinde adım yankılanacak.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_sinav_sporting_director",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "Sessiz Bir Mutabakat",
-      "kind": "outcome",
-      "text": "Kalem ucunu kağıda bastırdım. Mürekkep, geleceğimi karartan o imzayı attı. {actor.agent.name} rahat bir nefes aldı. Cüzdanım ağırlaştı ama aynadaki yansımam artık biraz daha yabancı.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_sinav_sporting_director",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": "Orta Yolun Çöküşü",
-      "kind": "outcome",
-      "text": "Şartları kabul ettim ancak sınırları çizdim. {actor.sporting_director.name} gözlerini kırpmadan kağıdı aldı. Profesyonel bir mesafe korudum belki ama içten içe bu pazarlığın ruhumdan eksilttiği parçayı hissediyorum.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_sinav_sporting_director",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

@@ -363,6 +363,130 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tesisin Arka Bahçesi",
+          "kind": "branch",
+          "text": "Antrenman sahasına açılan demir kapının önünde duruyorsun. {actor.veteran.name}, kapının arkasındaki duvara sırtını yaslamış, elinde bir anahtar demetiyle oynuyor. Gözleri kapı kilidinde; sana bakmıyor bile. İçerideki antrenman saati başladı ama o, geçişini engellemek için ayağını hafifçe eşiğe uzatmış bekliyor. Sessizlik, birikmiş bir öfkenin ya da sadece bir otorite oyununun ağırlığıyla ağırlaşmış durumda.",
+          "choices": [
+            {
+              "id": "c_sessiz_kabullenis",
+              "text": "Başını eğ, bir şey demeden geri dön ve spor salonuna yönel.",
+              "target": "n_sessiz_basladi",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_cuzdan_teklifi",
+              "text": "Cebinden çıkardığın son primin bir kısmını içeren zarfı, yanındaki tezgaha sessizce bırak.",
+              "target": "n_servet_odendi",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -2000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_rest_cekme",
+              "text": "Gözlerinin içine bak, 'Kilitli kapılar sadece zayıfları durdurur,' de ve omuz atarak geçmeye yelten.",
+              "target": "n_karsilik_verdi",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            }
+          ]
+        },
+        "n_sessiz_basladi": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "{actor.veteran.name} arkandan kısık bir sesle güldü. Kapı kapandı. Antrenman sahasından gelen sesler kesildi.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sessiz_basladi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_servet_odendi": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Zarfı tezgaha bıraktın. {actor.veteran.name} zarfı alıp cebine attı ama hala geçmene izin vermiyor. Bir sonraki sefer için daha fazlasını bekliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_veteran_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_karsilik_verdi": {
+          "title": "Gerilim",
+          "kind": "outcome",
+          "text": "Omuz omuza çarpıştınız. {actor.veteran.name} yerinden kımıldamadı, duvara daha sert çarptın. Herkesin gözü üzerinizde.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_karsilik_verdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

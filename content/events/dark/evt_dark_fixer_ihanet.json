@@ -383,6 +383,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Bir Sözleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının en kör noktasındaki çöp konteynerlerinin yanındasınız. {actor.fixer.name} bir sigara yakıyor; dumanı sizin yüzünüze doğru savuruyor. Ayakkabısının ucuyla toprağı eşeliyor. Yanındaki deri çantadan bir miktar para ve ağır bir zarf çıkarıp yere bırakıyor. 'Daha fazlası da var,' diyor sesini iyice alçaltarak. 'Sadece bir sonraki derbide ilk 10 dakikada o hatayı yapman yeterli. Kimse seni suçlamayacak, herkes formsuzluğuna yoracak. Kariyerinin sonundaki o büyük kontratı garantilemek için bu parayı al ve o çantayı unut.' Uzaklardan stadyumdaki son görevlilerin anahtarlarını çevirme sesi geliyor.",
+          "choices": [
+            {
+              "id": "c_risky",
+              "text": "Parayı alıp çantayı ceketinin içine sakla, ancak parayı hemen harcama.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Cevap vermeden arkanı dön ve {actor.fixer.name} ile arandaki mesafeyi açarak yürümeye başla.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Çantayı aç, parayı kontrol et ve {actor.fixer.name} gozlerinin içine bakarak sadece rakamı onayla.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "lt",
+                "value": 50
+              },
+              "lockLabel": "[Profesyonellik Düşük]"
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Gölgeyle Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfı ceketinin altına bastırıyorsun. Kalbinin atışı sahayı aydınlatan projektörlerin vızıltısına karışıyor. Bu bir başlangıç, geri dönüşü olmayan bir yol.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Sessiz Direniş",
+          "kind": "outcome",
+          "text": "Arkanı dönüp giderken {actor.fixer.name} arkandan bir şeyler mırıldandığını duyuyorsun. Gece soğuk, omuzlarındaki ağırlık ise sadece senin bildiğin bir pişmanlıktan ibaret.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Bedelin Ödenişi",
+          "kind": "outcome",
+          "text": "Para, parmaklarının ucunda soğuk bir gerçeklik gibi. Artık sahadaki terin sadece yorgunluktan değil, üzerindeki o kirli yükten de kaynaklanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

@@ -386,6 +386,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin ışıkları çoktan sönmüş. Soyunma odasının en köşesindeki, kimsenin uğramadığı malzeme deposunun ağır metal kapısı aralık. İçerideki loşlukta {actor.fixer.name} duruyor. Önünde bir dizüstü bilgisayar, ekranın yaydığı soğuk mavi ışık yüzünü keskinleştiriyor. Zeminde unutulmuş, tozlu bir krampon kutusunun üzerinde iki adet boş, plastik kahve bardağı var. İçeri girdiğini biliyor; başını kaldırmıyor. Yalnızca ekranı işaret ediyor. Kayıtlar silinmiyor, sadece yer değiştiriyor. Sessizlik, odadaki havalandırmanın mekanik uğultusundan daha ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bilgisayarı kapat, fişini çek ve direkt disiplin kuruluna git.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ekranı izle ve bu kanıtı kullanarak taraftarları yönetime karşı kışkırt.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kayıtların kopyasını kendi özel sunucuna aktar, {actor.fixer.name} ile sessiz bir anlaşma yap.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 80000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Masadaki dosyayı al, {actor.fixer.name} ile el sıkış ve karanlıktaki işlerine geri dön.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sokak İtibarı 55+]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "Ekran kararıyor. Odanın kapısını arkandan kilitliyorsun. Doğru olanı yapmanın ağırlığı omuzlarında, ama vicdanın sessiz.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kaosun Başlangıcı",
+          "kind": "outcome",
+          "text": "Bilgiler sızacak. Yarın taraftar tribünleri bir barut fıçısına dönecek. Kendi kariyerini bir bombanın fitili gibi kullanıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Banka hesabına yatan rakam, ekranın parlaklığından daha parlak. Artık sistemin sadık bir parçasısın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Gölge Adam",
+          "kind": "outcome",
+          "text": "El sıkışmanız kısa, sert ve kirli. Artık {actor.fixer.name} için bir araç, sahalar için ise tehlikeli bir figürsün.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        }
+      }
     }
   ]
 }

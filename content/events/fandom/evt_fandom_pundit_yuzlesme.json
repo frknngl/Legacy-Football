@@ -395,6 +395,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Alt Geçidi",
+          "kind": "branch",
+          "text": "Beton duvarlardan yansıyan ayakkabı seslerin boşlukta yankılanıyor. Çıkış kapısına doğru yürürken {actor.pundit.name} bir sütunun gölgesinde bekliyor. Eline aldığı defterini kapatıyor. Göz göze geliyorsunuz. Ne bir fotoğraf makinesi var ne de çevresinde koruma. Sadece o, sen ve ağır bir sessizlik. '{actor.pundit.name}', diye mırıldanıyor, sanki yıllardır seninle konuşmayı provasını yapmış gibi. İkinizin arasında kimse yok. Gölgeler uzuyor.",
+          "choices": [
+            {
+              "id": "c_sessiz_cevap",
+              "text": "Gözlerini ayırmadan yanından geç. Bırak o senin hayaletini yazmaya devam etsin.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_tokat_gibi",
+              "text": "Dur. Yakasına yapışma, sadece defterini elinden al ve yere at.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_cikar_ortakligi",
+              "text": "Gülümse. Cebindeki nakit desteyi ona uzat, 'İyi bir hikaye için daha fazlası lazım' de.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -10000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sınırlar Çizildi",
+          "kind": "outcome",
+          "text": "Defter beton zeminde parçalanıyor. {actor.pundit.name} hiçbir şey söylemiyor, sadece bakıyor. Bu bakış bir nefret değil, bir keşif. Seni gerçekten gördü. Yarın manşetlerde senin öfken olacak ama taraftar bunu bir bayrak gibi sallayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Görünmez Kalmak",
+          "kind": "outcome",
+          "text": "Omzunun üzerinden bile bakmıyorsun. {actor.pundit.name} arkanda kalıyor. İçinde bir şeylerin kırıldığını hissediyorsun ama profesyonel masken yerinde. Kimse senin o an ne hissettiğini asla bilemeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Satın Alınmış Ses",
+          "kind": "outcome",
+          "text": "Para el değiştiriyor. {actor.pundit.name} artık bir eleştirmen değil, bir iş ortağı. Bu sessizliği satın aldın ama artık o defterin sayfalarında senin adın sadece onun kaleminin ucunda yazacak. Bedeli ağır, sessizliği pahalı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

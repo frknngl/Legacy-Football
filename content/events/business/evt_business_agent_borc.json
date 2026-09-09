@@ -333,6 +333,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Mühür",
+          "kind": "branch",
+          "text": "Otoyol kenarındaki bir benzinlikteyiz. {actor.agent.name}, paslı bir metal kutunun üzerine oturmuş, motor yağlarıyla kirlenmiş bir defteri sayfalarını hızla çeviriyor. Uzakta, geceye karışan otobanın uğultusu var. {actor.agent.name} defterden bir sayfayı yırtıyor ve rüzgarda hafifçe sallanan elinde sana doğru uzatıyor. Hesaplar, isimler ve silinmesi gereken borçlar. Bu defter kapandığında, arkanızda temiz bir sayfa mı yoksa yakılması gereken bir kanıt mı kalacağı sana bağlı.",
+          "choices": [
+            {
+              "id": "c_risky",
+              "text": "Defteri al ve ateşe ver. Borç seninle küle dönüşsün.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Defteri geri çevir. Resmi yollardan ödenmemiş hiçbir kuruşun kalmayacak.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Defterin üzerine kalın bir zarf bırak. Hesapları {actor.agent.name} kapatsın.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 50000
+              },
+              "lockLabel": "[Yeterli sermaye gerekiyor]"
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Külden İzler",
+          "kind": "outcome",
+          "text": "Kağıtlar yandıkça etrafa yayılan koku genzini yakıyor. {actor.agent.name} sadece bakıyor, gülümsemiyor. Artık geriye dönüp bakacak bir defter yok.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Temiz Vicdan",
+          "kind": "outcome",
+          "text": "Rüzgar elindeki kağıtları boşluğa savuruyor. {actor.agent.name} sessizce başını sallayıp ceketinin yakasını kaldırıyor. Yol uzun, artık yükün hafif.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Suskunluk Bedeli",
+          "kind": "outcome",
+          "text": "Zarf metal kutuya sertçe çarpıyor. {actor.agent.name} kutuyu alıp arabasına doğru yürüyor. Söylenmeyen her şey, ödenen bu paranın içinde saklı.",
+          "onEnter": [
+            {
+              "flag": "mem_business_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

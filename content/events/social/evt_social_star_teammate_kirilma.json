@@ -26,126 +26,271 @@
     "op": "lt",
     "value": 1
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Kırılma Noktası",
-      "kind": "branch",
-      "text": "Antrenman sahasının çıkışında, {actor.star_teammate.name} siyah bir sedanın gölgesinde bekliyor. Kapısı aralık, içi dumanlı. Elinde bir dosya var; kulübün senin hakkındaki gizli fesih şartlarını içeren o dosya. {actor.fixer.name} ise aracın hemen yanında, telefonuna bakarak zamanı öldürüyor. {actor.star_teammate.name} dosyayı sana doğru uzatıyor, gözlerinde bir açıklama ya da özür yok. Sadece yorgun bir beklenti var. Kulüp seni gözden çıkardı, onlar ise bu bataktan bir çıkış yoluyla bekliyorlar.",
-      "choices": [
-        {
-          "id": "c_riskli",
-          "text": "Dosyayı alıp medyaya sızdırmak. Herkes yansın.",
-          "target": "n_outcome_1",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kırılma Noktası",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışında, {actor.star_teammate.name} siyah bir sedanın gölgesinde bekliyor. Kapısı aralık, içi dumanlı. Elinde bir dosya var; kulübün senin hakkındaki gizli fesih şartlarını içeren o dosya. {actor.fixer.name} ise aracın hemen yanında, telefonuna bakarak zamanı öldürüyor. {actor.star_teammate.name} dosyayı sana doğru uzatıyor, gözlerinde bir açıklama ya da özür yok. Sadece yorgun bir beklenti var. Kulüp seni gözden çıkardı, onlar ise bu bataktan bir çıkış yoluyla bekliyorlar.",
+          "choices": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
+              "id": "c_riskli",
+              "text": "Dosyayı alıp medyaya sızdırmak. Herkes yansın.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
             },
             {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
+              "id": "c_gri",
+              "text": "Dosyayı sessizce kabul edip {actor.fixer.name} ile yeni sözleşme şartlarını görüşmek.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
             },
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": -15
+              "id": "c_guvenli",
+              "text": "Dosyayı geri çevirmek, {actor.star_teammate.name} ile vedalaşıp takımdan sessizce ayrılmak.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
             }
           ]
         },
-        {
-          "id": "c_gri",
-          "text": "Dosyayı sessizce kabul edip {actor.fixer.name} ile yeni sözleşme şartlarını görüşmek.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Savaş İlanı",
+          "kind": "outcome",
+          "text": "Dosya elinde, kameraların önüne çıkıyorsun. Kulübün sessizce bitirmek istediği kariyerin, şimdi büyük bir gürültüyle çatırdıyor. Herkesin gözü sende.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 30
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": 1
             }
           ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Dosyayı geri çevirmek, {actor.star_teammate.name} ile vedalaşıp takımdan sessizce ayrılmak.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_2": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} yanına yaklaşıyor, elini omzuna koyuyor. Para hesapta, vicdan ise kapının dışında kaldı. Kendi yoluna bakıyorsun.",
+          "onEnter": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Onurlu Çıkış",
+          "kind": "outcome",
+          "text": "Arabanın kapısı kapanıyor. {actor.star_teammate.name} arkasına bakmadan uzaklaşıyor. Cebin boş, ama başın dik. Yarın yeni bir sayfa açmak için artık çok geç.",
+          "onEnter": [
             {
-              "flag": "iliski_star_teammate",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": 1
             }
           ]
         }
-      ]
+      }
     },
-    "n_outcome_1": {
-      "title": "Savaş İlanı",
-      "kind": "outcome",
-      "text": "Dosya elinde, kameraların önüne çıkıyorsun. Kulübün sessizce bitirmek istediği kariyerin, şimdi büyük bir gürültüyle çatırdıyor. Herkesin gözü sende.",
-      "onEnter": [
-        {
-          "flag": "mem_social_kirilma_star_teammate",
-          "op": "set",
-          "value": 1
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Çıkış",
+          "kind": "branch",
+          "text": "{actor.star_teammate.name}, stadyumun otoparkında değil, bodrum katındaki ıssız malzeme deposunun kapısında duruyor. Bir elinde anahtarlık, diğerinde ise menajerlik şirketinin mühürlü teklif zarfı. Kulübün seninle vedalaşmak istediği gün, elindeki zarfı sana uzatıyor. \"Burada kariyerin bir imza ile çöpe gidecek, dışarıda ise bu zarfla bir imparatorluk kurabilirsin,\" diyor. Sesi yankılanıyor, başka kimse yok. Havada ağır bir rutubet ve yeni kesilmiş çim kokusu var.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Zarfı al. Kulübü bir sonraki transfer döneminde en zayıf noktasından vuracak o imzayı at.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı elinin tersiyle it. \"Bu kulüpte kalmak için değil, onurla gitmek için buradayım,\" de ve arkana bakmadan yürü.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 12
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı açmadan cebine koy. Sessizce, kimse görmeden kulüpten çıkışını pazarlık masasına yatır.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 50000
+              },
+              "lockLabel": "[Düşük Nakit Akışı]"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İntikam Yolu",
+          "kind": "outcome",
+          "text": "Zarfı kabul ettin. İmza attığın an, {actor.star_teammate.name} ile göz göze geldin. Yüzünde, yaklaşan fırtınanın verdiği o huzursuz gülümseme var.",
+          "onEnter": [
+            {
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Zor Yol",
+          "kind": "outcome",
+          "text": "Depodan çıktığında, arkanda bıraktığın sessizlik, attığın her adımdan daha ağır. Kulüpte artık bir yabancısın, ama kendi gözlerinde değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Cebindeki kağıdın ağırlığı, tüm sezonun yükünden daha fazla. Kimse ne olduğunu anlamayacak, ta ki ilk ödeme hesaplara yatana kadar.",
+          "onEnter": [
+            {
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "Sessiz Anlaşma",
-      "kind": "outcome",
-      "text": "{actor.fixer.name} yanına yaklaşıyor, elini omzuna koyuyor. Para hesapta, vicdan ise kapının dışında kaldı. Kendi yoluna bakıyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_social_kirilma_star_teammate",
-          "op": "set",
-          "value": 1
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": "Onurlu Çıkış",
-      "kind": "outcome",
-      "text": "Arabanın kapısı kapanıyor. {actor.star_teammate.name} arkasına bakmadan uzaklaşıyor. Cebin boş, ama başın dik. Yarın yeni bir sayfa açmak için artık çok geç.",
-      "onEnter": [
-        {
-          "flag": "mem_social_kirilma_star_teammate",
-          "op": "set",
-          "value": 1
-        }
-      ]
+      }
     }
-  }
+  ]
 }

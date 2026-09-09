@@ -20,178 +20,360 @@
     "loaned",
     "playing"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Kilitli Oda",
-      "kind": "branch",
-      "text": "Soyunma odasının kapısı gıcırtıyla açılıyor. İçerisi ağır bir ter ve eski mentol kokusuyla yüklü. {actor.veteran.name}, köşedeki tezgahında oturuyor. Bantlarını yavaşça soyuyor. Göz göze geliyoruz. O, gençliğimin kahramanı; ben ise onun koltuğuna göz diken, zamanın aşındırdığı bir başka figür. Odanın sessizliği, duvardaki saatten gelen tıkırtılarla birleşince baskı dayanılmaz hale geliyor. {actor.captain.name} odanın diğer ucunda, bize arkasını dönmüş bir şekilde kramponlarını bağlıyor. {actor.veteran.name} başını hafifçe kaldırıyor, bir şey söylemeye hazırlanıyor ama dudakları kilitli. İkimiz de burada birimizin fazlalık olduğunu biliyoruz.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Yanına gidip elini omzuna koy. 'Sıra sende değil,' de ve gözlerinin içine bak.",
-          "target": "n_outcome_1",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kilitli Oda",
+          "kind": "branch",
+          "text": "Soyunma odasının kapısı gıcırtıyla açılıyor. İçerisi ağır bir ter ve eski mentol kokusuyla yüklü. {actor.veteran.name}, köşedeki tezgahında oturuyor. Bantlarını yavaşça soyuyor. Göz göze geliyoruz. O, gençliğimin kahramanı; ben ise onun koltuğuna göz diken, zamanın aşındırdığı bir başka figür. Odanın sessizliği, duvardaki saatten gelen tıkırtılarla birleşince baskı dayanılmaz hale geliyor. {actor.captain.name} odanın diğer ucunda, bize arkasını dönmüş bir şekilde kramponlarını bağlıyor. {actor.veteran.name} başını hafifçe kaldırıyor, bir şey söylemeye hazırlanıyor ama dudakları kilitli. İkimiz de burada birimizin fazlalık olduğunu biliyoruz.",
+          "choices": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 5
+              "id": "c_guvenli",
+              "text": "Yanına gidip elini omzuna koy. 'Sıra sende değil,' de ve gözlerinin içine bak.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
             },
             {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": 10
+              "id": "c_riskli",
+              "text": "Görmezden gel, doğrudan kaptanın yanına yürü ve strateji hakkında yüksek sesle konuşmaya başla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
+              "id": "c_gri",
+              "text": "Cebinden kulüp yöneticisinin yolladığı zarfı çıkar, sessizce tezgahına bırak ve arkana bakmadan çık.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Eski bir maçı hatırlat, saha kenarındaki günleri sor. İkiniz de yorulduğunuzu kabul edin.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Saygı Yeterli]"
             }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Görmezden gel, doğrudan kaptanın yanına yürü ve strateji hakkında yüksek sesle konuşmaya başla.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Veda",
+          "kind": "outcome",
+          "text": "Sessizce başını sallıyor. Gözlerindeki fer sönüyor ama bir anlık rahatlama ikimize de geçiyor. Bu oda artık onun için çok soğuk.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": -5
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Cebinden kulüp yöneticisinin yolladığı zarfı çıkar, sessizce tezgahına bırak ve arkana bakmadan çık.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_2": {
+          "title": "Baskın",
+          "kind": "outcome",
+          "text": "Sesin odanın kasvetli sessizliğini bir bıçak gibi kestiğinde, {actor.veteran.name} yavaşça doğruldu. Gözlerinde ne bir öfke ne de bir hayal kırıklığı vardı; sadece artık bu arenada yerinin kalmadığını kabullenmiş bir adamın boşluğu mevcuttu. Tek kelime etmeden tezgahından kalktı, kramponlarının zeminde çıkardığı ritmik sesler eşliğinde odayı terk etti. Arkanı dönüp bakmadın ama kapının ardından gelen o tok çarpma sesi, aranızdaki devrin artık resmen kapandığını kanıtlar gibi koridorda uzun süre yankılandı.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "sadakat": -10
-          }
+          ]
         },
-        {
-          "id": "c_stat",
-          "text": "Eski bir maçı hatırlat, saha kenarındaki günleri sor. İkiniz de yorulduğunuzu kabul edin.",
-          "target": "n_outcome_4",
-          "effects": [
+        "n_outcome_3": {
+          "title": "İhanet",
+          "kind": "outcome",
+          "text": "Zarfı görüyor. İçindeki parayı ya da mesajı bilmem önemli değil. Sadece odayı terk ederken attığı bakış, tüm kariyerim boyunca peşimi bırakmayacak.",
+          "onEnter": [
             {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 5
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": 5
-          },
-          "requires": {
-            "flag": "sokak_itibari",
-            "op": "gte",
-            "value": 68
-          },
-          "lockLabel": "[Saygı Yeterli]"
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Paylaşılan Yorgunluk",
+          "kind": "outcome",
+          "text": "Saatlerce konuşuyoruz. Oyunun bizi nasıl tükettiğini, birbirimizden nasıl korktuğumuzu itiraf ediyoruz. Bu gece saha dışında kazandığımız nadir zaferlerden biri.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_1": {
-      "title": "Veda",
-      "kind": "outcome",
-      "text": "Sessizce başını sallıyor. Gözlerindeki fer sönüyor ama bir anlık rahatlama ikimize de geçiyor. Bu oda artık onun için çok soğuk.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_yuzlesme_veteran",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının arkasındaki tozlu çamaşırhanedeyiz. Işıklar cızırtıyla yanıyor. {actor.veteran.name}, köşedeki eski bir tahta sandığın üzerinde tek başına oturmuş, yıpranmış kramponlarının bağcıklarını düğümlüyor. Yanına yaklaştığımda duraksıyor, başını yavaşça kaldırıyor. Gözlerinde yorgunluk değil, sanki bir aynaya bakıyormuş gibi beni tarttığı o keskin ifade var. Burası artık kimsenin uğramadığı bir yer ve o, ikimizin de buraya neden geldiğini çok iyi biliyor.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Ona bir çanta dolusu nakit uzat. 'Bunu kimse görmedi, sezon sonu git,' de.",
+              "target": "n_outcome_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Elindeki kramponu işaret et. 'Hala onlara layık oynuyorsun, bu rezil takımı bırak,' diye fısılda.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce yanına otur, bir şey söyleme. Sadece oyunun geleceği üzerine başını salla.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Eski bir maçı hatırlat. 'O gün yaptığın o pası unutmadım,' diyerek ona gerçek değerini hatırlat.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Medya İtibarı 80+]",
+              "persona": {
+                "sadakat": 12
+              }
+            }
+          ]
+        },
+        "n_outcome_servet": {
+          "title": "Bir Sonun Bedeli",
+          "kind": "outcome",
+          "text": "Parayı alırken eli elime değiyor. Hiçbir şey sormuyor. Sadece başını sallıyor, bu vedanın ağırlığını ikimiz de biliyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "İsyanın Sesi",
+          "kind": "outcome",
+          "text": "Gözlerinde yıllardır sönen o kıvılcım geri geliyor. Ayağa kalkıyor, terli elini omzuma koyuyor. Kulüpte bir şeyler kökten değişecek.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Sadece oturuyoruz. Dışarıdan gelen antrenman sesleri uzaklaşıyor. Hiçbir şey çözülmüyor ama ikimiz de birbirimizi ilk kez anlıyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Efsanenin Hafızası",
+          "kind": "outcome",
+          "text": "Gülümsemesi acı bir hüzünle birleşiyor. O anı hatırlatmam, ona neden hala burada olduğunu sorgulatıyor. Yorgunluğu gözlerinden okunuyor ama ilk defa, gerçekten görülüyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "Baskın",
-      "kind": "outcome",
-      "text": "Sesin odanın kasvetli sessizliğini bir bıçak gibi kestiğinde, {actor.veteran.name} yavaşça doğruldu. Gözlerinde ne bir öfke ne de bir hayal kırıklığı vardı; sadece artık bu arenada yerinin kalmadığını kabullenmiş bir adamın boşluğu mevcuttu. Tek kelime etmeden tezgahından kalktı, kramponlarının zeminde çıkardığı ritmik sesler eşliğinde odayı terk etti. Arkanı dönüp bakmadın ama kapının ardından gelen o tok çarpma sesi, aranızdaki devrin artık resmen kapandığını kanıtlar gibi koridorda uzun süre yankılandı.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_yuzlesme_veteran",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": "İhanet",
-      "kind": "outcome",
-      "text": "Zarfı görüyor. İçindeki parayı ya da mesajı bilmem önemli değil. Sadece odayı terk ederken attığı bakış, tüm kariyerim boyunca peşimi bırakmayacak.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_yuzlesme_veteran",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_4": {
-      "title": "Paylaşılan Yorgunluk",
-      "kind": "outcome",
-      "text": "Saatlerce konuşuyoruz. Oyunun bizi nasıl tükettiğini, birbirimizden nasıl korktuğumuzu itiraf ediyoruz. Bu gece saha dışında kazandığımız nadir zaferlerden biri.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_yuzlesme_veteran",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

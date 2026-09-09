@@ -38,145 +38,292 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Geçmişin Faturası",
-      "kind": "branch",
-      "text": "Stüdyo ışıkları loş, havalandırma sesi odadaki sessizliği keskinleştiriyor. {actor.journalist.name} masanın ucunda, bir yıl önce o sızdırdığın ses kayıtlarını elinde tutuyor. {actor.pundit.name} ile yaşadığın o karanlık hesaplaşmanın yankısı, aradan geçen elli yedi haftaya rağmen hâlâ burada. İtibarın, kelimelerin boşluğunda asılı. Kayıtlar yarın sabah ana sayfada. Masadaki kayıt cihazı, sessizliğin son tanığı gibi kırmızı ışığını yakıp söndürüyor.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Belgeleri masanın üzerine it. Bedeli neyse ödemeye hazırım, manşetleri sen at.",
-          "target": "n_outcome_1",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin Faturası",
+          "kind": "branch",
+          "text": "Stüdyo ışıkları loş, havalandırma sesi odadaki sessizliği keskinleştiriyor. {actor.journalist.name} masanın ucunda, bir yıl önce o sızdırdığın ses kayıtlarını elinde tutuyor. {actor.pundit.name} ile yaşadığın o karanlık hesaplaşmanın yankısı, aradan geçen elli yedi haftaya rağmen hâlâ burada. İtibarın, kelimelerin boşluğunda asılı. Kayıtlar yarın sabah ana sayfada. Masadaki kayıt cihazı, sessizliğin son tanığı gibi kırmızı ışığını yakıp söndürüyor.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 15
+              "id": "c_guvenli",
+              "text": "Belgeleri masanın üzerine it. Bedeli neyse ödemeye hazırım, manşetleri sen at.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                }
+              ]
             },
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_riskli",
+              "text": "Odanın kapısını kilitle ve sesini yükselt. Bunlar montaj, seninle asla böyle konuşmadım.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 25
+                }
+              ]
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -50000
+              "id": "c_gri",
+              "text": "Cüzdanını çıkar. İkiniz de biliyorsunuz; bu kayıtlar başka birinin daha işine yarayacak. Bir iyilik daha satın al.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -100000
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
             }
           ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Odanın kapısını kilitle ve sesini yükselt. Bunlar montaj, seninle asla böyle konuşmadım.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Kabulleniş",
+          "kind": "outcome",
+          "text": "Işıklar sönüyor. {actor.journalist.name} başını sallayıp kayıt cihazını kapatıyor. Yarın herkes her şeyi bilecek. Kariyerinin en ağır mağlubiyeti, saha dışında gerçekleşti.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 20
+              "op": "lifeState",
+              "to": "retired"
             },
             {
-              "flag": "taraftar_destegi",
+              "flag": "npc_journalist_arc",
               "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 30
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 25
+              "value": 1
             }
           ]
         },
-        {
-          "id": "c_gri",
-          "text": "Cüzdanını çıkar. İkiniz de biliyorsunuz; bu kayıtlar başka birinin daha işine yarayacak. Bir iyilik daha satın al.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_2": {
+          "title": "Reddiye",
+          "kind": "outcome",
+          "text": "Odadan çıktığında kapı sertçe yüzüne çarpıyor. {actor.journalist.name} gülümseyerek telefonuna sarılıyor. Yarın sabah tüm manşetlerde senin ismin, inkarın ve yükselen bir nefret dalgası olacak.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": -100000
+              "op": "suspend",
+              "matches": 4,
+              "reason": "skandal"
             },
             {
-              "flag": "iliski_journalist",
+              "flag": "npc_journalist_arc",
               "op": "add",
-              "value": 20
+              "value": -1
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Zarflar el değiştiriyor. {actor.journalist.name} kayıtları önündeki çöp sepetine atıyor. Sessizliğin bir fiyatı var ve sen onu ödedin. Ama vicdanındaki o boşluk, artık hiçbir şeyle dolmayacak.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
             },
             {
-              "flag": "moral",
+              "flag": "npc_journalist_arc",
               "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
+              "value": 5
             }
           ]
         }
-      ]
+      }
     },
-    "n_outcome_1": {
-      "title": "Kabulleniş",
-      "kind": "outcome",
-      "text": "Işıklar sönüyor. {actor.journalist.name} başını sallayıp kayıt cihazını kapatıyor. Yarın herkes her şeyi bilecek. Kariyerinin en ağır mağlubiyeti, saha dışında gerçekleşti.",
-      "onEnter": [
-        {
-          "op": "lifeState",
-          "to": "retired"
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Köşe",
+          "kind": "branch",
+          "text": "Otoparkın en uç noktasındasınız. {actor.journalist.name}, paslı bir metal sütuna yaslanmış, elindeki eski model fotoğraf makinesinin ekranına bakıyor. Motorun soğuma sesi, gecenin sessizliğini bıçak gibi kesiyor. Uzaklardan gelen bir siren sesi var, ya da belki sadece uğultu. {actor.journalist.name} başını kaldırmıyor. Ekrandaki görüntü, kariyerini tek bir karede bitirmeye yetecek kadar net. \"Buraya kadar gelmen ilginç,\" diyor, sesi soğuk bir metal sürtünmesi gibi. \"Eskiden manşetleri sen belirlerdin, şimdi ise sadece kendi sessizliğinle pazarlık yapıyorsun.\"",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Gözlerinin içine bak ve makineyi elinden alarak yere fırlat. \"Bu gece kimse hiçbir şey görmedi.\"",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kafanı eğ ve yavaşça geri çekil. \"Yazmak istediğin hikayeyi bitir, artık savaşacak enerjim kalmadı.\"",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebinden çıkardığın zarfı, tek kelime etmeden çamurlu yere bırak.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 25000
+              },
+              "lockLabel": "[Yeterli Nakit Yok]"
+            }
+          ]
         },
-        {
-          "flag": "npc_journalist_arc",
-          "op": "add",
-          "value": 1
-        }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "Reddiye",
-      "kind": "outcome",
-      "text": "Odadan çıktığında kapı sertçe yüzüne çarpıyor. {actor.journalist.name} gülümseyerek telefonuna sarılıyor. Yarın sabah tüm manşetlerde senin ismin, inkarın ve yükselen bir nefret dalgası olacak.",
-      "onEnter": [
-        {
-          "op": "suspend",
-          "matches": 4,
-          "reason": "skandal"
+        "n_riskli": {
+          "title": "Sert Dönüş",
+          "kind": "outcome",
+          "text": "Görüntüleri yok ettin ama {actor.journalist.name} hiçbir şey unutmayacak. Gözlerindeki öfke, yarın gazetenin manşetinden daha ağır bir bedel ödetecek.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            },
+            {
+              "op": "suspend",
+              "matches": 4,
+              "reason": "medya_skandali"
+            }
+          ]
         },
-        {
-          "flag": "npc_journalist_arc",
-          "op": "add",
-          "value": -1
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": "Karanlık Mutabakat",
-      "kind": "outcome",
-      "text": "Zarflar el değiştiriyor. {actor.journalist.name} kayıtları önündeki çöp sepetine atıyor. Sessizliğin bir fiyatı var ve sen onu ödedin. Ama vicdanındaki o boşluk, artık hiçbir şeyle dolmayacak.",
-      "onEnter": [
-        {
-          "op": "lifeState",
-          "to": "playing"
+        "n_guvenli": {
+          "title": "Teslimiyet",
+          "kind": "outcome",
+          "text": "Karanlığın içinde kaybolurken attığın her adım, kariyerinin sonuna biraz daha yaklaştırıyor. Bir daha sahaya çıkmanın anlamı kalmadı.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            }
+          ]
         },
-        {
-          "flag": "npc_journalist_arc",
-          "op": "add",
-          "value": 5
+        "n_gri": {
+          "title": "Satın Alınan Sessizlik",
+          "kind": "outcome",
+          "text": "Zarfı yerden aldı. Arkasını döndü ve gitti. Cebinde biraz daha az para, ruhunda ise silinmeyecek bir leke bıraktın. Sahaya dönebilirsin ama artık hiçbir şey aynı değil.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            }
+          ]
         }
-      ]
+      }
     }
-  },
-  "once": true
+  ]
 }

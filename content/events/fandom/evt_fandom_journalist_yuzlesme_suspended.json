@@ -17,141 +17,270 @@
   "lifeStates": [
     "suspended"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Koridordaki Yuzlesme",
-      "kind": "branch",
-      "text": "Antrenman tesislerinin sessiz koridorunda, karsimdan gelen {actor.journalist.name} ile goz goze geliyorum. Disarida disiplin suclamalariyla adim gecerken, o elinde not defteriyle sanki bir cenaze torenine hazirlaniyor. Duraksiyor. Calisanlarin bakislari uzerimizde yogunlasiyor. {actor.journalist.name} gulumsuyor, o tatsiz, profesyonel gulumsemelerinden biri. Agzini acmadan once havayi kokluyor. Simdi ya boyun egilecek ya da savas baslatilacak.",
-      "choices": [
-        {
-          "id": "c_safe",
-          "text": "Basini hafifce eg, yanindan gecip git. Sessizlik en iyi savunma.",
-          "target": "n_outcome_safe",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Koridordaki Yuzlesme",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin sessiz koridorunda, karsimdan gelen {actor.journalist.name} ile goz goze geliyorum. Disarida disiplin suclamalariyla adim gecerken, o elinde not defteriyle sanki bir cenaze torenine hazirlaniyor. Duraksiyor. Calisanlarin bakislari uzerimizde yogunlasiyor. {actor.journalist.name} gulumsuyor, o tatsiz, profesyonel gulumsemelerinden biri. Agzini acmadan once havayi kokluyor. Simdi ya boyun egilecek ya da savas baslatilacak.",
+          "choices": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_safe",
+              "text": "Basini hafifce eg, yanindan gecip git. Sessizlik en iyi savunma.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "id": "c_risky",
+              "text": "Omuz atarak yanindan gec, sesli bir sekilde yalanlarini yuzune vur.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
+              "id": "c_grey",
+              "text": "Koluna gir, bos bir odaya cek. Susmasi icin rakami konus.",
+              "target": "n_outcome_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 100000
+              },
+              "lockLabel": "[Yeterli Nakit Yok]",
+              "persona": {
+                "dogruluk": -10
+              }
             }
-          ],
-          "persona": {
-            "durus": 5
-          }
+          ]
         },
-        {
-          "id": "c_risky",
-          "text": "Omuz atarak yanindan gec, sesli bir sekilde yalanlarini yuzune vur.",
-          "target": "n_outcome_risky",
-          "effects": [
+        "n_outcome_safe": {
+          "title": "Geri Adim",
+          "kind": "outcome",
+          "text": "Gozlerini kacirip hizli adimlarla uzaklasiyorsun. Arkandan gelen kalem sesini duyabiliyorsun, ama donup bakmiyorsun. Profesyonel kalmak, insan kalmaktan daha maliyetliymis.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 10
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": 8
-          }
+          ]
         },
-        {
-          "id": "c_grey",
-          "text": "Koluna gir, bos bir odaya cek. Susmasi icin rakami konus.",
-          "target": "n_outcome_grey",
-          "effects": [
+        "n_outcome_risky": {
+          "title": "Acik Kavgaya Giris",
+          "kind": "outcome",
+          "text": "Koridor yankilaniyor. Sozlerin agir, muhatabinin yuzu kizarirken taraftarin neden sana tapindigini hatirliyorsun. Bu kavgayi kazandigini sanirsin, ancak kartlar coktan masaya suruldu.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
             }
-          ],
-          "requires": {
-            "flag": "servet",
-            "op": "gte",
-            "value": 100000
-          },
-          "lockLabel": "[Yeterli Nakit Yok]",
-          "persona": {
-            "dogruluk": -10
-          }
+          ]
+        },
+        "n_outcome_grey": {
+          "title": "Karanlik Anlasma",
+          "kind": "outcome",
+          "text": "Kapi kilitlendi. Rakamlar havada ucusurken {actor.journalist.name} kalemini cebine koyuyor. Artik kaleminin ucu baska birine donecek. Odadan ciktiginda kendini daha zengin ama bir o kadar da kirli hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_safe": {
-      "title": "Geri Adim",
-      "kind": "outcome",
-      "text": "Gozlerini kacirip hizli adimlarla uzaklasiyorsun. Arkandan gelen kalem sesini duyabiliyorsun, ama donup bakmiyorsun. Profesyonel kalmak, insan kalmaktan daha maliyetliymis.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_yuzlesme_journalist",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Arabanın kapısı açık. Soğuk hava içeri doluyor. {actor.journalist.name} dikiz aynasında beliriyor, elinde bir kayıt cihazı. Flaşlar uzaktan patlıyor, kulüp tesislerinin demir kapısı ardında bekleyen kalabalık var. İçerideki ceza kararı henüz kurumadı bile. {actor.journalist.name} cama vuruyor. Yüzünde, kariyere atılan bir çentiğin derinliği değil; bir sonraki manşetin açlığı var. Sessizce bekliyor. Tek bir kelimeyle her şeyi yakabilir, tek bir cümleyle üzerimdeki baskıyı dağıtabilir.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Cihazın kayıt tuşunu işaret et. 'Bunu senin için değil, ikimiz için yazıyorum' diyerek çeki ver.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kayıt cihazını elinden al, asfaltın ortasına bırak. 'Haberin kaynağı benim, ama sen sadece bir yalanın kölesisin' de.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Cama bakmaya devam et, sonra yavaşça motoru çalıştır. Gözlerine bile bakmadan uzaklaş.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın Alınmış Sessizlik",
+          "kind": "outcome",
+          "text": "Elindeki cihazın ışığı sönüyor. Yüzündeki o sinsi ifade, yerini profesyonel bir nezakete bırakıyor. Yarın manşetlerde ben değil, bir başkası günah keçisi olacak. Bu sessizliğin bedeli banka hesabımdan eksilen bir rakam değil, kendime olan bakışım.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Açık Savaş",
+          "kind": "outcome",
+          "text": "Cihazın parçaları asfalta dağılıyor. {actor.journalist.name} şaşkın, sonra öfkeli. Kamera lensleri patlıyor. Yarın manşetlerde bir kahraman değil, bir asi olacağım. Taraftar bunu sevecek, ama yönetim bunu asla unutmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Görünmezlik",
+          "kind": "outcome",
+          "text": "Motorun sesi etrafı kaplıyor. Dikiz aynasında küçülüyor. Hiçbir şey demedim, hiçbir şey vaat etmedim. Yarın tüm oklar üzerime dönecek, tüm eleştiriler yağacak. Ama en azından, kendi irademle suskun kaldım.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_risky": {
-      "title": "Acik Kavgaya Giris",
-      "kind": "outcome",
-      "text": "Koridor yankilaniyor. Sozlerin agir, muhatabinin yuzu kizarirken taraftarin neden sana tapindigini hatirliyorsun. Bu kavgayi kazandigini sanirsin, ancak kartlar coktan masaya suruldu.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_yuzlesme_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_grey": {
-      "title": "Karanlik Anlasma",
-      "kind": "outcome",
-      "text": "Kapi kilitlendi. Rakamlar havada ucusurken {actor.journalist.name} kalemini cebine koyuyor. Artik kaleminin ucu baska birine donecek. Odadan ciktiginda kendini daha zengin ama bir o kadar da kirli hissediyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_yuzlesme_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

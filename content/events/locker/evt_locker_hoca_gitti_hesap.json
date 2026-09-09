@@ -44,128 +44,315 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Yeni Adamın İlk Sorusu",
-      "kind": "branch",
-      "text": "Tesisin toplantı odası, sandalyeler hâlâ önceki düzende. {actor.manager.name} kendini tanıtmadı bile; tahtaya bir şey yazmadı, dosya açmadı. Sadece oturdu ve odayı okudu. Sonra doğrudan sana baktı — on altı kişinin içinden sana. \"Benden önceki adam buradan çıkarken,\" dedi, \"kimin yüzünden çıktığını biliyor muydu?\" Soru masum değil. Yeni gelen her teknik direktör aynı şeyi öğrenmek ister: bu odada kim kimi devirebiliyor. Cevabın onun sana bakışını beş yıl belirleyecek.",
-      "choices": [
-        {
-          "id": "c_sahiplen",
-          "text": "\"Biliyordu. Ben de biliyorum.\" Gözünü kaçırma.",
-          "target": "n_out_sahiplen",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yeni Adamın İlk Sorusu",
+          "kind": "branch",
+          "text": "Tesisin toplantı odası, sandalyeler hâlâ önceki düzende. {actor.manager.name} kendini tanıtmadı bile; tahtaya bir şey yazmadı, dosya açmadı. Sadece oturdu ve odayı okudu. Sonra doğrudan sana baktı — on altı kişinin içinden sana. \"Benden önceki adam buradan çıkarken,\" dedi, \"kimin yüzünden çıktığını biliyor muydu?\" Soru masum değil. Yeni gelen her teknik direktör aynı şeyi öğrenmek ister: bu odada kim kimi devirebiliyor. Cevabın onun sana bakışını beş yıl belirleyecek.",
+          "choices": [
             {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": -14
+              "id": "c_sahiplen",
+              "text": "\"Biliyordu. Ben de biliyorum.\" Gözünü kaçırma.",
+              "target": "n_out_sahiplen",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "yonetim_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "mem_isyani_sahiplendi",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "dogruluk": 12,
+                "durus": 10,
+                "sadakat": -6
+              }
             },
             {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 10
+              "id": "c_takima_yik",
+              "text": "\"Oda çoktan kopmuştu. Ben sadece son konuşandım.\"",
+              "target": "n_out_takima_yik",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -16
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "mem_odayi_satti",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "sadakat": -14,
+                "dogruluk": -8
+              }
             },
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "yonetim_baskisi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "mem_isyani_sahiplendi",
-              "op": "set",
-              "value": true
+              "id": "c_reddet",
+              "text": "\"Sonuçlar çıkardı onu, biz değil.\" Konuyu kapat.",
+              "target": "n_out_reddet",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "mem_hesabi_savusturdu",
+                  "op": "set",
+                  "value": true
+                }
+              ],
+              "persona": {
+                "durus": -6,
+                "mizac": 4
+              }
             }
-          ],
-          "persona": {
-            "dogruluk": 12,
-            "durus": 10,
-            "sadakat": -6
-          }
+          ]
         },
-        {
-          "id": "c_takima_yik",
-          "text": "\"Oda çoktan kopmuştu. Ben sadece son konuşandım.\"",
-          "target": "n_out_takima_yik",
-          "effects": [
+        "n_out_sahiplen": {
+          "title": "Masadaki İki Adam",
+          "kind": "outcome",
+          "text": "Kimse nefes almadı. {actor.manager.name} birkaç saniye baktı, sonra ilk kez gülümsedi — sıcak değil, hesaplı. \"Güzel,\" dedi. \"O zaman ikimiz de nerede durduğumuzu biliyoruz.\" Toplantı bitti. O günden sonra sana kadro dışında hiçbir şey sormadı, ama her antrenmanda nerede olduğunu bildi. Odada saygın arttı; hocanın gözünde {actor.captain.name} kadar ağırlığın oldu. Muhataplar bazen kazanır, bazen ilk satılan olur."
+        },
+        "n_out_takima_yik": {
+          "title": "Son Konuşan",
+          "kind": "outcome",
+          "text": "{actor.manager.name} başını salladı ve not aldı. Toplantı normal devam etti. Ama akşam {actor.star_teammate.name} soyunma odasında yanından geçerken durmadı, {actor.rival_teammate.name} whatsapp grubundan çıktı. Yeni hoca senden memnun — odanın geri kalanı değil. Bir soyunma odasında kendini kurtarmanın bedeli genelde peşin ödenmez; taksitle, uzun uzun ödenir."
+        },
+        "n_out_reddet": {
+          "title": "Sonuçlar",
+          "kind": "outcome",
+          "text": "\"Sonuçlar,\" diye tekrarladı {actor.manager.name}, tonlamasını değiştirmeden. Not almadı. Toplantıyı bitirdi. Kimseyi kızdırmadın, kimseyi de ikna etmedin — odadakiler cevabını duydu ve kaçamak olduğunu anladı. {actor.captain.name} çıkarken sana bakmadı. Bazı sorular vardır ki cevap vermemek de bir cevaptır, ve genelde en pahalısıdır."
+        }
+      }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gölgenin Ağırlığı",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarında, çimlerin üzerine oturdun. Yanında {actor.manager.name} duruyor. Elinde eski bir maç kaydı tableti var. Durdurup geri sarıyor. Sürekli aynı pozisyon; senin değil, senden önce o mevkide oynayan adamın golü. Görüntüdeki adamın koşusu, vuruşu, sevinci. {actor.manager.name} tableti yere bırakıyor. 'Onun gibi bekliyorum,' diyor. Sadece bu kadar. Rüzgâr terini soğutuyor. Başka kimse yok. Sessizlik, bir ağırlık gibi göğsüne oturuyor.",
+          "choices": [
             {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": 6
+              "id": "c_guvenli",
+              "text": "'O başkaydı, ben başka. Kendi oyunuma bakmalıyım.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
             },
             {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": -16
+              "id": "c_riskli",
+              "text": "Tableti alıp çimlere sertçe fırlat. 'Beni onunla kıyaslamayı bırak.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
             },
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 6
+              "id": "c_gri",
+              "text": "Gülümse ve 'Ondan daha fazlasını yapabilirim, yeter ki primleri konuşalım,' de.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -6
+              }
             },
             {
-              "flag": "mem_odayi_satti",
-              "op": "set",
-              "value": true
+              "id": "c_kilitli",
+              "text": "Ayağa kalk, topu al ve o pozisyonu aynen canlandır, sonra ona bak. 'İzlemeyi bırak, çalışmaya başla.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "teknik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              },
+              "requires": {
+                "flag": "teknik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Teknik 60]"
             }
-          ],
-          "persona": {
-            "sadakat": -14,
-            "dogruluk": -8
-          }
+          ]
         },
-        {
-          "id": "c_reddet",
-          "text": "\"Sonuçlar çıkardı onu, biz değil.\" Konuyu kapat.",
-          "target": "n_out_reddet",
-          "effects": [
-            {
-              "flag": "iliski_manager",
-              "op": "add",
-              "value": 4
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": -4
-            },
-            {
-              "flag": "liderlik",
-              "op": "add",
-              "value": -6
-            },
+        "n_guvenli": {
+          "title": "Kendi Yolu",
+          "kind": "outcome",
+          "text": "{actor.manager.name} başını sallayıp uzaklaşıyor. Kendi kimliğini korudun ama o kıyaslama artık senin duvarın. Her hatanda o hayalet belirecek.",
+          "onEnter": [
             {
               "flag": "mem_hesabi_savusturdu",
               "op": "set",
               "value": true
             }
-          ],
-          "persona": {
-            "durus": -6,
-            "mizac": 4
-          }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sınırı Aşmak",
+          "kind": "outcome",
+          "text": "{actor.manager.name} sessizleşiyor. Gözlerindeki soğukluk, bu hamlenin uzun vadede seni kulüpten uzaklaştıracağını fısıldıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_isyani_sahiplendi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.manager.name} elini omzuna koyuyor. Satın alınmış bir güven. Artık o ne isterse onu oynayacaksın; ruhun artık tabeladaki rakam kadar değerli.",
+          "onEnter": [
+            {
+              "flag": "mem_odayi_satti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Dersini Almak",
+          "kind": "outcome",
+          "text": "{actor.manager.name} hayranlıkla izliyor. Seni o eski adamla değil, senin potansiyelinle ölçmeye başlıyor. Ama vücudun bu hırsın yorgunluğunu yarınki maçta hissettirecek.",
+          "onEnter": [
+            {
+              "flag": "mem_hesabi_savusturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_out_sahiplen": {
-      "title": "Masadaki İki Adam",
-      "kind": "outcome",
-      "text": "Kimse nefes almadı. {actor.manager.name} birkaç saniye baktı, sonra ilk kez gülümsedi — sıcak değil, hesaplı. \"Güzel,\" dedi. \"O zaman ikimiz de nerede durduğumuzu biliyoruz.\" Toplantı bitti. O günden sonra sana kadro dışında hiçbir şey sormadı, ama her antrenmanda nerede olduğunu bildi. Odada saygın arttı; hocanın gözünde {actor.captain.name} kadar ağırlığın oldu. Muhataplar bazen kazanır, bazen ilk satılan olur."
-    },
-    "n_out_takima_yik": {
-      "title": "Son Konuşan",
-      "kind": "outcome",
-      "text": "{actor.manager.name} başını salladı ve not aldı. Toplantı normal devam etti. Ama akşam {actor.star_teammate.name} soyunma odasında yanından geçerken durmadı, {actor.rival_teammate.name} whatsapp grubundan çıktı. Yeni hoca senden memnun — odanın geri kalanı değil. Bir soyunma odasında kendini kurtarmanın bedeli genelde peşin ödenmez; taksitle, uzun uzun ödenir."
-    },
-    "n_out_reddet": {
-      "title": "Sonuçlar",
-      "kind": "outcome",
-      "text": "\"Sonuçlar,\" diye tekrarladı {actor.manager.name}, tonlamasını değiştirmeden. Not almadı. Toplantıyı bitirdi. Kimseyi kızdırmadın, kimseyi de ikna etmedin — odadakiler cevabını duydu ve kaçamak olduğunu anladı. {actor.captain.name} çıkarken sana bakmadı. Bazı sorular vardır ki cevap vermemek de bir cevaptır, ve genelde en pahalısıdır."
+      }
     }
-  }
+  ]
 }

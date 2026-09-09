@@ -32,137 +32,324 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Mutfakta Bir Zarf",
-      "kind": "branch",
-      "text": "{actor.partner.name} zarfı mutfak masasına bıraktı ve karşına oturdu. Eski bir ödeme dekontu; üstünde o yılın tarihi ve senin imzan var. \"Bunu temizlik yaparken buldum,\" dedi. Sesi kızgın değil, daha kötüsü: sakin. \"O yaz bana hiçbir şey anlatmadın. Ben sadece uyumadığını biliyordum.\" Buzdolabının motoru çalışıyor, başka ses yok. {actor.cousin.name} salonda televizyon izliyor, sesini kısmış — o da dinliyor.",
-      "choices": [
-        {
-          "id": "c_anlat",
-          "text": "Hepsini anlat. Rakamı da, korkuyu da.",
-          "target": "n_out_anlat",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Mutfakta Bir Zarf",
+          "kind": "branch",
+          "text": "{actor.partner.name} zarfı mutfak masasına bıraktı ve karşına oturdu. Eski bir ödeme dekontu; üstünde o yılın tarihi ve senin imzan var. \"Bunu temizlik yaparken buldum,\" dedi. Sesi kızgın değil, daha kötüsü: sakin. \"O yaz bana hiçbir şey anlatmadın. Ben sadece uyumadığını biliyordum.\" Buzdolabının motoru çalışıyor, başka ses yok. {actor.cousin.name} salonda televizyon izliyor, sesini kısmış — o da dinliyor.",
+          "choices": [
             {
-              "flag": "iliski_aile",
-              "op": "add",
-              "value": 14
+              "id": "c_anlat",
+              "text": "Hepsini anlat. Rakamı da, korkuyu da.",
+              "target": "n_out_anlat",
+              "effects": [
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "npc_partner_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "dogruluk": 12,
+                "durus": -4
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": 10
+              "id": "c_kucult",
+              "text": "\"Küçük bir işti, hallettim.\" Zarfı katla, çekmeceye koy.",
+              "target": "n_out_kucult",
+              "effects": [
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "npc_partner_arc",
+                  "op": "add",
+                  "value": -1
+                }
+              ],
+              "persona": {
+                "dogruluk": -10,
+                "sadakat": 4
+              }
             },
             {
-              "flag": "mental_dayaniklilik",
-              "op": "add",
-              "value": -6
+              "id": "c_ofkelen",
+              "text": "\"Eşyalarımı mı karıştırıyorsun?\" Masadan kalk.",
+              "target": "n_out_ofkelen",
+              "effects": [
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "npc_partner_arc",
+                  "op": "add",
+                  "value": -1
+                }
+              ],
+              "persona": {
+                "mizac": -14,
+                "durus": 4
+              }
+            }
+          ]
+        },
+        "n_out_anlat": {
+          "title": "Buzdolabının Sesi",
+          "kind": "outcome",
+          "text": "Anlatması yarım saat sürdü ve bitince ikiniz de yorgundunuz. {actor.partner.name} bir şey söylemedi, sadece elini masanın üstünden uzattı. Salondaki televizyonun sesi yeniden açıldı; {actor.cousin.name} duyduklarını duymamış gibi yaptı ve bu da bir tür şefkat. O gece yıllardır ilk kez ışığı kapatır kapatmaz uyudun. Bazı borçlar ödendikten sonra bile taşınır, ta ki birine anlatılana kadar."
+        },
+        "n_out_kucult": {
+          "title": "Çekmece",
+          "kind": "outcome",
+          "text": "Zarf çekmecede, konu kapandı. {actor.partner.name} ısrar etmedi — ısrar etmemek de bir cevaptır. O günden sonra evde bazı konular yavaşça dolaşıma girmemeye başladı: para, gelecek, o yaz. Ev sessiz ve düzenli. Sen de öyle görünüyorsun. İnsan bir şeyi yeterince uzun süre küçültürse gerçekten küçülüyor mu, yoksa sadece adı mı kalmıyor, bilmiyorsun."
+        },
+        "n_out_ofkelen": {
+          "title": "Kapanan Kapı",
+          "kind": "outcome",
+          "text": "Kalktığında sandalye devrildi ve sen onu kaldırmadın. {actor.partner.name} arkandan seslenmedi. {actor.cousin.name} televizyonu kapattı, o da odasına gitti. Öfke o an haklı hissettirdi; iki saat sonra arabada otururken hiçbir şeyi savunmadığını, sadece anlatmaktan kaçtığını fark ettin. Ertesi sabah kimse konuyu açmadı ve bu, kavga etmekten daha uzun sürdü."
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Kalan Hesap",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları sönmüş, otoparkta sadece ikinizin olduğu aracın farları yanıyor. {actor.partner.name} elindeki bir tutam dokümanı ön panele bırakıyor. İçlerinden biri, kariyerinin en karanlık günlerinden kalan bir borç senedi. Soru sormuyor, sadece dikiz aynasından sana bakıyor. Sessizlik, birikmiş bir öfke kadar ağır. Dışarıda gece ayazı var, içeride ise uzun yıllardır sakladığın o suç ortaklığının son demleri. {actor.partner.name} camı aralıyor, dışarıdaki şehrin uğultusu araya giriyor. Karar senin; ya o günleri gömeceksin ya da sonuna kadar sırtlanacaksın.",
+          "choices": [
+            {
+              "id": "c_payoff",
+              "text": "Cüzdanı çıkar. 'Bunu ödediğimde her şey bitecek, bir daha sözü geçmeyecek.'",
+              "target": "n_outcome_pay",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
             },
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
+              "id": "c_risk",
+              "text": "Senedi elinden al ve pencereden dışarı, karanlığa savur. 'Kimse bir şey hatırlamayacak.'",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
             },
+            {
+              "id": "c_safe",
+              "text": "Gözlerini yola çevir. 'Profesyonel bir hata yaptım. Bedelini zaten ödedim, şimdi sus.'",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_loyal",
+              "text": "Eline dokun. 'Seni bu batağa ortak ettiğim için özür dilerim. Birlikte çıkacağız.'",
+              "target": "n_outcome_loyal",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Bağlılık]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_pay": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "Para, geçmişteki hataların üzerini örtmeye yetti ama aranızdaki güveni geri getirmedi. Artık her şey çok daha soğuk.",
+          "onEnter": [
             {
               "flag": "npc_partner_arc",
               "op": "add",
               "value": 1
             }
-          ],
-          "persona": {
-            "dogruluk": 12,
-            "durus": -4
-          }
+          ]
         },
-        {
-          "id": "c_kucult",
-          "text": "\"Küçük bir işti, hallettim.\" Zarfı katla, çekmeceye koy.",
-          "target": "n_out_kucult",
-          "effects": [
+        "n_outcome_risk": {
+          "title": "Gölge Büyüyor",
+          "kind": "outcome",
+          "text": "Senedi yok ettin ama o kağıt parçası artık zihninizde bir hayalet. Yarın neyin gün yüzüne çıkacağını kimse bilmiyor.",
+          "onEnter": [
             {
-              "flag": "iliski_aile",
-              "op": "add",
-              "value": -12
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -8
-            },
-            {
-              "flag": "mental_dayaniklilik",
+              "flag": "npc_partner_arc",
               "op": "add",
               "value": 5
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 4
-            },
-            {
-              "flag": "npc_partner_arc",
-              "op": "add",
-              "value": -1
             }
-          ],
-          "persona": {
-            "dogruluk": -10,
-            "sadakat": 4
-          }
+          ]
         },
-        {
-          "id": "c_ofkelen",
-          "text": "\"Eşyalarımı mı karıştırıyorsun?\" Masadan kalk.",
-          "target": "n_out_ofkelen",
-          "effects": [
-            {
-              "flag": "iliski_aile",
-              "op": "add",
-              "value": -18
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -12
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 8
-            },
+        "n_outcome_safe": {
+          "title": "Duvarlar Örülü",
+          "kind": "outcome",
+          "text": "İtirafın sessizliği boğdu. İçindeki vicdan azabı profesyonel maskenle örtüldü, ancak odayı terk ederken aranızda uçurumlar vardı.",
+          "onEnter": [
             {
               "flag": "npc_partner_arc",
               "op": "add",
-              "value": -1
+              "value": -5
             }
-          ],
-          "persona": {
-            "mizac": -14,
-            "durus": 4
-          }
+          ]
+        },
+        "n_outcome_loyal": {
+          "title": "Paylaşılan Yük",
+          "kind": "outcome",
+          "text": "Omuzlarındaki yük bir nebze hafifledi. {actor.partner.name} sana gülümsedi ama bu fedakarlığın bedelini sahadaki performansınla ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "npc_partner_arc",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Tükenmişlik"
+            }
+          ]
         }
-      ]
-    },
-    "n_out_anlat": {
-      "title": "Buzdolabının Sesi",
-      "kind": "outcome",
-      "text": "Anlatması yarım saat sürdü ve bitince ikiniz de yorgundunuz. {actor.partner.name} bir şey söylemedi, sadece elini masanın üstünden uzattı. Salondaki televizyonun sesi yeniden açıldı; {actor.cousin.name} duyduklarını duymamış gibi yaptı ve bu da bir tür şefkat. O gece yıllardır ilk kez ışığı kapatır kapatmaz uyudun. Bazı borçlar ödendikten sonra bile taşınır, ta ki birine anlatılana kadar."
-    },
-    "n_out_kucult": {
-      "title": "Çekmece",
-      "kind": "outcome",
-      "text": "Zarf çekmecede, konu kapandı. {actor.partner.name} ısrar etmedi — ısrar etmemek de bir cevaptır. O günden sonra evde bazı konular yavaşça dolaşıma girmemeye başladı: para, gelecek, o yaz. Ev sessiz ve düzenli. Sen de öyle görünüyorsun. İnsan bir şeyi yeterince uzun süre küçültürse gerçekten küçülüyor mu, yoksa sadece adı mı kalmıyor, bilmiyorsun."
-    },
-    "n_out_ofkelen": {
-      "title": "Kapanan Kapı",
-      "kind": "outcome",
-      "text": "Kalktığında sandalye devrildi ve sen onu kaldırmadın. {actor.partner.name} arkandan seslenmedi. {actor.cousin.name} televizyonu kapattı, o da odasına gitti. Öfke o an haklı hissettirdi; iki saat sonra arabada otururken hiçbir şeyi savunmadığını, sadece anlatmaktan kaçtığını fark ettin. Ertesi sabah kimse konuyu açmadı ve bu, kavga etmekten daha uzun sürdü."
+      }
     }
-  }
+  ]
 }

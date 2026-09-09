@@ -369,6 +369,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Dosyalar",
+          "kind": "branch",
+          "text": "Garajın loş ışığında, paslanmış bir metal dolabın kapağı inledi. {actor.cousin.name}, tozlu bir klasörü zemine bıraktı. İçinden dökülen banka dekontları ve eski bir menajerlik sözleşmesinin fotokopisi, betonun üzerinde sararıyordu. Dışarıda sağanak yağıyordu, içeride ise sadece geçmişin ağırlığı vardı. {actor.cousin.name} bakışlarını kaçırarak, o dönemdeki 'hata payı' dediğin şeylerin aslında ne kadara mal olduğunu sessizce hatırlatıyordu.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Resmi kayıtları incele. Yanlışsa mahkeme yolu açık, duygusallık yok.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Dosyayı yakmaya başla. Sessizliği satın almanın bedeli neyse öde.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sokağın ortasında bu hesabı kapatırız. Kimsenin bilmediği bir günün borcu bu.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Yanına otur, eski defterleri dürüstçe konuşalım. Başka çare kalmadı.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Moral 60]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Soğuk Çözüm",
+          "kind": "outcome",
+          "text": "Belgeler avukatın masasına gitti. {actor.cousin.name} ile arandaki bağ, o kağıtların kenarındaki keskinlik kadar soğudu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Küller savrulurken {actor.cousin.name} başını eğdi. Hesap kapandı ama o bakıştaki kırgınlık, hesabın gerçek maliyeti oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sokak Adaleti",
+          "kind": "outcome",
+          "text": "İşler büyüdü, mahalle konuştu. İtibarın perçinlendi ancak medyanın odağı artık senin üzerinde.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yorucu Uzlaşma",
+          "kind": "outcome",
+          "text": "Saatler süren konuşma, zihnindeki tüm tortuları yüzeye çıkardı. Bağın güçlendi, fakat bu ağırlıkla uyumak artık daha zor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

@@ -15,146 +15,333 @@
   "lifeStates": [
     "transfer_listed"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Kapalı Kapılar Ardında",
-      "kind": "branch",
-      "text": "Antrenman sahasının en kuytu köşesinde, {actor.captain.name} yanına yaklaşıyor. Elinde kulüp antetli ama mühürsüz bir dosya var. 'Transfer listesindesin,' diyor, sesi rüzgarda eriyor. 'Kulüp seni gömmeden önce kurtulabileceğin tek yer burası. Şartlar ağır ama imza anlık. Kimse bilmeyecek, sadece ikimiz.' Etrafta kimse yok, sadece uzaklardan gelen topun beton zemine vuruş sesi.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Dosyayı masada bırak. Bu şekilde gitmeyeceğim, kulübün kapısından başım dik çıkarım.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapalı Kapılar Ardında",
+          "kind": "branch",
+          "text": "Antrenman sahasının en kuytu köşesinde, {actor.captain.name} yanına yaklaşıyor. Elinde kulüp antetli ama mühürsüz bir dosya var. 'Transfer listesindesin,' diyor, sesi rüzgarda eriyor. 'Kulüp seni gömmeden önce kurtulabileceğin tek yer burası. Şartlar ağır ama imza anlık. Kimse bilmeyecek, sadece ikimiz.' Etrafta kimse yok, sadece uzaklardan gelen topun beton zemine vuruş sesi.",
+          "choices": [
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
+              "id": "c_guvenli",
+              "text": "Dosyayı masada bırak. Bu şekilde gitmeyeceğim, kulübün kapısından başım dik çıkarım.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "id": "c_riskli",
+              "text": "Dosyayı yırtıp yüzüne at. Takım arkadaşlarıma bu ihaneti yapmayacağımı biliyorsun.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Kalemi uzat. Rakamları beğenirsem, kiminle anlaştığımın bir önemi yok.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Gözlerinin içine bak ve kulübün geleceğini masaya yatır. Bu şartlar hepimizi yakar.",
+              "target": "n_outcome_liderlik",
+              "effects": [
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
             }
           ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Dosyayı yırtıp yüzüne at. Takım arkadaşlarıma bu ihaneti yapmayacağımı biliyorsun.",
-          "target": "n_outcome_riskli",
-          "effects": [
+        "n_outcome_guvenli": {
+          "title": "Onurlu Ayrılık",
+          "kind": "outcome",
+          "text": "Dosyayı elinin tersiyle iterek reddettin; kağıtlar beton zemine düşüp rüzgarda savruldu. {actor.captain.name}, hayal kırıklığıyla karışık bir ifadeyle sırtını dönüp uzaklaşırken, kramponlarının çimlerdeki o keskin gıcırtısı bir an için tüm sahayı doldurdu. Etraftaki sessizlik, verdiğin kararın ağırlığıyla üzerine çökerken, antrenman sahasının soğuk rüzgarı yüzünde sert bir iz bıraktı.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
             }
           ]
         },
-        {
-          "id": "c_gri",
-          "text": "Kalemi uzat. Rakamları beğenirsem, kiminle anlaştığımın bir önemi yok.",
-          "target": "n_outcome_gri",
-          "effects": [
+        "n_outcome_riskli": {
+          "title": "Sırt Çevirmek",
+          "kind": "outcome",
+          "text": "Tepkin sahada yankılanırken {actor.captain.name} gözlerini hızla kaçırıp yere, toprağın çatlaklarına odaklandı. Bu reddedişin ardından aranızdaki o görünmez bağ koptu; artık soyunma odasında her konuşma yarım kalacak, her bakışta soğuk bir yabancılaşma olacak. Uzaklardan gelen stadyum ışıklarının vızıltısı, aranızdaki gerilimi daha da belirginleştirirken, o arkasını dönüp giderken beton zemindeki ayak sesleri giderek cılızlaştı.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
             }
           ]
         },
-        {
-          "id": "c_liderlik",
-          "text": "Gözlerinin içine bak ve kulübün geleceğini masaya yatır. Bu şartlar hepimizi yakar.",
-          "target": "n_outcome_liderlik",
-          "effects": [
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Titreyen elinle kalemi aldın, mürekkep kağıdın üzerinde pürüzsüz bir iz bırakırken kağıdın o keskin kokusunu duydun. {actor.captain.name} hafifçe gülümsedi, yüzündeki o çarpık ifade zaferin soğuk soğuk yansımasıydı. İmza atıldı ve kağıdı cebine koyduğun an, bu karanlık sırrın ağırlığı kalbinin üzerinde bir kaya gibi yerleşti; artık attığın her adımda bu gizli mutabakatın yankısı seni takip edecek.",
+          "onEnter": [
             {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -10
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
             }
-          ],
-          "requires": {
-            "flag": "liderlik",
-            "op": "gte",
-            "value": 65
-          },
-          "lockLabel": "[Liderlik 65]"
+          ]
+        },
+        "n_outcome_liderlik": {
+          "title": "Zoraki Uzlaşı",
+          "kind": "outcome",
+          "text": "{actor.captain.name} söylediklerini tarttı. Başını sallayıp dosyayı geri çekti. Bir lider olarak duruşun, en azından bugünlük bir krizi önledi.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_guvenli": {
-      "title": "Onurlu Ayrılık",
-      "kind": "outcome",
-      "text": "Dosyayı elinin tersiyle iterek reddettin; kağıtlar beton zemine düşüp rüzgarda savruldu. {actor.captain.name}, hayal kırıklığıyla karışık bir ifadeyle sırtını dönüp uzaklaşırken, kramponlarının çimlerdeki o keskin gıcırtısı bir an için tüm sahayı doldurdu. Etraftaki sessizlik, verdiğin kararın ağırlığıyla üzerine çökerken, antrenman sahasının soğuk rüzgarı yüzünde sert bir iz bıraktı.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_ayartma_captain",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapalı Gişe",
+          "kind": "branch",
+          "text": "Otoparkın en uç noktasında, ışıklandırmanın ulaşamadığı tek bir park yeri var. {actor.captain.name} aracının kapısına yaslanmış, elindeki anahtarlığı ritmik bir sesle metalik zemine vuruyor. Yanına yaklaştığında duruyor. Gözlerinde ne bir pişmanlık ne de bir açıklama kırıntısı var. Sadece soğuk bir mesafe. Kulübün o meşhur kapıları, senin için bu kez içeriden sürgülü. Başka bir kulübün teklifini iletmek için uzattığın el havada asılı kalıyor. {actor.captain.name} başını hafifçe yana eğiyor, sessizliği bir infaz kararı gibi ağırlığını koyuyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Başını öne eğ, hiçbir şey söylemeden arkana bakmadan yürü.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kendi şartlarını yüksek sesle, otoparkın boşluğunda yankılanacak şekilde haykır.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessizce çantana uzan, avukatın hazırladığı gizli opsiyonlu sözleşmeyi imzalaması için ona uzat.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -12
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Sokağın dilini kullan, aranızdaki eski günlerin hatırına bir son kez elini sıkmasını iste.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]",
+              "persona": {
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Arkana bakmıyorsun. Otoparkta yankılanan tek ses kendi ayak izlerin. Geriye dönüp baksan, o kapının artık asla senin için açılmayacağını o kadar iyi biliyorsun ki.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İsyanın Bedeli",
+          "kind": "outcome",
+          "text": "{actor.captain.name} arabanın kapısını kapatıyor. Motorun sesi, senin itirazlarını ezip geçiyor. Bugünün manşetleri şimdiden belli, yarının faturası ise çok daha ağır olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Belgeyi alıyor. Bakmıyor bile. Sadece ceketinin cebine sokuyor. Ruhunu sattığını hissediyorsun ama cüzdanın artık çok daha ağır. Bu, vicdanının değil, kariyerinin en kirli anlaşması.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Eski Dostlar",
+          "kind": "outcome",
+          "text": "{actor.captain.name} elini sıkıyor, avucundaki nasırlar senin yorgunluğunla buluşuyor. 'Buradan çıkış yok,' diye fısıldıyor. Gözleri yaşlı değil ama gerçeklerin ağırlığı ikinizi de çökertiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Sırt Çevirmek",
-      "kind": "outcome",
-      "text": "Tepkin sahada yankılanırken {actor.captain.name} gözlerini hızla kaçırıp yere, toprağın çatlaklarına odaklandı. Bu reddedişin ardından aranızdaki o görünmez bağ koptu; artık soyunma odasında her konuşma yarım kalacak, her bakışta soğuk bir yabancılaşma olacak. Uzaklardan gelen stadyum ışıklarının vızıltısı, aranızdaki gerilimi daha da belirginleştirirken, o arkasını dönüp giderken beton zemindeki ayak sesleri giderek cılızlaştı.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_ayartma_captain",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Karanlık Mutabakat",
-      "kind": "outcome",
-      "text": "Titreyen elinle kalemi aldın, mürekkep kağıdın üzerinde pürüzsüz bir iz bırakırken kağıdın o keskin kokusunu duydun. {actor.captain.name} hafifçe gülümsedi, yüzündeki o çarpık ifade zaferin soğuk soğuk yansımasıydı. İmza atıldı ve kağıdı cebine koyduğun an, bu karanlık sırrın ağırlığı kalbinin üzerinde bir kaya gibi yerleşti; artık attığın her adımda bu gizli mutabakatın yankısı seni takip edecek.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_ayartma_captain",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_liderlik": {
-      "title": "Zoraki Uzlaşı",
-      "kind": "outcome",
-      "text": "{actor.captain.name} söylediklerini tarttı. Başını sallayıp dosyayı geri çekti. Bir lider olarak duruşun, en azından bugünlük bir krizi önledi.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_ayartma_captain",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

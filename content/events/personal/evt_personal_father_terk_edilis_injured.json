@@ -312,6 +312,121 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Defterin Ağırlığı",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin çıkışında, otoparkın en kuytu köşesinde park halindeki eski aracın ön kaputu soğumuş. Dizindeki destek sargısı, pantolonun kumaşını gererek kaşındırıyor. {actor.mother.name}, elinde yıllanmış bir defterle aracın kapısına yaslanmış. Rüzgar, defterin sararmış sayfalarını hırpalıyor. Hiç konuşmadan sana bakıyor; içindeki sessizlik, uzun yılların tüm hesaplaşmasını taşıyor. Oraya dönmek, yıllardır kaçtığın o boşlukla yüzleşmek demek.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Defteri al, sayfalarına bakmadan torpidoya at. Tedavi programına odaklan.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Defteri al ve {actor.mother.name} onunde yirtip yere birak. Sahaya geri donecegim.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cüzdanından bir miktar para çıkar, sessizce defterin arasına bırak. Geçmişin bedeli bu olsun.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 20000
+              },
+              "lockLabel": "[Yeterli birikim yok]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Görmezden Gelinmiş",
+          "kind": "outcome",
+          "text": "Arabanın camını kaldırdın. Dikiz aynasında, o defterle tek başına kalan gölgesini izledin. Profesyonelliğin, bir insanın hatırasını gömmenin en steril yolu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sert Bir Kopuş",
+          "kind": "outcome",
+          "text": "Kağıt parçaları asfalta savruldu. Öfken, dizindeki ağrıdan daha keskindi. O an, geçmişin bir daha asla seni yakalayamayacağını biliyordun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Satın Alınmış Sessizlik",
+          "kind": "outcome",
+          "text": "Parayı bıraktın. Sessizlik aranızda bir anlaşma gibi asılı kaldı. Birbirinize borcunuzu ödediniz, şimdi herkes kendi yoluna gidebilir.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_father",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

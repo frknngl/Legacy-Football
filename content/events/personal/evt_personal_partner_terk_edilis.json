@@ -376,6 +376,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Eşya",
+          "kind": "branch",
+          "text": "Mutfak masasının üzerindeki anahtar halkası tek başına duruyor. {actor.partner.name} gitmiş. Dairenin içindeki eşyalar yerli yerinde ama hava eksik. Salonun ortasındaki vitrinde duran o gümüş kupa, ışığı kırarak üzerine vuruyor. Sessizlik, bir deplasman dönüşü otobüsünün boş koltuklarındaki o tanıdık ağırlıktan daha ağır. Kapının hemen yanındaki vestiyerde, {actor.partner.name} unuttuğu tek bir şal var. Dokunduğunda hala o hafif kumaşın soğukluğu parmak uçlarına yapışıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Şalı al ve kulüp binasının otoparkında ateşe ver. Kimse bu zayıflığı görmemeli.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Avukatını ara. Ortak hesaplardaki nakit akışını dondur ve sessizliği satın al.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Şalı katla ve bir kutuya koyup depoya kaldır. Yarın sabahki antrenmana çıkmak zorundasın.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Kül Olmuş Anılar",
+          "kind": "outcome",
+          "text": "Kumaşın alev alışı saniyeler sürdü. Duman kokusu tüm antrenman kıyafetlerine sindi. Sahaya çıktığında artık eskisi gibi değilsin; taraftarlar gözündeki o tanımsız öfkeyi sezdi.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Soğuk Bir Takas",
+          "kind": "outcome",
+          "text": "Avukatın gerekeni yaptı. Hesaplar temiz, hayat güvenli ama masanın üzerindeki o anahtarlık artık sadece metal parçası gibi görünüyor. Değerin, banka hesabındaki rakam kadar arttı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sessiz Bir Kutu",
+          "kind": "outcome",
+          "text": "Kutuyu kapattın. Yarın sabah otobüs seni kapıdan alacak. Kimse bir şey sormadı, kimse bir şey fark etmedi. Kariyerin rayında, sadece biraz daha soğuk.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

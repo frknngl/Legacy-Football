@@ -34,147 +34,325 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Bir Hesap",
-      "kind": "branch",
-      "text": "Rehabilitasyon kliniğinin soğuk, steril kokulu bekleme salonu. Koltuk değneklerin yerdeyken {actor.fixer.name} içeri giriyor. Yanında {actor.partner.name} var. Bir yıl önce o karanlık otel odasında, sessizliği satın almak için imzalanan belgelerin yarattığı o garip ortaklık, şimdi tam karşında. {actor.partner.name} sana bakmıyor. Gözleri duvardaki çatlakta. {actor.fixer.name} ise elindeki dosyayı sehpaya bırakıyor. 'Hesap günü geldi,' diyor sadece. O geceki suskunluğun bedeli, şimdi bu odada yankılanıyor.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Çek defterini çıkar. Sessizliği satın almanın bedeli neyse öde ve bu iki insanı hayatından sonsuza dek çıkar.",
-          "target": "n_sonuc_guvenli",
-          "effects": [
+  "once": true,
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Hesap",
+          "kind": "branch",
+          "text": "Rehabilitasyon kliniğinin soğuk, steril kokulu bekleme salonu. Koltuk değneklerin yerdeyken {actor.fixer.name} içeri giriyor. Yanında {actor.partner.name} var. Bir yıl önce o karanlık otel odasında, sessizliği satın almak için imzalanan belgelerin yarattığı o garip ortaklık, şimdi tam karşında. {actor.partner.name} sana bakmıyor. Gözleri duvardaki çatlakta. {actor.fixer.name} ise elindeki dosyayı sehpaya bırakıyor. 'Hesap günü geldi,' diyor sadece. O geceki suskunluğun bedeli, şimdi bu odada yankılanıyor.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 10
+              "id": "c_guvenli",
+              "text": "Çek defterini çıkar. Sessizliği satın almanın bedeli neyse öde ve bu iki insanı hayatından sonsuza dek çıkar.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -200000
+                }
+              ]
             },
             {
-              "flag": "profesyonellik",
+              "id": "c_riskli",
+              "text": "O dosyayı yırt. {actor.partner.name} ile arandaki bağı inkar et. İtibarın zedelenecek, manşetler seni yutacak ama en azından artık birilerinin kuklası olmayacaksın.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 40
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Başka bir borç altına gir. {actor.fixer.name} üzerinden yeni bir yol aç, {actor.partner.name} ile arandaki sırrı sonsuza kadar gömmek için bu kez kulüp yönetimini karıştır.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "İmzanı atıyorsun. {actor.fixer.name} başını sallayıp odadan çıkıyor, {actor.partner.name} kapıda bir an duraksayıp ardından kayboluyor. Artık güvendesin ama artık hiçbir şey eskisi gibi değil.",
+          "onEnter": [
+            {
+              "flag": "npc_partner_arc",
+              "op": "add",
+              "value": -1
+            },
+            {
+              "flag": "lifeState",
+              "op": "set",
+              "value": "rehab_clinic"
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "İpler Kopuyor",
+          "kind": "outcome",
+          "text": "Dosyayı yerle bir ediyorsun. {actor.partner.name} yüzünde acı dolu bir ifadeyle odadan çıkarken {actor.fixer.name} telefonunu çıkarıyor. Yarın sabah tüm gerçekler manşetlerde olacak. Özgürsün, ama yalnız.",
+          "onEnter": [
+            {
+              "flag": "npc_partner_arc",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": -10
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Yeni bir yalan silsilesi başlatıyorsun. {actor.fixer.name} gülümseyerek dosyayı alıyor. {actor.partner.name} sana bakıp başını eğiyor. Bu oyunun bir parçası olmak, bedelini ödemekten daha ağır.",
+          "onEnter": [
+            {
+              "flag": "npc_partner_arc",
               "op": "add",
               "value": 5
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
+              "flag": "lifeState",
+              "op": "set",
+              "value": "suspended"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Defterler",
+          "kind": "branch",
+          "text": "Gece yarısı, arabanın içi. Sileceklerin ritmik gıcırtısı dışında dışarıdan ses gelmiyor. {actor.partner.name} yan koltukta, loş sokak lambasının altında yüzü yarı karanlıkta. Elinde bir zarf yok, sadece bakıyor. Bacağındaki sızı, arabanın içindeki ağır sessizliği daha da görünür kılıyor. Emekliliğin eşiğinde, dünün hataları bugünün faturasıyla yan koltukta oturuyor. {actor.partner.name} sessizliği bozduğunda sesinde bir suçlama yok, sadece artık bitmesi gereken bir bekleyişin yorgunluğu var.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Cüzdanını uzat. \"Bugünlük bu kadar, gerisini yarın hesaplarız.\"",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
             },
             {
-              "flag": "servet",
-              "op": "add",
-              "value": -200000
+              "id": "c_riskli",
+              "text": "Gözlerinin içine bakıp gülümse. \"Yine görüşeceğiz, biraz daha sabret.\"",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "mizac": 4
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Arabanın torpidosundaki nakit yığınını kaydır. \"Bu son olsun, birbirimizi unutalım.\"",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -40
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -6
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Özel bir yatırım hesabı numarasını kağıda yazıp ver. \"Geçmişi burada kapatalım.\"",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -80
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Servet Yeterli]"
             }
           ]
         },
-        {
-          "id": "c_riskli",
-          "text": "O dosyayı yırt. {actor.partner.name} ile arandaki bağı inkar et. İtibarın zedelenecek, manşetler seni yutacak ama en azından artık birilerinin kuklası olmayacaksın.",
-          "target": "n_sonuc_riskli",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Belirsizlik",
+          "kind": "outcome",
+          "text": "{actor.partner.name} parayı alırken elin titriyor. Kapıyı açıp iniyor. Arkanı dönüp gitmek istiyorsun ama bacağındaki sızı seni koltuğa çiviliyor.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
+              "flag": "npc_partner_arc",
               "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 30
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 40
+              "value": 1
             }
           ]
         },
-        {
-          "id": "c_gri",
-          "text": "Başka bir borç altına gir. {actor.fixer.name} üzerinden yeni bir yol aç, {actor.partner.name} ile arandaki sırrı sonsuza kadar gömmek için bu kez kulüp yönetimini karıştır.",
-          "target": "n_sonuc_gri",
-          "effects": [
+        "n_outcome_2": {
+          "title": "Yeni Bir Oyun",
+          "kind": "outcome",
+          "text": "Tereddütlü bir an, ardından baş sallayarak iniyor. Kapı kapanırken arabanın içi artık daha da soğuk. Sahaya dönmen şart, başka yol kalmadı.",
+          "onEnter": [
             {
-              "flag": "servet",
+              "flag": "npc_partner_arc",
               "op": "add",
-              "value": 50000
+              "value": 2
             },
             {
-              "flag": "iliski_partner",
+              "op": "lifeState",
+              "to": "rehab_clinic"
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Soğuk Bir Veda",
+          "kind": "outcome",
+          "text": "Sayıp dökmeden parayı alıyor. Arkasına bile bakmadan sokağın karanlığında kayboluyor. Ruhundaki boşluk, cebindeki eksilmeden daha ağır.",
+          "onEnter": [
+            {
+              "flag": "npc_partner_arc",
+              "op": "add",
+              "value": -2
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Satın Alınan Huzur",
+          "kind": "outcome",
+          "text": "Kağıdı alıyor, bir an duraksıyor. Göz göze geliyorsunuz. Hiçbir şey demeden gidiyor. Huzurlusun ama bu bedel, kariyerinin son dönemindeki gücünü tüketiyor.",
+          "onEnter": [
+            {
+              "flag": "npc_partner_arc",
               "op": "add",
               "value": 5
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Tükenmişlik"
             }
           ]
         }
-      ]
-    },
-    "n_sonuc_guvenli": {
-      "title": "Temiz Bir Sayfa",
-      "kind": "outcome",
-      "text": "İmzanı atıyorsun. {actor.fixer.name} başını sallayıp odadan çıkıyor, {actor.partner.name} kapıda bir an duraksayıp ardından kayboluyor. Artık güvendesin ama artık hiçbir şey eskisi gibi değil.",
-      "onEnter": [
-        {
-          "flag": "npc_partner_arc",
-          "op": "add",
-          "value": -1
-        },
-        {
-          "flag": "lifeState",
-          "op": "set",
-          "value": "rehab_clinic"
-        }
-      ]
-    },
-    "n_sonuc_riskli": {
-      "title": "İpler Kopuyor",
-      "kind": "outcome",
-      "text": "Dosyayı yerle bir ediyorsun. {actor.partner.name} yüzünde acı dolu bir ifadeyle odadan çıkarken {actor.fixer.name} telefonunu çıkarıyor. Yarın sabah tüm gerçekler manşetlerde olacak. Özgürsün, ama yalnız.",
-      "onEnter": [
-        {
-          "flag": "npc_partner_arc",
-          "op": "add",
-          "value": -10
-        },
-        {
-          "flag": "npc_fixer_arc",
-          "op": "add",
-          "value": -10
-        }
-      ]
-    },
-    "n_sonuc_gri": {
-      "title": "Karanlık Bir Anlaşma",
-      "kind": "outcome",
-      "text": "Yeni bir yalan silsilesi başlatıyorsun. {actor.fixer.name} gülümseyerek dosyayı alıyor. {actor.partner.name} sana bakıp başını eğiyor. Bu oyunun bir parçası olmak, bedelini ödemekten daha ağır.",
-      "onEnter": [
-        {
-          "flag": "npc_partner_arc",
-          "op": "add",
-          "value": 5
-        },
-        {
-          "flag": "lifeState",
-          "op": "set",
-          "value": "suspended"
-        }
-      ]
+      }
     }
-  },
-  "once": true
+  ]
 }

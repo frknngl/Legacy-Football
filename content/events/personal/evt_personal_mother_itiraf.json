@@ -31,135 +31,270 @@
     "op": "gte",
     "value": 18
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Geçmişin İtirafı",
-      "kind": "branch",
-      "text": "{actor.mother.name} mutfak masasının başında oturuyor. Elleri titriyor, bir zarfı masaya itiyor. {actor.sibling.name} kapının eşiğinde, bakışlarını kaçırarak öylece bekliyor. Evin içi rutubet ve ucuz sigara kokuyor. {actor.mother.name} gözlerini dikiyor; hayatı boyunca sakladığı o mektubu, kulübün avukatlarına giden o gizli anlaşmayı nihayet ortaya döküyor. Sessizlik, bir düdük sesi kadar keskin ve soğuk.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Mektubu al ve derhal kulüp yönetimine git. Her şeyi resmileştir.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin İtirafı",
+          "kind": "branch",
+          "text": "{actor.mother.name} mutfak masasının başında oturuyor. Elleri titriyor, bir zarfı masaya itiyor. {actor.sibling.name} kapının eşiğinde, bakışlarını kaçırarak öylece bekliyor. Evin içi rutubet ve ucuz sigara kokuyor. {actor.mother.name} gözlerini dikiyor; hayatı boyunca sakladığı o mektubu, kulübün avukatlarına giden o gizli anlaşmayı nihayet ortaya döküyor. Sessizlik, bir düdük sesi kadar keskin ve soğuk.",
+          "choices": [
             {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
+              "id": "c_guvenli",
+              "text": "Mektubu al ve derhal kulüp yönetimine git. Her şeyi resmileştir.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
             },
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
+              "id": "c_riskli",
+              "text": "Zarfı {actor.mother.name:gen} gözleri önünde yak. Kimse bir şey bilmeyecek.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
             },
             {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
+              "id": "c_gri",
+              "text": "Bu kağıt parçasını şantaj aracına çevirip menajerle masaya otur.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
             }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
+          ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Zarfı {actor.mother.name:gen} gözleri önünde yak. Kimse bir şey bilmeyecek.",
-          "target": "n_outcome_riskli",
-          "effects": [
+        "n_outcome_guvenli": {
+          "title": "Doğru Yolun Yükü",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı artık ellerinde değil. Profesyonel sorumluluk ağır bir gölge gibi üzerine çöktü. {actor.mother.name} arkasını dönüp ağlamaya başlıyor.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 3
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "mizac": -5
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Bu kağıt parçasını şantaj aracına çevirip menajerle masaya otur.",
-          "target": "n_outcome_gri",
-          "effects": [
+        "n_outcome_riskli": {
+          "title": "Kül Olan Gerçekler",
+          "kind": "outcome",
+          "text": "Küller lavaboda suyla karışıp gidiyor. Tehlike geçti ama o bakış, {actor.sibling.name:gen} gözündeki korku, odanın içinde asılı kalmaya devam edecek.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 20000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "sadakat": -8
-          }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Kirli Anlaşma",
+          "kind": "outcome",
+          "text": "Cebine giren para, masadaki o kağıdın tadını unutturmaya yetmiyor. Kariyerin artık sadece yeteneğine değil, bir sırra da bağlı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_guvenli": {
-      "title": "Doğru Yolun Yükü",
-      "kind": "outcome",
-      "text": "Zarfın ağırlığı artık ellerinde değil. Profesyonel sorumluluk ağır bir gölge gibi üzerine çöktü. {actor.mother.name} arkasını dönüp ağlamaya başlıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_itiraf_mother",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Defterin Sonu",
+          "kind": "branch",
+          "text": "Eşyaların çoğu kutulanmış. {actor.mother.name} boş oturma odasının ortasında, elinde eski bir banka cüzdanı tutuyor. Pencereden giren cılız ışık, annenin yorgun yüzündeki çizgileri derinleştiriyor. Sessizlik ağır. Dışarıda antrenman sahasının uzak sesi geliyor; düdük sesleri, bağırışlar. {actor.mother.name} cüzdanı yere bırakıyor, kağıtların içindeki bir borç belgesini yavaşça sana doğru itiyor. Göz göze gelmiyorsunuz. Sadece cüzdanın yıpranmış köşesini görüyorum.",
+          "choices": [
+            {
+              "id": "c_kabul",
+              "text": "Borcu üstlenip cüzdanı al. Kimseye bahsetme.",
+              "target": "n_son_kabul",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_rest",
+              "text": "Belgeyi yırt ve dışarı çık. Kendi ayaklarının üzerinde durması gerektiğini söyle.",
+              "target": "n_son_rest",
+              "effects": [
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_menajer",
+              "text": "Bu borcu ödemek için menajerden avans iste.",
+              "target": "n_son_menajer",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 30000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -6
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 20
+              },
+              "lockLabel": "[Profesyonellik 20]"
+            }
+          ]
+        },
+        "n_son_kabul": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Cüzdanı alıp cebine koyuyorsun. Annenin bakışlarında gördüğün o minnet, kariyerinin ilk yıllarında kazandığın hiçbir kupadan daha hafif gelmiyor. O para artık yok, ama bu evde huzur var.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_son_rest": {
+          "title": "Sert Bir Kopuş",
+          "kind": "outcome",
+          "text": "Belgeyi parçalara ayırıp kapıdaki çöp kutusuna atıyorsun. Arkana bakmadan sahanın yolunu tutuyorsun. Arkanızdaki sessizlik artık bir duvar gibi.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_son_menajer": {
+          "title": "Kirli Bir Çıkış",
+          "kind": "outcome",
+          "text": "Telefonu açıp menajeri arıyorsun. Sesi ilk başta şüphe dolu, sonra ikna oluyor. Annenin yüzüne bakmıyorsun. Bu paranın, gelecekteki bir sözleşme maddesine nasıl mal olacağını şimdiden biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Kül Olan Gerçekler",
-      "kind": "outcome",
-      "text": "Küller lavaboda suyla karışıp gidiyor. Tehlike geçti ama o bakış, {actor.sibling.name:gen} gözündeki korku, odanın içinde asılı kalmaya devam edecek.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_itiraf_mother",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Kirli Anlaşma",
-      "kind": "outcome",
-      "text": "Cebine giren para, masadaki o kağıdın tadını unutturmaya yetmiyor. Kariyerin artık sadece yeteneğine değil, bir sırra da bağlı.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_itiraf_mother",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

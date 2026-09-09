@@ -387,6 +387,175 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Röportaj",
+          "kind": "branch",
+          "text": "Antrenman sahasının en ucundaki beton tribündesin. {actor.journalist.name}, dizüstü bilgisayarını kucağına almış, ekranın mavi ışığı yüzünü hayalet gibi aydınlatıyor. Yanına oturduğunda, aranızdaki boşlukta sadece sahanın kenarındaki çöp kutusuna vuran rüzgarın sesi var. {actor.journalist.name} bir metin taslağını yavaşça sana çeviriyor. Başlığı gördüğünde, kendi isminin altına iliştirilmiş o sıfatları fark ediyorsun. Bu bir haber değil, bu bir infaz. Ekranı kapatmak için elin havaya kalkıyor ama parmakların titriyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Bilgisayarı ekranından tutup beton zemine fırlat. İtibarını değil, korkusunu yönet.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kendi çanta bölmeni aç, yasal olmayan bonus ödemenin dekontunu ekranın üzerine bırak.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Derin bir nefes al. Gözlerinin içine bakmadan, metnin sadece hatalı kısımlarını düzeltmesini iste.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Ona daha önce hiç kimseye anlatmadığın, kariyerini bitirebilecek o sırrı fısılda.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kıvılcım",
+          "kind": "outcome",
+          "text": "Ekran parçalandığında çıkan ses, tribündeki sessizliği böldü. {actor.journalist.name} şaşkınlıkla ayağa kalktı. Artık geri dönüşü yok; yarın manşetlerde kahraman değil, bir holigan olarak anılacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} dekontu gördüğünde metni sildi. Sessizce ayağa kalktı ve gitti. Cebindeki para, aynadaki yüzünü tanımanı zorlaştırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sıradan Bir Gün",
+          "kind": "outcome",
+          "text": "Metin daha yumuşak bir dille yeniden yazıldı. Kimse gerçeği öğrenmedi, sen de kimsenin gözünde devleşemedin. Formun yerinde, ama aynadaki o çocuk artık yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Paylaşılan Yük",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} şaşkınlıkla sustu ve yazdıklarını tamamen sildi. Artık o sırrı taşıyan tek kişi değilsin. Bu yük, sahada attığın her adımdan daha ağır gelecek.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_reddedilis_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

@@ -22,173 +22,348 @@
   "lifeStates": [
     "retired"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Bir Borç",
-      "kind": "branch",
-      "text": "Evdeki ışıklar kısık. {actor.cousin.name}, koltukta oturmuş elindeki tek valize bakıyor. Gözleri duvardaki formalarına değil, zemine çakılı. {actor.father.name} odanın diğer ucunda, sessizce sigarasını yakıyor. Hava ağır, rutubet ve geçmişin küflü kokusuyla dolu. {actor.cousin.name} başını kaldırıp sana bakıyor; beklediği bir veda değil, bir onay. Kapı açık, sokak soğuk ve dışarısı seni çoktan unutmuş durumda. Bu odada geçirdiğin her saniye, kazandığın kupaların ağırlığından daha fazla sızlatıyor ruhunu.",
-      "choices": [
-        {
-          "id": "c_riskli",
-          "text": "Ona kapıyı göster. Eski defterleri sokak arasında çözmek, bu evde konuşmaktan iyidir.",
-          "target": "n_outcome_1",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borç",
+          "kind": "branch",
+          "text": "Evdeki ışıklar kısık. {actor.cousin.name}, koltukta oturmuş elindeki tek valize bakıyor. Gözleri duvardaki formalarına değil, zemine çakılı. {actor.father.name} odanın diğer ucunda, sessizce sigarasını yakıyor. Hava ağır, rutubet ve geçmişin küflü kokusuyla dolu. {actor.cousin.name} başını kaldırıp sana bakıyor; beklediği bir veda değil, bir onay. Kapı açık, sokak soğuk ve dışarısı seni çoktan unutmuş durumda. Bu odada geçirdiğin her saniye, kazandığın kupaların ağırlığından daha fazla sızlatıyor ruhunu.",
+          "choices": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
+              "id": "c_riskli",
+              "text": "Ona kapıyı göster. Eski defterleri sokak arasında çözmek, bu evde konuşmaktan iyidir.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
             },
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
+              "id": "c_gri",
+              "text": "Masaya kalın bir zarf bırak. Sessizliğini satın al, herkes kendi yoluna gitsin.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
             },
             {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
+              "id": "c_guvenli",
+              "text": "Yanına otur, elini omzuna koy. Bu gece burada kalması gerektiğini söyle.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Geçmişin yükünü omuzlarına al. Hem onu, hem babanı ikna et, bu evi dağıtmalarına izin verme.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Liderlik 80]"
             }
-          ],
-          "persona": {
-            "mizac": 8
-          }
+          ]
         },
-        {
-          "id": "c_gri",
-          "text": "Masaya kalın bir zarf bırak. Sessizliğini satın al, herkes kendi yoluna gitsin.",
-          "target": "n_outcome_2",
-          "effects": [
+        "n_outcome_1": {
+          "title": "Sokak Çağırıyor",
+          "kind": "outcome",
+          "text": "{actor.cousin.name} kapıdan çıkarken arkasına bile bakmıyor. {actor.father.name} sadece dumanı havaya üflüyor. Sokak ışıkları yüzüne vurduğunda, artık kimseye borçlu olmadığını hissediyorsun.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "durus": -5
-          }
+          ]
         },
-        {
-          "id": "c_guvenli",
-          "text": "Yanına otur, elini omzuna koy. Bu gece burada kalması gerektiğini söyle.",
-          "target": "n_outcome_3",
-          "effects": [
+        "n_outcome_2": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Zarf masada duruyor. {actor.cousin.name} paraya dokunmadan odadan ayrılıyor, ama kapı kapandığında ikiniz de birbirinize yabancılaşmış durumdasınız. Para, aradaki uçurumu kapatmıyor, sadece derinleştiriyor.",
+          "onEnter": [
             {
-              "flag": "iliski_cousin",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "sadakat": 10
-          }
+          ]
         },
-        {
-          "id": "c_stat",
-          "text": "Geçmişin yükünü omuzlarına al. Hem onu, hem babanı ikna et, bu evi dağıtmalarına izin verme.",
-          "target": "n_outcome_4",
-          "effects": [
+        "n_outcome_3": {
+          "title": "Yarım Kalan Yük",
+          "kind": "outcome",
+          "text": "Burada kalıyor. Ama bakışları artık daha ağır. Birbirinize anlatacak bir şeyiniz kalmadığında, evin içinde birbirine çarpan iki hayalet gibi dolaşmaya başlıyorsunuz.",
+          "onEnter": [
             {
-              "flag": "iliski_cousin",
-              "op": "add",
-              "value": 30
-            },
-            {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 2
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -5
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
             }
-          ],
-          "persona": {
-            "dogruluk": 10
-          },
-          "requires": {
-            "flag": "liderlik",
-            "op": "gte",
-            "value": 80
-          },
-          "lockLabel": "[Liderlik 80]"
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Otoritenin Ağırlığı",
+          "kind": "outcome",
+          "text": "Sesin odada yankılanıyor. {actor.father.name} sigarasını söndürüyor, {actor.cousin.name} başını öne eğiyor. Herkes ikna oldu, ama sen bu tartışmanın sonunda kendi ruhunu biraz daha tükettiğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
+      }
     },
-    "n_outcome_1": {
-      "title": "Sokak Çağırıyor",
-      "kind": "outcome",
-      "text": "{actor.cousin.name} kapıdan çıkarken arkasına bile bakmıyor. {actor.father.name} sadece dumanı havaya üflüyor. Sokak ışıkları yüzüne vurduğunda, artık kimseye borçlu olmadığını hissediyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_terk_edilis_cousin",
-          "op": "set",
-          "value": true
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Vapur",
+          "kind": "branch",
+          "text": "Rıhtımdaki metal bariyerin soğukluğu ceketinin altından tenine işliyor. Sis, denizle aranızdaki tek perde. {actor.cousin.name} elindeki tek yönlü bileti ceketiyle oynayarak büküyor. Gözlerinde artık bir beklenti yok; sadece yılların biriktirdiği o gri yorgunluk. Arkada, karanlıkta bekleyen taksinin farları, denize vuran cılız bir ışık hüzmesi yaratıyor. Şoför sabırsızca kornaya basıyor, ses rıhtımda yankılanıyor. {actor.cousin.name} başını kaldırıp sana bakıyor. Bir şeyler söylemesini bekliyorsun ama o, sadece ceketinin yakasını düzeltip vapura doğru bir adım atıyor. Arkasında bıraktığı tek şey, senin kariyerin boyunca üzerine bastığın o sahte gösterişin ağırlığı.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Yolun açık olsun de, arkana bakmadan uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Taksiciye bağırmasını söyle, gitmesini engellemek için bileğine yapış.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cüzdanından çıkardığın desteği eline tutuştur, susmasını işaret et.",
+              "target": "n_ahlaki_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Birlikte yürüdüğünüz çocukluk günlerini hatırla, onu son kez sıkıca sarıp ikna et.",
+              "target": "n_stat_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Vapurun motor sesi martı çığlıklarını bastırıyor. Gidişini izlerken üzerindeki yükün hafiflediğini sanıyorsun ama sadece bir parçanın eksildiğini hissediyorsun. Geri dönmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Çatışma",
+          "kind": "outcome",
+          "text": "Elini sertçe itiyor. Yüzündeki öfke, yıllardır içinde tuttuğu her şeyi kusuyor. Kalabalık toplanıyor, kameralar bir yerlerden çıkıyor. Artık sadece senin değil, herkesin hikayesi oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ahlaki_gri": {
+          "title": "Satın Alınan Sessizlik",
+          "kind": "outcome",
+          "text": "Parayı alıyor. Göz göze bile gelmeden arkasını dönüp gidiyor. O vapurdan ayrılırken paranın aslında hiçbir şeyi çözmediğini, sadece vedayı daha kirli kıldığını anlıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat_kilitli": {
+          "title": "Zoraki Veda",
+          "kind": "outcome",
+          "text": "Sana son bir kez acıyarak bakıyor. İkna olmuyor ama o eski günlerin hatırına kalmayı kabul ediyor. İçindeki o bitmek bilmeyen vicdan azabı, zihnini bir mengene gibi sıkmaya devam ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
         }
-      ]
-    },
-    "n_outcome_2": {
-      "title": "Bedeli Ödendi",
-      "kind": "outcome",
-      "text": "Zarf masada duruyor. {actor.cousin.name} paraya dokunmadan odadan ayrılıyor, ama kapı kapandığında ikiniz de birbirinize yabancılaşmış durumdasınız. Para, aradaki uçurumu kapatmıyor, sadece derinleştiriyor.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_terk_edilis_cousin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_3": {
-      "title": "Yarım Kalan Yük",
-      "kind": "outcome",
-      "text": "Burada kalıyor. Ama bakışları artık daha ağır. Birbirinize anlatacak bir şeyiniz kalmadığında, evin içinde birbirine çarpan iki hayalet gibi dolaşmaya başlıyorsunuz.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_terk_edilis_cousin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_4": {
-      "title": "Otoritenin Ağırlığı",
-      "kind": "outcome",
-      "text": "Sesin odada yankılanıyor. {actor.father.name} sigarasını söndürüyor, {actor.cousin.name} başını öne eğiyor. Herkes ikna oldu, ama sen bu tartışmanın sonunda kendi ruhunu biraz daha tükettiğini biliyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_personal_terk_edilis_cousin",
-          "op": "set",
-          "value": true
-        }
-      ]
+      }
     }
-  }
+  ]
 }

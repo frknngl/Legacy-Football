@@ -337,6 +337,174 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Mahallede Bir Gece",
+          "kind": "branch",
+          "text": "Mahallenin çıkışındaki o paslı bahçe kapısının önündesin. Sakatlığın bacağını bir mengene gibi sıkıyor, yürümek işkence. {actor.sibling.name} kapının eşiğinde, elinde tuttuğu eski bir dosya ile bekliyor. Sokak lambasının titrek ışığı altında, ikinizin de çocukluktan getirdiğiniz o hırçın sessizlik yükseliyor. Bu kapıdan içeri girmek, aslında asla kapatamadığın bir defteri tekrar açmak demek. Dosyayı sana uzatıyor; kağıtlar nemden buruşmuş.",
+          "choices": [
+            {
+              "id": "c_gerekli_kötülük",
+              "text": "Dosyayı alıp kenara bırak. 'Bunu kapatmak için tek yol bu, soru sorma.'",
+              "target": "n_kazanc_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_mesafeli_durus",
+              "text": "Geri adım at. 'Buraya kadar, daha fazlası profesyonelliğime zarar verir.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli_yol",
+              "text": "Dosyayı yırt ve {actor.sibling.name} ile yan yana yürü. 'Kimseden korkumuz yok.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Elini omzuna koy. 'Yanındayım, ne gerekiyorsa birlikte hallederiz.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_sibling",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Moral 74+]"
+            }
+          ]
+        },
+        "n_kazanc_servet": {
+          "title": "Sessiz Bir Ödeme",
+          "kind": "outcome",
+          "text": "Para, geçmişteki hataları örtmek için en temiz perde. {actor.sibling.name} yüzüne bile bakmadan arkasını dönüp gidiyor. Yalnızlık, cebindeki eksilmeden daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Bir Veda",
+          "kind": "outcome",
+          "text": "Sırtını dönüp uzaklaşırken, {actor.sibling.name} arkandan bir şey söylemiyor. Sessizlik, bir vedadan çok daha keskin bir hüküm gibi havada asılı kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Eski Bağlılıklar",
+          "kind": "outcome",
+          "text": "Gözlerini kararttın. Mahallede saygın kazandın belki ama gazetecilerin kameraları artık çok daha yakınında. Bu gölge, kariyerinin üzerine çökecek.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Ortak Yük",
+          "kind": "outcome",
+          "text": "Sakat bacağının acısını unutup ona destek oldun. Bağlar güçlendi ama kendi iyileşme sürecini feda etmenin bedeli ağır olacak. Sahaya dönüşün bir hafta daha ertelendi.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

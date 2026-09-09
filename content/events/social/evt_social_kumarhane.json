@@ -346,6 +346,141 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Krupiyenin Gözleri",
+          "kind": "branch",
+          "text": "Yeraltı kulübünün havası ağır, tütün ve ter kokuyor. {actor.star_teammate.name} elindeki viski bardağına bakıyor, buzlar yavaşça eriyor. Bir kart oyunu masasında, ışıklar doğrudan senin ellerine vuruyor. İnsanların seni tanıdığı o parlak stadyum ışıklarından çok uzak burası. Masadaki herkes senin bir sonraki hamleni bekliyor. {actor.star_teammate.name} hafifçe gülümsüyor, ama gözlerinde hiçbir sıcaklık yok. Yıllardır koruduğun o ağırbaşlı, disiplinli oyuncu kimliği, burada, bu loş ışığın altında bir cam gibi çatlıyor. Kartlar masaya dağıtılıyor, her biri senin için bir sonraki kariyer adımın kadar keskin.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Tüm fişleri ortaya sür. Kaybedecek ne kaldı ki?",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce ayağa kalk ve {actor.star_teammate.name} ile göz göze gelmeden çıkışa yönel.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebinden çıkan zarfı kabul et ve oyunun kuralına göre oyna.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -10
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "lt",
+                "value": 500000
+              },
+              "lockLabel": "[Maddi Sınır]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "Masadakiler sustu. {actor.star_teammate.name} başını hafifçe yana eğdi, dudaklarında ince bir alay var. Bahis yükseldiğinde sadece para değil, kulüpteki ismin de masada kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhaneden_kalkti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Kaçış",
+          "kind": "outcome",
+          "text": "Kapıya ulaştığında arkandan gelen kahkahayı duyuyorsun. {actor.star_teammate.name} senin için bir şey demedi ama kapı kolunu tutan elin titriyor. Profesyonellik, bazen korkaklık gibi görünür.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhanede_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığını hissetmek, üzerindeki baskıyı unutturuyor. Artık o odadaki herkesle bir sırrı paylaşıyorsun. {actor.star_teammate.name} bardağını sana doğru kaldırıyor, bu bir ortaklık değil, bir esaretin başlangıcı.",
+          "onEnter": [
+            {
+              "flag": "mem_kumarhanede_tanistirildi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

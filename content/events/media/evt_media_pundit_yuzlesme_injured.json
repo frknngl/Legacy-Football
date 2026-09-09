@@ -332,6 +332,170 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Hastane Kantini",
+          "kind": "branch",
+          "text": "Sakat bacağın alçıda, kantinin florasan ışığı altında titriyor. {actor.pundit.name}, yanındaki masada oturmuş, yayına hazırladığı notları okuyor. Televizyonda senin son maçtaki hataların döngüye alınmış. Seni fark ediyor, elindeki kalemi havada durduruyor. Hafifçe gülümsüyor, ama gözleri ekrandaki görüntünü işaret ediyor. 'Bittiğini herkes biliyor,' diyor fısıltıyla. 'Hadi, masanın altındaki o çantayı bana bırak da kariyerinin sonunu biraz daha az sancılı yazayım.'",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Çantayı masanın altına it. Sessizliğini paraya çevirmenin vakti.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Dizini doğrult, hiçbir şey olmamış gibi kalk ve odadan çık.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sandalyeni gürültüyle çek, tam karşısına otur ve yüzüne tükür.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Notlarına uzan, el yazısıyla yazdığı o isimleri kalemle karala.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "set",
+                  "value": 0
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı 74]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Bedeli",
+          "kind": "outcome",
+          "text": "Seni izlemesine izin veriyorsun. O, kariyerini yazarken sen sadece izliyorsun. Artık o notlar senin değil, onun. Çanta artık boş.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Topallayarak uzaklaşıyorsun. Arkanızda bıraktığın o soğuk bakışlar, yarın sabahki manşetlerin habercisi.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Açık Kavga",
+          "kind": "outcome",
+          "text": "Kantindeki herkes sana bakıyor. İtibarın sokaklarda yükseliyor belki, ama medya artık seni hedef tahtasına koydu.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Kendi Oyunun",
+          "kind": "outcome",
+          "text": "Kendi silahını elinden alıyorsun. O, şaşkınlıkla kalemini bırakıyor. Zafere ulaştın ama zihnindeki yorgunluk biraz daha ağırlaştı.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

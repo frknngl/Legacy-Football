@@ -380,6 +380,141 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Koridoru",
+          "kind": "branch",
+          "text": "Soyunma odasının loş koridorunda, çivili kramponların zeminde çıkardığı sesler yankılanıyor. {actor.journalist.name} köşeyi dönüp aniden önünü kesiyor. Elinde bir not defteri yok, sadece parmaklarının ucunda çevirdiği bir tükenmez kalem var. Gözleri, üzerindeki kulüp antrenman eşofmanını değil, sanki zihninin derinliklerini tarıyor. {actor.journalist.name} bir adım yaklaşıyor, duvara yaslanman için yeterli alanı bırakıyor. Ses tonu bir soru sormaktan ziyade, bir hesap sorma hazırlığı gibi.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Gülümse ve kulübün basın birimine yönlendir. \"Konuşmam yasak.\"",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -2
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 2
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkan bir zarfı eline sıkıştır. \"Yarınki manşeti ben yazayım, sen sadece başlığı at.\"",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 1000
+              },
+              "lockLabel": "[Yeterli nakit yok]"
+            },
+            {
+              "id": "c_riskli",
+              "text": "Yüzüne bakmadan omuz atıp geç. \"Senin yazdıklarını kimse okumuyor.\"",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Mesafeli",
+          "kind": "outcome",
+          "text": "Arkanı dönüp giderken {actor.journalist.name} arkandan sadece gülüyor. Bugün bir düşman kazandın ama kulübün gözüne girdin.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_kacamak_yapti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Zarfı aldığı an gözlerindeki o açlık silindi. Artık senin değil, onun hikayesinin bir parçasısın.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_yalan_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Çatışma",
+          "kind": "outcome",
+          "text": "Attığın omuz, yarınki gazetelerin manşetinde bir 'disiplin sorunu' olarak geri dönecek. Sokak bunu sevdi, hoca ise sevmedi.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_durust_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

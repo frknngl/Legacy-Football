@@ -36,169 +36,320 @@
     ]
   },
   "once": true,
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Hesaplaşma Zamanı",
-      "kind": "branch",
-      "text": "Odanın içi bayat kahve ve rutubet kokuyor. {actor.journalist.name} masanın ucuna oturmuş, ses kayıt cihazını bir silah gibi sana doğrultmuş. Üç yıl önce, o kapalı kapılar ardında, zihnini parçalara ayırıp sakladığın o karanlık anı hatırlıyor. O gün, gerçekleri bir terapist koltuğunda gömüp hayatına sahte bir huzurla devam etmiştin. Sonraki dönemde, o hatayı örtbas etmek için çevirdiğin dolaplar birer birer duvara çarptı. Şimdi, {actor.psychologist.name} ile o günlerde paylaştığın gizli dosyalar elinde. Dışarıda taraftarın sesi kesildi, kulüpteki eşyaların toplandı. Sessizlik, bir hüküm gibi odaya yayılıyor.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Ödemeyi yap. Her şeyi kabul et ve bu kamburdan tamamen kurtul.",
-          "target": "n_outcome_guvenli",
-          "effects": [
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Hesaplaşma Zamanı",
+          "kind": "branch",
+          "text": "Odanın içi bayat kahve ve rutubet kokuyor. {actor.journalist.name} masanın ucuna oturmuş, ses kayıt cihazını bir silah gibi sana doğrultmuş. Üç yıl önce, o kapalı kapılar ardında, zihnini parçalara ayırıp sakladığın o karanlık anı hatırlıyor. O gün, gerçekleri bir terapist koltuğunda gömüp hayatına sahte bir huzurla devam etmiştin. Sonraki dönemde, o hatayı örtbas etmek için çevirdiğin dolaplar birer birer duvara çarptı. Şimdi, {actor.psychologist.name} ile o günlerde paylaştığın gizli dosyalar elinde. Dışarıda taraftarın sesi kesildi, kulüpteki eşyaların toplandı. Sessizlik, bir hüküm gibi odaya yayılıyor.",
+          "choices": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 10
+              "id": "c_guvenli",
+              "text": "Ödemeyi yap. Her şeyi kabul et ve bu kamburdan tamamen kurtul.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                }
+              ]
             },
             {
-              "flag": "profesyonellik",
+              "id": "c_riskli",
+              "text": "Masaya yumruğunu vur ve her şeyi reddet. Onu yalancılıkla suçla.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 25
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Yeni bir borç altına girerek dosyaları satın al. Bu işi sonsuza dek göm.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -100000
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ]
+            },
+            {
+              "id": "c_gecmise_bagli",
+              "text": "Kayıt cihazına doğru eğil. O gün o koltukta oturan kişinin neden o kararı aldığını dürüstçe anlat.",
+              "target": "n_outcome_gecmis",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "İmzayı attın. {actor.journalist.name} odadan çıkarken arkasına bile bakmadı. Kariyerin bir süreliğine buzluğa kalktı ama en azından artık kimse kapını çalmayacak.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 12,
+              "reason": "İtibar yönetimi"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İnkârın Yükü",
+          "kind": "outcome",
+          "text": "Öfken, odanın havasını bir anda ağırlaştırdı; masadaki boş kahve fincanı şiddetle sarsıldı. {actor.journalist.name} hafifçe geri çekilip soğuk bir gülümsemeyle ayağa kalktı, not defterini yavaşça kapattı. Yarın sabah gazete manşetleri suçsuzluğunu değil, kontrolsüz öfkeni ve titreyen ellerinin yarattığı o yıkıcı enkazı konuşuyor olacak. Dışarıdaki soğuk rüzgar, aralık pencereden içeri sızarken tüm şehre duyurulan bir itiraf gibi uğuldadı.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 24,
+              "reason": "Disiplinsizlik"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Yeni Bir Bağ",
+          "kind": "outcome",
+          "text": "Cüzdanındaki paraların el değiştirdiği o kısa an, odadaki rutubetli havayı biraz daha ağırlaştırdı. {actor.journalist.name} dosyayı yavaşça çantasına koyarken, gözlerinde gizli bir memnuniyet belirdi; artık ikiniz de birbirinizin boynuna dolanmış iki zehirli sarmaşıktınız. Cebin hafifledi, ruhunun üzerine ise daha önce hissetmediğin bir ağırlık çöktü. Gazeteci kapıdan çıkarken, odaya yayılan sigara dumanı ve sessizlik artık tek yol arkadaşındı.",
+          "onEnter": [
+            {
+              "flag": "npc_journalist_arc",
               "op": "add",
               "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -50000
             }
           ]
         },
-        {
-          "id": "c_riskli",
-          "text": "Masaya yumruğunu vur ve her şeyi reddet. Onu yalancılıkla suçla.",
-          "target": "n_outcome_riskli",
-          "effects": [
+        "n_outcome_gecmis": {
+          "title": "Karanlıktan Çıkış",
+          "kind": "outcome",
+          "text": "Dudaklarından dökülen her cümle, yıllardır zihninde taşıdığın o görünmez prangaları tek tek kırdı. {actor.journalist.name} bir anlığına duraksadı, elindeki kayıt cihazının ışığı yanıp sönerken sana şaşkınlıkla baktı; beklediği bir hikayeden fazlasını duymuştu. Artık omuzlarındaki o ezici yük, odanın loş ışığında eriyip gitmişti. Pencereden içeri dolan sokak ışığı, artık saklayacak hiçbir şeyin kalmadığı çıplak ve savunmasız bir gerçekliğin üzerine düştü.",
+          "onEnter": [
             {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
+              "op": "lifeState",
+              "to": "rehab_clinic"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Park Yeri",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş, otoparkta sadece tek bir aracın farları yanıyor. {actor.journalist.name} direksiyona yaslanmış, elindeki tabletin ekranı yüzüne mavi bir ışık vuruyor. 'Bunu bugün yayınlamazsam yarın bir başkası yapacak,' diyor. Sesi titrek değil, aksine aşırı sakin. Emniyet kemerinin tokası parmaklarının arasında soğuk. Eğer o dosyalar internete düşerse, kariyerin sadece bir rakamdan ibaret kalacak. Kendi adını, attığın her golü, omuzladığın her mağlubiyeti silip atacak bir metin dosyası bekliyor onayını.",
+          "choices": [
+            {
+              "id": "c_sus_12",
+              "text": "Tabletini kap, camdan dışarı fırlat. İletişimi kes ve bu gece buradan yaya olarak çık.",
+              "target": "n_suspend_12",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
             },
             {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
+              "id": "c_rehab",
+              "text": "Kendi ismini sisteme ihbar et. Bu yalanlarla yaşayamazsın. Tedavi olmayı kabul et.",
+              "target": "n_rehab",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
             },
             {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 20
+              "id": "c_sus_24",
+              "text": "Dosyayı imzala. Ona hak ettiği parayı ver, ama bu bedeli ödeyeceğinin farkındasın.",
+              "target": "n_suspend_24",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 25
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
             },
             {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 25
+              "id": "c_journalist",
+              "text": "Ekrana bak, gözlerinin içine dik dik bak. Onu bu hikayeyi sonsuza dek gömmeye ikna et.",
+              "target": "n_journalist",
+              "effects": [
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Sokak İtibarı 80+]",
+              "persona": {
+                "durus": 10
+              }
             }
           ]
         },
-        {
-          "id": "c_ahlaki_gri",
-          "text": "Yeni bir borç altına girerek dosyaları satın al. Bu işi sonsuza dek göm.",
-          "target": "n_outcome_gri",
-          "effects": [
+        "n_suspend_12": {
+          "title": "Kısa Bir Ara",
+          "kind": "outcome",
+          "text": "Tablet asfaltla buluştuğunda çıkan ses, tüm otoparkta yankılandı. {actor.journalist.name} bir şey demeden gaza bastı. Şimdi stadyumun kapısı yüzüne kapandı. On iki maç boyunca sahalardan uzak kalacaksın; sessizlik, haklılığından daha ağır geliyor.",
+          "onEnter": [
             {
-              "flag": "servet",
-              "op": "add",
-              "value": -100000
-            },
-            {
-              "flag": "iliski_journalist",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -20
+              "op": "suspend",
+              "matches": 12,
+              "reason": "Soruşturma nedeniyle zorunlu uzaklaştırma."
             }
           ]
         },
-        {
-          "id": "c_gecmise_bagli",
-          "text": "Kayıt cihazına doğru eğil. O gün o koltukta oturan kişinin neden o kararı aldığını dürüstçe anlat.",
-          "target": "n_outcome_gecmis",
-          "effects": [
+        "n_rehab": {
+          "title": "İtirafın Bedeli",
+          "kind": "outcome",
+          "text": "Her şeyi anlattın. Olaylar, isimler, geceler. İhbarın sonrası stadyumdan değil, bir tedavi merkezinin kapısından içeri giriyorsun. Kariyerin bir süreliğine askıda. İlk defa gerçek bir huzur hissediyorsun, ancak bu, hayatının en zor sezon başlangıcı.",
+          "onEnter": [
             {
-              "flag": "mental_dayaniklilik",
-              "op": "add",
-              "value": 10
-            },
+              "op": "lifeState",
+              "to": "rehab_clinic"
+            }
+          ]
+        },
+        "n_suspend_24": {
+          "title": "Karanlık Sözleşme",
+          "kind": "outcome",
+          "text": "Zarflar el değiştirdi. O, kârını aldı; sen ise bir utancı satın aldın. Federasyon soruşturmayı başlattığında, elindeki bu dosyaların gerçek olduğunu kanıtlayacak kimse kalmadı. Yine de, yirmi dört maç boyunca tribünlerden uzak, evinin balkonunda tavanı izleyeceksin.",
+          "onEnter": [
             {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
-            },
+              "op": "suspend",
+              "matches": 24,
+              "reason": "Yasal süreç ve skandal nedeniyle uzaklaştırma."
+            }
+          ]
+        },
+        "n_journalist": {
+          "title": "İkna Sanatı",
+          "kind": "outcome",
+          "text": "Sesin, otoparkın soğuk betonunda çınlıyor. {actor.journalist.name} geri adım atıyor. Tabletini kapatıyor, gözlerinde karmaşık bir hayranlık ve pişmanlık var. Dosya silindi. Kariyerin kurtuldu ama bu an, zihninde bir pas gibi asılı kaldı. Artık uykuların eskisi gibi derin değil.",
+          "onEnter": [
             {
-              "flag": "moral",
+              "flag": "npc_journalist_arc",
               "op": "add",
-              "value": -20
-            },
-            {
-              "flag": "iliski_journalist",
-              "op": "add",
-              "value": -5
+              "value": 1
             }
           ]
         }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "Bedel Ödendi",
-      "kind": "outcome",
-      "text": "İmzayı attın. {actor.journalist.name} odadan çıkarken arkasına bile bakmadı. Kariyerin bir süreliğine buzluğa kalktı ama en azından artık kimse kapını çalmayacak.",
-      "onEnter": [
-        {
-          "op": "suspend",
-          "matches": 12,
-          "reason": "İtibar yönetimi"
-        }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "İnkârın Yükü",
-      "kind": "outcome",
-      "text": "Öfken, odanın havasını bir anda ağırlaştırdı; masadaki boş kahve fincanı şiddetle sarsıldı. {actor.journalist.name} hafifçe geri çekilip soğuk bir gülümsemeyle ayağa kalktı, not defterini yavaşça kapattı. Yarın sabah gazete manşetleri suçsuzluğunu değil, kontrolsüz öfkeni ve titreyen ellerinin yarattığı o yıkıcı enkazı konuşuyor olacak. Dışarıdaki soğuk rüzgar, aralık pencereden içeri sızarken tüm şehre duyurulan bir itiraf gibi uğuldadı.",
-      "onEnter": [
-        {
-          "op": "suspend",
-          "matches": 24,
-          "reason": "Disiplinsizlik"
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Yeni Bir Bağ",
-      "kind": "outcome",
-      "text": "Cüzdanındaki paraların el değiştirdiği o kısa an, odadaki rutubetli havayı biraz daha ağırlaştırdı. {actor.journalist.name} dosyayı yavaşça çantasına koyarken, gözlerinde gizli bir memnuniyet belirdi; artık ikiniz de birbirinizin boynuna dolanmış iki zehirli sarmaşıktınız. Cebin hafifledi, ruhunun üzerine ise daha önce hissetmediğin bir ağırlık çöktü. Gazeteci kapıdan çıkarken, odaya yayılan sigara dumanı ve sessizlik artık tek yol arkadaşındı.",
-      "onEnter": [
-        {
-          "flag": "npc_journalist_arc",
-          "op": "add",
-          "value": 5
-        }
-      ]
-    },
-    "n_outcome_gecmis": {
-      "title": "Karanlıktan Çıkış",
-      "kind": "outcome",
-      "text": "Dudaklarından dökülen her cümle, yıllardır zihninde taşıdığın o görünmez prangaları tek tek kırdı. {actor.journalist.name} bir anlığına duraksadı, elindeki kayıt cihazının ışığı yanıp sönerken sana şaşkınlıkla baktı; beklediği bir hikayeden fazlasını duymuştu. Artık omuzlarındaki o ezici yük, odanın loş ışığında eriyip gitmişti. Pencereden içeri dolan sokak ışığı, artık saklayacak hiçbir şeyin kalmadığı çıplak ve savunmasız bir gerçekliğin üzerine düştü.",
-      "onEnter": [
-        {
-          "op": "lifeState",
-          "to": "rehab_clinic"
-        }
-      ]
+      }
     }
-  }
+  ]
 }

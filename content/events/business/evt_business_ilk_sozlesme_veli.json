@@ -365,6 +365,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Altındaki Tozlu Oda",
+          "kind": "branch",
+          "text": "Paslı bir soyunma dolabının önündesin. {actor.sporting_director.name}, elinde bir fotokopi destesiyle önünde duruyor. Dışarıdan gelen antrenman sesleri, duvardaki ince çatlaklardan yankılanıyor. {actor.sporting_director.name} tek bir kelime etmeden kâğıtları metal bir taburenin üzerine bırakıyor. Üstünde eski bir ceket, cebinden sarkan bir kalem var. Bakışları, sahaya çıkmayı bekleyen diğer gençlerin üzerinde. 'Bu sadece başlangıç,' diyor, ama sesi duvarda soğuk bir yankı bırakıyor. Masada duran tek bir kalem var; sadece biriniz imzalayabilir.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kalemi al ve şartları okumadan imzayı bas. Hemen sahaya dönmelisin.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sözleşmeyi dikkatle incele, kafana takılan her maddeyi {actor.sporting_director.name} ile tek tek konuş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ailenin borçlarını ödemek için imza yetkisini doğrudan menajere devret, hemen nakit akışını garantile.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Hızlı Karar",
+          "kind": "outcome",
+          "text": "Kalem kâğıdı delip geçiyor. {actor.sporting_director.name} bir şey söylemeye yelteniyor ama vazgeçiyor. Artık sahadasın, ama neyi imzaladığını bile bilmiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_acele_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Detaycı Yaklaşım",
+          "kind": "outcome",
+          "text": "Odanın içi iyice ağırlaşıyor. Her sorunda {actor.sporting_director.name} saatine bakıyor. İstediğini alıyorsun belki ama aranızdaki o saf güveni biraz olsun zedeliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Devir",
+          "kind": "outcome",
+          "text": "Zarfı alıp çıkıyorsun. {actor.sporting_director.name} arkandan sadece bakıyor. Bu paranın bedelini saha içinde çok daha zor anlarda ödeyeceğini şimdilik görmezden geliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_kendi_istedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

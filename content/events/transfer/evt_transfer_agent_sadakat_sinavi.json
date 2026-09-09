@@ -357,6 +357,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_terk_edilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Havalimanı Terminali",
+          "kind": "branch",
+          "text": "Terminalin cam duvarları dışarıdaki pistin gri soğukluğunu içeri alıyor. {actor.agent.name} terminalin en uzak köşesinde, bir bankta tek başına oturuyor. Önündeki tek bir uçak bileti zarfı, metal sandalyenin üzerinde sahipsiz duruyor. {actor.agent.name} başını kaldırıp sana bakmıyor bile; sanki orada değilmişsin gibi telefonunun ekranına dalmış. Yanındaki koltuk boş. O boşluk, yıllardır süren ortaklığın yarın sabah bitip bitmeyeceğinin ağırlığını taşıyor. Havaalanının anons sesi ortamdaki tüm sessizliği keskinleştiriyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Bileti yırt ve masanın üzerine bırak. Menajerlik sözleşmesini tek taraflı feshettiğini söyle.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı eline al. Hiçbir şey demeden uçağa bin ve rotana devam et.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cebinden çıkardığın nakit zarfını yanına bırak. Sessizliği satın alıp arkanı dön.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 200000
+              },
+              "lockLabel": "[Yeterli sermaye gerekli]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kendi Yolun",
+          "kind": "outcome",
+          "text": "Kağıtlar yere saçılıyor. {actor.agent.name} şaşkınlıkla ayağa kalkıyor ama geri adım atmıyorsun. Terminalin çıkışına doğru yürürken, arkanda bırakılan sadece bir menajer değil, kendi geleceğin için verdiğin ilk gerçek kavga.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İşin Gereği",
+          "kind": "outcome",
+          "text": "Zarfı açmıyorsun. {actor.agent.name} arkandan bir şey söylemek için hamle yapıyor ama uçağa giden kapı kapanıyor. İçinde bir boşlukla koltuğuna oturuyorsun. Profesyonelce, ama eksik.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "{actor.agent.name} paraya bakıyor. Gözlerindeki hayal kırıklığı, hesaplanan sayıdan daha ağır. Parayı alıp gitmesine izin veriyorsun. Artık bu kariyerin tek sahibi sensin, ancak vicdanın artık o kadar hafif değil.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }
