@@ -4,39 +4,289 @@
   "category": "reaction",
   "tier": "epic",
   "weight": 60,
-  "cooldown": { "self": 12, "family": 8 },
-  "lifeStates": ["playing", "loaned", "suspended", "national_duty"],
-  "trigger": { "flag": "inc_var_against", "op": "isSet" },
-
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Karma alanı",
-      "kind": "branch",
-      "text": "Tünelin ağzında on iki mikrofon. Terin hâlâ soğumadı. {actor.journalist.name} ön sırada, kaydediciyi uzatmıyor — sadece bakıyor, o daha kötü. Arkadan {actor.pundit.name:gen} kanalının muhabiri bağırıyor: \"O golün neresi faulmüş? Bir cümle, tek cümle!\"\n\n{actor.agent.name} koridorun sonunda telefonda; başını hafifçe iki yana sallıyor. Konuşma, diyor. Ama {opponent} maçında sana ne yaptıklarını sen biliyorsun.",
-      "choices": [
-        {
-          "id": "c_ref",
-          "text": "\"Hakem bu maçı yönetemedi. Bunu söylemek suçsa buyursunlar.\"",
-          "target": "n_roll_ref_backlash",
-          "effects": [
-            { "flag": "taraftar_destegi", "op": "add", "value": 12 },
-            { "flag": "sokak_itibari", "op": "add", "value": 8 },
-            { "flag": "medya_baskisi", "op": "add", "value": 15 },
-            { "flag": "iliski_basin", "op": "add", "value": -6 }
-          ],
-          "persona": { "durus": 7, "mizac": 5 }
+  "cooldown": {
+    "self": 12,
+    "family": 8
+  },
+  "lifeStates": [
+    "playing",
+    "loaned",
+    "suspended",
+    "national_duty"
+  ],
+  "trigger": {
+    "flag": "inc_var_against",
+    "op": "isSet"
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karma alanı",
+          "kind": "branch",
+          "text": "Tünelin ağzında on iki mikrofon. Terin hâlâ soğumadı. {actor.journalist.name} ön sırada, kaydediciyi uzatmıyor — sadece bakıyor, o daha kötü. Arkadan {actor.pundit.name:gen} kanalının muhabiri bağırıyor: \"O golün neresi faulmüş? Bir cümle, tek cümle!\"\n\n{actor.agent.name} koridorun sonunda telefonda; başını hafifçe iki yana sallıyor. Konuşma, diyor. Ama {opponent} maçında sana ne yaptıklarını sen biliyorsun.",
+          "choices": [
+            {
+              "id": "c_ref",
+              "text": "\"Hakem bu maçı yönetemedi. Bunu söylemek suçsa buyursunlar.\"",
+              "target": "n_roll_ref_backlash",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_basin",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "durus": 7,
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_tff",
+              "text": "\"Sorun hakem değil. Sorun onları oraya koyan zihniyet. Federasyonu kastediyorum.\"",
+              "target": "n_tff",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "iliski_sponsor",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "mem_attacked_tff",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "op": "schedule",
+                  "event": "evt_legal_pfdk_hearing",
+                  "inTurns": 2,
+                  "priority": "forced",
+                  "onIneligible": "fire"
+                }
+              ],
+              "persona": {
+                "durus": 12,
+                "dogruluk": 4,
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_focus",
+              "text": "\"Ben oyunuma odaklanırım. Kararları yorumlamak benim işim değil.\"",
+              "target": "n_focus",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8,
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_shield",
+              "text": "\"Konuşacak olan benim, takım arkadaşlarım değil. Onları rahat bırakın.\"",
+              "target": "n_shield",
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]",
+              "effects": [
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
+                }
+              ],
+              "persona": {
+                "sadakat": 8,
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_shirt",
+              "text": "Formanı kaldır. Altındaki tişörtte tek kelime yazıyor: ADALET.",
+              "target": "n_shirt",
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Taraftar 80]",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 40
+                },
+                {
+                  "flag": "iliski_sponsor",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "mem_justice_shirt",
+                  "op": "set",
+                  "value": true
+                },
+                {
+                  "op": "schedule",
+                  "event": "evt_legal_pfdk_hearing",
+                  "inTurns": 2,
+                  "priority": "forced",
+                  "onIneligible": "fire"
+                }
+              ],
+              "persona": {
+                "durus": 15,
+                "dogruluk": 8,
+                "sadakat": 5
+              }
+            }
+          ]
         },
-        {
-          "id": "c_tff",
-          "text": "\"Sorun hakem değil. Sorun onları oraya koyan zihniyet. Federasyonu kastediyorum.\"",
-          "target": "n_tff",
-          "effects": [
-            { "flag": "taraftar_destegi", "op": "add", "value": 20 },
-            { "flag": "sokak_itibari", "op": "add", "value": 14 },
-            { "flag": "medya_baskisi", "op": "add", "value": 30 },
-            { "flag": "iliski_sponsor", "op": "add", "value": -12 },
-            { "flag": "mem_attacked_tff", "op": "set", "value": true },
+        "n_roll_ref_backlash": {
+          "title": "Gece yarısı",
+          "kind": "roll",
+          "text": "Gece yarısı {actor.agent.first} arıyor. Açmadan önce ekrana bakıyorsun: dört cevapsız çağrı.",
+          "outcomes": [
+            {
+              "target": "n_referred",
+              "weight": {
+                "base": 35,
+                "modifiers": [
+                  {
+                    "flag": "disiplin_sicili",
+                    "scale": 0.6
+                  },
+                  {
+                    "flag": "medya_itibari",
+                    "scale": -0.2
+                  }
+                ]
+              }
+            },
+            {
+              "target": "n_warning_only",
+              "weight": {
+                "base": 65,
+                "modifiers": [
+                  {
+                    "flag": "medya_itibari",
+                    "scale": 0.3
+                  },
+                  {
+                    "flag": "iliski_basin",
+                    "scale": 0.2
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "n_referred": {
+          "title": "Sevk",
+          "kind": "outcome",
+          "text": "\"Sevk ettiler,\" diyor {actor.agent.first}. \"Hakeme yönelik ifadeler. İki hafta sonra kurul.\" Telefonu kapatıyorsun. Kanepede oturmuş, karanlıkta televizyonun kapalı ekranına bakıyorsun ve orada kendi yüzünü görüyorsun.",
+          "onEnter": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 6
+            },
             {
               "op": "schedule",
               "event": "evt_legal_pfdk_hearing",
@@ -44,151 +294,344 @@
               "priority": "forced",
               "onIneligible": "fire"
             }
-          ],
-          "persona": { "durus": 12, "dogruluk": 4, "mizac": 6 }
+          ]
         },
-        {
-          "id": "c_focus",
-          "text": "\"Ben oyunuma odaklanırım. Kararları yorumlamak benim işim değil.\"",
-          "target": "n_focus",
-          "effects": [
-            { "flag": "medya_itibari", "op": "add", "value": 10 },
-            { "flag": "profesyonellik", "op": "add", "value": 5 },
-            { "flag": "iliski_fan_leader", "op": "add", "value": -18 },
-            { "flag": "taraftar_destegi", "op": "add", "value": -10 }
-          ],
-          "persona": { "durus": -8, "mizac": -5 }
+        "n_warning_only": {
+          "title": "Bu sefer",
+          "kind": "outcome",
+          "text": "\"Kurtardık,\" diyor {actor.agent.first}. \"Bu sefer. Bir dahakine kurtaramam, onu da söyleyeyim.\" Uykun kaçıyor. Sabaha karşı {actor.journalist.first:gen} haberini okuyorsun; senin lehine yazmış ama tek bir cümlesi var: \"Bu çocuk kendini yakacak.\"",
+          "onEnter": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "iliski_journalist",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
         },
-        {
-          "id": "c_shield",
-          "text": "\"Konuşacak olan benim, takım arkadaşlarım değil. Onları rahat bırakın.\"",
-          "target": "n_shield",
-          "requires": { "flag": "liderlik", "op": "gte", "value": 70 },
-          "lockLabel": "[Liderlik 70]",
-          "effects": [
-            { "flag": "iliski_takim", "op": "add", "value": 15 },
-            { "flag": "liderlik", "op": "add", "value": 5 },
-            { "flag": "medya_baskisi", "op": "add", "value": 12 },
-            { "flag": "moral", "op": "add", "value": -5 },
-            { "flag": "npc_captain_arc", "op": "add", "value": 1 }
-          ],
-          "persona": { "sadakat": 8, "durus": 5 }
+        "n_tff": {
+          "title": "Manşet",
+          "kind": "outcome",
+          "text": "Cümle ağzından çıkar çıkmaz karma alanındaki uğultu kesiliyor. {actor.journalist.first} gözlerini kapatıyor — senin adına. {actor.agent.first} koridorda telefonu duvara vurmamak için kendini tutuyor.\n\nSabah bütün manşetler aynı: senin yüzün ve tek kelime. {actor.pundit.name} akşam programının tanıtımını çoktan yayınladı. Federasyon iki saat içinde açıklama yaptı.\n\nSevk kesin. Kaçış yok.",
+          "onEnter": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
         },
-        {
-          "id": "c_shirt",
-          "text": "Formanı kaldır. Altındaki tişörtte tek kelime yazıyor: ADALET.",
-          "target": "n_shirt",
-          "requires": { "flag": "taraftar_destegi", "op": "gte", "value": 80 },
-          "lockLabel": "[Taraftar 80]",
-          "effects": [
-            { "flag": "taraftar_destegi", "op": "add", "value": 15 },
-            { "flag": "sokak_itibari", "op": "add", "value": 20 },
-            { "flag": "iliski_fan_leader", "op": "add", "value": 25 },
-            { "flag": "medya_baskisi", "op": "add", "value": 40 },
-            { "flag": "iliski_sponsor", "op": "add", "value": -25 },
-            { "flag": "mem_justice_shirt", "op": "set", "value": true },
+        "n_focus": {
+          "title": "Güvenli liman",
+          "kind": "outcome",
+          "text": "Doğru cümleyi kurdun. Kimse alıntılamayacak.\n\nGece taraftar grubunun hesabından bir paylaşım düşüyor: senin fotoğrafın ve altında \"formayı giymek yetmiyor.\" Tesise giderken kapıdaki pankartı görüyorsun. İsmin yok ama kimi kastettikleri belli.",
+          "onEnter": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mem_refused_to_apologize",
+              "op": "set",
+              "value": false
+            }
+          ]
+        },
+        "n_shield": {
+          "title": "Duvar",
+          "kind": "outcome",
+          "text": "Mikrofonların önüne geçiyorsun ve genç oyuncuların hepsi arkanda kalıyor. Sorular sana geliyor, hepsini alıyorsun.\n\nOtobüste {actor.captain.first} yanına oturuyor. Uzun süre konuşmuyor. Sonra: \"Bunu ben yapardım. Yapmadım.\" Bir daha da hiç bahsetmiyor.",
+          "onEnter": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_shirt": {
+          "title": "Tek kelime",
+          "kind": "outcome",
+          "text": "Formayı kaldırıyorsun. Karma alanı bir saniye donuyor, sonra deklanşörler makineli tüfek gibi patlıyor.\n\nO fotoğraf bir daha hiç kaybolmayacak. On yıl sonra bir belgeselin afişi olacak. Beş yıl sonra bir çocuk aynı tişörtü kendi maçında giyecek. Ve iki hafta sonra kurulun önünde bu fotoğraf masaya konacak.\n\n{actor.agent.first} koridorda sadece şunu diyor: \"Umarım değmiştir.\"",
+          "onEnter": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Ofis",
+          "kind": "branch",
+          "text": "Odanın ağır kapısı ardına kadar açıldı. {actor.agent.name} masasının arkasında, gölgeler içinde oturuyor. Masanın üzerinde ne bir dosya ne de bir telefon var; sadece boş bir kül tablası ve üzerinde ağır bir sessizlik duruyor. Dışarıda taraftarın sesi uzaktan bir uğultu gibi geliyor. İçeride ise hava keskin, nemli ve rutubetli. {actor.agent.name} başını hafifçe kaldırıp gözlerini doğrudan senin gözlerine dikiyor. Söyleyecek tek bir kelimesi bile yok. Odaya girdiğin an, kapı kendi kendine çarparak kapandı.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Sessizliği bir küfürle böl. Her şeyi yakmaya hazır olduğunu göster.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı masaya bırak. 'Bu olay burada kapansın, gerisini sen hallet' de.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ceketini ilikle. 'Neye mal olursa olsun, dürüstlükten vazgeçmeyeceğim' diyerek çık.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 12
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Masaya eğil, onu kendi oyununa davet et.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kırılma Noktası",
+          "kind": "outcome",
+          "text": "{actor.agent.name} sadece gülümsüyor. Bu gülüş, kariyerinin en büyük fırtınasının başlangıcı. Adalet sarayının kapıları senin için artık resmi olarak açılıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_to_apologize",
+              "op": "set",
+              "value": true
+            },
             {
               "op": "schedule",
               "event": "evt_legal_pfdk_hearing",
-              "inTurns": 2,
+              "inTurns": 1,
               "priority": "forced",
               "onIneligible": "fire"
             }
-          ],
-          "persona": { "durus": 15, "dogruluk": 8, "sadakat": 5 }
-        }
-      ]
-    },
-
-    "n_roll_ref_backlash": {
-      "title": "Gece yarısı",
-      "kind": "roll",
-      "text": "Gece yarısı {actor.agent.first} arıyor. Açmadan önce ekrana bakıyorsun: dört cevapsız çağrı.",
-      "outcomes": [
-        {
-          "target": "n_referred",
-          "weight": { "base": 35, "modifiers": [{ "flag": "disiplin_sicili", "scale": 0.6 }, { "flag": "medya_itibari", "scale": -0.2 }] }
+          ]
         },
-        {
-          "target": "n_warning_only",
-          "weight": { "base": 65, "modifiers": [{ "flag": "medya_itibari", "scale": 0.3 }, { "flag": "iliski_basin", "scale": 0.2 }] }
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Zarf masada kayarak eline geçiyor. {actor.agent.name} arkasını dönüyor. İhanetle karışık bir huzur hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_saved_teammate",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_pfdk_hearing",
+              "inTurns": 1,
+              "priority": "forced",
+              "onIneligible": "fire"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Yalnız Yolcu",
+          "kind": "outcome",
+          "text": "Kapıyı kapattığında dışarıdaki soğuk havayı ciğerlerinde hissediyorsun. Yalnızsın ama en azından aynaya bakabiliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_justice_shirt",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_pfdk_hearing",
+              "inTurns": 1,
+              "priority": "forced",
+              "onIneligible": "fire"
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Yeni Düzen",
+          "kind": "outcome",
+          "text": "Fısıldaştığınız sırlar odanın duvarlarına siniyor. Artık {actor.agent.name} ile aynı karanlığın içindesiniz.",
+          "onEnter": [
+            {
+              "flag": "mem_attacked_tff",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_pfdk_hearing",
+              "inTurns": 1,
+              "priority": "forced",
+              "onIneligible": "fire"
+            }
+          ]
         }
-      ]
-    },
-
-    "n_referred": {
-      "title": "Sevk",
-      "kind": "outcome",
-      "text": "\"Sevk ettiler,\" diyor {actor.agent.first}. \"Hakeme yönelik ifadeler. İki hafta sonra kurul.\" Telefonu kapatıyorsun. Kanepede oturmuş, karanlıkta televizyonun kapalı ekranına bakıyorsun ve orada kendi yüzünü görüyorsun.",
-      "onEnter": [
-        { "flag": "medya_baskisi", "op": "add", "value": 10 },
-        { "flag": "disiplin_sicili", "op": "add", "value": 6 },
-        {
-          "op": "schedule",
-          "event": "evt_legal_pfdk_hearing",
-          "inTurns": 2,
-          "priority": "forced",
-          "onIneligible": "fire"
-        }
-      ]
-    },
-
-    "n_warning_only": {
-      "title": "Bu sefer",
-      "kind": "outcome",
-      "text": "\"Kurtardık,\" diyor {actor.agent.first}. \"Bu sefer. Bir dahakine kurtaramam, onu da söyleyeyim.\" Uykun kaçıyor. Sabaha karşı {actor.journalist.first:gen} haberini okuyorsun; senin lehine yazmış ama tek bir cümlesi var: \"Bu çocuk kendini yakacak.\"",
-      "onEnter": [
-        { "flag": "medya_baskisi", "op": "add", "value": -5 },
-        { "flag": "iliski_agent", "op": "add", "value": -5 },
-        { "flag": "iliski_journalist", "op": "add", "value": 6 },
-        { "flag": "npc_journalist_arc", "op": "add", "value": 1 }
-      ]
-    },
-
-    "n_tff": {
-      "title": "Manşet",
-      "kind": "outcome",
-      "text": "Cümle ağzından çıkar çıkmaz karma alanındaki uğultu kesiliyor. {actor.journalist.first} gözlerini kapatıyor — senin adına. {actor.agent.first} koridorda telefonu duvara vurmamak için kendini tutuyor.\n\nSabah bütün manşetler aynı: senin yüzün ve tek kelime. {actor.pundit.name} akşam programının tanıtımını çoktan yayınladı. Federasyon iki saat içinde açıklama yaptı.\n\nSevk kesin. Kaçış yok.",
-      "onEnter": [
-        { "flag": "medya_itibari", "op": "add", "value": -15 },
-        { "flag": "yonetim_baskisi", "op": "add", "value": 20 },
-        { "flag": "iliski_agent", "op": "add", "value": -15 },
-        { "flag": "npc_pundit_arc", "op": "add", "value": 1 }
-      ]
-    },
-
-    "n_focus": {
-      "title": "Güvenli liman",
-      "kind": "outcome",
-      "text": "Doğru cümleyi kurdun. Kimse alıntılamayacak.\n\nGece taraftar grubunun hesabından bir paylaşım düşüyor: senin fotoğrafın ve altında \"formayı giymek yetmiyor.\" Tesise giderken kapıdaki pankartı görüyorsun. İsmin yok ama kimi kastettikleri belli.",
-      "onEnter": [
-        { "flag": "medya_baskisi", "op": "add", "value": -12 },
-        { "flag": "moral", "op": "add", "value": -8 },
-        { "flag": "mem_refused_to_apologize", "op": "set", "value": false }
-      ]
-    },
-
-    "n_shield": {
-      "title": "Duvar",
-      "kind": "outcome",
-      "text": "Mikrofonların önüne geçiyorsun ve genç oyuncuların hepsi arkanda kalıyor. Sorular sana geliyor, hepsini alıyorsun.\n\nOtobüste {actor.captain.first} yanına oturuyor. Uzun süre konuşmuyor. Sonra: \"Bunu ben yapardım. Yapmadım.\" Bir daha da hiç bahsetmiyor.",
-      "onEnter": [
-        { "flag": "medya_baskisi", "op": "add", "value": 8 },
-        { "flag": "iliski_captain", "op": "add", "value": 15 },
-        { "flag": "mem_saved_teammate", "op": "set", "value": true }
-      ]
-    },
-
-    "n_shirt": {
-      "title": "Tek kelime",
-      "kind": "outcome",
-      "text": "Formayı kaldırıyorsun. Karma alanı bir saniye donuyor, sonra deklanşörler makineli tüfek gibi patlıyor.\n\nO fotoğraf bir daha hiç kaybolmayacak. On yıl sonra bir belgeselin afişi olacak. Beş yıl sonra bir çocuk aynı tişörtü kendi maçında giyecek. Ve iki hafta sonra kurulun önünde bu fotoğraf masaya konacak.\n\n{actor.agent.first} koridorda sadece şunu diyor: \"Umarım değmiştir.\"",
-      "onEnter": [
-        { "flag": "medya_itibari", "op": "add", "value": -20 },
-        { "flag": "yonetim_baskisi", "op": "add", "value": 30 },
-        { "flag": "iliski_agent", "op": "add", "value": -20 },
-        { "flag": "npc_pundit_arc", "op": "add", "value": 1 }
-      ]
+      }
     }
-  }
+  ]
 }

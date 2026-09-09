@@ -295,11 +295,24 @@ def _transitions(node: object) -> set[str]:
     return out
 
 
-def _incidents(node: object) -> set[str]:
-    """Olayin ACTIGI incident'ler.
+# Bir `inc_*` bayragini ACAN operatorler. Okuma (`isSet`, `turnsSince`)
+# ACMA DEGILDIR -- bu ayrim olmadan tepki sahneleri kilitleniyordu.
+_INCIDENT_WRITE_OPS = frozenset({"set", "add", "mul"})
 
-    Iki bicimde gecerler: `op: match` efektinde `incident: "..."` alani,
-    ya da dogrudan bir `inc_*` bayragi.
+
+def _incidents(node: object) -> set[str]:
+    """Olayin ACTIGI incident'ler -- okuduklari DEGIL.
+
+    Iki bicimde acilirlar: `op: match` efektinde `incident: "..."` alani,
+    ya da bir `inc_*` bayragina YAZAN efekt.
+
+    OLCULEN SORUN: eskiden her `inc_*` referansi "aciyor" sayiliyordu --
+    tetikteki OKUMA dahil. `reaction` sahneleri tanimi geregi incident
+    OKUR (`{"flag": "inc_var_against", "op": "isSet"}`), acmaz. Sonuc:
+    varyanta "bu olayi da ac" deniyor, model aciyor, sonra ORIJINAL govde
+    (`v_asil`) onu acmadigi icin `VariantIncidentRule` tum sahneyi
+    reddediyordu. `reaction` kategorisinde uc parti boyunca 0/6 uretim
+    bunun eseriydi.
     """
     out: set[str] = set()
 
@@ -309,7 +322,11 @@ def _incidents(node: object) -> set[str]:
             if isinstance(inc, str):
                 out.add(inc)
             flag = value.get("flag")
-            if isinstance(flag, str) and flag.startswith("inc_"):
+            if (
+                isinstance(flag, str)
+                and flag.startswith("inc_")
+                and value.get("op") in _INCIDENT_WRITE_OPS
+            ):
                 out.add(flag)
             for child in value.values():
                 walk(child)

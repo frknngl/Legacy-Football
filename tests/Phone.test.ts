@@ -86,7 +86,7 @@ describe('Model kurulumu', () => {
 
   it('AKIS mac reytinglerinden TURUYOR -- ayri bir gercek uretmiyor', () => {
     const engine = started();
-    const state = engine.snapshot();
+    const state = engine.snapshot() as { ratingHistory: number[] };
     state.ratingHistory = [8.4, 8.1, 7.9];
 
     const phone = engine.phone();
@@ -118,14 +118,14 @@ describe('Model kurulumu', () => {
 
   it('ceza BILDIRIM olarak gorunuyor ve ACIL', () => {
     const engine = started();
-    engine.snapshot().availability = { available: false, matchesRemaining: 3 };
+    (engine.snapshot() as { availability: { available: boolean; matchesRemaining: number } }).availability = { available: false, matchesRemaining: 3 };
     const notice = engine.phone().notifications.find((n) => n.id === 'ceza');
     expect(notice?.urgent).toBe(true);
   });
 
   it('akis SINIRLI -- telefon bir arsiv degil', () => {
     const engine = started();
-    engine.snapshot().ratingHistory = [6, 6, 6, 6, 6, 6, 6, 6, 6, 6];
+    (engine.snapshot() as { ratingHistory: number[] }).ratingHistory = [6, 6, 6, 6, 6, 6, 6, 6, 6, 6];
     expect(engine.phone().feed.length).toBeLessThanOrEqual(12);
   });
 });

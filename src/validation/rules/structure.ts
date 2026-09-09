@@ -775,3 +775,134 @@ export const ValueRefRule: ValidationRule = {
     return out;
   },
 };
+
+
+/**
+ * MAC ANLARINDA HER YOL BIR OLAY ACMALI.
+ *
+ * OLCULEN SORUN: `VariantIncidentRule` varyant DUZEYINDE bakiyor --
+ * "bu varyant su incident'i bir yerde aciyor mu". Dort sonuctan
+ * yalnizca biri aciyorsa kural GECIYOR.
+ *
+ * Bedeli olculdu: `evt_match_var_against` varyantlarindan `v_kirilma`nin
+ * HICBIR yolu `inc_var_against` acmiyordu ve iki sonucu hicbir sey
+ * acmiyordu. Motor o varyanti sectiginde VAR karari hic olmamis gibi
+ * davraniyor; roportaj penceresi sessizce kapaniyor ve
+ * VAR -> PFDK -> ceza zinciri kopuyor. Orijinal govde (`v_asil`) bunu
+ * dogru yapiyordu: BES sonucunun besi de aciyordu.
+ *
+ * KURAL: bir mac olayinin (momentType tasiyan) her `outcome` dugumu EN
+ * AZ BIR incident acmali. Mac ani sonucsuz kalamaz -- oyuncu bir karar
+ * verdi, sahada bir sey oldu; hicbir sey acilmamasi o kararin dunyada
+ * karsiligi olmamasi demektir.
+ */
+export const MomentOutcomeIncidentRule: ValidationRule = {
+  name: 'MomentOutcomeIncidentRule',
+  defaultSeverity: 'error',
+  description: 'Mac aninin HER sonucu en az bir incident acmali.',
+  check({ events }): Finding[] {
+    const out: Finding[] = [];
+
+    for (const event of events) {
+      if (event.momentType === undefined) continue;
+      if (isWaived(event, 'MomentOutcomeIncidentRule')) continue;
+
+      for (const set of nodeSets(event)) {
+        for (const [nodeId, node] of Object.entries(set.nodes)) {
+          if (node.kind !== 'outcome') continue;
+          const opens = (node.onEnter ?? []).some(
+            (e) => 'incident' in e && typeof (e as { incident?: unknown }).incident === 'string',
+          );
+          if (opens) continue;
+
+          out.push(
+            finding(
+              MomentOutcomeIncidentRule,
+              event,
+              `"${nodeId}" hicbir olay acmiyor -- mac ani sonucsuz kaliyor.`,
+              {
+                path: `${set.label}nodes.${nodeId}.onEnter`,
+                fix:
+                  'Bu sonuca { "op": "match", "incident": "inc_..." } ekleyin. ' +
+                  'Sahada bir sey oldu; tepki sahnesi onu okumali.',
+              },
+            ),
+          );
+        }
+      }
+    }
+    return out;
+  },
+};
+
+
+/**
+ * ULASILAMAZ TETIKLI OLAYA SEVK "fire" OLMALI.
+ *
+ * OLCULEN SORUN: bazi olaylar YALNIZCA kuyruktan gelir ve kendiliginden
+ * cikmasin diye tetikleri BILEREK saglanamaz yapilir
+ * (`evt_legal_pfdk_hearing`: `turnsSince 999999`). Boyle bir olayi
+ * `onIneligible: "defer"` ile sevk etmek onu SONSUZA DEK erteler:
+ * uygunluk kapisi hicbir zaman acilmaz.
+ *
+ * Bedeli olculdu: uretilen bir varyant `onIneligible` alanini atladi
+ * (varsayilan `defer`). PFDK kuyruga girdi, `forced` onceligi tasidi,
+ * vadesi geldi -- ve SEKIZ TUR boyunca hic calismadi. VAR -> PFDK ->
+ * ceza zinciri sessizce oldu. Orijinal govde `"onIneligible": "fire"`
+ * yaziyordu; fark yalnizca bu tek alandi.
+ *
+ * Hicbir mevcut kural bunu yakalamiyordu: sevk vardi, onceligi dogruydu,
+ * hedef olay vardi. Eksik olan tek sey davranisti.
+ */
+export const ScheduleReachabilityRule: ValidationRule = {
+  name: 'ScheduleReachabilityRule',
+  defaultSeverity: 'error',
+  description: 'Tetigi saglanamayan olaya sevk `onIneligible: fire` istemeli.',
+  check({ events }): Finding[] {
+    const out: Finding[] = [];
+
+    /** Tetigi pratikte saglanamayan olaylar -- yalnizca kuyruktan gelirler. */
+    const unreachable = new Set(
+      events
+        .filter((e) => {
+          if (e.scheduledOnly === true) return true;
+          const trigger = e.trigger as { op?: string; value?: unknown } | undefined;
+          return trigger?.op === 'turnsSince' && Number(trigger.value) > 10_000;
+        })
+        .map((e) => e.id),
+    );
+    if (unreachable.size === 0) return out;
+
+    for (const event of events) {
+      if (isWaived(event, 'ScheduleReachabilityRule')) continue;
+      for (const set of nodeSets(event)) {
+        for (const [nodeId, node] of Object.entries(set.nodes)) {
+          const effects = [
+            ...(node.onEnter ?? []),
+            ...(node.choices ?? []).flatMap((c) => c.effects),
+          ];
+          for (const effect of effects) {
+            if (!isScheduleEffect(effect)) continue;
+            if (!unreachable.has(effect.event)) continue;
+            if (effect.onIneligible === 'fire') continue;
+            if (effect.onIneligible === 'cancel' && effect.replaceWith !== undefined) continue;
+
+            out.push(
+              finding(
+                ScheduleReachabilityRule,
+                event,
+                `"${effect.event}" yalnizca kuyruktan gelir; ` +
+                  `"${effect.onIneligible ?? 'defer'}" ile sevk edilirse SONSUZA DEK ertelenir.`,
+                {
+                  path: `${set.label}nodes.${nodeId}`,
+                  fix: 'Sevke `"onIneligible": "fire"` ekleyin -- olay uygunluk kapisini asarak calisir.',
+                },
+              ),
+            );
+          }
+        }
+      }
+    }
+    return out;
+  },
+};
