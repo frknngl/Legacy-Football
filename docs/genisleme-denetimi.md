@@ -199,6 +199,17 @@ değiştirirdi).
 Ayrıca `sosyal_medya_takipci` canlandırıldı: artık şöhretin yansıması,
 kendiliğinden büyüyen bir sayaç değil (8.728 – 3.448.054 bandı).
 
+### Üretim tuzakları — ayrı belgede
+
+Model hattıyla içerik üretirken bulunan sessiz bozulmalar, araç
+kilitlenmeleri ve ölçüm politikası yanılgıları:
+**[docs/uretim-tuzaklari.md](uretim-tuzaklari.md)**
+
+Özeti: üretilen sahne *tek başına geçerlidir*; bozuk olan sahne değil,
+kardeşiyle taşıması gereken sözleşmedir. İki yeni kural yazıldı
+(`MomentOutcomeIncidentRule`, `ScheduleReachabilityRule`), 40 sonuç
+düğümü ve 12 sevk onarıldı.
+
 ### Sırada
 
 Faz 4 — isyan ve tepkisel senaryolar (yeni `WorldEvent` turu + `manager` slotunun yeniden dokumu). Agirlikli olarak YAZIM isi.
