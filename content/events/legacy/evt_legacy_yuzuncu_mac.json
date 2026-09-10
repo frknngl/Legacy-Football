@@ -588,6 +588,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Batonun Ağırlığı",
+          "kind": "branch",
+          "text": "Kulübün tesislerindeki antrenman sahasında, gün batımı gölgeleri artık çimleri yutuyor. {actor.fan_leader.name}, saha kenarındaki metal çitlere dayanmış, yeni nesil gençlerin sahadaki gürültüsünü izliyor. Yüzüncü maçının üzerinden zaman geçti ama senin için bu saha artık sadece bir çalışma alanı değil; bir tapınak. {actor.fan_leader.name} sana doğru bir adım atıyor, elinde kulübün altyapısından yeni çıkmış birinin ıslak ve çamurlu kaptanlık pazubandı var. Gözleri yaşlı değil, aksine çok sert ve beklenti dolu. 'Zamanın dolduğunu herkes biliyor,' diyor sesini alçaltarak. 'Ama buradaki her şeyi, o çamuru ve o ağırlığı kime bırakacağını henüz kimse bilmiyor.'",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Pazubandı alıp gence fırlat. 'Önce bunu hak etmesi gerektiğini öğrensin.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Cebinden çıkardığın yüklü bir zarfı ona uzat. 'Bunu ona ver, gerisini o halleder.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "dogruluk": -9
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Pazubandı nazikçe reddet. 'Benim yerim burası değil artık, bırakın o kendi yolunu çizsin.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Pazubandı al ve bizzat gencin koluna bağla. 'Bu ağırlık omuzlarını çökertmesin, seni dik tutsun.'",
+              "target": "n_lider",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Tecrübeli Lider]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokakların Kararı",
+          "kind": "outcome",
+          "text": "Pazubandın çamurda sürüklendiğini gördü. Taraftarların bunu bir meydan okuma olarak göreceği kesin. Bedelini sonra ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_tribune_cikti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Zarf değişimi gölgede kaldı. Kimse görmedi ama vicdanındaki o ağırlık ilk defa bu kadar görünür oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Veda",
+          "kind": "outcome",
+          "text": "Sorumluluğu üzerinden attın. Profesyonelce, soğuk ve mesafeli. Ama arkanda kalanların bakışları, o boşluğu doldurmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_toren",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_lider": {
+          "title": "Mirası Devretmek",
+          "kind": "outcome",
+          "text": "Gencin gözlerindeki o korkuyu gördün. Kendi yükünü ona aktarırken, aslında kendi sonuna bir adım daha yaklaştın.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_takima",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

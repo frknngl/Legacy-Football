@@ -447,6 +447,178 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı, Gece Yarısı",
+          "kind": "branch",
+          "text": "Otoparkın beton zeminine yansıyan cılız florasan ışığı altında, {actor.sporting_director.name} aracının kapısına yaslanmış duruyor. Motor soğurken çıkan çıtırtılar sessizliği bölüyor. Masasında resmi teklifler yok; sadece arabanın torpido gözünden çıkardığı, üzerine imza atılacak birkaç isimsiz belge var. Gözleri, yorgunluğun altındaki o sinsi beklentiyle parlıyor. 'Kimse görmeyecek,' diyor, kağıtları uzatırken. 'Sadece bir imza. Kendi emekliliğini finanse etmenin en kısa yolu bu.' Sözleşmenin üzerindeki logo tanıdık, ancak buraya resmi bir kayıt geçmeyecek kadar karanlık bir şirket.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Kalemi al ve sorgulamadan imzala. Gelecek, bugünkü vicdan azabından daha pahalı.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı geri it. 'Bunu saha içindeki performansımla kazanacağım, başka yollarla değil.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kağıtları yırtıp {actor.sporting_director.name} üzerine fırlat. 'Beni böyle kirli işlere bir daha alet etme.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Birlikte bir plan yapın. Kendi şartlarını masaya koy; kulübün çıkarlarını gözeterek bu pastadan pay al.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 4
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Profesyonellik 55]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödenmiş Gelecek",
+          "kind": "outcome",
+          "text": "İmzanın mürekkebi kağıdı delercesine işliyor. {actor.sporting_director.name} kağıtları alıp arabasına biniyor. Arkasına bakmadan gaza basıyor. Artık hesabın daha kabarık ama adın her zaman bir şüphenin gölgesinde kalacak.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk Bir Durus",
+          "kind": "outcome",
+          "text": "Sırtını dönüp yürümeye başlıyorsun. {actor.sporting_director.name} arkandan bir şey söylemiyor, sadece motorun sesini dinliyorsun. Doğru olanı yaptın, ama o paranın eksikliği içini acıtmaya devam edecek.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Köprüleri Yakmak",
+          "kind": "outcome",
+          "text": "Kağıt parçaları otoparkın zeminine dağılıyor. {actor.sporting_director.name} gözlerini kısıyor, dişlerini sıkıyor. Bu hareketin duyulması an meselesi; medya yarın sabah bu öfkeyi manşet yapacak.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Profesyonel Bir Pazarlık",
+          "kind": "outcome",
+          "text": "Göz göze geliyorsunuz. Anlaşma, bir ihanetten çok ticari bir işleme dönüşüyor. {actor.sporting_director.name} başını hafifçe sallıyor. Artık ortaklısınız; ancak bu yük hem zihnini hem de bedenini günden güne daha fazla yoracak.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

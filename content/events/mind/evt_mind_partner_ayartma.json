@@ -472,6 +472,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kopuk Zincir",
+          "kind": "branch",
+          "text": "Evin içindeki hava ağır, dışarıdaki şehir gürültüsünden arınmış. {actor.partner.name}, pencerenin önünde, camdaki yansımasına bakıyor. Elinde tuttuğu sözleşme taslağı buruşmuş. Odadaki tek ışık, sokağın turuncu lambalarından süzülen cılız hat. Ne zaman döneceği belli olmayan bir sessizlik var aranızda. {actor.partner.name}, yavaşça arkasına dönüyor; bakışları suçlulukla kibir arasında gidip geliyor. Bu, sahada kazandığın tüm maçlardan daha karmaşık bir oyunun başlangıcı.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sözleşmeyi alıp çantana fırlat. Gelecek, bugünün vicdanından daha pahalı.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce yanına yürü ve elindeki kağıdı yırt. Sadece sen ve o kalın.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -12
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Odayı terk et ve kapıyı sertçe kapat. Kendi yolunu seçtiğini herkes bilsin.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bakarak mantıklı bir çıkış yolu öner. Bu fırtınayı yönetebilirsin.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Mental Dayanıklılık 68+]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Kağıdı aldın. {actor.partner.name} tek kelime etmedi, sadece başını öne eğdi. Şimdi cebinde bir servet, zihninde ise asla susturamayacağın o metalik ses var.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Eksik Bir Başlangıç",
+          "kind": "outcome",
+          "text": "Kağıtlar artık birer çöp. {actor.partner.name} sana sarıldı ama bakışlarında derin bir kırgınlık var. Doğru olanı yaptın, ancak bedeli senin adına olan inancın oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Yalnız Yürüyüş",
+          "kind": "outcome",
+          "text": "Dışarıdaki soğuk hava, içerdeki hesaplaşmadan daha dürüst. {actor.partner.name} arkanda kaldı. Artık sadece kendi adınla anılacaksın, koruyacak kimsen kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Kontrollü Çöküş",
+          "kind": "outcome",
+          "text": "Saatlerce konuştun. {actor.partner.name} sakinleşti ancak sen tükendin. Sahada ihtiyacın olan tüm enerjiyi bu odadaki mantık savaşında harcadın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -518,6 +518,160 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Hesaplaşma",
+          "kind": "branch",
+          "text": "Antrenman tesisi çıkışındaki loş koridorda, {actor.sporting_director.name} bir gölge gibi bekliyor. Eline tutuşturduğu kağıt, üzerinde senin adının yazılı olduğu bir ödeme emri. Gözleri duvardaki çatlakta değil, doğrudan senin ensende. 'Borçlar ödenmeden refah gelmez,' diyor sesi soğuk bir mermer parçası gibi yere düşerek. İlk maaşın yattı ama o paranın nereye gideceği, bu koridorda verilecek karara bağlı. Ses tonunda tartışmaya yer yok; sadece bir hatırlatma değil, bir seçenek sunuyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kağıdı buruşturup cebine at. 'Sokakta verdiğim sözün üstüne söz söylemem,' de.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başına öne eğ. 'Ne kadar gerekiyorsa çekin,' de ve imzayı at.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessiz kal. Kağıdı al ve hiçbir şey söylemeden tesisin kapısından çık.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 40
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Borcun tamamını nakit olarak teklif et. 'Beni bir daha burada rahatsız etmeyin.'",
+              "target": "n_sonuc_stat",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -80
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Yeterli birikim gerekli]"
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Sokağın Sadakati",
+          "kind": "outcome",
+          "text": "Dışarıdaki grup senin kararınla başını sallıyor. Artık onlar için bir kahramansın ama yönetimin defterinde adın disiplinsizliğe çıktı.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "İtaatin Bedeli",
+          "kind": "outcome",
+          "text": "Hesabından eksilen miktar, kulüpteki yerini sağlamlaştırıyor. Ancak içeride bir yerlerde, emeğinin başkalarının borcuna gittiğini bilmenin ağırlığı var.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_susmayi_secti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Sessiz Biriktirme",
+          "kind": "outcome",
+          "text": "Kağıt elinde, vicdanın ise kapının eşiğinde kaldı. Kimse bir şey sormadı, sen de söylemedin. Para cebinde, ama kulüpteki huzursuzluk artık görünmez bir gölge.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_hepsini_harcadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_stat": {
+          "title": "Satın Alınmış Özgürlük",
+          "kind": "outcome",
+          "text": "Son kuruşuna kadar ödedin. {actor.sporting_director.name} bir an duraksadı, kağıdı yırttı. Artık borçsuzsun, ama bu kadar kısa sürede bu parayı bulmanın yarattığı yorgunluk antrenmanlarda peşini bırakmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_susmayi_secti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

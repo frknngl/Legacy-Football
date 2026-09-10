@@ -379,6 +379,275 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridorda Pazarlık",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki revirde, floresan lambalar cızırdayarak yanıyor. {actor.psychologist.name} önündeki metal dosyayı yavaşça kapatıyor. Dışarıda taraftarın uğultusu duyuluyor ama burada ses yok. {actor.psychologist.name} gözlerini sana dikmiş, elindeki dosyayı bir kenara itiyor. 'Kendi kurallarını yazmak için çok geç değil' diyor, fısıltısı boş koridorda yankılanıyor. Önündeki kağıtlar, kariyerini tek imza ile bambaşka bir yola sokabilecek bir teklif sunuyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı yırtıp at. Kendi doğrularım kimseye hesap vermek zorunda değil.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Protokollere sadık kal, süreci kayıt altına almasını söyle.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Teklifi kabul et. Sessizlik, en iyi yatırım aracıdır.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kendi Yolunda",
+          "kind": "outcome",
+          "text": "Kağıtlar artık sadece çöp. {actor.psychologist.name} başını hafifçe sallıyor. Artık kimse seni dizginleyemez, ama kendi gölgenle baş başasın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sıradan Bir Protokol",
+          "kind": "outcome",
+          "text": "İmzanı atıyorsun. Güvendesin, temizsin ama için yavaş yavaş soğuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Kazanç",
+          "kind": "outcome",
+          "text": "Zarfı çantana atıyorsun. {actor.psychologist.name} odadan çıkıyor. Artık hesabında bir miktar daha para var, ama aynada gördüğün yüz artık sana yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sorgu Odasında Yalnızlık",
+          "kind": "branch",
+          "text": "Antrenman sahasının tozlu raylarında yankılanan krampon sesleri kesildi. {actor.psychologist.name}, spor salonunun en ucundaki duvarda asılı olan tek bir aynanın önünde duruyor. Yüzünde ne bir not defteri var ne de tanıdık o soğuk gülümseme. Sadece bir kronometre tutuyor elinde. 'Sınırı geçtin,' diyor sesi boşlukta çınlarken. 'Şimdi ya aynadaki kişiyle yüzleşeceksin ya da herkesin duymak istediği yalanları kusup gideceksin.' Odanın havası ağır, ter ve eski bir hatanın tortusuyla dolu.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Aynadaki yansımaya bakıp tüm zaaflarını tek tek sırala. Bırak kayıtlara geçsin.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kronometreyi elinden alıp yere fırlat. Kimsenin seni yargılamasına izin vermeyeceğini haykır.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebindeki parayı masaya bırak. Soru sormamasını, sadece dosyayı kapatmasını iste.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -6
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 10000
+              },
+              "lockLabel": "[Yeterli Nakit Yok]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Dürüstlüğün Bedeli",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} başını sallıyor, notlarını alıyor. Artık kimse seni eski sen olarak görmeyecek. Temizsin ama artık herkes zayıflıklarını ezbere biliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyanın Rengi",
+          "kind": "outcome",
+          "text": "Oda sessizliğe gömülüyor. Kapı çarpıp çıktığında, koridordakiler sana bakıyor. Artık kuralları değil, kendi ismini koyuyorsun ortaya.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessizlik Satın Alındı",
+          "kind": "outcome",
+          "text": "Dosya kapanıyor. {actor.psychologist.name} paraya bakmıyor bile, sadece kapıyı gösteriyor. Bir yalanı gömdün ama kendi gözlerindeki o ifade artık silinmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

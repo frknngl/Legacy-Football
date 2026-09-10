@@ -22,6 +22,7 @@ from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 
+from .lock import file_lock
 from .brief import BEATS, Brief, GatingCell
 
 # Mevcut icerigin beat'i beyan edilmemis olabilir; taramada bu isaret kullanilir.
@@ -80,9 +81,25 @@ class SceneLedger:
             "signatures": sorted(list(s) for s in self._signatures),
             "eventIds": sorted(self._event_ids),
         }
-        self._cache_path.write_text(
-            json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-        )
+        # PAYLASIMLI DURUM: paralel kosuda iki surec ayni anda yazarsa
+        # biri otekinin imzalarini siler ve AYNI BEAT IKI KEZ uretilir.
+        # Yazmadan once diskteki hali okunup BIRLESTIRILIR -- kilit
+        # cekismeyi azaltir, birlestirme ise kaybi imkansiz kilar.
+        with file_lock(self._cache_path.parent / "ledger.lock", "ledger"):
+            if self._cache_path.exists():
+                try:
+                    disk = json.loads(self._cache_path.read_text(encoding="utf-8"))
+                    merged = {tuple(x) for x in disk.get("signatures", [])}
+                    merged |= {tuple(x) for x in payload["signatures"]}
+                    payload["signatures"] = sorted(list(x) for x in merged)
+                    payload["eventIds"] = sorted(
+                        set(disk.get("eventIds", [])) | set(payload["eventIds"])
+                    )
+                except (OSError, ValueError):
+                    pass
+            self._cache_path.write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
 
     # ------------------------------------------------------------ tarama
 

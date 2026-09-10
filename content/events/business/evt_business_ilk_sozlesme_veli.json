@@ -499,6 +499,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridorda Teklif",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin ışıkları sönmüş, yalnızca temizlik görevlisinin mırıldandığı bir şarkı yankılanıyor. {actor.sporting_director.name}, koridorun köşesinde belirdi. Yanında kimse yok. Elinde iki nüsha kağıt tutuyor. Işık, elindeki dosyanın parlak yüzeyine vuruyor. 'Sabahı beklersen bu rakamlar değişir,' diye fısıldıyor. Sesi, boş koridorda olduğundan daha sert yankılanıyor. Çantasını yere bırakıyor, kağıtları duvarın üzerine yerleştiriyor. Kalemi sana uzatıyor. Çıkış kapısı hemen arkanızda, dışarıda arkadaşların bekliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kalemi al ve şartları okumadan imzala. Yarın sabah medyaya en büyük transfer olduğunu duyursunlar.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Belgedeki prim maddesini kendi lehine değiştirmesini iste. Ailenin üzerindeki yükü ancak bu şekilde atabilirsin.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı çantana koy. 'Sabah ailemle birlikte inceleyip öyle karar vereceğim,' diyerek koridordan uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Sözleşmenin tüm detaylarını tek tek sorgula. Hangi maddenin seni kısıtladığını sormak, oyununa olan saygını gösterir.",
+              "target": "n_profesyonel",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Hızlı İmza",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} kağıtları çantasına atıp gülümsüyor. Bu anın yarattığı baskı, kariyerinin ilk gününden üzerine çöküyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_acele_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Rakamlar değişti. {actor.sporting_director.name} elini sıkarken gözlerinde ilk defa bir şüphe görüyorsun. Bu para, vicdanını biraz daha ağırlaştıracak.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_kendi_istedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sabırlı Bekleyiş",
+          "kind": "outcome",
+          "text": "Koridordaki soğuk hava tenini ürpertiyor. {actor.sporting_director.name} arkandan bakıyor ama hiçbir şey söylemiyor. Doğru olanı yaptın, ama bedelini merakla ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_bekledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_profesyonel": {
+          "title": "Detaycı İnceleme",
+          "kind": "outcome",
+          "text": "Saatler süren tartışmanın ardından kalem yorgunluktan titriyor. {actor.sporting_director.name} sana ilk defa bir futbolcu gibi değil, bir ortak gibi bakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_sozlesme_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

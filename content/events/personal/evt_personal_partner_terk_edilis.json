@@ -510,6 +510,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Park Yeri",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki otoparkta, arabanın farları {actor.partner.name}’in üzerine düşüyor. Elinde senin adına kesilmiş bir icra tebligatı var. Islak betonun soğuğu, ikinizin arasındaki sessizliği daha da keskinleştiriyor. Ne bir tartışma ne de bir haykırış var. Sadece rölantide çalışan motorun tekdüze sesi. {actor.partner.name}, zarfı sileceklerin arasına sıkıştırıp arkasına bakmadan karanlığa doğru yürüyor. Borcun, artık sadece bankalara değil, geride bıraktığın insana da ağır geliyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı yerden alıp yırt. Kulübün basın danışmanına, bu borcun dedikodudan ibaret olduğunu yaymasını söyle.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Arabanın bagajını aç, tüm birikimini bir çantaya doldurup peşinden git. Ne olursa olsun ona her şeyi ödeyeceğini söyle.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Arabadan in, taraftarların toplandığı çıkışa doğru yürü. Onlara dert yanarak kendini mağdur gibi göster, ilgiyi borç meselesinden uzaklaştır.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Cüzdanındaki tüm nakit ve çekleri fırlat. 'Bunu al ve git, bir daha dönme' diye bağır.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "set",
+                  "value": 100
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -100000
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Servet 68+]"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "İtibarın Bedeli",
+          "kind": "outcome",
+          "text": "Zarfı silecekten aldın ama içindeki rakamlar zihninden silinmiyor. Basın şimdilik sessiz, ancak gölgen artık daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Kırık Güven",
+          "kind": "outcome",
+          "text": "Dürüstlüğün seni hafifletti ama kulüp binasındaki o profesyonel masken artık bir yara izi taşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Tribünün Sesi",
+          "kind": "outcome",
+          "text": "Kalabalıklar seni destekledi ama gerçeğin üzerini örttüğün o an, içindeki huzuru da beraberinde götürdü.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Boş Bir Zafer",
+          "kind": "outcome",
+          "text": "Sessizlik geri geldi. Elindeki tüm parayı verdin ama o gittiğinde kazandığın şey sadece bitmek bilmeyen bir yorgunluk oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

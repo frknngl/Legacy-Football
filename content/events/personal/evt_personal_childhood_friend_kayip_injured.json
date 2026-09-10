@@ -487,6 +487,153 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Sokakların Gölgesi",
+          "kind": "branch",
+          "text": "Antrenman tesisinin arka bahçesindeki ıssız duvarda oturuyorsun. Bacağındaki ağır sargı, betonun soğuğunu emiyor. {actor.childhood_friend.name} yanına geliyor. Sessiz. Eskiden okul çıkışlarında yaptığınız gibi, duvarın dibine çöküyor. Ayakları toz içinde. Cebinden çıkardığı buruşuk gazete kupürünü, senin sakatlık haberinin olduğu manşeti, yavaşça betonun üzerine bırakıyor. İkiniz de tek kelime etmiyorsunuz. Sadece yanından geçen tesis görevlisinin ayak sesleri duyuluyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Gazeteyi alıp duvardaki grafitiye fırlat. 'Burada yerimiz kalmadı, yarın stadyumun arka kapısında ol.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 4
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Bakmadan cüzdanını çıkarıp yere bırak. 'Şehrin dışına çık, bitti artık.'",
+              "target": "n_ahlaki_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -6
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini kapatıp başını duvara yasla. 'Seni tanımıyorum. Lütfen git.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "{actor.childhood_friend.name}’in omzuna elini koy. 'Birlikte iyileşeceğiz, kulübün revirinde yer açtırdım.'",
+              "target": "n_stat_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Moral 74]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İplerin Ucu",
+          "kind": "outcome",
+          "text": "Gözlerinde eski günlerin kararlılığı var. Bir şeylerin bedelini ödemeye başladığını biliyorsun. Gazeteyi yırtıp attığında, arkanızda bıraktığınız her şey artık birer suç ortağı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_kayip_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ahlaki_gri": {
+          "title": "Sessiz Bir Veda",
+          "kind": "outcome",
+          "text": "Cüzdanın boşaldı ama huzursuzluk bitmedi. Arkana bakmadan oradan uzaklaşıyorsun. Artık o da, senin geçmişin de birer fiyat etiketiyle satıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_kayip_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Yalnızlık, başarının en ağır vergisi. Kulübe döndüğünde aynada gördüğün yabancı, artık hiçbir şeyi kendine hatırlatmayacak kadar donuk.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_kayip_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat_kilitli": {
+          "title": "Ortak İyileşme",
+          "kind": "outcome",
+          "text": "İkiniz de eksiksiniz. Revirin o beyaz, steril havasında birbirinize tutunuyorsunuz. Fiziksel olarak yavaşlasanız da, içeride bir şeylerin tamir edildiğini hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_kayip_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

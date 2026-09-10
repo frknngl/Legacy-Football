@@ -498,6 +498,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Ziyareti",
+          "kind": "branch",
+          "text": "Antrenman sahasının otoparkı boş. Tek bir far, camları filmli aracın içinden {actor.lawyer.name}’in yüzünü aydınlatıyor. Arabanın camı yavaşça aşağı iniyor. {actor.lawyer.name} elinde tuttuğu eski bir borç senedini direksiyonun üzerine bırakıyor. Sessizce bekliyor. Motorun rölanti sesi, geceyi dolduran tek ritim. İmza atılacak kalem, orta konsolun üzerinde soğuk metal rengiyle parlıyor. Bakışları, sahaya giden yolu işaret ediyor.",
+          "choices": [
+            {
+              "id": "c_odeme",
+              "text": "Kalemi al ve senedi imzala. Parayı hemen yarın sabah hesabına aktar.",
+              "target": "n_out_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 120
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_uzlasma",
+              "text": "Senedi elinin tersiyle it. Ona hukuki bir yol çizmesi gerektiğini söyle.",
+              "target": "n_out_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_rest",
+              "text": "Senedi al ve gözlerinin önünde yırt. Kapıyı sertçe kapatıp uzaklaş.",
+              "target": "n_out_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_yatirim",
+              "text": "Anahtarı teslim et. Bu borcun üzerine bir mülk tapusu ekle ve dosyayı kapat.",
+              "target": "n_out_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 40
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Maddi Güçlü]",
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_out_servet": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "İmza atıldı. Gelecekten çalınan bir miktar daha eksildi, ancak hesap bir süreliğine doldu.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_guvenli": {
+          "title": "Hukuki Çizgi",
+          "kind": "outcome",
+          "text": "Masadan uzaklaştın. İlişkiler soğudu ama kimse senin arkandan konuşamaz.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_riskli": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "Kâğıt parçaları rüzgarda dağılırken arkana bakmadan yürüdün. Hesaplaşma kaçınılmaz.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_kilitli": {
+          "title": "Yeni Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Karanlık bir ortaklık, yeni bir kalkan yarattı. Zihnin yorgun ama yerin sağlam.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

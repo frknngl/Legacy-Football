@@ -20,127 +20,6 @@
   "lifeStates": [
     "retired"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Karanlıkta Bir Işık",
-      "kind": "branch",
-      "text": "Antrenman sahasının çıkışındaki metal kapı gıcırtıyla açılıyor. Dışarıdaki soğuk havada {actor.journalist.name}, elinde not defteriyle bekliyor. Yanında ise {actor.pundit.name} var, kollarını göğsünde kavuşturmuş. Otoparktaki tek lamba {actor.journalist.name} ismiyle anılan kişinin yüzünü aydınlatıyor. 'Sıradan bir oyuncu değilsin artık,' diyor {actor.journalist.name}, sesindeki ciddiyet havayı ağırlaştırıyor. 'Bunu herkes biliyor ama kimse yazmaya cesaret edemiyor. Bugün bu sessizliği bozabiliriz.'",
-      "choices": [
-        {
-          "id": "c_servet",
-          "text": "Yarın sabahki manşeti belirleyin. İsimler, rakamlar, ne isterseniz yazın.",
-          "target": "n_servet",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
-            }
-          ],
-          "persona": {
-            "durus": -8
-          }
-        },
-        {
-          "id": "c_guvenli",
-          "text": "Saha dışındaki dedikodularla ilgilenmiyorum. Sadece oyunumu konuşacağız.",
-          "target": "n_guvenli",
-          "effects": [
-            {
-              "flag": "mental_dayaniklilik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
-            }
-          ],
-          "persona": {
-            "dogruluk": 5
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "{actor.pundit.name} ismiyle anılan kişinin gözlerinin içine bakıp, tüm kulüp yönetimini hedef alacak sert bir açıklama yap.",
-          "target": "n_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
-            }
-          ],
-          "persona": {
-            "mizac": 8
-          }
-        }
-      ]
-    },
-    "n_servet": {
-      "title": "Bedeli Alındı",
-      "kind": "outcome",
-      "text": "{actor.journalist.name} not defterini kapatıyor. Göz kırpıp karanlıkta kayboluyor. Yarın herkes seni konuşacak, ama bazıları seni asla affetmeyecek.",
-      "onEnter": [
-        {
-          "flag": "mem_media_taninma_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_guvenli": {
-      "title": "Sınırlar Çizildi",
-      "kind": "outcome",
-      "text": "Sesin soğuk bir metal gibi çınlıyor. {actor.journalist.name} bir şey yazmıyor, sadece başını sallıyor. Kimse sana dokunmuyor, ama kimse seni gerçekten tanımıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_media_taninma_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_riskli": {
-      "title": "İpler Koptu",
-      "kind": "outcome",
-      "text": "Söylediklerin havada asılı kalıyor. {actor.pundit.name} hafifçe gülümsüyor. Bu gece kendi sonunu hazırladın belki, ama artık kimse seni görmezden gelemez.",
-      "onEnter": [
-        {
-          "flag": "mem_media_taninma_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_media_taninma",
     "beat": "evt_media_journalist_taninma",
@@ -150,5 +29,266 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Bir Işık",
+          "kind": "branch",
+          "text": "Antrenman sahasının çıkışındaki metal kapı gıcırtıyla açılıyor. Dışarıdaki soğuk havada {actor.journalist.name}, elinde not defteriyle bekliyor. Yanında ise {actor.pundit.name} var, kollarını göğsünde kavuşturmuş. Otoparktaki tek lamba {actor.journalist.name} ismiyle anılan kişinin yüzünü aydınlatıyor. 'Sıradan bir oyuncu değilsin artık,' diyor {actor.journalist.name}, sesindeki ciddiyet havayı ağırlaştırıyor. 'Bunu herkes biliyor ama kimse yazmaya cesaret edemiyor. Bugün bu sessizliği bozabiliriz.'",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Yarın sabahki manşeti belirleyin. İsimler, rakamlar, ne isterseniz yazın.",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Saha dışındaki dedikodularla ilgilenmiyorum. Sadece oyunumu konuşacağız.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "{actor.pundit.name} ismiyle anılan kişinin gözlerinin içine bakıp, tüm kulüp yönetimini hedef alacak sert bir açıklama yap.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Bedeli Alındı",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} not defterini kapatıyor. Göz kırpıp karanlıkta kayboluyor. Yarın herkes seni konuşacak, ama bazıları seni asla affetmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sınırlar Çizildi",
+          "kind": "outcome",
+          "text": "Sesin soğuk bir metal gibi çınlıyor. {actor.journalist.name} bir şey yazmıyor, sadece başını sallıyor. Kimse sana dokunmuyor, ama kimse seni gerçekten tanımıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İpler Koptu",
+          "kind": "outcome",
+          "text": "Söylediklerin havada asılı kalıyor. {actor.pundit.name} hafifçe gülümsüyor. Bu gece kendi sonunu hazırladın belki, ama artık kimse seni görmezden gelemez.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Kayıt",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin arka çıkışındaki dar koridorda, {actor.journalist.name} gölgelerin arasından çıkıyor. Elinde bir ses kayıt cihazı yok, sadece gözlerinde o tanıdık, hesapçı parıltı var. Soyunma odasındaki özel bir konuşmanın detaylarını, henüz kimse duymadan sana fısıldıyor. Eğer bunu yalanlamazsan, kulüpteki bir arkadaşının kariyeri bugün sona erecek. O, sessizce karşında durmuş, vereceğin tepkiyi izliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bu yalanı reddet ve odayı terk et. Kendi başının çaresine bakacak.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cihazın kayıt tuşuna basılmasına izin ver. Transfer priminden pay alacaksın.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kayıt cihazını elinden al ve duvara fırlat. Ne pahasına olursa olsun susacak.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Mental Dayanıklılık 70]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Temiz Çıkış",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} omuz silkiyor ve karanlığa karışıyor. Takım arkadaşın kurtuluyor ama senin ismin yarınki manşetlerde bir 'ezik' olarak geçecek.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Zarfı çantana atıyorsun. {actor.journalist.name} gülümseyerek uzaklaşıyor. Yarın her şey ortaya saçıldığında, kimse paranın sende olduğunu bilmeyecek ama güvenin artık bir hükmü yok.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sert Müdahale",
+          "kind": "outcome",
+          "text": "Cihaz tuzla buz oluyor. {actor.journalist.name} şaşkınlıkla geri çekiliyor. Artık aranızdaki savaş resmen başladı. Taraftarların desteği seninle ama yönetim bu kavgadan nefret edecek.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

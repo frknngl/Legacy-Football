@@ -384,6 +384,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Perde",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin ıssız havuz başındasın. Su, fayanslara vurarak ritmik, sinir bozucu bir ses çıkarıyor. Bacağındaki ağır atel yüzünden dengen bozuk. {actor.mentor.name} kenardaki bankta oturuyor, elinde eski bir maç kaydının olduğu tablet var. Ekranda senin bir yıl önceki halin oynuyor; o günkü hızın, bugünkü yavaşlığınla tezat oluşturuyor. Mentor başını kaldırmıyor, tabletin ekranını parmağıyla durdurup sana bakmadan konuşuyor. 'Bu bacakla daha ne kadar sürecek bu maskaralık? Hepimiz biliyoruz; o top bir daha aynı yere düşmeyecek.' Söyledikleri, havuzun yankısıyla birleşip zihninde çınlıyor.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "'Emeklilik paketini imzalarım. Sessizce çekilmemin bedeli ne?'",
+              "target": "n_outcome_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "'Rehabilitasyon programıma dönüyorum. Senin ne dediğin umurumda değil.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "'Taraftarların önünde oynamaya devam edeceğim. Kimse benim hakkımda karar veremez.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_kilit",
+              "text": "'Bu takımı bırakmıyorum. Birlikte başladık, birlikte bitireceğiz. Bana yardım et.'",
+              "target": "n_outcome_kilit",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Zihinsel Dayanıklılık 55]"
+            }
+          ]
+        },
+        "n_outcome_servet": {
+          "title": "Kaçış",
+          "kind": "outcome",
+          "text": "Mentor başını sallayıp yanından ayrılıyor. Artık hiçbir şeyin önemi kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İnat",
+          "kind": "outcome",
+          "text": "Sırtını dönüp havuza doğru yürüdün. Mentorun bakışları ensende, soğuk bir rüzgar gibi.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Meydan Okuma",
+          "kind": "outcome",
+          "text": "Sesindeki kararlılık havuzun sessizliğini bozdu. Bu saatten sonra dönüş yok.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilit": {
+          "title": "İttifak",
+          "kind": "outcome",
+          "text": "Mentor tabletin ekranını kapattı. Gözlerinde ilk kez gerçek, insani bir yorgunluk gördün.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

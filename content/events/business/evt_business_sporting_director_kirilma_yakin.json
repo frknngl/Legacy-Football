@@ -334,6 +334,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Ziyareti",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin ışıkları çoktan sönmüş. Kendi özel aracının içinde otururken, yan koltuğun kapısı açılıyor. {actor.sporting_director.name} içeri giriyor. Dışarıdaki soğuk havayı içeri taşıyor. İçerideki koku; eski bir parfüm ve yoğun tütün. Sessizce bir fotoğraf tutuşturuyor eline. Fotoğraf seneler önce bir gece kulübünün arka çıkışında çekilmiş. Yanında senin kariyerini inşa eden o imzasız kağıtlar var. {actor.sporting_director.name} arkasına yaslanıyor, emniyet kemerini takmıyor. Sadece radyonun cızırtılı sesine eşlik ediyor. Bekliyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Fotoğrafı al ve sessizce onay ver. Bırak üzerine düşen gölge biraz daha büyüsün.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Fotoğrafı yırtıp {actor.sporting_director.name}’in kucağına bırak. Kapıyı aç ve in.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Cüzdanından çıkardığın tüm nakdi ona uzat. Bu mevzunun bu gece kapanması gerek.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Transfer komisyonundan pay teklif et. Resmi yollarla halledelim, bir daha da yüzümü görme.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -200000
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "Maddi güç yetersiz"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Para hesabına geçiyor. {actor.sporting_director.name} araçtan inip sisin içinde kayboluyor. Bu para seni kurtarıyor ama artık o, senin her adımını izliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "Kağıtlar yere saçılıyor. {actor.sporting_director.name} yüzünde soğuk bir gülümsemeyle kalıyor. Bu restin bedeli, yarın manşetlerde karşına çıkacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Parayı alıp hiçbir şey demeden gidiyor. İlişkiniz profesyonel kalıyor ama içindeki huzursuzluk her geçen gün daha da artıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Sayıları kağıda yazıyorsun. {actor.sporting_director.name} gözlerini kısıyor. Anlaşma sağlandı ama bu yük, antrenmanlarda seni daha da yavaşlatacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

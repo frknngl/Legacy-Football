@@ -327,6 +327,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kayıt Dışı",
+          "kind": "branch",
+          "text": "{actor.doctor.name} kapıyı kilitledi. İçeride sadece nemli duvarların ve oksijen tüpünün ritmik sesi var. Masanın üzerinde, gizli tutulması gereken tıbbi verilerin olduğu eski bir disket duruyor. {actor.doctor.name} gözlerini kaçırarak, profesyonel etik ile senin geleceğin arasındaki o ince çizgiyi çekiyor. Sessizlik uzadıkça, sakladığın o karanlık hakikat —bacağındaki sorunun aslında düşündüğünden çok daha önce başladığı gerçeği— odayı daraltıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Disketin içindekileri sil. Kariyerimi riske atmaktansa şimdilik susmayı tercih ederim.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bunu taraftarın bilmesi gerek. Sakatlığımın gerçek boyutunu kamuoyuna açıkla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Raporu manipüle et. Transfer piyasası kapanmadan önce sağlam görünmem şart.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gerçeği ikimiz biliyoruz. Birlikte, sadece benim iyileşmeme odaklanan yeni bir protokol yazalım.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessizlik Anlaşması",
+          "kind": "outcome",
+          "text": "Disketin parçalanma sesi, odayı dolduran tek gerçek ses. {actor.doctor.name} başını sallıyor, artık suç ortağısın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Açık Yara",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} şaşkınlıkla sana bakıyor. İtibarın zedelenecek belki ama en azından artık kendi gerçekliğinle yüzleşebilirsin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Pahalı Bir Yalan",
+          "kind": "outcome",
+          "text": "Yeni imzalar atıldı, rakamlar hesabına yattı. {actor.doctor.name} elindeki kalemle kağıdı sahte bir iyileşme raporuyla dolduruyor. Kazanıyorsun, ama aynaya bakarken zorlanıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Karanlıkta Ortaklık",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} gözlerindeki kararlılığı görüyor. Kararlarınızın ağırlığı altında, ikinizin kurduğu bu gizli iyileşme yoluna giriyorsunuz. Zor olacak, ama sadece ikinizin elinde.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

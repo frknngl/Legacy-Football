@@ -455,6 +455,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünel Sonu Işığı",
+          "kind": "branch",
+          "text": "Antrenman bitmiş, ışıklar çoktan karartılmış. Stadyumun zeminine açılan oyuncu tünelinde yankılanan tek ses {actor.sporting_director.name} ayakkabılarının beton üzerindeki tok sesi. Yanında duruyor. Elinde bir tablet değil, sadece bir anahtarlık sallıyor. Kulübün eski yerleşkesindeki o özel dairenin anahtarı. Konuşmuyor. Sadece tünelin ucundaki çıkışa, yani senin geleceğine bakıyor. Bu daire, şehre giriş biletin demek. Ama aynı zamanda, onun belirleyeceği oyun planına sorgusuz sadakat demek. Sessizlik, bir ağırlık gibi göğsüne oturuyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Anahtarlığı görmezden gel, doğrudan otobüse yürü.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Anahtarı kap ve soyunma odasında sesli bir şekilde havaya kaldır.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Anahtarı usulca cebine at, kimseye bakmadan geçip git.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -2
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kendi Yolun",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek, omuzlarındaki baskıyı hafifletiyor ama zihninde o anahtarın boşluğu kalıyor. {actor.sporting_director.name} arkandan sadece bakmakla yetiniyor. Artık sahada kendini kanıtlamaktan başka şansın yok.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Açık Çatışma",
+          "kind": "outcome",
+          "text": "Tüneldeki gerginlik koridorlara taşıyor. Herkes anahtarın ne anlama geldiğini biliyor. {actor.sporting_director.name} yüzünde soğuk bir gülümsemeyle sana bakıyor; artık oyunun bir parçası değilsin, doğrudan karşısındasın.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Metalik soğukluk cebinde. Kimse görmedi, kimse duymadı. Ancak o anahtarın ağırlığı attığın her adımda hissediliyor. Artık sahada yaptığın her hareketin, odadaki o sessiz pazarlığın gölgesini taşıyacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -38,6 +38,11 @@ TRANSIENT_STATUS = frozenset({429, 500, 502, 503, 504})
 # Olculdu: iki gecerli anahtar varken bir uretim kosusu 1040 kez 401
 # aldi ve SIFIR varyant yazdi.
 DEAD_KEY_STATUS = frozenset({401, 403})
+
+#: Tum anahtarlar 429 verdiginde beklenecek saniye (her denemede katlanir).
+#: Dakikalik hiz siniri bir dakikada acilir; gunluk sinir acilmaz ve
+#: dongu MAX_ATTEMPTS sonunda zaten biter.
+RATE_LIMIT_WAIT = 35
 MAX_ATTEMPTS = 4
 
 
@@ -87,6 +92,25 @@ class GeminiProvider(Provider):
         # eklendiginde SESSIZCE yok sayiliyordu -- ne hata ne uyari.
         # Artik ortamdaki her `GEMINI_API_KEY*` degiskeni okunur.
         self._keys = discover_keys()
+        # TEK ANAHTARA SABITLEME -- paralel uretim icin.
+        #
+        # Uc akis ayni sirayla denerse ucu de once 1. anahtari tuketir ve
+        # paralellik kotaya YANSIMAZ. `AUTHORING_KEY_SLOT` verildiginde
+        # surec YALNIZCA o anahtari kullanir; boylece her kol kendi
+        # kotasini yer. Deger degil SIRA numarasi verilir -- anahtar
+        # hicbir yerde elden ele gecmez.
+        slot = env_key("AUTHORING_KEY_SLOT")
+        if slot and slot.isdigit():
+            index = (int(slot) - 1) % max(1, len(self._keys))
+            # SIRAYI DONDUR, KISALTMA.
+            #
+            # Once yalnizca secilen anahtari birakiyordum ve o anahtar
+            # olu cikinca kol tamamen oluyordu: olculdu, bir kol 166 kez
+            # 403 alip SIFIR varyant yazdi. Artik secilen anahtar BASA
+            # alinir, digerleri yedek kalir -- saglikli kollar yine ayri
+            # kotalarda calisir ama olu bir yuva kolu oldurmez.
+            self._keys = self._keys[index:] + self._keys[:index]
+            print(f"   anahtar yuvasi {slot} (toplam {len(self._keys)} anahtar)")
         self._keyIndex = 0
         self.model = model or env_key("GEMINI_MODEL") or DEFAULT_MODEL
         self.timeout = timeout
@@ -185,11 +209,33 @@ class GeminiProvider(Provider):
                 detail = err.read().decode("utf-8", errors="replace")[:400]
                 # KOTA (429): beklemek ise yaramaz -- gunluk sinir.
                 # Once baska anahtar var mi diye bak; varsa ANINDA gec.
-                # KOTA (429) ya da OLU ANAHTAR (401/403): beklemek ise
-                # yaramaz. Baska anahtar varsa ANINDA gec.
+                # OLU ANAHTAR (401/403) ya da KOTA (429): once baska
+                # anahtar varsa ANINDA gec -- beklemek bir sey kazandirmaz.
                 if (err.code == 429 or err.code in DEAD_KEY_STATUS) and self._nextKey(
                     reason="kota doldu" if err.code == 429 else f"anahtar gecersiz ({err.code})"
                 ):
+                    request.add_header("x-goog-api-key", self._key or "")
+                    continue
+
+                # TUM ANAHTARLAR 429 VERDIYSE PES ETME.
+                #
+                # OLCULEN SORUN: 429 iki ayri seyi anlatiyor -- gunluk
+                # 500'luk ucretsiz katman siniri VE dakikalik hiz siniri.
+                # Hat ikisini ayirt etmiyordu: birkac saniyede tum
+                # anahtarlari deneyip "kota bitti" diye vazgeciyordu.
+                # Oysa dakikalik sinir BIR DAKIKA icinde acilir.
+                #
+                # Olculdu: hat "kota bitti" dedigi anda ayni anahtarla
+                # dogrudan yapilan bir uretim cagrisi BASARILI oldu.
+                #
+                # Cozum: baslangic anahtarina donup daha uzun bekle.
+                # Gunluk sinirsa dongu yine biter (her tur 429), ama
+                # dakikalik sinirsa uretim KENDILIGINDEN devam eder.
+                if err.code == 429 and attempt < MAX_ATTEMPTS:
+                    wait = RATE_LIMIT_WAIT * attempt
+                    print(f"   tum anahtarlar 429; {wait}s bekleniyor (hiz siniri olabilir)")
+                    time.sleep(wait)
+                    self._keyIndex = 0
                     request.add_header("x-goog-api-key", self._key or "")
                     continue
                 if err.code in TRANSIENT_STATUS and attempt < MAX_ATTEMPTS:

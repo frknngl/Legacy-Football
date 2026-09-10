@@ -350,6 +350,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin Faturası",
+          "kind": "branch",
+          "text": "Antrenman tesisinin çıkışında, motoru rölantide çalışan aracın içinden {actor.agent.name} başıyla işaret ediyor. Yan koltuğa bindiğinde içerisi ağır, rutubetli bir tütün kokusuyla dolu. {actor.agent.name} dikiz aynasını kendine göre ayarlarken, vitesin üzerine eski bir defterin koparılmış sayfasını bırakıyor. Sayfada sadece tarihler ve rakamlar var. Hiçbir açıklama yok. Şehrin ışıkları camdan hızla akarken, dışarıdaki ıslık seslerini bastıran tek şey aracın mekanik gürültüsü.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Defteri geri uzat. \"Bu borç bizim aramıza girmeyecek, yarın hallederiz.\"",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sayfayı yırtıp camdan dışarı at. \"Bir daha önüme fatura koyarsan stadyumda görüşürüz.\"",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Defteri al, cebine koy. \"İstediğini yarın gece kulüp binasının arkasına bırakırım.\"",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Erteleme",
+          "kind": "outcome",
+          "text": "{actor.agent.name} hiçbir şey demeden gaza basıyor. Sessizlik, bir borcun değil, bir sadakatin ağırlığı gibi odaya siniyor. Yarın, ne kadar zor olsa da, yüzleşmenin zamanı gelecek.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Geri Adım Yok",
+          "kind": "outcome",
+          "text": "Kağıt parçaları rüzgarda savruluyor. {actor.agent.name} aynadan sana bakıyor, gözlerinde şaşkınlık ve tehlikeli bir ışıltı var. Bu hamle, aranızdaki ipleri kopma noktasına getiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Ödenen Bedel",
+          "kind": "outcome",
+          "text": "Araba duruyor. Sen inerken {actor.agent.name} sadece aynadan bakıyor. Artık bir borcun kalmadı, ama bu sessiz anlaşmanın tadı dilinde acı bir tortu bırakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

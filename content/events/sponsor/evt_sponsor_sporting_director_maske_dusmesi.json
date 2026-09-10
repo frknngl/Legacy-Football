@@ -511,6 +511,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tesis Çıkışı",
+          "kind": "branch",
+          "text": "Kulübün eski çamaşırhanesindesin. Buhar boruları ıslık çalıyor. {actor.sporting_director.name}, elinde markalı bir spor çantasıyla kapının pervazına yaslanmış. Çanta açık; içinden saçılan onlarca lüks tüketim ürünü, yerdeki kirli su birikintisine değiyor. İmzalaman için uzattığı kalem, havada titriyor. Dışarıda taraftarın küfürlü tezahüratları duvarlardan yankılanarak içeri sızıyor. 'Bu çantayı al ve git,' diyor. 'Sakatlığın iyileşene kadar adını kimse anmasın, markanın istediği tek şey bu.'",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Çantayı çöp kutusuna fırlat ve dışarı çıkıp bağırarak herkesi içeri çağır.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Sessizce çantayı al, fermuarını kapat ve yüzüne bile bakmadan arkana dön.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kalemi reddet ve sadece tedavi odasına dönmek istediğini söyle.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Çantayı al, ama {actor.sporting_director.name} ile bu sırrı sadece senin şartlarınla tutacağınızı hatırlat.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]",
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Gürültülü Reddediliş",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} yüzündeki şaşkınlığı, yerini soğuk bir nefrete bırakıyor. Kapıyı yüzüne kapatıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Sessizlik odadaki havayı ağırlaştırıyor. Artık o kapi sonsuza kadar kapalı.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek şey, arkandan gelen kilit sesi. Yalnızsın.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Tehlikeli İttifak",
+          "kind": "outcome",
+          "text": "Sözleşmeyi aldın ama {actor.sporting_director.name} gözlerinde artık bir spor direktörü değil, bir suç ortağı korkusu var.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

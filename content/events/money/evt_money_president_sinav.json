@@ -389,6 +389,168 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Gölgesinde",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarında, {actor.president.name} ile yan yana duruyorsun. Hava soğuk, çimlerin rutubetli kokusu genzinizi yakıyor. {actor.president.name} bir elinde stadyum ışıklarının anahtarı, diğerinde ise markalı bir saat kutusu tutuyor. 'Gençsin,' diyor, sesinde babacan ama keskin bir tını var. 'Bunu takarsan sahaya çıktığında seni kimse küçümseyemez. Sadece, sezon sonuna doğru benden ufak bir imza rica edeceğim. Sözleşme uzatma maddeleri biraz... esnek. Ne dersin?' Uzattığı kutu, stadyumun cılız projektör ışığı altında parlıyor. Saha boş, herkes duşta, cevabını duymak için bekliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Saati al ama sözleşmeyi okumadan imza atmayacağını soğukkanlılıkla belirt.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Teşekkür et ve kutuyu geri iterek, 'Sahada kazandığımın dışındakine ihtiyacım yok,' de.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kutuyu al, cebine at ve hiçbir şey demeden yanından geçip git.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -3
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kutuyu elinden al, gözlerinin içine bak ve 'Bu kulübü pazarlık masasına yatırmana izin vermeyeceğim,' diyerek meydan oku.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Profesyonellik 80]",
+              "persona": {
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Bıçak Sırtı",
+          "kind": "outcome",
+          "text": "{actor.president.name} gülümsüyor ama gözleri gülmüyor. 'Hırslı olmanı seviyorum,' diyor. Saat artık senin, ama bu ağırlık kramponlarından daha ağır geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Bedeli Ödenmiş Onur",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde {actor.president.name} yüzündeki o hayal kırıklığını hissedebiliyorsun. Doğru olanı yaptın, ama gelecek sezon kadrodaki yerin biraz daha belirsiz.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Kutu cebinde. {actor.president.name} hiçbir şey demeden yürüyüp gidiyor. Artık bir fiyatın var ve o, bu fiyatı ödedi.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Sınır Çizildi",
+          "kind": "outcome",
+          "text": "{actor.president.name} şaşkınlıkla duraksıyor. İkiniz arasındaki mesafe artık bir uçurum. Kulüp için ayakta kaldın, ama bu düşmanlığın maliyeti çok ağır olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

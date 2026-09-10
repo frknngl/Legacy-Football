@@ -284,6 +284,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son imza",
+          "kind": "branch",
+          "text": "Antrenman sahasının en tenha köşesindeki soyunma odasında, ışıklar cılız bir cızırtıyla yanıyor. {actor.lawyer.name} dolabının önüne oturmuş, elindeki eski bir krampon kutusunu boşaltıyor. Kutunun dibinde, geleceği şekillendirebilecek bir not defteri ve bir avukatlık kartviziti duruyor. {actor.lawyer.name} başını kaldırıp sana bakıyor; gözlerinde ne bir pişmanlık ne de bir umut var. Sadece işin bitmesini bekleyen bir yorgunluk. Masanın üzerinde, kariyerinin sonunu belirleyecek devir teslim belgeleri duruyor. Sessizlik, çivisi çıkmış dolap kapaklarının gıcırtısıyla bölünüyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Not defterini al ve sakla; kulüp içindeki tüm kirli çamaşırları medyaya sızdır.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Belgeleri imzala ve kartviziti sessizce çöpe at. Her şey kurallara uygun kalsın.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Teklifi kabul et, parayı al ve arkana bakmadan kulüpten çık.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "lt",
+                "value": 100000
+              },
+              "lockLabel": "[Maddi ihtiyaç]"
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Büyük patlama",
+          "kind": "outcome",
+          "text": "Belgelerden vazgeçtin. {actor.lawyer.name} bir şey söylemedi, sadece çantasına yöneldi. Yarın herkes, kulübün içinde neler döndüğünü öğrenecek.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz veda",
+          "kind": "outcome",
+          "text": "İmzalar atıldı. Kapıdan çıkarken, arkanda bıraktığın her şeyin sadece bir bürokrasiden ibaret olduğunu biliyorsun. Sessiz, temiz ve tamamen boş.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık kazanç",
+          "kind": "outcome",
+          "text": "Zarf ağır, vicdan ise hafif. {actor.lawyer.name} sana son kez baktı; bu bakış, birinin diğerini tamamen bitirdiği o anın hatırası.",
+          "onEnter": [
+            {
+              "flag": "mem_business_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

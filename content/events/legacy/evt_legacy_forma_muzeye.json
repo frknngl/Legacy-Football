@@ -409,6 +409,352 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Kalbinde",
+          "kind": "branch",
+          "text": "Stadyum ışıkları kapalı. Sadece saha kenarındaki dev ekranın sönük ışığı tüneli aydınlatıyor. {actor.president.name}, elinde bir çerçeveyle bekliyor. Yanında kimse yok. Sessizlik, tribünlerin uğultusunu hatırlatıyor. {actor.president.name}, çerçeveyi sana doğru çeviriyor. İçinde, üzerinde senin terin ve çim izleri kurumuş o meşhur maç forması var. 'Burası senin evin artık,' diyor sesi yankılanarak. 'Zamanın geçtiğine dair dedikodulara değil, bu duvara bak.' Formanın kumaşı, üzerinden yıllar geçmesine rağmen hala sahayı kokuyor. Karar senin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Başını salla, teslim et. Kulüp tarihine karışmak profesyonelce bir son.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Çerçeveyi reddet. O forma müzeye değil, birinin sırtına yakışır.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessizce kabul et ama formanın altına bir bağış makbuzu iliştir.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Gözlerinin içine bak ve kulübe bir son söz bırak. Bu forma senin imzan.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Mirasa Devir",
+          "kind": "outcome",
+          "text": "Forma, camın arkasında yerini aldı. Artık bir hatırasın. {actor.president.name} hafifçe omzuna dokundu, tünelden yalnız başına uzaklaştı.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_final_formasi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokaklarda Yankı",
+          "kind": "outcome",
+          "text": "Çerçeve boş kaldı. {actor.president.name} şaşkın ama anlar gibi bakıyor. O forma sokaklara geri dönüyor, efsaneler kilitli kalmaz.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeyi_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Para transferi sessizce onaylandı. Forma müzede, vicdanın ise kapalı kapıların ardında.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_camurlu_forma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Kişisel Miras",
+          "kind": "outcome",
+          "text": "Sözlerin stadın sessizliğinde çınladı. {actor.president.name} seni ilk kez bir 'yönetilen' olarak değil, bir 'ortak' olarak gördü. Bu gece, formadan daha fazlasını verdin.",
+          "onEnter": [
+            {
+              "flag": "mem_taraftarla_baglandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Arka Kapı",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları çoktan söndü. {actor.president.name}, idari binanın arka çıkışındaki paslı demir kapının önünde bekliyor. Elindeki eski bir spor çantasını yere bıraktığında fermuarı yarıya kadar açılıyor; içinden o forma, renkleri ağarmış ve yakası yıpranmış halde gözüküyor. İkiniz de biliyorsunuz; o maçtaki skor, sahada kazanılmamıştı. {actor.president.name} çantayı ayağıyla sana doğru itiyor. 'Bunu müzeye koyarsan, yalanın tarihi de oraya girer,' diyor. Sesinde ne bir tehdit ne de bir nezaket var. Sadece bir gereklilik.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Çantayı al ve müze sorumlusuna bizzat ver. Gerçek her şeyden daha ağır.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Çantayı çöp konteynerine bırak ve oradan sessizce uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı al ama içindekini değiştirip yerine sahte bir replika koy.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 50
+              },
+              "lockLabel": "[Profesyonellik 50]"
+            },
+            {
+              "id": "c_red",
+              "text": "Çantayı başkana geri fırlat. İkiniz de görmemiş olun.",
+              "target": "n_red",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İtirafla Yüzleşmek",
+          "kind": "outcome",
+          "text": "Forma müzenin en görünür yerinde. Üzerindeki her leke, sessizce o gün yaşananların hikayesini anlatıyor. Kariyerin artık temiz değil, ama en azından gerçek.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_camurlu_forma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Kül Olmak",
+          "kind": "outcome",
+          "text": "Gece karanlığında çöp konteynerinden yükselen ince duman, kulübün en eski sırrını yok etti. Kimse hiçbir zaman o formayı görmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeyi_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Tarihi Yeniden Yazmak",
+          "kind": "outcome",
+          "text": "Yeni forma kusursuz görünüyor. Müzeyi gezenler o sahte pırıltıya hayranlıkla bakıyor. Banka hesabındaki artış, içindeki o bitmek bilmeyen vicdan azabının tek tesellisi.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_ilk_forma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_red": {
+          "title": "Aynı Saf",
+          "kind": "outcome",
+          "text": "{actor.president.name} ile göz göze geliyorsunuz. Hiçbir şey söylenmiyor. Otorite ve ihanet aynı çantanın içinde, karanlıkta kayboluyor.",
+          "onEnter": [
+            {
+              "flag": "mem_baskanla_gerildi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

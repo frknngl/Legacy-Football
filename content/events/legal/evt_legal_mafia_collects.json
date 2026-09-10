@@ -515,6 +515,164 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Durak",
+          "kind": "branch",
+          "text": "Antrenman otobüsünün bagaj kapağı yarı açık. {actor.fixer.name} valizlerin arasına gizlenmiş, sessizce bekliyor. Dışarıda milli takım kampının güvenlik ışıkları yanıp sönüyor. Elinde şifreli bir çanta var. Yüzü ter içinde, nefes alışverişi düzensiz. Yaklaştığında çantayı valizlerin arasına fırlatıyor ve geri çekiliyor. Çantanın kilidi hafifçe aralık; içeriden kalın bir tomar nakit ve bir pasaport kapağı gözüküyor. Bu çantayı otobüsün altına, malzeme deposuna bırakmanı istiyor. Başka bir kelime etmiyor, sadece arka kapıdan karanlığa karışıyor. İçerideki ağırlık, taşıyabileceğinden fazla.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Çantayı otobüsün altındaki gizli bölmeye bırak. Sonra antrenörüne gidip durumu anlat.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Çantayı olduğu gibi bırak ve antrenman sahasından uzaklaş. Kimseyi görmedin.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı al ve soyunma odasındaki dolabına kilitle. Kimseye bir şey deme.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İhbar",
+          "kind": "outcome",
+          "text": "Çanta artık delil. Yarın sabah stadyumda seni bekleyen kameralar değil, müfettişler olacak. Kariyerin bir süreliğine buzlukta.",
+          "onEnter": [
+            {
+              "flag": "mem_reported_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 1,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Görmezden Gelmek",
+          "kind": "outcome",
+          "text": "Otobüs kapandı. İçindeki her şeyle birlikte yola çıktı. Vicdanın hala sızlasa da formanı temiz tuttun.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Kabul Etmek",
+          "kind": "outcome",
+          "text": "Kilitli dolapta duran o çanta, artık senin tek sadakat belgen. Artık neyi taşıdığını biliyorsun; bu yük kariyerini tamamen değiştirecek.",
+          "onEnter": [
+            {
+              "flag": "mem_accepted_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 3,
+              "priority": "forced"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

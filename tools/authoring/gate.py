@@ -18,6 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .flags import collect_memory_flags, ensure_declared, remove_declared
+from .lock import file_lock
 
 
 @dataclass
@@ -60,7 +61,12 @@ class QualityGate:
         # Dosyanin TAMAMINI yedekleyip geri yazmiyoruz: kapi calisirken
         # `core.json`a el ile yapilan bir duzenleme, o geri yazmayla
         # sessizce yok oluyordu. Yalnizca kendi ekledigimizi geri aliriz.
-        added = ensure_declared(core, collect_memory_flags(event), event.get("id", ""))
+        # PAYLASIMLI DURUM: `core.json` oku-degistir-yaz. Paralel kosuda
+        # kilitsiz birakmak KAYIP GUNCELLEME uretir -- bu oturumda tam
+        # olarak oyle iki bayrak beyani yok oldu.
+        lock_path = self.root / "tools" / "authoring" / ".cache" / "core.lock"
+        with file_lock(lock_path, "core.json"):
+            added = ensure_declared(core, collect_memory_flags(event), event.get("id", ""))
 
         target = self.events_dir / category / f"{event.get('id', 'tmp')}.json"
         existed = target.exists()
@@ -73,7 +79,8 @@ class QualityGate:
         try:
             return self._run_validator(pending_traces)
         finally:
-            remove_declared(core, added)
+            with file_lock(lock_path, "core.json"):
+                remove_declared(core, added)
             if backup is not None:
                 target.write_text(backup, encoding="utf-8")
             elif target.exists():
@@ -91,11 +98,12 @@ class QualityGate:
 
     def commit(self, event: dict, category: str) -> Path:
         """Kapidan gecmis olayi kalici olarak yazar ve izlerini beyan eder."""
-        ensure_declared(
-            self.root / "content" / "orchestrator" / "core.json",
-            collect_memory_flags(event),
-            event.get("id", ""),
-        )
+        with file_lock(self.root / "tools" / "authoring" / ".cache" / "core.lock", "core.json"):
+            ensure_declared(
+                self.root / "content" / "orchestrator" / "core.json",
+                collect_memory_flags(event),
+                event.get("id", ""),
+            )
         target = self.events_dir / category / f"{event['id']}.json"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(

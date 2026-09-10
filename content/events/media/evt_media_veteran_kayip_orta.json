@@ -367,6 +367,201 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Antrenman sahasının en kuytu köşesindeki malzeme deposu. İçerisi rutubet ve eski deri kokuyor. {actor.veteran.name}, rafların arasına gizlenmiş, elinde bir gazete kupürüyle seni bekliyor. Kapı ardında kapandı, kilit sesi yankılandı. Dışarıda antrenman sesleri kesildi. {actor.veteran.name} tek kelime etmiyor, yalnızca kupürü duvardaki paslı çiviye iliştiriyor. Gözleri yorgun, bakışları ise hayatının son yıllarında kurduğun tüm savunma hatlarını geçiyor. Sessizlik boğucu, hava ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kupürü nazikçe al ve yırt. Medyanın ilgisini başka yöne çekmek için daha iyi bir hikaye uyduracağını söyle.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebindeki yüklü miktardaki parayı masaya bırak. Ne gördüyse unutması için bir anlaşma teklif et.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kupüre bakmayı reddet. Ona, bu saatten sonra kimsenin umurunda olmadığını haykır ve kapıyı omuzlayarak aç.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Onunla oturduğu eski kasaya çök. Kariyerindeki tüm hataları tek tek itiraf et, o da seninle kalsın.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sokak İtibarı Gerekli]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Profesyonelce",
+          "kind": "outcome",
+          "text": "Sessizliği korudun, düzeni bozmadın. Ancak içindeki o hırçın ses, uzun süre daha susmayacak.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Disiplin soruşturması"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı bitti ama vicdanının terazisi hiç olmadığı kadar dengesiz. Bugün kurtuldun, yarın ise meçhul.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Gizli anlaşma sızıntısı"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Köprüleri Yakmak",
+          "kind": "outcome",
+          "text": "Dışarıya çıktığında her şey daha gürültülü. Kariyerin bir kumar masasına dönüştü, artık geri dönüş yok.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            },
+            {
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Takım içi tartışma"
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "İtiraflar Odası",
+          "kind": "outcome",
+          "text": "Artık hiçbir sırrın kalmadı. {actor.veteran.name} ile aynı yorgunluğu paylaşıyorsun, ikiniz de bitmişsiniz.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Zihinsel yorgunluk izni"
+            }
+          ]
+        }
+      }
     }
   ]
 }

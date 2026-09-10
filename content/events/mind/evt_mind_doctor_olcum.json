@@ -328,6 +328,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Analiz",
+          "kind": "branch",
+          "text": "Kulüp binasının en alt katı. Havalandırma fanının mekanik hırıltısı, {actor.doctor.name}’in masasının üzerindeki soğuk beyaz ışıkla birleşiyor. {actor.doctor.name}, elindeki dosyayı kapatıp sana dönüyor. İçerideki hava ağır, ter ve dezenfektan kokuyor. Duvarlarda sadece bir takvim ve senin biyolojik gelişimine dair işaretlenmiş grafikler var. {actor.doctor.name}, kaleminin ucuyla grafikteki düşüşe vuruyor. Bakışları yargılayıcı değil, sadece hesap kitap yapıyor. Konuşmuyor. Seni o kağıdın önünde savunmasız bırakıp, sessizliğin baskısıyla ezilmene izin veriyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Bu grafiği yarın antrenmandan önce tesislerin girişine as. Herkes gerçek kapasitemi görsün.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Bu dosyayı imha et. Masanın üzerindeki zarfı al, içinde fazlasıyla var.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ne yapmam gerekiyorsa yap. Antrenman programını ona göre düzenle.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Grafiği detaylı inceleyelim. Zayıf noktalarımı kapatmak için özel bir ek çalışma planı çıkaralım.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İlan Edilen Gerçek",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} kağıdı sana uzatıyor. Çıkışa doğru yürürken odaya yaydığın huzursuzluk, arkanda bıraktığın sessizliği daha da derinleştiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_pazarlik_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bir Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} zarfı yavaşça çekmecesine koyuyor. Aramızda geçen her şey, bu odanın kapısı kapandığı an tarihe karışıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_sessiz_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sıradan Bir Protokol",
+          "kind": "outcome",
+          "text": "Söylediklerini onaylıyor. Yeni antrenman takvimin sisteme yükleniyor. Artık sadece bir makine gibi çalışmak zorundasın.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_takvime_uydu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Sınırların Zorlanması",
+          "kind": "outcome",
+          "text": "Ekranın ışığı yüzüne vururken {actor.doctor.name} ile saatlerce sürecek o yorucu analiz başlıyor. Terin kurumadan yeni bir yükün altına giriyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_olcum_takvime_uydu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

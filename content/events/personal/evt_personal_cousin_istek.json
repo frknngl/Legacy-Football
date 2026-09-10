@@ -510,6 +510,161 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Mahallede Bir Gece",
+          "kind": "branch",
+          "text": "Mahallede ilk büyüdüğün evin altındaki kahvehanenin önündesin. Kaldırımda oturan {actor.cousin.name}, seni görür görmez ayağa kalktı. Üzerindeki eski kulüp forması solmuş, yer yer yırtılmış. Yanında ne bir valiz ne de bir gelecek vaadi var. Yıllar önce seni bu sokaklardan çekip çıkaran o antrenörün listesinden bahsetti. 'Eskisi gibi, bir arama yapman yeterli,' dedi. Sesindeki o tanıdık tını, çocukluk yalanlarının ağırlığını taşıyor. Çevredeki birkaç meraklı göz üzerinizde; biri sana bakıyor, diğeri ise {actor.cousin.name}’in bir sonraki hamlesini bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Cüzdanını çıkarıp bir miktar para uzat. 'Eski günlerin hatrına, ama bir daha buralarda görünme.'",
+              "target": "n_out_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Elinin tersiyle it. 'Senin yüzünden bu sokaklara geri düşmeyeceğim.'",
+              "target": "n_out_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kulüpten bir yetkilinin kartını ver. 'Bunu ara ama benim adımı ağzına alma.'",
+              "target": "n_out_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 1000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Omzuna dokun. 'Gel, benimle eve kadar yürü, yarın kulüpte bir yol buluruz.'",
+              "target": "n_out_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "moral",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Moral 60]"
+            }
+          ]
+        },
+        "n_out_guvenli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Parayı alırken gözlerini kaçırdı. Arkana bakmadan uzaklaştın. Köprüleri yakmak, nefes almanı kolaylaştırdı.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_kabul_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_riskli": {
+          "title": "Sırt Çevirmek",
+          "kind": "outcome",
+          "text": "Sesin mahallede yankılandı. Arkadaşları sessizliğe büründü. Kendi yolunu çizmenin bedeli, geride kalanların öfkesi oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_gri": {
+          "title": "Gizli Anlaşma",
+          "kind": "outcome",
+          "text": "Kartı cebine koydu. Yarın ne olacağını bilmiyorsun, ancak kendi pozisyonunu korumak için attığın bu adım, geceni uykusuz geçirmene yetecek.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_yariladi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_kilitli": {
+          "title": "Eski Yük",
+          "kind": "outcome",
+          "text": "Birlikte yürüdünüz. O eski günlerin neşesi, senin yorgun adımlarına karıştı. Yarın antrenmanda hissedeceğin ağırlığı şimdiden biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_kendisi_gotturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -505,6 +505,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Çıkmazı",
+          "kind": "branch",
+          "text": "Evdeki ışıklar kapalı. Sadece mutfaktan gelen cılız bir buzdolabı uğultusu duyuluyor. {actor.sibling.name} masanın diğer ucunda, biriken borçların dökümünü içeren tabletini sessizce önüne itiyor. Bacağındaki sargı, sandalyenin ayağına çarptıkça zonkluyor. {actor.sibling.name} hiçbir şey söylemiyor, sadece bakıyor. Gözlerinde ne bir öfke var ne de bir merhamet; sadece tüketilmiş bir zamanın ağırlığı. Dışarıda gece, içeride ise boğazına oturan o tanıdık hıçkırık. Masanın üzerindeki imza kalemini alıp tableti imzalamanı bekliyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kalemi elinin tersiyle it. 'Resmi bir ödeme planı çıkaralım, hukukla halledelim.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_aile",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sorgusuzca kalemi al ve borcun altına imza at. 'Kimseye tek kelime etme.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kendi sponsorluk anlaşmanı masaya sür. 'Bu miktarı şirket üzerinden vergiden düşürürüz.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 100000
+              },
+              "lockLabel": "[Yeterli birikim yok]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Resmi Yol",
+          "kind": "outcome",
+          "text": "{actor.sibling.name} başını sallayarak masadan kalkıyor. Aramızdaki mesafe artık bir oda değil, bir okyanus.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokak Sözü",
+          "kind": "outcome",
+          "text": "İmza atıldı. {actor.sibling.name} karanlıkta gülümseyerek çıkıyor. Bu borç artık bir kağıt parçası değil, bir pranga.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Gri Bölge",
+          "kind": "outcome",
+          "text": "Rakamlar birbirine karışıyor. {actor.sibling.name} gidiyor, geriye sadece temizlenmesi gereken bir hesap defteri kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_borc_sibling",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

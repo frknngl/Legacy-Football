@@ -541,6 +541,170 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Geçmişin Sessizliği",
+          "kind": "branch",
+          "text": "{actor.father.name} karşında, eski bir müze müdürü gibi odanın ortasında dikiliyor. Elinde senin çocukluk yıllarına ait, sararmış bir gazete kupürü var. Başarılarınla örülü kariyerinin, aslında onun yıllar önce karanlıkta bıraktığı bir borcun üzerine inşa edildiğini ikiniz de biliyorsunuz. Kelimelere gerek yok; masanın üzerine bıraktığı o tek sayfalık belge, imzanı bekleyen bir hüküm gibi. Dışarıda gece vakti, stadyumun ışıkları sönük. Sessizlik, biriken her şeyin ağırlığını daha da artırıyor.",
+          "choices": [
+            {
+              "id": "c_wealth",
+              "text": "Cüzdanını aç, miktarı boş bırakılmış çeki ona uzat. \"Bu konuyu sonsuza kadar kapat.\"",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_duty",
+              "text": "Belgeyi alıp yırt. \"Benim adımı bu kirli işlere bir daha bulaştırma.\"",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Belgeyi ateşe ver. \"Bunu kanıtlayamazsın, herkes benim hikayeme inanır.\"",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_father",
+              "text": "Yanına otur, elini omzuna koy. \"Bunu birlikte temizleyelim, ne gerekiyorsa.\"",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_father",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Gözleri paraya kaydı, elini çekinerek uzattı. Bu bir veda değil, bir ticaret. Artık vicdanın cüzdanındaki boşluk kadar hafif.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Yalnız Yüzleşme",
+          "kind": "outcome",
+          "text": "Kalan parçalara baktı ve başını öne eğdi. Kapıyı ardına kadar açtın, o gittikten sonra odadaki tek şey ağırlaşan bir yalnızlık.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "set",
+              "value": 2
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Karanlık Zirve",
+          "kind": "outcome",
+          "text": "Küller yere düşerken bakışları korkuyla doldu. Zirvedeydin, aşağı düşmemek için her türlü bedeli ödemeye hazırdın.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "set",
+              "value": 3
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Son Paylaşım",
+          "kind": "outcome",
+          "text": "Başını senin omzuna yasladı. Yıllardır süren bu gerilim, ortak bir yükümlülüğe dönüştü. Artık ikiniz de aynı gemide, dibe doğru batıyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "set",
+              "value": 4
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

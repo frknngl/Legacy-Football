@@ -537,6 +537,113 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kalan Miras",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin bodrum katındaki sığınak soğuk. {actor.president.name} paslı bir kasanın başında, anahtarı sana uzatıyor. Kulübün arka bahçesindeki karanlık defterler, resmi olmayan borçlar ve yarım kalmış sadakat vaatleri bu kutunun içinde. \"Benim vaktim doldu,\" diyor. \"Ya yakarsın ya da bu ağırlığı sırtlanıp devam edersin. Ama unutma, bu kutuyu açtığın an, artık sadece bir futbolcu değilsin.\"",
+          "choices": [
+            {
+              "id": "c_yak",
+              "text": "Kutuyu elinden al ve en yakın çöp fıçısında ateşe ver.",
+              "target": "n_yak",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "op": "lifeState",
+                  "to": "playing"
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_sakla",
+              "text": "Kutuyu sessizce çantana at ve arkana bakmadan çık.",
+              "target": "n_sakla",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "op": "suspend",
+                  "matches": 2,
+                  "reason": "Sözleşme yükümlülükleri"
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_pazarlik",
+              "text": "Kutuyu aç, içindeki isimleri ve tarihleri not al, sonra geri kapat.",
+              "target": "n_pazarlik",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "op": "lifeState",
+                  "to": "playing"
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Profesyonellik 70]"
+            }
+          ]
+        },
+        "n_yak": {
+          "title": "Küller",
+          "kind": "outcome",
+          "text": "Alevler yükselirken {actor.president.name} sadece başını sallıyor. Hafifledin ama artık kulüpteki gölgelerin seni korumayacağını biliyorsun. Kendi yolunu çizmek zorundasın."
+        },
+        "n_sakla": {
+          "title": "Ağırlık",
+          "kind": "outcome",
+          "text": "Çantandaki ağırlık artık senin bir parçan. Dışarıda dünya aynı dönüyor, ama artık attığın her adımda o kutunun içindeki isimler birer pranga gibi ayağına dolanacak."
+        },
+        "n_pazarlik": {
+          "title": "Hesap",
+          "kind": "outcome",
+          "text": "Kutuyu iade ederken göz göze geliyorsunuz. Hiçbir şey konuşmadınız ama artık kulüpteki herkes senin bir şeyler bildiğini sezdi. Tehlikeli bir denge, ama kontrol sende."
+        }
+      }
     }
   ],
   "story": {

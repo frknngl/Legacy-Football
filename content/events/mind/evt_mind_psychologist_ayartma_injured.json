@@ -377,6 +377,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Muayene Odasındaki Sessizlik",
+          "kind": "branch",
+          "text": "Antrenman sahasından yükselen uzak tezahürat sesleri, hastane tipi beyaz floresanların vızıltısıyla karışıyor. {actor.psychologist.name}, MR sonuçlarını gösteren ekrana bakmayı bırakıp arkasına yaslanıyor. Sandalyenin gıcırtısı boş odada yankılanıyor. Önündeki masada sadece bir tükenmez kalem ve üzerinde kulübün mührü olan boş bir form duruyor. Dışarıda taraftarların ismini haykırışını duyabiliyorsun; ancak dizindeki o bildik, derin sızı, bu sesin ötesinde bir yerlerde, kariyerinin son takvim yaprağı gibi titriyor.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Formu imzala, sahaya dön. Yarınki maçta tribünlerin bağırması, bu dizin çöküşünden daha önemli.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Raporu manipüle etmesini iste. Bu son sözleşme için cebimin dolu olması lazım.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gerçeği yaz. Kariyer biterse biter, kendi vücuduma ihanet edemem.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bak ve dürüstçe konuş. Bir veterandan diğerine; bu takımın şimdiye ihtiyacı var, bana değil.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_psychologist",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]",
+              "persona": {
+                "sadakat": 8
+              }
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "İmzanın Bedeli",
+          "kind": "outcome",
+          "text": "Kalemi {actor.psychologist.name} elinden çekip alıyorsun. Kimse ne yazdığını sorgulamayacak. Yarın taraftarın önüne çıkmak, kendi geleceğini ateşe atmaktan daha cazip geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} önüne bir zarf koyuyor. İçinde ne olduğunu sormuyorsun, o da söylemiyor. Dizindeki ağrıyı para örtüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Kendi Sonun",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} raporu onaylıyor. Kağıdı alıp masadan kalktığında bacaklarındaki o sızının hiç gitmeyeceğini biliyorsun. Profesyonellik bazen veda etmektir.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Liderin İtirafı",
+          "kind": "outcome",
+          "text": "{actor.psychologist.name} kalemi yere bırakıyor. Aranızdaki o profesyonel perde kalkıyor; ikiniz de yorgunsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

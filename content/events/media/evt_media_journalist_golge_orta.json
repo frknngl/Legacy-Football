@@ -356,6 +356,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "{actor.journalist.name} stadyumun otopark çıkışındaki eski bir beton blok üzerine oturmuş. Elinde yanıp sönen bir sigara, yanında ise senin yıllardır gizlediğin o belgelerin dijital bir kopyasını içeren bellek var. Etrafta kimse yok. Uzaktan gelen trafik sesleri, bu sessizliği daha da ağırlaştırıyor. {actor.journalist.name} başını kaldırmıyor, sadece küllüğe vurduğu her darbeyle senin geçmişteki tüm o büyük iddialarını yerle bir etmeye hazır olduğunu gösteriyor. Masken, betonun soğukluğunda eriyip gidiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Belleği elinden al, sessiz kalması için bedeli öde.",
+              "target": "n_sonuc_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Omuz silk, manşeti kendi ağzınla ver, her şeyi yak.",
+              "target": "n_sonuc_itibar",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Yanına otur, suç ortaklığınızı itiraf et, geleceği paylaş.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]"
+            }
+          ]
+        },
+        "n_sonuc_servet": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Bellek elinde, avuç içinde ısınıyor. {actor.journalist.name} hiçbir şey söylemeden ayağa kalkıp karanlığa karışıyor. Artık güvendesin ama vicdanındaki o boşluk, kaybettiğin paranın çok daha ötesinde bir ağırlık taşıyor.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "inziva"
+            }
+          ]
+        },
+        "n_sonuc_itibar": {
+          "title": "Son Perde",
+          "kind": "outcome",
+          "text": "Haber yarın sabah her yerde olacak. {actor.journalist.name} telefonuna sarılıyor. İnsanlar senin gerçek yüzünü gördüklerinde, sahada yaptıklarının artık hiçbir önemi kalmayacak. Yine de, son bir kez kalabalıkların seni gerçekten tanıdığını bilmek yeterli.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "Gölgede kalanlar, ışığa çıkanlardan daha uzun yaşar. {actor.journalist.name} ile yeni bir anlaşma yapıyorsun. Artık bir spor figürü değil, perde arkasını yöneten bir isimsin. Ahlakın, cebindeki dolarların yanında çok hafif kalıyor.",
+          "onEnter": [
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 20
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -511,6 +511,170 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Fatura",
+          "kind": "branch",
+          "text": "Antrenman tesisi kapandı. Otoparkta sadece {actor.agent.name}’in aracının farları yanıyor. İçeriden gelen klasik müzik dışarıya, soğuk gece havasına sızıyor. {actor.agent.name} aracın kaputuna yaslanmış, elinde tuttuğu bir dosyayı yavaşça havaya kaldırıyor. Dosyanın içinde, kariyerini henüz başlamadan bitirebilecek veya zirveye taşıyabilecek o eski, karanlık anlaşmanın dijital kopyaları var. Hiçbir şey söylemiyor; sadece arabanın arka koltuğuna biniyor ve kapıyı ardına kadar açık bırakıyor. İçerideki deri koltuğun kokusu, temiz ter kokusunu bastırıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Dosyayı alıp koltuğa yerleş. Sessizliği satın almanın bedeli neyse ödenir.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kapıyı sertçe çarp ve yürü. Bu dosyayı istediği yere sızdırabilir.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı al ama hiçbir şey yapma. Kulüp binasının önündeki çöp konteynerine bırak.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Dosyayı {actor.agent.name}’in önüne at. Taraftarların seni koruduğunu hatırlat.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "Güçlü bir destek arkanda"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizlik Bedeli",
+          "kind": "outcome",
+          "text": "Para transferi saniyeler içinde gerçekleşti. {actor.agent.name} dosyayı yırttı, camdan dışarı attı. Yarın sahaya çıktığında cebindeki ağırlık, bacaklarına yansıyacak.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Araba hızla uzaklaştı. {actor.agent.name} ile arandaki bağ tamamen koptu. Yarın gazete manşetlerinde kendi hikayeni okumaya hazır ol.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Vicdanın Yükü",
+          "kind": "outcome",
+          "text": "Dosya çöpün içinde kayboldu. Kimse görmedi ama sen biliyorsun. O gece uykusuz geçecek.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Gücün Sınırı",
+          "kind": "outcome",
+          "text": "Taraftarın kalkanı seni korudu. {actor.agent.name} geri adım attı, ama bu pazarlığın stresi omuzlarına ağır bir yük bindirdi.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

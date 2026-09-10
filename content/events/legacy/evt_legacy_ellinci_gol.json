@@ -506,6 +506,175 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları çoktan kapatılmış. {actor.journalist.name} koridorun sonundaki çıkışta, elinde bir kamera ışığıyla gölgeleri yarıyor. Elli golü geride bıraktın. Kollarındaki terin soğumasına izin vermeden sana yaklaşıyor. Gözlerinde bir merak değil, bir şeyleri çözmüş olmanın verdiği o rahatsız edici boşluk var. Kayıt tuşuna basıyor. Tek bir soru sormuyor, sadece lensin kapağını açıp bekliyor. Sessizlik, bir sorgu odasındaki kadar ağır.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebindeki gizli sözleşme teklifini {actor.journalist.name}’in göreceği şekilde hafifçe arala.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kameranın önünde durup, taraftarın senin için bestelediği o yasaklı marşı mırıldan.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerinin içine bak ve sadece 'işimi yaptım, hepsi bu' diyerek yanından geçip git.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kamerayı elinden al, vizörden ona bak ve ilk başladığın günkü amatör heyecanını hatırladığını anlat.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Yüksek İtibar]"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.journalist.name}’in bakışları ceketine kayıyor. Gülümsemiyor. Görüntüyü kapatıyor ama o anın kayıtlara geçmediğini, sadece seninle onun arasında bir sır olarak kaldığını ikiniz de biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokakların Sesi",
+          "kind": "outcome",
+          "text": "Marşın yankısı koridorun beton duvarlarında eriyor. {actor.journalist.name} kamerasını indiriyor, şaşkın ama belli belirsiz onaylayan bir baş hareketiyle yol veriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_eski_arkadas",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "{actor.journalist.name}’in arkanda bıraktığı soğuk bakışlarını hissediyorsun. Söylediğin her kelime, aranızdaki profesyonel çizgiyi bir santim daha kalınlaştırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Maskenin Ardı",
+          "kind": "outcome",
+          "text": "Lensin ardında ilk kez bir insan evladıyla göz göze geliyorsun. {actor.journalist.name} not defterini kapatıyor, ilk defa seninle sadece mesleki bir bağ değil, insani bir temas kuruyor.",
+          "onEnter": [
+            {
+              "flag": "mem_eski_baglanti_canlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {
