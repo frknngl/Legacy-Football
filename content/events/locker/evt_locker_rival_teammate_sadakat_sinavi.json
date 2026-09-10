@@ -22,137 +22,6 @@
     "op": "gte",
     "value": 1
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Soyunma Odası Köşesi",
-      "kind": "branch",
-      "text": "Soyunma odasının en kuytu köşesi. Işıklar cılız. {actor.rival_teammate.name}, dolabının önünde yere çökmüş. Dizlerinin üzerinde, kulübün gizli muhasebe kayıtlarını içeren o dosya duruyor. Başını kaldırıyor. Gözleri yaşlı değil ama yorgun. Bir el işaretiyle seni yanına çağırıyor. Eğer yönetimin haberi olursa kariyeri biter. Sessiz kalırsan, takımın geleceği ipotek altına girer. Çıt yok. Sadece havalandırmanın uğultusu ve uzaklardan gelen krampon sesleri.",
-      "choices": [
-        {
-          "id": "c_safe",
-          "text": "Dosyayı elinden al, doğrudan teknik direktörün masasına bırak. Kural neyse o.",
-          "target": "n_outcome_safe",
-          "effects": [
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
-        },
-        {
-          "id": "c_risky",
-          "text": "Dosyayı al, gözlerinin içine bakarak dolabına geri kilitle. Biz birbirimizi satmayız.",
-          "target": "n_outcome_risky",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
-            }
-          ],
-          "persona": {
-            "sadakat": 10
-          }
-        },
-        {
-          "id": "c_gray",
-          "text": "Dosyayı kopyala. Şantajcılarla irtibata geçip ikimizin de payını almasını sağla.",
-          "target": "n_outcome_gray",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
-            }
-          ],
-          "persona": {
-            "durus": -10
-          }
-        }
-      ]
-    },
-    "n_outcome_safe": {
-      "title": "Protokol",
-      "kind": "outcome",
-      "text": "Dosya gitti. Takımın düzeni korundu ama artık arkanda bir düşman daha var.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_sadakat_sinavi_rival_teammate",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_risky": {
-      "title": "Sokak Kodu",
-      "kind": "outcome",
-      "text": "Dosya kilitlendi. Bağınız perçinlendi ancak üzerinde her an patlamaya hazır bir saatli bomba taşıyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_sadakat_sinavi_rival_teammate",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gray": {
-      "title": "Gizli Anlaşma",
-      "kind": "outcome",
-      "text": "Sessizlik satın alındı. Bankadaki artış vicdanındaki boşluğu doldurmaya yetmiyor. Artık bir sırdaş değil, bir suç ortağısın.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_sadakat_sinavi_rival_teammate",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_locker_sadakat_sinavi",
     "beat": "evt_locker_rival_teammate_sadakat_sinavi",
@@ -162,5 +31,261 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Soyunma Odası Köşesi",
+          "kind": "branch",
+          "text": "Soyunma odasının en kuytu köşesi. Işıklar cılız. {actor.rival_teammate.name}, dolabının önünde yere çökmüş. Dizlerinin üzerinde, kulübün gizli muhasebe kayıtlarını içeren o dosya duruyor. Başını kaldırıyor. Gözleri yaşlı değil ama yorgun. Bir el işaretiyle seni yanına çağırıyor. Eğer yönetimin haberi olursa kariyeri biter. Sessiz kalırsan, takımın geleceği ipotek altına girer. Çıt yok. Sadece havalandırmanın uğultusu ve uzaklardan gelen krampon sesleri.",
+          "choices": [
+            {
+              "id": "c_safe",
+              "text": "Dosyayı elinden al, doğrudan teknik direktörün masasına bırak. Kural neyse o.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_risky",
+              "text": "Dosyayı al, gözlerinin içine bakarak dolabına geri kilitle. Biz birbirimizi satmayız.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_gray",
+              "text": "Dosyayı kopyala. Şantajcılarla irtibata geçip ikimizin de payını almasını sağla.",
+              "target": "n_outcome_gray",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Protokol",
+          "kind": "outcome",
+          "text": "Dosya gitti. Takımın düzeni korundu ama artık arkanda bir düşman daha var.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sadakat_sinavi_rival_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Sokak Kodu",
+          "kind": "outcome",
+          "text": "Dosya kilitlendi. Bağınız perçinlendi ancak üzerinde her an patlamaya hazır bir saatli bomba taşıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sadakat_sinavi_rival_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gray": {
+          "title": "Gizli Anlaşma",
+          "kind": "outcome",
+          "text": "Sessizlik satın alındı. Bankadaki artış vicdanındaki boşluğu doldurmaya yetmiyor. Artık bir sırdaş değil, bir suç ortağısın.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sadakat_sinavi_rival_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapılar",
+          "kind": "branch",
+          "text": "Antrenman sahasının otoparkı boşalmış, sadece iki aracın motoru soğuyor. {actor.rival_teammate.name}, ağır bir çanta taşırken yanına yaklaşıyorsun. Geçen haftaki transfer görüşmeleri hakkında bir şeyler sormak istiyorsun. Başını kaldırıyor, gözlerinde ne bir öfke ne de bir dostluk var. Sadece yorgun bir kayıtsızlık. Yanından geçip giderken omzuna dokunuyorsun. Duruyor, sana bakmıyor bile. \"Daha fazla ileri gitme,\" diyor kısık bir sesle. \"Gelecek planımda sen yoksun.\"",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Yolunu kes, neden böyle bir karar aldığını yüzüne haykır.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gülümse ve geri çekil. Profesyonelce, sanki hiçbir şey olmamış gibi.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden kulübün yeni sponsorluk prim listesini çıkar, gözünün önüne at.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Profesyonellik 70]",
+              "persona": {
+                "mizac": -10
+              }
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Gerilimin Bedeli",
+          "kind": "outcome",
+          "text": "Sesin otoparkta yankılanıyor, güvenlik görevlileri camdan bakıyor. {actor.rival_teammate.name} bir şey demeden arabasına biniyor. Şimdi herkes aranızdaki husumeti konuşacak.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sadakat_sinavi_rival_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Başınla selam verip uzaklaşıyorsun. İçinde bir sızı var ama dışarıya karşı kusursuz bir profesyonel duruş sergiliyorsun. Kimse aranızdaki uçurumu fark etmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sadakat_sinavi_rival_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Çirkin Bir Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.rival_teammate.name} listeye bakıyor ve dudak büküyor. Parayı kabul ediyor ama sana olan bakışındaki o son insani kırıntı da kayboluyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_sadakat_sinavi_rival_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

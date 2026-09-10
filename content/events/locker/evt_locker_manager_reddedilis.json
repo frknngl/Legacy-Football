@@ -373,6 +373,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "{actor.manager.name} kulüp binasının bodrum katındaki malzeme deposunda, tozlu bir kutuyu karıştırıyor. Floresan lamba ritmik bir şekilde titreyerek cızırdıyor. Kapı eşiğinde gölgesi uzanıyor. Sessizlik, birinin diğerini ilk kez gerçekten gördüğü ana kadar sürüyor. {actor.manager.name} doğruluyor, elindeki eski bir kramponu kenara bırakıyor. Bakışları, savunma mekanizmalarının çok ötesine geçiyor. Söylenmemiş her şey, havada asılı duran toz zerreleri gibi yoğun.",
+          "choices": [
+            {
+              "id": "c_para",
+              "text": "Gözlerinin içine bakmadan, ceketindeki kalın zarfı tezgaha bırakıp çıkıyorum.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Yumruğumu kapının pervazına vurup, ona tüm takımın seni nasıl beklediğini haykırıyorum.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_prof",
+              "text": "Kafamı hafifçe sallayıp önümü ilikliyorum, hiçbir şey demeden yanından geçiyorum.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Satın Alınmış Sessizlik",
+          "kind": "outcome",
+          "text": "Zarf masada öylece duruyor. {actor.manager.name} bir şey söylemiyor, sadece başıyla onaylıyor. Bu, aramızdaki son pazarlık.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Açık Çatışma",
+          "kind": "outcome",
+          "text": "Depodaki cızırtı kesiliyor. {actor.manager.name} artık saklanmıyor. Bu yüzleşme, yarın gazetelerin manşetlerine düşecek.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Sırtımdaki baskıyı hissediyorum ama bakmıyorum. Kapı kolunu çevirdiğimde, arkamda bıraktığım şeyin artık geri dönüşü olmadığını biliyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

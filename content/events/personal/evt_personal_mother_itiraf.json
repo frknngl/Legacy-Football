@@ -295,6 +295,141 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_terk_edilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eşikteki İtiraf",
+          "kind": "branch",
+          "text": "Antrenman sahasının tel örgülerinin hemen ardındaki otoparkta, yağmur çamurla karışıyor. {actor.mother.name} eski model bir aracın kapısına yaslanmış, gözleri sisli bir boşluğa dalmış. Elinde buruşmuş, sararmış bir mahkeme tebligatı var. Rüzgar, sayfaları hırpalarken {actor.mother.name} tek kelime etmiyor; sadece mektubu senin göğsüne bastırıyor ve otoparkın çıkışına, sensiz yürümeye başlıyor. Babanın yıllar önce neden gittiğinin yazılı olduğu o kağıt, avuçlarında ağırlaşıyor.",
+          "choices": [
+            {
+              "id": "c_yak",
+              "text": "Mektubu okumadan, yağmur suyunun içinde çamurla ez ve çöpe at.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_haber_yap",
+              "text": "Bunu yerel bir muhabire sızdır; geçmişin hesabını sahaya çıkmadan önce dışarıda sor.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_sermaye_yap",
+              "text": "Babana ulaşması için bir dedektif tut; bu itirafı bir koz olarak kullan.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -2000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 2000
+              },
+              "lockLabel": "[Yetersiz Nakit]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Suskunluk",
+          "kind": "outcome",
+          "text": "Kağıt paramparça oluyor. Gerçeği bilmemenin yarattığı boşluk, profesyonel hayatının tek sığınağına dönüşüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İfşa",
+          "kind": "outcome",
+          "text": "Manşetler seni konuşuyor. Artık bir futbolcudan çok, bir trajedi kahramanısın. Taraftarın desteği yanında, ama kulüp koridorları artık sana soğuk.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Hesaplaşma",
+          "kind": "outcome",
+          "text": "Banka hesabındaki rakamlar eksildi ama eline geçen bilgiler, bir gün o kapıyı tekmelemen için gereken her şeyi sunuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_itiraf_mother",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

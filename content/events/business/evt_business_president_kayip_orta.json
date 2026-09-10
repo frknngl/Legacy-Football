@@ -342,6 +342,201 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Müzayede",
+          "kind": "branch",
+          "text": "Antrenman sahasının en uzak köşesinde, çimlerin üzerinde {actor.president.name} ile yan yana oturuyorsun. Üzerinde sadece bir eşofman var, dizlerin sızlıyor. {actor.president.name} elindeki tabletin ekranını sana çeviriyor. Ekranda, yıllar önce kariyerini kurtaran o eski kumpasın dijital kanıtları duruyor. Silinmesi karşılığında senden son bir sadakat istiyor: Şike skandalıyla anılan o eski menajeri, kulübün altyapı koordinatörü olarak önermeni bekliyor. Stadın ışıkları sönüyor, gece ayazı ciğerlerine işliyor. Sessizlik, sadece uzaktan gelen bir ambulans sesiyle bölünüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce yerden kalk ve uzaklaş. Geleceğini riske atacak bir imza atmayacaksın.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Tableti elinden al, ekranı kapatıp ona geri uzat. İsim hazır, yarın masasında olacak.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Tablet üzerindeki veriyi silmek yerine telefonuna aktar. Onu kendi silahıyla tehdit et.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bak ve kulübün geleceği için bu yanlışı yapamayacağını yüzüne haykır.",
+              "target": "n_sonuc_stat",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Profesyonellik 55]"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sırtını Dönmek",
+          "kind": "outcome",
+          "text": "Sahadan tek başına yürüdün. Yarın kadroda olup olmayacağın belli değil, ama yastığa başını koyduğunda tavan hala temiz.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Yedek kulübesinde cezalandırıldı"
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Kirli Anlaşma",
+          "kind": "outcome",
+          "text": "Zarflar el değiştirdi. Kulüp binasında artık yeni bir gölge dolaşacak. Başarını parayla değil, unuttuğun anılarla ölçeceksin.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Sözleşme krizine bağlı dinlendirme"
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Ateşle Oynamak",
+          "kind": "outcome",
+          "text": "Tehdit, bir şantaja dönüştü. {actor.president.name} sustu, ancak gözlerindeki nefret, kariyerinin geri kalanında ensende hissedeceğin bir soğukluk bıraktı.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Disiplin soruşturması"
+            }
+          ]
+        },
+        "n_sonuc_stat": {
+          "title": "Onurlu Çıkış",
+          "kind": "outcome",
+          "text": "Kendi kariyerini bir hiç uğruna ateşe attın. Herkes sessizliği seçtiğinde, senin sesin tribünlerde yankılanacak ama saha kenarında artık bir yerin kalmayacak.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Yönetim ile ihtilaf"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -452,6 +452,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahadaki Gölge",
+          "kind": "branch",
+          "text": "Masaj odasının kapısını araladığında {actor.keeper.name} içeride, yarı karanlıkta tek başına duruyor. Masanın üzerindeki buz torbaları erimiş, su damlaları parkeye sızıyor. {actor.keeper.name} başını çevirip sana bakıyor; gözlerinde ne bir öfke ne de bir selam var. Yalnızca yılların biriktirdiği o ağır yorgunluk. Odanın içindeki oksijen aniden azalmış gibi hissediyorsun. Sessizlik o kadar yoğun ki, dışarıdaki saha görevlilerinin uzaklardan gelen anons sesleri başka bir dünyaya aitmiş gibi duyuluyor.",
+          "choices": [
+            {
+              "id": "c_wealth",
+              "text": "Masadaki zarfı al ve tek kelime etmeden yanından geç. Bu sessizlik artık ikinizin de tapulu malı.",
+              "target": "n_wealth",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Bakışlarını kaçır, duvardaki antrenman takvimini düzelt ve kapıyı yavaşça kapatıp çık.",
+              "target": "n_safe",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Tam karşısında dur, gözlerini ayırmadan elini omzuna koy. \"Bittiğinde, sadece biz kalacağız,\" de.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]"
+            }
+          ]
+        },
+        "n_wealth": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı cebinde bir yük gibi. Odanın kapısı arkanda kapandığında, içerideki o ağır havayı hala ciğerlerinde hissediyorsun. Artık bu hikayenin bir parçası değil, ortağısın.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_safe": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Kapı tık sesiyle kilitlendi. {actor.keeper.name} içeride, sen koridordasın. İkiniz de kendi doğrularınızla yalnızsınız. Yarın sabah herkesin yüzüne tekrar gülümseyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Açık Yüzleşme",
+          "kind": "outcome",
+          "text": "Omzundaki elin altında teninin soğukluğunu hissediyorsun. {actor.keeper.name} hafifçe titriyor ama bakışlarını kaçırmıyor. Artık bu sır, ikinizin arasında bir uçurum değil, bir köprü.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_taninma_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

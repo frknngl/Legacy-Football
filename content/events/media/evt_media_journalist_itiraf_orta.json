@@ -324,6 +324,380 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Manşet",
+          "kind": "branch",
+          "text": "Antrenman sahasının çitleri ardında, {actor.journalist.name} elinde bir ses kayıt cihazıyla bekliyor. Yağmur, yedek kulübesinin çatısında ritmik bir tıkırtı çıkarıyor. {actor.journalist.name} cihazın ekranını sana çeviriyor; kendi sesini duyuyorsun, o gece söylediklerin, kulüp yönetimi hakkındaki tüm hakaretler. Ses, bir celladın baltası gibi havada asılı. {actor.journalist.name} gülümsüyor, parmağı 'yayınla' tuşunun üzerinde. Sessizlik, bir kariyerin sonunu ilan edecek kadar ağır.",
+          "choices": [
+            {
+              "id": "c_bribery",
+              "text": "Çantandaki nakit yığınını çamurlu zemine fırlat. İnsanların fiyatı bellidir, senin de.",
+              "target": "n_outcome_wealth",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_confront",
+              "text": "Yakasına yapış ve cihazı elinden al. Taraftarların nefretine maruz kalmak, bu satılmış adamın yalanından daha onurlu.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_silence",
+              "text": "Başını öne eğ. \"Bunu yayınlarsan, benimle birlikte tüm kulüp batar.\" de ve oradan uzaklaş.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_basin",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_reputation",
+              "text": "Kendi kariyer hikayeni ona dikte et. Bu kayıtları senin lehine bir kahramanlık destanına dönüştürmesi için pazarlık et.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_basin",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]",
+              "persona": {
+                "dogruluk": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_wealth": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Parayı alıyor. Sessizlik, bir süreliğine satın alındı.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 0,
+              "reason": "ceza_sonlandirildi"
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Açık Kavga",
+          "kind": "outcome",
+          "text": "Cihaz parçalanıyor ama telefonlar çoktan kaydı almış bile.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            },
+            {
+              "op": "suspend",
+              "matches": 4,
+              "reason": "disiplinsizlik"
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Sessiz Çöküş",
+          "kind": "outcome",
+          "text": "Gidiyor. Kaydı yayınlamıyor. Ama her gece yastığa başını koyduğunda o cihazın sesini duyuyorsun.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Manipülatör",
+          "kind": "outcome",
+          "text": "Hikayeyi sen yazdın. Gazeteci senin ağzından çıkanları servis etti.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 0,
+              "reason": "affedildi"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Buz Çözülürken",
+          "kind": "branch",
+          "text": "Antrenman tesisinin ısıtılmayan koridorunda, kalorifer borularından gelen genleşme sesleri dışında hiçbir şey duyulmuyor. {actor.journalist.name}, duvara yaslanmış, elindeki eski bir not defterini parmaklarıyla ritmik bir şekilde çeviriyor. Yüzünde ne bir suçlama ne de bir acıma var; yalnızca işini bitirmeye odaklanmış bir avcının sakinliği. Defterin arasındaki fotoğraf, senin yıllardır özenle sakladığın o karanlık geceye ait. Işık yetersiz, duvarlar rutubetli. Konuşman gerekiyor, ancak her kelime kariyerinin kalanını bir uçurumun kenarına biraz daha yaklaştırıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Defteri elinden çekip al ve doğrudan çöpe at. 'Bunu gördüğünü unut, yoksa ben seni unuttururum.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Bileğindeki saati çıkarıp masaya bırak. 'Bu hikayeyi satabileceğin en yüksek rakamı konuşalım.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -25
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizliği kabul et. 'Her şeyi anlatacağım, ama sadece ikimizin arasında kalacak.'",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Sektörün içinden biri olarak ona bir anlaşma teklif et. 'Bu haberi senin adınla değil, benim yönettiğim bir kanalla çıkaralım.'",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Medya İtibarı 55+]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sert Çıkış",
+          "kind": "outcome",
+          "text": "Gözleri korkuyla açıldı, defterini almadan arkasına bakmadan koridorda kayboldu. Ancak bu hamle, saha dışındaki düşmanlarını daha da tetikledi.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            },
+            {
+              "op": "suspend",
+              "matches": 4,
+              "reason": "Disiplinsizlik ve tehdit"
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Para el değiştirdi. {actor.journalist.name} artık bir haberci değil, ortağınız. Vicdanındaki boşluk, banka hesabındaki artışla kapanmıyor.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 0,
+              "reason": "Anlaşma sağlandı"
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "İtiraflar",
+          "kind": "outcome",
+          "text": "Dökülen her cümle, yılların ağırlığını biraz daha hafifletiyor ama taraftarların gözündeki o sarsılmaz imajın yavaşça eridiğini hissediyorsun.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            },
+            {
+              "op": "suspend",
+              "matches": 4,
+              "reason": "Skandal sonrası emeklilik"
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yeni Bir Maske",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} gülümsedi. Artık kontrol sende, ama bu kontrolü elde tutmak için harcadığın zihinsel enerji, sahaya ayıracak gücünü çalıyor.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            },
+            {
+              "op": "suspend",
+              "matches": 0,
+              "reason": "Süreç manipüle edildi"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

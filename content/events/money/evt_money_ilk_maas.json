@@ -384,6 +384,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Gelen İlk Ödeme",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları sönmüş. Tribünlerin altındaki otoparkta, betonun soğuğu kramponlarının altından geçip iliklerine işliyor. {actor.sporting_director.name}, kapısı aralık duran siyah bir aracın önünde bekliyor. Sana bir uygulama bildirimi gönderdi. Ekranın ışığı yüzünü aydınlatırken rakamı görüyorsun. Beklediğinden yüksek. Bir hata mı? Yoksa bu, sahadaki o tehlikeli ikili mücadelelerin, kırılan kemiklerin, gizlenen sakatlıkların karşılığı mı? {actor.sporting_director.name} sana bakmıyor, sigarasının dumanını rüzgara bırakıyor. Sana yaklaşmanı ya da soru sormanı bekleyen o ağır sessizlik çökmüş durumda. Sessizlik bir anlaşma gibi.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Telefona bakma bile. Teşekkür edip başını öne eğerek uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Arabanın kapısına vur. Bu paranın neden bu kadar çok olduğunu yüksek sesle sor.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Hiçbir şey sorma. Sadece ekranı kilitle ve parayı kabul ettiğini belli ederek adımla.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessizlik Kazandırır",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek ses, lastiklerin beton üzerindeki gıcırtısı. Profesyonelce davrandın, soru sormadın. Ama içindeki o huzursuzluk, aldığın paranın yarattığı ağırlıktan daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_susmayi_secti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Gözü Kara Başlangıç",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} arabadan inmedi. Sadece bir an için göz göze geldiniz. Şimdi herkes senin o paranın peşine düştüğünü, hesabını sorduğunu konuşacak. Bir kahraman mı yoksa bela mı, zaman gösterecek.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_soru_sordu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Rakam hesabına yattı. Ne bir açıklama yapıldı ne de bir soru soruldu. Bu paranın kaynağını bilmemeyi seçerek aslında ruhunun bir parçasını o beton otoparkta bıraktın. Artık kazanan taraftasın ama kayıpların görünmez.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_maas_hepsini_harcadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

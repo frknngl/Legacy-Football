@@ -374,6 +374,310 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Kalan Veda",
+          "kind": "branch",
+          "text": "Gece yarısı, antrenman sahasının kenarındaki duş kabinlerinde yankı sadece su damlalarının sesi. {actor.youngster.name} yere çökmüş, ayakkabılarını bağlamaya çalışıyor ama elleri titriyor. Kulüp yönetimi onunla sözleşme uzatmayacağını bir saat önce bildirdi. Ben duşun çıkışında, kapı eşiğinde duruyorum. Tek başımıza değiliz; teknik direktörün odasından gelen kahkaha sesleri bu sessizliği bölüyor. Göz göze geliyoruz. Yardım etmemi bekliyor, ya da belki sadece buradan sessizce çıkıp gitmemi.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Kalın bir zarfı ıslak zemine bırak. 'Bununla kendine bir süre vakit kazanırsın, kimseye anlatma.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5,
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Soğuk bir ifadeyle başını salla. 'Futbol duygusallığı kaldırmaz, şimdi toparlan ve git.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": 8,
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dolabını sertçe kapatıp koridora doğru bağır. 'Bunu ona yapanlar kendi sonlarını hazırlıyor!'",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10,
+                "sadakat": -2
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Vicdanın Bedeli",
+          "kind": "outcome",
+          "text": "{actor.youngster.name} zarfı gördü ama elini sürmedi. Bakışlarındaki hayal kırıklığı, paranın soğukluğundan daha ağır. Yarın ikimiz de o sahada sahte bir gülümsemeyle ısınacağız.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sert Bir Ders",
+          "kind": "outcome",
+          "text": "Söylediklerim yankılandı. {actor.youngster.name} gözlerini kaçırdı ve ayağa kalktı. Haklı olduğumu biliyor, ama bu onu benden uzaklaştırdı. Kapıdan çıkarken arkasına bile bakmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Gürültülü Bir Çıkış",
+          "kind": "outcome",
+          "text": "Sesim koridorda yankılandı, yönetim odasındaki kahkahalar anında kesildi. {actor.youngster.name} şaşkın, etraf sessiz. Yarın sabah gazetelerde manşetler benim ismimle dolacak.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Kulüp binasının bodrum katındaki çamaşırhanedeyiz. Havalandırma sesi gürültülü. {actor.youngster.name}, elindeki tozlu kramponları bir çöp torbasına tıkmaya çalışıyor. Yönetim, onunla olan bağını tamamen kopardı. Beni fark ettiğinde donup kalıyor. Gözlerindeki o ifade, bir başkasının hayatını bir anda silip atmanın ağırlığını taşıyor. İlk kez biri, bir yıldızın maskesi arkasındaki o soğuk gerçekle değil, sadece insanla yüzleşiyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Torbasını elinden al, boşalt. 'Burayı terk ederken kimsenin seni ezmesine izin verme, çıkıp basına her şeyi anlat.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Gözlerinin içine bakmadan masanın üzerine bir çek bırak. 'Bu, sessizliğin ve başka bir şehre taşınman için yeterli.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Elini omzuna koy, ağır bir sessizlikle onay ver. 'Futbol bu, bazen en iyisi veda etmektir. Kendi yoluna git.'",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 3
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Ceketini çıkarıp ona uzat. 'Bu gece değil, yarın sabah menajerimle buluşuyorsun. Seninle işimiz daha bitmedi.'",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_youngster",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Yüksek İtibar]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Gürültülü Ayrılış",
+          "kind": "outcome",
+          "text": "Odanın kapısını çarpıp çıkıyor. Arkasında bıraktığı toz bulutu, bir kariyerin daha nasıl dinamitlendiğinin kanıtı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Çeki görüyor. İtiraz etmiyor. Bir kelime etmeden odadan çıkarken, arkasında sadece bir yabancı bırakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Profesyonel Veda",
+          "kind": "outcome",
+          "text": "Başını sallıyor. Hafif bir baş selamı verip eşyalarını alıyor. Kapı kapandığında odada sadece ter kokusu kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Yeni Bir Risk",
+          "kind": "outcome",
+          "text": "Bakışları değişiyor. Artık bir kurban değil, bir ortak. Bu gece onun için hiçbir şey bitmedi, ama benim için çok şey başladı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_reddedilis_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

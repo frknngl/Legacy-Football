@@ -340,6 +340,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Aynadaki Yabancı",
+          "kind": "branch",
+          "text": "Evin bahçesinde, havuzun kenarındasın. {actor.cousin.name} elinde eski bir kutuyla duruyor. Kutunun içinden gençlik yıllarına ait, henüz hiçbir şeyin parayla ölçülmediği zamanlardan kalma vesikalık bir fotoğraf çıkıyor. {actor.cousin.name} fotoğrafa bakıp gülümsüyor, sonra başını kaldırıp sana bakıyor. Gözlerinde ne hayranlık var ne de kıskançlık; sadece tanımaya çalıştığı bir yabancının hayal kırıklığı. Sessizlik, uzaktan gelen şehir trafiğinin uğultusundan daha ağır.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Kutuyu elinden al, kenara bırak. Yanağına bir miktar nakit sıkıştırıp arkana yaslan.",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Fotoğrafı yırt, {actor.cousin.name} gözlerinin içine bakarak sadece \"O adam öldü\" de.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Ona bir sandalye çek, sessizliği birlikte paylaşın.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Geçmişi konuşmayı reddet, ona yeni projelerinden bahset.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Medya İtibarı 55]"
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Parayı kabul edişindeki soğukluk, aranızdaki son köprüyü de yıktı. Artık bir yabancısınız.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "{actor.cousin.name} arkasını dönüp giderken bir şey söylemiyor. Ses, gölgelerin sessizliğinde kayboluyor.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Uzlaşı",
+          "kind": "outcome",
+          "text": "Saatlerce sustunuz. En azından bu gece, kimse kimseyi suçlamadan ayrıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Uzaklaşma",
+          "kind": "outcome",
+          "text": "Konuşman bittiğinde odanın boş olduğunu fark ettin. O artık burada değil.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

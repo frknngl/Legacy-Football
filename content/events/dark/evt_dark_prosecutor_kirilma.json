@@ -369,6 +369,166 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Köşe",
+          "kind": "branch",
+          "text": "Kulüp binasının bodrum katındaki teknik arşiv odası. Florasan lamba cızırdayarak yanıp sönüyor. {actor.prosecutor.name}, tozlu rafların arasında, elinde ucu mühürlü bir zarf tutuyor. Dışarıda antrenman sahasının gürültüsü uzaktan bir uğultu gibi geliyor. {actor.prosecutor.name} zarfı sana doğru uzatıyor. Parmak uçları titrek değil. Bu kağıdın içinde kariyerini temize çıkaracak bir imza veya seni bir gecede bitirecek bir kanıt var. Sessizlik, bir kararın ağırlığıyla odadaki havayı tüketiyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Zarfı elinden alıp masanın üzerine, açmadan bırak. 'Bunun bedelini sonra konuşuruz.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı al, ceketinin iç cebine sok. Gözlerine bakmadan arkana dön ve çıkışa yönel.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Bir adım geri çekil. 'Bunu buraya getirmemiş olmalısın.' Odadan hızla çık.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_prosecutor",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Zarfı yırtıp çöp kutusuna at. {actor.prosecutor.name} ile göz göze gel, tek bir kelime bile etme.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_prosecutor",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Profesyonellik 55]"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Ertelemek",
+          "kind": "outcome",
+          "text": "Zarf masada duruyor. {actor.prosecutor.name} hafifçe gülümsüyor, kapıya doğru yürüyor. İçinde bir şeyin kırıldığını hissediyorsun ama geri dönüşü yok.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı ceketinde hissediliyor. {actor.prosecutor.name} artık bir gölge gibi arkanda. Bedelini sonra ödeyeceğin bu sessizlik, seni biraz daha yalnızlaştırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Korkak Huzur",
+          "kind": "outcome",
+          "text": "Koridorda yankılanan adımların sana eşlik ediyor. {actor.prosecutor.name} arkanda kalıyor. Doğru olanı yaptın, ama aynaya bakarken gözlerini kaçırdın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Keskin Çizgi",
+          "kind": "outcome",
+          "text": "Kâğıt parçaları çöp kutusunun içinde. Kararın net, bedeli ise yorgunluk. {actor.prosecutor.name} odadan çıkarken son bir kez sana bakıyor; düşmanlığın artık kişisel.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_prosecutor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

@@ -386,6 +386,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Yüzleşmesi",
+          "kind": "branch",
+          "text": "Antrenman sahasının kapalı tribünündeki basamaklar rutubetli. {actor.childhood_friend.name} yanına oturuyor. Elinde eski, yıpranmış bir kayıt cihazı var. Düğmeye basıyor. Kendi sesini duyuyorsun; aylarca önce, hiçbir şeyin belli olmadığı o günlerde yaptığın bir itiraf. Kayıt, sözleşmenin karanlık arka planını ifşa ediyor. {actor.childhood_friend.name} cihazı kapatmıyor. Gözleri yaşlı değil, aksine bomboş. \"Bunu medya grubuna satarsam kurtulurum,\" diyor. Sesi titremesiz. \"Ama senin kariyerin biter.\" Sahadaki projektörlerin cılız ışığı, elindeki cihazın metalik yüzeyinde parlıyor. Bir tercih yapman gerekiyor; cihazı yok etmek için ayağa kalkmalı ya da bu sessiz ihaneti kabullenmelisin.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Cihazı elinden çekip al, tribünden aşağı, karanlığa fırlat.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kayıt cihazını sessizce masaya bırakmasını söyle, antrenmana dön.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kendi kariyer kazancından bir payı ona teklif et, kaydı silmesini sağla.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Elini omzuna koy; onunla dertleş, aranızdaki bağı hatırlat.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 12
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Zihinsel Dayanıklılık 68]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Karanlığa Atış",
+          "kind": "outcome",
+          "text": "Metal cihaz beton zeminde parçalanırken ses kesildi. Göz göze geldiniz. Artık bir bağınız yok, sadece suç ortaklığı ve birikmiş bir öfke var.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Profesyonellik",
+          "kind": "outcome",
+          "text": "Sırtını döndün. Arkanda kalan ayak sesleri, kurulan hayallerin sonu gibi geldi. Yarın sahaya çıkacaksın ama o adam artık senin yanındaydı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bedel",
+          "kind": "outcome",
+          "text": "Banka hesabından düşen miktar, bir dostluğun piyasa değeriydi. Makbuz imzalanmadı, sadece vicdanın biraz daha ağırlaştı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Zayıf Nokta",
+          "kind": "outcome",
+          "text": "Cihazı yavaşça masanın üzerine bıraktı. Gözyaşlarını sildi. Birbirinize sarıldınız ama omuzlarındaki ağırlık, bu yükü artık tek başına taşıyamayacağın kadar arttı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

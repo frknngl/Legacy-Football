@@ -291,6 +291,118 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Soyunma Odası",
+          "kind": "branch",
+          "text": "Antrenman biteli saatler olmuş. Duşlardan gelen su sesi kesildi. {actor.star_teammate.name}, dolabının önünde oturuyor; sırtı sana dönük. Ayaklarının dibinde, kulüp amblemli bir çöp kutusu var. İçinde yırtılmış sözleşme taslakları ve birkaç yıllık geçmişe ait hatıralar. {actor.star_teammate.name} yavaşça sana doğru dönüyor, elinde yarım bırakılmış bir soğuk kahve bardağı var. Gözlerindeki o tanıdık, profesyonel parıltı sönmüş. 'Her şeyi bir düzene sığdırdık,' diyor, sesi odadaki sessizlikte yankılanıyor. 'Peki, gerçekten kimin kazandığına dair bir fikrin var mı?'",
+          "choices": [
+            {
+              "id": "c_ayrim",
+              "text": "Kahve bardağını al, yere bırak ve oradan sessizce uzaklaş.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 2
+              }
+            },
+            {
+              "id": "c_faydaci",
+              "text": "Çöp kutusuna uzan, o yırtık kağıtları al ve sakla.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_kavga",
+              "text": "Eline bir sandalye çek, karşısına otur. Ne varsa masaya dök.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Mental Dayanıklılık 70]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Uzaklaşmak",
+          "kind": "outcome",
+          "text": "Sessizlik en büyük cevaptır. {actor.star_teammate.name} gidişini izliyor, hiçbir şey söylemiyor. Odanın kapısını kapatırken arkanı dönmüyorsun bile.",
+          "onEnter": [
+            {
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Arşiv",
+          "kind": "outcome",
+          "text": "Kağıtları cebine sıkıştırıyorsun. Bu sadece bir çöp yığını değil, bir sigorta poliçesi. {actor.star_teammate.name} sana bakıyor; yüzünde ilk kez bir korku belirtisi var.",
+          "onEnter": [
+            {
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Sesler koridora taşıyor. {actor.star_teammate.name} ile birbirinize söylemedik hiçbir şey bırakmıyorsunuz. Maske düştü, artık hiçbir şey eskisi gibi olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_social_kirilma_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

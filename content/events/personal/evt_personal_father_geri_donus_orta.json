@@ -339,6 +339,208 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesaplar",
+          "kind": "branch",
+          "text": "Antrenman sahasının yanındaki otoparkta, sisin içinde bekliyor. {actor.father.name} eski bir aracın kaputuna yaslanmış, elindeki sigaranın dumanını boşluğa bırakıyor. Arabanın farları yandığında yüzündeki çizgiler daha derinleşiyor. Ayak seslerini duyunca dönmüyor bile. Sadece ön cama bıraktığı dekontu işaret ediyor. Sesinde ne bir sitem var ne de bir öfke; sadece ağır bir teslimiyet.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dekontu al, sessizce incele. 'Ödeyeceğim, yarın sabah bankadan hallederim.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_father",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sigarasına uzan, bir nefes al. 'Buraya gelmen hata, insanlar seni burada görmemeli.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": 6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebinden çıkardığın nakit destesini ona fırlat. 'Bir daha karşıma çıkma.'",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Anahtarları ona uzat. 'Arabanı sat, kalanını da başka bir hayatta ara.'",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_father",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -40
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Yeterli birikim gerekli]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Planlı Çözüm",
+          "kind": "outcome",
+          "text": "Başını sallıyor ve karanlığa karışıyor. Bu borç bitti ama yarattığı boşluk yerli yerinde.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "lifeState",
+              "op": "set",
+              "value": "retired"
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sokak Bilgeliği",
+          "kind": "outcome",
+          "text": "Gülümseyerek uzaklaşıyor. İtibarın sokakta parlıyor, ancak gölge peşini bırakmayacak.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "lifeState",
+              "op": "set",
+              "value": "retired"
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Parayı yerdeki çamurun içinden alıyor. Aranızdaki bağ artık sadece bu kirli kağıtlardan ibaret.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "lifeState",
+              "op": "set",
+              "value": "retired"
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Fedakarlık",
+          "kind": "outcome",
+          "text": "Sana bakıyor; gözlerinde uzun zamandır görmediğin bir minnet var. Bu bedel, seni senden alıp götürdü.",
+          "onEnter": [
+            {
+              "flag": "npc_father_arc",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "lifeState",
+              "op": "set",
+              "value": "retired"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

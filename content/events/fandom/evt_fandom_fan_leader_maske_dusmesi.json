@@ -22,132 +22,6 @@
     "op": "gte",
     "value": 10
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Karanlık Köşe",
-      "kind": "branch",
-      "text": "Stadyumun arka çıkışındaki loş koridorda, otoparka giden kapı aralık. {actor.fan_leader.name} duvara yaslanmış, elindeki sigaranın dumanını boşluğa bırakıyor. Sen yaklaştığında başını kaldırıyor; gözlerinde o alıştığın 'sadık taraftar' ışığı yok. Hemen yanında, {actor.journalist.name} bir flaşın patlamasına ramak kala duruyor, elindeki kayıt cihazı titriyor. Fan lideri, tribünlerdeki o mitolojik figür değil; sadece yorgun ve hırçın bir yabancı. Aranızdaki o sarsılmaz, kutsal mesafe bir anlığına yok oluyor.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Gözlerini {actor.journalist.name} üzerine dik. 'Cihazı kapat, sonra konuşalım.'",
-          "target": "n_sonuc_guvenli",
-          "effects": [
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
-            }
-          ],
-          "persona": {
-            "durus": 8
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "{actor.fan_leader.name} ile yan yana dur. 'Ne anlatacaksan, herkesin önünde anlat.'",
-          "target": "n_sonuc_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
-            }
-          ],
-          "persona": {
-            "durus": -5
-          }
-        },
-        {
-          "id": "c_gri",
-          "text": "Yavaşça cüzdanını çıkar. {actor.fan_leader.name} için bir 'teşekkür' bırak.",
-          "target": "n_sonuc_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -20000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "dogruluk": -8
-          }
-        }
-      ]
-    },
-    "n_sonuc_guvenli": {
-      "title": "Sessizlik Anlaşması",
-      "kind": "outcome",
-      "text": "{actor.journalist.name} cihazı indiriyor. {actor.fan_leader.name} başını sallayıp gölgelere karışıyor. Sırrın seninle kalıyor ama arkanda bıraktığın hayal kırıklığı tadı uzun süre gitmiyor.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_maske_dusmesi_fan_leader",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_riskli": {
-      "title": "Açık Çatışma",
-      "kind": "outcome",
-      "text": "Kayıt cihazı havada. {actor.fan_leader.name} konuşmaya başlıyor. Tribünler yarın senin gerçek yüzünü görecek, ama sokaktaki sadakat en azından bir süreliğine seninle.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_maske_dusmesi_fan_leader",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_gri": {
-      "title": "Satın Alınan Sadakat",
-      "kind": "outcome",
-      "text": "Para el değiştiriyor. {actor.fan_leader.name} omuz silkiyor ve ortamdan uzaklaşıyor. Kariyerin güvende, ama aynaya baktığında odayı neden terk ettiğini sorguluyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_maske_dusmesi_fan_leader",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_fandom_maske_dusmesi",
     "beat": "evt_fandom_fan_leader_maske_dusmesi",
@@ -157,5 +31,428 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Köşe",
+          "kind": "branch",
+          "text": "Stadyumun arka çıkışındaki loş koridorda, otoparka giden kapı aralık. {actor.fan_leader.name} duvara yaslanmış, elindeki sigaranın dumanını boşluğa bırakıyor. Sen yaklaştığında başını kaldırıyor; gözlerinde o alıştığın 'sadık taraftar' ışığı yok. Hemen yanında, {actor.journalist.name} bir flaşın patlamasına ramak kala duruyor, elindeki kayıt cihazı titriyor. Fan lideri, tribünlerdeki o mitolojik figür değil; sadece yorgun ve hırçın bir yabancı. Aranızdaki o sarsılmaz, kutsal mesafe bir anlığına yok oluyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini {actor.journalist.name} üzerine dik. 'Cihazı kapat, sonra konuşalım.'",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "{actor.fan_leader.name} ile yan yana dur. 'Ne anlatacaksan, herkesin önünde anlat.'",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Yavaşça cüzdanını çıkar. {actor.fan_leader.name} için bir 'teşekkür' bırak.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sessizlik Anlaşması",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} cihazı indiriyor. {actor.fan_leader.name} başını sallayıp gölgelere karışıyor. Sırrın seninle kalıyor ama arkanda bıraktığın hayal kırıklığı tadı uzun süre gitmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Açık Çatışma",
+          "kind": "outcome",
+          "text": "Kayıt cihazı havada. {actor.fan_leader.name} konuşmaya başlıyor. Tribünler yarın senin gerçek yüzünü görecek, ama sokaktaki sadakat en azından bir süreliğine seninle.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Satın Alınan Sadakat",
+          "kind": "outcome",
+          "text": "Para el değiştiriyor. {actor.fan_leader.name} omuz silkiyor ve ortamdan uzaklaşıyor. Kariyerin güvende, ama aynaya baktığında odayı neden terk ettiğini sorguluyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünelin Sonu",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki teknik servis odası. Havalandırmadan gelen uğultu, koridordaki kutlamaların sesini bastırıyor. {actor.fan_leader.name}, paslı bir metal dolabın önünde duruyor. Elinde senin şampiyonluk maçında giydiğin terli formayı tutuyor. Formanın üzerinde, stadyum dışındaki o kirli duvarlarda görmeye alıştığın o imza var. {actor.fan_leader.name} sana bakmıyor. Gözleri formanın yırtık dikişlerinde. Masanın üzerinde, bir zarfın içinden taşan nakit desteği, floresan ışığın altında mat bir parıltı yayıyor. Odada tek bir soru var: O forma, o taraftarın elinde kalmalı mı, yoksa olması gerektiği gibi çöpe mi gitmeli?",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Formayı elinden al, katla ve çantana sok. 'Bu başka birinin hatırası.'",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce dolaptan temiz bir yedek forma çıkar. 'Bunu al, diğerini yak.'",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Masadaki zarfı işaret et. 'Bunu halledelim, gerisini unut.'",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 1000
+              },
+              "lockLabel": "[Maddi kaynak yeterli]"
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Sadakatin Bedeli",
+          "kind": "outcome",
+          "text": "{actor.fan_leader.name} şaşkın ama yüzünde bir tebessüm var. Bu an, yarın bir gün basının diline dolanacak bir 'ego' meselesine dönüşebilir, ama sokaktaki karşılığı bu gece çok daha derin olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sınırlar",
+          "kind": "outcome",
+          "text": "Odanın kapısını kapatıp çıktığında, koridorun sonunda {actor.fan_leader.name} arkandan bakıyor. Profesyonelce bir mesafe koydun, ancak stadyumun en ateşli sesiyle arana kalın bir duvar ördün.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı, o odadaki tüm temizliği alıp götürdü. {actor.fan_leader.name} artık bir sırdaş; bu, kazanılan zaferin gölgesindeki ilk çatlak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Çatısı",
+          "kind": "branch",
+          "text": "Gece yarısı. Stadyumun tepesinde, projektörlerin soğumaya bıraktığı metalik koku havada asılı. {actor.fan_leader.name} demir parmaklıkların ardında, aşağıda dağılan boş tribünlere bakıyor. Yüzünde o meşhur, boyalı maske yok. Sadece yorgun, 30’lu yaşlarında bir adamın gri hatları var. Bir an için sana bakıyor; sahadaki o oyuncu değil, sadece bir insan olduğun o nadir anlardan biri. \"Beni burada görmedin,\" diyor sessizce. Sesinde ne bir tehdit ne de bir yalvarış var. Sadece ağır bir kabulleniş.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Yanına otur, sessizce sigarasından bir tane al. 'Burada kimse yok.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başınla selam ver ve arkana bakmadan tırmandığın merdivenlerden in.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden kulüp kartını çıkarıp parmaklıkların arasından ona doğru uzat. 'Gelecek hafta işine yarar.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -2
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Ona doğru bir adım at. 'Senin için de, benim için de artık maskeler bitti.'",
+              "target": "n_lider",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Paylaşılan Sır",
+          "kind": "outcome",
+          "text": "Metalik soğukluk iki kişiye bölünüyor. O gece orada kurulan sessiz ittifak, stadyumun duvarları arasında bir mühür gibi kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Uzak Durmak",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde duyduğun tek ses, ayakkabılarının metal ızgaralardaki tıkırtısı. Kimse kimseyi görmedi. İkiniz de kendi dünyanızın karanlığına döndünüz.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bir Bedel",
+          "kind": "outcome",
+          "text": "Kart el değiştiriyor. Hiçbir şey söylenmiyor. O kartın yarın nerelerde kullanılacağını biliyorsun, bedelini ödemeye hazırsın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_lider": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Sözlerin rüzgarda yankılanıyor. İlk kez, taraftarın lideri değil, sadece bir adamın karşısında dikiliyorsun. Aranızdaki mesafe, ilk defa bir oyuncu ile insan arasında değil, iki eşittir arasında eriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

@@ -387,6 +387,175 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tesisin Arka Bahçesi",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki tel örgülerin gölgesindeyiz. {actor.national_manager.name} çimlere bakıyor. Elinde tuttuğu tabletin ekranı, kadronun geri kalanından ayıracağı ismin üzerinde titriyor. Rüzgar, sentetik formaların hışırtısını taşıyor. 'O çocukta ışık var, biliyorum,' diyor {actor.national_manager.name}. 'Ama tecrübe, bir turnuvanın tek para birimidir. Ya onu yazacağım ya da yedi yıldır bu formaya terini döken o adamı. Sen ikisiyle de antrenman yaptın. Hangisinin yokluğu, bu takımın omurgasını daha az sarsar?'",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sessizliği tercih et. Kendi kariyerini düşün, bu tercihin vebali başkasının omuzlarında kalsın.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Genci işaret et. 'Taze kana ihtiyacımız var, eskimiş isimlerle değil cesaretle kazanılır bu maçlar.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kıdemliyi savun. 'Sadakat bir maratonun en büyük yakıtıdır, gençlerin hevesi oyunun son dakikasına yetmez.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Birlikte listeyi gözden geçirmeyi teklif et. 'İkisini de dengeleyecek bir taktik plan kurabiliriz.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Bağlılık yüksek]"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Dışarıda Kalmak",
+          "kind": "outcome",
+          "text": "{actor.national_manager.name} tableti kapatıp cebine sokuyor. Bakışları mesafeli. Hiçbir şey demeden sahadan uzaklaşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_karismadi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Gençliğin Yolu",
+          "kind": "outcome",
+          "text": "Karar verilmiş. Genç oyuncu kadroya giriyor, diğeri ise tesislerden erkenden ayrılıyor. Sessizlik her şeyi anlatıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_genci_savundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Eski Tüfekler",
+          "kind": "outcome",
+          "text": "Tecrübenin ağırlığı ağır basıyor. {actor.national_manager.name} başını sallayarak onaylıyor. Güvenli liman, huzursuzlukla birleşiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_kidemi_savundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Ortak Sorumluluk",
+          "kind": "outcome",
+          "text": "Saatlerce süren taktik analizi sonunda ikisi de kadroya dahil ediliyor. Bedenin yorgunluğu, zihnin tatminiyle gölgeleniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_kadroda_kendini_verdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -662,6 +662,131 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_terk_edilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Boş Koltuk",
+          "kind": "branch",
+          "text": "Antrenman tesisinin otoparkında, yağmur şiddetle ön cama vuruyor. {actor.childhood_friend.name} ile geçen hafta bu zamanlar bir restoranda buluşmak için sözleşmiştiniz. Mekan kapandı, ışıklar söndü. Telefonunda tek bir mesaj yok. Yıllar önce seninle aynı ayakkabıları paylaşan kişi, şimdi bir siluet kadar uzak. Elinde tuttuğun iki kişilik davetiye, torpido gözünün üzerinde, ıslanmış bir kağıt parçasına dönüşüyor. İhanet, sesli bir patlama değil; sessiz bir bekleme anı.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Davetiyeyi yırtıp at, kulüp çıkışındaki yerel taraftar grubunun masasına otur ve tüm içecekleri üstlen.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Motoru çalıştır ve eve dön. Yarınki maç için erkenden dinlenmeye başla.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Sponsorun aracına bin, geceyi başka bir şehirdeki galada geçirmek için yola çık.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ]
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokakların Dili",
+          "kind": "outcome",
+          "text": "Gece, beklediğinden daha uzun sürdü. Taraftarların alkışları, boş masanın hüznünü bastırdı ama sabah gazetelerdeki manşetler, disiplinini sorgulayan bir tonda yazıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_left_academy_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Disiplin",
+          "kind": "outcome",
+          "text": "Yatakta tavanı izlerken {actor.childhood_friend.name} ismi zihninde yankılandı. Profesyonellik, bazen en yakınlarını feda etmeyi gerektiren soğuk bir zırhtır.",
+          "onEnter": [
+            {
+              "flag": "mem_left_academy_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Parıltılı Kaçış",
+          "kind": "outcome",
+          "text": "Fotoğrafçıların flaşları patlarken gerçek dünyadan koptun. Hesap defterine eklenen rakamlar, geride bıraktığın dostluğun yerini doldurmak için yeterince büyük değil.",
+          "onEnter": [
+            {
+              "flag": "mem_left_academy_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -365,6 +365,180 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Daveti",
+          "kind": "branch",
+          "text": "Otoparkın en karanlık köşesinde, motoru rölantide çalışan bir sedanın içindeyiz. {actor.lawyer.name}, torpido gözünden çıkardığı mühürlü zarfı vites kolunun üzerine bırakıyor. Dışarıda sağanak yağmur var; camdaki damlalar {actor.lawyer.name} yüzünü bulanıklaştırıyor. Tek bir imza ile kariyerimdeki tüm pürüzlerin silineceğini biliyorum. Ama bu kağıtların hangi çöplükten geldiğini sormam yasak. Sadece, müziğin sesi iyice kısık, içerisi rutubet ve ucuz sigara kokuyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı al. Sormadan, sorgulamadan yoluna devam et.",
+              "target": "n_out_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı geri it. Kendi çabanla çıkmadığın hiçbir merdiveni kabul etmeyeceksin.",
+              "target": "n_out_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı al ama yanına bir de kendi şartlarını yaz. Onlara rest çek.",
+              "target": "n_out_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Sakin kal, zarfın içeriğini incele ve ona oyun planını anlat.",
+              "target": "n_out_stat",
+              "effects": [
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_out_gri": {
+          "title": "Bedeli Ödenecek Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.lawyer.name} hafifçe gülümsedi. Kapı kapandı. Artık o mühürlü zarfın ağırlığını cebimde taşıyorum.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_guvenli": {
+          "title": "Onurlu Bir Yalnızlık",
+          "kind": "outcome",
+          "text": "Arabanın kapısını sertçe çarpıp yağmura karıştım. {actor.lawyer.name} arkamdan bakmadı bile.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_riskli": {
+          "title": "Büyük Kumar",
+          "kind": "outcome",
+          "text": "Tehditlerim {actor.lawyer.name} için bir eğlence kaynağına dönüştü. Şimdi ikimiz de birbirimizin boğazındaki ilmiği sıkıyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_out_stat": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "Saatlerce konuştuk. Artık {actor.lawyer.name} ile aynı masada oturuyoruz. İkimizin de elleri artık temiz değil.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

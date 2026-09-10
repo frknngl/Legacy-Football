@@ -31,142 +31,6 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Hesaplaşma Vakti",
-      "kind": "branch",
-      "text": "Antrenman sahasının en kuytu köşesindeki tıbbi odanın kapısı aralık. İçeride {actor.fixer.name} seni bekliyor. Masanın üzerinde yirmi beş hafta önce {actor.physio.name} ile girdiğin o karanlık ilişkinin detaylı dökümleri duruyor. O gün rehabilitasyon sürecini hızlandırmak adına yapılan şaibeli iğnelerin, gizli raporların ve kuralları esneten o imzanın faturası nihayet kesilmiş. {actor.fixer.name} sana bakmıyor bile; sadece dosyanın kenarındaki kalemi parmaklarının arasında çeviriyor. İçerideki hava ağır, ilaç kokusu genzini yakıyor. Sessizlik, bir borcun ödenmesi gerektiğini haykırıyor.",
-      "choices": [
-        {
-          "id": "c_odeme_kabul",
-          "text": "Dosyayı imzala ve istenen miktarı transfer et. Bu sayfa burada kapansın.",
-          "target": "n_outcome_guvenli",
-          "effects": [
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -50000
-            }
-          ],
-          "persona": {
-            "dogruluk": 3
-          }
-        },
-        {
-          "id": "c_inkar_et",
-          "text": "Böyle bir şeyin asla yaşanmadığını söyle ve odadan çık. Gürültü çıksın, gerekirse herkes duysun.",
-          "target": "n_outcome_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 15
-            }
-          ],
-          "persona": {
-            "mizac": -8
-          }
-        },
-        {
-          "id": "c_yeni_borc",
-          "text": "Başka bir işin içine girerek bu masrafı karşılamayı teklif et. Çarklar dönmeye devam etsin.",
-          "target": "n_outcome_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 20000
-            },
-            {
-              "flag": "iliski_fixer",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -8
-            }
-          ],
-          "persona": {
-            "durus": -5
-          }
-        }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "Temiz Bir Sayfa",
-      "kind": "outcome",
-      "text": "{actor.fixer.name} kağıtları alıp çantasına koyuyor. Hiçbir şey konuşulmuyor. Ancak bu ödeme, yaptığın hatanın artık bir kayıt olarak sistemde olduğunu hatırlatıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_mind_ayartma_physio_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Buz Üzerinde Yürümek",
-      "kind": "outcome",
-      "text": "Arkanı dönüp kapıyı sertçe çarptığında menteşelerden gelen gıcırtı boş odada yankılandı. {actor.fixer.name} istifini bozmadan, dudaklarının kenarında belli belirsiz bir alayla sana bakmaya devam etti; sanki vedan bir tehdit değil, kaçınılmaz bir teslimiyetin ilanıydı. Koridora çıktığında dışarıdaki keskin soğuk yüzüne çarptı ama zihnindeki o şaibeli sağlık raporunun yarın sabah tüm gazetelerin manşetlerini süsleyeceğini bilmek, içindeki huzursuzluğu daha da körükledi.",
-      "onEnter": [
-        {
-          "flag": "mem_mind_ayartma_physio_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Karanlık Ortaklık",
-      "kind": "outcome",
-      "text": "Göz göze geliyorsunuz. Anlaşma sağlandı. Borcunu ödemek için yeni bir karanlık işe imza attın. Artık ipler tamamen onun elinde.",
-      "onEnter": [
-        {
-          "flag": "mem_mind_ayartma_physio_yakin",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "once": true,
   "story": {
     "arc": "fam_arc_physio_ayartma",
@@ -178,5 +42,316 @@
     "beatGapTurns": 45,
     "signatureGapTurns": 30,
     "maxBeatUses": 6
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Hesaplaşma Vakti",
+          "kind": "branch",
+          "text": "Antrenman sahasının en kuytu köşesindeki tıbbi odanın kapısı aralık. İçeride {actor.fixer.name} seni bekliyor. Masanın üzerinde yirmi beş hafta önce {actor.physio.name} ile girdiğin o karanlık ilişkinin detaylı dökümleri duruyor. O gün rehabilitasyon sürecini hızlandırmak adına yapılan şaibeli iğnelerin, gizli raporların ve kuralları esneten o imzanın faturası nihayet kesilmiş. {actor.fixer.name} sana bakmıyor bile; sadece dosyanın kenarındaki kalemi parmaklarının arasında çeviriyor. İçerideki hava ağır, ilaç kokusu genzini yakıyor. Sessizlik, bir borcun ödenmesi gerektiğini haykırıyor.",
+          "choices": [
+            {
+              "id": "c_odeme_kabul",
+              "text": "Dosyayı imzala ve istenen miktarı transfer et. Bu sayfa burada kapansın.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_inkar_et",
+              "text": "Böyle bir şeyin asla yaşanmadığını söyle ve odadan çık. Gürültü çıksın, gerekirse herkes duysun.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_yeni_borc",
+              "text": "Başka bir işin içine girerek bu masrafı karşılamayı teklif et. Çarklar dönmeye devam etsin.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Bir Sayfa",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} kağıtları alıp çantasına koyuyor. Hiçbir şey konuşulmuyor. Ancak bu ödeme, yaptığın hatanın artık bir kayıt olarak sistemde olduğunu hatırlatıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_physio_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Buz Üzerinde Yürümek",
+          "kind": "outcome",
+          "text": "Arkanı dönüp kapıyı sertçe çarptığında menteşelerden gelen gıcırtı boş odada yankılandı. {actor.fixer.name} istifini bozmadan, dudaklarının kenarında belli belirsiz bir alayla sana bakmaya devam etti; sanki vedan bir tehdit değil, kaçınılmaz bir teslimiyetin ilanıydı. Koridora çıktığında dışarıdaki keskin soğuk yüzüne çarptı ama zihnindeki o şaibeli sağlık raporunun yarın sabah tüm gazetelerin manşetlerini süsleyeceğini bilmek, içindeki huzursuzluğu daha da körükledi.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_physio_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "Göz göze geliyorsunuz. Anlaşma sağlandı. Borcunu ödemek için yeni bir karanlık işe imza attın. Artık ipler tamamen onun elinde.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_physio_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Park Yeri",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş. Otoparkın en uç noktasında, {actor.fixer.name} aracının kapısını aralık bırakmış bekliyor. İçerideki loş sarı ışık, koltukların arasındaki o eski defteri aydınlatıyor. Geçmiş sezonların sakatlık raporları, kağıtların arasına sıkıştırılmış el yazısı notlarla birbirine karışmış. {actor.fixer.name} tek kelime etmiyor, sadece dikiz aynasından seni izliyor. Bir hamle yapmazsan, bu dosyalar yarın sabah antrenman tesislerinin kapısında olacak.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Defteri al ve {actor.fixer.name} ile göz göze gelerek yırt.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce kapıyı kapat ve hiçbir şey görmemiş gibi arkana bakmadan yürü.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Gömleğinin cebindeki zarfı konsola bırak ve dosyayı araçtan al.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Ona bir sonraki maçta kulüp içi dengeyi nasıl değiştireceğini anlat, ikna et.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Mental Dayanıklılık 68]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sert Bir Karşılaşma",
+          "kind": "outcome",
+          "text": "Kâğıtların yarısı çamurlu asfalta saçıldı. Araba ani bir manevrayla uzaklaştı. Sessizlik geri döndü ama artık bir düşmanın var.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_physio_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Kendi Yolunda",
+          "kind": "outcome",
+          "text": "Ayak seslerin otoparkta yankılanıyor. Vicdanın rahat belki, ama içindeki o boşluk artık daha büyük.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_physio_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Zarf gitti, dosya sende. Arabanın içindeki koku, kazandığın huzursuzlukla karıştı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_physio_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Zoraki Uzlaşı",
+          "kind": "outcome",
+          "text": "Sözlerin onu durdurdu. {actor.fixer.name} başıyla onayladı, dosyayı sana uzattı. Bu zaferin yorgunluğu bacaklarına vurdu.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_physio_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

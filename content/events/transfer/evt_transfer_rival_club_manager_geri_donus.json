@@ -336,6 +336,130 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_terk_edilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Köprü",
+          "kind": "branch",
+          "text": "Antrenman sahasının en kuytu köşesindeki boş tribündesin. {actor.sporting_director.name}, sahanın ortasında, çimlerin arasındaki sararmış bölgeye bakıyor. Yanında getirdiği çanta, ezeli rakibinin renklerini taşıyor. Hiçbir açıklama yapmıyor, sadece çantayı zemine bırakıp geri çekiliyor. Stat sessiz. Sadece uzaktan gelen otoban gürültüsü var. Terk edilmişlik, kariyerinin tüm o şaşaalı yıllarını bir anda silip süpürüyor. {actor.sporting_director.name} arkasını dönüp yürüyor; gölgesi sahanın üzerine uzun, karanlık bir bıçak gibi uzanıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Çantayı al. Kendi masana koy, içindekilerle hayatını garantile.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Çantayı tekmele. Rakibin renklerinin çimlere saçılmasını izle.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Çantayı olduğu yerde bırak. {actor.sporting_director.name}’in peşinden git ve elini sık.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Soğuk Anlaşma",
+          "kind": "outcome",
+          "text": "Kumaşın dokusu ellerinde ağır duruyor. Artık aidiyetin bir önemi kalmadı. İçinde yazan rakamlar, yıllarca sırtında taşıdığın formanın onurundan çok daha net bir gelecek vadediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Çantanın kilitleri patladı. Belgeler rüzgarda savrulurken arkanda bıraktığın kariyerini de beraberinde götürdü. Artık dönüşü yok, sadece geride bıraktığın o öfke dolu bakışlar var.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Profesyonel Veda",
+          "kind": "outcome",
+          "text": "Sessizce yürüdün. El sıkışırken gözlerinin içine baktın; {actor.sporting_director.name} bir şey söylemek istedi ama sustu. Kariyerindeki bu son durak, duygulardan arındırılmış bir vedadan ibaret.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_rival_club_manager",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

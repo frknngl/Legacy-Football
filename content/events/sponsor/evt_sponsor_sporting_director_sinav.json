@@ -310,6 +310,143 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odada Yüzleşme",
+          "kind": "branch",
+          "text": "Antrenman sahasının ışıkları çoktan söndü. {actor.sporting_director.name} teknik direktörün odasında değil, malzeme deposunun loş, tozlu köşesinde bir sandığa oturmuş. Önünde hiçbir kağıt, hiçbir sözleşme yok. Sadece tek bir yanık lamba ve kendi elleri. {actor.sporting_director.name} kafasını kaldırmıyor, ses tonunda yorgunluktan daha fazlası, bir itirafın ağırlığı var: 'Marka, senin üzerinden oynadığımız oyundan sıkıldı. Daha sert, daha tartışmalı bir profil istiyorlar. Ya bu imajı kabul edersin ya da seni bir daha sahada görmeyiz.' Sessizliği sadece dışarıdan gelen gece rüzgarı bölüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce başını salla. Profesyonel kalmak, her şeyden önce gelir.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Duvardaki çöp kutusunu tekmele. Kendi şartlarınla, kendi oyununla.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Bakışlarını lamba üzerinde sabitle. 'Bu parayı ikiye katlayalım, gerisi umurumda değil.'",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 0
+              },
+              "lockLabel": "[Kariyer deneyimi]"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Maske Takılı Kaldı",
+          "kind": "outcome",
+          "text": "Sadece onayladın. {actor.sporting_director.name} sana bakmadan başını eğdi. Odanın kapısını kapatırken, üzerindeki ağırlığın biraz daha arttığını hissettin. Yıllardır taşıdığın o profesyonel maske, yerinde sapasağlam duruyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "İpler Kopuyor",
+          "kind": "outcome",
+          "text": "Depodaki sessizlik, çıkan gürültüyle bölündü. {actor.sporting_director.name} oturduğu yerden kalkmadı bile. Sadece dudaklarında acı bir gülümseme belirdi. Bu gece, ilişkinizde geri dönülemez bir çatlak yarattın.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Bedeli Ödenmiş Bir Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} cebinden bir zarf çıkarıp masaya attı. 'İstediğin bu muydu?' dedi sesindeki tüm saygı kırıntıları dökülürken. Parayı kabul ettin, ama o odada artık saygınlığın değil, sadece bir işlem kodu olarak varsın.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_sinav_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -20,6 +20,7 @@ import random
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from . import vocab
@@ -1395,6 +1396,51 @@ def cmd_doctor(args, root: Path) -> int:
     # bittigini, hangisinin hic calismadigini soylemez. Yeni bir anahtar
     # eklendiginde "gercekten calisiyor mu" sorusunun tek durust cevabi
     # her birini tek tek denemektir. Uretim kotasi harcamaz.
+    # URETIM ARTIGI DOSYALAR.
+    #
+    # `QualityGate.check()` adayi GECICI olarak
+    # `content/events/<kategori>/<id>.json` diye yazar ve `finally`
+    # icinde siler. Surec o sirada oldurulurse (oturum kapanmasi,
+    # Ctrl+C) `finally` CALISMAZ ve dosya diskte kalir.
+    #
+    # Kalan dosya sessizce ICERIK olur: yukleyici onu gercek bir olay
+    # sanar ve `evt_x__vbeat` gibi anlamsiz bir kimlikle oyuna girer.
+    # Bu oturumda iki kez oldu, ikisi de ancak elle fark edildi.
+    #
+    # NEDEN DOGRULAYICI KURALI DEGIL: `__v` kimligi uretim SIRASINDA
+    # mesrudur -- kapi adayi tam o kimlikle yazip dogrular. Kural
+    # koysaydik HER varyant uretimi reddedilirdi. Kontrol uretimin
+    # DISINDA, burada durmali.
+    print("")
+    print("=== URETIM ARTIKLARI ===")
+    # YAS AYRIMI SART: uretim KOSARKEN de bu desende bir dosya bulunur --
+    # kapinin o an dogruladigi adaydir. Yasina bakmadan silmek kosan
+    # uretimi bozar. On dakikadan eskiler artiktir; tazeler canli olabilir.
+    STALE_SECONDS = 600
+    now = time.time()
+    leftovers = sorted((root / "content" / "events").rglob("*__v*.json"))
+    stale = [p for p in leftovers if now - p.stat().st_mtime > STALE_SECONDS]
+    live = [p for p in leftovers if p not in stale]
+
+    if not leftovers:
+        print("  temiz")
+    else:
+        if live:
+            print(f"  {len(live)} taze dosya -- uretim kosuyorsa CANLI olabilir, dokunulmadi:")
+            for path in live:
+                print(f"    {path.relative_to(root)}")
+        if stale:
+            print(f"  {len(stale)} eski artik -- bunlar ICERIK DEGIL:")
+            for path in stale:
+                age = int((now - path.stat().st_mtime) / 60)
+                print(f"    {path.relative_to(root)}  ({age} dk once)")
+            if "--clean" in sys.argv:
+                for path in stale:
+                    path.unlink()
+                print(f"  {len(stale)} dosya silindi.")
+            else:
+                print("  Silmek icin: npm run author -- doctor --clean")
+
     print("\n=== ANAHTARLAR ===")
     try:
         from .providers.gemini import probe_keys

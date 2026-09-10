@@ -392,6 +392,138 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Ziyareti",
+          "kind": "branch",
+          "text": "Evine döndüğünde kapının aralık olduğunu görüyorsun. İçeride {actor.fixer.name} salon koltuğuna yayılmış, elinde senin antrenman çantanla oynuyor. Işığı yakmıyor; sadece dışarıdaki sokak lambasının süzülen soluk ışığında parlayan bir zarfı sehpanın üzerine bırakıyor. Zarfın üzerinde hiçbir isim yazılı değil, sadece bir mühür var. {actor.fixer.name} ayağa kalkmıyor, sana bakarken hafifçe gülümsüyor. 'Borçlar bazen faiziyle geri ödenir, bazen de sadece bir imza ile silinir,' diye fısıldıyor. Pencereden gelen uğultu dışında evde çıt yok.",
+          "choices": [
+            {
+              "id": "c_kabul",
+              "text": "Zarfı al ve çantana sakla. Ne yazıyorsa sabah halledeceğim.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5,
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_red",
+              "text": "Zarfı elinin tersiyle yere fırlat. Bu gece buradan çıkıp gitmesi gerektiğini söyle.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5,
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Huzurla {actor.fixer.name} ile masaya otur. Kulübün bu işi bilmesi en iyisi.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10,
+                "durus": -2
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} sessizce çekip gidiyor. Zarfın içindeki ağır paket, vicdanının ağırlığına ekleniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Sokakların Dili",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} gülerek kapıya yöneliyor. Bu rest, arkandaki karanlığı daha da öfkelendirdi.",
+          "onEnter": [
+            {
+              "flag": "mem_tefeciye_kafa_tuttu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Doğru Adres",
+          "kind": "outcome",
+          "text": "Kulüp yetkilileriyle görüştün. İş resmiyete döküldü ama artık sokaklarda başını çevirerek yürümek zorundasın.",
+          "onEnter": [
+            {
+              "flag": "mem_borcu_kulube_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

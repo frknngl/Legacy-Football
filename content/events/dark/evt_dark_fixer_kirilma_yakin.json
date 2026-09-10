@@ -348,6 +348,170 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İmzalanmamış Sözleşme",
+          "kind": "branch",
+          "text": "Antrenman tesisinin en kuytu köşesindeki saunada, sıcaklık nefes almayı zorlaştırıyor. Havlusu yüzüne sarılı {actor.fixer.name}, kapıyı içeriden kilitliyor. Önündeki boş ahşap sıraya, senin adının geçtiği, senin imzanın taklit edildiği o sahte menajerlik sözleşmesini bırakıyor. Dışarıda basın senin 'yasadışı aracılık' yaptığını konuşuyor. {actor.fixer.name} sadece buharın dağılmasını bekliyor. Tek bir kelime etmiyor; sadece senin 'evet' demeni bekleyen, o eski suç ortağı sessizliği bu.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bunu hemen yönetime götür ve durumu ihbar et.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sözleşmeyi al, yırt ve bu anı hiç yaşanmamış say.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Onunla işbirliği yap ve suçlamaları başka bir ismin üzerine yık.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Daha önce yaptığın işlerin hatırına, bu seferlik sessiz kalmasını emret.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Sokak İtibarı 80]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Doğru Yol",
+          "kind": "outcome",
+          "text": "Yönetim ofisinde o kağıtları bırakırken gözlerindeki o korkak ifadeyi unutmayacaksın. Temizsin ama artık yalnızsın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Ortak",
+          "kind": "outcome",
+          "text": "Kağıtlar küle dönüştü. {actor.fixer.name} sadece başıyla onaylayıp çıktı. Elin titriyor, sahadaki ilk hatanda bu anı hatırlayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Yeni Hedef",
+          "kind": "outcome",
+          "text": "İsimleri değiştirdiniz. Yarın sabah gazeteler başka bir genç oyuncunun kariyerinin bittiğini yazacak. Sende artık bir iz var.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Karanlık Söz",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} gülümseyerek saunadan çıktı. Bir daha asla bu kadar yakın olmayacaksınız, ama bu sır sizi birbirinize ömürlük bağladı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

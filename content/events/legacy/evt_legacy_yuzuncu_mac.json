@@ -406,6 +406,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kutlamanın Gölgesi",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş, çimlerin kokusu hâlâ havada asılı. Yüzüncü maçının gürültüsü dindi ama yankısı kulaklarında. {actor.fan_leader.name} tünelin çıkışında seni bekliyor. Elinde tuttuğu, maçın bitiş düdüğüyle sahadan kaptığı o parça; çimlerin arasında unutulmuş bir anı değil, kulübün kutsal emaneti gibi parlıyor. Sana doğru yürüyor. Adımları ağır. Gözlerinde sadece o maçın değil, seninle geçen onca yılın yorgunluğu ve beklentisi var. Konuşmuyor. Sadece bekliyor. Bir jest, bir onay, bir itiraf. Sessizlik, birikmiş tüm zaferlerin ağırlığını odada bir sütun gibi dikiyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Çim parçasını ondan al, havaya kaldırarak stadyumun boş tribünlerine doğru haykır. Hepsi senin.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Ceketinin iç cebinden çıkardığın deste parayı ona uzat. \"Bu hatıra bana kalsın, gerisini boş ver.\"",
+              "target": "n_ahlaki_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Elini omzuna koy, yavaşça yanından geç. \"Bitti artık. Eve dönme vakti.\"",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Yere çök, onunla aynı hizaya gel. \"Yüz maç yetmez. Bir yüz daha bizi bekliyor, hazır mısın?\"",
+              "target": "n_stat_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Taraftar Desteği 55+]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İkonun Yükü",
+          "kind": "outcome",
+          "text": "Tribünler boş olsa da sesin yankılandı. {actor.fan_leader.name} geri çekildi, gözlerinde tuhaf bir ışıltı vardı. Şimdi sadece senin değil, herkesin gözü üzerinde. Bir idol olmanın getirdiği o ağır zırhı giyindin; artık hataya yer yok.",
+          "onEnter": [
+            {
+              "flag": "mem_tribune_cikti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ahlaki_gri": {
+          "title": "Fiyatı Belli",
+          "kind": "outcome",
+          "text": "Zarfın sesi sessizliği kesti. {actor.fan_leader.name} parayı aldı, arkasına bakmadan yürüdü. Kazandın, evet; ama o an yaşananların bir bedeli olduğunu ikiniz de biliyordunuz. O hatıra artık senin değil, satın alınmış bir parça.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Bir Veda",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek en doğrusuydu. {actor.fan_leader.name} arkanda, karanlığın içinde bir gölge gibi kaldı. Kariyerin bir istatistikten ibaret değil, bir disiplin zinciri. Duygularını sahanın ortasında bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_takima",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat_kilitli": {
+          "title": "Sonsuz Bağ",
+          "kind": "outcome",
+          "text": "{actor.fan_leader.name} sana gülümsedi; o anın sadece bir maçın bitişi değil, bir ahdin başlangıcı olduğunu anladın. Yorgunsun, dizlerin titriyor ama tribünler senin adını sayıklamaya başlıyor bile. Bu zafer, tüm bedenini tüketen bir yakıta dönüştü.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_toren",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

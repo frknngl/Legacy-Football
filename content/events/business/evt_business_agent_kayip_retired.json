@@ -372,6 +372,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Portfolyo",
+          "kind": "branch",
+          "text": "Deniz kıyısındaki boş antrenman sahasına bakıyorsun. {actor.agent.name} yanına geliyor. Elinde dijital bir cihaz var. Bütün kariyerin, tüm bağlantıların ve o kirli çarkların anahtarı bu ekranın içinde. {actor.agent.name} cihazı sana uzatıyor. 'Senden sonra kimin yürüteceğini sen seç,' diyor. Rüzgar çimlerin üzerinde ıslık çalıyor. Karar, senin ellerinde sönümlenen son güç belirtisi.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Cihazı al ve tüm bağlantıları saha kenarındaki genç yeteneklere aç. Medya fırtınasını göze al.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Ekranı sessizce {actor.agent.name} ile paylaş, en çok parayı verene devretmesini iste.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Cihazı al ve denize fırlat. Hiçbir şey devretme, temiz bir sayfa kalsın.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Kaosun Başlangıcı",
+          "kind": "outcome",
+          "text": "Sokaklar senin hamleni konuşuyor. Gençlerin önünü açtın ama medya, attığın bu adımın altındaki her bir izi takip etmeye başladı. Yıllar sonra bile bu kararın bedelini disiplin soruşturmalarıyla ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Son Kazanç",
+          "kind": "outcome",
+          "text": "Banka hesabına yatan miktar dudak uçuklatıyor. İçin rahat değil ama artık bunun önemi yok. Sessizlik, senin için en pahalı lüks oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sıfır Noktası",
+          "kind": "outcome",
+          "text": "Cihazın suya gömülüşünü izledin. Artık kimse mirasını devralmayacak. O devir teslim töreni, tarihin tozlu sayfalarında bir dipnot olarak kalacak. Geçmiş artık sana borçlu değil.",
+          "onEnter": [
+            {
+              "flag": "mem_business_kayip_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -314,6 +314,147 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Arka Kapısı",
+          "kind": "branch",
+          "text": "Antrenman sahasından çıkarken {actor.sporting_director.name} seni kulüp binasının kör noktasındaki çöp konteynerlerinin yanında bekliyor. Üstünde sadece senin bildiğin o eski, yıpranmış deri ceket var. Elinde bir zarf tutmuyor; sadece boş gözlerle stadyum ışıklarına bakıyor. Yürürken durmanı işaret ediyor. Yanına vardığında ceketinin cebinden o eski notu çıkarıp sana uzatıyor. Borcun vadesi doldu. Sözleşmenle ilgili değil, o eski hikayeyle ilgili. {actor.sporting_director.name} sessizce, sadece senin duyabileceğin bir tonda, 'Bu takımdan çıkış biletini imzalamazsan, o defterin kapanmayacağını biliyorsun,' diyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı kabul et ve istediği transfer hamlesini onaylaması için menajerini ara.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 80
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Notu yüzüne karşı yırt. 'Sokakta başladık, orada bitiririz, beni tehdit etme.'",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını önüne eğ, 'Bunu ödeyeceğim ama kulübün işlerine bulaşma,' diyerek oradan uzaklaş.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kendi birikiminden gerekli tutarı hemen nakit olarak transfer et.",
+              "target": "n_outcome",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -60
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 2
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Servet 55+]"
+            }
+          ]
+        },
+        "n_outcome": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Sırtını döndüğünde {actor.sporting_director.name} arkandan bir şey söylemiyor. Sadece sigarasını yere atıp eziyor. Bu geceki sessizlik, gelecekteki gürültünün habercisi gibi.",
+          "onEnter": [
+            {
+              "flag": "mem_money_ayartma_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -370,6 +370,308 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Tesisin çıkışında, otoparka giden ara koridordasın. Elinde tuttuğun spor çantası omzunu kesiyor. {actor.manager.name} tam önünde duruyor; elinde bir tablet, ekranın ışığı yüzünde soğuk bir parıltı bırakıyor. Etrafta kimse yok. Hoca duruyor, başını kaldırıyor. Gözleri yorgun. Seni ilk kez takımın en eskisi olarak değil, uzun süredir çözemediği bir düğüm olarak süzüyor. \"Neden hala buradasın?\" diye soruyor. Sesi otoriter değil, şaşkın. Sanki sahada verdiğin onca kavgayı, o pasları, o hataları ilk kez tek bir karede birleştirmiş gibi bakıyor. Bir saniyelik o sessizlik, yıllardır kurduğun tüm savunma duvarlarını anlamsız kılıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Çantayı yere bırakıp yavaşça yanına yaklaş. 'Sadece işimi en iyi şekilde yapmak için buradayım, hocam.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Hafifçe gülümse ve çantayı omzuna düzelt. 'Biliyorum, bu kadar zahmete değmediğini düşünüyorsunuz. Yine de sözleşmemdeki rakamlar buna değeceğimi söylüyor.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Tablete bak, sonra gözlerinin içine dik dik bak. 'Buradayım çünkü takımın senin oyun planına değil, gerçek bir liderliğe ihtiyacı var.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "İçsel Mesafe",
+          "kind": "outcome",
+          "text": "Seni başıyla onaylıyor ama gözlerinde o yabancılık gitmiyor. Kendi kalıbına sadık kaldın, profesyonel davrandın. Ancak o an, aranızdaki profesyonel duvarlar daha da kalınlaştı. Artık birisiniz, ama birbirinizin dünyasına asla giremeyeceksiniz.",
+          "onEnter": [
+            {
+              "flag": "mem_odada_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Pazarlık",
+          "kind": "outcome",
+          "text": "Cevabın karşısında sessizce tabletini kapatıyor. Bir şey söylemiyor, sadece yanından geçip giderken omzuna sertçe çarpıyor. Bu, kariyerindeki en karlı ama en yalnız anlardan biri olarak kayda geçiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_isyan_tohumu_atti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Bıçak Sırtı",
+          "kind": "outcome",
+          "text": "Hocanın yüzü geriliyor. Gözlerindeki bakış değişiyor; korku değil, bir meydan okuma başlıyor. Artık sadece sen değil, odadaki herkes bu gerilimin sonucunu sezon sonuna kadar sırtında taşıyacak.",
+          "onEnter": [
+            {
+              "flag": "mem_odayi_hocanin_yanina_cekti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kaptanlık Pazubandı",
+          "kind": "branch",
+          "text": "Kulüp binasının çatısındaki terasta tek başınasın. Gece soğuğu ciğerlerine işliyor. Elinde, sezon sonu veda ederken bırakacağın kaptanlık pazubandı duruyor. Aşağıda, antrenman sahasında, kulübü devralacak genç yetenek tek başına top sektiriyor. {actor.manager.name}’in ofis ışığı sönük. Odayı ya da mirası kime bırakacağın, bu gece atacağın düğüme bağlı. Her seçim, yarınki idman sahasında yeni bir hiyerarşi başlatacak.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Pazubandını masaya bırak. Yarın bu kulüpten giderken arkanda sadece bir boşluk kalsın.",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_isyan",
+              "text": "Pazubandını aşağıya, o gencin ayağının dibine fırlat. İsyana hazır olduğunu herkes görsün.",
+              "target": "n_isyan",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_hoca",
+              "text": "Pazubandını al, doğruca {actor.manager.name}’in odasına git ve masasına koy. Kurumsal düzeni koru.",
+              "target": "n_hoca",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_sessiz",
+              "text": "Bandı cebine sok ve terastan in. Kimse yerini bilmesin.",
+              "target": "n_sessiz",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Büyük Boşluk",
+          "kind": "outcome",
+          "text": "Sessizce terk ettin. Arkanda bıraktığın karmaşa, kulübün içinde bir sessizlik fırtınası kopardı. Kimse liderin kim olduğunu artık bilmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_odada_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_isyan": {
+          "title": "Ateş Hattı",
+          "kind": "outcome",
+          "text": "Pazubandı çimlere çarptığında çıkan ses, kulüp içindeki tüm düzeni sarstı. Artık herkes safını seçmek zorunda.",
+          "onEnter": [
+            {
+              "flag": "mem_isyan_tohumu_atti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_hoca": {
+          "title": "Sistemin Parçası",
+          "kind": "outcome",
+          "text": "Odada uzun bir sessizlik oldu. Göz göze geldiniz. Mirasın resmiyete kavuştu ama soyunma odasının kalbini bir süreliğine kaybettin.",
+          "onEnter": [
+            {
+              "flag": "mem_odayi_hocaya_goturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sessiz": {
+          "title": "Belirsizlik",
+          "kind": "outcome",
+          "text": "Bandı kendine sakladın. Yarın ne yapacağın belirsiz, ancak bu ağırlık artık sadece senin omuzlarında.",
+          "onEnter": [
+            {
+              "flag": "mem_odada_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -295,6 +295,241 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kaptanlık Pazubandı",
+          "kind": "branch",
+          "text": "Duşların buharı aynadaki yansımayı silikleştiriyor. {actor.veteran.name}, dolabının kapağına iliştirdiği kaptanlık pazubandını çıkarıp elinde tartıyor. Arkasında, çaylak oyuncunun ayak sesleri duruyor. Genç, buraya ait olmadığını hissettiren bir tereddütle bekliyor. {actor.veteran.name}, pazubandını kendi dolabının rafına mı bırakacak, yoksa gence mi fırlatacak?",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Pazubandını gencin avucuna sertçe bırak. \"Bundan sonra yük sende.\"",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Bandı dolabın en dibine, kimsenin bulamayacağı bir yere sakla.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Pazubandını, gence bir sonraki maçın prim sözü karşılığında ver.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 0
+              },
+              "lockLabel": "[Müzakere Yeteneği]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Vasiyet",
+          "kind": "outcome",
+          "text": "Genç, bandın ağırlığıyla sendeleyerek dolabına doğru yürüdü. İçerideki hava ağırlaştı. Artık geri dönüş yok; senin mirasının altına imzasını attı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sır",
+          "kind": "outcome",
+          "text": "Metal kapağın gıcırtısı sessizliği kesti. Kimse o bandın nereye gittiğini görmedi. Genç boş elleriyle bakarken, kapıyı arkandan çekip çıktın.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Genç gözlerini paradan ayırmadı. Bandı aldığında artık saygının değil, borcun bir parçasıydı. Aranızdaki bağ bir alışverişe dönüştü.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapı",
+          "kind": "branch",
+          "text": "{actor.veteran.name}, kulüp binasının bodrum katındaki arşive iner. Sözleşme uzatma görüşmesi için beklenen yönetici, görüşmeyi iptal ettiğini belirten kısa bir notu kapıya bırakmıştır. Havada eski kağıt ve rutubet kokusu var. Koridorun sonunda çalışan bir fotokopi makinesinin ritmik sesi duyulur. {actor.veteran.name} elindeki boş kontrat dosyasını buruşturmadan, notu okuduğu kapının eşiğinde durur. Kimse yok. Sadece, az önce yanından hızla uzaklaşan bir yöneticinin ayak sesleri yankılanıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı sessizce bırak, hiçbir şey olmamış gibi antrenman sahasına dön.",
+              "target": "n_sonuc_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kapıyı sertçe tekmele; sesin tüm koridorda yankılanmasını sağla.",
+              "target": "n_sonuc_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Yöneticinin masasında unuttuğu gizli transfer listesini al ve cebine at.",
+              "target": "n_sonuc_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "lt",
+                "value": 40
+              },
+              "lockLabel": "[Profesyonellik Düşük]",
+              "persona": {
+                "dogruluk": -8
+              }
+            }
+          ]
+        },
+        "n_sonuc_1": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Sahaya adım attığında herkes susar. Bakışların, boşluğa odaklanmış durumda. Kimse ne olduğunu sormaz, sen de anlatmazsın. İçindeki o soğuk boşluğu antrenman temposuyla örtmeye çalışırsın.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_2": {
+          "title": "Gürültülü Tepki",
+          "kind": "outcome",
+          "text": "Kapıdaki metalik yankı, koridoru doldurur. Güvenlik görevlisi köşeden belirir. Gözlerinde korku ve nefret var. Artık bu kulüpte bir figür değil, bir sorun kaynağısın.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_3": {
+          "title": "Bilginin Ağırlığı",
+          "kind": "outcome",
+          "text": "Kağıtlar ceketinin astarında titrer. Bu liste, kulübün gelecekteki hamlelerini fısıldıyor. Artık oyunun bir parçası değil, onu yönlendiren kirli bir elsin. Kariyerin, bir şantaj dosyasına dönüşür.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

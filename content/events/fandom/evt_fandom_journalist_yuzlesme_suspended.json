@@ -281,6 +281,141 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Huzurevi Çıkışı",
+          "kind": "branch",
+          "text": "Şehrin en eski lokantasının arka kapısındasın. Çöp tenekelerinin yanındaki gölgede {actor.journalist.name} bekliyor. Elinde profesyonel bir kamera yok, sadece buruşmuş bir not defteri var. Seni bir yıldız gibi değil, aylardır kayıp olan eski bir tanıdık gibi süzüyor. Uzaklardan gelen siren seslerine rağmen, o sadece senin gözlerinin içine bakıyor. İnsanların seni neden sevdiğini değil, seni en son ne zaman kendin olduğun anı hatırlıyor. İlk kez, manşetlerin ötesindeki o yorgun ifadeye odaklanmış durumda.",
+          "choices": [
+            {
+              "id": "c_sessiz_onay",
+              "text": "Defterine bir not düşmesini bekle, başınla sadece onay ver.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_mesafeli_durus",
+              "text": "Ceketinin yakasını kaldır, hiçbir şey söylemeden yağmura karış.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_riskli_yuzlesme",
+              "text": "Yanına yaklaş, tüm hikayeyi kendi ağzından ona anlat.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 50
+              },
+              "lockLabel": "[Liderlik 50]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Birbirinize tek bir kelime etmediniz. O, hayatındaki büyük çöküşü değil, kaybettiğin o küçük detayı yazacak. Cüzdanına sıkıştırdığı o küçük zarf, yarınki manşetin bedeli.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Gölgede Kalmak",
+          "kind": "outcome",
+          "text": "Adımlarını hızlandırdın. Arkanda hayal kırıklığına uğramış bir bakış bıraktın ama en azından hiçbir sözün yanlış yere çekilmeyecek. Sessizlik, bazen en ağır zırhtır.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Gerçekler Sokağı",
+          "kind": "outcome",
+          "text": "Kendi doğrularını onun defterine kazıdın. Şimdi o kağıtlar basıldığında herkes seni hedef alacak, ancak en azından o sokaktaki insanlar seni ilk kez gerçekten gördü.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

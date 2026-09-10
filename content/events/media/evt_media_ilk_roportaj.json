@@ -515,6 +515,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Çıkış",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki su borularından damlayan suların ritmi, havalandırma fanının boğuk vınlamasına karışıyor. {actor.journalist.name}, paslı bir metal kapının önünde, sigarasının dumanını tavana doğru üfleyerek bekliyor. Elindeki eski model telefonun ekran ışığı, yüzünde derin gölgeler oluşturuyor. Sorusu yok, sadece sessizce seni izliyor. Az önce sahada yaşadığın o utanç verici an, hala zihninde yankılanıyor. Kapının diğer tarafında takım arkadaşların duş alıyor, sen ise bu nemli koridorda, kimsenin seni görmediği o ince çizgidesin.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Telefonunu çıkarıp kaydı başlat. 'Sana özel bir şeyler anlatacağım, ama bu yarınki baskıya yansımayacak.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerinin içine bakmadan başını öne eğ. 'Kulübün basın kuralları gereği şu an konuşmamam gerekiyor.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 2
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Duvara bir yumruk at ve dişlerinin arasından fısılda. 'O sahadaki rezilliği bir daha sorarsan, seni burada kimse bulamaz.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Sesin titreyerek her şeyi dökül. 'Aslında o an, sadece korkudan dizlerimin bağının çözüldüğünü itiraf etmeliyim.'",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Tanınan Yüz]",
+              "persona": {
+                "dogruluk": 8
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Gizli Anlaşma",
+          "kind": "outcome",
+          "text": "Elini omzuna koydu. Sessizce çekip gitti. Cebindeki ağırlık, vicdanının yükünden daha fazlaydı.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_yalan_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessizlik Duvarı",
+          "kind": "outcome",
+          "text": "Gülümseyerek not defterini kapattı. Kurallara uymak, seni o soğuk duşun altına döndürdü, ama içindeki o boşluk büyüdü.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_kacamak_yapti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Tepkisel Çıkış",
+          "kind": "outcome",
+          "text": "Gözlerinde bir anlık bir korku gördün. Arkasına bakmadan hızla uzaklaştı. Yarın herkes bu öfkeni konuşacak.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_durust_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "İtiraflar Silsilesi",
+          "kind": "outcome",
+          "text": "Kelimeler ağzından bir kez çıktı mı, geri dönüşü yoktu. Yüzündeki maskenin düştüğünü, o an, o loş ışıkta hissettin.",
+          "onEnter": [
+            {
+              "flag": "mem_basina_durust_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

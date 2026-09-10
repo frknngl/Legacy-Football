@@ -331,6 +331,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kayip",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Arka Kapısı",
+          "kind": "branch",
+          "text": "Antrenman sahasının çöp konteynerlerinin olduğu tarafta, paslı kapı gıcırtıyla açıldı. {actor.cousin.name} orada, soluk bir neon ışığının altında duruyor. Üzerindeki ceket mevsimi için fazla ince, elleri sürekli ceplerinde. Konuşmuyor, sadece parmaklarıyla duvardaki boyaları kazıyor. Bir miktar para istiyor. Sesi, çocukluğumuzun geçtiği o tozlu sokaklardaki gibi çatallı ve inatçı. Gözleri, üzerindeki kulüp logosuna takılıyor; sanki o arma, benim artık ona ait olmadığımın kanıtı gibi. Uzaklaşmamı istemiyor, ama yanında kalmamı da hak etmiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "İstediği miktarı çıkarıp sessizce avucuna bırak. 'Bu son, artık buraya gelme.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Antrenman primlerini bir aracıyla ona gönder. İsim geçmesin, elini sürme.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -5000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Onu antrenman sahasına gizlice sok. 'Burada bekle, kulüp malzemecisinden bir şeyler aşırayım.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bak ve sertçe reddet. 'Ben buraya tırnaklarımla kazıdım, seninle yanamam.'",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_cousin",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Mental 55]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kesilen Bağlar",
+          "kind": "outcome",
+          "text": "Gözlerini kaçırdı. Parayı aldı ama bakışları hala üzerimde. Arkasını dönüp karanlık sokağa karıştığında, omuzları biraz daha çökmüş görünüyordu. Bir daha geri dönmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_kabul_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Gölgede Kalanlar",
+          "kind": "outcome",
+          "text": "Zarfı isimsiz bıraktım. Kimin gönderdiğini biliyor. Ben de onun parayı harcayacağı yeri. İkimiz de aynı yalanı yaşıyoruz artık.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_kendisi_gotturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Riskli Yoldaşlık",
+          "kind": "outcome",
+          "text": "Kapıyı araladım. İçerideki soğuk hava yüzüne çarptı. O an anladım; bu iyilik onun değil, benim sonumun başlangıcı.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_yariladi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Kendi Başına",
+          "kind": "outcome",
+          "text": "Sesim titretmeden söyledim. Arkasına bakmadan gitti. Kapı kapandığında stadyumdaki sessizlik, içimdeki gürültüden daha ağır geldi.",
+          "onEnter": [
+            {
+              "flag": "mem_ilk_istek_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

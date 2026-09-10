@@ -348,6 +348,130 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kesişme Noktası",
+          "kind": "branch",
+          "text": "Antrenman tesisinin arka kapısında, paslı metalin soğukluğu sırtında. {actor.partner.name} elinde bir telefon, ekranı kapalı. Işıklar cılız, içerideki sesler boğuk bir uğultu gibi. Kimse görmüyor. Sessizlik uzadıkça, önündeki tercih netleşiyor: Kimi koruyacaksın? Kendini mi, aranızdaki bağı mı, yoksa gelecekteki ihtimalleri mi? {actor.partner.name} bir adım öne çıkıyor. Gözlerinde bekleyen, senin cevabın.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Sessizliği bir anlaşmaya çevir. Telefonu al, hiçbir şey görmemiş gibi yap.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Telefonu yere bırak ve {actor.partner.name} ile yüzleş. Kendi kurallarını koy.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Arkanı dön ve uzaklaş. Kimseyle bir bağın kalmasın.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "Yumuşak deri koltuğun soğukluğu, vicdanın ağırlığını bastırıyor. Artık daha zenginsin ama her aynaya baktığında o anki sessizliği duyacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Kendi Yolun",
+          "kind": "outcome",
+          "text": "Sesin yankılandı. {actor.partner.name} artık sana eskisi gibi bakmıyor. Mahalle bunu duyduğunda saygınlık kazanacaksın ama kulüpteki koridorlar artık daha dar.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kırık Bağlar",
+          "kind": "outcome",
+          "text": "Kapıyı kapattığında, arkandaki boşluğu hissettin. Doğru olanı yaptın, evet. Ama doğru olan, her zaman en huzurlu olan değil.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_ayartma_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

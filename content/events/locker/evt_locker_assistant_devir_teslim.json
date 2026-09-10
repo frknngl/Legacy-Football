@@ -448,6 +448,178 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Toplantı",
+          "kind": "branch",
+          "text": "Teknik direktör odasının kapısı hafifçe aralık. İçerideki havalandırma, tavandaki tozları sürükleyerek dışarı üflüyor. Masanın üzerinde, sezonun tüm analizlerini barındıran şifreli tablet ve üzerinde imzasız bir zarf duruyor. {actor.assistant.name} masanın diğer ucunda, bir gölge gibi dikiliyor. Bakışları, masadaki tabletle senin yüzün arasında gidip geliyor. Kulübün ona vaat ettiği gelecek, senin yıllardır kurduğun sadakatle çarpışıyor. Sessizlik, bir kararın ağırlığıyla odanın içinde birikiyor.",
+          "choices": [
+            {
+              "id": "c_griz",
+              "text": "Tableti ona it ve zarfı al. Şifreleri çözmek senin için sadece bir nakit kaynağı.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Zarfı yırtıp at. Ona, kuralların dışına çıkması gereken tek bir isim ver.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Tableti çöp kutusuna bırak. {actor.assistant.name} ile vedalaş, hiçbir şey olmamış gibi çık.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Bilgileri paylaş, {actor.assistant.name} ile el sıkış. Birlikte kurduğunuz düzeni o devam ettirsin.",
+              "target": "n_sonuc_stat",
+              "effects": [
+                {
+                  "flag": "iliski_assistant",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              },
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Güven Tam]"
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Zarfı çantana attın. {actor.assistant.name} sadece başıyla onayladı, gözlerindeki o eski saygı silinip gitti.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "İz",
+          "kind": "outcome",
+          "text": "Parçalanan kağıtlar yere saçıldı. {actor.assistant.name} eğilip onları toplarken fısıldadı: 'Bu, bizi yakacak.'",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Arkanı dönüp çıktın. Arkanda bıraktığın kapı, bir kariyerin kapanış sesiyle kilitlendi.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_stat": {
+          "title": "Devir",
+          "kind": "outcome",
+          "text": "{actor.assistant.name} elindeki tabletle odadan çıkarken, sanki senin yükünü sırtına yüklemiş gibi yorgun görünüyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_assistant",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

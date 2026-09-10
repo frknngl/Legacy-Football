@@ -527,6 +527,197 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Buzdan Kule",
+          "kind": "branch",
+          "text": "Otel lobisi boş, gece vardiyasının sessizliği odayı boğuyor. {actor.fixer.name} şöminenin karşısındaki deri koltukta, ayak ayak üstüne atmış. Masada iki kadeh ve bir anahtar kartı var. Odanın ışığı loş, dışarıda yağan karın camdaki yansıması {actor.fixer.name}’in yüzünü ikiye bölüyor. Hiç acelesi yok. Sadece bakıyor. Gözleri, geçmişteki o hatalı pası değil, gelecekteki o imkansız sessizliği işaret ediyor. Masadaki kadehe uzanıyor, bir yudum alıp kenara bırakıyor. Konuşmaya başladığında sesi odanın duvarlarında yankılanmıyor, doğrudan zihnine çarpıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Kadehi al. 'Rakamı konuşalım, gerisi sis perdesi olsun.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Masadakini devir. 'Bana bir daha asla ulaşma.'",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce geri dön. 'Bunu hiç yaşanmamış sayalım, ikimiz de unutalım.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 50
+              },
+              "lockLabel": "[Profesyonellik 50]"
+            },
+            {
+              "id": "c_itiraf",
+              "text": "Telefonu çıkarıp masaya bırak. 'Her şeyi anlatıyorum, bu kabus bitsin.'",
+              "target": "n_outcome_itiraf",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 40
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -30
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "Kadeh boşalıyor. Sessizlik, bir anlaşmanın mührü oluyor. Artık hiçbir şey eskisi gibi şeffaf olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_accepted_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 3,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Köprüleri Yakmak",
+          "kind": "outcome",
+          "text": "Sandalye gürültüyle geriye düşüyor. {actor.fixer.name}’in yüzündeki o çarpık gülümseme, cevabının ne kadar tehlikeli olduğunu kanıtlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 5,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Eksik Kalmışlık",
+          "kind": "outcome",
+          "text": "Kapı arkandan kapandığında, soğuk hava ciğerlerini dolduruyor. Güvendesin ama vicdanın o masada, o kadehin dibinde kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 10,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_outcome_itiraf": {
+          "title": "Zorunlu Hesaplaşma",
+          "kind": "outcome",
+          "text": "Ses kayıtları başladığında, {actor.fixer.name} sadece bakıyor. Artık oyunun kurallarını sen yazıyorsun ama bedelini herkes ödeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_turned_informant",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 1,
+              "priority": "forced"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

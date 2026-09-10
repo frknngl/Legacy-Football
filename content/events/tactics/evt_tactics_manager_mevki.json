@@ -376,6 +376,136 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_golge",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gölgedeki Çizgiler",
+          "kind": "branch",
+          "text": "Duş odasının nemli havasında, dolabının kapağına yansıyan ışık titriyor. {actor.manager.name} yanından geçip giderken elindeki dosyayı senin dolabının üzerine bırakıyor. Kapağında, geçen sezon başkasının başardığı istatistiklerin dökümü var. Üstünde kırmızı bir kalemle işaretlenmiş, senin o istatistiklere ulaşman gereken yeni mevki notları. {actor.manager.name} dönüp bakmıyor bile. Sadece odayı terk ederken kapıyı yavaşça çekiyor. Odadaki diğer herkes, sen o kağıda bakarken sanki oradaymışsın ama hiç yokmuşsun gibi malzemelerini toplamaya devam ediyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı buruşturup çöp kutusuna at. Başkasının ayak izlerine basmayacaksın.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Notları tek tek oku. Her satırı, kendi oyununu öldürmek pahasına ezberle.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -3
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Menajerinle konuş, bu yeni mevkide oynamak için maaşının revize edilmesini şart koş.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -6
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 40
+              },
+              "lockLabel": "[Profesyonellik 40]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyanın Bedeli",
+          "kind": "outcome",
+          "text": "Çöp kutusundan gelen ses odada yankılandı. Kimse irkilmedi. Yarın antrenman sahasında, o kırmızı kalemli notların neden önemli olduğunu saha dışında acı bir şekilde anlayacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_itiraz_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Uyum",
+          "kind": "outcome",
+          "text": "Notlar artık zihninde. Sahaya çıktığında kendi içgüdülerinle değil, başkasının silüetiyle hareket edeceksin. Bu, daha uzun bir kariyerin anahtarı olabilir ama artık kendin için oynamıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_degisti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Pazarlık Masası",
+          "kind": "outcome",
+          "text": "Karakterin değil, değerin konuşuldu. {actor.manager.name} bu talebine sadece garip bir bakış fırlattı. Cüzdanın doldu ama soyunma odasındaki ağırlığın bir miktar eridi.",
+          "onEnter": [
+            {
+              "flag": "mem_mevki_konusuldu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

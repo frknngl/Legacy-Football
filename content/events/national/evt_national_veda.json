@@ -379,6 +379,312 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Soyunma Odası",
+          "kind": "branch",
+          "text": "Antrenman sahasının en köşesindeki ekipman odasındasın. Havalandırma sesi, krampon çivilerinin beton üzerindeki tok sesiyle karışıyor. Kapı açılıyor. {actor.journalist.name} içeri giriyor. Elinde bir not defteri yok, sadece yorgun bir ifade ve omuzlarında taşıdığı seneler var. Kimse konuşmuyor. Odanın havası ağırlaşmış. {actor.journalist.name} tam karşına geçiyor; gözleri, yıllardır görmezden geldiğin o kararı işaret ediyor. Federasyonun sessiz kalman karşılığında sunduğu hayat boyu elçi sözleşmesi, masanın üzerinde bir kâğıt yığını gibi duruyor.",
+          "choices": [
+            {
+              "id": "c_sessiz_kal",
+              "text": "Kâğıtları al ve masanın üzerine bırak. Sessizlik en iyi vedadır.",
+              "target": "n_sessiz",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gercegi_soyle",
+              "text": "Defteri kenara it. {actor.journalist.name} gözlerinin içine bakarken gerçekleri anlat.",
+              "target": "n_gercek",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Sadece el sıkış. Profesyonelce, minnetle, ama mesafeni koruyarak.",
+              "target": "n_profesyonel",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_sessiz": {
+          "title": "Sessiz Bir Veda",
+          "kind": "outcome",
+          "text": "Kâğıtları imzaladın. {actor.journalist.name} tek kelime etmeden çıktı. Artık bu hikâyenin sonu, paranın gölgesinde unutulacak.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_sessiz_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gercek": {
+          "title": "Son Hesaplaşma",
+          "kind": "outcome",
+          "text": "Tüm kapıları üzerine kapattın. {actor.journalist.name} not almıyor, sadece dinliyor. Bu, saha dışındaki son galibiyetin.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_gercegi_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_profesyonel": {
+          "title": "Usulüne Uygun",
+          "kind": "outcome",
+          "text": "Herkesin beklediği o nezaket dolu veda gerçekleşti. Kimse incinmedi ama geriye senden hiçbir şey kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_hazir_metin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Toplantı",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin çıkışında, otobüsün motoru rölantide homurdanıyor. {actor.journalist.name} kapının eşiğinde, yağmur altında bekliyor. Elinde ne bir kalem var ne de bir ses kayıt cihazı. Sadece omuzlarına yüklenmiş bir beklenti. Milli formayı dolabına bıraktın, artık üzerindeki ağırlık sadece bu ıslak ceket. {actor.journalist.name} bir adım öne çıkıyor, ağzından çıkacak tek bir cümleye tüm kariyerini sığdırmanı bekliyor. Arkada gençlerin kahkahaları duyuluyor; onların zamanı şimdi başlıyor, seninki ise bir cümleye hapsediliyor.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Ceketinin iç cebindeki sponsor teklifli kağıdı gazeteciye uzat. \"Bunu yayınla, gerisini onlar düşünsün.\"",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Gazetecinin elini tut ve tribünlerin senin için hazırladığı o besteyi mırıldan. \"Onlara söyle, sahada asla yalan söylemedim.\"",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sadece başınla hafifçe selam verip yanından geç. \"Yazacak bir şey kalmadı, hepsi sahada görüldü.\"",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_kendi",
+              "text": "Dizüstü bilgisayarını aç, not defterindeki o tek satırı ekranına kopyala ve ona çevir.",
+              "target": "n_kendi",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 75
+              },
+              "lockLabel": "[Liderlik 75]"
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Sessiz Bir Ticaret",
+          "kind": "outcome",
+          "text": "Gazeteci kağıdı alıp hızla uzaklaşıyor. Kariyerin, bir reklam panosunun arkasında siliniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_hazir_metin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Sokakların Sesi",
+          "kind": "outcome",
+          "text": "Ertesi sabah tüm manşetlerde senin ismin var. Kimileri seni kahraman, kimileri ise sorumsuz bir asi olarak anıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_gercegi_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek, gürültülü bir açıklamadan daha ağır bir veda oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_sessiz_kaldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kendi": {
+          "title": "Kendi Kelimelerin",
+          "kind": "outcome",
+          "text": "Kendi hikayeni, kendi cümlelerinle mühürledin. Kimse değiştiremeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_milli_veda_kendi_yazdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

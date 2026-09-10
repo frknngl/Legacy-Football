@@ -363,6 +363,130 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Arka Kapısı",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları çoktan sönmüş. {actor.sporting_director.name}, tesisin servis çıkışındaki gölgede bekliyor. Yanında tek bir deri çanta var. Sessizce yaklaşıyorum. {actor.sporting_director.name} başını çevirip gülümsüyor, çantanın fermuarını hafifçe aralıyor. İçerisi dolu. 'Burası artık dar geliyor,' diyor kısık sesle. 'Yarına kadar kararını ver, bu çanta yarın burada olmayacak.' Gölgeler uzuyor, rüzgar tribünlerin arasından uğultuyla geçiyor. Söyleyecek hiçbir şey yok, sadece metalik bir koku ve bekleyen bir tercih.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Çantayı al ve yavaşça karanlığa karış. Kimse görmedi, kimse sormayacak.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını iki yana salla ve arkanı dönüp uzaklaş. Bu yoldan dönmek zorunda kalsam bile.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Telefonunu çıkar, {actor.sporting_director.name} ile olan konuşmayı kaydetmeye başla.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Çanta artık elimin altında. Ağırlığı vicdanımdaki boşlukla yarışıyor. {actor.sporting_director.name} tek kelime etmeden arabasına binip uzaklaşıyor. Yolun geri kalanı artık daha düz, ama çok daha bulanık.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sessiz Direniş",
+          "kind": "outcome",
+          "text": "Arkamı döndüğümde {actor.sporting_director.name} arkamdan bakmıyor bile. Kapı kapandı. Sessizlik, sahadaki başarısızlıkların ağırlığından daha soğuk.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Oyunun Kuralları",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} ekrana bakıp duraksıyor. Öfkesi bir anlık, sonra yüzüne o sahte, profesyonel maskeyi takıyor. Artık ikimiz de birbirimizin boğazındaki eli tutuyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_sadakat_sinavi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -318,6 +318,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ayna Kırığı",
+          "kind": "branch",
+          "text": "Antrenman tesisi kapandı. Otopark zifiri karanlık, sadece sensörlü lambaların cılız ışığı yanıyor. {actor.partner.name} arabanın kaputuna yaslanmış, elindeki yanan sigarayı yere fırlatıyor. Yüzünde, kameralara verdiğin o tanıdık gülümsemeden eser yok. Sadece bir yabancının soğukluğu var. Cebinden çıkan bir ödeme emri, soğuk asfaltın üzerine düşüyor. İkinizin arasında kurulan o ince cam, şimdi binlerce parçaya ayrılıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Sokağın dilinden konuş. 'Bunu halledeceğim ama bedelini herkes görecek.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Resmi prosedürü işaret et. 'Kurallar net, bu kişisel bir hata.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı al, tek kelime etmeden tüm birikimi dijital olarak onayla.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -2
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Geçmişin hatırına, tüm borcu üstlenip ilişkiyi sessizce bitir.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "set",
+                  "value": 0
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[İtibar Yüksek]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokak Bedeli",
+          "kind": "outcome",
+          "text": "Adın, kulüp binasındaki dedikoduların merkezine yerleşti. Artık herkes senin 'karanlık' taraflarını biliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Profesyonellik",
+          "kind": "outcome",
+          "text": "Kariyerin güvende ama evine döndüğünde o sessizlik artık bir duvar. Yalnızlık, performansınla besleniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Tahliye",
+          "kind": "outcome",
+          "text": "Banka hesabındaki o rakam bir anda buharlaştı. {actor.partner.name} bakışlarını kaçırarak uzaklaşıyor. İkiniz de bu paranın bir veda olduğunu biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Son Perde",
+          "kind": "outcome",
+          "text": "Kamuoyu seni 'fedakar kahraman' olarak kutsuyor ama omuzlarındaki o ağırlık, antrenmanlarda nefesini kesiyor. Bitti.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

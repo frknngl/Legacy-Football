@@ -509,6 +509,153 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridorun Ucunda",
+          "kind": "branch",
+          "text": "Antrenman tesisinin bodrum katında, eski bir su borusunun sızdıran sesi yankılanıyor. {actor.star_teammate.name} bir köşeye çökmüş, elinde tuttuğu bir zarfı defalarca katlıyor. Zarfın üzerinde kulüp başkanının mührü var. Seni gördüğü an elini hızla ceketinin içine sokuyor. Gözlerinde ne bir savunma isteği ne de bir açıklama kırıntısı var. Sadece, hangisinden yana duracağını bilmediğin o uzun sessizlik var. Koridorda ayak sesleri yaklaşıyor; ya bu sırrı onunla paylaşıp kapıyı kilitleyeceksiniz ya da üst yönetime gidip ne döndüğünü anlatacaksın.",
+          "choices": [
+            {
+              "id": "c_sessiz_kal",
+              "text": "Bakışlarını çevir ve yavaşça uzaklaş. Hiçbir şey görmedin.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_paylasim",
+              "text": "Yanına otur. 'Eğer bu batıyorsa, ikimizi birden batırır,' de.",
+              "target": "n_stat_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              },
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Takım Bağlılığı Gerekiyor]"
+            },
+            {
+              "id": "c_para_al",
+              "text": "Zarfı işaret et. 'Bana ne düşüyor?' diye sor.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_ihbar",
+              "text": "Ceketinin düğmesini ilikle ve doğruca teknik direktörün odasına yönel.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Görmezden Gelmek",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gittiğinde, boru sızıntısının sesi artık bir çığlık gibi tınlıyor. {actor.star_teammate.name} arkandan bakmıyor bile. Yarın sabah sahaya çıktığınızda, aranızda bir uçurum olduğunu ikiniz de biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat_kilitli": {
+          "title": "Suç Ortaklığı",
+          "kind": "outcome",
+          "text": "Zarfı birlikte açıyorsunuz. İçindeki rakamlar dudak uçuklatıyor ama artık kulüpteki geleceğin, {actor.star_teammate.name} ile aynı ipe bağlı. Vicdanın ağır, ama kulüp koridorlarında artık yalnız değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfın bir kısmı cebine giriyor. {actor.star_teammate.name} sana küçümseyerek bakıyor. Birbirinizden nefret ediyorsunuz, ancak artık birbirinize muhtaçsınız. Bu paranın tadı, kariyerin boyunca dilinde kalacak.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İhanet ve Bedeli",
+          "kind": "outcome",
+          "text": "Kapıyı sertçe çarpıp çıktığında arkandan yükselen küfürü duyuyorsun. Teknik direktörün odasına girdiğinde artık geri dönüş yok. {actor.star_teammate.name} ile olan bağını tamamen koparırken, taraftarın gözünde 'temiz' biri olmanın bedelini ödemeye hazırlanıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_golge_star_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

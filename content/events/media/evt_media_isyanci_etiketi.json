@@ -336,6 +336,176 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Röportaj",
+          "kind": "branch",
+          "text": "Antrenman sahasının en köşesindeki yedek kulübesindesin. Hava soğuk, çimlerin rutubeti dizlerine işliyor. {actor.journalist.name} yanına oturuyor, elinde bir kayıt cihazı yok, sadece eski, yıpranmış bir not defteri var. Sessizce sayfayı açıyor; senin on yıl önceki ilk maçının notlarını, o zamanlar kimsenin fark etmediği detayları okumaya başlıyor. Hiçbir manşet, hiçbir polemik değil; sadece senin oyun içindeki o anlık tereddütlerini anlatıyor. İlk kez, bir başkasının seni bir simge olarak değil, sadece bir insan olarak izlediğini hissediyorsun. Sayfayı çeviriyor, göz göze geliyorsunuz. 'Gerçekten neyi hatırlamak istiyorsun?' diye fısıldıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Defteri al ve sayfaları yırt. 'Bu detaylar kimseye bir şey katmaz, onları piyasaya sür ve iyi bir para kazan.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Doğrul. 'Güzel bir yazı olur. Sadece kariyerimin profesyonel taraflarına odaklan, duygular kalabalık yapmasın.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Defteri kapat ve elini tut. 'Her şeyi anlat. Hatalarımı, korkularımı, o gürültülü geceleri. Kaybedecek hiçbir şeyim kalmadı.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gülümse ve ona en eski formanı hediye et. 'Bunu yazarken, saha içindeki o yalnızlığımı kelimelere dökmeni istiyorum.'",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} defteri çantasına koyuyor. Başını sallıyor. Artık ikiniz de birbirinizin sırrını biliyorsunuz; bu bir gazetecilik değil, bir ticaret.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Sadece başını sallıyor ve notlarını düzenliyor. İstediğin oldu; temiz, güvenli ve renksiz bir portre hazırlandı. Ruhun hala seninle.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Çıplak Gerçek",
+          "kind": "outcome",
+          "text": "Defterin sayfaları titriyor. {actor.journalist.name} sana bakarken, hayatındaki tüm maskelerin düştüğünü görüyorsun. Yarın manşetler karışacak.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Efsanenin Vedası",
+          "kind": "outcome",
+          "text": "Eski forma elinde, sahaya son kez bakıyorsun. {actor.journalist.name} kalemini bırakıyor. Bugün sadece bir yazı değil, bir mirasın anahtarı teslim edildi.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "playing"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

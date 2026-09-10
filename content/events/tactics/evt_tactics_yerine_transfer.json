@@ -327,6 +327,180 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odada İmza",
+          "kind": "branch",
+          "text": "Kulüp binasının en alt katı. Havalandırma sesi, dosyaların küf kokusuna karışıyor. {actor.sporting_director.name} masanın ucunda duruyor. Önünde bir kalem, yanında ise yarın antrenmana katılacak olan yeni oyuncunun henüz imzalanmamış sözleşmesi. Kapıyı kilitleyip ışığı kapatıyor. 'Senin yerini alacak olan çocuk bu,' diyor. Sesi titriyor ama gözleri kararlı. Masanın üstündeki dosyayı sana uzatıyor. 'Ona yardım etmen gerekiyor, belki de etmemen. Karar senin.'",
+          "choices": [
+            {
+              "id": "c_servet_odakli",
+              "text": "Dosyayı imzalatması için teşvik et. Cebine girecek komisyonun bir kısmını hatırlat.",
+              "target": "n_borc",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_sokak_itibari",
+              "text": "Sessiz kal. Yarınki antrenmanda rakibin olacak genci sahada ezeceğinin sözünü ver.",
+              "target": "n_yuzlesti",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Dosyayı kenara it. Kulüp için en iyisi neyse onu yap, kendi kariyerini bir kenara bırak.",
+              "target": "n_sustu",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 10
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Kendi tecrübeni ona aktaracağına söz ver, ancak kulüp yönetimine şartlarını dikte et.",
+              "target": "n_kutlandi",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Liderlik 55]"
+            }
+          ]
+        },
+        "n_borc": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Para, sadakatin önüne geçti. {actor.sporting_director.name} sana bakmıyor bile, sadece kâğıdı uzatıp ışığı açıyor. Artık o odadan çıkışın, sessiz bir anlaşmayla mühürlendi.",
+          "onEnter": [
+            {
+              "flag": "mem_direktore_borc_yazdi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_yuzlesti": {
+          "title": "Rekabet Başlıyor",
+          "kind": "outcome",
+          "text": "Hiçbir şey söylemedin. Gözlerin, kapıdan çıkarken {actor.sporting_director.name} üzerinde soğuk bir iz bıraktı. Yarın, antrenman sahasında kimse senden daha baskın olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_yuzlesti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sustu": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Kafanı hafifçe salladın. {actor.sporting_director.name} derin bir nefes alıyor; senden beklediği direnç gelmedi. Yerini devretmek, sandığından daha acı verici.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kutlandi": {
+          "title": "Yeni Bir Usta",
+          "kind": "outcome",
+          "text": "Gülümsedin, elini uzattın. {actor.sporting_director.name} için bir kurtarıcısın artık. Genç oyuncu, yarın senin kanatlarının altına girecek. Bedeli, senin yorgunluğun olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_yerine_gelen_kutlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

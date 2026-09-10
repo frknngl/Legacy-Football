@@ -386,6 +386,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridorun Sonu",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin bodrum katında, havalandırma fanı boğuk bir ritimle dönüyor. {actor.physio.name} elinde eski bir deri çanta, duvardaki bir dolabın önünde bekliyor. Kendi sesin, koridorda beklenmedik bir yankı bırakıyor. Çantanın içinden sarkan, yasaklı olduğu bilinen o gri kutu artık gizli değil. {actor.physio.name} yüzüne bakmıyor, gözleri metal dolabın paslı menteşelerinde. Sessizlik, bir itiraf kadar ağır.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kutuyu al ve çık. Kimse hiçbir şey görmedi.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 25
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Gözlerinin içine bak ve kendi geleceğin için ona iki katını teklif et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 40000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Çantayı elinden nazikçe al ve rafa geri koy. 'Bu iş burada biter.'",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Birlikte, medyanın bildiği o büyük yalanı yeniden kurgula.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 30
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]",
+              "persona": {
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Dönüşü Olmayan Yol",
+          "kind": "outcome",
+          "text": "Koridordaki ışık titriyor. Kapıyı arkandan çarpıp çıktığında, sadece bir kutu değil, güvenli limanını da geride bıraktığını biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Para, dolabın kapağında yankılanıyor. {actor.physio.name} elini çekiyor. Artık aynada gördüğün kişi, sadece bu formayı taşıyan biri değil, bir suç ortağı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Eksilen Parçalar",
+          "kind": "outcome",
+          "text": "Dolap kilitleniyor. Arkanda kalan o metal sesi, kariyerinin en dürüst ama en ıssız anı olarak hafızana kazınıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Kurgulanmış Gerçek",
+          "kind": "outcome",
+          "text": "Basın toplantısındaki yalanların temeli bu karanlık odada atıldı. Herkes inanıyor, sadece sen ve o biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

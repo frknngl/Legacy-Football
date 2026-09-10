@@ -380,6 +380,175 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Yüzleşme",
+          "kind": "branch",
+          "text": "Yağmur, antrenman tesisinin cam tavanını dövüyor. {actor.doctor.name} elindeki tableti kapatıp kenara koyuyor. Ekranda senin son altı aylık verilerin değil, sistemin dışındaki gerçek tıbbi geçmişin asılı. Odaya giren soğuk hava, içerideki steril kokuyu bastırıyor. Karşında oturan {actor.doctor.name} artık bir profesyonel değil, bir sırdaş. Bakışları, sahada sakladığın o aksaklığın her zerresini biliyor. Sessizlik, bir mahkeme salonunun ağırlığıyla odaya yayılıyor. Artık kaçacak yerin, uyduracak yeni bir sakatlık hikayen kalmadı.",
+          "choices": [
+            {
+              "id": "c_para",
+              "text": "Sessizliği bir çanta dolusu nakit ile boğ. Bugün değil, emeklilikte ödenir bedeli.",
+              "target": "n_outcome_para",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_itiraf",
+              "text": "Kendi ellerinle itiraf et. Taraftara değil, aynaya bak.",
+              "target": "n_outcome_itiraf",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Tüm dosyaları silmesini söyle. Sahaya dönmen gerekiyor.",
+              "target": "n_outcome_profesyonel",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Sistemi seninle yeniden kurgulayalım. İkimiz de burada kalalım.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_doctor",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Mental Dayanıklılık 74]"
+            }
+          ]
+        },
+        "n_outcome_para": {
+          "title": "Sus Payı",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} gözlerini kaçırıyor. Parayı kabul ettiğinde, aranızdaki profesyonel mesafe yerini suç ortaklığına bırakıyor. Artık bu sırrın bir fiyatı var.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_itiraf": {
+          "title": "Gerçeğin Yükü",
+          "kind": "outcome",
+          "text": "Her şeyi döküyorsun. {actor.doctor.name} şaşkın, belki de rahatlamış. Bu itiraf, üzerindeki sahte zırhı parçalıyor ama saha dışındaki fırtınayı davet ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_profesyonel": {
+          "title": "Soğuk Kanlılık",
+          "kind": "outcome",
+          "text": "{actor.doctor.name} dosyayı imha ediyor. Kimse bilmeyecek. Sadece sen ve vicdanın, o boş koltukta kalıyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Yeni Düzen",
+          "kind": "outcome",
+          "text": "Birlikte yeni bir yol haritası çiziyorsunuz. {actor.doctor.name} güvenini kazandın, ancak bu yük zihnini daha da ağırlaştırıyor. Artık sadece kendine değil, ona da bağımlısın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

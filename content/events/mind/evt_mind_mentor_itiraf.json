@@ -394,6 +394,174 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kopuşun Eşiğinde",
+          "kind": "branch",
+          "text": "Otoparkın soğuk betonunda, {actor.mentor.name} aracının kapısına yaslanmış duruyor. Elinde buruşturulmuş bir transfer belgesi var. Şehrin uzak ışıkları yorgun gözlerine yansıyor. Uzun süredir sakladığı o mektubu yavaşça sana uzatıyor. Parmakları titriyor. Söylenecek her kelime, aranızdaki yılların ağırlığını birer taş gibi yere döküyor. Sessizlik, sahadaki o son düdükten daha derin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Belgeyi al ve sessizce yırtıp çöpe at. Kimse bilmemeli.",
+              "target": "n_guvenli",
+              "persona": {
+                "dogruluk": 4,
+                "sadakat": 5
+              },
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Bu kağıdı kulübe değil, başka birine satalım. Borçlarını kapatır.",
+              "target": "n_gri",
+              "persona": {
+                "mizac": -6
+              },
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Bunu taraftar gruplarına sızdıralım. Yönetimi yerinden ederiz.",
+              "target": "n_riskli",
+              "persona": {
+                "durus": -4
+              },
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Yanına otur. Yükü paylaş, sabaha kadar anlatmasını dinle.",
+              "target": "n_kilitli",
+              "persona": {
+                "sadakat": 8
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Mental Dayanıklılık 80]",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Yıkım",
+          "kind": "outcome",
+          "text": "Kağıt parçaları rüzgarda savruluyor. {actor.mentor.name} gözlerini kaçırıyor. Aranızdaki bağ artık bir sırrın değil, bir borcun esiri.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Kirli Kazanç",
+          "kind": "outcome",
+          "text": "Zarfı alıyorsun. {actor.mentor.name} artık sana bakmıyor. Para hesabına giriyor ama vicdanın otoparkın soğuğunda asılı kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kontrollü Kaos",
+          "kind": "outcome",
+          "text": "Telefonun ekranı yanıyor. Haber hızla yayılıyor. {actor.mentor.name} arkasını dönüp yürüyor. Yarın antrenman sahası bir savaş alanı olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Gece Yarısı Yükü",
+          "kind": "outcome",
+          "text": "Saatler ilerliyor. {actor.mentor.name} konuşuyor, sen dinliyorsun. Kelimeler omuzlarındaki ağırlığı hafifletmiyor ama artık bu yükü tek başına taşımıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

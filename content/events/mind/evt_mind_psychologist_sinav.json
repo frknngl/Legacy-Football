@@ -390,6 +390,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Aynadaki Çatlak",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki soyunma odasında, ter kokusu ve soğuk metalin keskinliği birbirine karışıyor. {actor.psychologist.name}, elindeki tableti yavaşça kenara bırakıyor. Ekranın yansıması, odadaki tek ışık kaynağı. Yüzündeki o profesyonel boşluk, bu kez gerçekten bir boşluğa dönüşmüş. Sessizlik uzadıkça, duvarlardaki boyaların döküldüğünü daha net duyuyorum. {actor.psychologist.name} ayağa kalkmıyor, sadece bakıyor. Gözlerinde; sahada saatlerce koşan, milyonların beklentisini sırtında taşıyan ve artık kendi yansımasını tanıyamayan bir yabancıya baktığını görüyorum. Soru sormuyor. Cevaplarımı çoktan duymuş gibi bir hali var.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Tableti alıp kendi ellerimle kayıtları siliyorum. Kimse gerçekleri bilmemeli.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Sakinleşmiş gibi yapıp odadan çıkıyorum, gece barda her şeyi anlatacağım.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Tableti geri veriyorum. Tedaviye sadık kalıp sahalara dönmek tek yol.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Veriler siliniyor. Odanın ışığı tekrar yanıyor. {actor.psychologist.name} yüzüne o sahte gülümsemeyi yeniden yerleştiriyor. İkimiz de neyin gittiğini biliyoruz, ama ikimiz de artık zenginiz.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Sokakların Sesi",
+          "kind": "outcome",
+          "text": "Kapıyı çarpıp çıkıyorum. Arkamda bıraktığım o sessizlik, yarın manşetlerde bir çığlığa dönüşecek. {actor.psychologist.name}’in şaşkın bakışı koridorda yankılanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Teslimiyet",
+          "kind": "outcome",
+          "text": "Kafamı öne eğiyorum. İlacın tadı ve disiplinin ağırlığı zihnimi uyuşturuyor. Yarın yine aynı saatte burada olacağım. İnsanlığım, bir dosya numarasından ibaret kalana kadar.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_sinav_psychologist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

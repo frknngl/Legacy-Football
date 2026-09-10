@@ -383,6 +383,120 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Taktik Tahtasının Ötesi",
+          "kind": "branch",
+          "text": "Antrenman tesisi koridoru sessiz. {actor.manager.name} ofisinin kapısını aralık bırakmış. İçerideki taktik ekranında senin ismin yok. Formasyon değişmiş. Artık bu oyunda senin özelliklerine yer açacak bir alan kalmamış. {actor.manager.name} başını bile kaldırmadan dosyaları imzalamaya devam ediyor. İçerideki hava ağır, bir soğukluk odaya sindi. Söylenecek her söz, zaten verilmiş bir kararın yankısı gibi boşa düşecek.",
+          "choices": [
+            {
+              "id": "c_sessiz",
+              "text": "Kapıyı sessizce çek. Kararı sindir, antrenman sahasına git.",
+              "target": "n_sessiz",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_isyan",
+              "text": "Kapıyı aç, ekranı işaret et. 'Neden ben?' diye sor.",
+              "target": "n_isyan",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_ticaret",
+              "text": "Ofise gir. Tazminat paketini ve çıkış şartlarını görüş.",
+              "target": "n_ticaret",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            }
+          ]
+        },
+        "n_sessiz": {
+          "title": "Kabulleniş",
+          "kind": "outcome",
+          "text": "Sessizlik en ağır cevaptır. Kapı kapanırken {actor.manager.name} gözlerini bir anlığına kaldırdı, sonra tekrar evraklarına döndü. Artık bu sistemin bir parçası değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_sikayet_etmedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_isyan": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Cevap gelmedi. Sadece bir omuz silkiş. Odadan çıkarken adımların koridorda yankılandı. Takım arkadaşların sessizliğiyle seni onaylıyor, ama kimse arkanda durmuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sistem_sorgulandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ticaret": {
+          "title": "Profesyonel Ayrılık",
+          "kind": "outcome",
+          "text": "Kağıtlar imzalandı. {actor.manager.name} ile el sıkıştınız; bu bir futbol vedası değil, bir ticaretin sonuydu. Banka hesabındaki artış, saha içindeki boşluğu doldurmaya yetmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_ayrilik_dusundu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -384,6 +384,179 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İkinci Bir Şans",
+          "kind": "branch",
+          "text": "Antrenman sahasının en uzak köşesinde, çimlerin nemi kramponlarının altında hissediliyor. {actor.sporting_director.name}, elinde eski bir defterle tribün çıkışındaki beton basamakta oturuyor. Işıklar sönük. Kulüp başkanının mali hatalarını kapatmak için acil bir kaynak açığı var. {actor.sporting_director.name}, defteri dizinin üzerine bırakıp başını yerden kaldırmıyor. Tek bir cümle kuruyor: 'Burası bir aile, ama bazı aileler batarken dışarıdan destek bekler.' Cevap bekliyor, bakışları ağır.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kulübün mali defterlerini şeffaflaştıracak resmi prosedürü başlatın.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "İstenen miktarı hesabına aktar, sessiz kal.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Parayı sokaktaki taraftar gruplarının fonuna aktarılmasını şart koş.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_lider",
+              "text": "Kendi kariyerini ortaya koyarak başkanla bizzat yüzleşeceğini söyle.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_sporting_director",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Profesyonellik 55]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Kayıtlar Açık",
+          "kind": "outcome",
+          "text": "Resmi yola girdin. Vicdanın rahat ama kulüp koridorlarında artık aranan isim değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Sayılar hesabında büyüyor, aynadaki yansımansa biraz daha küçülüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sokak Kahramanı",
+          "kind": "outcome",
+          "text": "Tribünler seni yüceltiyor, yönetim ise kapalı kapılar ardında seninle ilgili dosyaları hazırlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Sorumluluk Ağırlığı",
+          "kind": "outcome",
+          "text": "Liderlik zırhı ağır. Odaya girdiğinde herkes sustu, ama üzerindeki yük artık sadece senin değil.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -334,6 +334,180 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Buzlu Camın Ardında",
+          "kind": "branch",
+          "text": "Soyunma odasının kapısı ardına kadar açık. İçerideki uğultu, buzlu camın ardından bir arı kovanını andırıyor. {actor.manager.name} koridorun loş ışığında, elinde tuttuğu taktik tabletiyle tek başına duruyor. Seni fark ettiğinde duraksıyor. Ne oyuncuların ne de yardımcısının olmadığı bu boşlukta, gözleri bir anlığına oyunun dışına taşıyor. İlk defa, bir teknik direktörün oyuncusunu değil; gerçekten seni izlediğini fark ediyorsun. O bakışta ne bir komut var ne de bir uyarı. Sadece, sahadaki o yorgun silüetin ötesindeki şeyi görmeye çalışan bir ağırlık.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Gözlerini kaçır, bir şey demeden eline tutuşturulan gizli prim zarfını cebine yerleştir.",
+              "target": "n_kazanc",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Dik dur. 'Hocam, saha içinde ne yapmamı isterseniz onu uygulayacağım,' de ve yanından ayrıl.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Tableti işaret et. 'O taktik burada işlemez, herkesin özgürlüğe ihtiyacı var,' diyerek risk al.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Yanına yaklaş ve elini omzuna koy. 'Biliyorum, bu sezonun sonuna geldik, birlikte çıkalım bu yükten.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
+            }
+          ]
+        },
+        "n_kazanc": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı cebinde. {actor.manager.name} başını hafifçe sallayıp içeri yöneliyor. Bu bir alışveriş değil, bir kabulleniş.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_sustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Sözlerin soğuk ve net. {actor.manager.name} gülümsüyor ama gözlerindeki o tuhaf tanıma anı kayboluyor. Sahaya geri dönüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_kaptan_korudu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İsyanın İlk Kıvılcımı",
+          "kind": "outcome",
+          "text": "Korkusuzca söylediklerin koridorda yankılanıyor. {actor.manager.name} cevap vermiyor, sadece durup izliyor. Yarın gazete manşetlerinde olacağın kesin.",
+          "onEnter": [
+            {
+              "flag": "mem_hocaya_karsi_geldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Ağırlığı Paylaşmak",
+          "kind": "outcome",
+          "text": "Ona bir yük ortaklığı teklif ettin. Artık sadece senin değil, onun da kaderi senin omuzlarında.",
+          "onEnter": [
+            {
+              "flag": "mem_devre_arasi_ustlendi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

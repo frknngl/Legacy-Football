@@ -373,6 +373,295 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Alt Geçidi",
+          "kind": "branch",
+          "text": "Antrenman sahasından otoparka inen beton tünelde yankılanan adımların duruyor. {actor.journalist.name} duvarın köşesinde, loş sarı ışığın altında seni bekliyor. Elinde not defteri yok, kayıt cihazı kapalı. Sadece duruyor. İlk kez bir objektifin arkasında değil, bir insan olarak gözlerinin içine bakıyor. Kariyerinin başından beri seni bir 'istatistik' olarak gören o bakışlar şimdi silikleşmiş. Sadece seni, o gün antrenman sahasında verdiğin o kararı merak ediyor. Ne bir soru soruyor ne de bir şey talep ediyor; sadece varlığının ağırlığını taşımanı bekliyor.",
+          "choices": [
+            {
+              "id": "c_sessizlik",
+              "text": "Bakışlarını kaçırıp yanından geç, hiçbir şey söyleme.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "dogruluk": 2
+              }
+            },
+            {
+              "id": "c_hikaye",
+              "text": "Ceketinin iç cebinden çıkardığın fotoğrafı ona uzat, 'İşte hikayenin geri kalanı,' de.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -3
+              }
+            },
+            {
+              "id": "c_gercek",
+              "text": "Dur, ona o gün sahada kimseye söylemediğin gerçeği fısılda.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "mizac": 4
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Mesafeli",
+          "kind": "outcome",
+          "text": "Adımların hızlanıyor. Arkana bakmıyorsun. {actor.journalist.name} orada, o loş ışıkta, cevapsız sorularıyla kalıyor. İtibarın temiz, ama için soğuk.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı elinden gidiyor. {actor.journalist.name} başını hafifçe eğip uzaklaşıyor. Yarın manşetlerde senin değil, birilerinin arzu ettiği o sahte hikaye olacak. Banka hesabındaki artış, vicdanındaki boşluğu doldurmuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İtiraf",
+          "kind": "outcome",
+          "text": "Söylediklerin tünelde yankılanıyor. {actor.journalist.name} defterini bile açmıyor, sadece gülümsüyor. Bu sır artık ikinizin. Yarın herkesin bildiği o gerçek, seni bir kahraman mı yoksa bir günah keçisi mi yapacak, göreceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda",
+          "kind": "branch",
+          "text": "Antrenman tesisinin bodrum katındaki malzeme deposundasın. Havalandırmadan gelen tıkırtılar dışında ses yok. {actor.journalist.name} metal bir rafın gölgesinde dikiliyor. Eline tutuşturduğu dijital kayıt cihazı, karanlıkta kırmızı bir göz gibi yanıp sönüyor. 'Herkes kahraman olduğunu sanıyor,' diyor, sesi duvarlarda yankılanıyor. 'Oysa sen sadece iyi bir oyuncusun, o da şimdilik.' Ekranda kendi görüntün; yorgun, savunmasız ve sahte.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Cihazı elinden kap, yere at ve ayağınla üzerine bas.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Sessizce banka hesap bilgilerini içeren kağıdı montunun cebine bırak.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sadece başını salla ve hiçbir şey demeden karanlığa karış.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Gerçekleri anlat. Her şeyi, en başından itibaren dökül.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Medya İtibarı 60]"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kırılan Lens",
+          "kind": "outcome",
+          "text": "Plastik parçaları ayakkabının altında eziliyor. {actor.journalist.name} gülümseyerek geri çekiliyor. Artık ses kaydına gerek yok; yaşanan anın şokunu yüzünde taşıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} kağıdı alıp ışığa tutuyor. Gözlerindeki pırıltı her şeyi anlatıyor. Artık bu oyunu tek başına oynamıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İsimsiz Gölge",
+          "kind": "outcome",
+          "text": "Koridorun soğukluğu tenini ürpertiyor. {actor.journalist.name} arkanda kalıyor. Odanın kapısını kapatırken, hiçbir şeyin değişmediğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "İtiraflar Silsilesi",
+          "kind": "outcome",
+          "text": "Kelimeler ağzından birer birer dökülüyor, durduramıyorsun. {actor.journalist.name} not almayı bırakmış, sadece seni dinliyor. Masken yere düşerken, üzerindeki yükün bir kısmını ona devrediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_yuzlesme_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

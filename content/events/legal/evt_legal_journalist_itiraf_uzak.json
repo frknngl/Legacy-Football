@@ -350,6 +350,149 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Tren",
+          "kind": "branch",
+          "text": "Eski bir tren istasyonunun bekleme salonu. Nemli duvarlar, titreyen floresan lambalar. {actor.journalist.name} yanındaki bankta oturuyor, elinde kirlenmiş bir zarf var. İçinde senin asla yapmadığın bir transfer şikesinin sahte belgeleri duruyor. Trenin gelmesine on dakika kaldı. Dışarıdaki soğuk havada bir polis otosunun sirenleri uzaklardan duyuluyor. {actor.journalist.name} zarfı sana uzatıyor; 'Bunu imzalayıp sorumluluğu alırsan, hem seni hem de kulübü kurtarabiliriz. Aksi halde, bugün sadece senin kariyerin değil, tüm kulüp yanacak.'",
+          "choices": [
+            {
+              "id": "c_kabul",
+              "text": "Zarfı al, imza at. Başkasının günahı senin siciline yazılsın.",
+              "target": "n_kabul",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_diren",
+              "text": "Zarfı reddet. Herkesin gerçeği bildiğini söyle ve oradan ayrıl.",
+              "target": "n_diren",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_itiraf",
+              "text": "Ona gerçekleri anlat, delilleri yok etmesi için baskı yap.",
+              "target": "n_itiraf",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            }
+          ]
+        },
+        "n_kabul": {
+          "title": "Bedeli Ödemek",
+          "kind": "outcome",
+          "text": "İmzayı attın. Zarfı alan {actor.journalist.name} karanlığa karıştı. Ertesi sabah, disiplin kurulu seni 24 maç men cezasıyla cezalandırdı. Kariyerinin zirvesinde sahada olman gerekirken, kendini evinde, televizyondan kendi infazını izlerken buluyorsun.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 24,
+              "reason": "Soruşturma kapsamında suç ortaklığı şüphesi."
+            }
+          ]
+        },
+        "n_diren": {
+          "title": "Kaçınılmaz Son",
+          "kind": "outcome",
+          "text": "Sessizce istasyondan çıktın. İki gün sonra evine gelen bir zarfla 12 maçlık bir uzaklaştırma aldın. Taraftarlar stadyumda adını haykırıyor, ancak sen uzak bir rehabilitasyon merkezinin duvarları arasında, ismini temize çıkarmak için bekliyorsun.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 12,
+              "reason": "İdari tahkikat süreci."
+            },
+            {
+              "op": "lifeState",
+              "to": "rehab_clinic"
+            }
+          ]
+        },
+        "n_itiraf": {
+          "title": "İkinci Şans",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} ile aranda kurduğun bu kirli diplomatik bağ, dosyayı raftan indirdi. Bir bedel ödedin; sessiz kaldın, bir yalanı doğruladın. Ancak sahaya dönebilmek için bu karanlığı kabul etmek zorundasın.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 12,
+              "reason": "Kulüp içi disiplin cezası."
+            },
+            {
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

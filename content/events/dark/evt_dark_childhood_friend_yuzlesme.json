@@ -371,6 +371,130 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyumun Altı",
+          "kind": "branch",
+          "text": "Antrenman bitmiş, saha boşalmış. Stadyumun ışıkları sönmeye başlarken koridorun sonundaki çıkış kapısında {actor.childhood_friend.name} seni bekliyor. Elinde hiçbir şey yok, sadece o eski, suçlayıcı sessizliği var. Duvarın dibine yaslanmış, ayakkabısının burnuyla zemini kazıyor. Yanından geçip gitmek istiyorsun ama attığın her adımda metal zeminde yankılanan ayak seslerin, sanki çocukluktaki o mahalle maçından kalma bir borcun ağırlığını hatırlatıyor. {actor.childhood_friend.name} başını kaldırıyor, gözleri aydınlığa alışmamış birinin huzursuzluğuyla parlıyor.",
+          "choices": [
+            {
+              "id": "c_odeme",
+              "text": "Cüzdanını çıkarıp ne kadarı varsa ona uzat. 'Bu son olsun.'",
+              "target": "n_outcome_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Ona bakmadan yürü, 'Güvenlik seni dışarı atar, burası çalışma alanı.'",
+              "target": "n_outcome_profesyonel",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Kolundan tut, stadyumun loş bir köşesine çek ve sesini alçaltarak konuş.",
+              "target": "n_outcome_sokak",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_servet": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} parayı yavaşça alıyor, yüzünde bir anlık buruk bir gülümseme beliriyor. Sessizce kapıya yöneliyor. Bu parayla o borç kapanmadı, sadece ertelendi.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_profesyonel": {
+          "title": "Duvar Örmek",
+          "kind": "outcome",
+          "text": "Güvenlik görevlileri koridora giriyor. {actor.childhood_friend.name} bir şey söylemeye çalışıyor ama sen arkana bile bakmadan tesise giriyorsun. İkiniz arasındaki o görünmez bağ, o an itibariyle koptu.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_sokak": {
+          "title": "Eski Hesaplar",
+          "kind": "outcome",
+          "text": "Köşede dakikalarca fısıldaşıyorsunuz. {actor.childhood_friend.name} seni ikna etmek için eski bir hatırayı kullanıyor. Stadyumdan çıktığında, üzerindeki baskının arttığını hissediyorsun ama o en azından susacağına söz verdi.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

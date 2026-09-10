@@ -28,137 +28,6 @@
       true
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Masadaki Teklif",
-      "kind": "branch",
-      "text": "{actor.president.name} masanın diğer ucunda, elinde bir kontratla bekliyor. Dışarıda antrenman sahasının sesi duyuluyor ama içerisi bir mezarlık kadar sessiz. İmzayı atarsan kulübün çehresi değişecek, atmazsan geleceğin bir belirsizliğe gömülecek. {actor.president.name} kalemi sana doğru uzatıyor, gözlerinde ise sadece rakamların soğuk ışıltısı var. Şimdi vereceğin karar, sadece bir kontrat değil; kulüp içindeki pozisyonunun ve kişisel sınırlarının resmi olacak.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Kontratı incele ve tüm maddeleri sözleşmeye uygun şekilde revize etmesini iste.",
-          "target": "n_outcome_guvenli",
-          "effects": [
-            {
-              "flag": "mental_dayaniklilik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "Kalemi al ve şartları kendi lehine, taraftarın sesini kullanarak dikte et.",
-          "target": "n_outcome_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 3
-            }
-          ],
-          "persona": {
-            "durus": 7
-          }
-        },
-        {
-          "id": "c_gri",
-          "text": "Rakamlara bakmadan imzayı bas ve el sıkışarak odadan ayrıl.",
-          "target": "n_outcome_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "mizac": -5
-          }
-        }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "Sınavı Geçtin",
-      "kind": "outcome",
-      "text": "{actor.president.name} kağıtları geri çekerken hafifçe gülümsüyor. Bu hamleyle ona boyun eğmeyeceğini, kurallara sadık kaldığını kanıtladın. Saygısını kazandın ama belki de elindeki gerçek gücü masada bıraktın.",
-      "onEnter": [
-        {
-          "flag": "mem_business_sinav_president",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Otoriteyi Sarsmak",
-      "kind": "outcome",
-      "text": "{actor.president.name} kaşlarını çatıyor. Kalemi sertçe bırakıyorsun. İstediklerini aldın ama artık yönetim katında her adımın izleniyor olacak. Bu, bir oyuncu için tehlikeli bir oyun.",
-      "onEnter": [
-        {
-          "flag": "mem_business_sinav_president",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Karanlık Mutabakat",
-      "kind": "outcome",
-      "text": "Kalem kâğıt üzerinde hızlıca hareket etti. {actor.president.name} arkasına yaslanıyor, tatmin olmuş görünüyor. Banka hesabın dolacak ancak bu odada bıraktığın şey, belki de kariyerinin en değerli varlığı olan iradendi.",
-      "onEnter": [
-        {
-          "flag": "mem_business_sinav_president",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_business_sinav",
     "beat": "evt_business_president_sinav",
@@ -168,5 +37,271 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Masadaki Teklif",
+          "kind": "branch",
+          "text": "{actor.president.name} masanın diğer ucunda, elinde bir kontratla bekliyor. Dışarıda antrenman sahasının sesi duyuluyor ama içerisi bir mezarlık kadar sessiz. İmzayı atarsan kulübün çehresi değişecek, atmazsan geleceğin bir belirsizliğe gömülecek. {actor.president.name} kalemi sana doğru uzatıyor, gözlerinde ise sadece rakamların soğuk ışıltısı var. Şimdi vereceğin karar, sadece bir kontrat değil; kulüp içindeki pozisyonunun ve kişisel sınırlarının resmi olacak.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kontratı incele ve tüm maddeleri sözleşmeye uygun şekilde revize etmesini iste.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kalemi al ve şartları kendi lehine, taraftarın sesini kullanarak dikte et.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Rakamlara bakmadan imzayı bas ve el sıkışarak odadan ayrıl.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Sınavı Geçtin",
+          "kind": "outcome",
+          "text": "{actor.president.name} kağıtları geri çekerken hafifçe gülümsüyor. Bu hamleyle ona boyun eğmeyeceğini, kurallara sadık kaldığını kanıtladın. Saygısını kazandın ama belki de elindeki gerçek gücü masada bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Otoriteyi Sarsmak",
+          "kind": "outcome",
+          "text": "{actor.president.name} kaşlarını çatıyor. Kalemi sertçe bırakıyorsun. İstediklerini aldın ama artık yönetim katında her adımın izleniyor olacak. Bu, bir oyuncu için tehlikeli bir oyun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Kalem kâğıt üzerinde hızlıca hareket etti. {actor.president.name} arkasına yaslanıyor, tatmin olmuş görünüyor. Banka hesabın dolacak ancak bu odada bıraktığın şey, belki de kariyerinin en değerli varlığı olan iradendi.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Park Yeri",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin çıkışında, {actor.president.name} aracının yanında bekliyor. Kapı aralık, içerisi loş. İki sokak lambası yanıp sönüyor. Tek kelime etmiyor, sadece arka koltuktaki siyah çantayı işaret ediyor. İçinde sadece nakit ve birkaç dijital kayıt var. 'Yarınki maçta biraz daha yavaş oynaman, hepimizin işine yarar' diyor. Sesi rüzgarda kayboluyor. Kapı hala açık, motor rölantide titriyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Çantayı al ve arka koltuğa yerleştir. Bugünün sessizliği, yarının serveti.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kapıyı sertçe kapat ve yürümeye devam et. Profesyonel olan bunu duymazdan gelir.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "iliski_president",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Fotoğrafı çek, çantayı bırak. Sokaklarda herkesin bir karşılığı vardır.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Mental Dayanıklılık 70]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Çanta elinde. Artık sadece bir oyuncu değil, bir ortağın. {actor.president.name} başını hafifçe eğerek selam veriyor ve uzaklaşıyor. Yol, artık her zamankinden daha uzun.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Bir Vicdan",
+          "kind": "outcome",
+          "text": "Arabanın arkasından uzaklaşırken, aynadan {actor.president.name} bakışlarını hissediyorsun. Kapı kapanırken duyulan ses, bir dönemin kapandığının kanıtı.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tehlikeli Koz",
+          "kind": "outcome",
+          "text": "Kayıt cebinde. {actor.president.name} yüzündeki şaşkınlık, kazanılan her paradan daha değerli. Ama bu, kendi kuyunu kazmanın başka bir yolu.",
+          "onEnter": [
+            {
+              "flag": "mem_business_sinav_president",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

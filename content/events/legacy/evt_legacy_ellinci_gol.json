@@ -329,6 +329,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Arabanın kapısı açık. {actor.journalist.name} uzaktan izliyor, elinde eski bir not defteri var. Elli golü geçmişsin, ışıklar sönmüş, stadyumun metalik soğuğu otoparka kadar iniyor. {actor.journalist.name} sana doğru iki adım atıyor. Sessizlik, bir mikrofonun cızırtısından daha ağır. Geçmişe dair o ellinci golü, nasıl bir kayıp pahasına attığını biliyor. Bir kelime yeter; ya her şeyi temizleyeceksin ya da karanlığa gömeceksin.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Cüzdanımdan çıkardığım o eski notu, {actor.journalist.name}’e doğru fırlatıyorum. 'Bunu yaz, manşet yap; bedeli her neyse ödenmiş kabul et.'",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_taraftar",
+              "text": "Yüzüne bakmadan, 'O gol sadece benim değil, mahallenin,' diyerek yanından geçip gidiyorum. Yarın gazetelerde ne yazacağı belli.",
+              "target": "n_taraftar",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Duruşumu bozmadan, 'İstatistikler sadece rakamlardır, bugünlük bu kadar yeter,' diyerek elini sıkıp vedalaşıyorum.",
+              "target": "n_profesyonel",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Kayıt cihazına tek bir cümle fısıldıyorum: 'O gece aradığımda telefonu açmayanlar, şimdi şampiyonluk kutlamasın.'",
+              "target": "n_red",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]"
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "Cüzdanın boş, ama banka hesabın dolu. {actor.journalist.name} arkandan bakarken artık aranızda sadece bu sessiz anlaşma var. Geçmişin bedeli artık bir fatura.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_konustu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_taraftar": {
+          "title": "Sokağın Sesi",
+          "kind": "outcome",
+          "text": "İsimler havada uçuşuyor, eski semtin sokaklarında adın tekrarlanacak. Kulüpteki huzursuzluk ise şimdilik sadece bir fırtına uyarısı.",
+          "onEnter": [
+            {
+              "flag": "mem_eski_baglanti_canlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_profesyonel": {
+          "title": "Soğuk Veda",
+          "kind": "outcome",
+          "text": "Doğru olanı yaptın, herkes senden bunu bekliyordu. İçindeki yangını ise kimse görmedi, stadyumun otoparkında yalnız bıraktın.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_red": {
+          "title": "Keskin Sözler",
+          "kind": "outcome",
+          "text": "Söylediklerin yarın manşetlerde patlayacak. Köprüleri yakmak, bir zaferi kutlamaktan daha fazla cesaret istiyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_ellinci_gol_eski_arkadas",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

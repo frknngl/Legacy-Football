@@ -377,6 +377,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Çıkış",
+          "kind": "branch",
+          "text": "Otoparkın en uç noktasında, yanmayan floresanların altında {actor.fan_leader.name} duruyor. Elinde bir dosya ya da para zarfı yok. Sadece bir sprey boya kutusunu, avucunda yavaşça çeviriyor. Yüzündeki maske, stadyumdaki coşkulu liderin o sert ifadesinden eser kalmamış. Gözleri yorgun, elleri titriyor. 'Herkes seni bir tanrı sanıyor,' diyor, sesi duvarlara çarpıp boğuklaşıyor. 'Ama ben senin o çok sevdiğin o boyalı yüzünün altındaki korkuyu görüyorum.'",
+          "choices": [
+            {
+              "id": "c_gizlilik_satisi",
+              "text": "Sırt çantamdaki yüklü miktarı yere bırak. 'Bu, yorgunluğunu unutturur. Kimseye bir şey anlatma.'",
+              "target": "n_kazanc",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_mesafeli_durus",
+              "text": "Gözlerinin içine bak ve sadece başını salla. 'Senin gördüğün şey, sadece işimin bir parçası.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ittifak_kur",
+              "text": "Sprey boya kutusunu elinden al. 'Sessiz kal, seninle stadyumun en tepesine çıkarız.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_medya_hakimiyeti",
+              "text": "Kamerayı çıkar ve kayıt tuşuna bas. 'Herkes maskenin kimde olduğunu zaten biliyor.'",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              },
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
+            }
+          ]
+        },
+        "n_kazanc": {
+          "title": "Sessizliğin Bedeli",
+          "kind": "outcome",
+          "text": "Parayı aldığında yüzündeki o hayal kırıklığı, kazandığın huzurdan daha ağır. Artık sadece {actor.fan_leader.name} için bir suç ortağısın.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Arkana bakmadan yürüdün. Arkanda kalan şey bir insan değil, artık sadece çözülmesi gereken bir problem.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Karanlık İttifak",
+          "kind": "outcome",
+          "text": "Sokağın sadakatini satın aldın. Ama artık her maçta, tribündeki o gözlerin seni gözetlediğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Halka Açık Yıkım",
+          "kind": "outcome",
+          "text": "Odanın kapıları kapandı ama senin itibarın tüm şehre yayıldı. Kazanan sensin, ama kazandığın şey artık hiçbir şeye benzemiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_fan_leader",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

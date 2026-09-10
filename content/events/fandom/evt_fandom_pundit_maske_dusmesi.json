@@ -352,6 +352,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kulisin Arka Yüzü",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin çıkışında, {actor.pundit.name} bir çöp konteynerinin yanında sigarasını söndürüyor. Elinde senin hakkındaki dosyaların olduğu bir klasör var. Yayın öncesi provada söylediklerini duydun; seni hedef alan o sahte analizler, kulüp içindeki geleceğini bir gecede yok edebilir. {actor.pundit.name} başını kaldırıyor, göz göze geliyorsunuz. Sessizlik, uzaktan gelen bir ambulans sesiyle bölünüyor. Adam, elindeki dosyayı hafifçe havaya kaldırıp yere, çamurun içine bırakıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Yerdeki dosyayı alıp çöp kutusuna at; karşılığında banka hesabına gönderilecek sus payını kabul et.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı ayağınla çamurda ez; adamın üzerine yürüyüp bir daha ismini ağzına almaması gerektiğini söyle.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını eğ ve hiçbir şey görmemiş gibi tesisin kapısından içeri gir; kariyerine odaklan.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizliğin Bedeli",
+          "kind": "outcome",
+          "text": "Dosya elinde, adamın gidişini izliyorsun. Yarın yayında senin hakkında tek kelime etmeyecek. Para hesaba yattı ama aynaya baktığında o adamla aynı masada oturduğunu biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Zorlu Yol",
+          "kind": "outcome",
+          "text": "Adam gülerek arkasını dönüp gitti. Yarın akşamki yayında seni nasıl bir linç kampanyasının beklediğini biliyorsun. Yine de, en azından kendi onurunla o çamurun içinden çıkıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "İşin Gereği",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek en zoruydu. Tesisin ışıkları yüzüne vurduğunda, arkanda bıraktığın o dosyanın içindeki gerçeklerin bir gün önüme çıkacağını biliyorsun. Profesyonelce, ama sessizce.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

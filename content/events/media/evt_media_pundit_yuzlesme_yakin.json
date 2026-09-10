@@ -357,6 +357,175 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gölge Arkadaş",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin arka kapısındaki çöp konteynerlerinin yanındasın. {actor.pundit.name} duvara yaslanmış, elindeki eski bir ses kayıt cihazıyla oynuyor. Ekranlarda sergilediğin o kusursuz, disiplinli genç figürünün altına sızmış bir çatlak var artık. Işık zayıf. {actor.pundit.name} cihazın tuşuna basıyor; o gün soyunma odasında kendi kendine ettiğin küfürler, kimsenin duymaması gereken o itiraflar cızırtılı bir sesle havaya saçılıyor. Bir anlığına susturuyor cihazı. Bakışı, sahadaki tüm o alkışları değersiz kılacak kadar keskin ve beklenti dolu.",
+          "choices": [
+            {
+              "id": "c_sessizlik",
+              "text": "Çantandaki tüm nakit parayı ona uzat. Bu cızırtı bir daha duyulmayacak.",
+              "target": "n_odeme",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_tehdit",
+              "text": "Cihazı elinden sertçe çek al ve arkana bakmadan uzaklaş. Kiminle dans ettiğini hatırlat.",
+              "target": "n_tehdit",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_itiraf",
+              "text": "Omzunu silk. 'Yayınla,' de. 'İnsanlar zaten bir canavar görmeye hazır.'",
+              "target": "n_itiraf",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_strateji",
+              "text": "Daha büyük bir manşet vaat et. Onu, rakibini batıracak gerçek bir hikayeye ikna et.",
+              "target": "n_strateji",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
+            }
+          ]
+        },
+        "n_odeme": {
+          "title": "Sus payı",
+          "kind": "outcome",
+          "text": "Parayı alırken yüzünde beliren o küçümseyici gülümseme, kaybettiğin paradan daha ağır. Artık sadece bu kulübün bir parçası değil, bir müşterisin.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_tehdit": {
+          "title": "Sokak kanunu",
+          "kind": "outcome",
+          "text": "Cihazın parçaları beton zeminde dağılıyor. {actor.pundit.name} tek kelime etmiyor ama gözlerindeki ifade, bir sonraki hamlesinin çok daha sert olacağını söylüyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_itiraf": {
+          "title": "Maske düştü",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} şaşkınlıkla duraksıyor. Savunmasız kalmanın yarattığı bu boşluk, aranızdaki tüm dengeleri değiştiriyor. Artık saklayacak bir şeyin kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_strateji": {
+          "title": "Yeni bir oyun",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} teklifini değerlendirirken başını sallıyor. İş birliği başladığı anda, kendi karakterini bir başkasını yok etmek için harcamayı kabul ettin.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_maske_dusmesi_pundit_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

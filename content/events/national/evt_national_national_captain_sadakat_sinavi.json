@@ -31,137 +31,6 @@
     "op": "eq",
     "value": 0
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Takım Otobüsünde Sessizlik",
-      "kind": "branch",
-      "text": "Otobüsün arka koltukları karanlık. {actor.national_captain.name}, elinde telefonla sana bakıyor. Hemen yanında {actor.rival_teammate.name} duruyor; dişleri sıkılı, bakışları otobüsün zemininde. Kaptan, takımın içindeki huzursuzluğu yönetmek için senin tarafını seçmeni bekliyor. {actor.star_teammate.name} camdan dışarıyı izliyor, kimin yanında duracağını tartıyor. Dışarıda taraftar sesleri, içeride ise ağırlığı omuzlarına çöken bir sessizlik var. Herkes senin ağzından çıkacak tek bir cümleye bakıyor. İki taraf da seni yanında istiyor. Sessizliği bozman gerek.",
-      "choices": [
-        {
-          "id": "c_gri",
-          "text": "Kaptanın yanına otur. Sesini alçaltıp, 'Huzurumuz için gerekeni yaparım' de.",
-          "target": "n_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "sadakat": 5
-          }
-        },
-        {
-          "id": "c_guvenli",
-          "text": "Sadece başını salla ve kulaklığını tak. 'Ben sadece işimi yapmaya geldim' diye mırıldan.",
-          "target": "n_guvenli",
-          "effects": [
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "form",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
-            }
-          ],
-          "persona": {
-            "durus": 8
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "{actor.rival_teammate.name} yanına geç. 'Yanındayım, kimse bizi buraya gömemez' de.",
-          "target": "n_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
-            }
-          ],
-          "persona": {
-            "mizac": -5
-          }
-        }
-      ]
-    },
-    "n_gri": {
-      "title": "Kaptanla Uzlaşma",
-      "kind": "outcome",
-      "text": "Kaptan başıyla onaylıyor. Yerine oturuyorsun. Cebine giren primin ağırlığını hissediyorsun ama arkanda bıraktığın o bakışlar, yolun geri kalanında seni rahat bırakmayacak.",
-      "onEnter": [
-        {
-          "flag": "mem_national_sadakat_sinavi_national_captain",
-          "op": "set",
-          "value": 1
-        }
-      ]
-    },
-    "n_guvenli": {
-      "title": "Mesafeli Duruş",
-      "kind": "outcome",
-      "text": "Kulaklıklarını takıp müziğin sesini sonuna kadar açtın. Telefonunun ekranındaki yansıman bile buz tutmuş gibiydi. {actor.national_captain.name} sorusuna cevap gelmeyince bakışlarını çevirdi, {actor.rival_teammate.name} ise derin bir nefes alıp başını cama yasladı. Otobüsün içindeki o ağır, metalik havayı görmezden gelerek koltuğuna gömüldün. Artık herkes için yalnızca sahadaki işine odaklanan profesyonel bir yabancısın; arkanda ne bir dost bıraktın ne de bir düşman, sadece soğuk bir boşluk.",
-      "onEnter": [
-        {
-          "flag": "mem_national_sadakat_sinavi_national_captain",
-          "op": "set",
-          "value": 1
-        }
-      ]
-    },
-    "n_riskli": {
-      "title": "Sokağın Tercihi",
-      "kind": "outcome",
-      "text": "Sessizliği bıçak gibi kesen tavrın, otobüsün içindeki tüm dengeleri yerle bir etti. {actor.rival_teammate.name} zaferle gülümserken, {actor.national_captain.name} donuk gözlerle sana bakmayı kesti ve camdan dışarıdaki karanlığa odaklandı. Taraftarların dışarıdaki tezahüratları sanki senin bu isyanını kutlamak için yükseliyordu. Takım arkadaşlarının sana yönelttiği o keskin bakışlar altından kalktın; artık soyunma odasında kendi yolunu çizen bir asi olarak, herkesin hedef tahtasındaki yerini aldın.",
-      "onEnter": [
-        {
-          "flag": "mem_national_sadakat_sinavi_national_captain",
-          "op": "set",
-          "value": 1
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_national_sadakat_sinavi",
     "beat": "evt_national_national_captain_sadakat_sinavi",
@@ -172,5 +41,499 @@
     "beatGapTurns": 120,
     "signatureGapTurns": 80,
     "maxBeatUses": 1
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Takım Otobüsünde Sessizlik",
+          "kind": "branch",
+          "text": "Otobüsün arka koltukları karanlık. {actor.national_captain.name}, elinde telefonla sana bakıyor. Hemen yanında {actor.rival_teammate.name} duruyor; dişleri sıkılı, bakışları otobüsün zemininde. Kaptan, takımın içindeki huzursuzluğu yönetmek için senin tarafını seçmeni bekliyor. {actor.star_teammate.name} camdan dışarıyı izliyor, kimin yanında duracağını tartıyor. Dışarıda taraftar sesleri, içeride ise ağırlığı omuzlarına çöken bir sessizlik var. Herkes senin ağzından çıkacak tek bir cümleye bakıyor. İki taraf da seni yanında istiyor. Sessizliği bozman gerek.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Kaptanın yanına otur. Sesini alçaltıp, 'Huzurumuz için gerekeni yaparım' de.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sadece başını salla ve kulaklığını tak. 'Ben sadece işimi yapmaya geldim' diye mırıldan.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "{actor.rival_teammate.name} yanına geç. 'Yanındayım, kimse bizi buraya gömemez' de.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Kaptanla Uzlaşma",
+          "kind": "outcome",
+          "text": "Kaptan başıyla onaylıyor. Yerine oturuyorsun. Cebine giren primin ağırlığını hissediyorsun ama arkanda bıraktığın o bakışlar, yolun geri kalanında seni rahat bırakmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Mesafeli Duruş",
+          "kind": "outcome",
+          "text": "Kulaklıklarını takıp müziğin sesini sonuna kadar açtın. Telefonunun ekranındaki yansıman bile buz tutmuş gibiydi. {actor.national_captain.name} sorusuna cevap gelmeyince bakışlarını çevirdi, {actor.rival_teammate.name} ise derin bir nefes alıp başını cama yasladı. Otobüsün içindeki o ağır, metalik havayı görmezden gelerek koltuğuna gömüldün. Artık herkes için yalnızca sahadaki işine odaklanan profesyonel bir yabancısın; arkanda ne bir dost bıraktın ne de bir düşman, sadece soğuk bir boşluk.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokağın Tercihi",
+          "kind": "outcome",
+          "text": "Sessizliği bıçak gibi kesen tavrın, otobüsün içindeki tüm dengeleri yerle bir etti. {actor.rival_teammate.name} zaferle gülümserken, {actor.national_captain.name} donuk gözlerle sana bakmayı kesti ve camdan dışarıdaki karanlığa odaklandı. Taraftarların dışarıdaki tezahüratları sanki senin bu isyanını kutlamak için yükseliyordu. Takım arkadaşlarının sana yönelttiği o keskin bakışlar altından kalktın; artık soyunma odasında kendi yolunu çizen bir asi olarak, herkesin hedef tahtasındaki yerini aldın.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tesisin Arka Koridoru",
+          "kind": "branch",
+          "text": "Antrenman sahasından dönenlerin kullandığı loş koridorda, omuz omuza çarpışıyorsunuz. {actor.rival_teammate.name} duvara yaslanmış, elindeki spor çantasının fermuarıyla oynuyor. Bakışları, senin üzerinden geçip boşluğa odaklanıyor. Takımın geri kalanı yemekhanede. Kaptanlık pazubandı üzerine tartışmaların gölgesi, koridorun rutubetli havasında ağırlaşıyor. {actor.rival_teammate.name} boğazını temizliyor, başını hafifçe kaldırıp sana bakıyor ama gözlerini kaçırıyor. Odanın sessizliği, koridorun ucundaki duş seslerini bile bozacak kadar keskin.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Adım at ve ona doğru yürü. 'Kimin yanında durduğunu herkes görüyor,' de.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_safe",
+              "text": "Hiçbir şey söyleme, başınla selam ver ve yanından geçip git.",
+              "target": "n_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_grey",
+              "text": "Cebinden çıkardığın kulaklığı kulağına tak, telefonuna bakıyormuş gibi yaparak onu görmezden gel.",
+              "target": "n_grey",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "sadakat": -7
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Dur. 'Takım için değil, kendin için mi buradasın?' diye sor ve cevabını bekle.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_rival_teammate",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Gerilim Yükseliyor",
+          "kind": "outcome",
+          "text": "Sözlerin duvarda yankılanıyor. {actor.rival_teammate.name} bir an duraksıyor, ardından omuz silkip yanından geçiyor. Bu çatışma bugünlük sona erdi ama herkes tarafını seçti.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_safe": {
+          "title": "Sessiz Kalış",
+          "kind": "outcome",
+          "text": "Sessizlik, bir onay gibi algılanıyor. {actor.rival_teammate.name} bir an tereddüt etse de, arkasını dönüp uzaklaşıyor. Doğru olanı yaptın, ama içindeki huzursuzluk yerini buldu.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_grey": {
+          "title": "Göremezden Geliş",
+          "kind": "outcome",
+          "text": "Dünya, kulaklıkların içindeki ritimle sınırlı. {actor.rival_teammate.name} yanından geçerken göz göze gelmemek için büyük çaba harcıyorsun. Güvendesin, ancak kendine olan saygın bir miktar eksiliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Gözlerinin içine bakıyorsun. {actor.rival_teammate.name} bir şey söylemek için ağzını açıyor ama vazgeçiyor. Aranızdaki mesafe kapandı, belki de ilk defa birbirinizi gerçekten görüyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadın Altındaki Sessiz Oda",
+          "kind": "branch",
+          "text": "Maç sonu gürültüsü, beton duvarların arkasında boğuk bir uğultuya dönüştü. {actor.rival_teammate.name}, beyaz fayansların üzerinde duran buzlu kovadan bir şişe çıkarıp kenara fırlattı. Şişe duvara çarptı, kırılmadı ama zeminle sert bir sesle buluştu. Odada sadece ikiniz varsınız. Milli takımın ağır havası, ter kokusuyla karışık havada asılı. {actor.rival_teammate.name} bir an duraksadı, aynadaki yansımana baktı. Gözlerinde ne bir kutlama ne de bir zafer parıltısı var; sadece yorgun bir pazarlık arzusu. 'Herkes dışarıda kutluyor,' dedi, sesi beton duvarlar arasında çınladı. 'Ama asıl karar odasında biz varız. Kaptanlık pazubandını kimin takacağı artık bir sembol değil, bir ticaret.'",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Pazubandını masaya bırak. 'Onu hak eden alsın, ben sokaktaki sesin yanındayım.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Elini uzat, teklifi kabul et. 'Zarflar elime ulaştığında sadakatimi sorgulamazsın.'",
+              "target": "n_ahlaki_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sırtını dön ve kramponlarını çözmeye başla. 'Futbolu konuşalım, başka hiçbir şeyi değil.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Gözlerinin içine bak ve doğrudan ona meydan oku. 'Bu takımı seninle mi, sensiz mi zirveye taşıyacağımıza karar vermeliyiz.'",
+              "target": "n_stat_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_rival_teammate",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -8
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Taraftar Desteği 55]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Bedeli Ödenen Özgürlük",
+          "kind": "outcome",
+          "text": "Pazubandını bıraktığın an, aradaki gerginlik buz gibi soğudu. Medya ertesi gün bu tavrı bir başkaldırı olarak yazdı. Takım içindeki düzen bozuldu ama tribünler ismini haykırıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ahlaki_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Zarfı çantana attın. Göz göze gelmediniz. Kupa senin elinde ağırlaştı, sanki içindeki altınlar ruhunu tartıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Duvarlar Arasında Mesafeler",
+          "kind": "outcome",
+          "text": "Sessizliğin bir kalkan oldu. Profesyonelce davrandın ama o kapıdan çıkarken, aranızdaki bağın sonsuza dek koptuğunu hissettin.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat_kilitli": {
+          "title": "Yorucu Bir Yüzleşme",
+          "kind": "outcome",
+          "text": "Tüm gücünle ona karşı durdun. İkiniz de tükendiniz, ancak takımın kimliğini korumak uğruna verdiğin bu kavga aranızda tuhaf bir saygı inşa etti.",
+          "onEnter": [
+            {
+              "flag": "mem_national_sadakat_sinavi_national_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

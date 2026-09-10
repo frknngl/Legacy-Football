@@ -26,127 +26,6 @@
   "lifeStates": [
     "playing"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Karanlık Odadaki Yansıma",
-      "kind": "branch",
-      "text": "Stadyum ışıkları çoktan söndü. Otoparkta, {actor.journalist.name} elinde bir kayıt cihazıyla gölgelerden çıktı. Arkasında, {actor.pundit.name:gen} televizyondaki o zehirli eleştirilerinin yankısı hâlâ kulaklarında. Gazeteci, kazandığın maçın ardından gelen o tartışmalı penaltı pozisyonunu soruyor. Sesinde gizli bir suç ortaklığı var; 'Bana gerçeği söyle, kalabalıklara istediğini verelim,' diyor. Gözleri, üzerindeki formanın terine değil, cebindeki gizli ajandaya odaklı.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Teknik bir analizle konuyu kapat. 'Hakem kararı oyunun parçası,' de.",
-          "target": "n_outcome_guvenli",
-          "effects": [
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "Kameraya dön ve hakemi açıkça eleştir. Taraftarların öfkesine benzin dök.",
-          "target": "n_outcome_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
-            }
-          ],
-          "persona": {
-            "mizac": 7
-          }
-        },
-        {
-          "id": "c_gri",
-          "text": "Zarfı kabul et. Yarınki manşetin senin lehine yazılmasına izin ver.",
-          "target": "n_outcome_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
-            }
-          ],
-          "persona": {
-            "durus": -8
-          }
-        }
-      ]
-    },
-    "n_outcome_guvenli": {
-      "title": "Soğuk Profesyonellik",
-      "kind": "outcome",
-      "text": "{actor.journalist.name} not defterini kapattı. Yüzünde bir hayal kırıklığı var ama yayınlanan makalede adın sadece 'profesyonel' olarak geçecek. Güvenli taraftasın, ama kazandığın zaferin o keskin tadı damağında silikleşti.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_zafer_bedeli_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_riskli": {
-      "title": "Tribünlerin Sesi",
-      "kind": "outcome",
-      "text": "Sözlerin yarın sabah tüm manşetlerde olacak. {actor.pundit.name} stüdyoda senin adına bağırıp çağıracak. Taraftarlar seni kahraman ilan edecek, ancak disiplin kurulundan gelen o ilk uyarı e-postası çoktan telefonuna düştü.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_zafer_bedeli_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Satın Alınmış Sessizlik",
-      "kind": "outcome",
-      "text": "Zarf ağır, vicdan daha da ağır. {actor.journalist.name} uzaklaşırken arkasında sadece karanlık bir otopark bıraktı. Yarın herkes senin ne kadar dürüst olduğunu okuyacak. Gerçeği sadece sen ve o biliyorsunuz.",
-      "onEnter": [
-        {
-          "flag": "mem_fandom_zafer_bedeli_journalist",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_fandom_zafer_bedeli",
     "beat": "evt_fandom_journalist_zafer_bedeli",
@@ -156,5 +35,271 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odadaki Yansıma",
+          "kind": "branch",
+          "text": "Stadyum ışıkları çoktan söndü. Otoparkta, {actor.journalist.name} elinde bir kayıt cihazıyla gölgelerden çıktı. Arkasında, {actor.pundit.name:gen} televizyondaki o zehirli eleştirilerinin yankısı hâlâ kulaklarında. Gazeteci, kazandığın maçın ardından gelen o tartışmalı penaltı pozisyonunu soruyor. Sesinde gizli bir suç ortaklığı var; 'Bana gerçeği söyle, kalabalıklara istediğini verelim,' diyor. Gözleri, üzerindeki formanın terine değil, cebindeki gizli ajandaya odaklı.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Teknik bir analizle konuyu kapat. 'Hakem kararı oyunun parçası,' de.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kameraya dön ve hakemi açıkça eleştir. Taraftarların öfkesine benzin dök.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı kabul et. Yarınki manşetin senin lehine yazılmasına izin ver.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk Profesyonellik",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} not defterini kapattı. Yüzünde bir hayal kırıklığı var ama yayınlanan makalede adın sadece 'profesyonel' olarak geçecek. Güvenli taraftasın, ama kazandığın zaferin o keskin tadı damağında silikleşti.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tribünlerin Sesi",
+          "kind": "outcome",
+          "text": "Sözlerin yarın sabah tüm manşetlerde olacak. {actor.pundit.name} stüdyoda senin adına bağırıp çağıracak. Taraftarlar seni kahraman ilan edecek, ancak disiplin kurulundan gelen o ilk uyarı e-postası çoktan telefonuna düştü.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın Alınmış Sessizlik",
+          "kind": "outcome",
+          "text": "Zarf ağır, vicdan daha da ağır. {actor.journalist.name} uzaklaşırken arkasında sadece karanlık bir otopark bıraktı. Yarın herkes senin ne kadar dürüst olduğunu okuyacak. Gerçeği sadece sen ve o biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kayıt Dışı",
+          "kind": "branch",
+          "text": "Antrenman sahasının dışındaki tozlu ara sokakta, {actor.journalist.name} arabanın kaputuna yaslanmış bekliyor. Çevrede kimse yok. Elindeki eski tip bir not defterini parmaklarının arasında çeviriyor. İçinde, sahada kimseye göstermediğin o zayıf anların detaylı dökümü var. Sessizlik uzadıkça, üzerindeki o sahte kahraman zırhının ağırlığı artıyor. {actor.journalist.name} gözlerini gözlerinden ayırmadan defteri yavaşça sana doğru uzatıyor. 'Bu sadece bir başlangıç,' diyor, 'hikayenin geri kalanını kimin yazacağına sen karar ver.'",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Defteri sertçe elinden çek ve yüzüne fırlat. Kimsenin seni köşeye sıkıştırmasına izin vermeyeceksin.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Defteri görmezden gel, arkana bakmadan arabana bin ve uzaklaş. Yarın sahada konuşacaksın.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -4
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantandan bir tomar nakit çıkarıp defterle takas et. O kağıtlar sonsuza kadar yok olacak.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -6
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 20000
+              },
+              "lockLabel": "[Yeterli Nakit Yok]"
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Sert Çıkış",
+          "kind": "outcome",
+          "text": "Arabanın kapısını hızla çarpıyorsun. Arkanda, tozun içinde dağılan kağıtları görmezden gelerek gaza basıyorsun. Bir süre huzurlu olabilirsin, ancak yarın sabah manşetlerde senin öfkenin yankısı olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Sessiz Direniş",
+          "kind": "outcome",
+          "text": "Tek kelime etmiyorsun. Sessizliğin, en büyük savunman oluyor. {actor.journalist.name} arkanda küçülürken, kendi doğrularının ağırlığı omuzlarında birikiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Para el değiştiriyor. O kirli defter artık senin ceketinin cebinde, ateş gibi yakıyor. Kimse bilmeyecek, ama aynada kendine baktığında o gözlerin artık aynı olmadığını göreceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

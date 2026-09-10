@@ -514,6 +514,115 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkında Yüzleşme",
+          "kind": "branch",
+          "text": "Otoparkın beton zemininde yankılanan ayak sesleri durdu. {actor.pundit.name} elinde bir ses kayıt cihazı, arabanın kapısında bekliyor. Sakatlığın yarattığı o sahte iyimserlik maskesi, gece soğuğunda çatlıyor. {actor.pundit.name} tek bir kelime etmeden, bacağındaki atelin üzerine bakıyor. Bakışlarında ne acıma var ne de merhamet. Sadece, üzerine yazılacak bir manşetin soğuk beklentisi duruyor.",
+          "choices": [
+            {
+              "id": "c_sert_gercek",
+              "text": "Ses kayıt cihazını elinden al, yere bırak ve bacağınla üzerine basıp parçala. Susması için ödeyeceğin bedel bu.",
+              "target": "n_bedel_odendi",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -8
+              }
+            },
+            {
+              "id": "c_profesyonel_yalan",
+              "text": "Gülümseyerek elini omzuna koy. \"Sahaya dönmeme az kaldı, bunu yazman yeterli.\" İçin yanıyor, ama profesyonel görünmek zorundasın.",
+              "target": "n_profesyonel",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_taraftar_oyunu",
+              "text": "Ceketini aç, sakatlığın gerçek sebebini doğrudan anlat. Bırak tüm basın çalkalansın, taraftarın sana olan öfkesi gerçeklerle yer değiştirsin.",
+              "target": "n_taraftar",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 12
+              }
+            }
+          ]
+        },
+        "n_bedel_odendi": {
+          "title": "Sessizlik Satın Alındı",
+          "kind": "outcome",
+          "text": "Cihazın parçaları betonun üzerinde dağılıyor. {actor.pundit.name} durumu anlıyor, arabanın kapısından çekiliyor. Yarın manşetlerde olmayacaksın ama bu sessizliğin faturası hesabına ağır yansıyacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_profesyonel": {
+          "title": "Maske Yerinde",
+          "kind": "outcome",
+          "text": "{actor.pundit.name} notlarını alıyor. Söylediğin yalan, yarın sabahki gazetelerin baş köşesinde yer alacak. İçindeki huzursuzluk, yalanın ağırlığıyla birleşip boğazında düğümleniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_taraftar": {
+          "title": "Gerçeklerin Ağırlığı",
+          "kind": "outcome",
+          "text": "Konuşman bittiğinde hava buz gibi. {actor.pundit.name} şaşkınlıkla geri çekiliyor. Artık geri dönüşü yok; yarın taraftar senin arkanda duracak ama kulüp yönetimi bu açık sözlülüğünü affetmeyecek.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -299,6 +299,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Mutfak tezgahında sönen sigaranın dumanı, yarım kalmış bir kahve fincanının üzerine çöküyor. {actor.partner.name} karşında oturuyor, gözleri pencereden dışarıdaki boş sokağa kilitlenmiş. Evdeki sessizlik, bir stadyumun son düdüğünden daha boğucu. Geçen haftaki o geceye dair her şey, aranızdaki masanın ortasına dökülmüş bir yalanlar dağı gibi. {actor.partner.name} sana bakmıyor, sadece cevap bekleyen o derin sessizliği soluyor. Bu sessizlik, kariyerini bir saniyede küle çevirebilir ya da sana yeni bir başlangıç için alan açabilir.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Tüm gerçeği olduğu gibi dök; kimin yandığı artık umurunda değil.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sadece sorumluluğu üstlen, {actor.partner.name}’in adını bu pisliğe karıştırma.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı göster, susması için ödeyeceğin bedeli masaya bırak.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_kilit",
+              "text": "Yıllardır inşa ettiğin o vakur duruşla, ona gerçekleri yönetilebilir bir plana dökerek anlat.",
+              "target": "n_outcome_kilit",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Profesyonellik 55]"
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tam İtiraf",
+          "kind": "outcome",
+          "text": "Kelimeler ağzından çıktığı an, aranızdaki mesafe bir okyanusa dönüştü. {actor.partner.name} ayağa kalktı ve arkasına bakmadan kapıyı kapattı. Artık sır yok, ama bir huzur da yok. Baş başa kaldığın bu boşluk, yeni hayatının ilk sınavı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Koruma Kalkanı",
+          "kind": "outcome",
+          "text": "Üstlendiğin yük, omuzlarındaki ağırlığı iki katına çıkardı. {actor.partner.name} sana bakıp başını hafifçe salladı. Bir şey demedi ama odadaki o soğuk gerilim azaldı. Kendi payına düşen sessizliği, vicdanının bir köşesine gömdün.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizliğin Bedeli",
+          "kind": "outcome",
+          "text": "{actor.partner.name} zarfı alırken gözlerinde bir yabancı gördün. O an, bu işin artık sevgiyle değil, bir işlemle yürütüldüğünü anladın. Cüzdanın doldu ama odadaki hava artık tamamen kirlendi.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilit": {
+          "title": "Stratejik Uzlaşma",
+          "kind": "outcome",
+          "text": "Saatlerce konuştunuz. Adım adım, planlı ve sakin. {actor.partner.name} ile arandaki bağ, bu krizin üzerinden geçerek güçlendi. Yorgunsun, zihnin bir enkaz gibi ama en azından ne yapman gerektiğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -374,6 +374,348 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı, Gece Yarısı",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katında, beton duvarların arasında yankılanan uzak bir su sızıntısı sesi. {actor.veteran.name}, eski aracının kapısını aralık bırakmış, bagajdan krampon çantasını çıkarıyor. Sol ayağındaki aksama artık gizlenemeyecek kadar belirgin. Işıklar sensörle yanıp sönüyor. {actor.veteran.name} seni görüyor, başını hafifçe eğiyor ama selam vermiyor. Elindeki çanta, sanki bütün bir sezonun ağırlığını taşıyormuş gibi ağır duruyor. Birkaç adım ötede bekliyor, geçip gitmeni bekliyor ya da senin bir şey söylemeni.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Çantayı tut, 'Bunları saha kenarına bırak, yönetimin gözü üzerimizde' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_risk",
+              "text": "Ona doğru yürü, 'Bu forma sana ağır mı geliyor?' diye fısılda.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Yavaşça başını salla, yanından sessizce geçip git.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Elini omzuna koy, 'Bu sezon bitti, ama burayı nasıl bırakacağımızı biz seçeriz' de.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Liderlik 74+]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Soğuk Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Zarf değişimi sessizce gerçekleşti. {actor.veteran.name} arkasına bakmadan aracına bindi. Sessizlik, stadyumun nemli havasından daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Gerilimin Zirvesi",
+          "kind": "outcome",
+          "text": "Gözlerindeki o anlık parıltı, yılların getirdiği yorgunluktan daha keskindi. Cevap vermedi, sadece gülümsedi. Bu artık bir takım meselesi değil.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessizlik Hakim",
+          "kind": "outcome",
+          "text": "Sırt sırta verdiniz. Hiçbir şey söylenmedi. Ama o an, aslında her şeyin bittiğini ikiniz de anladınız.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Zorunlu Miras",
+          "kind": "outcome",
+          "text": "Sana bakışındaki o güven, üzerinde bir yük gibi hissettiriyor. Artık kulübedeki boşluk senin sorumluluğun.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları çoktan kapatılmış. Koridorun sonunda sadece acil çıkış tabelasının cılız kırmızı ışığı yanıyor. {actor.veteran.name}, duvara yaslanmış, elinde buruşturulmuş bir fesih kağıdı tutuyor. Ayakkabıları topuklarına basılmış, sırtındaki çanta bir omzundan aşağı kaymış. Yanından geçerken kağıdı yavaşça sana doğru uzatıyor. Kulübün ona olan borcunu silerse gençlerin sözleşmelerinin kurtulacağını biliyorsun. Sessizlik, sahadaki o son dakikadan daha ağır.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Kağıdı al ve cebine at. 'Bu kulüp sana hiçbir şey borçlu değil,' de.",
+              "target": "n_outcome_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Yüzüne bile bakmadan yürümeye devam et. 'Dışarıda bekliyorum, vaktimiz dar,' de.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kağıdı yırtıp ayaklarının dibine at. 'Yönetimle ben konuşacağım, sen sus,' de.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Elini omzuna koy. 'Birlikte çıkacağız bu işin içinden, merak etme,' de.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[İlişki Yüksek]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_servet": {
+          "title": "Kişisel Çıkar",
+          "kind": "outcome",
+          "text": "Kağıdı ceketinin iç cebine yerleştiriyorsun. {actor.veteran.name} tek kelime etmiyor, sadece bakışlarını yerden çekiyor. Aranızdaki o ince bağ, bu sessizlikle birlikte bir daha onarılmamak üzere kopuyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk Profesyonellik",
+          "kind": "outcome",
+          "text": "Arkanı dönüp koridorda uzaklaşıyorsun. {actor.veteran.name} arkanda, karanlığın içinde yapayalnız kalıyor. Doğru olanı yaptın, ama attığın her adımda sırtında o soğuk bakışları hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Kağıt parçaları beton zemine saçılıyor. {actor.veteran.name} şaşkınlıkla yüzüne bakıyor, gözlerinde minnetten ziyade korku var. Bu kulüpte artık hiçbir şey eskisi gibi huzurlu olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Omuz Omuza",
+          "kind": "outcome",
+          "text": "Vücudunun yorgunluğunu görmezden geliyorsun. {actor.veteran.name} derin bir nefes alıp başını sallıyor. Yılların getirdiği yorgunluk ikinizin de üzerinde, ama en azından şimdi aynı taraftasınız.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_yuzlesme_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

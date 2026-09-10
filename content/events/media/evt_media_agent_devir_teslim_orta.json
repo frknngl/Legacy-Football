@@ -351,6 +351,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Aynadaki Çatlak",
+          "kind": "branch",
+          "text": "Antrenman sahasının en kuytu köşesindeki eski soyunma odasında, ter kokusunun sindiği soğuk fayansların önündesin. {actor.agent.name} elinde bir tabletle, ekranı sana doğru çeviriyor. Yıllardır inşa ettiğin o kusursuz imajın, küçük bir sızıntıyla nasıl un ufak olduğunu gösteren manşetler ekranda tek tek akıyor. {actor.agent.name} konuşmuyor, sadece o sessiz beklentiyle sana bakıyor. Dışarıda taraftarın uğultusu duyuluyor, içeride ise sadece ikinizin nefes alışverişi var. Maskenin düştüğü o an, odadaki hava ağırlaşıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Ekranı kapat ve olanları 'yönetimsel bir hata' olarak açıkla.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sosyal medyadan her şeyi itiraf et, kontrolü ele al.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sızdıran kişiye yüklü bir ödeme yap, haberi sildir.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -12
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 50000
+              },
+              "lockLabel": "[Yetersiz Bütçe]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Kurumsal Yalan",
+          "kind": "outcome",
+          "text": "Basın toplantısında yalanı profesyonel bir tonda söyledin. İnsanlar inandı ama aynaya baktığında sadece bir kukla gördün.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Kendi Yangının",
+          "kind": "outcome",
+          "text": "Gerçeği kendi kelimelerinle savurdun. Sokaklar seni destekliyor ama kulüp binası artık senin için bir yabancı mekan.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sessizlik Bedeli",
+          "kind": "outcome",
+          "text": "Haber silindi, manşetler değişti. Banka hesabındaki eksiklik her ay o geceyi sana hatırlatacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_kirilma_psychologist_orta",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

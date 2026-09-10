@@ -33,138 +33,6 @@
       }
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Son Fatura",
-      "kind": "branch",
-      "text": "{actor.veteran.name} karşında duruyor. Gözlerinde o gün soyunma odasında verdiğin kararın ağırlığı var. İkiniz de biliyorsunuz; o gün yaşananlar sessizliğe gömülmedi, sadece büyüdü. Elinde tuttuğu zarf, aylardır beklenen o kaçınılmaz sonu simgeliyor. Kapı aralık, dışarıda kameraların uğultusu duyuluyor. Gitmen gereken yere varmak için bu hesabı kapatman gerekiyor.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Zarfı al ve sessizce öde. Gürültüyü burada kesmek en iyisi.",
-          "target": "n_sonuc_guvenli",
-          "effects": [
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -15
-            },
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": -20000
-            }
-          ]
-        },
-        {
-          "id": "c_riskli",
-          "text": "Ona boş gözlerle bak. Hiçbir şey imzalamadığını, hiçbir şeyi kabul etmediğini söyle.",
-          "target": "n_sonuc_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "skandal_seviyesi",
-              "op": "add",
-              "value": 15
-            }
-          ]
-        },
-        {
-          "id": "c_gri",
-          "text": "Diğer borçların üzerine yenisini ekle. Bu işi bugünlük örtbas et.",
-          "target": "n_sonuc_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 50000
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -15
-            }
-          ]
-        }
-      ]
-    },
-    "n_sonuc_guvenli": {
-      "title": "Kayıt Kapandı",
-      "kind": "outcome",
-      "text": "İmzanla birlikte bir kapı daha kapandı ve kağıdın pürüzlü dokusu parmak uçlarında bir veda gibi sızladı. {actor.veteran.name} tek kelime etmeden odadan çıktığında, dışarıdaki flaşların patlama sesi koridorun serinliğinde yankılandı. Medya artık peşini bırakacaktı ancak içindeki o boşluk, boş tribünlerin soğuk sessizliği kadar ağırlaşmıştı.",
-      "onEnter": [
-        {
-          "flag": "npc_veteran_arc",
-          "op": "add",
-          "value": -1
-        }
-      ]
-    },
-    "n_sonuc_riskli": {
-      "title": "Karanlıkta Yürümek",
-      "kind": "outcome",
-      "text": "Reddin stadyumun beton duvarlarında yankılandığında, {actor.veteran.name} omzunun üzerinden son bir kez bakıp gülümsedi; o gülüşte hiçbir sıcaklık yoktu. Arkasını dönüp karanlık koridorda gözden kaybolurken, attığı her adımın zeminde bıraktığı ritmik ses, yaklaşan fırtınanın habercisi gibi kulaklarını tırmalıyordu. Artık sadece fırtınayı bekliyordun.",
-      "onEnter": [
-        {
-          "flag": "npc_veteran_arc",
-          "op": "add",
-          "value": -5
-        },
-        {
-          "op": "suspend",
-          "matches": 2,
-          "reason": "Soruşturma"
-        }
-      ]
-    },
-    "n_sonuc_gri": {
-      "title": "Yeni Bir Düğüm",
-      "kind": "outcome",
-      "text": "Yine erteledin. Borcun büyüdü, sadakatin satıldı. {actor.veteran.name} ile arandaki bağ artık bir ortaklıktan ziyade, bir suç ortaklığına dönüştü.",
-      "onEnter": [
-        {
-          "flag": "npc_veteran_arc",
-          "op": "add",
-          "value": 5
-        }
-      ]
-    }
-  },
   "once": true,
   "story": {
     "arc": "fam_arc_veteran_yuzlesme",
@@ -176,5 +44,329 @@
     "beatGapTurns": 45,
     "signatureGapTurns": 30,
     "maxBeatUses": 6
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Fatura",
+          "kind": "branch",
+          "text": "{actor.veteran.name} karşında duruyor. Gözlerinde o gün soyunma odasında verdiğin kararın ağırlığı var. İkiniz de biliyorsunuz; o gün yaşananlar sessizliğe gömülmedi, sadece büyüdü. Elinde tuttuğu zarf, aylardır beklenen o kaçınılmaz sonu simgeliyor. Kapı aralık, dışarıda kameraların uğultusu duyuluyor. Gitmen gereken yere varmak için bu hesabı kapatman gerekiyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Zarfı al ve sessizce öde. Gürültüyü burada kesmek en iyisi.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ona boş gözlerle bak. Hiçbir şey imzalamadığını, hiçbir şeyi kabul etmediğini söyle.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "skandal_seviyesi",
+                  "op": "add",
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Diğer borçların üzerine yenisini ekle. Bu işi bugünlük örtbas et.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ]
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Kayıt Kapandı",
+          "kind": "outcome",
+          "text": "İmzanla birlikte bir kapı daha kapandı ve kağıdın pürüzlü dokusu parmak uçlarında bir veda gibi sızladı. {actor.veteran.name} tek kelime etmeden odadan çıktığında, dışarıdaki flaşların patlama sesi koridorun serinliğinde yankılandı. Medya artık peşini bırakacaktı ancak içindeki o boşluk, boş tribünlerin soğuk sessizliği kadar ağırlaşmıştı.",
+          "onEnter": [
+            {
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": -1
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Karanlıkta Yürümek",
+          "kind": "outcome",
+          "text": "Reddin stadyumun beton duvarlarında yankılandığında, {actor.veteran.name} omzunun üzerinden son bir kez bakıp gülümsedi; o gülüşte hiçbir sıcaklık yoktu. Arkasını dönüp karanlık koridorda gözden kaybolurken, attığı her adımın zeminde bıraktığı ritmik ses, yaklaşan fırtınanın habercisi gibi kulaklarını tırmalıyordu. Artık sadece fırtınayı bekliyordun.",
+          "onEnter": [
+            {
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Soruşturma"
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Yeni Bir Düğüm",
+          "kind": "outcome",
+          "text": "Yine erteledin. Borcun büyüdü, sadakatin satıldı. {actor.veteran.name} ile arandaki bağ artık bir ortaklıktan ziyade, bir suç ortaklığına dönüştü.",
+          "onEnter": [
+            {
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 5
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Yüzleşme",
+          "kind": "branch",
+          "text": "Stadyumun ışıkları sönmüş, yalnızca otoparkın sarı lambaları açık. {actor.veteran.name} eski bir aracın kaputuna yaslanmış, elinde bir ses kayıt cihazı çeviriyor. Yılların ağırlığı omuzlarında, tıpkı seninki gibi. Bu gece ya aranızdaki sessizliğin sonu gelecek ya da birbirinizi tamamen bitireceksiniz. Kayıt cihazının üzerindeki kırmızı ışık, sanki bir geri sayım sayacı gibi yanıp sönüyor. {actor.veteran.name} gözlerini yoldan ayırmadan konuşuyor: \"Herkesin bir fiyatı var, senin ise artık kaybedecek sadece onurun kaldı. Bu ses kaydını yarın sabah haber merkezine vermemi mi istersin, yoksa bu işi aramızda mı çözelim?\"",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Gözlerinin içine bakmadan, arabanın torpidosundaki nakit dolu çantayı ona doğru it.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_taraftar",
+              "text": "Kaydı yayınlaması için ona izin ver, taraftarın önünde günah çıkar.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_profesyonellik",
+              "text": "Sessizliği koru, yarın sabah kulüp yönetimiyle durumu konuşmak üzere oradan uzaklaş.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_suspend",
+              "text": "Kayıt cihazını elinden al ve onu sertçe duvara yasla. Fiziksel bir çatışmaya girmeyi göze al.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Parayı aldı. Gözlerini kaçırarak karanlıkta kayboldu. Bir süre daha sessizce bekledin. Bu, artık geri dönüşü olmayan bir yolun başlangıcı. Cüzdanın hafifledi ama vicdanın daha ağır.",
+          "onEnter": [
+            {
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Medya krizinin soğuması için uzaklaştırıldın."
+            },
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Kamuoyunun Yargısı",
+          "kind": "outcome",
+          "text": "Kayıt cihazı orada, otoparkta kaldı. Yarın her şey manşetlerde olacak. Kariyerinin son demlerinde en büyük kumarını oynadın.",
+          "onEnter": [
+            {
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": -1
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Skandal sonrası zorunlu uzaklaştırma."
+            },
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Kurumsal Yalnızlık",
+          "kind": "outcome",
+          "text": "Arkanı dönüp yürüdün. Arkanda kalan ayak sesleri kesildi. Yarın yönetim kurulu odasında terleyeceksin. Gerçekler, birilerinin masasında bekliyor.",
+          "onEnter": [
+            {
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 0
+            },
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Yönetim soruşturması nedeniyle dinlendiriliyorsun."
+            },
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Sınırın Ötesi",
+          "kind": "outcome",
+          "text": "Kontrolü kaybettin. Olaylar bir kavgaya dönüştü ve sonuçları ağır oldu. Disiplin kurulu seni çağırıyor. Sahalardan bir süre uzak kalmak, bu karmaşadan daha huzurlu olabilir.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Disiplin soruşturması ve saha dışı çatışma."
+            },
+            {
+              "op": "lifeState",
+              "to": "suspended"
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

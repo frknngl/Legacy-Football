@@ -24,127 +24,6 @@
       true
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eldivenin Mirası",
-      "kind": "branch",
-      "text": "{actor.keeper.name}, dolabındaki son eşyaları toplarken {actor.youngster.name} sessizce kapı eşiğinde bekliyor. Kendi kramponlarını bağlamıyor bile; sadece o meşhur, yıpranmış deri eldivenlerin bir sonraki sahibini arıyor. {actor.assistant.name} araya girip hazırlık maçının kadrosunu fısıldıyor. {actor.keeper.name} eldivenleri avucunda sıkıyor. Oda sessiz. Herkes bir sonraki hamleyi bekliyor.",
-      "choices": [
-        {
-          "id": "c_gri",
-          "text": "Eldivenleri masanın üzerine bırakıp {actor.youngster.name} ile göz göze gelmeden odadan çık.",
-          "target": "n_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 15000
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -2
-            }
-          ],
-          "persona": {
-            "durus": -4
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "Eldivenleri {actor.youngster.name} kucağına fırlat, 'Bunlar artık senin, altında kalma,' diye bağır.",
-          "target": "n_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 4
-            }
-          ],
-          "persona": {
-            "mizac": 6
-          }
-        },
-        {
-          "id": "c_guvenli",
-          "text": "Gidip eldivenleri {actor.youngster.name} ellerine kendin giydir ve yavaşça sık, 'Beni utandırma,' diye fısılda.",
-          "target": "n_guvenli",
-          "effects": [
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "iliski_keeper",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -3
-            }
-          ],
-          "persona": {
-            "sadakat": 5
-          }
-        }
-      ]
-    },
-    "n_gri": {
-      "title": "Sessiz Çıkış",
-      "kind": "outcome",
-      "text": "Arkanı dönüp giderken {actor.youngster.name} eldivenlere bakışını görmüyorsun. Oda bir anda soğuyor. Artık buraya ait değilsin.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_devir_teslim_keeper",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_riskli": {
-      "title": "Ağır Bir Miras",
-      "kind": "outcome",
-      "text": "{actor.youngster.name} şaşkınlıkla geri çekiliyor. Soyunma odasındaki diğerleri sana bakıyor. Bir efsanenin vedası, bir sonraki felaketin başlangıcı gibi yankılanıyor.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_devir_teslim_keeper",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_guvenli": {
-      "title": "Sancılı Devir",
-      "kind": "outcome",
-      "text": "{actor.youngster.name} başını sallıyor, gözlerinde korku ve kararlılık var. Yükün artık onun omuzlarında. {actor.assistant.name} başını onaylayarak çeviriyor.",
-      "onEnter": [
-        {
-          "flag": "mem_locker_devir_teslim_keeper",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_locker_devir_teslim",
     "beat": "evt_locker_keeper_devir_teslim",
@@ -154,5 +33,237 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eldivenin Mirası",
+          "kind": "branch",
+          "text": "{actor.keeper.name}, dolabındaki son eşyaları toplarken {actor.youngster.name} sessizce kapı eşiğinde bekliyor. Kendi kramponlarını bağlamıyor bile; sadece o meşhur, yıpranmış deri eldivenlerin bir sonraki sahibini arıyor. {actor.assistant.name} araya girip hazırlık maçının kadrosunu fısıldıyor. {actor.keeper.name} eldivenleri avucunda sıkıyor. Oda sessiz. Herkes bir sonraki hamleyi bekliyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Eldivenleri masanın üzerine bırakıp {actor.youngster.name} ile göz göze gelmeden odadan çık.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Eldivenleri {actor.youngster.name} kucağına fırlat, 'Bunlar artık senin, altında kalma,' diye bağır.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gidip eldivenleri {actor.youngster.name} ellerine kendin giydir ve yavaşça sık, 'Beni utandırma,' diye fısılda.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "iliski_keeper",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Arkanı dönüp giderken {actor.youngster.name} eldivenlere bakışını görmüyorsun. Oda bir anda soğuyor. Artık buraya ait değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Ağır Bir Miras",
+          "kind": "outcome",
+          "text": "{actor.youngster.name} şaşkınlıkla geri çekiliyor. Soyunma odasındaki diğerleri sana bakıyor. Bir efsanenin vedası, bir sonraki felaketin başlangıcı gibi yankılanıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sancılı Devir",
+          "kind": "outcome",
+          "text": "{actor.youngster.name} başını sallıyor, gözlerinde korku ve kararlılık var. Yükün artık onun omuzlarında. {actor.assistant.name} başını onaylayarak çeviriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Tesisin en kuytu, ışığı titreyen antrenman sahası çıkışındasın. {actor.youngster.name} karşında duruyor. Gözleri senin üzerindeki kaptanlık bandında değil, elindeki antrenman çantasının fermuarında. İsteği belli; o çantadaki ağırlığı, o sorumluluğu devralmak istiyor. Sadece bir bakışınla, o kapıyı yüzüne kapatabilir ya da aralayabilirsin. Sessizlik, çivisi çıkmış bir kramponun yere vurma sesiyle bozuluyor. Karar senin.",
+          "choices": [
+            {
+              "id": "c_sert_red",
+              "text": "Çantayı yanından geçerken omzuna çarpıp, 'Henüz vakti gelmedi,' diye fısılda.",
+              "target": "n_red",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_profesyonel_gecistirme",
+              "text": "Gözlerinin içine bile bakmadan, 'Sıranı bekle, saha kimin hak ettiğini gösterir,' diyerek uzaklaş.",
+              "target": "n_red",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_para_ile_kapat",
+              "text": "Eline tutuşturulan zarfı al, çantasını yüzüne doğru fırlat ve kapıyı yüzüne kilitle.",
+              "target": "n_red",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -6
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 0
+              },
+              "lockLabel": "[İşlem]"
+            }
+          ]
+        },
+        "n_red": {
+          "title": "Kapanan Kapı",
+          "kind": "outcome",
+          "text": "Arkanı döndüğünde {actor.youngster.name} arkanda öylece kaldı. Ne bir itiraz, ne bir geri adım. Sadece kapının üzerine kilitlenen o metal ses. Şimdi o koridorda tek başınasın. İçerideki hava daha soğuk, sessizlik daha ağır.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

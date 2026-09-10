@@ -364,6 +364,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesap",
+          "kind": "branch",
+          "text": "Garajın beton zemini buz gibi. {actor.cousin.name} eski bir spor çantasının üzerinde oturuyor, ışıklar loş. Elinde, üzerinde senin isminin yazılı olduğu, kenarları yıpranmış senetleri çeviriyor. Dışarıda motor sesleri kesildi. {actor.cousin.name}, başını kaldırıp sana bakıyor. Bakışlarında biriken yılların ağırlığı, imzaların altındaki mürekkep kadar keskin. Sessizlik, aranızdaki mesafeyi bir uçuruma dönüştürüyor.",
+          "choices": [
+            {
+              "id": "c_profesyonel",
+              "text": "Ceketinin iç cebinden çıkardığın kalemi uzat. Borcu resmileştir, ancak bir daha asla kapına gelmemesini şart koş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Sokağın dilinden konuş. Çantasına bir miktar nakit at ve onu gece bitmeden buradan gitmesi için sertçe uyar.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı elinden al, içindeki tüm borç belgelerini doğrudan sobaya at. Kül oluşunu izlerken ona sessizce bir iş kurması için yüklü bir çek imzala.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Resmi Yollar",
+          "kind": "outcome",
+          "text": "{actor.cousin.name} kalemi isteksizce alıyor. İmzalar atılıyor. Artık birbirinize bağlı değilsiniz; sadece kağıt üzerindeki soğuk birer rakamsınız.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sert Uyarı",
+          "kind": "outcome",
+          "text": "Parayı alıyor ama yüzündeki ifade değişmiyor. Arkasına bakmadan çıkarken garajın kapısı gürültüyle kapanıyor. Bu mesele burada bitmedi, sadece ertelendi.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Küllerin Arasında",
+          "kind": "outcome",
+          "text": "Belgeler alevlerin arasında kıvrılarak yok oluyor. {actor.cousin.name} teşekkür etmiyor, sadece başıyla selam verip gidiyor. Kazandığın şey huzur değil, sadece hafifleyen bir suçluluk duygusu.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -343,6 +343,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kilitli Kapı Ardında",
+          "kind": "branch",
+          "text": "Kulüp binasının bodrum katındaki karanlık depo. {actor.physio.name}, loş ışık altında eski bir kayıt cihazını kurcalıyor. Havada kesif bir merhem ve ter kokusu var. Dışarıda taraftarların antrenman sahasından gelen gürültülü tezahüratları, bu sessizliği daha da boğucu kılıyor. {actor.physio.name}, önündeki dosyayı kapatıp sana uzatıyor. Gözlerini kaçırarak, 'Bu raporu federasyona gönderirsem sezonun biter,' diyor. Sesindeki tereddüt, odanın soğuğundan daha keskin.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Dosyayı masadan alıp yak. 'Sezonu bitirmek yerine, primlerimi önceden çekmeme yardım et.'",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Dosyayı {actor.physio.name} eline geri it. 'Gerçek neyse o yazılmalı, kariyerimden önemli değil.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kağıdı buruşturup yere at. 'Saha kenarında oturmamı istemiyorsan, o ayağı ayağa kaldıracak iğneyi yap.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Gözlerinin içine bak. 'İkimiz de biliyoruz, bu takımı şu an benden başka kimse taşıyamaz. Çabuk halledelim.'",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_physio",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Karanlık Mutabakat",
+          "kind": "outcome",
+          "text": "{actor.physio.name} kağıtları imha ederken gözlerini kaçırıyor. Sessizlik, bir suç ortaklığının başladığını işaret ediyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Dürüstlüğün Bedeli",
+          "kind": "outcome",
+          "text": "{actor.physio.name} derin bir nefes alıyor, raporu dosyasına koyuyor. Sezon bitiyor ama vicdanın rahat.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kırılgan Oyun",
+          "kind": "outcome",
+          "text": "{actor.physio.name} isteksizce malzemelerini hazırlıyor. Sahaya çıkacaksın ama o acı, her adımda kendini hatırlatacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Liderin Yükü",
+          "kind": "outcome",
+          "text": "{actor.physio.name} başını sallıyor, omuzlarındaki ağırlık artıyor. Bu yükü tek başına taşıyamazsın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_physio",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

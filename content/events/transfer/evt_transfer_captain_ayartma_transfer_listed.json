@@ -342,6 +342,126 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_geri_donus",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Tribünlerin Gölgesinde",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin çıkışında, terk edilmiş eski altyapı sahasının çitlerine yaslanmış durumda {actor.captain.name}. Ayaklarının dibinde, senin çocukken üzerine bastığın o çamurlu top var. Havada sadece yağmurun ve paslanmış demirin kokusu var. {actor.captain.name} gözlerini ufka dikmiş, sana bakmıyor. 'Burası bizi büyüttü,' diyor, sesi sadece senin duyabileceğin kadar kısık. 'Seni listeden çıkardılar, ama kapıdan değil, arka bahçeden atıyorlar. Benim bağlantılarım var. Bu kulübün mirasını değil, kendi geleceğini seçme vaktin geldi.'",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Bana sunduğu kontratı sessizce alıp iç cekete yerleştir. Sadakat karın doyurmuyor.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_sokak",
+              "text": "Topu tek bir vuruşla çitin ötesine, sahanın içine gönder. 'Beni buradan öylece silemezler' diye gürle.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Elini {actor.captain.first} omzuna koy. 'Burası benim yuvam, başka kapıda dilenmem,' diyerek teklifi reddet.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Bir Ayrılık",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığını ceketinin altında hissediyorsun. {actor.captain.name} arkasını dönüp giderken, sahanın ışıkları yavaşça sönüyor. Artık hiçbir şey eskisi gibi değil.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İnatçı Bir Duruş",
+          "kind": "outcome",
+          "text": "Top havada süzülüp eski sahanın orta yuvarlağına düşüyor. {actor.captain.name} sadece başını sallıyor, bu bir uyarı mı yoksa hayranlık mı belli değil. Yolunu çizdin, bedelini zaman gösterecek.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Onurlu Bir Veda",
+          "kind": "outcome",
+          "text": "Gözlerin nemli. {actor.captain.name} elini çekip soğuk havada bir sigara yakıyor. Profesyonel kararlar bazen en çok insanın kendi içini yakar.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_ayartma_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

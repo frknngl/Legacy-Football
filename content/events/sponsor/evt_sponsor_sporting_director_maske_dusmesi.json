@@ -382,6 +382,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı",
+          "kind": "branch",
+          "text": "Otoparkın en karanlık köşesinde, egzoz dumanı ve rutubet kokusu arasında dikiliyorsun. {actor.sporting_director.name}, elinde metalik bir kutuyla yanına geliyor. Ayak bileğindeki sargı zonkluyor. {actor.sporting_director.name} kutuyu açıyor; içinde iyileşme sürecini hızlandıracak yasaklı bir preparat ve üzerinde sponsorun logosu olan bir not var. Sesini alçaltıyor, otoparktaki tek lamba cızırtıyla yanıp sönüyor. 'Bu, sahalara erken dönmeni sağlar,' diyor. 'Ama bedeli, bu kutunun varlığını hiçbir zaman hatırlamaman.'",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kutuyu al ve antrenman sahasında bunu yüksek sesle reddet.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kutuyu sessizce al, bakışlarını kaçır ve arabana bin.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kutuyu geri it. Sağlığına kavuşmak için süreci beklemeyi tercih et.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Açık Meydan Okuma",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} arkasını dönüp giderken sadece gülümsüyor. Bu hamlenin kulüpteki yerini sarsacağını biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Anlaşma",
+          "kind": "outcome",
+          "text": "Kutu koltuğunun altında. Ağırlığı vicdanından daha fazla. Yarın sahaya çıkacaksın ama o aynaya bakarken gördüğün kişi artık sen değilsin.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Zorlu Bekleyiş",
+          "kind": "outcome",
+          "text": "{actor.sporting_director.name} omuz silkerek uzaklaşıyor. İyileşme süreci çok daha uzun sürecek, kulüp seni unutmaya başlayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_maske_dusmesi_sporting_director",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

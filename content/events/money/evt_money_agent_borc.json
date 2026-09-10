@@ -376,6 +376,141 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odadaki Takas",
+          "kind": "branch",
+          "text": "Eski bir spor salonunun rutubetli soyunma odası. Tavandaki tek lamba hafifçe sallanıyor. {actor.agent.name} duvara yaslanmış, elindeki eski tarihli bir bahis dekontunu yavaşça masanın üzerine bırakıyor. Ses yok, sadece dışarıdaki sağanak yağmurun çatıdaki yankısı var. {actor.agent.name} sadece bakıyor. Masadaki kağıt, geçmişteki hataların bir dökümü gibi. İkisi de bu odadan nasıl çıkılacağını biliyor, ancak bedelin kimin hanesine yazılacağı meçhul.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Dekontu al ve yırt. Mahalledeki itibarın cebindeki paradan daha ağır.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Borcu kabul et ve ödeme planı yap. Profesyonel kalmak için önce kendinle yüzleşmelisin.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfın içindeki nakdi sessizce al. Bugünün sadakati, yarının huzuruyla takas ediliyor.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "sadakat": -10
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 0
+              },
+              "lockLabel": "Ekonomik dengeleri gözet"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sokakların İradesi",
+          "kind": "outcome",
+          "text": "{actor.agent.name} gülümseyerek kapıya yöneliyor. Yırtık kağıt parçaları yerdeki çamurlu su birikintisine düşüyor. Bu, asla unutulmayacak bir restleşme.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Zorunlu Uzlaşma",
+          "kind": "outcome",
+          "text": "İmza atılıyor. Kağıt, {actor.agent.name} tarafından ciddiyetle ceketinin iç cebine yerleştiriliyor. Sahaya geri dönerken omuzlarındaki ağırlık daha belirgin.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Görünmez Bedel",
+          "kind": "outcome",
+          "text": "Zarfın ağırlığı elinde. {actor.agent.name} odadan çıkarken tek bir kelime etmiyor. Kapı kapandığında içeride kalan tek şey ağır bir sessizlik ve bozulan bir sözün tortusu.",
+          "onEnter": [
+            {
+              "flag": "mem_money_borc_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

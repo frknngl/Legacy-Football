@@ -379,6 +379,180 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Havalimanı Otoparkı",
+          "kind": "branch",
+          "text": "Motorun kaputu üzerinde buz gibi bir yağmur yağıyor. {actor.partner.name}, sırtı sana dönük, bagajdan son valizi çıkarırken elleri titriyor. Dizindeki o tanıdık, keskin sızı her adımda kendini hatırlatıyor. Uzaklardan bir uçağın kalkış sesi duyuluyor. Gitmek için çok geç değil, kalmak ise bir cehennemin kapısını aralamak gibi. {actor.partner.name} duraksıyor, omzunun üzerinden sana bakıyor; yüzünde ne bir öfke var ne de bir merhamet. Sadece sessiz bir bekleyiş.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Cüzdanındaki tüm nakdi önüne bırak. Sessizce, arkana bakmadan git.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_sokak",
+              "text": "Dizindeki sargıyı yırtıp at. 'Daha buralarda işimiz bitmedi' de, herkesin gözü önünde.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Onun valizini alıp taksiye yerleştir. Başarıyla biten bir kariyerin sonunu nezaketle getir.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Elini tut, revire geri dönmeyi teklif et. Birlikte bir çıkış yolu bulabilirsiniz.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "Takım sadakati yeterli değil"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Sessiz Bir Boşluk",
+          "kind": "outcome",
+          "text": "Ardında bıraktığın sadece bir insan değil, bir ömrün hatıraları. Cüzdanın doldu ama için her zamankinden daha hafif, daha soğuk.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İnatçı Bir Dönüş",
+          "kind": "outcome",
+          "text": "Acı, dizinden kalbine doğru bir çizgi çekiyor. İnsanlar arkandan konuşacak ama en azından sahadaki yerini kimse tartışamayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Profesyonel Veda",
+          "kind": "outcome",
+          "text": "Bir profesyonel gibi davrandın. Kapı kapandı, gürültü kesildi. İçinde bir şeylerin kırıldığını duyabiliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Ortak Savaş",
+          "kind": "outcome",
+          "text": "Dizindeki yük artık ikinizin birden taşıdığı bir ağırlık. Başarıya giden yol, ikinizin arasındaki o ince bağa emanet.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_geri_donus_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

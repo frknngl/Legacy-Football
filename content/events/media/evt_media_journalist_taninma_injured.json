@@ -289,6 +289,146 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Altı Koridor",
+          "kind": "branch",
+          "text": "Fizyoterapi odasının kapısı itildiğinde {actor.journalist.name} koridorun loş ışığında bekliyor. Dizindeki dikişlerin sızısı, ayaktaki duruşunu dengesizleştiriyor. Karşındaki kişi, aylardır seni köşe bucak takip eden, hatalarını manşetlere taşıyan o kalem. Elinde not defteri yok. Sadece derin bir bakış var. Koridor boş, sadece uzaklardan gelen bir top sektirme sesi duvarlarda yankılanıyor. Konuşmaya başladığında sesi, bir mahkeme salonundaki soğukluğu taşıyor.",
+          "choices": [
+            {
+              "id": "c_saf",
+              "text": "Başını öne eğ, 'İşini yapmaya devam et, sadece doğruları yaz,' diyerek yanından geç.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_basin",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Adımlarını durdur, yüzüne bakarak, 'Seni bir daha saha dışında görürsem, bu sakatlığı unut,' diye mırıldan.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Liderlik 60]"
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın kulüp kartını ona uzat. 'Yarınki röportajda sakatlığımı değil, iyileşme sürecimi öv.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Uzlaşma",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} şaşkınlıkla geri çekiliyor. Sözlerin onu savunmasız bıraktı. Yarınki manşetlerde dürüstlüğün, zayıflık olarak tekrar servis edilecek.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Gerilimin Zirvesi",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} korkuyla geri adım atıyor. Bu tehdit, saha içindeki oyunundan daha çok konuşulacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "{actor.journalist.name} sessizce kartı alıyor. Yarın, taraftarın sana bakışı değişecek ama aynadaki görüntün biraz daha bulanıklaşacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_taninma_journalist",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

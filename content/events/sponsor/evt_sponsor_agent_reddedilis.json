@@ -28,128 +28,6 @@
       true
     ]
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Kapanan Kapılar",
-      "kind": "branch",
-      "text": "Odanın içi steril ve soğuk. {actor.agent.name} masanın arkasında, dosyaları birer birer kapatıyor. Dışarıdaki yağmur camı dövüyor, içeride ise tek ses, saatten gelen ritmik tıkırtı. {actor.agent.name} başını kaldırıp sana bakmıyor bile; sadece dosyanın kapağını yavaşça itiyor. 'Sakatlığın uzuyor,' diyor düz bir sesle. 'Markalar artık risk almıyor. Portföyden çıkarıldın.' Gözleri hala ekranda, parmakları masanın kenarında ritim tutuyor. Kendi dünyasının kuralları kesin, duygusuz ve keskin.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Teşekkür edip ayağa kalk. Sessizliği bozma, kapıyı arkandan nazikçe kapat.",
-          "target": "n_outcome_safe",
-          "effects": [
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ]
-        },
-        {
-          "id": "c_riskli",
-          "text": "Masanın üzerine eğil. 'Bu sadakatsizliğin bedelini sahaya döndüğümde tek tek ödeteceğim,' diye fısılda.",
-          "target": "n_outcome_risky",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 8
-            }
-          ]
-        },
-        {
-          "id": "c_gri",
-          "text": "Ceketinin iç cebinden çıkardığın rakip firmanın kartvizitini masaya bırak. 'Görünen o ki, senin vizyonun buraya kadar,' de ve arkana bakmadan çık.",
-          "target": "n_outcome_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -10
-            }
-          ]
-        }
-      ]
-    },
-    "n_outcome_safe": {
-      "title": "Sessiz Kabulleniş",
-      "kind": "outcome",
-      "text": "Kapıyı kapattığında koridorun boşluğu yüzüne çarpıyor. Hiçbir şey demedin, hiçbir şey kazanmadın ama köprüleri de yakmadın. Yine de içindeki o boşluk, masadaki dosyanın soğukluğuyla aynı.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_reddedilis_agent",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_risky": {
-      "title": "Kırık Köprüler",
-      "kind": "outcome",
-      "text": "{actor.agent.name} gözlerindeki o şaşkın ifadeyi gördün. Artık profesyonel bir ilişki değil, bir meydan okuma var aranızda. Yarın gazetelerde bu tavrın bir 'yıldız kaprisi' olarak geçeceğini biliyorsun.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_reddedilis_agent",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_outcome_gri": {
-      "title": "Gizli Anlaşma",
-      "kind": "outcome",
-      "text": "Kartvizit masada sahipsiz bir şekilde duruyor. {actor.agent.name} şaşkın, belki biraz da korkmuş. Kısa vadede cüzdanın dolacak ama bu gemiyi terk eden ilk kişi sen oldun. Sadakat, bu odada bir para birimi değil artık.",
-      "onEnter": [
-        {
-          "flag": "mem_sponsor_reddedilis_agent",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_sponsor_reddedilis",
     "beat": "evt_sponsor_agent_reddedilis",
@@ -159,5 +37,252 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kapanan Kapılar",
+          "kind": "branch",
+          "text": "Odanın içi steril ve soğuk. {actor.agent.name} masanın arkasında, dosyaları birer birer kapatıyor. Dışarıdaki yağmur camı dövüyor, içeride ise tek ses, saatten gelen ritmik tıkırtı. {actor.agent.name} başını kaldırıp sana bakmıyor bile; sadece dosyanın kapağını yavaşça itiyor. 'Sakatlığın uzuyor,' diyor düz bir sesle. 'Markalar artık risk almıyor. Portföyden çıkarıldın.' Gözleri hala ekranda, parmakları masanın kenarında ritim tutuyor. Kendi dünyasının kuralları kesin, duygusuz ve keskin.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Teşekkür edip ayağa kalk. Sessizliği bozma, kapıyı arkandan nazikçe kapat.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_riskli",
+              "text": "Masanın üzerine eğil. 'Bu sadakatsizliğin bedelini sahaya döndüğümde tek tek ödeteceğim,' diye fısılda.",
+              "target": "n_outcome_risky",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Ceketinin iç cebinden çıkardığın rakip firmanın kartvizitini masaya bırak. 'Görünen o ki, senin vizyonun buraya kadar,' de ve arkana bakmadan çık.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Kapıyı kapattığında koridorun boşluğu yüzüne çarpıyor. Hiçbir şey demedin, hiçbir şey kazanmadın ama köprüleri de yakmadın. Yine de içindeki o boşluk, masadaki dosyanın soğukluğuyla aynı.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_reddedilis_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risky": {
+          "title": "Kırık Köprüler",
+          "kind": "outcome",
+          "text": "{actor.agent.name} gözlerindeki o şaşkın ifadeyi gördün. Artık profesyonel bir ilişki değil, bir meydan okuma var aranızda. Yarın gazetelerde bu tavrın bir 'yıldız kaprisi' olarak geçeceğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_reddedilis_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Gizli Anlaşma",
+          "kind": "outcome",
+          "text": "Kartvizit masada sahipsiz bir şekilde duruyor. {actor.agent.name} şaşkın, belki biraz da korkmuş. Kısa vadede cüzdanın dolacak ama bu gemiyi terk eden ilk kişi sen oldun. Sadakat, bu odada bir para birimi değil artık.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_reddedilis_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Kalan Teklif",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki otoparkta, araçların arasında sadece bir sigara dumanı tütüyor. {actor.agent.name} bir elinde telefonu, diğer elinde ise üzerine damgalanmış bir sözleşme taslağıyla karanlıktan çıkıyor. Etrafta ne bir basın mensubu ne de takım arkadaşın var. Sadece yankılanan adımlar ve uzaklardaki antrenman sahasının sessizliği. {actor.agent.name} kağıdı sana uzatıyor, bakışları ise sadece senin omuzlarındaki bandajlara kilitlenmiş. Sözler yok; sadece aradaki uçurumun büyüklüğü var.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kağıdı al ve yere at. 'Beni sakatken pazarlayamazsın.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sessizce imza at ve kağıdı geri ver. İyileşmek için bu paraya muhtaçsın.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -12
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Sözleşmeyi al, ancak rakamları iki katına çıkarmasını söyle. Kendi geleceğini bu enkazdan çıkarman lazım.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -10
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 0
+              },
+              "lockLabel": "Müzakere Yeteneği"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "{actor.agent.name} yerden kağıdı alırken dudaklarında alaycı bir gülümseme var. 'Sokaklar seni kahraman sanıyor,' diyor, 'ama bu zemin seni yutacak.' Arkasını dönüp gidiyor. Yalnızlık, soğuk betonda daha ağır hissediliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_reddedilis_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İşletme",
+          "kind": "outcome",
+          "text": "Kalemin kağıt üzerindeki sürtünme sesi, tünelde yankılanıyor. {actor.agent.name} kağıdı titizce dosyasına koyuyor. Artık bir sporcu değil, bir envanter parçasısın. Sessizce yukarı, tedavi odasına geri dönüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_reddedilis_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "{actor.agent.name} kağıdın üzerine yeni notlar alırken göz göze gelmiyorsunuz. 'Oynayacak halin yokken bu bedeli ödetmek riskli,' diyor. 'Ama senin yerinde olsam, ben de aynısını yapardım.' Para banka hesabına yattığında, vicdanın bu kadar hafif olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_sponsor_reddedilis_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

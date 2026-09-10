@@ -494,6 +494,150 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son İmzalar",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin uzağında, kiralık bir dairenin mutfağındayız. Masanın üzerinde soğumuş iki kahve ve üzerinde imza bekleyen bir gizlilik sözleşmesi duruyor. {actor.agent.name}, elindeki tableti bana çeviriyor. Ekranda, sakatlığımla ilgili henüz yayınlanmamış bir tıbbi raporun ekran görüntüsü var. Bakışları, pencereden aşağıyı izlerken her zamankinden daha soğuk. 'Bu sızıntıyı ben durdurabilirim,' diyor sesi titremeksizin. 'Ama bedeli, kariyerinin geri kalanındaki özgürlüğün olur.' Dışarıda, antrenman sahasından yükselen uzak uğultu, bu sessiz odanın ağırlığını daha da artırıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Tableti alıp masadan yere bırak. 'Sızdırırlarsa sızdırsınlar. Sahaya döndüğümde hepsi susacak.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sözleşmeyi al ve imzala. 'Bunu senin adına halletmeni istiyorum. Sadece işime odaklanmak istiyorum.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden yüklü bir miktar nakit çıkarıp önüne sür. 'Bu raporu tamamen yok et. İkinci bir kopyası kalmayacak.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -3
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Masaya eğil, gözlerinin içine bak. 'Beni satarsan, bu şehirde adımın geçtiği her yerde senin de adın yanacak.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Sokak İtibarı 55+]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Kumar",
+          "kind": "outcome",
+          "text": "{actor.agent.name} başını hafifçe sallıyor, hayal kırıklığıyla karışık bir gülümseme dudaklarında beliriyor. Artık kendi yolumuzu çiziyoruz.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Teslimiyet",
+          "kind": "outcome",
+          "text": "İmza atıldı. {actor.agent.name} belgeyi çantasına koyarken sanki beni hiç tanımıyormuş gibi bakıyor. Bu güvenin bedeli, artık onun gölgesinde yaşamak olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Para el değiştiriyor. {actor.agent.name} masadaki kahvesini bitirip ayaklanıyor. Rapor silindi, ancak artık birbirimizin karanlık sırlarına ortağız.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "İplerin Sonu",
+          "kind": "outcome",
+          "text": "Söylediğim söz odanın havasını değiştiriyor. {actor.agent.name} ilk defa geri adım atıyor. Artık bu ilişkinin patronu o değil.",
+          "onEnter": [
+            {
+              "flag": "mem_media_maske_dusmesi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -502,6 +502,141 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Müzesi'nde Yüzleşme",
+          "kind": "branch",
+          "text": "Stadyumun müze kısmında, kupaların durduğu cam vitrinlerin arasında yankılanan tek ses senin nefesin. {actor.pundit.name} bir heykel gibi kupa standının yanında duruyor; elinde eski bir sezonluk bilet koçanı var. Işıklar kapalı, dışarıda ise cezanın getirdiği o derin sessizlik hakim. {actor.pundit.name} sana doğru dönüyor. \"İnsanlar senin neden oynamadığını merak etmiyor,\" diyor. \"Onlar, oynamadığın günlerde bile neden bu kulübe ait olduğunu sorguluyor. Ama ben o anı gördüm. O koridorda, kimse bakmazken verdiğin o kararı.\" Avucundaki küçük bir dijital kayıt cihazını vitrinin üzerine bırakıyor. Sessiz, soğuk ve geri dönüşü imkansız bir davet.",
+          "choices": [
+            {
+              "id": "c_sessizlik",
+              "text": "Cihazı al ve cebine at. Uzun vadeli bir suskunluk, kısa vadeli bir rahatlıktan evladır.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_tehdit",
+              "text": "Kayıt cihazını vitrinin camına fırlat. Kırılan cam, senin gerçek cevabın olsun.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_pazarlik",
+              "text": "Cihazı al ama kopyasını talep et. Bu bilgiyle kendi sözleşmeni yeniden yazdır.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "durus": -6
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 50
+              },
+              "lockLabel": "[Profesyonellik 50]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessizliğin Bedeli",
+          "kind": "outcome",
+          "text": "Cihaz, paltosunun iç cebinde bir ağırlık gibi. Kimse bir şey sormadı, kimse bir şey bilmedi. Ancak o kupa vitrininin önünden geçerken, yansımanı gördüğünde duraksıyorsun. Artık sadece senin bildiğin bir sır, seni içeriden kemirmeye başlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Cam Kırıkları",
+          "kind": "outcome",
+          "text": "Yankı stadyumu inletti. {actor.pundit.name} bir an geri çekildi, gözlerindeki o tuhaf tanınma duygusu, yerini saf bir şaşkınlığa bıraktı. Yarın manşetlerde ne olacağını biliyorsun; taraftarın seni sahiplenmesi, yönetimin seni kapının önüne koymasıyla sonuçlanacak.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Yeni Bir Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfı ve cihazı aldığında, {actor.pundit.name} hafifçe gülümsedi. Artık sahadaki hırslarınla değil, masanın diğer tarafındaki pazarlıklarınla anılıyorsun. Cüzdanın ağırlaştı ama müzedeki kupalara bakacak yüzün kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_fandom_zafer_bedeli_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

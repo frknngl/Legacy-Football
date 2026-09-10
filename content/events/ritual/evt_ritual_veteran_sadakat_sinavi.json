@@ -28,206 +28,6 @@
     "op": "isSet",
     "value": false
   },
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Tünel Kapısının Üstü",
-      "kind": "branch",
-      "text": "Tünel kapısının üstünde bir tahta parçası var. Üzerinde bir isim ve iki tarih. Otuz yıl önce bir kış gecesi, otobüs buzda dönerken ölen bir çocuğun adı.\n\nİç sahada çıkan herkes elini uzatıp ona değiyor. Sözleşmede yazmıyor, hocalar söylemiyor, kimse zorlamıyor. Sadece herkes değiyor.\n\nBu yaz gelen forvet değmedi. İlk maçta değmedi, ikincide de. Dün bir kanal mikrofon uzattı ve güldü: \"Ben tahtaya değerek gol atmıyorum.\"\n\nGörüntü on iki saatte iki milyon izlendi. {actor.veteran.name} sabah antrenmana gelmedi.\n\nŞimdi mikrofon sende.",
-      "choices": [
-        {
-          "id": "c_savun",
-          "text": "Kamera önünde savun. \"O tahtanın adı var.\"",
-          "target": "n_savundun",
-          "effects": [
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 14
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": -7
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 8
-            }
-          ],
-          "persona": {
-            "sadakat": 8
-          }
-        },
-        {
-          "id": "c_ic",
-          "text": "Kameraya bir şey deme, soyunma odasında adamın karşısına geç.",
-          "target": "n_savundun",
-          "effects": [
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": -4
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 5
-            }
-          ],
-          "persona": {
-            "durus": 7
-          }
-        },
-        {
-          "id": "c_gec",
-          "text": "\"Herkes istediğine inanır.\" Konuyu kapat.",
-          "target": "n_gectin",
-          "effects": [
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": -6
-            },
-            {
-              "flag": "iliski_takim",
-              "op": "add",
-              "value": 6
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": -11
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": -9
-            }
-          ],
-          "persona": {
-            "dogruluk": 4
-          }
-        },
-        {
-          "id": "c_alay",
-          "text": "Sen de gülüp geç. \"Tahta tahtadır.\"",
-          "target": "n_gectin",
-          "effects": [
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": -18
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": -14
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -8
-            }
-          ],
-          "persona": {
-            "sadakat": -9
-          }
-        },
-        {
-          "id": "c_hikaye",
-          "text": "Kameraya o gecenin hikayesini anlat. Buzu, otobusu, tarihleri.",
-          "requires": {
-            "flag": "mem_ritual_acikladi",
-            "op": "eq",
-            "value": true
-          },
-          "target": "n_savundun",
-          "effects": [
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 9
-            },
-            {
-              "flag": "iliski_veteran",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 12
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 6
-            }
-          ],
-          "persona": {
-            "sadakat": 9
-          },
-          "lockLabel": "[Bir ritueli acikca anlatmistin]"
-        }
-      ]
-    },
-    "n_savundun": {
-      "title": "İsim",
-      "kind": "outcome",
-      "text": "\"O tahtanın bir adı var,\" dedin. \"Ve o isim buraya bizden önce geldi.\"\n\nForvet cevap vermedi. Ertesi iç saha maçında tünelden çıkarken elini uzattı — kamera bunu da çekti, o görüntü de iki milyon izlendi, ve kimse bunun senin yüzünden olduğunu yazmadı ama herkes biliyordu.\n\n{actor.veteran.name} o hafta antrenmana geldi. Yanına gelmedi, teşekkür etmedi. Sadece ısınmada senin yanında koştu, ki üç yıldır yapmadığı bir şeydi.\n\nTaraftar tribününde bir pankart açıldı: sadece o iki tarih yazıyordu.",
-      "onEnter": [
-        {
-          "flag": "mem_ritual_sadakat_sinavi_veteran",
-          "op": "set",
-          "value": true
-        },
-        {
-          "flag": "mem_kulup_hafizasi_korudu",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_gectin": {
-      "title": "Tahta Tahtadır",
-      "kind": "outcome",
-      "text": "Konu kapandı. Bir hafta sonra kimse konuşmuyordu.\n\nAma iç sahada tünelden çıkarken artık herkes değmiyor. Önce üç kişi bıraktı, sonra altı. Sezon sonunda sadece {actor.veteran.name} ve kaleci uzatıyordu elini.\n\nBir şeyi öldürmek için karşı çıkmak gerekmiyormuş; savunmamak yetiyor.\n\nO tahta hâlâ orada. Sadece artık kimse ne olduğunu bilmiyor ve birkaç yıl içinde biri onu boyayacak.",
-      "onEnter": [
-        {
-          "flag": "mem_ritual_sadakat_sinavi_veteran",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_ritual_sadakat_sinavi",
     "beat": "evt_ritual_veteran_sadakat_sinavi",
@@ -237,5 +37,349 @@
     "arcGapTurns": 10,
     "beatGapTurns": 24,
     "signatureGapTurns": 16
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tünel Kapısının Üstü",
+          "kind": "branch",
+          "text": "Tünel kapısının üstünde bir tahta parçası var. Üzerinde bir isim ve iki tarih. Otuz yıl önce bir kış gecesi, otobüs buzda dönerken ölen bir çocuğun adı.\n\nİç sahada çıkan herkes elini uzatıp ona değiyor. Sözleşmede yazmıyor, hocalar söylemiyor, kimse zorlamıyor. Sadece herkes değiyor.\n\nBu yaz gelen forvet değmedi. İlk maçta değmedi, ikincide de. Dün bir kanal mikrofon uzattı ve güldü: \"Ben tahtaya değerek gol atmıyorum.\"\n\nGörüntü on iki saatte iki milyon izlendi. {actor.veteran.name} sabah antrenmana gelmedi.\n\nŞimdi mikrofon sende.",
+          "choices": [
+            {
+              "id": "c_savun",
+              "text": "Kamera önünde savun. \"O tahtanın adı var.\"",
+              "target": "n_savundun",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 14
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -7
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_ic",
+              "text": "Kameraya bir şey deme, soyunma odasında adamın karşısına geç.",
+              "target": "n_savundun",
+              "effects": [
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 7
+              }
+            },
+            {
+              "id": "c_gec",
+              "text": "\"Herkes istediğine inanır.\" Konuyu kapat.",
+              "target": "n_gectin",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -11
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": -9
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_alay",
+              "text": "Sen de gülüp geç. \"Tahta tahtadır.\"",
+              "target": "n_gectin",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -18
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": -14
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "sadakat": -9
+              }
+            },
+            {
+              "id": "c_hikaye",
+              "text": "Kameraya o gecenin hikayesini anlat. Buzu, otobusu, tarihleri.",
+              "requires": {
+                "flag": "mem_ritual_acikladi",
+                "op": "eq",
+                "value": true
+              },
+              "target": "n_savundun",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 9
+                },
+                {
+                  "flag": "iliski_veteran",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "sadakat": 9
+              },
+              "lockLabel": "[Bir ritueli acikca anlatmistin]"
+            }
+          ]
+        },
+        "n_savundun": {
+          "title": "İsim",
+          "kind": "outcome",
+          "text": "\"O tahtanın bir adı var,\" dedin. \"Ve o isim buraya bizden önce geldi.\"\n\nForvet cevap vermedi. Ertesi iç saha maçında tünelden çıkarken elini uzattı — kamera bunu da çekti, o görüntü de iki milyon izlendi, ve kimse bunun senin yüzünden olduğunu yazmadı ama herkes biliyordu.\n\n{actor.veteran.name} o hafta antrenmana geldi. Yanına gelmedi, teşekkür etmedi. Sadece ısınmada senin yanında koştu, ki üç yıldır yapmadığı bir şeydi.\n\nTaraftar tribününde bir pankart açıldı: sadece o iki tarih yazıyordu.",
+          "onEnter": [
+            {
+              "flag": "mem_ritual_sadakat_sinavi_veteran",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_kulup_hafizasi_korudu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gectin": {
+          "title": "Tahta Tahtadır",
+          "kind": "outcome",
+          "text": "Konu kapandı. Bir hafta sonra kimse konuşmuyordu.\n\nAma iç sahada tünelden çıkarken artık herkes değmiyor. Önce üç kişi bıraktı, sonra altı. Sezon sonunda sadece {actor.veteran.name} ve kaleci uzatıyordu elini.\n\nBir şeyi öldürmek için karşı çıkmak gerekmiyormuş; savunmamak yetiyor.\n\nO tahta hâlâ orada. Sadece artık kimse ne olduğunu bilmiyor ve birkaç yıl içinde biri onu boyayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_ritual_sadakat_sinavi_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_devir_teslim",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Buzlu Dolap",
+          "kind": "branch",
+          "text": "{actor.veteran.name}, soyunma odasının en köşesindeki, kapağı menteşesinden ayrılmış metal dolabın önünde diz çökmüş. İçeride on yıl önce takımdan ayrılan birine ait tek bir krampon teki duruyor. Kulüp efsanesi, ayrılırken burayı 'asla boşaltma' demişti. Genç bir oyuncu arkasında belirdi, gözleri dolapta. 'Burası neden boş değil, yer açmam lazım' diye fısıldadı. {actor.veteran.name} elini dolabın paslı kenarına koydu. Metal soğuk. Dışarıda antrenman sahasının ışıkları yanıyor.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Kramponu sessizce alıp kulüp müzesine bağışla. Dolabı boşalt ve parayı kendi hesabına aktar.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Genç oyuncunun elini tut, dolabı kapat. 'Burası ona ait, saygı duymayı öğren' diyerek antrenmana dön.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kramponu gence fırlat. 'Sahiplenmek istiyorsan, o kramponun hakkını sahada ver' diye bağır.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Veda",
+          "kind": "outcome",
+          "text": "Dolap artık boş. Genç oyuncu boş metalin önünde şaşkın duruyor. {actor.veteran.name} hiçbir şey söylemeden tünelden içeri süzüldü.",
+          "onEnter": [
+            {
+              "flag": "mem_kulup_hafizasi_korudu",
+              "op": "set",
+              "value": false
+            },
+            {
+              "flag": "mem_ritual_sadakat_sinavi_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Gelenek Sürecek",
+          "kind": "outcome",
+          "text": "Kapak kapandı. Genç oyuncu başıyla onayladı. {actor.veteran.name} bir emaneti daha korumuş olmanın ağırlığıyla sahaya çıktı.",
+          "onEnter": [
+            {
+              "flag": "mem_kulup_hafizasi_korudu",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_ritual_sadakat_sinavi_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Yeni Sahibi",
+          "kind": "outcome",
+          "text": "Eski bir krampon yeni bir ayağa geçti. Tribünler bu tavrı sevdi ancak antrenörün bakışları sertleşti.",
+          "onEnter": [
+            {
+              "flag": "mem_kulup_hafizasi_korudu",
+              "op": "set",
+              "value": true
+            },
+            {
+              "flag": "mem_ritual_sadakat_sinavi_veteran",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

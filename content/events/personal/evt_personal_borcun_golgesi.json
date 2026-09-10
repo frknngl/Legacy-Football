@@ -350,6 +350,164 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_itiraf",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Köprü",
+          "kind": "branch",
+          "text": "Bavullar holdeki zeminde duruyor. {actor.partner.name} duvardaki boş çerçeveye bakıyor, elleri titriyor. Çerçevenin içinden çıkan kağıt, o günkü imzanı taşıyan yegane kanıt. Dışarıda motorun çalıştığını duyuyorsun. Sessizlik odadaki oksijeni tüketiyor. Bakışlarını yerden kaldırmıyor. 'Bunu başkası bulmadan önce kendin anlatsaydın,' diyor. Sesi bir hüküm gibi.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Kağıdı al, yavaşça yak. 'Bu parayı ödedim, konu kapandı. Kimseye bir şey anlatmana gerek yok.'",
+              "target": "n_out_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "op": "suspend",
+                  "matches": 2,
+                  "reason": "Soruşturma derinleşiyor"
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Telefonu çıkar, ilgili kişiyi ara. 'Dosyayı yaktım. İstediğiniz rakamı şimdi yatırıyorum, uzak durun.'",
+              "target": "n_out_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "op": "suspend",
+                  "matches": 2,
+                  "reason": "Disiplin soruşturması"
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "{actor.partner.name} ile göz göze gel. 'Her şeyi polise anlatacağız. Bu yükü tek başına taşımayacağım.'",
+              "target": "n_out_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "op": "suspend",
+                  "matches": 2,
+                  "reason": "İfade verme süreci"
+                },
+                {
+                  "op": "lifeState",
+                  "to": "suspended"
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Dosyayı elinden al, kasaya kilitle. 'Bu konuşma hiç yaşanmadı. Sadece sahaya odaklan, başka çaremiz yok.'",
+              "target": "n_out_stat",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "op": "suspend",
+                  "matches": 2,
+                  "reason": "İç disiplin cezası"
+                }
+              ],
+              "persona": {
+                "durus": 8
+              },
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Mental Dayanıklılık 55]"
+            }
+          ]
+        },
+        "n_out_gri": {
+          "title": "Gömülen Sırlar",
+          "kind": "outcome",
+          "text": "Küller çöp kutusuna döküldü. {actor.partner.name} arkasını dönüp kapıya yöneldi. Bir daha bu konudan bahsedilmeyecek."
+        },
+        "n_out_risk": {
+          "title": "Tehlikeli Oyun",
+          "kind": "outcome",
+          "text": "Telefonun ucundaki ses onayladı. Bedeli ağır olacak ama kağıt artık yok. {actor.partner.name} sana bakıyor, yabancı biri gibi."
+        },
+        "n_out_guvenli": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Karakolun soğuk duvarları arasında gerçek gün yüzüne çıkıyor. Kariyerin bu kararla ağır bir darbe alacak."
+        },
+        "n_out_stat": {
+          "title": "Buzdan Kule",
+          "kind": "outcome",
+          "text": "Kasa kapandı. {actor.partner.name} mutfağa geçti, cam kırılma sesi geliyor. Sen ise antrenman sahasına gitmek zorundasın."
+        }
+      }
     }
   ],
   "story": {

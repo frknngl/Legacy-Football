@@ -367,6 +367,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Garaj",
+          "kind": "branch",
+          "text": "{actor.fixer.name}, yanmış bir otomobil lastiğinin üzerine oturmuş. Elinde küçük bir dijital kayıt cihazı var. Dışarıdaki sağanak yağmur, garajın sac çatısında kesintisiz bir gürültü yaratıyor. İyileşme sürecin uzadıkça kulübün sana olan sabrı tükeniyor. {actor.fixer.name} cihazın tuşuna basıyor; içinde senin sakatlığına dair gizli bir raporun olduğu, kulüp doktorunun ses kaydı çalmaya başlıyor. 'Bunu sızdırırsak, kulüp sözleşmeni feshetmek zorunda kalır ve tazminatını peşin öderler,' diyor fısıltıyla. 'Ama bunu yaparsan, bir daha büyük bir kulüpte formayı zor görürsün.' Ses kaydı bitiyor. Garajın kapısı rüzgarla çarpıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kaydı sosyal medyada isimsiz bir hesaptan paylaş. Kulüp tazminat ödemek zorunda kalsın.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kaydı ondan al ve başka bir şeye karşılık takas et. Sessizce çekil.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Cihazı elinden al ve beton zeminde parçala. Sağlığına odaklan.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Ona kulüp içindeki diğer sırları ver, bu kaydı tamamen yok etmesini iste.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 55
+              },
+              "lockLabel": "[Takım İçi Bağlılık Gerektirir]",
+              "persona": {
+                "sadakat": -12
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Kaosun Bedeli",
+          "kind": "outcome",
+          "text": "Cihazdan gelen o cızırtılı ses, kulübün koridorlarında yankılandı. Şimdi herkes senin hakkında konuşuyor. Tazminat ödendi, ama taraftarın sana olan güveni artık bir şüpheyle gölgelenmiş durumda.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Kayıt bir köşeye çekildi. Cebin doldu ama vicdanındaki o boşluk, aynadaki aksini tanımanı zorlaştırıyor. Sahaya döndüğünde, bu sırrın bedeli ağır olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Zor Yol",
+          "kind": "outcome",
+          "text": "Cihaz, beton zeminde paramparça oldu. Kulübün gözünde temiz kaldın, ancak bu sessizliğin bedelini tek başına, sahalardan uzak kalarak ödüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "İçeriden Bilgi",
+          "kind": "outcome",
+          "text": "Takım arkadaşlarının sırlarını bir pazarlık masasına yatırdın. {actor.fixer.name} gülümseyerek uzaklaştı. Artık onunla sıkı bir bağın var ama kulüp soyunma odasında nefes almak artık çok daha güç.",
+          "onEnter": [
+            {
+              "flag": "mem_social_ayartma_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

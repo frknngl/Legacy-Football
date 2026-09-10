@@ -337,6 +337,156 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_terk_edilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Boş Koltuklar",
+          "kind": "branch",
+          "text": "Klinik kantininin köşesindeki buzdolabı, içindeki ilaçların soğukluğunu odaya pompalıyor. {actor.youngster.name} karşındaki plastik sandalyeye yığılmış. Ziyaret saati dolalı çok oldu, kapı kilitlendi. Dışarıda sağanak var. Kimse gelmeyecek, bunu ikiniz de biliyorsunuz. {actor.youngster.name}, elindeki plastik bardaktaki soğumuş çayı parmaklarıyla çeviriyor. Boş bir kağıda karalanmış imza örneğine bakıyor. Burada geçirdiğin her dakika, dışarıdaki dünyanın seni biraz daha sildiğinin kanıtı.",
+          "choices": [
+            {
+              "id": "c_duzelt",
+              "text": "Dosyayı önüne çek, hatalarını kendi elinle düzeltmeye başla.",
+              "target": "n_outcome_prof",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_karanlik",
+              "text": "Telefonunu çıkar, tüm kayıtları silip {actor.youngster.name} ile hiçbir bağın kalmayacak şekilde oradan ayrıl.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_yatirim",
+              "text": "Masadaki nakit desteği {actor.youngster.name} önüne it, karşılığında sessiz kalacağına dair sözünü al.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -3
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 25000
+              },
+              "lockLabel": "[Yeterli Fon Yok]"
+            },
+            {
+              "id": "c_vazgec",
+              "text": "Sandalyesinden kalk, kapıya doğru yürü ve arkana bakmadan kliniği terk et.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            }
+          ]
+        },
+        "n_outcome_prof": {
+          "title": "Zorunlu Temizlik",
+          "kind": "outcome",
+          "text": "Kağıdı parçalayıp attın. Doğru olanı yapmak, yalnızlığı iki katına çıkardı. Artık kimse seni suçlayamaz, ama kimse arkanda da durmaz.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "İz Bırakmadan",
+          "kind": "outcome",
+          "text": "Kapıyı sessizce çektin. Koridorda yankılanan tek ses senin adımların oldu. {actor.youngster.name} arkada, kendi karanlığıyla baş başa kaldı. Sokaklar bunu konuşmayacak, çünkü hiçbir şey yaşanmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessizliğin Bedeli",
+          "kind": "outcome",
+          "text": "Parayı aldığında gözlerindeki o parıltıyı gördün. Bu bir yardım değil, bu bir susturma bedeli. Vicdanının üzerini bir miktar nakitle örtmenin soğukluğu odayı kaplıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_life_devir_teslim_youngster",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

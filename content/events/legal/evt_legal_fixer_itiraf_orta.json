@@ -310,6 +310,125 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Durak",
+          "kind": "branch",
+          "text": "Antrenman sahasının en tenha köşesinde, soyunma odasının o ağır, terli havasından uzakta bekliyor. {actor.fixer.name}, bir binanın çatısında şehrin ışıklarına bakıyor. Elinde sigara yok, sadece yorgun bir sessizlik var. Yanına yaklaştığında dönüp bakmıyor bile. Betonun soğuğu botlarından kemiklerine işliyor. Artık kaçacak bir yer kalmadı. Odaya girmeden önce duyduğun o çınlama, şimdi yerini tam bir sessizliğe bıraktı. {actor.fixer.name} elini cebine atıyor, bir anahtarlık çıkarıp parmaklarında çeviriyor. Zaman doldu. Söylenmemiş her kelime artık bir yük.",
+          "choices": [
+            {
+              "id": "c_kabul",
+              "text": "Sessizliği boz, suçunu itiraf et. Her şeyi bir kenara bırakıp elini çekeceğini söyle.",
+              "target": "n_outcome_retire",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -1500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -30
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_red",
+              "text": "Sırtını dön ve git. Ne senin ne de {actor.fixer.name} için bir gelecek kalmadığını kabul et.",
+              "target": "n_outcome_suspend",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Gözlerinin içine bak ve yeni bir anlaşma teklif et. Daha büyük bir risk, daha büyük bir sessizlik.",
+              "target": "n_outcome_suspend",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "requires": {
+                "flag": "taraftar_destegi",
+                "op": "gte",
+                "value": 50
+              },
+              "lockLabel": "[Yeterli Destek Gerekli]"
+            }
+          ]
+        },
+        "n_outcome_retire": {
+          "title": "Bitiş Çizgisi",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} anahtarı beton zemine bırakıyor. Metalin çıkardığı o tiz ses, kariyerinin son yankısı oluyor. Artık sahalara dönmeyeceksin, bu yükü taşımaya da gerek kalmadı.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            }
+          ]
+        },
+        "n_outcome_suspend": {
+          "title": "Belirsizlik",
+          "kind": "outcome",
+          "text": "Bakışların kesiştiği an, {actor.fixer.name} sadece başını sallıyor. Kapıdan çıkarken arkanda bıraktığın şeyin ne olduğunu biliyorsun. Sahalardan uzaklaşman için gereken zaman artık resmiyete döküldü.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 10,
+              "reason": "Soruşturma nedeniyle zorunlu uzaklaştırma."
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

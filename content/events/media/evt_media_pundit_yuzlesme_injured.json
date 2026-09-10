@@ -496,6 +496,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Oda",
+          "kind": "branch",
+          "text": "Fizyoterapi kliniğinin bodrum katı. Su borularının sesi zeminde yankılanıyor. {actor.pundit.name}, elinde bir tabletle köşedeki gölgenin içinden çıkıyor. Odanın ışığı yanmıyor, sadece dışarıdaki sokak lambasının cılız turuncusu içeri sızıyor. {actor.pundit.name} ekranı sana çeviriyor. Ekranda senin sahada acı içinde yerde kıvrandığın o anın ağır çekim görüntüsü var. 'İyi oyunculuk,' diyor, sesi odanın soğuğunda bir bıçak gibi asılı kalıyor. 'Ama artık senaryo değişti. Bu kayıt burada kalırsa kariyerin de burada biter.' Tekerlekli sandalyende, alçılı bacağının yüküyle omuzlarının çöktüğünü hissediyorsun.",
+          "choices": [
+            {
+              "id": "c_sessizlik",
+              "text": "Başını öne eğ, hiçbir şey söylemeden arkandaki çıkış kapısına yönel.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_ranti",
+              "text": "Gülümse ve tabletin yanındaki boşluğu işaret et. 'Bunu silmek için ne kadar bütçen var?'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_tehdit",
+              "text": "Sandalyenin tekerleklerini kilitle, masanın üzerindeki ağır metal şamdanı eline al. 'O kaydı sil ya da o cihazı bu duvarda parçalayayım.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Tabletine doğru bir adım at, ekrana bakmadan gözlerinin içine dik dik bak. 'Halkın kimi kahraman, kimi sahtekar ilan ettiğini en iyi sen bilirsin. Ama benim hakkımdaki kararı ben veririm.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_pundit",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[İtibar 80]",
+              "persona": {
+                "dogruluk": 8
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Arkanı dönüp koridorun karanlığına karıştın. {actor.pundit.name} arkandan bir şeyler bağırdı ama sesini duymamazlıktan geldin. Kariyerin için doğru olanı yaptın, ama aynaya baktığında o sessizliğin ağırlığını taşıyacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Cüzdanındaki parayı hissettiğinde kalbin soğudu. O kayıt artık yok, ama {actor.pundit.name} sana her baktığında gülümseyen o yüzü, bir gün bu parayı misliyle geri isteyeceğinin işareti.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokak Kanunu",
+          "kind": "outcome",
+          "text": "Cihazın parçaları zemine yayıldı. {actor.pundit.name} korkuyla geri çekildi. Taraftarların seni destekleyecek belki, ama disiplin kurulu kapıda bekliyor. Bugün bir galibiyet aldın, yarın bir ceza alacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Gerçeklerin Ağırlığı",
+          "kind": "outcome",
+          "text": "Sözlerin odadaki havayı değiştirdi. {actor.pundit.name} tabletini kapatıp kenara bıraktı. Otoriteni kabul etti belki ama bu itibar savaşı seni sandığından çok daha fazla yordu. Zihnin artık sadece oyunu değil, bu manipülasyonu da taşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_media_yuzlesme_pundit",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

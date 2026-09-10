@@ -310,6 +310,165 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Aynadaki Çatlak",
+          "kind": "branch",
+          "text": "Makyaj aynasının ışıkları tenini fazla soluk gösteriyor. {actor.agent.name} hemen arkanda, elinde parlatılmış bir saat kutusu tutuyor. 'Bu aksesuarı takman sadece bir fotoğraf çekimi değil, markanın sana güveninin göstergesi,' diye fısıldıyor. Odaya sinen tozlu ışık, senin az önce sahne ortasında attığın çığlığın yankısını taşıyor. Yönetmen sessizce bekliyor. Saniyeler geçtikçe, zihnindeki o kusursuz profesyonel duruşun kenarından bir parça kopup yere düşüyor. Kimse izlemiyorken bile artık bu sahte gülümsemeyi takınamıyorsun.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Saati bileğine tak, gülümsediğini varsay ve çekimi bitir.",
+              "target": "n_bitir",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Kutuyu yere bırak, çekimden vazgeçtiğini söyle ve stüdyodan çık.",
+              "target": "n_terk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Sözleşmeyi reddet, markayı kibarca ama kesin bir dille geri çevir.",
+              "target": "n_sozlesme",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_kendi",
+              "text": "Senaryodaki yalanı oku, ama kendi hayatından gerçek bir anıyı araya sıkıştır.",
+              "target": "n_kendi",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]"
+            }
+          ]
+        },
+        "n_bitir": {
+          "title": "Sessiz Kabulleniş",
+          "kind": "outcome",
+          "text": "Saat soğuk, bileğin ise ağır. {actor.agent.name} onaylayarak başını sallıyor. Artık sadece bir ürünün parçasısın.",
+          "onEnter": [
+            {
+              "flag": "mem_reklam_tamamlandi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_terk": {
+          "title": "Kapıyı Kapatmak",
+          "kind": "outcome",
+          "text": "Arkanı dönüp çıkarken, {actor.agent.name} arkandan bağırıyor. Stüdyo kapısını çarptığında gelen sessizlik, her şeyden daha gerçek.",
+          "onEnter": [
+            {
+              "flag": "mem_reklam_terk_etti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sozlesme": {
+          "title": "İmzalanmayan Şartlar",
+          "kind": "outcome",
+          "text": "Kalemi masaya bıraktın. Kâğıttaki rakamlar silinip gidiyor. İçinde bir yanma var, ama en azından aynadaki o yabancıya bakabiliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_sozlesme_bozdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kendi": {
+          "title": "Gerçekten Bir Cümle",
+          "kind": "outcome",
+          "text": "Kameranın ışığı altında yalan söylemedin. Yönetmen şaşkın, {actor.agent.name} ise huzursuz. Kendi sesini duymak, o markanın sesini duymaktan daha korkutucu.",
+          "onEnter": [
+            {
+              "flag": "mem_reklam_kendi_cumlesi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {
