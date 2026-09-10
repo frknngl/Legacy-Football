@@ -770,6 +770,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İsimsiz Bir Yüz",
+          "kind": "branch",
+          "text": "Antrenman sahasının kenarındaki tel örgülerin ardında, {actor.fan_leader.name} seni izliyor. Yanında ne bir pankart var ne de elinde bir forma. Sadece sessizce bakıyor. Yüzüncü maçının üzerinden geçen zamanı, yüzündeki yorgun çizgilerde değil, onun bu suskun bakışında görüyorsun. Sanki kalabalığın içindeki binlerce yüz arasından, senin o gün sahada attığın her adımı sadece o saymış gibi. Çevrede kimse yok, sadece rüzgârda sallanan sahipsiz bir topun sesi.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Sahanın kenarına git, yanına otur. 'Gerçekten ne gördün o gün?' diye sor.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "durus": 6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın özel bir saati ona uzat. 'Zamanı saymak senin işin, artık benimkini tut.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını selam verir gibi hafifçe salla, arkana bakmadan soyunma odasına dön.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Tribünlerin tepesine çık, maçın kayıtlarını onunla izle. 'Daha yolumuz uzun.'",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fan_leader",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Yüksek İtibar]",
+              "persona": {
+                "mizac": 3
+              }
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Gerçek Yüzleşme",
+          "kind": "outcome",
+          "text": "Oturduğunda yanına, sessizlik bozulmuyor. Sadece başını sallıyor, sanki yıllardır söyleyemediği bir cümleyi şimdi tamamlıyor. Bu anın bedelini, ileride kulüp kapısında bekleyen kameralar ödetecek.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_toren",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Bir Sözleşme",
+          "kind": "outcome",
+          "text": "Saati tereddütle alıyor. Gözlerindeki o keskin bakış donuklaşıyor. Bir futbolcu ve bir izleyici arasındaki o kutsal bağ, artık bir nesneyle ölçülebilir hale geldi.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Yürüyüşün net, adımların kararlı. Arkanı döndüğünde, onun hala arkandan baktığını hissediyorsun. Saygı kazandın ama aranızdaki o gizli bağ, bir daha asla kurulamayacak şekilde koptu.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_takima",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Ortak Bir Hafıza",
+          "kind": "outcome",
+          "text": "Saatlerce ekrandaki o eski maçın görüntülerini izliyorsunuz. Her karesinde sen varsın, ama her yorumunda o haklı çıkıyor. Takım artık senin değil, ikinizin ortak mirası oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_yuzuncu_mac_anneye",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

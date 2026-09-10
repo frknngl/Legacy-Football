@@ -503,6 +503,167 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_reddedilis",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kilitli Kapı",
+          "kind": "branch",
+          "text": "Kulüp binasının arka koridorunda, teknik direktörün odasının önündeki ağır meşe kapının pervazına yaslanmış bekliyorsun. İçeriden {actor.youngster.name} çıkıyor. Yüzünde, daha önce hiç görmediğin o donuk, profesyonel ifade var. Kapıyı arkasından yavaşça kapatırken göz göze geliyorsunuz. Başını hafifçe, sanki bir yabancıya selam verir gibi eğiyor ve koridorun karanlığında kayboluyor. Elinde yeni bir sözleşme dosyasının uçları görünüyor. Odadan gelen tok ses, kapının artık senin için kilitlendiğini tescilleyen son mühür gibi yankılanıyor.",
+          "choices": [
+            {
+              "id": "c_servet",
+              "text": "Dosyayı aldığını belli etmeden, kapıyı zorlamadan arkana bakmadan uzaklaş. Menajerini ara, başka kapılar açılmalı.",
+              "target": "n_gizli_anlasma",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_sokak",
+              "text": "Koridorun ortasında bağırarak kapıya tekme at. Herkes duysun, bu haksızlık burada bitmeyecek.",
+              "target": "n_formayi_birakti",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_profesyonel",
+              "text": "Başını öne eğ, kapının önünden sessizce ayrıl. Yarın sabah herkesten önce sahada olacaksın.",
+              "target": "n_formayi_aldi",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 6
+              }
+            },
+            {
+              "id": "c_hakem",
+              "text": "Sessizce bekle ve sonraki ilk antrenmanda tüm hayal kırıklığını sahadaki ikili mücadeleye yansıt.",
+              "target": "n_hakeme_birakti",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 2
+              }
+            }
+          ]
+        },
+        "n_gizli_anlasma": {
+          "title": "Yeni Yol",
+          "kind": "outcome",
+          "text": "Sessizlik en iyi stratejidir. Odanın önünden uzaklaşırken cüzdanındaki kartvizitleri düşünüyorsun. Bazı kapılar kapanır, bazıları ise sadece daha ağır bir bedelle açılır.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_gizli_anlasma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_formayi_birakti": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Kapıdaki gürültü tüm koridorda yankılandı. Takımdakiler pencerelerinden baktı. Artık herkesin bildiği bir ismin var; ama kimse bir asiyle oynamak istemez.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_formayi_birakti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_formayi_aldi": {
+          "title": "Sabır",
+          "kind": "outcome",
+          "text": "Ses çıkarmadın. Gözlerini yere dikip yürüdün. Terin soğumadan soyunma odasına döndün; yarın sabah o sahaya herkesten daha erken çıkacaksın.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_formayi_aldi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_hakeme_birakti": {
+          "title": "Sessiz Hesaplaşma",
+          "kind": "outcome",
+          "text": "Kaderini teknik direktöre değil, antrenman sahasındaki sert müdahalelerine bıraktın. Sahadaki oyunun, kapının ardında konuşulanlardan daha gürültülü olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_hakeme_birakti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

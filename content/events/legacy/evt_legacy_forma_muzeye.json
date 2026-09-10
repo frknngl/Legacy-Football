@@ -755,6 +755,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_zafer_bedeli",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Koleksiyon",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin terasindasin. {actor.president.name} ile yan yana duruyorsunuz. Asagida cimen kokusu, yukarida ise soguk bir ruzgar var. Baskan, elindeki deri kapli kutuyu sana uzatiyor. Kutunun icinde, kariyerinin baslangicinda giydigin o ilk forma var. Kumasin rengi sararmis, yakasi hafif yirtik. Baskan, kutuyu muze vitrinine koymak icin onayini bekliyor. Gözleri uzaklara, dolmus tribünlere dalmis durumda. \"Bu sadece bir kumas degil,\" diyor, \"tarihin tapusu.\" Sessizlik uzun sürüyor. Disarida genclerin antrenman sesleri yankilaniyor. Bedenin yorgun, zihnin ise hala bir sonraki hamleyi kurguluyor. Zamanin daraldigini ikiniz de biliyorsunuz.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Kutuyu alip kapaagini sikica kapat. \"Simdilik sadece bende kalmali,\" de ve oradan uzaklas.",
+              "target": "n_reddet",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kutuyu baskanin ellerine birak. Gülümse. \"Tarih, dogru yerde saklanmali.\" de.",
+              "target": "n_ilk_forma",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kutuyu isaret et. \"Bunu müzeye koyun ama karsiliginda genclerin tesis fonuna ciddi bir kaynak aktarilsin.\"",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            }
+          ]
+        },
+        "n_reddet": {
+          "title": "Kendi Yolu",
+          "kind": "outcome",
+          "text": "Baskanin saskin bakislari arasinda kutuyu koltugunun altina sikistiriyorsun. Bu forma müzenin soguk caminda degil, senin özel dolabinda yasamaya devam edecek. Bazilari bunu inatcilik olarak görecek, ancak taraftarlar senin o formayi asla birakmayacagini biliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeyi_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ilk_forma": {
+          "title": "Miras",
+          "kind": "outcome",
+          "text": "Kutuyu ona teslim ederken parmaklarin kumaşa son kez degiyor. Artik o sadece senin değil, kulübün malı. Basın bunu profesyonelliğin zirvesi olarak servis edecek, ancak sen içindeki boşluğu tarif edemiyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_ilk_forma",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Pazarlik",
+          "kind": "outcome",
+          "text": "Baskanin yüzünde hafif bir tiksinme belirse de çekini imzalıyor. Parayı kabul ediyorsun. Forma müzeye gidiyor ama senin için o formanın büyücü etkisi artık sona erdi. Kariyerinin bu evresinde, duygular artık birer meta.",
+          "onEnter": [
+            {
+              "flag": "mem_muzeye_final_formasi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

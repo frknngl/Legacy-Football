@@ -327,6 +327,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Garajı",
+          "kind": "branch",
+          "text": "Otoparkın en karanlık köşesinde, motoru rölantide çalışan siyah bir sedan. {actor.agent.name} sürücü koltuğunda, iç dikiz aynasından seni izliyor. Torpido gözünü yavaşça aralıyor. İçeride, kulübün geleceğini değiştirecek bir transfer dosyası değil, sadece isimsiz, ağır, kilitli bir metal kutu var. \"Bu gece burada ne gördüğünü unutursan, yarın sabah banka hesabındaki rakamlar, kariyerinin toplamından daha büyük olacak,\" diyor. Camı hafifçe indiriyor. Dışarıdaki soğuk hava içeri doluyor. Uzakta güvenlik görevlisinin ayak sesleri yankılanıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Camı yukarı kaldırıp hızla arkana bakmadan uzaklaş.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kutuyu al ve bagaja yerleştir. \"Sayıyı iki katına çıkar,\" diye mırıldan.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kutuyu al ama hemen bir fotoğrafla yedekle. \"Bu kutu artık benim sigortam,\" de.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -3
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Kutuyu reddet ama {actor.agent.name} ile başka bir masada uzlaşmayı teklif et.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "durus": 4
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Profesyonel İtibar 68]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Doğru Yol",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek zor oldu. Adımların yere ağır basıyor. O metal kutunun içinde neler olduğunu asla bilmeyeceksin, ama vicdanın bugünlük rahat.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "Kutu arka koltukta duruyor. Ağırlığı sanki tüm kariyerinin toplamından fazla. İlk defa kendi kurallarınla oynamıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Tehlikeli Oyun",
+          "kind": "outcome",
+          "text": "Ona bir koz değil, bir tasma taktın. {actor.agent.name} artık senin elinde, ancak bu oyunun sessiz bir tanığı daha var: gölgeler.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Profesyonel Diploması",
+          "kind": "outcome",
+          "text": "Kutuyu almadan, sadece şartları dikte ettin. {actor.agent.name} sana saygı duymak zorunda kaldı, ancak bu pazarlık seni sahada olduğundan daha fazla yordu.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

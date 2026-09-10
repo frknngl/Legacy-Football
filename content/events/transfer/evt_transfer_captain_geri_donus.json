@@ -26,185 +26,6 @@
     "playing",
     "transfer_listed"
   ],
-  "rootNode": "n_root",
-  "nodes": {
-    "n_root": {
-      "title": "Eski Evin Kapısı",
-      "kind": "branch",
-      "text": "Odanın içi rutubet ve eski bir boya kokusuyla dolu. Masada duran sözleşme metni, yıllar önce çıktığın o merdivenleri hatırlatıyor. {actor.rival_club_manager.name} camdan dışarı, antrenman sahasına bakıyor. Sırtı sana dönük. {actor.agent.name} ise masanın kenarına yaslanmış, imza kalemini parmakları arasında çeviriyor. Dışarıda, antrenman sahasının tellerine asılmış bir pankart dalgalanıyor. Yazı, ayrıldığın günkü öfkeyi hala taşıyor. Sessizlik ağırlaşıyor. Masadaki evrak, geri dönmen için tek seçenek.",
-      "choices": [
-        {
-          "id": "c_guvenli",
-          "text": "Kontratı incele. Şartları iyileştirmelerini söyle ama sadakatini vurgula.",
-          "target": "n_sonuc_guvenli",
-          "effects": [
-            {
-              "flag": "profesyonellik",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -5
-            },
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": -10
-            }
-          ],
-          "persona": {
-            "dogruluk": 8
-          }
-        },
-        {
-          "id": "c_riskli",
-          "text": "Pankartı işaret et. Taraftarın gönlünü almak için maaşında indirim iste.",
-          "target": "n_sonuc_riskli",
-          "effects": [
-            {
-              "flag": "sokak_itibari",
-              "op": "add",
-              "value": 15
-            },
-            {
-              "flag": "taraftar_destegi",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "medya_baskisi",
-              "op": "add",
-              "value": 8
-            },
-            {
-              "flag": "disiplin_sicili",
-              "op": "add",
-              "value": 5
-            }
-          ],
-          "persona": {
-            "mizac": 6
-          }
-        },
-        {
-          "id": "c_gri",
-          "text": "Sessizce çantayı aç, rakamları konuşmadan sadece imza primine odaklan.",
-          "target": "n_sonuc_gri",
-          "effects": [
-            {
-              "flag": "servet",
-              "op": "add",
-              "value": 20
-            },
-            {
-              "flag": "moral",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "medya_itibari",
-              "op": "add",
-              "value": -5
-            }
-          ],
-          "persona": {
-            "durus": -7
-          }
-        },
-        {
-          "id": "c_liderlik",
-          "text": "Kaptanlık pazubandını masaya bırak. Sadece liderlik yükünü taşımak için geri dön.",
-          "target": "n_sonuc_liderlik",
-          "effects": [
-            {
-              "flag": "iliski_captain",
-              "op": "add",
-              "value": 10
-            },
-            {
-              "flag": "liderlik",
-              "op": "add",
-              "value": 5
-            },
-            {
-              "flag": "kondisyon",
-              "op": "add",
-              "value": -10
-            },
-            {
-              "flag": "tukenmislik",
-              "op": "add",
-              "value": 8
-            }
-          ],
-          "persona": {
-            "sadakat": 12
-          },
-          "requires": {
-            "flag": "liderlik",
-            "op": "gte",
-            "value": 65
-          },
-          "lockLabel": "[Liderlik 65]"
-        }
-      ]
-    },
-    "n_sonuc_guvenli": {
-      "title": "Profesyonel Dönüş",
-      "kind": "outcome",
-      "text": "Kalem kâğıdın üzerinde pürüzsüzce kayarken mürekkebin keskin kokusu odaya yayıldı. {actor.agent.name} gözlerini imzadan ayırmadan başıyla hafifçe onayladı, yüzündeki rahatlama ifadesi durumu özetliyordu. Bu bir geri dönüş değil, soğukkanlı bir iş ortaklığıydı; aramızdaki sessiz mutabakat, geçmişin tüm tozunu süpürüp süpürgeyi bir kenara bıraktı. Dışarıdaki rüzgar pencereyi hafifçe titretirken odadaki hava artık daha az boğucuydu.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_geri_donus_captain",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_riskli": {
-      "title": "Tribünlerin Çağrısı",
-      "kind": "outcome",
-      "text": "{actor.rival_club_manager.name} kaşlarını çatarak camdan yansıyan siluetine baktı, elleri cebinde sıkıca kenetlenmişti. Dışarıdaki tribünlerin uğultusu beton duvarları aşarak içeri sızıyor, ismini haykıran kalabalığın baskısını odanın içine taşıyordu. Omuzlarına binen yükün ağırlığı, kalbinin atışlarını hızlandıran bir ritme dönüştü. İmzanı attığın kağıt masanın üzerinde öylece dururken, antrenman sahasındaki taraftarın yükselen öfkesi camın soğuk yüzeyinde yankılanmaya devam etti.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_geri_donus_captain",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_gri": {
-      "title": "Sessiz Kazanç",
-      "kind": "outcome",
-      "text": "Sayılar ekranda ve kağıtta tatmin edici duruyordu, ancak odadaki floresan lambanın titrek ışığı yüzümüzdeki gerginliği gizlemeye yetmiyordu. Kimse geçmişteki kırgınlıklardan, o meşhur ihanetten bahsetmedi; sadece resmiyetin soğukluğu masayı kapladı. Kalem elinden düşüp zeminde tok bir sesle yankılandığında, aramızdaki her şeyin bir fiyatı olduğunu bir kez daha anladın. Vicdanın odanın kapısında asılı kalmış gibiydi, geriye sadece kurumsal bir anlaşmanın sessizliği kaldı.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_geri_donus_captain",
-          "op": "set",
-          "value": true
-        }
-      ]
-    },
-    "n_sonuc_liderlik": {
-      "title": "Yeniden Kaptan",
-      "kind": "outcome",
-      "text": "{actor.captain.name} pazubandını çıkarıp sana uzatıyor. Gözlerindeki yorgunluğu görüyorsun. Bu geri dönüş, sadece sahadaki yerini değil, kulübün geleceğini de omuzlarına bindiriyor.",
-      "onEnter": [
-        {
-          "flag": "mem_transfer_geri_donus_captain",
-          "op": "set",
-          "value": true
-        }
-      ]
-    }
-  },
   "story": {
     "arc": "fam_transfer_geri_donus",
     "beat": "evt_transfer_captain_geri_donus",
@@ -215,5 +36,371 @@
     "beatGapTurns": 45,
     "signatureGapTurns": 30,
     "maxBeatUses": 6
-  }
+  },
+  "variants": [
+    {
+      "id": "v_asil",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Evin Kapısı",
+          "kind": "branch",
+          "text": "Odanın içi rutubet ve eski bir boya kokusuyla dolu. Masada duran sözleşme metni, yıllar önce çıktığın o merdivenleri hatırlatıyor. {actor.rival_club_manager.name} camdan dışarı, antrenman sahasına bakıyor. Sırtı sana dönük. {actor.agent.name} ise masanın kenarına yaslanmış, imza kalemini parmakları arasında çeviriyor. Dışarıda, antrenman sahasının tellerine asılmış bir pankart dalgalanıyor. Yazı, ayrıldığın günkü öfkeyi hala taşıyor. Sessizlik ağırlaşıyor. Masadaki evrak, geri dönmen için tek seçenek.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Kontratı incele. Şartları iyileştirmelerini söyle ama sadakatini vurgula.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Pankartı işaret et. Taraftarın gönlünü almak için maaşında indirim iste.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessizce çantayı aç, rakamları konuşmadan sadece imza primine odaklan.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -7
+              }
+            },
+            {
+              "id": "c_liderlik",
+              "text": "Kaptanlık pazubandını masaya bırak. Sadece liderlik yükünü taşımak için geri dön.",
+              "target": "n_sonuc_liderlik",
+              "effects": [
+                {
+                  "flag": "iliski_captain",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "sadakat": 12
+              },
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 65
+              },
+              "lockLabel": "[Liderlik 65]"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Profesyonel Dönüş",
+          "kind": "outcome",
+          "text": "Kalem kâğıdın üzerinde pürüzsüzce kayarken mürekkebin keskin kokusu odaya yayıldı. {actor.agent.name} gözlerini imzadan ayırmadan başıyla hafifçe onayladı, yüzündeki rahatlama ifadesi durumu özetliyordu. Bu bir geri dönüş değil, soğukkanlı bir iş ortaklığıydı; aramızdaki sessiz mutabakat, geçmişin tüm tozunu süpürüp süpürgeyi bir kenara bıraktı. Dışarıdaki rüzgar pencereyi hafifçe titretirken odadaki hava artık daha az boğucuydu.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Tribünlerin Çağrısı",
+          "kind": "outcome",
+          "text": "{actor.rival_club_manager.name} kaşlarını çatarak camdan yansıyan siluetine baktı, elleri cebinde sıkıca kenetlenmişti. Dışarıdaki tribünlerin uğultusu beton duvarları aşarak içeri sızıyor, ismini haykıran kalabalığın baskısını odanın içine taşıyordu. Omuzlarına binen yükün ağırlığı, kalbinin atışlarını hızlandıran bir ritme dönüştü. İmzanı attığın kağıt masanın üzerinde öylece dururken, antrenman sahasındaki taraftarın yükselen öfkesi camın soğuk yüzeyinde yankılanmaya devam etti.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Sessiz Kazanç",
+          "kind": "outcome",
+          "text": "Sayılar ekranda ve kağıtta tatmin edici duruyordu, ancak odadaki floresan lambanın titrek ışığı yüzümüzdeki gerginliği gizlemeye yetmiyordu. Kimse geçmişteki kırgınlıklardan, o meşhur ihanetten bahsetmedi; sadece resmiyetin soğukluğu masayı kapladı. Kalem elinden düşüp zeminde tok bir sesle yankılandığında, aramızdaki her şeyin bir fiyatı olduğunu bir kez daha anladın. Vicdanın odanın kapısında asılı kalmış gibiydi, geriye sadece kurumsal bir anlaşmanın sessizliği kaldı.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_liderlik": {
+          "title": "Yeniden Kaptan",
+          "kind": "outcome",
+          "text": "{actor.captain.name} pazubandını çıkarıp sana uzatıyor. Gözlerindeki yorgunluğu görüyorsun. Bu geri dönüş, sadece sahadaki yerini değil, kulübün geleceğini de omuzlarına bindiriyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Otoparkı, Gece Yarısı",
+          "kind": "branch",
+          "text": "Stadyumun soğuk ışıkları altındayız. {actor.rival_club_manager.name} eski, yıpranmış bir aracın kaputuna yaslanmış. Ayak uçlarında sigara izmaritleri birikmiş. Elindeki tek sayfalık dokümanı bana doğru uzatıyor. İmza atmam için ısrar etmiyor, sadece sessizce bekliyor. Şehrin öbür ucundaki taraftarın haykırışları, bu ıssız otoparkın sessizliğinde yankılanıyor. Burada olmak, onlara verdiğim sözü çiğnemek demek. Ancak {actor.rival_club_manager.name} ile kurduğum o eski bağ, bu sessizliği bile anlamlı kılıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Belgeyi buruşturup arabanın sileceklerine bırak. Geri dönmeyeceğim.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sayıyı ikiye katlamasını söyle. Sadakatim, ancak bu kadar pahalıya patlar.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 200000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -8
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "İmzayı at. Yarın sabah taraftarın karşısına çıktığımda yakacakları ilk meşale benim için olacak.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": -6
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Eski günlerin hatırına kalemi uzat. Birlikte son bir kez daha.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "iliski_rival_club_manager",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Dostluk Sağlam]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Veda",
+          "kind": "outcome",
+          "text": "Arkanı dönüp yürüdüğünde arkandan bir ses duymuyorsun. Sadece uzaklaşan ayakkabı seslerin kalıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Pazarlık",
+          "kind": "outcome",
+          "text": "Sayıyı gördüğünde başını sallıyor. Bu artık bir futbol hikayesi değil, bir ticaret.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "İmza",
+          "kind": "outcome",
+          "text": "Kalem kâğıda değdiği an, tüm şehrin sessizliği bozuluyor. Geri dönüşü olmayan yola girdin.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Eski Dostlar",
+          "kind": "outcome",
+          "text": "Göz göze geliyorsunuz. Hiçbir şey söylenmiyor, sadece eski bir anlaşma yenileniyor.",
+          "onEnter": [
+            {
+              "flag": "mem_transfer_geri_donus_captain",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

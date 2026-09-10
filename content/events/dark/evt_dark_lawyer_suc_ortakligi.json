@@ -481,6 +481,176 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Hesaplaşma",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin çıkışında, ışık almayan arka kapının önünde bekliyor. {actor.lawyer.name}, sigarasını ayağının altında ezdi. Etrafta ne bir koruma ne de bir tanık var. Sadece rüzgarın tellere vurduğu o tiz ses. Elinde bir fotoğraf yok, bir sözleşme yok. Sadece, daha önce defalarca konuştuğumuz o borcun ağırlığı var. {actor.lawyer.name} susuyor ama bakışları, o borcun faizinin artık dakikalarla işlediğini söylüyor. Buradan tek başına çıkmanın bedeli, belki de yarınki kadro dışı kararı olacak.",
+          "choices": [
+            {
+              "id": "c_risk",
+              "text": "Sokaktaki çocukların yanına git. Onların desteği, bu masadan kalkmama yeter.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını eğ ve hiçbir şey demeden yanından geç. Profesyonel kalmak, bedelini ödemekten daha zor.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Gelecek sezonun imza priminden bir kısmını ona devretmeyi teklif et.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Daha önce biriktirdiklerinden bir kısmını çantasına bırak. Bu borcun sonu yok, biliyorsun.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -75
+                },
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "Yeterli birikim yok."
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Sokakların Çağrısı",
+          "kind": "outcome",
+          "text": "Arkanı dönüp gitmek, onu daha da hırslandırdı. Ama kalabalığın arasına karıştığında, bu borcun artık bir tehdit değil, bir savaş ilanı olduğunu anladın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Soğuk Profesyonellik",
+          "kind": "outcome",
+          "text": "Arkanı döndün. Arkandan gelen tek şey, bir daha asla bu kadar ucuz kurtulamayacağına dair o soğuk fısıltıydı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Sözleşme",
+          "kind": "outcome",
+          "text": "Gelecek kazancından feragat etmek, ruhundan bir parçayı daha rehin vermek gibiydi. {actor.lawyer.name} sadece gülümsedi ve uzaklaştı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Çanta el değiştirdi. {actor.lawyer.name} parayı saymadan ceketinin içine soktu. Bu, borcu sildi ama geleceğindeki o boşluğu daha da derinleştirdi.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

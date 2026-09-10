@@ -349,6 +349,173 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_borc",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta Bir Buluşma",
+          "kind": "branch",
+          "text": "Antrenman sahasının arkasındaki tel örgülerin gölgesinde, {actor.childhood_friend.name} sigarasının ucunu çorabının altında söndürüyor. Etrafta kimse yok; sadece uzaklardaki duşların uğultusu duyuluyor. Yüzü yorgun, gözleri doğrudan senin üzerindeki marka logolarına odaklı. Cebinden çıkardığı buruşuk zarfı çamurlu toprağa bırakıyor. 'Eski hesabı kapatma vakti geldi,' diyor sadece. Ne bir tehdit ne de bir rica; sesinde sadece yılların getirdiği o aşina olduğun soğukluk var.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Zarfı yerden al, içine bakmadan çantana at. Gelecek hafta gereken miktarı elden ulaştıracağını söyle.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -4
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Zarfa dokunma. {actor.childhood_friend.name} ile bu meseleyi herkesin görebileceği bir yerdeki kafede konuşmayı teklif et.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 3
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerinin içine bak ve bu borcun artık kapandığını, bir daha asla kapına gelmemesini söyle.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 6
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Cüzdanını çıkar, {actor.childhood_friend.name} elini uzatmadan parayı ona doğru fırlat.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -75
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Yeterli birikim]"
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Zarf çantanda, ağırlığı omuzlarında. {actor.childhood_friend.name} arkasını dönüp gidiyor. Yıllardır kaçtığın o karanlık artık senin bir parçan.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Halka Açık Yüzleşme",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} duraksıyor, gülümsüyor. Kalabalık bir ortamda kozlarını oynamak daha maliyetli olacak ama en azından ipleri elinde tutuyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Keskin Bir Kopuş",
+          "kind": "outcome",
+          "text": "Sözlerin soğuk, duruşun sert. {actor.childhood_friend.name} şaşkın ama geri adım atıyor. İçinde bir şeylerin kırıldığını hissediyorsun ama yoluna devam etmekten başka çaren yok.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Parayla Satın Alınan Huzur",
+          "kind": "outcome",
+          "text": "Para yere düşüyor. {actor.childhood_friend.name} parayı alırken aranızdaki bağın ne kadar zayıfladığını görüyorsun. Cüzdanın boşalıyor ama vicdanın biraz daha ağırlaşıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_kirilma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

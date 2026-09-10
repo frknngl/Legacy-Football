@@ -353,6 +353,189 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Ziyareti",
+          "kind": "branch",
+          "text": "Antrenman tesislerinin boş revirindesin. {actor.partner.name} kapıda belirdi, ayakkabıları zeminde tok sesler çıkarıyor. Elinde bir dosya ya da zarf yok; sadece suç ortaklığının o ağır, sessiz tortusu var. Bacağındaki sargı, kariyerinin bu son düzlüğünde attığın her adımın bir bedeli olduğunu hatırlatıyor. {actor.partner.name} yavaşça başucuna yaklaştı, dışarıdaki yağmur camları dövüyor. Bir çözüm önerisiyle gelmedi, bir yol ayrımıyla geldi. Bu odadan sağ salim çıkmak, sahaya geri dönmekten daha maliyetli görünüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini kapat. Bu gece hiç kimse gelmedi, hiçbir şey konuşulmadı.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kapıyı kilitle. {actor.partner.name} ile bu işi bu akşam tamamen kapatalım.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Masanın üzerindeki boş çeki {actor.partner.name} tarafına it. Soruları durdurmanın tek yolu bu.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Doğrudan rehabilite merkezine gitmeyi teklif et. Birlikte, kontrollü bir yola girin.",
+              "target": "n_stat",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]"
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.partner.name} tek bir şey söylemeden geri çekildi. Kapı kapandığında yalnızlığın ağırlığı reviri daha da daralttı. Kariyerin için doğru olanı yaptın, ama aynadaki o adam bir yabancıya dönüştü.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "İzolasyon süreci"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sıcak Temas",
+          "kind": "outcome",
+          "text": "Oda ikinizin arasındaki gerilimle sarsıldı. Kimse dışarıdan duymadı, ancak bu geceki pazarlık yarın gazete manşetlerine duman olarak sızacak. Bedeli ağır olacak, biliyorsun.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Soruşturma süreci"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödemek",
+          "kind": "outcome",
+          "text": "Sayılar kağıdın üzerinde birer rakamdan ibaret artık. {actor.partner.name} onaylayarak çekildi. Banka hesabındaki azalma, ruhundaki boşluğun yanında hiçbir şey değil.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Sözleşme revizesi"
+            }
+          ]
+        },
+        "n_stat": {
+          "title": "Yeni Bir Başlangıç",
+          "kind": "outcome",
+          "text": "Tesislerden ayrılırken {actor.partner.name} sana eşlik etti. Kliniğin soğuk koridorlarına adım atarken, futbolun parlak ışıklarından ne kadar uzaklaştığını ilk kez bu kadar net hissettin.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "rehab_clinic"
+            },
+            {
+              "op": "suspend",
+              "matches": 4,
+              "reason": "Rehabilitasyon programı"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

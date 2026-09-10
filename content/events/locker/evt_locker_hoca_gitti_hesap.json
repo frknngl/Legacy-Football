@@ -532,6 +532,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Koridor",
+          "kind": "branch",
+          "text": "Antrenman tesisinin en kuytu koridoru. Işıklar sensörle çalışıyor ama az önce biri söndürdü. {actor.manager.name} duvara yaslanmış, elinde senin son maçtaki koşu verilerinin çıktısı var. Kağıt buruşmuş. Sessizce yanına geldiğinde başını kaldırmıyor. 'İstatistikler yalan söyler,' diyor, 'ama sahada o topu kime atmayı seçtiğin, gece yastığa başını koyduğunda kime sadık kaldığını anlatır.' Göz göze geliyorsunuz. İlk defa, o kağıtlara değil, doğrudan senin gözbebeklerine bakıyor. Odanın içindeki o ağır, sahte profesyonellik maskesi yere düşüyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "'O pası verdim çünkü oyun planı bunu gerektiriyordu. Gerisi detay.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "'Planın işlemediği yerde oyun kurucunun sezgisi devreye girer, hocam.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Sessiz kal, elindeki zarfı işaret et. 'Bunu senin için hallettim, gerisini unut.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "'Senin benden ne beklediğini değil, bu kulübün benden ne beklediğini konuştuk.'",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Saygınlık]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Mesafe",
+          "kind": "outcome",
+          "text": "{actor.manager.name} başını hafifçe sallıyor. Aramızdaki o görünmez cam duvar biraz daha kalınlaştı. Doğru olanı söyledin ama aradığın o anlık sıcaklık, yerini iş disiplinine bıraktı.",
+          "onEnter": [
+            {
+              "flag": "mem_hesabi_savusturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "İsyan",
+          "kind": "outcome",
+          "text": "Gülümsüyor. Bu, onun da istediği bir başkaldırı. Odanın sessizliği bir meydan okumaya dönüştü. Artık senin oyununa kimse müdahale edemez, ama bedelini sahada tek başına ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_isyani_sahiplendi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Karanlık Anlaşma",
+          "kind": "outcome",
+          "text": "Zarfı alırken elleri titriyor. İkiniz de bu anın, bu kulüpteki son dürüst anınız olduğunu biliyorsunuz. Arkanızı döndüğünüzde artık hiçbir şey eskisi gibi olmayacak.",
+          "onEnter": [
+            {
+              "flag": "mem_odayi_satti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Omuz Omuza",
+          "kind": "outcome",
+          "text": "{actor.manager.name} eliyle omzuna vuruyor. Bu kadar ağır bir yükün altına birlikte girmek, aranızdaki tüm sınırları kaldırdı. Artık saha içindeki hiyerarşinin ötesinde bir yol arkadaşısın.",
+          "onEnter": [
+            {
+              "flag": "mem_hesabi_savusturdu",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

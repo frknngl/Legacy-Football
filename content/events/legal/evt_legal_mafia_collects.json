@@ -673,6 +673,228 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Gece Yarısı Görüşmesi",
+          "kind": "branch",
+          "text": "Milli takım kampının dışındaki ıssız bir benzinlik. {actor.fixer.name} paslı bir sütunun gölgesinde, elindeki metal kutuyu ayağıyla itiyor. Çevrede kimse yok, sadece uzaklardan gelen kamyonların homurtusu duyuluyor. {actor.fixer.name} yüzündeki ifadeyle sanki yıllardır süregelen bir dostluğu değil, bir hesabı kapatmaya gelmiş gibi duruyor. Üzerine atılan suçlamanın ne olduğu belli değil, ancak {actor.fixer.name} elindeki belgeleri yavaşça aracının ön koltuğuna bırakıyor. Pencereyi aralayıp içeriye soğuk bir rüzgarla birlikte o ağır sessizliği bırakıyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Belgeleri olduğu yerde bırak, yanından geçip git.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Kutuyu al, içindeki parayı teslimat noktasına götür.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Doğruca kamp binasına dön, durumu antrenöre bildir.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Ona kimin adına konuştuğunu sor, kartını masaya koy.",
+              "target": "n_sonuc_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 12
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı 60]"
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Riskli Yüzleşme",
+          "kind": "outcome",
+          "text": "Arkanı dönüp yürüdüğünde {actor.fixer.name} sadece gülümsüyor. Bu sessizlik, senin için daha büyük bir fırtınanın başlangıcı.",
+          "onEnter": [
+            {
+              "flag": "mem_refused_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 3,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Ortaklık",
+          "kind": "outcome",
+          "text": "Kutuyu aldın. Ağırlığı vicdanına yansıyor. Artık bu oyunun sadece saha içinde değil, dışında da bir parçasısın.",
+          "onEnter": [
+            {
+              "flag": "mem_accepted_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 3,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Vicdanın Bedeli",
+          "kind": "outcome",
+          "text": "Odanın kapısını kilitlediğinde ellerin titriyor. Doğru olanı yaptın, ama bedelini uzun süre ödeyeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_reported_fixing",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 3,
+              "priority": "forced"
+            }
+          ]
+        },
+        "n_sonuc_kilitli": {
+          "title": "Derin İttifak",
+          "kind": "outcome",
+          "text": "Göz göze geldiniz. {actor.fixer.name} geri adım atıyor. Artık sahada değil, gölgelerde hareket edeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            },
+            {
+              "op": "lifeState",
+              "to": "national_duty"
+            },
+            {
+              "op": "schedule",
+              "event": "evt_legal_betting_investigation",
+              "inTurns": 3,
+              "priority": "forced"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -705,6 +705,195 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Pencere",
+          "kind": "branch",
+          "text": "Sorgu odasının küçük, tel örgülü penceresinden dışarı bakıyorsun. Antrenman sahasındaki çimler, sabahın ilk ışıklarıyla parlıyor. {actor.agent.name} köşedeki plastik sandalyede oturuyor, parmak uçlarıyla masadaki metalik bir çakmağı ritmik şekilde tıkırdatıyor. Kurulun birazdan vereceği kararın ağırlığı havayı ağırlaştırıyor. {actor.agent.name} başını kaldırıyor, gözlerinde ne bir pişmanlık ne de bir teselli var; sadece bir ticaretin bitişi okunuyor.",
+          "choices": [
+            {
+              "id": "c_bribery",
+              "text": "Çakmağı alıp {actor.agent.name}e doğru it. 'Bedeli neyse ödenir, yeter ki bu dosya kapansın.'",
+              "target": "n_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_cooperation",
+              "text": "Oturmaya devam et. 'Ben sadece üzerime düşeni yaptım, olanları zaten biliyorsun.'",
+              "target": "n_profesyonellik",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "sadakat": 5
+              }
+            },
+            {
+              "id": "c_defiance",
+              "text": "Sandalyeyi geriye iterek ayağa kalk. 'İkinizin de ne çevirdiğini herkes öğrenecek.'",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_master",
+              "text": "Masadaki dosyayı {actor.agent.name}in elinden nazikçe çekip al. 'Bu seferlik senin kurtarmanı beklemeyeceğim.'",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
+            }
+          ]
+        },
+        "n_servet": {
+          "title": "Sessiz Bir Anlaşma",
+          "kind": "outcome",
+          "text": "{actor.agent.name} çakmağı cebine atıyor. Hiçbir şey konuşulmuyor. Dosya imha ediliyor, cezan iptal ediliyor ancak bu gizli anlaşmanın gölgesi kariyerinin üzerinde bir kambur gibi kalacak.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "İdari soruşturma süreci"
+            },
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_profesyonellik": {
+          "title": "Kurallara Teslim",
+          "kind": "outcome",
+          "text": "Sessizliğin, kurul üzerinde beklediğin etkiyi yaratmıyor. Profesyonel duruşun, hatayı üstlenmişsin gibi algılanıyor. Kariyerinin en uzun cezasını alıyorsun.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Soruşturma sonucu disiplin cezası"
+            },
+            {
+              "flag": "mem_refused_to_apologize",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Medya Savaşı",
+          "kind": "outcome",
+          "text": "Odadaki gerilim tavan yapıyor. {actor.agent.name} odadan çıkarken arkanızda bir enkaz bırakıyorsunuz. Federasyonla olan kavgan artık manşetlerden inmeyecek.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 3,
+              "reason": "Federasyon karşıtı söylem cezası"
+            },
+            {
+              "flag": "mem_media_war",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "İplerin Kontrolü",
+          "kind": "outcome",
+          "text": "Dosyayı bizzat kontrol ederek {actor.agent.name}in ihanetini engelliyorsun. Ancak bu hamle seni hem fiziksel hem zihinsel olarak tüketiyor. İpler artık senin elinde, ama ellerin titriyor.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Kontrollü soruşturma süreci"
+            },
+            {
+              "flag": "mem_used_federation_contact",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

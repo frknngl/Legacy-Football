@@ -562,6 +562,176 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sinav",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Odadaki İtiraf",
+          "kind": "branch",
+          "text": "Kulüp tesislerinin en alt katındaki arşiv odası rutubet kokuyor. {actor.mentor.name}, rafın en arkasındaki tozlu bir kutuyu açıyor. İçinden çıkan tek bir sarı zarf. Ellerinde titreyen kağıtlar, yıllar önce yaşanan o şaibeli maçın tüm kayıtlarını barındırıyor. {actor.mentor.name} zarfı sana uzatıyor, gözlerinde ne bir pişmanlık ne de bir umut var. Sadece bekliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Zarfı al, olduğu gibi yerel gazeteciye teslim et.",
+              "target": "n_sonuc_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ]
+            },
+            {
+              "id": "c_gri",
+              "text": "Zarfı görmezden gel, bu bilginin ağırlığını onunla paylaşma, odadan çık.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kağıtları kendi ellerinle parçala ve çöp kutusuna at.",
+              "target": "n_sonuc_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ]
+            },
+            {
+              "id": "c_stat",
+              "text": "Zarfı elinden al, onu profesyonel bir metotla kulüp yönetimine rapor etmeyi teklif et.",
+              "target": "n_sonuc_stat",
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "Profesyonellik gerektirir",
+              "effects": [
+                {
+                  "flag": "iliski_mentor",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ]
+            }
+          ]
+        },
+        "n_sonuc_riskli": {
+          "title": "Fırtınayı Başlatmak",
+          "kind": "outcome",
+          "text": "Kağıtlar yayımlandığında sadece kariyerler değil, şehirdeki tüm dengeler sarsılacak. {actor.mentor.name} artık senin ortağın.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Karanlık Sessizlik",
+          "kind": "outcome",
+          "text": "Kapıyı kapattığında arkandaki sessizlik daha da ağırlaşıyor. Bu paranın veya suskunluğun huzuru, yastığa başını koyduğunda geri gelecek.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guvenli": {
+          "title": "Kayıtların Sonu",
+          "kind": "outcome",
+          "text": "Küller çöp kutusunun dibinde kalıyor. Gerçekler yok oldu ama bu vicdan yükü artık sadece senin zihninde.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_stat": {
+          "title": "Kontrollü Tasfiye",
+          "kind": "outcome",
+          "text": "Sistemi sistemle çökertmek, en temiz ama en yorucu yol. {actor.mentor.name} minnetle başını eğiyor, yükü paylaşıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_mentor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

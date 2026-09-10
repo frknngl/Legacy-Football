@@ -484,6 +484,136 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Teklif",
+          "kind": "branch",
+          "text": "Lüks bir otelin spa katındasınız. Havuzun sesi, odanın steril sessizliğini bozuyor. {actor.agent.name}, elindeki dijital tableti kenara bırakıp buharı tüten bir fincan kahveyi sana doğru itiyor. Masada bir transfer evrağı yok; sadece küçük, şifreli bir çip duruyor. {actor.agent.name} bakışlarını doğrudan gözlerine dikiyor. Konuşmuyor. Sadece çipi işaret ediyor. Bu, kimsenin kayıtlarda görmeyeceği, doğrudan hesabına yatacak bir 'sadakat' ikramiyesi. Kuralların dışına çıkmanın tek yolu.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Çipi sessizce al. Sessizlik, en pahalı imzadır.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Fincanı it. 'Benim değerim saha içindekilerle ölçülür, bununla değil.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Çipi al, ama basına sızdıracağını ima et. Kimse elini kirletemez.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Liderlik 70]",
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Bedel Ödendi",
+          "kind": "outcome",
+          "text": "{actor.agent.name} hafifçe gülümseyerek ayağa kalkıyor. Çip artık senin cebinde. Bu paranın kaynağını hiçbir zaman tam olarak bilmeyeceksin, ancak sahadaki her hatanda zihninde o çipin ağırlığını hissedeceksin.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Temiz Bir Yaka",
+          "kind": "outcome",
+          "text": "{actor.agent.name} gözlerini kısıyor. Saygı mı duydu yoksa seninle olan tüm gelecek planlarını çöpe mi attı, anlamak imkansız. Odadan çıkarken arkanda bıraktığın o meblağ, kariyerinin en temiz ama en yalnız kararıydı.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Tehlikeli Oyun",
+          "kind": "outcome",
+          "text": "{actor.agent.name} masadaki çipi alıp hızla uzaklaşıyor. İkinizin arasında kurulan bu gergin bağ, artık bir pazarlıktan ziyade bir savaş ilanı. Taraftarların gözündeki yerin sağlam, ama artık gözetleniyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_money_zafer_bedeli_agent",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

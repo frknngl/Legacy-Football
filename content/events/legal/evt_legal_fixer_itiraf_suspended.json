@@ -474,6 +474,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık ve Soğuk",
+          "kind": "branch",
+          "text": "Şehrin en eski hastanesinin morg çıkışındaki dar koridordayız. {actor.fixer.name} elinde küçük bir ses kayıt cihazıyla duvara yaslanmış. Beyaz önlüklerin arasından geçip gelmiş. Bize bakan yok. Yanımızdan geçen bir sedye tekerleğinin gıcırtısı dışında koridor sessiz. {actor.fixer.name} cihazın üzerindeki küçük düğmeye basıyor; kendi sesini duyuyorsun. Her şey burada bitiyor ya da burada başlıyor.",
+          "choices": [
+            {
+              "id": "c_buyut",
+              "text": "Cihazı al ve tüm borçlarını kapatacak rakamı iste. Bu gece için yeterli.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 250000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_risk",
+              "text": "Gülümse ve cihazı elinden çekip al. 'Bunu kendine sakla, kimse inanmaz' de.",
+              "target": "n_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Kafanı salla ve hiçbir şey söylemeden yürüyüp git. Sessizlik en iyi savunma.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 3
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Cihazın üzerindeki parmak izlerini al. {actor.fixer.name} artık senin gölgen.",
+              "target": "n_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 10
+              },
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 74
+              },
+              "lockLabel": "[Sokak İtibarı 74]"
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödendi",
+          "kind": "outcome",
+          "text": "Para transferi sessizce gerçekleşti. {actor.fixer.name} cihazı sana verdi. Artık o ses kaydının sahibi sensin.",
+          "onEnter": [
+            {
+              "flag": "mem_legal_itiraf_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_risk": {
+          "title": "Riskli Oyun",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} şaşkın, gözlerindeki o güven kayboldu. Bu meydan okuma, şehrin arka sokaklarında yankılanacak.",
+          "onEnter": [
+            {
+              "flag": "mem_legal_itiraf_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sessiz Çıkış",
+          "kind": "outcome",
+          "text": "Arkana bakmadan hastane bahçesine çıktın. Gece soğuk, ellerin ceplerinde. Sırrın ağırlığı artık sadece senin.",
+          "onEnter": [
+            {
+              "flag": "mem_legal_itiraf_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_kilitli": {
+          "title": "Yeni Bir Ortaklık",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} artık senin elinde. Bir daha asla bir şey istemeye cesaret edemeyecek. Ama bu kontrolün bedeli uykusuz geceler.",
+          "onEnter": [
+            {
+              "flag": "mem_legal_itiraf_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

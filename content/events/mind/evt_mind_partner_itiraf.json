@@ -478,6 +478,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Sınır",
+          "kind": "branch",
+          "text": "Eşyaların çoğu kutulandı. Boş odada yankılanan tek ses {actor.partner.name}’in hafifçe titreyen nefes alışverişi. Yerdeki bavulun fermuarı yarım açık; içinden sarkan belgelerin kenarları dışarıdan gelen sokak lambasının ışığıyla parlıyor. Artık rol yapacak bir sahne, saklanacak bir oda kalmadı. {actor.partner.name} sana bakmıyor, duvardaki boş çerçeveye odaklanmış. Sessizlik, biriken her şeyi bir çığ gibi üzerine yıkıyor.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Bavulu kapat ve gitmesine izin ver. Yalnızlık, bu yükten daha hafif.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Ona yalanın devamını fısılda. Sadece bu gece daha, yarın her şeyi düzelteceksin.",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -6
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Hesap cüzdanını masanın üzerine bırak. Sessizliğin bedeli bu kadar etmeli.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": 3
+              }
+            },
+            {
+              "id": "c_kilitli",
+              "text": "Dizlerinin üzerine çök, elini tut ve her şeyi anlat. Başka türlü nefes alamayacaksın.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Mental Dayanıklılık 60]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Kapı arkandan kapandığında, içerideki seslerin kesilmesi bir rahatlama değil, bir boşluk hissi yaratıyor. Yılların biriktirdiği bu yük, artık sadece senin zihninde yankılanacak.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Ertelenen Yıkım",
+          "kind": "outcome",
+          "text": "Gözleri hala sana inanamıyor ama dudakları titreyerek geri çekiliyor. Bir yalanı daha başarıyla sattın, ancak aynadaki suretin artık sana yabancı.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Soğuk Takas",
+          "kind": "outcome",
+          "text": "Paranın kağıt hışırtısı, aranızdaki tüm geçmişi silip süpürüyor. {actor.partner.name} paraya bakmıyor, ama masadan kalkarken odadaki havayı tamamen tüketip gidiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Ağırlığın Kabulü",
+          "kind": "outcome",
+          "text": "Gözyaşları akarken, her kelimenin ağırlığını göğsünde hissediyorsun. Bu itiraf seni tüketiyor ama sonunda başını yastığa koyduğunda, ilk kez o sahte duvarların yıkıldığını hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_itiraf_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

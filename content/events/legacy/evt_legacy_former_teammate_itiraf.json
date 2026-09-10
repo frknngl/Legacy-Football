@@ -394,6 +394,185 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borcun İtirafı",
+          "kind": "branch",
+          "text": "Trafik gürültüsünün uzağında, şehrin dışındaki bu loş birahanede, masanın üzerindeki tek bir mumun ışığı {actor.former_teammate.name} yüzündeki derin çizgileri vurguluyor. Yıllar önce o büyük maçın devre arasında, herkesin duymadığı bir şeyi ikiniz duymuştunuz. {actor.former_teammate.name} elindeki bira bardağını döndürüyor, gözlerini sana dikmiş durumda. 'Biliyor musun?' diyor kısık bir sesle. 'Seni her televizyonda gördüğümde o gün sahadan kaçışını değil, gözlerindeki o korkuyu hatırlıyorum. Başkaları seni efsane sandı ama ben o gün senin gerçekten kim olduğunu gördüm.' İlk defa, sahadaki maskelerin ve alkışların dışında birinin seni gerçek halinle, tüm o sahteliğinle gördüğünü hissediyorsun.",
+          "choices": [
+            {
+              "id": "c_sessizlik",
+              "text": "Bardağını onunkiyle tokuştur. Sessizliği onaylayarak iç.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 3
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -2
+              }
+            },
+            {
+              "id": "c_itiraf",
+              "text": "Ona yaklaş ve gerçeği ilk kez sesli dile getir. 'Korkuyordum, evet.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_para",
+              "text": "Cüzdanını çıkar, masanın altına bırak. 'Bu konuyu bir daha açma.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_dostluk",
+              "text": "Eline dokun. Yılların ağırlığını paylaşacak bir an.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_former_teammate",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "requires": {
+                "flag": "medya_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Yüksek Medya İtibarı]"
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Mesafeli Duruş",
+          "kind": "outcome",
+          "text": "Kadehler çarpışıyor. Gözleriniz bir an buluşuyor ve hemen başka yöne bakıyorsunuz. İtirafın ağırlığı masada kalıyor, dışarı çıkmıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_legacy_itiraf_former_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Maskelerin Düşüşü",
+          "kind": "outcome",
+          "text": "Söylediklerin havada asılı kalıyor. O, seni ilk kez bir kahraman değil, bir insan olarak görüyor. Bu sahteliğin bitişi, kariyerinin en büyük zaferi.",
+          "onEnter": [
+            {
+              "flag": "mem_legacy_itiraf_former_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Satın Alım",
+          "kind": "outcome",
+          "text": "Para zarfı, masanın altındaki karanlıkta el değiştiriyor. Vicdanının üzerini bir miktar nakitle örtüyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_legacy_itiraf_former_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Gerçek Bir Bağ",
+          "kind": "outcome",
+          "text": "Elindeki o soğuk dokunuş, yıllardır taşıdığın o yalnızlık zırhını çatlatıyor. Artık saklanacak bir şey kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_legacy_itiraf_former_teammate",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

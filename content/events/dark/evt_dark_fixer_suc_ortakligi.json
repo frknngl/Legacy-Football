@@ -565,6 +565,140 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlıkta El Sıkışmak",
+          "kind": "branch",
+          "text": "Antrenman tesisinin yanındaki döküntü bir kebapçının arka masasında oturuyorsun. Yağlı kağıtların üzerinde, kulübün önümüzdeki sezon için planlanan mali krizine dair belgeler duruyor. {actor.fixer.name}, bir diş fırçasıyla ayakkabısının ucundaki çamuru temizlerken sana bakıyor. Gözleri gülmüyor, aksine bir celladın soğukkanlılığına sahip. Masaya bir anahtar ve bir kağıt parçası bırakıyor. \"Bu anahtar, takımın geleceğini belirleyecek o dosyanın kilidi,\" diyor. Sesi fısıltıdan hallice. \"Ya sen alırsın, ya da ben başka birine satarım. Seçim senin, ama bu masa bir daha asla aynı şekilde kurulmayacak.\"",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Anahtarı al ve ceplerine sakla. Şehirdeki o lüks ev için artık yeterli sermayen var.",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 150000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Masadan kalk ve arkanı dön. Bu bataklığa bulaşmak kariyerini temiz tutar ama yalnız bırakır.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Anahtarı al ama {actor.fixer.name} görmeden dosyayı kulüp binasına sızdır. Herkesin yanmasını izle.",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Anahtar soğuk metalini avucunda hissettiriyor. {actor.fixer.name} sadece başıyla onaylıyor. Artık o da senin bir parçan.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Temiz Eller",
+          "kind": "outcome",
+          "text": "Arkanı dönüp uzaklaşırken arkandan gelen gülüşü duyuyorsun. Gelecek sezonun bir kısmını tribünde geçireceğini biliyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Büyük Patlama",
+          "kind": "outcome",
+          "text": "Odanın kapısı kapanmadan haberler yayılmaya başlıyor. Kendi kendini yakacak kadar cesursun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_suc_ortakligi_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -523,6 +523,180 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Hesap",
+          "kind": "branch",
+          "text": "Kulüp binasının bodrum katındaki çamaşırhanedesin. Makinaların uğultusu, borulardan gelen su sesine karışıyor. {actor.fixer.name} köşedeki paslı radyatörün üzerine yaslanmış, elindeki eski bir anahtarlıkla oynuyor. Odanın içi deterjan ve rutubet kokuyor. Göz göze geliyorsunuz. Bakışları ne bir pişmanlık barındırıyor ne de bir tehdit. Sadece bekliyor. Kapının önündeki metal kova, ayağının ucuyla dokunsan devrilecek kadar dengesiz duruyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Anahtarlığı elinden çekip al, sessizliği sert bir şekilde boz.",
+              "target": "n_sonuc_risk",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Başını önüne eğ, tek kelime etmeden yanından geçip git.",
+              "target": "n_sonuc_guven",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "sadakat": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden bir miktar nakit çıkar, radyatörün üzerine bırakıp gözlerini kaçır.",
+              "target": "n_sonuc_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -2000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Kapıyı kilitle. İçerideki tüm kirli çamaşırların ortaya dökülmesini sağla.",
+              "target": "n_sonuc_stat",
+              "effects": [
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 80
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]"
+            }
+          ]
+        },
+        "n_sonuc_risk": {
+          "title": "Yüzleşme",
+          "kind": "outcome",
+          "text": "Anahtarlık yere düştü. İkiniz de eğilmediniz. Odanın içindeki gerilim, tavan borularındaki su sızıntısından daha ağır. Artık bir tarafın açıkça seçildi, herkes ne olduğunu yakında öğrenecek.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_guven": {
+          "title": "Gölge",
+          "kind": "outcome",
+          "text": "Omzun omzuna çarptı. Arkana bakmadın ama nefesini ensende hissettin. Kendi vicdanında temiz kaldın belki ama bu sessizlik yarınki maça kadar seni içeriden kemirecek.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_gri": {
+          "title": "Bedel",
+          "kind": "outcome",
+          "text": "Parayı bıraktın. {actor.fixer.name} paraya bakmadı bile, sadece gülümsedi. Bu para, hatıralarının üzerini örtmeye yetmeyecek; sadece daha derin bir suçluluk alacak.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_stat": {
+          "title": "Yıkım",
+          "kind": "outcome",
+          "text": "Kapıyı kilitlediğinde odanın havası değişti. {actor.fixer.name} ilk defa korktu. Yıllardır biriktirdiğin itibarın gücüyle onu köşeye sıkıştırdın ama bu kavgadan yorgun ve tükenmiş çıktın.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_fixer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

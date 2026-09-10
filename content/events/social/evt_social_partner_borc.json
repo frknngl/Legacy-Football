@@ -500,6 +500,188 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_sadakat_sinavi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Son Ödeme Günü",
+          "kind": "branch",
+          "text": "Stadyumun bodrum katındaki teknik odada, havalandırmanın mekanik uğultusu birbirimizin nefesini örtüyor. {actor.partner.name}, loş ışıkta elindeki dosyayı çöp tenekesine değil, doğrudan önündeki metal masanın üzerine bırakıyor. Kendi isminin yanındaki rakamlar, senin bir sezonluk priminden daha yüksek. Kapı kilitli. Dışarıdan gelen antrenman sahası sesleri çok uzak. {actor.partner.name} gözlerini kaçırıyor, duvardaki eski bir posterin kenarıyla oynuyor. Söylenmemiş her şey aramızda bir duvar gibi yükseliyor. Ya o dosyayı görmezden geleceksin ya da içindeki bataklığı temizlemek için kendi hayatını riske atacaksın.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Dosyayı alıp stadyum dışındaki o karanlık isimlere götür. Onlara borcun benim olduğunu söyle.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "Kendi banka hesabından büyük bir transfer yap. Sorunu kökten ve sessizce kesip at.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -400000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gidip kulüp idaresine durumu bildir. Olanı olduğu gibi anlat, gerisini hukuk çözsün.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "sadakat": -8
+              }
+            },
+            {
+              "id": "c_stat_kilitli",
+              "text": "Dosyayı masada bırak. Seninle bir olup bu yükü sezon boyunca gizlice yönetmeyi teklif et.",
+              "target": "n_outcome_kilitli",
+              "effects": [
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_takim",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "iliski_takim",
+                "op": "gte",
+                "value": 68
+              },
+              "lockLabel": "[Takım Sadakati Yüksek]",
+              "persona": {
+                "sadakat": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Sokağın Bedeli",
+          "kind": "outcome",
+          "text": "İsimler değişti, borç benim üzerime yıkıldı. Artık kulüpten daha çok sokaktaki o adamlara karşı sorumlusun.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Çözüm",
+          "kind": "outcome",
+          "text": "Bankadaki haneler azaldı ama {actor.partner.name} artık özgür. Aramızdaki mesafe hiç olmadığı kadar açıldı.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Prosedür",
+          "kind": "outcome",
+          "text": "İş ciddileşti. {actor.partner.name} ile arandaki güven, prosedürlerin soğukluğunda paramparça oldu.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_kilitli": {
+          "title": "Gizli Yük",
+          "kind": "outcome",
+          "text": "Kendi oyununu feda ettin ama {actor.partner.name} hala yanında. Sırrımız, artık performansımızın bir parçası.",
+          "onEnter": [
+            {
+              "flag": "mem_social_borc_partner",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

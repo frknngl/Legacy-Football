@@ -317,6 +317,183 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_suc_ortakligi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Emanet Sancı",
+          "kind": "branch",
+          "text": "Lüks soyunma odasının loş ışığında, {actor.childhood_friend.name} dolabının önünde oturuyor. Yerdeki çantanın fermuarı yarı açık, içinden destelerce nakit taşıyor. Kimse görmedi, içeri o girdi. Şifreyi nereden bulduğu belli değil. {actor.childhood_friend.name} başını kaldırıp sana bakıyor; ne bir özür ne de bir savunma var. Sadece ağır, boğucu bir sessizlik. Kulübün güvenlik kamerası tam köşede, kırmızı ışığı sürekli yanıp sönüyor. Bu çanta senin dolabından çıktı, senin adına kilitlendi. Eğer şimdi bir şey yapmazsan, yarın sabah her şey senin üzerinden yargılanacak.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Çantayı alıp {actor.childhood_friend.name} ile birlikte stadyum dışına çık. Otoparkta taraftarların arasında kaybolun.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Dolabı kilitle, sessizce odadan çık ve güvenlik görevlisine yolda birinin şüpheli davrandığını fısılda.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Güvenlik amirini hemen buraya çağır. {actor.childhood_friend.name} şaşkınlıkla bakarken hiçbir şey demeden sırtını dön.",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "sadakat": -12
+              }
+            },
+            {
+              "id": "c_stat",
+              "text": "Çantayı kendi çantana boşalt, {actor.childhood_friend.name} ile hiçbir şey olmamış gibi omuz omuza antrenmana devam et.",
+              "target": "n_outcome_stat",
+              "effects": [
+                {
+                  "flag": "iliski_childhood_friend",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "requires": {
+                "flag": "sokak_itibari",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Sokak İtibarı Yüksek]",
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Sokaklarda Kaybolmak",
+          "kind": "outcome",
+          "text": "Gecenin karanlığında, {actor.childhood_friend.name} ile stadyumun arka sokağına karıştın. İkiniz de ter içindesiniz. Bu ortaklığın bedeli, sahaya her çıktığında sırtında hissedeceğin o gözetlenme duygusu olacak.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Sessiz Kazanç",
+          "kind": "outcome",
+          "text": "Güvenlik görevlileri içeri daldığında, {actor.childhood_friend.name} çoktan gitmişti. Çantayı bulanlar şaşkın, sen ise sadece bakıyorsun. Cebindeki nakit, bu utancın ağırlığını hafifletmeye yetmiyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Soğuk İhanet",
+          "kind": "outcome",
+          "text": "{actor.childhood_friend.name} güvenlikler tarafından yaka paça dışarı atılırken göz göze geldiniz. Bir kelime etmedin, sadece kramponlarını bağlamaya devam ettin. Profesyonel kariyerin kurtuldu, ama artık arkanda bir daha asla tamir edemeyeceğin bir boşluk var.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_stat": {
+          "title": "Ağır Yük",
+          "kind": "outcome",
+          "text": "Antrenman boyunca ağırlık her adımında arttı. {actor.childhood_friend.name} sana gülümsüyor, sen ise başını yere eğmiş topu sürüyorsun. İkiniz de artık tek bir vücut gibi aynı suça bağlısınız.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ihanet_childhood_friend",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

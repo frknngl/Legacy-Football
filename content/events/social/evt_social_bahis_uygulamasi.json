@@ -500,6 +500,161 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Ekran",
+          "kind": "branch",
+          "text": "Kulüp kafeteryasının mutfak çıkışında, dumanı tüten bir çöp konteynerinin gölgesindesiniz. {actor.star_teammate.name} duvara yaslanmış, titreyen parmaklarıyla telefonunu size uzatıyor. Ekranın ışığı yüzündeki ter damlalarını ortaya çıkarıyor. 'İçerideki herkese karşı o kusursuz, disiplinli maskeyi takmaya devam edebilirsin,' diyor, sesi çatallı. Ekranda bahis platformunun kullanıcı paneli açık; kırmızıya dönmüş bakiye, gecikmiş ödemeler ve sizin adınıza açılmış, henüz aktifleşmemiş bir hesap. Dışarıdan gelen antrenman sahası ışıkları, bu kuytu köşeyi bir sorgu odasına çeviriyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "'Bu hesabı kullanmaya başla. Kayıpları sistemin açıklarından kapatırız.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Telefonu elinden al, ekranı sertçe kapat ve cihazı ona geri fırlat. 'Beni karıştırma.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ]
+            },
+            {
+              "id": "c_ahlaki_gri",
+              "text": "'Borcun kadarını ödüyorum. Bu sessizliğin bedeli olsun, bir daha bu ismi görmeyeceğim.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ]
+            },
+            {
+              "id": "c_ikaz",
+              "text": "Yüzüne bile bakmadan yürümeye başla. 'Bunu kaptana anlatacak ya da sabah tesislerde başının çaresine bakacaksın.'",
+              "target": "n_ikaz",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "requires": {
+                "flag": "liderlik",
+                "op": "gte",
+                "value": 50
+              },
+              "lockLabel": "[Liderlik 50]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "İkinci Bir Yüz",
+          "kind": "outcome",
+          "text": "{actor.star_teammate.name} hafifçe gülüyor, korkusu yerini çarpık bir minnete bırakıyor. Artık ikiniz de aynı kirliliğin içindesiniz.",
+          "onEnter": [
+            {
+              "flag": "mem_kayit_disi_hesap",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sınırlar",
+          "kind": "outcome",
+          "text": "Sırtını ona dönüyorsun. Arkandaki sessizlik, aranızdaki profesyonel saygının aslında ne kadar kırılgan olduğunu kanıtlıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_reddetti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Sessiz Ortaklık",
+          "kind": "outcome",
+          "text": "Para transferi gerçekleştiğinde {actor.star_teammate.name} bir şey söylemeden uzaklaşıyor. Bu sadece bir yardım değil, aynı zamanda bir suç ortaklığı.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_hesabi_acti",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_ikaz": {
+          "title": "Son Uyarı",
+          "kind": "outcome",
+          "text": "Odanın soğukluğunda {actor.star_teammate.name} olduğu yerde kalıyor. Yarın sabahın nasıl bir fırtınayla başlayacağını ikiniz de biliyorsunuz.",
+          "onEnter": [
+            {
+              "flag": "mem_bahis_uyardi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

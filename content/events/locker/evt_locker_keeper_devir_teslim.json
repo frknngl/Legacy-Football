@@ -264,6 +264,136 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_taninma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sessiz Devir",
+          "kind": "branch",
+          "text": "Antrenman bitmiş, saha boşalmıştı. Yağmurun sesi metal çatıya vuruyor, içerdeki boşluğu büyütüyordu. {actor.youngster.name}, duşların hemen çıkışında, sanki birinden kaçıyormuş gibi duvara yaslanmış bekliyordu. Yanına yaklaştım; gözleri, üzerinde ağır bir yük taşır gibi doğrudan benimkilere kilitlendi. Sahada ne kadar hata yaparsa yapsın, o bakışta ilk kez birinin beni gerçekten gördüğünü hissettim. Sadece antrenman partneri değil, bir varis arıyordu. Kelimeler boğazımda düğümlendi, içerideki tek lamba cızırtıyla söndü.",
+          "choices": [
+            {
+              "id": "c_guvenli",
+              "text": "Sırtını sıvazla. 'Sıran gelince eldivenleri sen alacaksın, acele etme.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "dogruluk": 4
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Kendi yedek eldivenlerini ona doğru fırlat. 'Bu gece değil ama yakında.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "durus": 3
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Cebinden çıkardığın menajerlik kartvizitini avucuna bırak, tek kelime etmeden çıkışa yönel.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 15000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 70
+              },
+              "lockLabel": "[Profesyonellik 70]"
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Öğüt",
+          "kind": "outcome",
+          "text": "Gözlerindeki o yoğun beklenti, yerini belli belirsiz bir kabullenişe bıraktı. Gerçek bir miras, zorla değil, zamanla devredilir.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "Meydan Okuma",
+          "kind": "outcome",
+          "text": "Eldivenler yere düştü, o ise havada yakaladı. Artık antrenman sahasında birbirimizin ensesindeyiz; bu bakışlar yarınki manşetlere çoktan sıçradı.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Sözleşme",
+          "kind": "outcome",
+          "text": "Bakışlarındaki o masumiyet anında söndü. Cebindeki kağıdın değerini biliyor. Artık sadece bir takım arkadaşı değiliz, o artık benim ticaret ortağım.",
+          "onEnter": [
+            {
+              "flag": "mem_locker_devir_teslim_keeper",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ]
 }

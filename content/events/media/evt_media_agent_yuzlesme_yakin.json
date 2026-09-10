@@ -517,6 +517,159 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_maske_dusmesi",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Garaj",
+          "kind": "branch",
+          "text": "Garajın sensörlü ışıkları, {actor.cousin.name} arabadan indiğinde titreyerek yandı. Kapıyı sertçe kapattı. Elinde tuttuğu dergi kupürleri, senin hakkındaki yalan haberlerin olduğu sayfaları işaret ediyordu. Motorun sıcaklığı hala odanın içindeydi, ama aranızdaki hava buz kesti. '{actor.cousin.name}, ne olduğunu biliyorsun.' diye fısıldadı. Sesi, çocuklukta paylaştığınız o eski sokakların samimiyetinden tamamen arınmıştı. Arkasında duran lüks aracın gölgesi yüzüne düştü. Yalanlar, birikmiş bir duvar gibi aranızda yükseldi.",
+          "choices": [
+            {
+              "id": "c_gri",
+              "text": "Bir zarf çıkar ve sessizce bagaja bırak. 'Geleceğine yatırım yap, gerisini boşver.'",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Gözlerini kaçır. 'Kulüp sözleşmesi böyle gerektiriyor, anlamıyorsun.'",
+              "target": "n_outcome_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_riskli",
+              "text": "Yumruğunu duvara vur. 'Sokaklar benim ne yaşadığımı bilmez, kimse bilmeyecek.'",
+              "target": "n_outcome_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_kosulsuz",
+              "text": "Sessizce yanından geç ve kapıyı kilitle. Konuşacak bir şey kalmadı.",
+              "target": "n_outcome_bosluk",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Satın Alınan Sessizlik",
+          "kind": "outcome",
+          "text": "{actor.cousin.name} zarfı gördü. Gözlerindeki o tanıdık ışık söndü. Arkasını dönüp giderken, aranızdaki bağın maddi bir dengeden ibaret olduğunu ikiniz de anladınız.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_guvenli": {
+          "title": "Profesyonel Mesafe",
+          "kind": "outcome",
+          "text": "Kelimelerin onu uzaklaştırdı. Bir profesyonel gibi hareket ettin, ama o garaj kapısı kapandığında, içeride kalan tek şey senin soğuk yalnızlığındı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_riskli": {
+          "title": "Kopuş",
+          "kind": "outcome",
+          "text": "Bağırışın yankısı sönmeden garajdan çıktı. Sokaktaki itibarın için değerdi belki, ama artık ismini anacak tek bir gerçek dostun bile kalmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_bosluk": {
+          "title": "Boşluk",
+          "kind": "outcome",
+          "text": "Sessizlik en ağır cevaptı. Arkanda bıraktığın kırgınlık, yıllar geçse de silinmeyecek bir iz olarak odanın duvarlarına sindi.",
+          "onEnter": [
+            {
+              "flag": "mem_personal_terk_edilis_cousin_yakin",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

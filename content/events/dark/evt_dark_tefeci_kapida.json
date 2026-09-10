@@ -524,6 +524,141 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık İmzalar",
+          "kind": "branch",
+          "text": "Antrenman sahasının arka çıkışındaki paslı demir kapıyı aralıyorsun. {actor.fixer.name} elinde yanan bir sigarayla, aracın kaputuna yaslanmış seni bekliyor. Yüzünde alışılmışın dışında, soğuk bir ciddiyet var. Yanında duran evrak çantasını yere, çamurlu zemine bırakıyor. 'İmza günü bugün,' diyor kısık bir sesle. Sigaranın dumanı soğuk havada asılı kalıyor. Cebinden çıkardığı bir deste fotoğrafı aracın üzerine seriyor; fotoğraflarda takım arkadaşlarınla geçirdiğin, bugüne kadar kimsenin bilmediği o özel akşamlar var. Sessizlik, sahadan gelen top seslerini bile boğuyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Fotoğrafları al ve cebine tıkıştır. 'Bunu kimseye göstermeyeceksin, bedeli neyse ödenir.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Arkanı dön ve hiçbir şey olmamış gibi uzaklaş. 'İstediğini yap, kulübe her şeyi kendim anlatacağım.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Çantayı işaret et. 'İçindekileri boşalt, sana istediğin nakit akışını sağlayacağım.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              },
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 20000
+              },
+              "lockLabel": "[Yetersiz Bütçe]"
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Sokakların Borcu",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} sigarasını yere atıp eziyor. 'Kendi başını yakıyorsun,' diyor gülümseyerek. O an, bu borcun sadece parayla kapanmayacağını biliyorsun. Artık onun gölgesi kariyerinin üzerinde.",
+          "onEnter": [
+            {
+              "flag": "mem_mafia_favor_owed",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Dürüstlüğün Bedeli",
+          "kind": "outcome",
+          "text": "Arkanı dönüp yürürken arkanda kahkahalarını duyuyorsun. Kulüp binasının kapısından girerken elin titriyor. İtirafın stadyumdaki herkesin diline düşecek, ama en azından gece başını yastığa koyduğunda kendinsin.",
+          "onEnter": [
+            {
+              "flag": "mem_borcu_kulube_soyledi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_gri": {
+          "title": "Karanlık Ticaret",
+          "kind": "outcome",
+          "text": "Çantayı alıp arabanın bagajına atıyor. 'Zeki çocuk,' diye mırıldanıyor. Banka hesabın doluyor ama o an, sahaya çıktığında formanın altına sakladığın o huzursuzluk asla geçmeyecek. İhanet, sessiz bir ortak gibi seninle.",
+          "onEnter": [
+            {
+              "flag": "mem_tefeciye_odedi",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

@@ -563,6 +563,135 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ayartma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Bir Borç",
+          "kind": "branch",
+          "text": "Antrenman tesisinin arkasındaki terk edilmiş mutfakta, ağır bir yemek kokusu ve rutubet var. {actor.childhood_friend.name}, tezgâhın üzerinde duran bir tomar parayı ve boş bir sözleşme taslağını işaret ediyor. 'Kimse sormayacak,' diyor sesi kısık ve sabit. Dışarıda bir araba motoru çalışıyor. Işık, {actor.childhood_friend.name}’in yüzündeki kararsızlığı bir anlık aydınlatıp gölgede bırakıyor. Köşede unutulmuş bir top, tozlu zeminde yavaşça dönüyor. Uzaklaşan bir hayatın son çıkışı bu masa.",
+          "choices": [
+            {
+              "id": "c_reddet",
+              "text": "Parayı geri it. 'Bu senin oyunun değil,' de ve arkana bakmadan çık.",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -12
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_kabul",
+              "text": "Ceketinin iç cebine boş sözleşmeyi yerleştir. 'Sessiz kal, kazanan biz olalım.'",
+              "target": "n_ahlaki_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 85000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_taraftar",
+              "text": "Masadaki parayı alıp {actor.childhood_friend.name}’in eline tutuştur. 'Bunu taraftarların önüne at, hikayemizi anlat.'",
+              "target": "n_riskli",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 8
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            }
+          ]
+        },
+        "n_guvenli": {
+          "title": "Sert Dönüş",
+          "kind": "outcome",
+          "text": "Kapıyı sertçe kapattığında mutfaktaki metal masa bir anlık gıcırdadı. Artık daha yalnızsın ama antrenman sahasına döndüğünde adımların daha sağlam. Vicdanın temiz, ancak kulüp koridorlarında fısıltılar yavaşça yerini soğuk bakışlara bırakıyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_ahlaki_gri": {
+          "title": "Altın Zincir",
+          "kind": "outcome",
+          "text": "Zarf ağırlaştı. {actor.childhood_friend.name} gözlerini kaçırarak dışarı çıktı. Banka hesabındaki rakam değişti ama aynaya baktığında o gece mutfakta yanan floresan lambanın titremesini hala gözlerinde hissediyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        },
+        "n_riskli": {
+          "title": "Ateş Hattı",
+          "kind": "outcome",
+          "text": "Sokağın güvenini kazandın belki ama artık kulüp yönetiminin radarındasın. Her hareketin bir manşet potansiyeli taşıyor. {actor.childhood_friend.name} ile arandaki bağ, bu tehlikeli oyunla artık bir suç ortaklığına dönüştü.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_yuzlesme_lawyer",
+              "op": "set",
+              "value": 1
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

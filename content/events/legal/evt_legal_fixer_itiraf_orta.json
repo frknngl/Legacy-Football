@@ -429,6 +429,170 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_ihanet",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kopuş",
+          "kind": "branch",
+          "text": "Şehrin en eski otelinin lobisinde, kuytu bir köşedeyiz. {actor.fixer.name} önündeki küçük kahve fincanıyla oynuyor. Yıllardır süren o kirli ortaklığın tüm kayıtları, cebimdeki telefonun hafızasında, karşı tarafın eline geçmek üzere. {actor.fixer.name} yüzüme bile bakmıyor, gözleri giriş kapısında. Sessizlik, bir kararın ağırlığıyla ağırlaşıyor. Ya bu dosyayı şimdi teslim edip her şeyi bitireceğim ya da {actor.fixer.name} sadakatine güvenip bu son kozu yakacağım. Şehrin gece ışıkları camdan yansıyor, her şeyin bittiği anın fotoğrafı gibi.",
+          "choices": [
+            {
+              "id": "c_1",
+              "text": "Telefonu {actor.fixer.name} önüne bırak. \"Bu bitti, bir daha görüşmeyelim.\"",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_fixer",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 8
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Dosyayı basına gönder. Kendi kariyerim yansa da {actor.fixer.name} sistemini çökert.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_3",
+              "text": "Yüklü bir miktar iste ve sessizce stadyumdan ayrıl. Emeklilik planı hazır.",
+              "target": "n_outcome_3",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            },
+            {
+              "id": "c_4",
+              "text": "Kahveni iç ve masadan kalk. Hiçbir şey olmamış gibi devam et.",
+              "target": "n_outcome_4",
+              "effects": [
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "sadakat": 2
+              }
+            }
+          ]
+        },
+        "n_outcome_1": {
+          "title": "Veda",
+          "kind": "outcome",
+          "text": "{actor.fixer.name} telefonu yavaşça alıyor. Artık aramızda bir bağ yok, sadece profesyonel bir karanlık var. Sahaya çıkmak için çok geç.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            },
+            {
+              "op": "suspend",
+              "matches": 1,
+              "reason": "Kariyer sonu"
+            }
+          ]
+        },
+        "n_outcome_2": {
+          "title": "İfşa",
+          "kind": "outcome",
+          "text": "Ekran bildirimleri ardı ardına düşüyor. Kaosun ortasında, {actor.fixer.name} korkuyla bakıyor. Bu köprüleri yakmak, tüm kariyerin üzerine yıkılması demek.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 10,
+              "reason": "Soruşturma"
+            }
+          ]
+        },
+        "n_outcome_3": {
+          "title": "Son Anlaşma",
+          "kind": "outcome",
+          "text": "Banka hesabına düşen miktar, vicdanın ağırlığından daha ağır. {actor.fixer.name} sadece başıyla selam veriyor. Artık bu oyunda yerin yok.",
+          "onEnter": [
+            {
+              "op": "lifeState",
+              "to": "retired"
+            }
+          ]
+        },
+        "n_outcome_4": {
+          "title": "Eylemsizlik",
+          "kind": "outcome",
+          "text": "Sessizlik, bir ihanetin en büyük kanıtı. {actor.fixer.name} ile yollar ayrılmıyor, sadece birbirimize daha fazla mahkum oluyoruz.",
+          "onEnter": [
+            {
+              "op": "suspend",
+              "matches": 2,
+              "reason": "Kriz dönemi"
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

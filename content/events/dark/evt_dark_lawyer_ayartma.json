@@ -351,6 +351,159 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_yuzlesme",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Altı Koridoru",
+          "kind": "branch",
+          "text": "Maç sonu gürültüsü uzaklaşıyor. Beton koridorun rutubetli havasına ağır bir parfüm kokusu karışıyor. {actor.lawyer.name}, soyunma odası çıkışında, duvara yaslanmış bekliyor. Elinde hiçbir şey yok. Çantasını omuzuna atmış, doğrudan senin gözlerinin içine bakıyor. Etrafta kimse yok. Havalandırma fanının mekanik sesi, sessizliği daha da boğucu kılıyor. Aranızdaki mesafe kapanıyor; duraksamadan yanından geçecekken, hafifçe kenara çekilip yolunu kesiyor. Ağzını açmıyor, sadece o tanıdık, hesapçı bakışla bekliyor.",
+          "choices": [
+            {
+              "id": "c_riskli",
+              "text": "Omuz atıp geç, 'Seni burada bir daha görmeyeceğim' diye fısılda.",
+              "target": "n_outcome_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            },
+            {
+              "id": "c_guvenli",
+              "text": "Hızını kesmeden yanından geç, hiçbir şey olmamış gibi telefonunla ilgilen.",
+              "target": "n_outcome_safe",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "iliski_lawyer",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -3
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_gri",
+              "text": "Dur, gözlerine bak ve 'Rakamı konuşalım' de.",
+              "target": "n_outcome_gri",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 25000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            },
+            {
+              "id": "c_pasif",
+              "text": "Başını hafifçe eğerek selam ver, bu belirsizlikten sıyrılıp soyunma odasına dön.",
+              "target": "n_outcome_pass",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 2
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ]
+            }
+          ]
+        },
+        "n_outcome_risk": {
+          "title": "Rest",
+          "kind": "outcome",
+          "text": "Tepkini bekliyordu. Geri çekilirken yüzünde oluşan o çarpık gülümseme, daha büyük bir huzursuzluğun başlangıcı. Artık karşı karşıyasınız, maskeler düştü.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_safe": {
+          "title": "İnkar",
+          "kind": "outcome",
+          "text": "Varlığını yok saydın. Arkandan bir şey söylemedi ama attığın her adımda sırtında o bakışın ağırlığını hissettin. Bu hesap henüz kapanmadı.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_gri": {
+          "title": "Anlaşma",
+          "kind": "outcome",
+          "text": "Cevabını duyunca hafifçe başını salladı. Bir zarf uzatmadı, sadece bir tarih ve saat fısıldadı. Koridorun soğuğu artık daha keskin geliyor.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_outcome_pass": {
+          "title": "Kaçış",
+          "kind": "outcome",
+          "text": "Sessizliği tercih ettin. O, senin çekimserliğini bir zayıflık olarak kaydetti. Koridordan ayrılırken yankılanan adım seslerin, teslimiyetin sesi gibi.",
+          "onEnter": [
+            {
+              "flag": "mem_dark_ayartma_lawyer",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {

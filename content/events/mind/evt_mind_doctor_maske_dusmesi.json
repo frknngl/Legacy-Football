@@ -549,6 +549,130 @@
           ]
         }
       }
+    },
+    {
+      "id": "v_kirilma",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Karanlık Garajdaki Hesaplaşma",
+          "kind": "branch",
+          "text": "Antrenman tesisinin otoparkı boş. {actor.doctor.name} bagaj kapağını açmış, üzerine bir el feneri doğrultuyor. Işık, sadece senin yorgun yüzüne ve elindeki küçük bir ses kayıt cihazına vuruyor. {actor.doctor.name} konuşmuyor. Sadece kayıt cihazını sana doğru uzatıyor. Dışarıdaki soğuk hava, içerideki sessizliği boğuyor. Artık yalan söyleyebileceğin bir ekran ya da koruyacak bir form yok.",
+          "choices": [
+            {
+              "id": "c_sessiz_odeme",
+              "text": "Cüzdanındaki tüm nakdi cihazın üzerine bırak. 'Bunu duymamış olayım, sil.'",
+              "target": "n_sonuc_servet",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -250000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            },
+            {
+              "id": "c_riskli_rest",
+              "text": "Cihazı kap ve yere atıp ez. 'Beni bitirmeye çalışan önce kendini bitirir.'",
+              "target": "n_sonuc_risk",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_profesyonel_intihar",
+              "text": "Gözlerinin içine bak ve cihazı kaydetmesi için açık bırak. 'Hepsini yaz, yarın basına kendim anlatacağım.'",
+              "target": "n_sonuc_prof",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_sonuc_servet": {
+          "title": "Bedeli Ödenmiş Sessizlik",
+          "kind": "outcome",
+          "text": "Cihazı alıyor. İçindeki boşluğun, harcadığın paranın ağırlığından daha ağır olduğunu biliyorsun. Bu borç artık senin bir parçan.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_risk": {
+          "title": "Karanlıkta Kalan İtibar",
+          "kind": "outcome",
+          "text": "Plastik ve devre parçaları beton zeminde dağılıyor. {actor.doctor.name} geriliyor, korku dolu gözlerle sana bakıyor. Artık sadece eski bir başarı hikayesi değil, bir tehditsin.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        },
+        "n_sonuc_prof": {
+          "title": "Düşen Maske",
+          "kind": "outcome",
+          "text": "Kayıt devam ediyor. İlk defa omuzlarındaki o büyük yükün yere düştüğünü hissediyorsun. Kariyerin sona eriyor olabilir, ama ilk defa nefes alıyorsun.",
+          "onEnter": [
+            {
+              "flag": "mem_mind_maske_dusmesi_doctor",
+              "op": "set",
+              "value": true
+            }
+          ]
+        }
+      }
     }
   ],
   "story": {
