@@ -1,0 +1,189 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Her sonbaharda yeni video oyununun çıkmasıyla soyunma odalarında ve sosyal medyada patlak veren evrensel futbol geyiği: oyun reytingleri ve hız kartı isyanı.",
+    "hangi_soru": "Oyunda sana verilen 69 hız puanını görünce sosyal medyada yapımcıya mı meydan okuyacaksın, takım arkadaşının 58 pas puanıyla mı dalga geçeceksin, olgunlukla gülecek misin?",
+    "odeme_plani": "Bu popüler kültür anı oyuncunun medya imajını ve takım içi şakalaşma dinamiklerini (npc_star_teammate_arc) renklendirir."
+  },
+  "id": "evt_media_oyun_reyting_isyani",
+  "family": "fam_media_reyting_isyani",
+  "category": "media",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 65,
+  "cooldown": {
+    "self": 36,
+    "family": 16
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "media:star_teammate:oyun_reyting_isyani",
+    "slot": "star_teammate",
+    "beat": "oyun_reyting_isyani"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 4
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Altmış Dokuz Hız ve Altın Kart",
+      "kind": "branch",
+      "text": "Antrenman öncesi soyunma odasında herkes telefonuna gömülmüş. Dünyaca ünlü futbol oyununun yeni sezon kartları ve futbolcu reytingleri açıklandı. {actor.star_teammate.name} elinde telefonla benchin üzerine fırlıyor, kahkahalarla senin dolabını işaret ediyor: 'Beyler koşun! Bizim hızlı forvetin hızını oyunda 69 yapmışlar! Hakem bile senden hızlı koşuyor!' Bütün oda kıkırdamaya başlıyor. Ekrana bakıyorsun: Genel reytingin fena değil ama sprint hızın hakikaten komik bir rakamda kalmış. Sosyal medyada taraftarlar şimdiden kartını kesip caps yapmaya başladı.",
+      "choices": [
+        {
+          "id": "c_tweet",
+          "text": "Telefonu çıkarıp oyun şirketine yaz: \"Hızımı ölçen scout acilen göz doktoruna görünsün!\"",
+          "target": "n_tweet",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "mizac": 12,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_karsi_atak",
+          "text": "{actor.star_teammate.name:gen} kartını aç: \"Sen önce kendi 54 pas puanına bak koca kafa!\"",
+          "target": "n_karsi_atak",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": 4
+          }
+        },
+        {
+          "id": "c_olgun",
+          "text": "\"Gerçek reytingi pazar günü sahada yazarız.\" Gülümse ve kramponunu bağla.",
+          "target": "n_olgun",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "dogruluk": 8
+          }
+        }
+      ]
+    },
+    "n_tweet": {
+      "title": "Viral Tweet",
+      "kind": "outcome",
+      "text": "Attığın tweet bir saatte yüz bin beğeni aldı. Oyunun resmi Türkiye hesabı altına 'Hafta sonu iki gol atarsan hızını 82 yaparız kaptan' diye cevap yazdı. Bütün spor medyası bu atışmayı konuştu; sempatik ve eğlenceli bir figüre dönüştün.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_karsi_atak": {
+      "title": "Soyunma Odası Düellosu",
+      "kind": "outcome",
+      "text": "{actor.star_teammate.name:gen} pas istatistiğini tahtaya dev harflerle yazdığında bütün soyunma odası koptu. Kaptan masaya vurup kahkahayı bastı. Şakalaşma takımı birbirine daha da kaynaştırdı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_olgun": {
+      "title": "Pazar Yanıtı",
+      "kind": "outcome",
+      "text": "Hiç lafa girmedin, sahaya çıktın. Hafta sonu sol çizgiden öyle bir depar attın ki rakip bek arkandan yetişemedi. Maç sonu basın toplantısında muhabirler hızını sorduğunda göz kırptın: \"Bunu yapımcılara sorun.\"",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "id": "evt_match_penalty_for",
   "family": "fam_match_penalty",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "penalty_for",
   "weight": 20,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Nokta",
           "kind": "branch",
-          "text": "{minute}. dakika, {opponent} karşısında skor {scoreline}. Hakem noktayı gösterdiğinde stadyum bir anda sesini kaybediyor — o tuhaf, kulak çınlatan sessizlik. {actor.captain.name} topu kapıyor, sana bakmıyor bile; pazubandı olan o, karar da onun sanıyor. Kale arkasındaki tribün senin adını söylüyor. {actor.agent.name:gen} sabah söylediği cümle kafanda dönüyor: \"Bu sezon bir tane büyük an lazım, bir tane.\"",
+          "text": "{minute}. dakika, {opponent} karşısında skor {scoreline}. Hakem noktayı gösterdiğinde stadyum bir anda sesini kaybediyor — o tuhaf, kulak çınlatan sessizlik. {actor.captain.name} topu kapıyor, sana bakmıyor bile; pazubandı olan o, karar da onun sanıyor. Kale arkasındaki tribün senin adını söylüyor. {actor.agent.name:gen} sabah söylediği cümle kafanda dönüyor: \"Bu sezon bir tane büyük an lazım, bir tane.\".",
           "choices": [
             {
               "id": "c_take",
@@ -76,9 +76,9 @@
                   "value": 6
                 },
                 {
-                  "flag": "mem_gave_up_penalty",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -291,9 +291,9 @@
               "value": 8
             },
             {
-              "flag": "mem_scored_final_penalty",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -503,9 +503,9 @@
           "text": "Top kaptanın ayağına gidiyor. Çıkardığı şut direğe çarpıp dışarı çıkıyor. Sorumluluktan kaçmanın ağırlığı, kaçan golün hayal kırıklığından daha ağır geliyor.",
           "onEnter": [
             {
-              "flag": "mem_gave_up_penalty",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -519,9 +519,9 @@
           "text": "Fileler sarsılıyor. Stadın sesi yükseliyor ama kutlamalara katılmıyorsun. {actor.captain.name} saha kenarında, gözlerini senden kaçırıyor. Kazandın ama takımın içinde bir şey koptu.",
           "onEnter": [
             {
-              "flag": "mem_scored_final_penalty",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -666,9 +666,9 @@
           "text": "Top ağlarla buluşuyor. Tribünler patlıyor, ancak sen sadece kaptanın gözlerindeki o büyük boşluğa bakıyorsun. Yükü aldın ama o, kendi ağırlığı altında ezilmeye devam ediyor.",
           "onEnter": [
             {
-              "flag": "mem_scored_final_penalty",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -698,9 +698,9 @@
           "text": "Sorumluluktan kaçmanın utancı, vuruşu yaparken bile içine işliyor. Top filelere gitse de, soyunma odasına dönerken herkesin senden uzaklaştığını hissediyorsun.",
           "onEnter": [
             {
-              "flag": "mem_gave_up_penalty",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

@@ -2,7 +2,8 @@
   "id": "evt_life_night_out",
   "family": "fam_life_nightlife",
   "category": "life",
-  "tier": "epic",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 20,
   "cooldown": {
     "self": 60,
@@ -33,7 +34,7 @@
         "n_root": {
           "title": "VIP locası",
           "kind": "branch",
-          "text": "{actor.childhood_friend.name:gen} doğum günü. Çocukluk arkadaşın, aynı sahada başladığın adam, dizi on dokuzunda gittiği için şimdi bir bar işletiyor. Seni aylardır çağırıyor ve bu sefer hayır diyemedin.\n\nSaat ikiye geliyor. {actor.childhood_friend.first} kolunu omzuna atmış, bağıra bağıra eski maçları anlatıyor ve gözleri parlıyor — kıskançlık ve sevgi aynı anda.\n\nKarşı locadan biri {actor.childhood_friend.first:dat} laf atıyor. Bir kez. İki kez.\n\nÜçüncüde ayağa kalkıyor ve sen onun kolundan tutuyorsun. Üç masa ötede iki telefon çoktan kalkmış, kameralar açık.",
+          "text": "{actor.childhood_friend.name:gen} doğum günü. Çocukluk arkadaşın, aynı sahada başladığın adam, dizi on dokuzunda gittiği için şimdi bir bar işletiyor. Seni aylardır çağırıyor ve bu sefer hayır diyemedin. Saat ikiye geliyor. {actor.childhood_friend.first} kolunu omzuna atmış, bağıra bağıra eski maçları anlatıyor ve gözleri parlıyor — kıskançlık ve sevgi aynı anda. Karşı locadan biri {actor.childhood_friend.first:dat} laf atıyor. Bir kez. İki kez. Üçüncüde ayağa kalkıyor ve sen onun kolundan tutuyorsun. Üç masa ötede iki telefon çoktan kalkmış, kameralar açık.",
           "choices": [
             {
               "id": "c_leave",
@@ -218,7 +219,7 @@
         "n_left": {
           "title": "Otoparkta",
           "kind": "outcome",
-          "text": "{actor.childhood_friend.first:acc} dışarı çıkarıyorsun. Otoparkta duvara yaslanıp yere bakıyor.\n\n\"Sen hep doğru olanı yaparsın,\" diyor. Övgü değil.\n\nSonra: \"Ben o adama on yıl önce vururdum. Sen de vururdun. Fark şu: senin kaybedecek bir şeyin var.\"\n\nArabaya biniyorsun. Camdan bakıyor, el sallamıyor.",
+          "text": "{actor.childhood_friend.first:acc} dışarı çıkarıyorsun. Otoparkta duvara yaslanıp yere bakıyor. \"Sen hep doğru olanı yaparsın,\" diyor. Övgü değil. Sonra: \"Ben o adama on yıl önce vururdum. Sen de vururdun. Fark şu: senin kaybedecek bir şeyin var.\" Arabaya biniyorsun. Camdan bakıyor, el sallamıyor. Kapi kapandi, yine de bu hamlenin yankisi eve kadar seninle geldi.",
           "onEnter": [
             {
               "flag": "moral",
@@ -226,33 +227,28 @@
               "value": -8
             },
             {
-              "flag": "mem_left_academy_friend",
-              "op": "set",
-              "value": true
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_defused": {
           "title": "Üç kamera",
           "kind": "outcome",
-          "text": "{actor.childhood_friend.first} telefonları görüyor ve bir anda duruyor. Oturuyor. Bardağını alıp içiyor.\n\n\"Ne zaman böyle oldun sen?\" diye soruyor. Gülerek soruyor ama cevabını gerçekten istiyor.\n\nCevabın yok.\n\nGece sabaha kadar oturuyorsunuz ve bir daha kavgadan bahsedilmiyor. Ertesi gün hiçbir yerde hiçbir görüntü çıkmıyor.",
+          "text": "{actor.childhood_friend.first} telefonları görüyor ve bir anda duruyor. Oturuyor. Bardağını alıp içiyor. \"Ne zaman böyle oldun sen?\" diye soruyor. Gülerek soruyor ama cevabını gerçekten istiyor. Cevabın yok. Gece sabaha kadar oturuyorsunuz ve bir daha kavgadan bahsedilmiyor. Ertesi gün hiçbir yerde hiçbir görüntü çıkmıyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "npc_childhood_friend_arc",
               "op": "add",
               "value": 1
-            },
-            {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
             }
           ]
         },
         "n_bought": {
           "title": "Şişe",
           "kind": "outcome",
-          "text": "Şişe gidiyor. Karşı locadan biri kaldırıp selam veriyor. Mesele kapanıyor.\n\n{actor.childhood_friend.first} sana bakıyor ve hiçbir şey söylemiyor. Bu, söylediği en uzun şey.\n\nGece bitince arabaya yürürken tek cümle kuruyor: \"Eskiden bunu yumrukla çözerdik. Şimdi kartla çözüyorsun. Hangisi daha ucuz bilmiyorum.\"",
+          "text": "Şişe gidiyor. Karşı locadan biri kaldırıp selam veriyor. Mesele kapanıyor. {actor.childhood_friend.first} sana bakıyor ve hiçbir şey söylemiyor. Bu, söylediği en uzun şey. Gece bitince arabaya yürürken tek cümle kuruyor: \"Eskiden bunu yumrukla çözerdik. Şimdi kartla çözüyorsun. Hangisi daha ucuz bilmiyorum.\". Sessizlik coktugunde bile bu tercihin etkisi sabaha tasindi.",
           "onEnter": [
             {
               "flag": "iliski_childhood_friend",
@@ -263,18 +259,13 @@
               "flag": "npc_childhood_friend_arc",
               "op": "add",
               "value": 1
-            },
-            {
-              "flag": "mem_left_academy_friend",
-              "op": "set",
-              "value": true
             }
           ]
         },
         "n_got_out": {
           "title": "Arka kapı",
           "kind": "outcome",
-          "text": "{actor.childhood_friend.first} seni arka kapıdan çıkarıyor. Barın sahibi olmanın bir faydası.\n\nİki saat sonra iki görüntü internete düşüyor ama ikisinde de yüzün seçilmiyor. Kulüp açıklama yapmıyor. {actor.agent.first} sabah arayıp \"duydum\" diyor ve kapatıyor.\n\nBu sefer kurtardın. Onun eli sarılı ve nedenini kimseye söylemiyor.",
+          "text": "{actor.childhood_friend.first} seni arka kapıdan çıkarıyor. Barın sahibi olmanın bir faydası. İki saat sonra iki görüntü internete düşüyor ama ikisinde de yüzün seçilmiyor. Kulüp açıklama yapmıyor. {actor.agent.first} sabah arayıp \"duydum\" diyor ve kapatıyor. Bu sefer kurtardın. Onun eli sarılı ve nedenini kimseye söylemiyor. Sessizlik coktugunde bile bu tercihin etkisi sabaha tasindi.",
           "onEnter": [
             {
               "flag": "skandal_seviyesi",
@@ -290,18 +281,13 @@
               "flag": "npc_childhood_friend_arc",
               "op": "add",
               "value": 1
-            },
-            {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
             }
           ]
         },
         "n_police": {
           "title": "Karakol",
           "kind": "branch",
-          "text": "Geceyi karakolda geçiriyorsunuz. Sabah beşte bir memur elindeki telefonu masaya koyuyor ve ekranı sana çeviriyor.\n\nGörüntüde sen varsın. Net, kesintisiz, tartışmasız.\n\n\"Bu kaydı ben sildim,\" diyor memur. \"Bir kopyası var. Bende.\"\n\n{actor.childhood_friend.first} yan hücrede uyuyor. {actor.agent.name} yolda, kırk dakika uzakta.\n\nMemur arkasına yaslanıyor ve bekliyor.",
+          "text": "Geceyi karakolda geçiriyorsunuz. Sabah beşte bir memur elindeki telefonu masaya koyuyor ve ekranı sana çeviriyor. Görüntüde sen varsın. Net, kesintisiz, tartışmasız. \"Bu kaydı ben sildim,\" diyor memur. \"Bir kopyası var. Bende.\" {actor.childhood_friend.first} yan hücrede uyuyor. {actor.agent.name} yolda, kırk dakika uzakta. Memur arkasına yaslanıyor ve bekliyor.",
           "onEnter": [
             {
               "flag": "skandal_seviyesi",
@@ -376,9 +362,9 @@
                   "value": 10
                 },
                 {
-                  "flag": "mem_refused_to_apologize",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_childhood_friend_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -426,7 +412,7 @@
         "n_bribed": {
           "title": "Zarf",
           "kind": "outcome",
-          "text": "Zarf masanın üstünden kayıyor. Memur onu almıyor bile; sadece çekmeceyi açıyor ve sen zarfı içine bırakıyorsun.\n\n\"Kayıt gitti,\" diyor.\n\nGitmedi. İkiniz de biliyorsunuz. Bu yüzden bu kadar ucuzdu.\n\nDışarı çıktığında sabah olmuş. {actor.childhood_friend.first} otoparkta sigara içiyor ve sana hiçbir şey sormuyor — bu da bir cevap.",
+          "text": "Zarf masanın üstünden kayıyor. Memur onu almıyor bile; sadece çekmeceyi açıyor ve sen zarfı içine bırakıyorsun. \"Kayıt gitti,\" diyor. Gitmedi. İkiniz de biliyorsunuz. Bu yüzden bu kadar ucuzdu. Dışarı çıktığında sabah olmuş. {actor.childhood_friend.first} otoparkta sigara içiyor ve sana hiçbir şey sormuyor — bu da bir cevap. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "moral",
@@ -443,7 +429,7 @@
         "n_refused_bribe": {
           "title": "Yayınla",
           "kind": "outcome",
-          "text": "Memur bir saniye şaşırıyor, sonra gülüyor. \"Cesursun,\" diyor. \"Ya da aptal.\"\n\nGörüntü öğlen internete düşüyor. Akşam bütün kanallarda. Kulüp seni kadro dışı bırakıyor, sonra geri alıyor, sonra bir açıklama daha yapıyor.\n\nAma taraftar grubu tesise pankart asıyor: \"Bizden biri.\"\n\nBedelini ödedin ve kimseye borçlu değilsin.",
+          "text": "Memur bir saniye şaşırıyor, sonra gülüyor. \"Cesursun,\" diyor. \"Ya da aptal.\" Görüntü öğlen internete düşüyor. Akşam bütün kanallarda. Kulüp seni kadro dışı bırakıyor, sonra geri alıyor, sonra bir açıklama daha yapıyor. Ama taraftar grubu tesise pankart asıyor: \"Bizden biri.\" Bedelini ödedin ve kimseye borçlu değilsin. Sessizlik coktugunde bile bu tercihin etkisi sabaha tasindi.",
           "onEnter": [
             {
               "flag": "iliski_fan_leader",
@@ -465,7 +451,7 @@
         "n_waited": {
           "title": "Kırk dakika",
           "kind": "outcome",
-          "text": "Kırk dakika hiçbir şey söylemiyorsun. Memur iki kez konuşmayı deniyor, ikisinde de susuyorsun.\n\n{actor.agent.first} geliyor. Yirmi dakika içeride kalıyor. Çıktığında kravatı gevşemiş ve elinde bir kâğıt var.\n\n\"Halloldu,\" diyor. \"Bir daha bu adamla karşılaşmayacaksın.\"\n\nNe ödediğini hiç söylemiyor. Bir sonraki sözleşmende bir madde beliriyor ve o maddeyi de hiç açıklamıyor.",
+          "text": "Kırk dakika hiçbir şey söylemiyorsun. Memur iki kez konuşmayı deniyor, ikisinde de susuyorsun. {actor.agent.first} geliyor. Yirmi dakika içeride kalıyor. Çıktığında kravatı gevşemiş ve elinde bir kâğıt var. \"Halloldu,\" diyor. \"Bir daha bu adamla karşılaşmayacaksın.\" Ne ödediğini hiç söylemiyor. Bir sonraki sözleşmende bir madde beliriyor ve o maddeyi de hiç açıklamıyor. Sessizlik coktugunde bile bu tercihin etkisi sabaha tasindi.",
           "onEnter": [
             {
               "flag": "iliski_agent",
@@ -493,7 +479,7 @@
         "n_root": {
           "title": "Eski Semtin Sessizliği",
           "kind": "branch",
-          "text": "Antrenman sahasından çok uzakta, {actor.childhood_friend.name} ile köhne bir araba garajının kapısındasınız. Motorun sıcaklığı havada süzülüyor. Arkadaşın, elindeki ağır metal kutuyu yere bırakıyor. Yıllardır süren o sessiz yalan; kaza raporundaki sahte imzalar, kulübün üzerini örttüğü o gece... {actor.childhood_friend.name} yüzüne bakmıyor. Garajın metal kepengi hafifçe gıcırdıyor. \"Artık taşıyamıyorum,\" diyor sadece.",
+          "text": "Antrenman sahasından çok uzakta, {actor.childhood_friend.name} ile köhne bir araba garajının kapısındasınız. Motorun sıcaklığı havada süzülüyor. Arkadaşın, elindeki ağır metal kutuyu yere bırakıyor. Yıllardır süren o sessiz yalan; kaza raporundaki sahte imzalar, kulübün üzerini örttüğü o gece. {actor.childhood_friend.name} yüzüne bakmıyor. Garajın metal kepengi hafifçe gıcırdıyor. \"Artık taşıyamıyorum,\" diyor sadece.",
           "choices": [
             {
               "id": "c_wealth",
@@ -631,9 +617,9 @@
           "text": "Karakolun demir kapısının buz gibi soğuğu avuç içlerime işledi. {actor.childhood_friend.name} yanımda nefes alırken, dışarıdaki şehrin uğultusu bir anlığına kesildi. Kariyerini üzerine inşa ettiğin o parlak gelecek, şimdi bir itirafın gölgesinde çatlıyordu. Omzundaki sıcaklık, yaptığımız fedakarlığın tek kanıtıydı; vicdanın ise sadece kendi sessizliğinde boğulmayı bekleyen bir mahkûm gibi suskundu.",
           "onEnter": [
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -643,9 +629,9 @@
           "text": "Arkamda bıraktığım {actor.childhood_friend.name}, kaldırımın üzerinde yaralı bir anı gibi sönükleşti. Semtin ara sokaklarından sızan rutubet kokusu, üzerime sinen tozla karışıyordu. Artık insanlar gözlerini benden kaçırıyor, geçip giderken kaldırımın kenarına sığınıyorlardı. Korkunun hüküm sürdüğü bu sokaklarda saygın, bir gecede yıkılmış ve yerini sadece sessiz bir nefretin soğukluğuna bırakmıştı.",
           "onEnter": [
             {
-              "flag": "mem_left_academy_friend",
-              "op": "set",
-              "value": true
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -655,9 +641,9 @@
           "text": "Sabahın ilk ışıklarına kadar garajda oturdunuz. {actor.childhood_friend.name} ile aranızdaki o görünmez duvar yıkıldı. Sırrın artık bir suç değil, bir bağ.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -756,9 +742,9 @@
           "text": "Gece, beklediğinden daha uzun sürdü. Taraftarların alkışları, boş masanın hüznünü bastırdı ama sabah gazetelerdeki manşetler, disiplinini sorgulayan bir tonda yazıldı.",
           "onEnter": [
             {
-              "flag": "mem_left_academy_friend",
-              "op": "set",
-              "value": true
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -768,9 +754,9 @@
           "text": "Yatakta tavanı izlerken {actor.childhood_friend.name} ismi zihninde yankılandı. Profesyonellik, bazen en yakınlarını feda etmeyi gerektiren soğuk bir zırhtır.",
           "onEnter": [
             {
-              "flag": "mem_left_academy_friend",
-              "op": "set",
-              "value": true
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -780,9 +766,9 @@
           "text": "Fotoğrafçıların flaşları patlarken gerçek dünyadan koptun. Hesap defterine eklenen rakamlar, geride bıraktığın dostluğun yerini doldurmak için yeterince büyük değil.",
           "onEnter": [
             {
-              "flag": "mem_left_academy_friend",
-              "op": "set",
-              "value": true
+              "flag": "npc_childhood_friend_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

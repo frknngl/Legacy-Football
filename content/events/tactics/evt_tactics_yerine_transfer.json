@@ -3,6 +3,7 @@
   "family": "fam_tactics_yerine",
   "category": "tactics",
   "tier": "major",
+  "authored": "hand",
   "weight": 52,
   "cooldown": {
     "self": 28,
@@ -30,7 +31,7 @@
         "n_root": {
           "title": "Kahvaltıda Öğrenmek",
           "kind": "branch",
-          "text": "Tesis kahvaltısı. Yumurta soğuk, herkes telefonunda.\n\n{actor.star_teammate.name} ekranını sana çeviriyor: kulübün hesabı yeni transferi duyurmuş. Fotoğrafta forma, numaranın altında bir mevki yazıyor.\n\nSenin mevkin.\n\nOn dört saat önce {actor.sporting_director.name} ile aynı koridorda karşılaştın. \"Nasılsın?\" dedi. \"İyiyim,\" dedin. Hepsi bu kadardı.\n\nMasada kimse konuşmuyor. Herkes senin ne yapacağını bekliyor ve kimse sana bakmıyor.",
+          "text": "Tesis kahvaltısı. Yumurta soğuk, herkes telefonunda. {actor.star_teammate.name} ekranını sana çeviriyor: kulübün hesabı yeni transferi duyurmuş. Fotoğrafta forma, numaranın altında bir mevki yazıyor. Senin mevkin. On dört saat önce {actor.sporting_director.name} ile aynı koridorda karşılaştın. \"Nasılsın?\" dedi. \"İyiyim,\" dedin. Hepsi bu kadardı. Masada kimse konuşmuyor. Herkes senin ne yapacağını bekliyor ve kimse sana bakmıyor.",
           "choices": [
             {
               "id": "c_kutla",
@@ -128,41 +129,36 @@
         "n_kutla": {
           "title": "Hoş Geldin",
           "kind": "outcome",
-          "text": "\"Hoş geldin, birlikte güzel işler yapacağız.\"\n\nDört bin beğeni. Yorumların çoğu \"sınıf\" diyordu. Bir tanesi \"kendi mezarını kazıyor\" diyordu ve o yorumu üç kez okudun.\n\nYeni oyuncu ertesi gün geldi, elini sıktı, adını doğru söyledi.\n\nİyi çocuktu. Bu, işleri kolaylaştırmadı.",
+          "text": "\"Hoş geldin, birlikte güzel işler yapacağız.\" Dört bin beğeni. Yorumların çoğu \"sınıf\" diyordu. Bir tanesi \"kendi mezarını kazıyor\" diyordu ve o yorumu üç kez okudun. Yeni oyuncu ertesi gün geldi, elini sıktı, adını doğru söyledi. İyi çocuktu. Bu, işleri kolaylaştırmadı.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_kutlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_direktor": {
           "title": "On Dört Saat",
           "kind": "outcome",
-          "text": "Kapıyı çaldın ve beklemedin.\n\n\"On dört saat önce koridorda karşılaştık,\" dedin. \"Nasılsın dediniz.\"\n\n{actor.sporting_director.name} bir şey söylemek için ağzını açtı, sonra kapattı. Sonunda çıkan cümle şuydu: \"Haklısın.\"\n\nÖzür değildi ama yalan da değildi. O odadan çıkarken transfer hâlâ olmuştu — sadece artık bir kişi sana borçluydu.",
+          "text": "Kapıyı çaldın ve beklemedin. \"On dört saat önce koridorda karşılaştık,\" dedin. \"Nasılsın dediniz.\" {actor.sporting_director.name} bir şey söylemek için ağzını açtı, sonra kapattı. Sonunda çıkan cümle şuydu: \"Haklısın.\" Özür değildi ama yalan da değildi. O odadan çıkarken transfer hâlâ olmuştu — sadece artık bir kişi sana borçluydu.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_yuzlesti",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_direktore_borc_yazdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sessiz": {
           "title": "Soğuk Yumurta",
           "kind": "outcome",
-          "text": "Yumurtayı bitirdin. Antrenmanda kimse konuyu açmadı.\n\nO hafta üç kez ilk on birde oynadın ve üçünde de iyiydin. Kimse bunu transferle ilişkilendirmedi; sen de etmedin.\n\nAma her akşam yatarken aynı cümleyi düşündün: *bana söyleyebilirlerdi.*\n\nSöylemediler. Ve bu, oynadığın futboldan çok, kalan üç yılını belirledi.",
+          "text": "Yumurtayı bitirdin. Antrenmanda kimse konuyu açmadı. O hafta üç kez ilk on birde oynadın ve üçünde de iyiydin. Kimse bunu transferle ilişkilendirmedi; sen de etmedin. Ama her akşam yatarken aynı cümleyi düşündün: *bana söyleyebilirlerdi.* Söylemediler. Ve bu, oynadığın futboldan çok, kalan üç yılını belirledi.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_sustu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -284,9 +280,9 @@
           "text": "Gözlerini kaçırarak pencereden dışarıdaki antrenman sahasına baktın. {actor.sporting_director.name}, buz gibi bir soğuklukla elini sıktı; avucunun içindeki yapışkan ter, durumun ciddiyetini ele veriyordu. Artık teknik bir karardan ziyade, bilançoda sadece bir varlık olarak görülüyordun ve masadaki dosyaların üzerinde gezinen ışık, odadaki tüm otoritenin senin elinden kayıp gittiğini gösteriyordu.",
           "onEnter": [
             {
-              "flag": "mem_direktore_borc_yazdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -296,9 +292,9 @@
           "text": "Önündeki dosya büyük bir gürültüyle parke zemine düştü, sayfalar havada uçuşarak odaya yayıldı. {actor.sporting_director.name} başını hafifçe yana eğip kaşlarını çattı, odadaki sessizlik bir anda gergin bir hal aldı. Bu tepkinin kulüp koridorlarında yankılanacak bir savaşın fitilini ateşlediğini ikiniz de biliyordunuz; artık sadece profesyonel bir ayrılık değil, bir güç mücadelesinin ortasındaydın.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_yuzlesti",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -308,9 +304,9 @@
           "text": "İki tarafın da gözlerine bakmadığı kısa bir el sıkışmayla görüşme sona erdi. {actor.sporting_director.name}, arkasına bile bakmadan ağır ağır odadan çıkıp koridordaki ayak sesleri uzaklaşırken, havada kalan hafif kolonya kokusu genzini yaktı. İçinde bir şeylerin geri dönüşü olmayacak şekilde koptuğunu, artık bu kulübün bir parçası değil, sadece eski bir hatıra olduğunu derinden hissettin.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_sustu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -320,9 +316,9 @@
           "text": "Gülümseyerek odanın kapısını kapattığında, dışarıdaki ağır hava biraz olsun dağıldı. {actor.sporting_director.name} arabadan indiğinde, üzerine giydiği ceketi düzelten ellerinin titrediğini fark ettin; içerideki iktidar dengesinin artık senin lehine döndüğünü o da anlamıştı. Şehrin üzerindeki akşam güneşi binaların camlarına vururken, herkesin bu sessiz galibiyetin ağırlığını fark etmeye başladığını gördün.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_kutlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -335,7 +331,7 @@
         "n_root": {
           "title": "Karanlık Odada İmza",
           "kind": "branch",
-          "text": "Kulüp binasının en alt katı. Havalandırma sesi, dosyaların küf kokusuna karışıyor. {actor.sporting_director.name} masanın ucunda duruyor. Önünde bir kalem, yanında ise yarın antrenmana katılacak olan yeni oyuncunun henüz imzalanmamış sözleşmesi. Kapıyı kilitleyip ışığı kapatıyor. 'Senin yerini alacak olan çocuk bu,' diyor. Sesi titriyor ama gözleri kararlı. Masanın üstündeki dosyayı sana uzatıyor. 'Ona yardım etmen gerekiyor, belki de etmemen. Karar senin.'",
+          "text": "Kulüp binasının en alt katı. Havalandırma sesi, dosyaların küf kokusuna karışıyor. {actor.sporting_director.name} masanın ucunda duruyor. Önünde bir kalem, yanında ise yarın antrenmana katılacak olan yeni oyuncunun henüz imzalanmamış sözleşmesi. Kapıyı kilitleyip ışığı kapatıyor. 'Senin yerini alacak olan çocuk bu,' diyor. Sesi titriyor ama gözleri kararlı. Masanın üstündeki dosyayı sana uzatıyor. 'Ona yardım etmen gerekiyor, belki de etmemen. Karar senin.'.",
           "choices": [
             {
               "id": "c_servet_odakli",
@@ -458,9 +454,9 @@
           "text": "Para, sadakatin önüne geçti. {actor.sporting_director.name} sana bakmıyor bile, sadece kâğıdı uzatıp ışığı açıyor. Artık o odadan çıkışın, sessiz bir anlaşmayla mühürlendi.",
           "onEnter": [
             {
-              "flag": "mem_direktore_borc_yazdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -470,9 +466,9 @@
           "text": "Hiçbir şey söylemedin. Gözlerin, kapıdan çıkarken {actor.sporting_director.name} üzerinde soğuk bir iz bıraktı. Yarın, antrenman sahasında kimse senden daha baskın olmayacak.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_yuzlesti",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -482,9 +478,9 @@
           "text": "Kafanı hafifçe salladın. {actor.sporting_director.name} derin bir nefes alıyor; senden beklediği direnç gelmedi. Yerini devretmek, sandığından daha acı verici.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_sustu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -494,9 +490,9 @@
           "text": "Gülümsedin, elini uzattın. {actor.sporting_director.name} için bir kurtarıcısın artık. Genç oyuncu, yarın senin kanatlarının altına girecek. Bedeli, senin yorgunluğun olacak.",
           "onEnter": [
             {
-              "flag": "mem_yerine_gelen_kutlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

@@ -15,6 +15,8 @@ import type {
 import type { Condition } from './conditions.js';
 import type { Effect } from './effects.js';
 
+export type AuthoringOrigin = 'hand' | 'generated';
+
 /**
  * Bir secim.
  *
@@ -141,6 +143,8 @@ export interface StoryEvent {
   /** Klasor/kategori: match, reaction, legal, life, daily, dark... */
   readonly category: string;
   readonly tier: Tier;
+  /** Icerigin kokeni: elle mi yazildi yoksa model uretimi mi. */
+  readonly authored?: AuthoringOrigin;
 
   readonly eras?: readonly Era[];
   readonly stature?: readonly Stature[];

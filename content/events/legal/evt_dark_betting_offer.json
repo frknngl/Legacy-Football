@@ -2,7 +2,8 @@
   "id": "evt_dark_betting_offer",
   "family": "fam_legal_fixing",
   "category": "legal",
-  "tier": "epic",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 45,
   "once": true,
   "cooldown": {
@@ -48,7 +49,7 @@
         "n_root": {
           "title": "Borcun kadar",
           "kind": "branch",
-          "text": "Tesisin otoparkinda degil; bu sefer evinin alt katindaki kahvede. {actor.fixer.name} koseye oturmus, onunde bir cay ve kapali bir telefon.\n\nBorcunun rakamini biliyor. Kurusuna kadar biliyor ve bunu soylemesine gerek olmadigini da biliyor; sadece bir kez kaslarini kaldiriyor.\n\n\"Bir mac,\" diyor. \"Ilk yarida bir sari kart. Sen zaten sert oynuyorsun, kimsenin dikkatini cekmez.\"\n\nCayindan bir yudum aliyor.\n\n\"Reddedersen kalkar giderim. Ama bir daha gelmem ve borcun yerinde durur.\"",
+          "text": "Tesisin otoparkinda degil; bu sefer evinin alt katindaki kahvede. {actor.fixer.name} koseye oturmus, onunde bir cay ve kapali bir telefon. Borcunun rakamini biliyor. Kurusuna kadar biliyor ve bunu soylemesine gerek olmadigini da biliyor; sadece bir kez kaslarini kaldiriyor. \"Bir mac,\" diyor. \"Ilk yarida bir sari kart. Sen zaten sert oynuyorsun, kimsenin dikkatini cekmez.\" Cayindan bir yudum aliyor. \"Reddedersen kalkar giderim. Ama bir daha gelmem ve borcun yerinde durur.\".",
           "choices": [
             {
               "id": "c_accept",
@@ -164,9 +165,9 @@
                   "value": -8
                 },
                 {
-                  "flag": "mem_reported_fixing",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_fixer_arc",
+                  "op": "add",
+                  "value": 1
                 },
                 {
                   "op": "schedule",
@@ -242,12 +243,12 @@
         "n_accepted": {
           "title": "Bir sari kart",
           "kind": "outcome",
-          "text": "Para uc gun sonra hesaba geciyor. Rakami bir kez okuyup uygulamayi kapatiyorsun.\n\nPazar gunu otuz dorduncu dakikada geç bir mudahale yapiyorsun. Hakem sari gosteriyor. Kimse bir sey fark etmiyor. Gercekten kimse.\n\nEve donerken radyoyu acmiyorsun. Sebebini kendine soylemiyorsun.",
+          "text": "Para uc gun sonra hesaba geciyor. Rakami bir kez okuyup uygulamayi kapatiyorsun. Pazar gunu otuz dorduncu dakikada geç bir mudahale yapiyorsun. Hakem sari gosteriyor. Kimse bir sey fark etmiyor. Gercekten kimse. Eve donerken radyoyu acmiyorsun. Sebebini kendine soylemiyorsun. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
-              "flag": "mem_sold_derby",
-              "op": "set",
-              "value": true
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "npc_fixer_arc",
@@ -264,7 +265,7 @@
         "n_refused": {
           "title": "Hesap",
           "kind": "outcome",
-          "text": "Kalkiyorsun. {actor.fixer.first} arkandan bagirmiyor, seni durdurmuyor.\n\nKapida garson yetisiyor: hesap odenmemis. Odüyorsun.\n\nBorcun yerinde duruyor ve bu gece uyuyamayacaksin. Ama sabah aynaya bakabileceksin ve bunun bir fiyati oldugunu simdi ogreniyorsun.",
+          "text": "Kalkiyorsun. {actor.fixer.first} arkandan bagirmiyor, seni durdurmuyor. Kapida garson yetisiyor: hesap odenmemis. Odüyorsun. Borcun yerinde duruyor ve bu gece uyuyamayacaksin. Ama sabah aynaya bakabileceksin ve bunun bir fiyati oldugunu simdi ogreniyorsun. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "npc_fixer_arc",
@@ -281,7 +282,7 @@
         "n_reported": {
           "title": "Kayit",
           "kind": "outcome",
-          "text": "Kahveden ciktiktan kirk dakika sonra {actor.prosecutor.name} ile karsi karsiyasin.\n\nAnlattiklarini yazdiriyor, imzalatiyor ve tek bir soru soruyor: \"Bunu neden yaptiniz?\"\n\nCevabini kaydetmiyor.\n\nUc hafta sonra sorusturma acildiginda senin adin da dosyada olacak -- ihbarci olarak, ama olacak. Dosyada olmak ile suclu olmak arasindaki farki bu ulkede kimse ayirt etmiyor.",
+          "text": "Kahveden ciktiktan kirk dakika sonra {actor.prosecutor.name} ile karsi karsiyasin. Anlattiklarini yazdiriyor, imzalatiyor ve tek bir soru soruyor: \"Bunu neden yaptiniz?\" Cevabini kaydetmiyor. Uc hafta sonra sorusturma acildiginda senin adin da dosyada olacak -- ihbarci olarak, ama olacak. Dosyada olmak ile suclu olmak arasindaki farki bu ulkede kimse ayirt etmiyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "mem_turned_informant",
@@ -303,12 +304,12 @@
         "n_haggled": {
           "title": "Bir maclik sessizlik",
           "kind": "outcome",
-          "text": "{actor.fixer.first} cayini bitiriyor ve ilk kez gulumsuyor.\n\n\"Pazarlik yapan adami severim,\" diyor. \"Ama pazarlik yapan adam bir daha pazarlik yapamaz. Bunu da bil.\"\n\nBorcun ertesi gun kapaniyor. Telefonuna hicbir mesaj gelmiyor.\n\nO mac oynaniyor ve sen doksan dakika sahadasin. Hicbir sey yapmiyorsun. Yapmaman gereken seyi yapmiyorsun ve bu, yapmaktan daha agir.",
+          "text": "{actor.fixer.first} cayini bitiriyor ve ilk kez gulumsuyor. \"Pazarlik yapan adami severim,\" diyor. \"Ama pazarlik yapan adam bir daha pazarlik yapamaz. Bunu da bil.\" Borcun ertesi gun kapaniyor. Telefonuna hicbir mesaj gelmiyor. O mac oynaniyor ve sen doksan dakika sahadasin. Hicbir sey yapmiyorsun. Yapmaman gereken seyi yapmiyorsun ve bu, yapmaktan daha agir. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_sold_derby",
-              "op": "set",
-              "value": true
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "npc_fixer_arc",
@@ -496,9 +497,9 @@
           "text": "Banka transferi saniyeler içinde gerçekleşiyor. {actor.fixer.name} tabletin ekranını karartıyor. Vicdanın, hesabından düşen miktardan çok daha hafif geliyor.",
           "onEnter": [
             {
-              "flag": "mem_sold_derby",
-              "op": "set",
-              "value": true
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "schedule",
@@ -648,7 +649,7 @@
         "n_outcome_gri": {
           "title": "Karanlık Ortaklık",
           "kind": "outcome",
-          "text": "Kadeh boşalıyor. Sessizlik, bir anlaşmanın mührü oluyor. Artık hiçbir şey eskisi gibi şeffaf olmayacak.",
+          "text": "Kadeh boşalıyor. Sessizlik, bir anlaşmanın mührü oluyor. Artık hiçbir şey eskisi gibi şeffaf olmayacak. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
               "flag": "mem_accepted_fixing",
@@ -666,7 +667,7 @@
         "n_outcome_risk": {
           "title": "Köprüleri Yakmak",
           "kind": "outcome",
-          "text": "Sandalye gürültüyle geriye düşüyor. {actor.fixer.name}’in yüzündeki o çarpık gülümseme, cevabının ne kadar tehlikeli olduğunu kanıtlıyor.",
+          "text": "Sandalye gürültüyle geriye düşüyor. {actor.fixer.name}’in yüzündeki o çarpık gülümseme, cevabının ne kadar tehlikeli olduğunu kanıtlıyor. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "flag": "mem_refused_fixing",
@@ -684,7 +685,7 @@
         "n_outcome_guvenli": {
           "title": "Eksik Kalmışlık",
           "kind": "outcome",
-          "text": "Kapı arkandan kapandığında, soğuk hava ciğerlerini dolduruyor. Güvendesin ama vicdanın o masada, o kadehin dibinde kaldı.",
+          "text": "Kapı arkandan kapandığında, soğuk hava ciğerlerini dolduruyor. Güvendesin ama vicdanın o masada, o kadehin dibinde kaldı. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "mem_refused_fixing",
@@ -702,7 +703,7 @@
         "n_outcome_itiraf": {
           "title": "Zorunlu Hesaplaşma",
           "kind": "outcome",
-          "text": "Ses kayıtları başladığında, {actor.fixer.name} sadece bakıyor. Artık oyunun kurallarını sen yazıyorsun ama bedelini herkes ödeyecek.",
+          "text": "Ses kayıtları başladığında, {actor.fixer.name} sadece bakıyor. Artık oyunun kurallarını sen yazıyorsun ama bedelini herkes ödeyecek. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
               "flag": "mem_turned_informant",

@@ -29,7 +29,7 @@
         "n_root": {
           "title": "Ertesi sabah",
           "kind": "branch",
-          "text": "Telefonun sabah altıda çalmaya başladı ve hâlâ duruyor. {actor.agent.name} yedi kere aramış. Federasyon açıklama yaptı: \"Olay incelemeye alınmıştır.\" Kulüp açıklama yaptı: \"Oyuncumuzun yanıindayız.\" İkisi de aynı cümleyi kuruyor ve ikisi de hiçbir şey söylemiyor.\n\n{actor.journalist.name} kapıda. Kaydediciyi çıkarmıyor. \"Yayınlamayacağım,\" diyor, \"sadece anlat.\"\n\nMasada üç şey duruyor: bir sponsor sözleşmesi, bir federasyon davetiyesi ve babanın gece attığı mesaj. Babanın mesajını henüz açmadın.",
+          "text": "Telefonun sabah altıda çalmaya başladı ve hâlâ duruyor. {actor.agent.name} yedi kere aramış. Federasyon açıklama yaptı: \"Olay incelemeye alınmıştır.\" Kulüp açıklama yaptı: \"Oyuncumuzun yanıindayız.\" İkisi de aynı cümleyi kuruyor ve ikisi de hiçbir şey söylemiyor. {actor.journalist.name} kapıda. Kaydediciyi çıkarmıyor. \"Yayınlamayacağım,\" diyor, \"sadece anlat.\" Masada üç şey duruyor: bir sponsor sözleşmesi, bir federasyon davetiyesi ve babanın gece attığı mesaj. Babanın mesajını henüz açmadın. Perdelerin arasından süzülen sabah ışığı, odadaki her eşyayı bir ifade tutanağına dönüştürüyor. Kapı kolundaki soğuk metal, bugün vereceğin cevabın haftalarca konuşulacağını fısıldıyor.",
           "choices": [
             {
               "id": "c_elif",
@@ -55,11 +55,6 @@
                   "flag": "npc_journalist_arc",
                   "op": "add",
                   "value": 1
-                },
-                {
-                  "flag": "mem_dated_journalist",
-                  "op": "set",
-                  "value": false
                 }
               ],
               "persona": {
@@ -170,7 +165,7 @@
         "n_told_elif": {
           "title": "Kayıt",
           "kind": "outcome",
-          "text": "İki saat konuşuyorsun. Bir kısmı futbolla ilgili değil: on iki yaşında bir maçta duyduğun ilk hece, annenin \"aldırma\" deyişi, babanın hiç bahsetmemesi.\n\n{actor.journalist.first} kaydediciyi kapatıyor. \"Bunu yayınlamam,\" diyor. \"Ama bir gün sen isteyeceksin ve o zaman elimde olacak.\"\n\nO kaset bir yerlerde duruyor. Bu bilgi seni hem rahatlatıyor hem korkutuyor.",
+          "text": "İki saat konuşuyorsun. Bir kısmı futbolla ilgili değil: on iki yaşında bir maçta duyduğun ilk hece, annenin \"aldırma\" deyişi, babanın hiç bahsetmemesi. {actor.journalist.first} kaydediciyi kapatıyor. \"Bunu yayınlamam,\" diyor. \"Ama bir gün sen isteyeceksin ve o zaman elimde olacak.\" O kaset bir yerlerde duruyor. Bu bilgi seni hem rahatlatıyor hem korkutuyor.",
           "onEnter": [
             {
               "flag": "moral",
@@ -178,16 +173,16 @@
               "value": 10
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_federation": {
           "title": "Masa",
           "kind": "outcome",
-          "text": "Uzun bir masa, sekiz takım elbise, önünde adının yazdığı bir karton. İki saat konuşuluyor ve senden üç cümle isteniyor.\n\nÜçünü de söylüyorsun. Fotoğraf çekiliyor. El sıkışılıyor.\n\nAkşam taraftar grubunun hesabında o fotoğraf paylaşılıyor. Tek yorum: \"Bizimle sahada durdu, onlarla masada oturdu.\"",
+          "text": "Uzun bir masa, sekiz takım elbise, önünde adının yazdığı bir karton. İki saat konuşuluyor ve senden üç cümle isteniyor. Üçünü de söylüyorsun. Fotoğraf çekiliyor. El sıkışılıyor. Akşam taraftar grubunun hesabında o fotoğraf paylaşılıyor. Tek yorum: \"Bizimle sahada durdu, onlarla masada oturdu.\".",
           "onEnter": [
             {
               "flag": "yonetim_baskisi",
@@ -195,9 +190,9 @@
               "value": -20
             },
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "moral",
@@ -209,7 +204,7 @@
         "n_silence": {
           "title": "Sahaya",
           "kind": "outcome",
-          "text": "Tesise ilk sen geliyorsun. Kimseyle konuşmuyorsun, ısınmaya çıkıyorsun, sonra şut çalışıyorsun. Yüz elli şut.\n\n{actor.manager.name} kenarda uzun süre izliyor. Sonra yaklaşıp tek cümle söylüyor: \"Bunu susmak sanıyorsun. Ben bağırdığını duyuyorum.\"\n\nHiçbir şey söylemiyorsun. O da beklemiyor zaten.",
+          "text": "Tesise ilk sen geliyorsun. Kimseyle konuşmuyorsun, ısınmaya çıkıyorsun, sonra şut çalışıyorsun. Yüz elli şut. {actor.manager.name} kenarda uzun süre izliyor. Sonra yaklaşıp tek cümle söylüyor: \"Bunu susmak sanıyorsun. Ben bağırdığını duyuyorum.\" Hiçbir şey söylemiyorsun. O da beklemiyor zaten.",
           "onEnter": [
             {
               "flag": "iliski_manager",
@@ -217,9 +212,9 @@
               "value": 10
             },
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "mental_dayaniklilik",
@@ -231,7 +226,7 @@
         "n_father": {
           "title": "Üç kelime",
           "kind": "outcome",
-          "text": "Mesaj gece 02:14'te gelmiş. Üç kelime:\n\n*\"Doğru olanı yaptın.\"*\n\nOtuz yıl fabrikada çalışan, maçlarını televizyondan izleyen, hiçbirini yorumlamayan adam. Hayatında sana ikinci kez bir şey söylüyor.\n\nTelefonu masaya bırakıp mutfakta on dakika hiçbir şey yapmadan duruyorsun. Sonra {actor.agent.first:acc} arıyorsun ve \"bugün kimseyle konuşmuyorum\" diyorsun.",
+          "text": "Mesaj gece 02:14'te gelmiş. Üç kelime: *\"Doğru olanı yaptın.\"* Otuz yıl fabrikada çalışan, maçlarını televizyondan izleyen, hiçbirini yorumlamayan adam. Hayatında sana ikinci kez bir şey söylüyor. Telefonu masaya bırakıp mutfakta on dakika hiçbir şey yapmadan duruyorsun. Sonra {actor.agent.first:acc} arıyorsun ve \"bugün kimseyle konuşmuyorum\" diyorsun.",
           "onEnter": [
             {
               "flag": "mem_stood_against_racism",
@@ -259,7 +254,7 @@
         "n_root": {
           "title": "Stadyum Otoparkı, Yağmurlu",
           "kind": "branch",
-          "text": "{actor.journalist.name} arabanın ön camına elini dayamış bekliyor. Yağmur, ikinizin arasında görünmez bir perde gibi asılı. Kayıt cihazının üzerindeki kırmızı ışık, karanlıkta sönük bir ateş böceği gibi yanıp sönüyor. {actor.journalist.name} tek bir kelime etmiyor, sadece bekliyor. Sessizlik, stadyumun arkasındaki otoyolun uğultusundan daha ağır. Uzaklaşmak için kontağı çevirmek yeterli, ama o, cevabın senin dudaklarından dökülmesini bekleyen bir gölge gibi orada.",
+          "text": "{actor.journalist.name} arabanın ön camına elini dayamış bekliyor. Yağmur, ikinizin arasında görünmez bir perde gibi asılı. Kayıt cihazının üzerindeki kırmızı ışık, karanlıkta sönük bir ateş böceği gibi yanıp sönüyor. {actor.journalist.name} tek bir kelime etmiyor, sadece bekliyor. Sessizlik, stadyumun arkasındaki otoyolun uğultusundan daha ağır. Uzaklaşmak için kontağı çevirmek yeterli, ama o, cevabın senin dudaklarından dökülmesini bekleyen bir gölge gibi orada. Sileceklerin ritmi hızlandıkça, bu konuşmanın bedelini haftalarca taşıyacağını hissediyorsun. Motorun içinde biriken buğu bile, geri vitese taksan da bu geceyi silmeye yetmeyecek kadar ağır.",
           "choices": [
             {
               "id": "c_riskli",
@@ -378,9 +373,9 @@
           "text": "Söylediklerin yarın sabahın ilk ışıklarıyla birlikte tüm manşetlerde yerini alacak. Kulüp binasının soğuk mermer koridorlarında yürürken, diğer oyuncuların bakışlarının keskin bir bıçak gibi sırtında gezindiğini hissediyorsun. Attığın bu adımın ağırlığı altında ezilen zeminin gıcırtısı, yaklaşan fırtınanın sessiz bir habercisi gibi yankılanıyor ve artık hiçbir şeyin eskisi gibi olmayacağını sana fısıldıyor.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "mem_stood_against_racism",
@@ -395,9 +390,9 @@
           "text": "Profesyonel duruşun herkesi tatmin etti, yöneticilerin yüzündeki o memnun tebessüm bunu kanıtlıyordu. Ancak otoparkın loş ışığında, camdaki yansımana baktığında gördüğün yabancı yüzün ifadesi seni ürpertti. Arabanın kapısını açarken duyduğun metalik ses, sanki başka birinin hayatına giriş yaptığını haber veriyor; otoparkın rutubetli havası ciğerlerine dolarken kendi sessizliğinin altında ezildiğini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "mem_stood_against_racism",
@@ -412,9 +407,9 @@
           "text": "Para el değiştirdi; {actor.journalist.name} ile arandaki o kısa süreli temas, kamerasının merceğinin kapanmasıyla sona erdi. Yağmurun cama vuran ritmik sesi eşliğinde sokak lambalarının titrek ışığında kaybolup gittiğinde, vicdanındaki o derin boşluk bir kuyu gibi büyüdü. Elindeki çanta sanki içindeki kağıtlarla değil de tonlarca taşla doluymuşçasına bileklerini sızlatıyor ve attığın her adımda vicdanının sesini bastırmaya çalışıyorsun.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "mem_stood_against_racism",
@@ -429,9 +424,9 @@
           "text": "{actor.journalist.name} tek bir kelime dahi etmeden not defterini cebine sıkıştırdı ve ağır adımlarla uzaklaştı. İkiniz de çok iyi biliyordunuz ki bu sessizlik, herhangi bir gazete manşetinin yaratabileceği gürültüden çok daha tehlikeli ve boğucu. Havada asılı kalan o gerginlik, antrenman sahasından gelen uzaktan uğultularla birleşerek ikinizin de üzerinde görünmez bir baskı kuruyor.",
           "onEnter": [
             {
-              "flag": "mem_dated_journalist",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "mem_stood_against_racism",
@@ -449,7 +444,7 @@
         "n_root": {
           "title": "Tünel Sonu",
           "kind": "branch",
-          "text": "Antrenman sahasına inen koridorun loş ışığında tek başına duruyorsun. Ayakkabılarının çamuru beton zeminde koyu lekeler bırakıyor. {actor.journalist.name}, elinde eski bir not defteri ve dikkati dağılmış bir ifadeyle tünel çıkışında bekliyor. Dışarıda taraftarın uğultusu, bir fırtınanın uzaktan gelen sesi gibi. {actor.journalist.name} sana doğru bir adım atıyor, kaleminin ucu kağıdın üzerinde asılı kalıyor. Sormasına gerek yok; yüzündeki o meraklı, biraz da acımasız ifade her şeyi söylüyor. Omuzlarındaki ağırlık artık nefes almanı zorlaştırıyor.",
+          "text": "Antrenman sahasına inen koridorun loş ışığında tek başına duruyorsun. Ayakkabılarının çamuru beton zeminde koyu lekeler bırakıyor. {actor.journalist.name}, elinde eski bir not defteri ve dikkati dağılmış bir ifadeyle tünel çıkışında bekliyor. Dışarıda taraftarın uğultusu, bir fırtınanın uzaktan gelen sesi gibi. {actor.journalist.name} sana doğru bir adım atıyor, kaleminin ucu kağıdın üzerinde asılı kalıyor. Sormasına gerek yok; yüzündeki o meraklı, biraz da acımasız ifade her şeyi söylüyor. Omuzlarındaki ağırlık artık nefes almanı zorlaştırıyor. Tünelin floresanları uğuldadıkça, kaçınmayı seçsen bile bu yüzleşmenin manşete döküleceğini anlıyorsun. Boş tribünden gelen tek yankı, bu kararın sadece seni değil çevrendeki herkesi de sınayacağını söylüyor.",
           "choices": [
             {
               "id": "c_gri",
@@ -520,6 +515,43 @@
               "persona": {
                 "durus": 8
               }
+            },
+            {
+              "id": "c_stat",
+              "text": "Deftere bakıp derin nefes al. \"Her şeyi şimdi konuşmayalım; resmi ifade geldiğinde ben de aynı masada olacağım.\"",
+              "target": "n_guvenli",
+              "requires": {
+                "flag": "mental_dayaniklilik",
+                "op": "gte",
+                "value": 58
+              },
+              "lockLabel": "[Mental Dayanıklılık 58]",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "iliski_journalist",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "dogruluk": 5,
+                "durus": 3
+              }
             }
           ]
         },
@@ -529,9 +561,9 @@
           "text": "Not defteri, titreyen parmaklarının arasından yavaşça çekilip alındı. Koridorun duvarlarında yankılanan ayak sesleri, sanki verilmiş bir kararın mührü gibiydi. Banka hesabına düşen rakamın soğukluğunu, ceketinin altında atan kalbinin ritminde hissediyorsun; vicdanın ise o an, ruhunun derinliklerinde ağır bir demir kütlesi gibi çökmeye başladığını sana hissettiriyor.",
           "onEnter": [
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -553,9 +585,9 @@
           "text": "Gözleri aniden parlıyor. {actor.journalist.name} artık sadece görevini yapmıyor, bir taraf seçiyor. Bu kelimelerin yarın tüm şehirde nasıl bir yangın başlatacağını ikiniz de biliyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -568,7 +600,7 @@
         "n_root": {
           "title": "Karanlıkta Bir Işık",
           "kind": "branch",
-          "text": "Stadyumun bodrum katındaki çamaşırhanedesin. Makinaların uğultusu, dışarıdaki protestoların sesini bastırıyor. Havada ağır bir deterjan ve ter kokusu var. {actor.journalist.name} köşede, not defterini dizine koymuş, sana bakıyor. Işıklar cızırdıyor. Sana doğru tek bir adım atıyor, kalemini bırakıyor. \"Bugün sahada sadece bir topun peşinde koşmuyordun,\" diyor sesi titreyerek. \"Ben o gün stadyumda o tribünlerin arasında ne gördüğünü biliyorum. Ve sen de benim gördüğümü biliyorsun.\"",
+          "text": "Stadyumun bodrum katındaki çamaşırhanedesin. Makinaların uğultusu, dışarıdaki protestoların sesini bastırıyor. Havada ağır bir deterjan ve ter kokusu var. {actor.journalist.name} köşede, not defterini dizine koymuş, sana bakıyor. Işıklar cızırdıyor. Sana doğru tek bir adım atıyor, kalemini bırakıyor. \"Bugün sahada sadece bir topun peşinde koşmuyordun,\" diyor sesi titreyerek. \"Ben o gün stadyumda o tribünlerin arasında ne gördüğünü biliyorum. Ve sen de benim gördüğümü biliyorsun.\" Tavan borusundan düşen tek damla, odadaki bu kırılgan ittifakı mühürleyen bir nokta gibi yankılanıyor. Çamaşır makinesinin döngüsü bitse de bu konuşmanın etkisi kolay bitmeyecek kadar derine işliyor.",
           "choices": [
             {
               "id": "c_riskli",
@@ -684,9 +716,9 @@
           "text": "Yüzündeki ifade, o anın ağırlığıyla birlikte yavaşça değişti ve gözlerinde daha önce hiç görmediğin bir parlaklık belirdi. Bu artık sadece sıradan bir röportajın parçası değil, ikinizin de aynı safta yer aldığı bir tür ittifakın başlangıcıydı. Stadyumun koridorlarındaki hava ısınırken, aranızda kurulan o gizli anlaşmanın gerginliği ikinizin de nefes alışverişini sıklaştırıyor.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -696,9 +728,9 @@
           "text": "Sırtını dönüp çıkarken, aranızdaki o keskin profesyonel mesafe, gerçekliğin üzerine örülmüş aşılmaz bir duvar gibi yükseldi. Ayakkabılarının zeminde çıkardığı ritmik tıkırtılar, odadaki ağır havayı yararak dışarıya çıkmana yardımcı oldu. Kapıyı kapattığında, dışarıdaki akşam esintisinin yüzüne çarpmasıyla birlikte kurduğun o mesafenin soğukluğunu tüm vücudunda hissetmeye başladın.",
           "onEnter": [
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -708,9 +740,9 @@
           "text": "Zarfların birbirine sürtünürken çıkardığı o ince, kuru ses stüdyonun boşluğunda yankılanarak aranızdaki tüm sınırları silip attı. Yalan, en saf ve en çıplak haliyle aranızda bir sis gibi büyürken, {actor.journalist.name} ile göz göze gelmemeye çalışıyorsun. Odayı dolduran o yapay sessizlik, yutkunmanı zorlaştırıyor ve ellerinin hafifçe titremesine neden oluyor.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -720,9 +752,9 @@
           "text": "Not defterini yavaşça kapatırken, o an ilk defa birinin seni sadece sahadaki bir oyuncudan fazlası olarak gördüğünü hissettin. Gözlerindeki samimiyet, üzerindeki o ağır formanın verdiği yorgunluğu bir anlığına hafifletti. Dışarıdan gelen taraftar tezahüratları sanki çok uzak bir dünyadan geliyormuş gibi duyulurken, aranızda paylaşılan o sessiz anın sıcaklığı koridorun soğukluğunu bir süreliğine kırdı.",
           "onEnter": [
             {
-              "flag": "mem_dated_journalist",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -735,7 +767,7 @@
         "n_root": {
           "title": "Karanlık ve Aydınlık",
           "kind": "branch",
-          "text": "Kulübün vip salonundaki ışıklar kısık. Havada pahalı bir puro dumanı ve rutubetli duvarların kokusu birbirine karışıyor. {actor.journalist.name} masanın diğer ucunda, önündeki boş içki kadehine bakıyor. Olayın ertesi günü, zaferin gölgesi hala stadyumun üzerinde asılı. Şampiyonluk kutlamasından geriye sadece senin terli formanın ağırlığı ve dışarıda uğuldayan taraftar sesleri kaldı. Sessizlik, bir tehdit gibi odanın içine çökmüş durumda.",
+          "text": "Kulübün vip salonundaki ışıklar kısık. Havada pahalı bir puro dumanı ve rutubetli duvarların kokusu birbirine karışıyor. {actor.journalist.name} masanın diğer ucunda, önündeki boş içki kadehine bakıyor. Olayın ertesi günü, zaferin gölgesi hala stadyumun üzerinde asılı. Şampiyonluk kutlamasından geriye sadece senin terli formanın ağırlığı ve dışarıda uğuldayan taraftar sesleri kaldı. Sessizlik, bir tehdit gibi odanın içine çökmüş durumda. Camdaki yansımanda kupadan çok, bu gecenin borcu görünen bir yüz fark ediyorsun. Masadaki buz erirken, susmanın da konuşmanın da ayrı bir bedeli olduğunu aynı anda anlıyorsun.",
           "choices": [
             {
               "id": "c_riskli",
@@ -863,36 +895,36 @@
         "n_riskli": {
           "title": "Sessiz Bir Tehdit",
           "kind": "outcome",
-          "text": "{actor.journalist.name} sana bakmadan başını sallıyor. Kapı kapandığında, kazandığın zaferin artık sadece bir baskı unsuru olduğunu anlıyorsun.",
+          "text": "{actor.journalist.name} sana bakmadan başını sallıyor. Kapı kapandığında, kazandığın zaferin artık sadece bir baskı unsuru olduğunu anlıyorsun; kupayı kaldırdığın gecenin ağırlığı ertesi sabah omzuna daha ağır çöküyor.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_gri": {
           "title": "Satın Alınmış Vicdan",
           "kind": "outcome",
-          "text": "Zarfın ağırlığı elinde kayboluyor. Odayı terk ederken aynadaki aksinin artık daha yabancı göründüğünü fark ediyorsun.",
+          "text": "Zarfın ağırlığı elinde kayboluyor. Odayı terk ederken aynadaki aksinin artık daha yabancı göründüğünü fark ediyorsun; suskunluğu satın almış olsan da içindeki itirazın sesini tamamen susturamıyorsun.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_guvenli": {
           "title": "Yalnızlık",
           "kind": "outcome",
-          "text": "Stadyumun soğuk koridorlarında yankılanan adımların dışında hiçbir ses yok. Profesyonel olmanın bedeli, her gün biraz daha yalnızlaşmak.",
+          "text": "Stadyumun soğuk koridorlarında yankılanan adımların dışında hiçbir ses yok. Profesyonel olmanın bedeli, her gün biraz daha yalnızlaşmak ve doğru cümleyi kurduğun halde yanlış bir boşlukta yaşamayı öğrenmek oluyor.",
           "onEnter": [
             {
-              "flag": "mem_dated_journalist",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -917,12 +949,18 @@
         "n_root": {
           "title": "Karanlık Odada İtiraf",
           "kind": "branch",
-          "text": "Antrenman tesisinin en kuytu köşesinde, duşların buharıyla ağırlaşmış havada sadece ikiniz varsınız. {actor.journalist.name} duvarın dibinde, kayıt cihazını bile çıkarmadan bekliyor. Gözlerindeki bakış, hazırladığı soruların çok ötesinde; bir insanın, başka bir insanın vicdanındaki ağırlığı ölçmeye çalışıyor. Su borularından gelen ritmik tıkırtı dışında odada çıt yok. Sessizlik, birikmiş yalanların çatlamasına neden oluyor.",
+          "text": "Antrenman tesisinin en kuytu köşesinde, duşların buharıyla ağırlaşmış havada sadece ikiniz varsınız. {actor.journalist.name} duvarın dibinde, kayıt cihazını bile çıkarmadan bekliyor. Gözlerindeki bakış, hazırladığı soruların çok ötesinde; bir insanın, başka bir insanın vicdanındaki ağırlığı ölçmeye çalışıyor. Su borularından gelen ritmik tıkırtı dışında odada çıt yok. Sessizlik, birikmiş yalanların çatlamasına neden oluyor. Kapağı yarım kalmış dolaptan gelen metal koku, konuşmanın sonunda hiçbirinizin eski yerine dönemeyeceğini hatırlatıyor. Buhar camı kaplarken, geciktirdiğin her kelimenin sabah manşetinde daha sert yankılanacağını biliyorsun.",
           "choices": [
             {
               "id": "c_buyuk_para",
               "text": "Çantandan çıkardığın kalın zarfı, tek bir kelime etmeden çöp kutusunun hemen yanına bırak.",
               "target": "n_servet",
+              "requires": {
+                "flag": "servet",
+                "op": "gte",
+                "value": 60000
+              },
+              "lockLabel": "[Servet 60K]",
               "effects": [
                 {
                   "flag": "servet",
@@ -1048,9 +1086,9 @@
           "text": "{actor.journalist.name} zarfı gördü. Uzun bir an sessiz kaldı, sonra yavaşça arkasını dönüp gitti. İçin boşalmış gibi hissetmiyorsun; aksine, cebin ağırlaşırken ruhun biraz daha yük taşıyor.",
           "onEnter": [
             {
-              "flag": "mem_dated_journalist",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -1060,9 +1098,9 @@
           "text": "{actor.journalist.name} gülümsedi. Bu bir zafer değil, bir tehdit alışverişiydi. Sokaktaki insanlar seni kahraman olarak görecek ama medya yavaş yavaş etrafındaki çemberi daraltacak.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -1072,9 +1110,9 @@
           "text": "Cümlelerin o kadar kusursuzdu ki kendin bile inandın. {actor.journalist.name} not defterini kapattı ve çıktı. Sahaya döndüğünde herkes alkışlıyor ama sen aynaya bakarken yabancı birini görüyorsun.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },

@@ -1,0 +1,204 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Her sezonun 1. veya 2. haftasında yaz tatili dönüşü yaşanan evrensel futbol gerçeği: hazırlık kampı sabahı kilo tartısı ve diyetisyen gerilimi.",
+    "hangi_soru": "Tatilden kalan üç fazla kiloyu tartı ekranında gördüğünde mizaha mı vuracaksın, saunada aç kalarak mı eriteceksin, dürüstçe hocanın ceza koşusunu mu çekeceksin?",
+    "odeme_plani": "Kamp başlangıcındaki bu ciddiyet/rahatlık dengesi doktor ve hocanın oyuncuya bakışını (npc_doctor_arc) belirler."
+  },
+  "id": "evt_life_hazirlik_kampi_tartisi",
+  "family": "fam_life_hazirlik_tartisi",
+  "category": "life",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 70,
+  "cooldown": {
+    "self": 36,
+    "family": 16
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "trigger": {
+    "flag": "week",
+    "op": "lte",
+    "value": 2
+  },
+  "story": {
+    "signature": "life:doctor:hazirlik_kampi_tartisi",
+    "slot": "doctor",
+    "beat": "hazirlik_kampi_tartisi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 4
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Basküldeki Kırmızı Rakamlar",
+      "kind": "branch",
+      "text": "Bolu kampının ilk sabahı. Tesis koridorunda çıplak ayak sesleri ve terlik şıpırtıları yankılanıyor. Sağlık odasının kapısında dijital baskülün başında {actor.doctor.name} oturuyor; elinde kırmızı kaplı bir not defteri ve tükenmez kalem. Yaz tatilinde memlekette yenen anne yemekleri, sahil kenarındaki geç akşam yemekleri ve bir aydır el sürülmeyen koşu bandı. Sıra sana geldiğinde derin bir nefes alıp tartıya basıyorsun. Dijital ekran iki saniye yanıp sönüyor ve acı gerçeği kırmızı piksellerle yüzüne vuruyor: hedef kilonun tam 3.2 kilo üzerindesin. Doktor gözlüğünün üstünden sana bakıp kaşlarını kaldırıyor. Kapının arkasından {actor.manager.name:gen} sert ayak sesleri yaklaşıyor.",
+      "choices": [
+        {
+          "id": "c_itiraf",
+          "text": "\"Hocam memlekette annemin elini kıramadım. Cezam neyse çekerim, sahada eritirim.\"",
+          "target": "n_itiraf",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "dogruluk": 10,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_saka",
+          "text": "Çorapları da çıkarıp nefesini tut: \"Doktor bey bu alet bozuk, kas kütlem artmış olmasın?\"",
+          "target": "n_saka",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "iliski_doctor",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": -4
+          }
+        },
+        {
+          "id": "c_sauna",
+          "text": "Öğle yemeğini pas geç: Çöp poşetini üzerine geçirip saunada yarım saat ter at.",
+          "target": "n_sauna",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "mizac": 4
+          }
+        }
+      ]
+    },
+    "n_itiraf": {
+      "title": "Sabah Krosu",
+      "kind": "outcome",
+      "text": "Doktor deftere rakamı yazarken gülümsedi ama başını salladı. {actor.manager.name} içeri girdiğinde durumu öğrendi ve sana antrenmandan önce çam ağaçlarının arasında ekstra beş kilometrelik kros cezası kesti. Ciğerlerin yandı ama dürüstlüğün hocanın saygısını kazandı.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_saka": {
+      "title": "Koridor Kahkahası",
+      "kind": "outcome",
+      "text": "Arkanda bekleyen takım arkadaşların kahkahayı patlattı. Doktor 'Kas kütlesi börekten olmaz evlat' diye güldü ama deftere büyük bir soru işareti koydu. Akşam antrenmanında hoca topla ısınma yerine seni tempolu istasyonlara soktu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    },
+    "n_sauna": {
+      "title": "Buhar Odasındaki Ter",
+      "kind": "outcome",
+      "text": "Öğle yemeğinde arkadaşlarının tabaklarındaki ızgaralara bakmadan saunaya koştun. Sıcak buharın altında gözlerin karardı ama iki saatte vücudundaki suyu boşalttın. Akşam üzeri tartıya tekrar çıktığında rakam normale yaklaşmıştı; başın dönüyordu ama hoca defteri temiz kapattı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    }
+  }
+}

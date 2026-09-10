@@ -27,6 +27,15 @@ export interface SimulatedWorld {
   readonly league: LeagueModel;
   readonly simulator: MatchSimulator;
   readonly schedule: SeasonSchedule;
+  /** Takimin canli lig baglami (sira, lig buyuklugu, dusme hatti). */
+  leagueContextForClub(clubId: string):
+    | {
+        readonly position: number;
+        readonly size: number;
+        readonly relegationLine: number;
+        readonly inRelegationZone: boolean;
+      }
+    | undefined;
   /** Hero'nun maci disindaki fiksturleri cozer ve tabloya isler. */
   advanceWeek(week: number, heroClubId: string): readonly string[];
   /** Hero'nun macinin skorunu tabloya isler. */
@@ -53,12 +62,38 @@ export async function createSimulatedWorld(
 
   const schedule = buildSeasonSchedule({ weeks: 40, clubs, leagues }, new Rng(seed));
   const league = new LeagueModel(clubs, leagues);
+  const relegatedByLeague = new Map(leagues.map((l) => [l.id, Math.max(0, l.relegated)]));
+  const leagueContextForClub = (clubId: string):
+    | {
+        readonly position: number;
+        readonly size: number;
+        readonly relegationLine: number;
+        readonly inRelegationZone: boolean;
+      }
+    | undefined => {
+    const leagueId = league.leagueFor(clubId) ?? roster.club(clubId)?.league;
+    if (!leagueId) return undefined;
+    const table = league.standings(leagueId);
+    if (table.length === 0) return undefined;
+    const row = table.find((r) => r.clubId === clubId);
+    if (!row) return undefined;
+    const size = table.length;
+    const relegated = relegatedByLeague.get(leagueId) ?? 0;
+    const relegationLine = relegated > 0 ? Math.max(1, size - relegated + 1) : size + 1;
+    return {
+      position: row.position,
+      size,
+      relegationLine,
+      inRelegationZone: relegated > 0 && row.position >= relegationLine,
+    };
+  };
   const simulator = new MatchSimulator({
     clubs,
     squadOf: (id) => roster.squad(id),
     schedule,
     seed,
     heroName,
+    tableContextForClub: leagueContextForClub,
   });
 
   const world = new SimulatedWorldProvider(league);
@@ -73,6 +108,7 @@ export async function createSimulatedWorld(
     league,
     simulator,
     schedule,
+    leagueContextForClub,
     advanceWeek: (week, heroClubId) => {
       league.playWeek(schedule.byWeek(week), heroClubId, leagueRng);
       // Mock dunyada kupa yok: tek lig var, sezon sonu `finishSeason`

@@ -30,8 +30,9 @@
 import { ARCHETYPES, type Archetype } from '../domain/axes.js';
 import { ContentLoader } from '../loading/ContentLoader.js';
 import { FileSystemContentSource } from '../loading/FileSystemContentSource.js';
-import { GameEngine, type TurnReport } from '../runtime/GameEngine.js';
+import { GameEngine, type PresentedNode, type TurnReport } from '../runtime/GameEngine.js';
 import { Rng } from '../selection/Rng.js';
+import { EligibilityFilter, type RejectReason } from '../selection/EligibilityFilter.js';
 import { randomOpenChoice, runSimulatedMatch } from './runMatch.js';
 import {
   averageCountStats,
@@ -42,7 +43,7 @@ import {
   seedSeries,
   writeManifest,
 } from './narrativeMetrics.js';
-import { selectWorld } from './world.js';
+import { selectWorld, weeklySelectionMatchContext } from './world.js';
 import { BOT_POLICY_VERSION, botTurn } from './bot.js';
 
 function numberOf(value: unknown): number {
@@ -106,9 +107,73 @@ interface Trajectory {
   readonly samples: number[];
 }
 
+interface FirstRepeatMarker {
+  readonly turn: number;
+  readonly season: number;
+  readonly week: number;
+}
+
+interface SeasonMeasure {
+  readonly season: number;
+  readonly turns: number;
+  readonly activePlayingTurns: number;
+  readonly postRetirementTurns: number;
+  readonly teamFixtures: number;
+  readonly heroMinutesMatches: number;
+  readonly starts: number;
+  readonly benchEntries: number;
+  readonly storyImpressions: number;
+  readonly storyUniqueEvents: number;
+  readonly storyUniqueVariants: number;
+  readonly storyRepeatImpressions: number;
+  readonly ambientMatchImpressions: number;
+  readonly ambientReactionImpressions: number;
+  readonly noStoryWeeks: number;
+  readonly longestNoStoryDrought: number;
+  readonly firstRepeatWeek: number | undefined;
+  readonly rejectionCounts: Map<RejectReason, number>;
+}
+
+interface SeasonBucket {
+  season: number;
+  turns: number;
+  activePlayingTurns: number;
+  postRetirementTurns: number;
+  teamFixtures: number;
+  heroMinutesMatches: number;
+  starts: number;
+  benchEntries: number;
+  storyImpressions: number;
+  storyRepeatImpressions: number;
+  ambientMatchImpressions: number;
+  ambientReactionImpressions: number;
+  noStoryWeeks: number;
+  longestNoStoryDrought: number;
+  currentNoStoryDrought: number;
+  firstRepeatWeek: number | undefined;
+  storyEvents: Set<string>;
+  storyVariants: Set<string>;
+  storyVariantCounts: Map<string, number>;
+  rejectionCounts: Map<RejectReason, number>;
+}
+
 interface CareerMeasure {
   readonly seed: number;
   readonly turns: number;
+  readonly activePlayingTurns: number;
+  readonly postRetirementTurns: number;
+  readonly teamFixtures: number;
+  readonly heroMinutesMatches: number;
+  readonly storyImpressions: number;
+  readonly storyUniqueEvents: number;
+  readonly storyUniqueVariants: number;
+  readonly storyRepeatImpressions: number;
+  readonly ambientMatchImpressions: number;
+  readonly ambientReactionImpressions: number;
+  readonly longestNoStoryDrought: number;
+  readonly firstStoryRepeat: FirstRepeatMarker | undefined;
+  readonly gateRejectionsForUnseen: Map<RejectReason, number>;
+  readonly seasons: readonly SeasonMeasure[];
   /** Hikaye sahnesi cikan tur sayisi (mac/reaction haric). */
   readonly storyTurns: number;
   readonly quietTurns: number;
@@ -143,13 +208,43 @@ interface CareerMeasure {
    * etmesi normaldir, bir aile sahnesinin tekrar etmesi degildir.
    */
   readonly shownStory: Map<string, number>;
+  readonly shownStoryHand: Map<string, number>;
+  readonly shownStoryGenerated: Map<string, number>;
   readonly shownAmbient: Map<string, number>;
+  readonly handStoryTurns: number;
   /** Ayni metnin IKINCI kez goruldugu ilk tur. */
   readonly firstRepeatTurn: number | undefined;
   /** Kariyer erken bittiyse hangi hata yuzunden. */
   readonly stoppedBy: string | undefined;
   readonly ended: string | undefined;
 }
+
+function newSeasonBucket(season: number): SeasonBucket {
+  return {
+    season,
+    turns: 0,
+    activePlayingTurns: 0,
+    postRetirementTurns: 0,
+    teamFixtures: 0,
+    heroMinutesMatches: 0,
+    starts: 0,
+    benchEntries: 0,
+    storyImpressions: 0,
+    storyRepeatImpressions: 0,
+    ambientMatchImpressions: 0,
+    ambientReactionImpressions: 0,
+    noStoryWeeks: 0,
+    longestNoStoryDrought: 0,
+    currentNoStoryDrought: 0,
+    firstRepeatWeek: undefined,
+    storyEvents: new Set(),
+    storyVariants: new Set(),
+    storyVariantCounts: new Map(),
+    rejectionCounts: new Map(),
+  };
+}
+
+const TRANSIENT_REJECTIONS = new Set<RejectReason>(['cooldown_self', 'cooldown_family', 'once']);
 
 /** Milli ara haftalari -- `CalendarConstraints.internationalWindows`. */
 const NATIONAL_WEEKS = new Set([5, 11, 17, 26, 33]);
@@ -170,11 +265,20 @@ async function measure(
   // tasir: `buildMatch`/`step`/`resume` bir durum makinesidir ve iki
   // kariyer ayni makineyi surerse ikincisi bozuk bir durumda baslar.
   const world = await selectWorld({ registry, seed, dbPath });
-  const engine = new GameEngine(registry, {
+  let engine!: GameEngine;
+  engine = new GameEngine(registry, {
     seed,
     roster: world.roster,
     world: world.world,
     worldFeed: world.worldFeed,
+    selectionMatchContext: ({ season, week, clubId }) =>
+      weeklySelectionMatchContext(world, {
+        season,
+        week,
+        clubId,
+        availability: engine.availability(),
+        hero: engine.heroProfile(),
+      }),
   });
   // KIMYA KABLOSU -- simulate'te var, burada yoktu. Simulator "kim
   // kiminle iyi anlasiyor" sorusunu motora bu kanaldan sorar.
@@ -182,6 +286,8 @@ async function measure(
   engine.start(archetype);
 
   const rng = new Rng(seed ^ 0x5eed);
+  const filter = new EligibilityFilter();
+  const weeklyEvents = registry.events.filter((e) => e.momentType === undefined && e.scheduledOnly !== true);
   const trajectories = new Map<string, number[]>(TRACKED.map((f) => [f, []]));
   const milestones = new Map<string, number>();
   const gaps = new Map<string, number[]>();
@@ -189,8 +295,16 @@ async function measure(
   const lockedBy = new Map<string, number>();
   const scenesPerTurn = new Map<number, number>();
   const occurrences = new OccurrenceCollector(AMBIENT);
+  const shownStoryHand = new Map<string, number>();
+  const shownStoryGenerated = new Map<string, number>();
+  const seasonBuckets = new Map<number, SeasonBucket>();
+  const gateRejectionsForUnseen = new Map<RejectReason, number>();
+  const careerStoryEvents = new Set<string>();
+  const careerStoryVariants = new Set<string>();
+  const careerStoryCounts = new Map<string, number>();
 
   let storyTurns = 0;
+  let handStoryTurns = 0;
   let quietTurns = 0;
   let choicesShown = 0;
   let choicesLocked = 0;
@@ -203,8 +317,81 @@ async function measure(
   let deadlocks = 0;
   let started = 0;
   let benched = 0;
+  let storyRepeatImpressions = 0;
+  let firstStoryRepeat: FirstRepeatMarker | undefined;
   let stoppedBy: string | undefined;
   let lastSeason = 1;
+
+  const seasonBucket = (season: number): SeasonBucket => {
+    const existing = seasonBuckets.get(season);
+    if (existing) return existing;
+    const created = newSeasonBucket(season);
+    seasonBuckets.set(season, created);
+    return created;
+  };
+
+  const bumpReason = (map: Map<RejectReason, number>, reason: RejectReason): void => {
+    map.set(reason, (map.get(reason) ?? 0) + 1);
+  };
+
+  const observeNode = (
+    node: PresentedNode,
+    turn: number,
+    season: number,
+    week: number,
+  ): { story: boolean; handStory: boolean } => {
+    const seen = occurrences.observe(node, turn);
+    if (!seen.countedOccurrence) return { story: false, handStory: false };
+
+    const bucket = seasonBucket(season);
+    if (seen.ambient) {
+      if (seen.category === 'match') bucket.ambientMatchImpressions += 1;
+      else if (seen.category === 'reaction') bucket.ambientReactionImpressions += 1;
+      return { story: false, handStory: false };
+    }
+
+    bucket.storyImpressions += 1;
+    bucket.storyEvents.add(node.eventId);
+    bucket.storyVariants.add(seen.eventKey);
+    careerStoryEvents.add(node.eventId);
+    careerStoryVariants.add(seen.eventKey);
+
+    const seasonSeen = bucket.storyVariantCounts.get(seen.eventKey) ?? 0;
+    bucket.storyVariantCounts.set(seen.eventKey, seasonSeen + 1);
+    if (seasonSeen > 0) {
+      bucket.storyRepeatImpressions += 1;
+      if (seasonSeen === 1 && bucket.firstRepeatWeek === undefined) {
+        bucket.firstRepeatWeek = week;
+      }
+    }
+
+    const careerSeen = careerStoryCounts.get(seen.eventKey) ?? 0;
+    careerStoryCounts.set(seen.eventKey, careerSeen + 1);
+    if (careerSeen > 0) {
+      storyRepeatImpressions += 1;
+      if (careerSeen === 1 && firstStoryRepeat === undefined) {
+        firstStoryRepeat = { turn, season, week };
+      }
+    }
+
+    const ev = registry.get(node.eventId);
+    const isHand = ev?.authored === 'hand';
+    if (isHand) {
+      shownStoryHand.set(seen.eventKey, (shownStoryHand.get(seen.eventKey) ?? 0) + 1);
+    } else {
+      shownStoryGenerated.set(seen.eventKey, (shownStoryGenerated.get(seen.eventKey) ?? 0) + 1);
+    }
+
+    const previous = lastSeen.get(seen.category);
+    if (previous !== undefined) {
+      const list = gaps.get(seen.category) ?? [];
+      list.push(turn - previous);
+      gaps.set(seen.category, list);
+    }
+    lastSeen.set(seen.category, turn);
+
+    return { story: true, handStory: isHand };
+  };
 
   /**
    * Acik sahneleri KAPATIR ve yol boyunca olcum toplar.
@@ -217,9 +404,13 @@ async function measure(
    *
    * Donen deger: hikaye (mac/reaction disi) sahnesi gorulup gorulmedigi.
    */
-  const drain = (turn: number): boolean => {
-    let sawStory = false;
-    let inThisTurn = 0;
+  const drain = (
+    turn: number,
+    season: number,
+    week: number,
+  ): { storyCount: number; sawHandStory: boolean } => {
+    let storyCount = 0;
+    let sawHandStory = false;
     for (let guard = 0; guard < 40; guard += 1) {
       const node = engine.currentNode();
       if (!node) break;
@@ -232,18 +423,11 @@ async function measure(
       // cikiyordu. "Sahneler patlamalar halinde geliyor" sonucu bu
       // sayim hatasinin eseriydi -- olcum aracinin kendi kusurunu
       // icerik kusuru diye raporlamasi.
-      const seen = occurrences.observe(node, turn);
+      const seen = observeNode(node, turn, season, week);
 
-      if (!seen.ambient && seen.countedOccurrence) {
-        sawStory = true;
-        const previous = lastSeen.get(seen.category);
-        if (previous !== undefined) {
-          const list = gaps.get(seen.category) ?? [];
-          list.push(turn - previous);
-          gaps.set(seen.category, list);
-        }
-        lastSeen.set(seen.category, turn);
-        inThisTurn += 1;
+      if (seen.story) {
+        storyCount += 1;
+        if (seen.handStory) sawHandStory = true;
       }
 
       // `node.choices` DEGIL `availableChoices()`: outcome dugumlerinin
@@ -271,14 +455,7 @@ async function measure(
       }
       engine.choose(chosen.id);
     }
-    // KAC SAHNE AYNI TURDA: kategori araliginin ortancasi 0 cikiyordu,
-    // yani ayni tonun iki sahnesi ayni hafta icinde arka arkaya
-    // geliyor. Sebebin zincirleme mi yoksa secici mi oldugunu ayirt
-    // etmek icin turdaki sahne sayisini da sayiyoruz.
-    if (inThisTurn > 0) {
-      scenesPerTurn.set(inThisTurn, (scenesPerTurn.get(inThisTurn) ?? 0) + 1);
-    }
-    return sawStory;
+    return { storyCount, sawHandStory };
   };
 
   for (let t = 0; t < maxTurns; t += 1) {
@@ -292,6 +469,45 @@ async function measure(
       break;
     }
     turns = report.turn;
+    const bucket = seasonBucket(report.season);
+    bucket.turns += 1;
+
+    const stateAtTurnStart = engine.snapshot();
+    const retired =
+      stateAtTurnStart.lifeState === 'retired' || stateAtTurnStart.flags['retired'] === true;
+    if (retired) bucket.postRetirementTurns += 1;
+    else bucket.activePlayingTurns += 1;
+
+    // O sezon henuz gorulmemis haftalik olaylar neden eleniyor?
+    const ctx = {
+      era: report.era,
+      stature: report.stature,
+      clubTier: report.clubTier,
+      lifeState: report.lifeState,
+      mediaEra: report.mediaEra,
+      archetype,
+      turn: report.turn,
+      flags: stateAtTurnStart.flags,
+      flagSetTurn: stateAtTurnStart.flagSetTurn,
+      seenEvents: stateAtTurnStart.seenEvents,
+      seenVariants: stateAtTurnStart.seenVariants,
+      storyArcTurns: stateAtTurnStart.storyArcTurns,
+      storyBeatTurns: stateAtTurnStart.storyBeatTurns,
+      storyBeatCounts: stateAtTurnStart.storyBeatCounts,
+      storySignatureTurns: stateAtTurnStart.storySignatureTurns,
+      cooldownState: {
+        cooldowns: stateAtTurnStart.cooldowns,
+        familyCooldowns: stateAtTurnStart.familyCooldowns,
+        categoryCooldowns: stateAtTurnStart.categoryCooldowns,
+      },
+    };
+    for (const event of weeklyEvents) {
+      if (stateAtTurnStart.seenEvents[event.id] !== undefined) continue;
+      const reason = filter.rejectReason(event, ctx);
+      if (reason === undefined || TRANSIENT_REJECTIONS.has(reason)) continue;
+      bumpReason(bucket.rejectionCounts, reason);
+      bumpReason(gateRejectionsForUnseen, reason);
+    }
 
     // MILLI ARA.
     //
@@ -373,14 +589,14 @@ async function measure(
     if (botOut.loanTaken) loansTaken += 1;
 
     // --- SAHNE VE SECIM
-    const sawStory = drain(report.turn);
+    let turnStoryCount = 0;
+    let turnSawHandStory = false;
+    const drained = drain(report.turn, report.season, report.week);
+    turnStoryCount += drained.storyCount;
+    if (drained.sawHandStory) turnSawHandStory = true;
 
-    if (sawStory) storyTurns += 1;
-    else quietTurns += 1;
-
-    // Mac oynanir: yorgunluk, form ve kondisyon yorungeleri ancak
-    // sahaya cikilirsa hareket eder. Macsiz bir olcum, yorgunluk
-    // sisteminin olu oldugu sonucunu verirdi -- yanlis olarak.
+    // O haftanin TUM mac slotlari oynanir. Aksi halde yogun haftanin ikinci
+    // maci atlanir ve hem yorgunluk hem tekrar ritmi yalnizca ilk maca bakar.
     //
     // Acik dugum kalmissa mac ATLANIR: `presentMoment` acik bir an
     // uzerine ikincisini koymayi reddediyor ve hakli olarak patliyor.
@@ -388,27 +604,43 @@ async function measure(
     // Dugum hala acikken mac ATLANIR ama olcum devam eder: ornekleme
     // asagida, `continue` ile atlanmamali.
     const week = engine.snapshot().week;
+    const season = engine.snapshot().season;
+    const fixtureCount = world.schedule.fixturesFor(engine.snapshot().clubId, week).length;
+    bucket.teamFixtures += fixtureCount;
     {
       try {
-        await runSimulatedMatch(
-          engine,
-          world.simulator,
-          {
-            onPresented: (node) => {
-              occurrences.observe(node, report.turn);
+        for (let slot = 0; slot < fixtureCount; slot += 1) {
+          const played = await runSimulatedMatch(
+            engine,
+            world.simulator,
+            {
+              onPresented: (node) => {
+                const seen = observeNode(node, report.turn, report.season, report.week);
+                if (!seen.story) return;
+                turnStoryCount += 1;
+                if (seen.handStory) turnSawHandStory = true;
+              },
+              // MAC ANLARI da sayilir. Bunlar `drain()`den gecmez --
+              // `runSimulatedMatch` kendi ic dongusunde tuketir. Sayilmazsa
+              // sahne butcesinin %21'i olcumun disinda kalir ve tekrar
+              // raporu oldugundan iyi gorunur.
+              chooseMoment: (_node) => randomOpenChoice(_node, (max) => rng.int(max)),
             },
-            // MAC ANLARI da sayilir. Bunlar `drain()`den gecmez --
-            // `runSimulatedMatch` kendi ic dongusunde tuketir. Sayilmazsa
-            // sahne butcesinin %21'i olcumun disinda kalir ve tekrar
-            // raporu oldugundan iyi gorunur.
-            chooseMoment: (_node) => randomOpenChoice(_node, (max) => rng.int(max)),
-          },
-          { season: engine.snapshot().season, week },
-        );
-        // KADRO REKABETI olcumu: bu mac ilk 11'de mi baslandi.
-        if (engine.snapshot().flags['is_starter'] === false) benched += 1;
-        else started += 1;
-        world.recordHeroMatch();
+            { season, week, slot },
+          );
+
+          // KADRO REKABETI: yalnizca Hero dakika aldigi maclarda say.
+          if (played !== undefined && played.result !== 'none') {
+            if (played.minutes > 0) {
+              if (engine.snapshot().flags['is_starter'] === false) benched += 1;
+              else started += 1;
+              bucket.heroMinutesMatches += 1;
+              if (engine.snapshot().flags['is_starter'] === false) bucket.benchEntries += 1;
+              else bucket.starts += 1;
+            }
+            world.recordHeroMatch();
+          }
+        }
         for (const competitionId of world.advanceWeek(week, engine.snapshot().clubId)) {
           engine.reportWorldEvent({ kind: 'trophy', competitionId });
         }
@@ -419,6 +651,21 @@ async function measure(
         stoppedBy = `mac sirasinda: ${(error as Error).message}`;
         break;
       }
+    }
+
+    if (turnStoryCount > 0) {
+      storyTurns += 1;
+      if (turnSawHandStory) handStoryTurns += 1;
+      scenesPerTurn.set(turnStoryCount, (scenesPerTurn.get(turnStoryCount) ?? 0) + 1);
+      bucket.currentNoStoryDrought = 0;
+    } else {
+      quietTurns += 1;
+      bucket.noStoryWeeks += 1;
+      bucket.currentNoStoryDrought += 1;
+      bucket.longestNoStoryDrought = Math.max(
+        bucket.longestNoStoryDrought,
+        bucket.currentNoStoryDrought,
+      );
     }
 
     // --- ORNEKLEME
@@ -434,9 +681,55 @@ async function measure(
     if (snap.ending !== undefined) break;
   }
 
+  const seasons: SeasonMeasure[] = [...seasonBuckets.values()]
+    .sort((a, b) => a.season - b.season)
+    .map((b) => ({
+      season: b.season,
+      turns: b.turns,
+      activePlayingTurns: b.activePlayingTurns,
+      postRetirementTurns: b.postRetirementTurns,
+      teamFixtures: b.teamFixtures,
+      heroMinutesMatches: b.heroMinutesMatches,
+      starts: b.starts,
+      benchEntries: b.benchEntries,
+      storyImpressions: b.storyImpressions,
+      storyUniqueEvents: b.storyEvents.size,
+      storyUniqueVariants: b.storyVariants.size,
+      storyRepeatImpressions: b.storyRepeatImpressions,
+      ambientMatchImpressions: b.ambientMatchImpressions,
+      ambientReactionImpressions: b.ambientReactionImpressions,
+      noStoryWeeks: b.noStoryWeeks,
+      longestNoStoryDrought: b.longestNoStoryDrought,
+      firstRepeatWeek: b.firstRepeatWeek,
+      rejectionCounts: new Map(b.rejectionCounts),
+    }));
+
+  const activePlayingTurns = seasons.reduce((sum, s) => sum + s.activePlayingTurns, 0);
+  const postRetirementTurns = seasons.reduce((sum, s) => sum + s.postRetirementTurns, 0);
+  const teamFixtures = seasons.reduce((sum, s) => sum + s.teamFixtures, 0);
+  const heroMinutesMatches = seasons.reduce((sum, s) => sum + s.heroMinutesMatches, 0);
+  const ambientMatchImpressions = seasons.reduce((sum, s) => sum + s.ambientMatchImpressions, 0);
+  const ambientReactionImpressions = seasons.reduce((sum, s) => sum + s.ambientReactionImpressions, 0);
+  const longestNoStoryDrought =
+    seasons.length === 0 ? 0 : Math.max(...seasons.map((s) => s.longestNoStoryDrought));
+
   return {
     seed,
     turns,
+    activePlayingTurns,
+    postRetirementTurns,
+    teamFixtures,
+    heroMinutesMatches,
+    storyImpressions: occurrences.storyOccurrences,
+    storyUniqueEvents: careerStoryEvents.size,
+    storyUniqueVariants: careerStoryVariants.size,
+    storyRepeatImpressions,
+    ambientMatchImpressions,
+    ambientReactionImpressions,
+    longestNoStoryDrought,
+    firstStoryRepeat,
+    gateRejectionsForUnseen,
+    seasons,
     storyTurns,
     quietTurns,
     choicesShown,
@@ -455,7 +748,10 @@ async function measure(
     benched,
     scenesPerTurn,
     shownStory: new Map(occurrences.shownStory),
+    shownStoryHand: new Map(shownStoryHand),
+    shownStoryGenerated: new Map(shownStoryGenerated),
     shownAmbient: new Map(occurrences.shownAmbient),
+    handStoryTurns,
     firstRepeatTurn: occurrences.firstRepeatTurn,
     stoppedBy,
     ended: engine.snapshot().ending,
@@ -470,6 +766,43 @@ function pct(part: number, whole: number): string {
 
 function avg(values: readonly number[]): number {
   return values.length === 0 ? 0 : Math.round(values.reduce((s, v) => s + v, 0) / values.length);
+}
+
+function avg1(values: readonly number[]): number {
+  if (values.length === 0) return 0;
+  const raw = values.reduce((s, v) => s + v, 0) / values.length;
+  return Math.round(raw * 10) / 10;
+}
+
+function percentile(values: readonly number[], q: number): number {
+  if (values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const index = Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * q));
+  return sorted[index] ?? 0;
+}
+
+function ratioValue(numerator: number, denominator: number): number | undefined {
+  if (denominator <= 0) return undefined;
+  return numerator / denominator;
+}
+
+function ratioLabel(value: number | undefined): string {
+  if (value === undefined) return 'N/A';
+  return `${(value * 100).toFixed(1)}%`;
+}
+
+function distribution(values: readonly number[]): {
+  readonly mean: number;
+  readonly median: number;
+  readonly p25: number;
+  readonly p75: number;
+} {
+  return {
+    mean: avg1(values),
+    median: percentile(values, 0.5),
+    p25: percentile(values, 0.25),
+    p75: percentile(values, 0.75),
+  };
 }
 
 /**
@@ -549,9 +882,11 @@ async function main(): Promise<void> {
   // --- 1. RITIM
   const totalTurns = runs.reduce((s, r) => s + r.turns, 0);
   const quiet = runs.reduce((s, r) => s + r.quietTurns, 0);
+  const handTurns = runs.reduce((s, r) => s + r.handStoryTurns, 0);
   console.log('RITIM');
   console.log(`  Kariyer uzunlugu (ort)   : ${avg(runs.map((r) => r.turns))} tur`);
   console.log(`  Hikaye sahnesi olan hafta: ${pct(totalTurns - quiet, totalTurns)}`);
+  console.log(`  ...El sahnesi olan hafta : ${pct(handTurns, totalTurns)}  ${handTurns}/${totalTurns}`);
   console.log(`  SESSIZ hafta             : ${pct(quiet, totalTurns)}  ${quiet}/${totalTurns}`);
 
   const perTurn = new Map<number, number>();
@@ -570,12 +905,23 @@ async function main(): Promise<void> {
   // bir aile sahnesinin tekrar etmesi degildir. Tek bir ortalama bu iki
   // ayri gercegi tek sayida eritir ve yaniltir.
   const storyRuns = runs.map((r) => r.shownStory);
+  const storyHandRuns = runs.map((r) => r.shownStoryHand);
+  const storyGenRuns = runs.map((r) => r.shownStoryGenerated);
   const ambientRuns = runs.map((r) => r.shownAmbient);
+
   const story = averageCountStats(storyRuns);
+  const storyHand = averageCountStats(storyHandRuns);
+  const storyGen = averageCountStats(storyGenRuns);
   const ambient = averageCountStats(ambientRuns);
+
   const storyMerged = mergeCountMaps(storyRuns);
+  const storyHandMerged = mergeCountMaps(storyHandRuns);
+  const storyGenMerged = mergeCountMaps(storyGenRuns);
   const ambientMerged = mergeCountMaps(ambientRuns);
+
   const storyTotal = countMapStats(storyMerged);
+  const storyHandTotal = countMapStats(storyHandMerged);
+  const storyGenTotal = countMapStats(storyGenMerged);
   const ambientTotal = countMapStats(ambientMerged);
 
   console.log('\nTEKRAR');
@@ -584,11 +930,19 @@ async function main(): Promise<void> {
       `-> ${story.ratio.toFixed(1)}x tekrar`,
   );
   console.log(
+    `    -> EL (kariyer ort.)   : ${storyHand.shows} gosterim / ${storyHand.unique} benzersiz  ` +
+      `-> ${storyHand.ratio.toFixed(1)}x tekrar`,
+  );
+  console.log(
+    `    -> URETIM (kariyer ort): ${storyGen.shows} gosterim / ${storyGen.unique} benzersiz  ` +
+      `-> ${storyGen.ratio.toFixed(1)}x tekrar`,
+  );
+  console.log(
     `  AMBIYANS (kariyer ort.)  : ${ambient.shows} gosterim / ${ambient.unique} benzersiz  ` +
       `-> ${ambient.ratio.toFixed(1)}x tekrar`,
   );
   console.log(
-    `  HIKAYE (tum kariyer)     : ${storyTotal.shows} gosterim / ${storyTotal.unique} benzersiz`,
+    `  HIKAYE (tum kariyer)     : ${storyTotal.shows} gosterim / ${storyTotal.unique} benzersiz (el: ${storyHandTotal.unique}, uretim: ${storyGenTotal.unique})`,
   );
   console.log(
     `  AMBIYANS (tum kariyer)   : ${ambientTotal.shows} gosterim / ${ambientTotal.unique} benzersiz`,
@@ -625,6 +979,129 @@ async function main(): Promise<void> {
     console.log(
       `    ${cat.padEnd(12)} ${ratio.toFixed(1).padStart(5)}x  ` +
         `(${cell.shows} gosterim / ${cell.uniq.size} metin)`,
+    );
+  }
+
+  // --- 1c. A3 KARIYER + SEZON RAPORU
+  console.log('\nA3 RAPORU  (kariyer + sezon)');
+  console.log('  formuller:');
+  console.log('    repeat_exposure = storyRepeatImpressions / storyImpressions');
+  console.log('    quiet_exposure  = noStoryWeeks / turns');
+  console.log('    play_exposure   = heroMinutesMatches / teamFixtures');
+
+  console.log('  KARIYER BAZINDA:');
+  for (const run of [...runs].sort((a, b) => a.seed - b.seed)) {
+    const first =
+      run.firstStoryRepeat === undefined
+        ? 'N/A'
+        : `S${run.firstStoryRepeat.season} H${run.firstStoryRepeat.week}`;
+    const repeatExposure = ratioLabel(ratioValue(run.storyRepeatImpressions, run.storyImpressions));
+    const quietExposure = ratioLabel(ratioValue(run.quietTurns, run.turns));
+    const playExposure = ratioLabel(ratioValue(run.heroMinutesMatches, run.teamFixtures));
+    const gateTop = [...run.gateRejectionsForUnseen.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([reason, count]) => `${reason}:${count}`)
+      .join(', ');
+    console.log(
+      `    tohum ${String(run.seed).padStart(6)} | tur ${String(run.turns).padStart(4)} ` +
+        `aktif ${String(run.activePlayingTurns).padStart(4)} / emekli-sonrasi ${String(run.postRetirementTurns).padStart(4)} ` +
+        `| fikstur ${String(run.teamFixtures).padStart(4)} / dakika+ mac ${String(run.heroMinutesMatches).padStart(4)} ` +
+        `(11:${run.started}, yedek:${run.benched})`,
+    );
+    console.log(
+      `             hikaye ${run.storyImpressions} (uniqE ${run.storyUniqueEvents}, uniqV ${run.storyUniqueVariants}, tekrar ${run.storyRepeatImpressions}) ` +
+        `| ambiyans match/reaction ${run.ambientMatchImpressions}/${run.ambientReactionImpressions}`,
+    );
+    console.log(
+      `             sessiz ${run.quietTurns} (en uzun kuraklik ${run.longestNoStoryDrought}) ` +
+        `| ilk tekrar ${first} | exposure repeat ${repeatExposure}, quiet ${quietExposure}, play ${playExposure}` +
+        (gateTop.length > 0 ? ` | unseen gate top: ${gateTop}` : ''),
+    );
+  }
+
+  const repeatExposureRows = runs
+    .map((r) => ({ seed: r.seed, value: ratioValue(r.storyRepeatImpressions, r.storyImpressions) }))
+    .filter((row): row is { seed: number; value: number } => row.value !== undefined);
+  const quietExposureRows = runs
+    .map((r) => ({ seed: r.seed, value: ratioValue(r.quietTurns, r.turns) }))
+    .filter((row): row is { seed: number; value: number } => row.value !== undefined);
+  const playExposureRows = runs
+    .map((r) => ({ seed: r.seed, value: ratioValue(r.heroMinutesMatches, r.teamFixtures) }))
+    .filter((row): row is { seed: number; value: number } => row.value !== undefined);
+
+  const printExposureSummary = (
+    label: string,
+    rows: readonly { seed: number; value: number }[],
+    worstByMax: boolean,
+  ): void => {
+    if (rows.length === 0) {
+      console.log(`  ${label.padEnd(26)} N/A (0 impression) [mean N/A | med N/A | p25 N/A | p75 N/A]`);
+      return;
+    }
+    const valuesPct = rows.map((r) => r.value * 100);
+    const stats = distribution(valuesPct);
+    const worst = [...rows].sort((a, b) => (worstByMax ? b.value - a.value : a.value - b.value))[0]!;
+    console.log(
+      `  ${label.padEnd(26)} ${stats.mean.toFixed(1)}%  ` +
+        `[med ${stats.median.toFixed(1)} | p25 ${stats.p25.toFixed(1)} | p75 ${stats.p75.toFixed(1)}]` +
+        `  worst tohum ${worst.seed} (${(worst.value * 100).toFixed(1)}%)`,
+    );
+  };
+
+  console.log('  DAGILIM  (mean/median/p25/p75 + worst exposure):');
+  printExposureSummary('repeat exposure', repeatExposureRows, true);
+  printExposureSummary('quiet exposure', quietExposureRows, true);
+  printExposureSummary('play exposure', playExposureRows, false);
+
+  const bySeasonMetrics = new Map<number, SeasonMeasure[]>();
+  for (const run of runs) {
+    for (const season of run.seasons) {
+      const list = bySeasonMetrics.get(season.season) ?? [];
+      list.push(season);
+      bySeasonMetrics.set(season.season, list);
+    }
+  }
+  console.log('  SEZON BAZINDA  (kariyer ortalamalari):');
+  for (const season of [...bySeasonMetrics.keys()].sort((a, b) => a - b)) {
+    const rows = bySeasonMetrics.get(season) ?? [];
+    const firstRepeatWeeks = rows
+      .map((s) => s.firstRepeatWeek)
+      .filter((w): w is number => w !== undefined);
+    const gate = new Map<RejectReason, number>();
+    for (const row of rows) {
+      for (const [reason, count] of row.rejectionCounts) {
+        gate.set(reason, (gate.get(reason) ?? 0) + count);
+      }
+    }
+    const gateTop = [...gate.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3)
+      .map(([reason, count]) => `${reason}:${count}`)
+      .join(', ');
+    const seasonRepeatRows = rows
+      .map((r) => ratioValue(r.storyRepeatImpressions, r.storyImpressions))
+      .filter((v): v is number => v !== undefined)
+      .map((v) => v * 100);
+
+    console.log(
+      `    S${String(season).padStart(2, '0')} tur ${avg1(rows.map((r) => r.turns)).toFixed(1)} ` +
+        `| aktif ${avg1(rows.map((r) => r.activePlayingTurns)).toFixed(1)} ` +
+        `| post-ret ${avg1(rows.map((r) => r.postRetirementTurns)).toFixed(1)} ` +
+        `| fikstur ${avg1(rows.map((r) => r.teamFixtures)).toFixed(1)} ` +
+        `| dakika+ ${avg1(rows.map((r) => r.heroMinutesMatches)).toFixed(1)} (11 ${avg1(rows.map((r) => r.starts)).toFixed(1)} / yedek ${avg1(rows.map((r) => r.benchEntries)).toFixed(1)})`,
+    );
+    console.log(
+      `         hikaye ${avg1(rows.map((r) => r.storyImpressions)).toFixed(1)} ` +
+        `(uniqE ${avg1(rows.map((r) => r.storyUniqueEvents)).toFixed(1)}, uniqV ${avg1(rows.map((r) => r.storyUniqueVariants)).toFixed(1)}, tekrar ${avg1(rows.map((r) => r.storyRepeatImpressions)).toFixed(1)}) ` +
+        `| repeat exposure ${seasonRepeatRows.length === 0 ? 'N/A' : `${avg1(seasonRepeatRows).toFixed(1)}%`}`,
+    );
+    console.log(
+      `         ambiyans match/reaction ${avg1(rows.map((r) => r.ambientMatchImpressions)).toFixed(1)}/${avg1(rows.map((r) => r.ambientReactionImpressions)).toFixed(1)} ` +
+        `| no-story ${avg1(rows.map((r) => r.noStoryWeeks)).toFixed(1)} ` +
+        `| en uzun kuraklik ${avg1(rows.map((r) => r.longestNoStoryDrought)).toFixed(1)} ` +
+        `| ilk tekrar hafta ${firstRepeatWeeks.length === 0 ? 'N/A' : percentile(firstRepeatWeeks, 0.5).toFixed(0)}` +
+        (gateTop.length > 0 ? ` | unseen gate top: ${gateTop}` : ''),
     );
   }
 

@@ -116,6 +116,30 @@ describe('sahne tonu', () => {
     expect(findings.map((f) => f.file)).toEqual([]);
   });
 
+  it('SeniorVoiceRule "girmisken kidemli hakem" metnini kidemli oyuncu saymaz', async () => {
+    const reg = await registry();
+    const clean = {
+      ...event('evt_locker_captain_yuzlesme', reg),
+      id: 'evt_test_referee_phrase',
+      stature: undefined,
+      eras: ['rookie'],
+      nodes: {
+        n_root: {
+          id: 'n_root',
+          title: 'Test',
+          kind: 'branch',
+          text: 'Iki takim siraya girmisken kidemli hakem yanina geldi.',
+          choices: [],
+        },
+      },
+      variants: undefined,
+      rootNode: 'n_root',
+    } as unknown as StoryEvent;
+
+    const findings = SeniorVoiceRule.check({ registry: reg, events: [clean] });
+    expect(findings).toHaveLength(0);
+  });
+
   it('SeniorVoiceRule yeni bir ihlali YAKALAR', async () => {
     // Kural nobetci: 0 bulgu "kural calismiyor" demek olmasin diye sentetik
     // bir ihlalle dogruluyoruz.
@@ -141,6 +165,30 @@ describe('sahne tonu', () => {
     const findings = SeniorVoiceRule.check({ registry: reg, events: [bad] });
     expect(findings).toHaveLength(1);
     expect(findings[0]!.message).toContain('kidemli');
+  });
+
+  it('SeniorVoiceRule "en kidemli hakem" ifadesini ihlal saymaz', async () => {
+    const reg = await registry();
+    const clean = {
+      ...event('evt_locker_captain_yuzlesme', reg),
+      id: 'evt_test_referee_qualifier',
+      stature: undefined,
+      eras: ['rookie'],
+      nodes: {
+        n_root: {
+          id: 'n_root',
+          title: 'Test',
+          kind: 'branch',
+          text: 'Isinma bittiginde en kidemli hakem kenara cagirip sakin ol dedi.',
+          choices: [],
+        },
+      },
+      variants: undefined,
+      rootNode: 'n_root',
+    } as unknown as StoryEvent;
+
+    const findings = SeniorVoiceRule.check({ registry: reg, events: [clean] });
+    expect(findings).toHaveLength(0);
   });
 });
 

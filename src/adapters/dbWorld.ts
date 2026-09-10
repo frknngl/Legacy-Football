@@ -53,6 +53,14 @@ export interface DbWorld {
   readonly league: LeagueModel;
   readonly simulator: MatchSimulator;
   readonly schedule: BuiltSeason;
+  leagueContextForClub(clubId: string):
+    | {
+        readonly position: number;
+        readonly size: number;
+        readonly relegationLine: number;
+        readonly inRelegationZone: boolean;
+      }
+    | undefined;
   readonly runner: SeasonRunner;
   readonly market: TransferMarket;
   readonly overlay: TransferOverlay;
@@ -241,6 +249,33 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     leagueLevelOf: (competitionId) => levelByCompetition.get(competitionId) ?? 2,
   });
 
+  const league = new LeagueModel(clubs, leagues);
+  const relegatedByLeague = new Map(leagues.map((l) => [l.id, Math.max(0, l.relegated)]));
+  const leagueContextForClub = (clubId: string):
+    | {
+        readonly position: number;
+        readonly size: number;
+        readonly relegationLine: number;
+        readonly inRelegationZone: boolean;
+      }
+    | undefined => {
+    const leagueId = league.leagueFor(clubId) ?? roster.club(clubId)?.league;
+    if (!leagueId) return undefined;
+    const table = league.standings(leagueId);
+    if (table.length === 0) return undefined;
+    const row = table.find((r) => r.clubId === clubId);
+    if (!row) return undefined;
+    const size = table.length;
+    const relegated = relegatedByLeague.get(leagueId) ?? 0;
+    const relegationLine = relegated > 0 ? Math.max(1, size - relegated + 1) : size + 1;
+    return {
+      position: row.position,
+      size,
+      relegationLine,
+      inRelegationZone: relegated > 0 && row.position >= relegationLine,
+    };
+  };
+
   // Fikstür basina atama ONBELLEKLENIR: ayni maca iki kez sorulunca ayni
   // hakem donmeli, yoksa mac ici tutarlilik bozulur.
   const assigned = new Map<string, Referee | undefined>();
@@ -251,7 +286,6 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     return assigned.get(key);
   };
 
-  const league = new LeagueModel(clubs, leagues);
   const simulator = new MatchSimulator({
     clubs,
     squadOf: (id) => roster.squad(id),
@@ -259,6 +293,7 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     seed: options.seed,
     heroName: options.heroName ?? 'Sen',
     refereeFor,
+    tableContextForClub: leagueContextForClub,
   });
 
   const runner = new SeasonRunner({
@@ -366,6 +401,7 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     league,
     simulator,
     schedule,
+    leagueContextForClub,
     db,
     runner,
     market,

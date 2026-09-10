@@ -2,7 +2,8 @@
   "id": "evt_money_ilk_maas",
   "family": "fam_money_ilk_maas",
   "category": "money",
-  "tier": "major",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 60,
   "once": true,
   "cooldown": {
@@ -33,7 +34,7 @@
         "n_root": {
           "title": "Ayın On Beşi",
           "kind": "branch",
-          "text": "Bankamatik kulübün karşısındaki markette. Kartı üçüncü denemede doğru yönde soktun.\n\nEkranda bir rakam var. Sözleşmede yazan rakam değil bu — ondan küçük. Vergi, kesinti, ilk ay orantısı.\n\nArkanda sıra oluşuyor. Fişi cebine tıkıp çıkıyorsun.\n\nTesiste {actor.sporting_director.name} koridorda seni görüyor, elindeki buruşuk fişe bakıyor ve duruyor.\n\n\"Soracak bir şeyin var mı?\"",
+          "text": "Bankamatik kulübün karşısındaki markette. Kartı üçüncü denemede doğru yönde soktun. Ekranda bir rakam var. Sözleşmede yazan rakam değil bu — ondan küçük. Vergi, kesinti, ilk ay orantısı. Arkanda sıra oluşuyor. Fişi cebine tıkıp çıkıyorsun. Tesiste {actor. sporting_director. name} koridorda seni görüyor, elindeki buruşuk fişe bakıyor ve duruyor. \"Soracak bir şeyin var mı.",
           "choices": [
             {
               "id": "c_yok",
@@ -161,48 +162,48 @@
         "n_yok": {
           "title": "Cepteki Fiş",
           "kind": "outcome",
-          "text": "\"Yok,\" dedin. {actor.sporting_director.name} başını salladı, geçti.\n\nO fiş üç hafta cebinde kaldı. Yıkamaya verirken çıktı, mürekkebi solmuştu ama rakam okunuyordu.\n\nHâlâ neden o kadar olduğunu bilmiyorsun.",
+          "text": "\"Yok,\" dedin. {actor.sporting_director.name} başını salladı, geçti. O fiş üç hafta cebinde kaldı. Yıkamaya verirken çıktı, mürekkebi solmuştu ama rakam okunuyordu. Hâlâ neden o kadar olduğunu bilmiyorsun. Hesaplar dengelendi gorunuyor; yine de bu hamlenin borcu farkli bir yerde birikmeye basladi.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_susmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sor": {
           "title": "Brüt ve Net",
           "kind": "outcome",
-          "text": "\"Neden bu kadar az?\"\n\n{actor.sporting_director.name} güldü ama kötü değildi. Koridorun duvarına yaslandı, iki kelime söyledi: brüt, net.\n\nSonra üçüncüyü: \"Bunu şimdi öğrenmen iyi. Yirmi altısında öğrenenler var.\"",
+          "text": "\"Neden bu kadar az?\" {actor.sporting_director.name} güldü ama kötü değildi. Koridorun duvarına yaslandı, iki kelime söyledi: brüt, net. Sonra üçüncüyü: \"Bunu şimdi öğrenmen iyi. Yirmi altısında öğrenenler var.\". Para hareket etti, fakat bu karar?n psikolojik faturasi ertesi gun daha net hissedildi.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_soru_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_hesap": {
           "title": "Sen Zaten Biliyordun",
           "kind": "outcome",
-          "text": "Kalemleri saydın. Üçünü doğru bildin, birini karıştırdın.\n\n{actor.sporting_director.name} bir an sustu.\n\n\"Sen o gün gerçekten okumuşsun,\" dedi. Okumamıştın; annen okurken beklemiştin. Ama beklerken duymuştun.\n\nBazen aynı kapıya çıkıyor.",
+          "text": "Kalemleri saydın. Üçünü doğru bildin, birini karıştırdın. {actor.sporting_director.name} bir an sustu. \"Sen o gün gerçekten okumuşsun,\" dedi. Okumamıştın; annen okurken beklemiştin. Ama beklerken duymuştun. Bazen aynı kapıya çıkıyor. Para hareket etti, fakat bu karar?n psikolojik faturasi ertesi gun daha net hissedildi.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_soru_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_harca": {
           "title": "Aynı Gün",
           "kind": "outcome",
-          "text": "Krampon, kulaklık, kardeşine bir şey, annene bir şey.\n\nAkşam eve döndüğünde hesapta üç haneli bir rakam kalmıştı ve kendini çok iyi hissediyordun. Bu his gerçekti; sadece kısaydı.\n\nAyın on beşi bir daha gelecek. O da geçecek.",
+          "text": "Krampon, kulaklık, kardeşine bir şey, annene bir şey. Akşam eve döndüğünde hesapta üç haneli bir rakam kalmıştı ve kendini çok iyi hissediyordun. Bu his gerçekti; sadece kısaydı. Ayın on beşi bir daha gelecek. O da geçecek. Hesaplar dengelendi gorunuyor; yine de bu hamlenin borcu farkli bir yerde birikmeye basladi.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_hepsini_harcadi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -341,9 +342,9 @@
           "text": "Zarfın ağırlığı elinde. Dışarı çıktığın an, bu paranın yarın akşamki gece hayatında veya bir saatlik bir alışverişte yok olacağını biliyorsun. Bu, profesyonel bir kariyer için değil, bir anlık haz arayıcısı olarak damgalanmanı sağlayacak.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_hepsini_harcadi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -353,9 +354,9 @@
           "text": "Doğru olanı yaptın. Herkes senin ne kadar disiplinli olduğunu konuşacak. Ama o gece yastığa başını koyduğunda, paranın soğukluğundan başka bir şey hissetmiyorsun.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_susmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -365,9 +366,9 @@
           "text": "{actor.sporting_director.name} sana bakışlarını dikti. Artık sadece bir 'genç yetenek' değil, sorun çıkaran birisin. Sokaklar bunu cesaret olarak görecek, yönetim ise tehdit.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_soru_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -377,9 +378,9 @@
           "text": "{actor.sporting_director.name} hafifçe gülümsedi. Artık sadece sahada değil, masada da bir ağırlığın var. Bu saygı, omuzlarında taşıyacağın yeni bir yük demek.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_soru_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -487,9 +488,9 @@
           "text": "Arkanı döndüğünde duyduğun tek ses, lastiklerin beton üzerindeki gıcırtısı. Profesyonelce davrandın, soru sormadın. Ama içindeki o huzursuzluk, aldığın paranın yarattığı ağırlıktan daha ağır.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_susmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -499,9 +500,9 @@
           "text": "{actor.sporting_director.name} arabadan inmedi. Sadece bir an için göz göze geldiniz. Şimdi herkes senin o paranın peşine düştüğünü, hesabını sorduğunu konuşacak. Bir kahraman mı yoksa bela mı, zaman gösterecek.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_soru_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -511,9 +512,9 @@
           "text": "Rakam hesabına yattı. Ne bir açıklama yapıldı ne de bir soru soruldu. Bu paranın kaynağını bilmemeyi seçerek aslında ruhunun bir parçasını o beton otoparkta bıraktın. Artık kazanan taraftasın ama kayıpların görünmez.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_hepsini_harcadi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -626,24 +627,24 @@
         "n_sonuc_riskli": {
           "title": "Sokağın Sadakati",
           "kind": "outcome",
-          "text": "Dışarıdaki grup senin kararınla başını sallıyor. Artık onlar için bir kahramansın ama yönetimin defterinde adın disiplinsizliğe çıktı.",
+          "text": "Dışarıdaki grup senin kararınla başını sallıyor. Artık onlar için bir kahramansın ama yönetimin defterinde adın disiplinsizliğe çıktı. Hesaplar dengelendi gorunuyor; yine de bu hamlenin borcu farkli bir yerde birikmeye basladi.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_soru_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sonuc_guvenli": {
           "title": "İtaatin Bedeli",
           "kind": "outcome",
-          "text": "Hesabından eksilen miktar, kulüpteki yerini sağlamlaştırıyor. Ancak içeride bir yerlerde, emeğinin başkalarının borcuna gittiğini bilmenin ağırlığı var.",
+          "text": "Hesabından eksilen miktar, kulüpteki yerini sağlamlaştırıyor. Ancak içeride bir yerlerde, emeğinin başkalarının borcuna gittiğini bilmenin ağırlığı var. Para hareket etti, fakat bu karar?n psikolojik faturasi ertesi gun daha net hissedildi.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_susmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -653,9 +654,9 @@
           "text": "Kağıt elinde, vicdanın ise kapının eşiğinde kaldı. Kimse bir şey sormadı, sen de söylemedin. Para cebinde, ama kulüpteki huzursuzluk artık görünmez bir gölge.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_hepsini_harcadi",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -665,9 +666,9 @@
           "text": "Son kuruşuna kadar ödedin. {actor.sporting_director.name} bir an duraksadı, kağıdı yırttı. Artık borçsuzsun, ama bu kadar kısa sürede bu parayı bulmanın yarattığı yorgunluk antrenmanlarda peşini bırakmayacak.",
           "onEnter": [
             {
-              "flag": "mem_ilk_maas_susmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_sporting_director_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

@@ -2,7 +2,7 @@
   "id": "evt_match_captain_armband",
   "family": "fam_match_leadership",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "captain_armband",
   "weight": 14,
   "cooldown": {
@@ -28,7 +28,7 @@
         "n_root": {
           "title": "Bant",
           "kind": "branch",
-          "text": "{minute}. dakika, {opponent} karşısında {scoreline}. {actor.captain.name} sakatlandı ve çıkıyor. Sedyeye uzanırken pazubandı çıkarıyor.\n\nSahada dört kişi ondan kıdemli. Kaleci var, otuz dört yaşındaki stoper var, iki yüz maçlık sağ bek var.\n\n{actor.captain.first} hiçbirine bakmıyor. Bandı sana uzatıyor ve gözlerini kaçırmıyor: \"Al. Konuşacak birine ihtiyaçları var, sen konuşuyorsun.\"\n\nStoper bunu gördü. Yüzü hiç değişmedi ve bu daha kötü.",
+          "text": "{minute}. dakika, {opponent} karşısında {scoreline}. {actor.captain.name} sakatlandı ve çıkıyor. Sedyeye uzanırken pazubandı çıkarıyor. Sahada dört kişi ondan kıdemli. Kaleci var, otuz dört yaşındaki stoper var, iki yüz maçlık sağ bek var. {actor.captain.first} hiçbirine bakmıyor. Bandı sana uzatıyor ve gözlerini kaçırmıyor: \"Al. Konuşacak birine ihtiyaçları var, sen konuşuyorsun.\" Stoper bunu gördü. Yüzü hiç değişmedi ve bu daha kötü.",
           "choices": [
             {
               "id": "c_take",
@@ -174,7 +174,7 @@
         "n_took": {
           "title": "Yirmi dakika kaptan",
           "kind": "outcome",
-          "text": "Bandı koluna geçiriyorsun. Ağır değil ama koluna oturduğunda bir şey değişiyor.\n\nKalan yirmi dakikada üç kez konuşuyorsun ve üçünde de seni dinliyorlar. Stoper hariç; o bir kez bile sana bakmıyor.\n\nMaç sonunda {actor.president.name} soyunma odasına giriyor ve bandı gösteriyor: \"Yakışmış.\" Sonra ekliyor: \"Şimdi hak etmen lazım.\"",
+          "text": "Bandı koluna geçiriyorsun. Ağır değil ama koluna oturduğunda bir şey değişiyor. Kalan yirmi dakikada üç kez konuşuyorsun ve üçünde de seni dinliyorlar. Stoper hariç; o bir kez bile sana bakmıyor. Maç sonunda {actor.president.name} soyunma odasına giriyor ve bandı gösteriyor: \"Yakışmış.\" Sonra ekliyor: \"Şimdi hak etmen lazım.\". Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -196,7 +196,7 @@
         "n_gave": {
           "title": "Doğru olan",
           "kind": "outcome",
-          "text": "Bandı stopere uzatıyorsun. Adam bir saniye duraksıyor, sonra alıp koluna geçiriyor ve ilk kez bütün maçta sana bakıyor. Başını hafifçe sallıyor.\n\nSedyedeki {actor.captain.first} bunu gördü. Tünelden içeri girerken arkasına dönüp sana baktı ve gülümsemedi.\n\nSoyunma odasında sana kimse bir şey söylemiyor. Hepsi biliyor.",
+          "text": "Bandı stopere uzatıyorsun. Adam bir saniye duraksıyor, sonra alıp koluna geçiriyor ve ilk kez bütün maçta sana bakıyor. Başını hafifçe sallıyor. Sedyedeki {actor.captain.first} bunu gördü. Tünelden içeri girerken arkasına dönüp sana baktı ve gülümsemedi. Soyunma odasında sana kimse bir şey söylemiyor. Hepsi biliyor. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "op": "match",
@@ -204,9 +204,9 @@
               "incident": "inc_gave_armband"
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "moral",
@@ -218,7 +218,7 @@
         "n_asked": {
           "title": "Soru",
           "kind": "outcome",
-          "text": "Stopere dönüp soruyorsun. Adam iki saniye düşünüyor, sonra elini kaldırıp bandı gösteriyor: \"Sen tak. Ben bağırırım, sen konuşursun. İkisi ayrı iş.\"\n\nBandı takıyorsun ama artık kimseden çalınmış değil.\n\nO gece stoper sana mesaj atıyor — tek satır: \"Doğru soruyu sordun.\"",
+          "text": "Stopere dönüp soruyorsun. Adam iki saniye düşünüyor, sonra elini kaldırıp bandı gösteriyor: \"Sen tak. Ben bağırırım, sen konuşursun. İkisi ayrı iş.\" Bandı takıyorsun ama artık kimseden çalınmış değil. O gece stoper sana mesaj atıyor — tek satır: \"Doğru soruyu sordun.\". Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -236,16 +236,16 @@
               "value": 6
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_refused": {
           "title": "Yere",
           "kind": "outcome",
-          "text": "Ellerini kaldırıp geri adım atıyorsun. {actor.captain.first} bandı bir saniye havada tutuyor, sonra stopere uzatıyor.\n\nKamera bunu yakaladı. Yarın bu on saniye tekrar tekrar dönecek ve altına \"sorumluluktan kaçtı\" yazılacak.\n\nSen ne yaptığını biliyorsun: bugün taşıyamayacağın bir şeyi almadın. Bunu kimseye açıklayamazsın.",
+          "text": "Ellerini kaldırıp geri adım atıyorsun. {actor.captain.first} bandı bir saniye havada tutuyor, sonra stopere uzatıyor. Kamera bunu yakaladı. Yarın bu on saniye tekrar tekrar dönecek ve altına \"sorumluluktan kaçtı\" yazılacak. Sen ne yaptığını biliyorsun: bugün taşıyamayacağın bir şeyi almadın. Bunu kimseye açıklayamazsın. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -351,9 +351,9 @@
           "text": "Bant yeni kolunda sıkılaşıyor. Sen ise tünelin karanlığına doğru yürüyorsun. Kimse sana bakmıyor ama herkes senin orada olduğunu biliyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -367,9 +367,9 @@
           "text": "Tribünler ayağa kalkıyor. Kaptanlık bandı, stadyumun ışıkları altında bir an için parlayıp kayboluyor. Bu gece disiplin raporuna işlenecek bir olay, ama kimin umurunda?",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -383,9 +383,9 @@
           "text": "Yerdeki o parlak kumaş parçası, takımın ruhundan kopup gidiyor. Kimse yerden almıyor. O soğukluk, içerideki cüzdanın ağırlığından daha belirgin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -495,12 +495,12 @@
         "n_outcome_1": {
           "title": "Devredilen Sorumluluk",
           "kind": "outcome",
-          "text": "Bant el değiştirdi. Tribünler kısa bir an duraksadı, sonra yerlerine oturdular. O ağırlık artık başkasının omuzlarında.",
+          "text": "Bant el değiştirdi. Tribünler kısa bir an duraksadı, sonra yerlerine oturdular. O ağırlık artık başkasının omuzlarında. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -511,12 +511,12 @@
         "n_outcome_2": {
           "title": "İnat",
           "kind": "outcome",
-          "text": "Kimse elini uzatmaya cesaret edemedi. Bant hala senin cebinde, bir sonraki maçın hayaletine dönüştü bile.",
+          "text": "Kimse elini uzatmaya cesaret edemedi. Bant hala senin cebinde, bir sonraki maçın hayaletine dönüştü bile. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -527,12 +527,12 @@
         "n_outcome_3": {
           "title": "Sessiz Anlaşma",
           "kind": "outcome",
-          "text": "Kimse ne olduğunu anlamadı. Soyunma odasında bu sessizlik, büyük bir fırtınanın habercisi.",
+          "text": "Kimse ne olduğunu anlamadı. Soyunma odasında bu sessizlik, büyük bir fırtınanın habercisi. Bu secimin sonucu gecikmeli geliyor. izi ertesi gun de pesini birakmiyor. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -543,12 +543,12 @@
         "n_outcome_4": {
           "title": "Yeni Lider",
           "kind": "outcome",
-          "text": "Bantı onun koluna taktığında aranızdaki o görünmez bağ gerildi. Artık o da senin yükünü taşıyor.",
+          "text": "Bantı onun koluna taktığında aranızdaki o görünmez bağ gerildi. Artık o da senin yükünü taşıyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -693,9 +693,9 @@
           "text": "Genç oyuncu bandı koluna takarken {actor.captain.name} yanından geçip yedek kulübesine çöktü. Omuzlarındaki yük bir anlığına hafifledi ama içindeki boşluk büyüdü.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -709,9 +709,9 @@
           "text": "Arka kapıdan hızla çıkarken attığı her adımda vicdanının sesini duymaya çalıştı ama kulakları sağır eden bir sessizlik hakimdi.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -725,9 +725,9 @@
           "text": "Kumaş parçasının tribünlerdeki kaosu izledi. Bir parçası onu oraya ait hissetti, diğer parçası ise yaktığı gemilerin dumanını kokladı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -738,12 +738,12 @@
         "n_tutun": {
           "title": "Direniş",
           "kind": "outcome",
-          "text": "Avucunun içindeki bandın sertliğini hissetti. Tünelin sonunda ışık bittiğinde, kolundaki o izin hiç silinmeyeceğini biliyordu.",
+          "text": "Avucunun içindeki bandın sertliğini hissetti. Tünelin sonunda ışık bittiğinde, kolundaki o izin hiç silinmeyeceğini biliyordu. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

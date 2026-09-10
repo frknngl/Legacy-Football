@@ -3,6 +3,7 @@
   "family": "fam_life_suspension",
   "category": "life",
   "tier": "minor",
+  "authored": "hand",
   "weight": 45,
   "cooldown": {
     "self": 4,
@@ -16,7 +17,7 @@
     "n_root": {
       "title": "Tribünden",
       "kind": "branch",
-      "text": "Kombine sahibi gibi oturuyorsun. Takım elbiseyle, VIP locada, elinde bir bardak su. Aşağıda takım ısınıyor ve senin yerinde oynayan çocuk on dokuz yaşında; ısınmayı bile senden hızlı yapıyor.\n\nYan koltukta {actor.president.name}. Maça bakmadan konuşuyor: \"Ceza haftaları uzun geçer. Bazıları bu haftalarda kendini bulur, bazıları kaybeder.\"\n\nİlk yarı bitiyor. Senin yerindeki çocuk gol atıyor.",
+      "text": "Kombine sahibi gibi oturuyorsun. Takım elbiseyle, VIP locada, elinde bir bardak su. Aşağıda takım ısınıyor ve senin yerinde oynayan çocuk on dokuz yaşında; ısınmayı bile senden hızlı yapıyor. Yan koltukta {actor.president.name}. Maça bakmadan konuşuyor: \"Ceza haftaları uzun geçer. Bazıları bu haftalarda kendini bulur, bazıları kaybeder.\" İlk yarı bitiyor. Senin yerindeki çocuk gol atıyor.",
       "choices": [
         {
           "id": "c_applaud",
@@ -116,7 +117,7 @@
     "n_applauded": {
       "title": "Görüntü",
       "kind": "outcome",
-      "text": "Kamera seni buluyor ve o görüntü akşam bütün özetlerde dönüyor: cezalı adam, ayakta, yerine oynayan çocuğu alkışlıyor.\n\nÇocuk maçtan sonra soyunma odasında yanına geliyor. Ne diyeceğini bilmiyor. Sen de bilmiyorsun. İkiniz de gülüyorsunuz ve mesele o an çözülüyor.",
+      "text": "Kamera seni buluyor ve o görüntü akşam bütün özetlerde dönüyor: cezalı adam, ayakta, yerine oynayan çocuğu alkışlıyor. Çocuk maçtan sonra soyunma odasında yanına geliyor. Ne diyeceğini bilmiyor. Sen de bilmiyorsun. İkiniz de gülüyorsunuz ve mesele o an çözülüyor.",
       "onEnter": [
         {
           "flag": "npc_youngster_arc",
@@ -128,7 +129,7 @@
     "n_left": {
       "title": "Boş koltuk",
       "kind": "outcome",
-      "text": "İkinci yarı başlarken kamera locayı gösteriyor. Koltuk boş.\n\nSpiker bir şey söylemiyor ama söylememesi yeterli. Ertesi gün tesise girdiğinde {actor.manager.name} seni ofisine çağırmıyor — bu daha kötü, çünkü çağırmayacağı anlamına geliyor.",
+      "text": "İkinci yarı başlarken kamera locayı gösteriyor. Koltuk boş. Spiker bir şey söylemiyor ama söylememesi yeterli. Ertesi gün tesise girdiğinde {actor.manager.name} seni ofisine çağırmıyor — bu daha kötü, çünkü çağırmayacağı anlamına geliyor.",
       "onEnter": [
         {
           "flag": "iliski_manager",
@@ -140,12 +141,12 @@
     "n_talked": {
       "title": "Pazarlık",
       "kind": "outcome",
-      "text": "{actor.president.first} gülümsüyor, hâlâ sahaya bakıyor. \"Yerini kimse almadı,\" diyor. \"Sen bıraktın. İki hafta sonra hâlâ istiyorsan konuşuruz.\"\n\nSonra ekliyor: \"Ama bir daha federasyona laf edersen ben de seni savunmam. Bunu şimdi söylüyorum ki sonra sürpriz olmasın.\"",
+      "text": "{actor.president.first} gülümsüyor, hâlâ sahaya bakıyor. \"Yerini kimse almadı,\" diyor. \"Sen bıraktın. İki hafta sonra hâlâ istiyorsan konuşuruz.\" Sonra ekliyor: \"Ama bir daha federasyona laf edersen ben de seni savunmam. Bunu şimdi söylüyorum ki sonra sürpriz olmasın.\".",
       "onEnter": [
         {
-          "flag": "mem_media_war",
-          "op": "set",
-          "value": true
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
         }
       ]
     }

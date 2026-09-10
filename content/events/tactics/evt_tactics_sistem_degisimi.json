@@ -3,6 +3,7 @@
   "family": "fam_tactics_sistem",
   "category": "tactics",
   "tier": "major",
+  "authored": "hand",
   "weight": 48,
   "cooldown": {
     "self": 30,
@@ -29,7 +30,7 @@
         "n_root": {
           "title": "On Bir Mıknatıs, On Yer",
           "kind": "branch",
-          "text": "Hazırlık kampının ilk günü. {actor.manager.name} yeni sistemi tahtaya diziyor.\n\nSayıyorsun. Bir kere daha sayıyorsun.\n\nSenin oynadığın mevki tahtada YOK. Kalkmış. Yerine iki tane başka şey konmuş ve ikisi de senin işin değil.\n\n\"Bu sezon böyle oynuyoruz,\" diyor {actor.manager.name}. Adını hiç anmadı. Kimsenin adını anmadı; sistemi anlattı, oyuncuyu değil.\n\n{actor.assistant.name} kâğıtları dağıtıyor. Seninkinde iki mevki yazıyor, ikisi de parantez içinde.",
+          "text": "Hazırlık kampının ilk günü. {actor.manager.name} yeni sistemi tahtaya diziyor. Sayıyorsun. Bir kere daha sayıyorsun. Senin oynadığın mevki tahtada YOK. Kalkmış. Yerine iki tane başka şey konmuş ve ikisi de senin işin değil. \"Bu sezon böyle oynuyoruz,\" diyor {actor.manager.name}. Adını hiç anmadı. Kimsenin adını anmadı; sistemi anlattı, oyuncuyu değil. {actor.assistant.name} kâğıtları dağıtıyor. Seninkinde iki mevki yazıyor, ikisi de parantez içinde.",
           "choices": [
             {
               "id": "c_ogren",
@@ -157,58 +158,48 @@
         "n_ogren": {
           "title": "Parantez İçi",
           "kind": "outcome",
-          "text": "{actor.assistant.name} sana kalan tek boş odada video açtı. Kırk dakika sürdü.\n\n\"Burada topu almıyorsun,\" dedi. \"Burada topun gelmesini bekliyorsun. Fark bu.\"\n\nBeklemeyi öğrenmek, koşmayı öğrenmekten zormuş.\n\nEylülde ilk on birdeydin. Kimse bunun bir hikâye olduğunu bilmiyor.",
+          "text": "{actor.assistant.name} sana kalan tek boş odada video açtı. Kırk dakika sürdü. \"Burada topu almıyorsun,\" dedi. \"Burada topun gelmesini bekliyorsun. Fark bu.\" Beklemeyi öğrenmek, koşmayı öğrenmekten zormuş. Eylülde ilk on birdeydin. Kimse bunun bir hikâye olduğunu bilmiyor.",
           "onEnter": [
             {
-              "flag": "mem_sistem_ogrendi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sor": {
           "title": "Neredeyim",
           "kind": "outcome",
-          "text": "\"Ben bu sistemde neredeyim?\"\n\n{actor.manager.name} tahtaya baktı, sonra sana. \"Bilmiyorum,\" dedi. \"Sen söyleyeceksin.\"\n\nCevap gibi durmuyordu ama cevaptı. O gün antrenmanda iki mevkide de oynadın ve ikisinde de kötüydün.\n\nÜçüncü haftada birinde iyiydin. {actor.manager.name} hiç yorum yapmadı — sadece bir daha diğerinde oynatmadı.",
+          "text": "\"Ben bu sistemde neredeyim?\" {actor.manager.name} tahtaya baktı, sonra sana. \"Bilmiyorum,\" dedi. \"Sen söyleyeceksin.\" Cevap gibi durmuyordu ama cevaptı. O gün antrenmanda iki mevkide de oynadın ve ikisinde de kötüydün. Üçüncü haftada birinde iyiydin. {actor.manager.name} hiç yorum yapmadı — sadece bir daha diğerinde oynatmadı.",
           "onEnter": [
             {
-              "flag": "mem_sistem_sorgulandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_menajer": {
           "title": "Akşam Telefonu",
           "kind": "outcome",
-          "text": "{actor.agent.name} dinledi, sonra tek cümle söyledi: \"Ocakta konuşuruz.\"\n\nOcak dört ay uzaktaydı ve o dört ay boyunca her antrenmana bu cümleyle gittin.\n\nAralıkta bir köşe yazısı \"mutsuz\" dedi. Kaynak sen değildin. Ama sen de olabilirdin ve bunu bilen tek kişi sensin.",
+          "text": "{actor.agent.name} dinledi, sonra tek cümle söyledi: \"Ocakta konuşuruz.\" Ocak dört ay uzaktaydı ve o dört ay boyunca her antrenmana bu cümleyle gittin. Aralıkta bir köşe yazısı \"mutsuz\" dedi. Kaynak sen değildin. Ama sen de olabilirdin ve bunu bilen tek kişi sensin.",
           "onEnter": [
             {
-              "flag": "mem_sistem_menajere_gitti",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_ayrilik_dusundu",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_kanitla": {
           "title": "İki Mevki",
           "kind": "outcome",
-          "text": "Hiçbir şey sormadın. Hazırlık kampında herkesten çok koştun; iki mevkide de en iyi sendin.\n\n{actor.manager.name} sezonun ilk maçında seni ikisinde de oynattı. Sonraki maçta da. Sonraki maçta da.\n\nKasımda bacakların gitmişti ve kimse fark etmemişti — çünkü şikâyet etmemiştin ve şikâyet etmeyenin yorulduğu görülmez.",
+          "text": "Hiçbir şey sormadın. Hazırlık kampında herkesten çok koştun; iki mevkide de en iyi sendin. {actor.manager.name} sezonun ilk maçında seni ikisinde de oynattı. Sonraki maçta da. Sonraki maçta da. Kasımda bacakların gitmişti ve kimse fark etmemişti — çünkü şikâyet etmemiştin ve şikâyet etmeyenin yorulduğu görülmez.",
           "onEnter": [
             {
-              "flag": "mem_sistem_kanitladi",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_sikayet_etmedi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -340,9 +331,9 @@
           "text": "{actor.manager.name} arkasını dönüp soyunma odasının ağır kapısına doğru yürürken, odadaki hava bir anda buz kesti. Kimse gözlerini yerden kaldırmadı, krampon sesleri yankılanırken aranızdaki görünmez gerilim yeşil sahanın her karışına yayılarak oyuncuların üzerindeki baskıyı iyice artırdı.",
           "onEnter": [
             {
-              "flag": "mem_sistem_sorgulandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -352,9 +343,9 @@
           "text": "Sözleşmenin altına atılan o son imza banka hesaplarına yansıdığında, transfer piyasasının soğuk rakamları artık birer veriden ibaret kaldı. Ekranlardaki kıyaslamalar silinip giderken, cebine giren paranın ağırlığı sahadaki performansın getirdiği vicdani yükün yanında hafifleyerek bir anlığına anlamsızlaştı.",
           "onEnter": [
             {
-              "flag": "mem_ayrilik_dusundu",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -364,9 +355,9 @@
           "text": "İtiraz etmedin, sadece sessizce başını sallayarak önüne baktın. Kenarda duran yardımcı antrenörün dudaklarını birbirine bastırdığını ve gözlerini kaçırdığını fark ettin; herkes zaten bu boyun eğişi bekliyordu, sahada yankılanan tek ses stadyum ışıklarının tiz uğultusu oldu.",
           "onEnter": [
             {
-              "flag": "mem_sikayet_etmedi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -376,9 +367,9 @@
           "text": "Taktiksel diziliş kağıt üzerinde kusursuz bir mimari gibi duruyordu; kalemle çizilen oklar saha içindeki boşlukları kusursuzca kapatıyordu. Ancak soyunma odasının ter kokulu havasında, kağıttaki o teorik mükemmelliği gerçek bir galibiyete dönüştürmek için sahadaki terin rengini göstermen gerekiyordu.",
           "onEnter": [
             {
-              "flag": "mem_sistem_kanitladi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -466,9 +457,9 @@
           "text": "Sessizlik en ağır cevaptır. Kapı kapanırken {actor.manager.name} gözlerini bir anlığına kaldırdı, sonra tekrar evraklarına döndü. Artık bu sistemin bir parçası değilsin.",
           "onEnter": [
             {
-              "flag": "mem_sikayet_etmedi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -478,9 +469,9 @@
           "text": "Cevap gelmedi. Sadece bir omuz silkiş. Odadan çıkarken adımların koridorda yankılandı. Takım arkadaşların sessizliğiyle seni onaylıyor, ama kimse arkanda durmuyor.",
           "onEnter": [
             {
-              "flag": "mem_sistem_sorgulandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -490,9 +481,9 @@
           "text": "Kağıtlar imzalandı. {actor.manager.name} ile el sıkıştınız; bu bir futbol vedası değil, bir ticaretin sonuydu. Banka hesabındaki artış, saha içindeki boşluğu doldurmaya yetmiyor.",
           "onEnter": [
             {
-              "flag": "mem_ayrilik_dusundu",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

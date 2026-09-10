@@ -2,7 +2,7 @@
   "id": "evt_match_last_minute",
   "family": "fam_match_chance",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "last_minute_chance",
   "weight": 18,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Son korner",
           "kind": "branch",
-          "text": "Doksan artı dört. {opponent} deplasmanında {scoreline}. Hakem \"son atak\" işareti yaptı ve siz korner kullanıyorsunuz.\n\nKaleci bile ceza sahasına geldi. {actor.manager.name} çizgide bağırıyor ama kimse duymuyor; otuz bin kişi aynı anda bağırıyor.\n\nTop havada. Sen arka direktesin ve top tam oraya geliyor — ama önünde iki kişi var ve arkanda kimse.",
+          "text": "Doksan artı dört. {opponent} deplasmanında {scoreline}. Hakem \"son atak\" işareti yaptı ve siz korner kullanıyorsunuz. Kaleci bile ceza sahasına geldi. {actor.manager.name} çizgide bağırıyor ama kimse duymuyor; otuz bin kişi aynı anda bağırıyor. Top havada. Sen arka direktesin ve top tam oraya geliyor — ama önünde iki kişi var ve arkanda kimse.",
           "choices": [
             {
               "id": "c_head",
@@ -221,7 +221,7 @@
         "n_scored": {
           "title": "Doksan artı dört",
           "kind": "outcome",
-          "text": "Ağlar. Ses değil, basınç — otuz bin kişinin sesi aynı anda üzerine çöküyor.\n\nKöşe bayrağına koşuyorsun ve altında on bir kişi üstüne yığılıyor. En altta sen varsın, nefes alamıyorsun ve gülüyorsun.\n\n{actor.manager.name} kenarda diz çökmüş. Bu adamın diz çöktüğünü hiç görmemiştin.",
+          "text": "Ağlar. Ses değil, basınç — otuz bin kişinin sesi aynı anda üzerine çöküyor. Köşe bayrağına koşuyorsun ve altında on bir kişi üstüne yığılıyor. En altta sen varsın, nefes alamıyorsun ve gülüyorsun. {actor.manager.name} kenarda diz çökmüş. Bu adamın diz çöktüğünü hiç görmemiştin. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -254,7 +254,7 @@
         "n_assist": {
           "title": "Arkadan gelen",
           "kind": "outcome",
-          "text": "Arkadan gelen kaleci oluyor. Kendi kalecisi, doksan artı dörtte, ceza sahasının içinde.\n\nVuruyor ve giriyor.\n\nAdam kaleye doğru koşuyor ve sen onun arkasından koşuyorsun ve o gece bu görüntü ülkenin her yerinde dönüyor. Kimse senin pasını hatırlamayacak. Sen hatırlayacaksın.",
+          "text": "Arkadan gelen kaleci oluyor. Kendi kalecisi, doksan artı dörtte, ceza sahasının içinde. Vuruyor ve giriyor. Adam kaleye doğru koşuyor ve sen onun arkasından koşuyorsun ve o gece bu görüntü ülkenin her yerinde dönüyor. Kimse senin pasını hatırlamayacak. Sen hatırlayacaksın. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -273,16 +273,16 @@
               "value": 12
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_missed": {
           "title": "Üstten",
           "kind": "outcome",
-          "text": "Alnın topun altına giriyor ve top üstten auta gidiyor. Hakem düdüğü çalıyor. Maç bitti.\n\nYere oturuyorsun. Kimse sana gelmiyor; herkes kendi acısıyla meşgul.\n\nTribünden bir çocuk sesi geliyor, net duyuyorsun: \"Bir işe yaramıyorsun.\" Sekiz yaşında falan.",
+          "text": "Alnın topun altına giriyor ve top üstten auta gidiyor. Hakem düdüğü çalıyor. Maç bitti. Yere oturuyorsun. Kimse sana gelmiyor; herkes kendi acısıyla meşgul. Tribünden bir çocuk sesi geliyor, net duyuyorsun: \"Bir işe yaramıyorsun.\" Sekiz yaşında falan. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -309,7 +309,7 @@
         "n_blocked": {
           "title": "Blok",
           "kind": "outcome",
-          "text": "Bir bacak araya giriyor ve top tribüne gidiyor. Düdük.\n\n{actor.manager.name} çizgide ellerini kafasına koymuş duruyor. Kimseye bakmadan tünele yürüyor.\n\nOtobüste kimse konuşmuyor. Sen camdan dışarı bakıyor ve o yarım saniyeyi tekrar tekrar oynatıyorsun.",
+          "text": "Bir bacak araya giriyor ve top tribüne gidiyor. Düdük. {actor.manager.name} çizgide ellerini kafasına koymuş duruyor. Kimseye bakmadan tünele yürüyor. Otobüste kimse konuşmuyor. Sen camdan dışarı bakıyor ve o yarım saniyeyi tekrar tekrar oynatıyorsun. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -463,9 +463,9 @@
           "text": "Zarfı ceketinizin iç cebine yerleştirdiniz. Artık kimse o kaçan golü konuşmuyor; sadece sizin suskunluğunuz, takımın üzerindeki ağır gölgeyi daha da derinleştiriyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -479,9 +479,9 @@
           "text": "Mikrofonlara döktüğünüz her kelime, taraftarın gözünde bir kahramanlık nişanı gibi parladı. Ancak kulüp binasına adım attığınızda yüzünüze kapanan kapıların sesi, bedelin ne kadar ağır olduğunu hatırlatıyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -495,9 +495,9 @@
           "text": "{actor.manager.name}’in gözlerindeki o belli belirsiz onaylama ifadesi, kaybettiğiniz enerjinin tek karşılığı. Takım arkasını kolladınız, ama artık oyunun kuralları sizin için daha sertleşti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -605,9 +605,9 @@
           "text": "{actor.manager.name} başını yavaşça sallıyor. Ekranı kapatıyor. Bu an, ikinizin arasında bir sır olarak kalacak, ama sahada kaçırdığın o golün yarattığı boşluk zihninde yerini şüpheye bırakıyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -618,12 +618,12 @@
         "n_outcome_guvenli": {
           "title": "Sırtındaki Yük",
           "kind": "outcome",
-          "text": "Dürüstlüğün odayı soğutuyor. {actor.manager.name} hiçbir şey söylemeden arkasını dönüyor. Profesyonellik bazen en ağır cezadır.",
+          "text": "Dürüstlüğün odayı soğutuyor. {actor.manager.name} hiçbir şey söylemeden arkasını dönüyor. Profesyonellik bazen en ağır cezadır. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -637,9 +637,9 @@
           "text": "Cümlelerin koridorda yankılanıyor. {actor.manager.name} duruyor ama dönmüyor. Artık hiçbir şey eskisi gibi olmayacak, takımın dengesi geri dönülemez bir şekilde sarsıldı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

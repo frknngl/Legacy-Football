@@ -27,7 +27,7 @@ import {
   writeManifest,
 } from './narrativeMetrics.js';
 import { randomOpenChoice, runSimulatedMatch } from './runMatch.js';
-import { selectWorld } from './world.js';
+import { selectWorld, weeklySelectionMatchContext } from './world.js';
 import { BOT_POLICY_VERSION, botTurn } from './bot.js';
 
 const NATIONAL_WEEKS = new Set([5, 11, 17, 26, 33]);
@@ -65,11 +65,20 @@ async function playCareer(
   dbPath = '',
 ): Promise<CareerResult> {
   const sim = await selectWorld({ registry, seed, dbPath });
-  const engine = new GameEngine(registry, {
+  let engine!: GameEngine;
+  engine = new GameEngine(registry, {
     seed,
     roster: sim.roster,
     world: sim.world,
     worldFeed: sim.worldFeed,
+    selectionMatchContext: ({ season, week, clubId }) =>
+      weeklySelectionMatchContext(sim, {
+        season,
+        week,
+        clubId,
+        availability: engine.availability(),
+        hero: engine.heroProfile(),
+      }),
   });
   // Kimya kablosu: motor kuruldu, simulator artik 'kim kiminle iyi
   // anlasiyor' sorusunu sorabilir. Motorun flag sozlugu yine kapali.
@@ -181,29 +190,35 @@ async function playCareer(
     }
 
     const week = engine.snapshot().week;
-    await runSimulatedMatch(
-      engine,
-      sim.simulator,
-      {
-        onPresented: (node) => {
-          if (!occurrences.observe(node, turns).countedOccurrence) return;
-          scenes += 1;
+    const season = engine.snapshot().season;
+    const fixtureCount = sim.schedule.fixturesFor(engine.snapshot().clubId, week).length;
+    for (let slot = 0; slot < fixtureCount; slot += 1) {
+      const played = await runSimulatedMatch(
+        engine,
+        sim.simulator,
+        {
+          onPresented: (node) => {
+            if (!occurrences.observe(node, turns).countedOccurrence) return;
+            scenes += 1;
+          },
+          chooseMoment: (node) => randomOpenChoice(node, (max) => rng.int(max)),
+          onMatchStart: () => {
+            matches += 1;
+          },
+          onResult: (_m, result) => {
+            goals += result.goals;
+            cards += result.cards;
+          },
+          onDecision: () => {
+            momentsOffered += 1;
+          },
         },
-        chooseMoment: (node) => randomOpenChoice(node, (max) => rng.int(max)),
-        onMatchStart: () => {
-          matches += 1;
-        },
-        onResult: (_m, result) => {
-          goals += result.goals;
-          cards += result.cards;
-        },
-        onDecision: () => {
-          momentsOffered += 1;
-        },
-      },
-      { season: engine.snapshot().season, week },
-    );
-    sim.recordHeroMatch();
+        { season, week, slot },
+      );
+      if (played !== undefined && played.result !== 'none') {
+        sim.recordHeroMatch();
+      }
+    }
     for (const competitionId of sim.advanceWeek(week, engine.snapshot().clubId)) {
       engine.reportWorldEvent({ kind: 'trophy', competitionId });
     }

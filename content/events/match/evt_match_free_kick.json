@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Yirmi iki metre",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Faul yirmi iki metreden, tam ceza sahasinin ustunde. Baraj kuruluyor.\n\nTopu {actor.star_teammate.name} aldi -- bu sezon iki tane atti, ikisi de bu mesafeden. Ama sen de topun basindasin ve ikiniz de birbirinize bakiyorsunuz.\n\nKenardan {actor.manager.first} bagiriyor, ne dedigi anlasilmiyor.",
+          "text": "{minute}. dakika, skor {scoreline}. Faul yirmi iki metreden, tam ceza sahasinin ustunde. Baraj kuruluyor. Topu {actor.star_teammate.name} aldi -- bu sezon iki tane atti, ikisi de bu mesafeden. Ama sen de topun basindasin ve ikiniz de birbirinize bakiyorsunuz. Kenardan {actor.manager.first} bagiriyor, ne dedigi anlasilmiyor.",
           "choices": [
             {
               "id": "c_take",
@@ -187,7 +187,7 @@
         "n_scored": {
           "title": "Ustten dondu",
           "kind": "outcome",
-          "text": "Top barajin ustunden dondu ve direkle kalecinin arasindaki bosluga girdi.\n\nKosarken kimseyi aramiyorsun. Kale arkasina gidip duruyorsun ve otuz bin kisi senin adini soyluyor.\n\n{actor.star_teammate.name} en son gelen oluyor. Sarilirken kulagina bir sey soyluyor ama alkistan duymuyorsun.",
+          "text": "Top barajin ustunden dondu ve direkle kalecinin arasindaki bosluga girdi. Kosarken kimseyi aramiyorsun. Kale arkasina gidip duruyorsun ve otuz bin kisi senin adini soyluyor. {actor.star_teammate.name} en son gelen oluyor. Sarilirken kulagina bir sey soyluyor ama alkistan duymuyorsun.",
           "onEnter": [
             {
               "op": "match",
@@ -215,7 +215,7 @@
         "n_scored_assist": {
           "title": "Iki kisilik oyun",
           "kind": "outcome",
-          "text": "Sen ustunden gectin, {actor.star_teammate.name} kose direge gonderdi. Baraj yanlis tarafa zipladi.\n\nSevinirken sana kosuyor ve seni yerden kaldiriyor. Bu golu ikiniz yazdiniz ama istatistikte yalnizca onun adi olacak.\n\nIkiniz de bunu biliyorsunuz ve ikiniz de umursamiyorsunuz.",
+          "text": "Sen ustunden gectin, {actor.star_teammate.name} kose direge gonderdi. Baraj yanlis tarafa zipladi. Sevinirken sana kosuyor ve seni yerden kaldiriyor. Bu golu ikiniz yazdiniz ama istatistikte yalnizca onun adi olacak. Ikiniz de bunu biliyorsunuz ve ikiniz de umursamiyorsunuz.",
           "onEnter": [
             {
               "op": "match",
@@ -229,16 +229,16 @@
               "value": 15
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_left": {
           "title": "Baraj icinde",
           "kind": "outcome",
-          "text": "Barajin icine giriyorsun ve topa arkani donuyorsun -- kimse bunu sevmez ama isin dogrusu budur.\n\n{actor.star_teammate.name} vuruyor, top kaleciye gidiyor. Korner.\n\nDonerken sana basini salliyor. Kucuk bir sey ama bu sezon boyunca hatirlayacagi kucuk bir sey.",
+          "text": "Barajin icine giriyorsun ve topa arkani donuyorsun -- kimse bunu sevmez ama isin dogrusu budur. {actor.star_teammate.name} vuruyor, top kaleciye gidiyor. Korner. Donerken sana basini salliyor. Kucuk bir sey ama bu sezon boyunca hatirlayacagi kucuk bir sey.",
           "onEnter": [
             {
               "op": "match",
@@ -260,7 +260,7 @@
         "n_missed": {
           "title": "Baraj",
           "kind": "outcome",
-          "text": "Top baraja carpip korner cizgisine gidiyor.\n\nTribunden bir homurdanma yukseliyor. {actor.manager.name} kenarda ellerini beline koymus, yere bakiyor.\n\nOrta yuvarlaga donerken kimse bir sey soylemiyor. Bu maclarda en cok duyulan ses budur: soylenmeyen sey.",
+          "text": "Top baraja carpip korner cizgisine gidiyor. Tribunden bir homurdanma yukseliyor. {actor.manager.name} kenarda ellerini beline koymus, yere bakiyor. Orta yuvarlaga donerken kimse bir sey soylemiyor. Bu maclarda en cok duyulan ses budur: soylenmeyen sey.",
           "onEnter": [
             {
               "op": "match",
@@ -370,9 +370,9 @@
           "text": "Top ağlara takıldı. Tribünler senin adını haykırıyor. {actor.star_teammate.name} kenarda sana bakışındaki o sönük ifadeyi kimse görmedi.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -386,9 +386,9 @@
           "text": "Barajda aldığın o sert darbenin acısı maç bittiğinde çıkacak. Takım kazandı, istatistikler onun hanesine yazıldı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -402,9 +402,9 @@
           "text": "Herkes kaçan golü konuşuyor. Sen ise sadece o anki göz temasını hatırlıyorsun; ikiniz de ne olduğunu biliyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

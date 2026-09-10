@@ -23,9 +23,9 @@ import {
 } from '../domain/match.js';
 import type { GameEngine, PresentedNode, TurnReport } from '../runtime/GameEngine.js';
 
-/** Oynanmamis mac icin motora bildirilen bos sonuc -- ceza sayaci yine de isler. */
-const IDLE_RESULT: MatchResultReport = {
-  result: 'draw',
+/** O hafta ilgili slotta fikstur yok: motor bunu ayri bir sonuc olarak gorur. */
+const NO_FIXTURE_RESULT: MatchResultReport = {
+  result: 'none',
   rating: 0,
   goals: 0,
   assists: 0,
@@ -102,6 +102,7 @@ export async function runMatch(
   options: RunMatchOptions,
 ): Promise<MatchResultReport | undefined> {
   const availability = engine.availability();
+  if (!availability.available) ui.onUnavailable?.(availability);
   const match = host.buildMatch({
     availability,
     season: options.season,
@@ -112,9 +113,8 @@ export async function runMatch(
   });
 
   if (!match) {
-    ui.onUnavailable?.(availability);
-    // Ceza maclari ancak "gecen mac" sayildiginda erir; bos sonuc bunu saglar.
-    engine.finalizeMatch(IDLE_RESULT);
+    if (availability.available) ui.onUnavailable?.(availability);
+    engine.finalizeMatch(NO_FIXTURE_RESULT);
     return undefined;
   }
 
@@ -168,6 +168,7 @@ export async function runSimulatedMatch(
   options: RunMatchOptions,
 ): Promise<MatchResultReport | undefined> {
   const availability = engine.availability();
+  if (!availability.available) ui.onUnavailable?.(availability);
   const match = simulator.buildMatch({
     availability,
     season: options.season,
@@ -178,8 +179,8 @@ export async function runSimulatedMatch(
   });
 
   if (!match) {
-    ui.onUnavailable?.(availability);
-    engine.finalizeMatch(IDLE_RESULT);
+    if (availability.available) ui.onUnavailable?.(availability);
+    engine.finalizeMatch(NO_FIXTURE_RESULT);
     return undefined;
   }
 
@@ -250,8 +251,9 @@ export async function runSimulatedMatch(
   }
 
   const finalReport = report ?? simulator.runToEnd();
+  const delta = engine.matchOutcome();
   engine.finalizeMatch(finalReport);
-  ui.onResult?.(match, finalReport, engine.matchOutcome());
+  ui.onResult?.(match, finalReport, delta);
   return finalReport;
 }
 

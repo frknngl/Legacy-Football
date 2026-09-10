@@ -1,0 +1,245 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Alacakaranlık çağında (35+ yaş) kariyerin son basın toplantısı ve kariyer muhasebesi.",
+    "hangi_soru": "Yirmi yıllık serüven biterken kamuoyuna nasıl bir son cümle bırakacaksın: tavizsiz bir gurur mu, derin bir aile itirafı mı, yoksa gizemli bir suskunluk mu?",
+    "odeme_plani": "Kariyer epilogundaki basın mirası kodasını (koda_son_roportaj) tetikler."
+  },
+  "id": "evt_media_son_roportaj_pismanlik",
+  "family": "fam_media_son_roportaj",
+  "category": "media",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 70,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "twilight"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "retired"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "media:journalist:son_roportaj_pismanlik",
+    "slot": "journalist",
+    "beat": "son_roportaj_pismanlik"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Son Manşet ve Kırmızı Işık",
+      "kind": "branch",
+      "text": "Stadyumun basın toplantısı odasında projektörler ve iki kamera açık. Masanın üzerinde bir bardak su ve eski bir ses kayıt cihazı var. Karşında oturan {actor.journalist.name}, ilk profesyonel maçından beri seni takip eden, manşetlerini atan, zaman zaman en sert eleştirileri yazan kıdemli muhabir. Kameraman kırmızı ışığı yakıyor. {actor.journalist.name} gözlüğünü burnunun ucuna kaydırıp doğrudan gözlerinin içine bakıyor. \"Yirmi yıl geride kaldı,\" diyor sakin bir sesle. \"Kupalar, finaller, milli formayla çıkılan unutulmaz zaferler, soyunma odası krizleri. Şimdi geriye yaslanıp baktığında, 'keşke yapmasaydım' ya da 'keşke başka türlü olsaydı' dediğin, vicdanında kapanmayan tek bir an var mı?\" Kameranın objektifi yüzüne odaklanıyor. Kariyerinin son basın toplantısında söylenecek söz, bir devrin kapanış cümlesi olacak.",
+      "choices": [
+        {
+          "id": "c_hic",
+          "text": "\"Hiçbir şeyden pişman değilim. Yaşadığım her hata beni bugünkü ben yaptı.\"",
+          "target": "n_hic",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "iliski_journalist",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_aile",
+          "text": "\"Futbol bana çok şey verdi ama ailemden çok şey çaldı. Çocuklarımın büyümesini kaçırdım.\"",
+          "target": "n_aile",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_partner",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "dogruluk": 14,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_saha",
+          "text": "\"O kaçan kupa finali... Hâlâ bazı geceler uyutmaz beni.\"",
+          "target": "n_saha",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "dogruluk": 12,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_kayit_kapat",
+          "text": "Kayıt cihazını kapat: \"Gerçek pişmanlığımı anlatırsam manşet yaparsın. O bende kalsın.\"",
+          "target": "n_kayit_kapat",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_journalist",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "mizac": -6
+          }
+        }
+      ]
+    },
+    "n_hic": {
+      "title": "Dimdik Bir Veda",
+      "kind": "outcome",
+      "text": "{actor.journalist.name} bir an duraksadı, ardından gülümsedi: 'Hiç değişmedin.' Ertesi gün spor sayfalarında 'Efsaneden Tavizsiz Veda: Hiç Pişman Olmadım' manşeti atıldı. Taraftarlar sosyal medyada bu cevabı bayraklaştırdı; son ana kadar eğilmeyen bir karaktere yakışan bir kapanıştı.",
+      "onEnter": [
+        {
+          "flag": "mem_son_roportaj_mirasi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_aile": {
+      "title": "En İnsani İtiraf",
+      "kind": "outcome",
+      "text": "Stüdyoda bir an derin bir sessizlik oldu. Kameraman bile yutkundu. {actor.journalist.name} ses kayıt cihazını kapattı, elini omzuna koydu. Ertesi gün manşet sadece futbolu değil, bütün bir ülkeyi sarstı: 'Bir Efsanenin En Samimi Bedeli.' Akşam eve döndüğünde çocuklarının sana sarılışı her kupadan daha sıcaktı.",
+      "onEnter": [
+        {
+          "flag": "mem_son_roportaj_mirasi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_saha": {
+      "title": "Futbol Aşkının Yarası",
+      "kind": "outcome",
+      "text": "Gözlerinde beliren o hafif kederi kameraman saniye saniye yakaladı. 'Futbol böyle bir aşk işte,' dedin. 'Yaralarıyla seviyorsun.' Taraftarlar stadın önüne pankart astı: 'Biz seninle o kaçan kupayı da sevdik kaptan.'.",
+      "onEnter": [
+        {
+          "flag": "mem_son_roportaj_mirasi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_kayit_kapat": {
+      "title": "Sırrıyla Giden Adam",
+      "kind": "outcome",
+      "text": "Cihazın kırmızı tuşuna basıp kapattın, arkana yaslandın. {actor.journalist.name} başını iki yana salladı: 'Her zamanki gibi son sözü sen söyledin.' Odayı terk ederken manşet verememiştin ama gizemini ve ağırlığını sonsuza kadar korumuştun.",
+      "onEnter": [
+        {
+          "flag": "mem_son_roportaj_mirasi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

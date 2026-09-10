@@ -2,7 +2,8 @@
   "id": "evt_legal_pfdk_hearing",
   "family": "fam_legal_pfdk",
   "category": "legal",
-  "tier": "epic",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 100,
   "cooldown": {
     "self": 20,
@@ -22,7 +23,7 @@
         "n_root": {
           "title": "Kurul",
           "kind": "branch",
-          "text": "Federasyon binasının üçüncü katı. Koridor uzun ve halısı sesini yutuyor. {actor.agent.name} yanında oturuyor, kravatını bugün ilk kez düzgün bağlamış. Karşı duvarda camlı bir vitrin: eski kupalar, eski adamlar, eski fotoğraflar.\n\nİçeriden adın okunuyor.\n\nÜç kişi. Ortadaki dosyayı açıyor, hiç bakmadan konuşuyor: \"Beyanlarınız kayıt altında. Söyleyeceğiniz bir şey var mı?\"",
+          "text": "Federasyon binasının üçüncü katı. Koridor uzun ve halısı sesini yutuyor. {actor.agent.name} yanında oturuyor, kravatını bugün ilk kez düzgün bağlamış. Karşı duvarda camlı bir vitrin: eski kupalar, eski adamlar, eski fotoğraflar. İçeriden adın okunuyor. Üç kişi. Ortadaki dosyayı açıyor, hiç bakmadan konuşuyor: \"Beyanlarınız kayıt altında. Söyleyeceğiniz bir şey var mı?\".",
           "onEnter": [
             {
               "flag": "medya_baskisi",
@@ -67,9 +68,9 @@
                   "value": -15
                 },
                 {
-                  "flag": "mem_public_apology",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_agent_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -123,9 +124,9 @@
                   "value": -10
                 },
                 {
-                  "flag": "mem_refused_to_apologize",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_agent_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -220,7 +221,7 @@
                 "modifiers": [
                   {
                     "flag": "servet",
-                    "scale": 1.2e-05
+                    "scale": 0.000012
                   },
                   {
                     "flag": "iliski_agent",
@@ -254,7 +255,7 @@
         "n_lawyer_won": {
           "title": "Emsal",
           "kind": "outcome",
-          "text": "\"Ceza tek maça indirilmiştir.\"\n\nKoridorda {actor.lawyer.first} ceketini düğmeliyor. \"İyi haber,\" diyor, \"kötü haber şu: artık dosyanız var. Dosyası olan adamın bir sonraki duruşmasında kimse emsal aramaz.\"\n\n{actor.agent.first} faturayı görünce hiçbir şey söylemiyor.",
+          "text": "\"Ceza tek maça indirilmiştir.\" Koridorda {actor.lawyer.first} ceketini düğmeliyor. \"İyi haber,\" diyor, \"kötü haber şu: artık dosyanız var. Dosyası olan adamın bir sonraki duruşmasında kimse emsal aramaz.\" {actor.agent.first} faturayı görünce hiçbir şey söylemiyor. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "op": "suspend",
@@ -272,16 +273,16 @@
               "value": -4
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_lawyer_lost": {
           "title": "Emsal yok",
           "kind": "outcome",
-          "text": "\"Talep reddedilmiştir. Üç maç men ve para cezası.\"\n\n{actor.lawyer.first} koridorda omuz silkiyor: \"Sicilin ağır bastı.\" Parayı ödedin, cezayı da yiyorsun. {actor.agent.first} arabada tek kelime etmiyor; sadece bir kez, kırmızı ışıkta: \"Bu paraya üç maç aldık.\"",
+          "text": "\"Talep reddedilmiştir. Üç maç men ve para cezası.\" {actor.lawyer.first} koridorda omuz silkiyor: \"Sicilin ağır bastı.\" Parayı ödedin, cezayı da yiyorsun. {actor.agent.first} arabada tek kelime etmiyor; sadece bir kez, kırmızı ışıkta: \"Bu paraya üç maç aldık.\". Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "suspend",
@@ -317,7 +318,7 @@
         "n_apologized": {
           "title": "Bir maç",
           "kind": "outcome",
-          "text": "\"Bir maç men.\"\n\nÇıkarken kameralara özür metnini okuyorsun; {actor.agent.first} yazmış, sen sadece sesini verdin. Akşam taraftar grubunun kapalı grubundan bir ekran görüntüsü sızıyor: \"Bizim adımıza konuştu sandık. Meğer kendi adına susmuş.\"\n\nBir maç ucuz. Fatura sonra gelecek.",
+          "text": "\"Bir maç men.\" Çıkarken kameralara özür metnini okuyorsun; {actor.agent.first} yazmış, sen sadece sesini verdin. Akşam taraftar grubunun kapalı grubundan bir ekran görüntüsü sızıyor: \"Bizim adımıza konuştu sandık. Meğer kendi adına susmuş.\" Bir maç ucuz. Fatura sonra gelecek. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "flag": "moral",
@@ -329,7 +330,7 @@
         "n_stood_ground": {
           "title": "Üç maç",
           "kind": "outcome",
-          "text": "\"Üç maç men ve para cezası.\"\n\nKurul salonundan çıktığında koridorda otuz kişi var; hiçbiri gazeteci değil. Taraftar grubu haberi almış, binanın önünde bekliyorlar. Camdan aşağı bakıyorsun: pankartta senin cümlen yazıyor.\n\nÜç maç oynamayacaksın. Ama bu şehirde bir şey değişti.",
+          "text": "\"Üç maç men ve para cezası.\" Kurul salonundan çıktığında koridorda otuz kişi var; hiçbiri gazeteci değil. Taraftar grubu haberi almış, binanın önünde bekliyorlar. Camdan aşağı bakıyorsun: pankartta senin cümlen yazıyor. Üç maç oynamayacaksın. Ama bu şehirde bir şey değişti. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "moral",
@@ -346,7 +347,7 @@
         "n_contact": {
           "title": "Tanıdık yüz",
           "kind": "outcome",
-          "text": "Sağdaki adam gözlüğünü çıkarıp camını siliyor ve bir an fazla uzun bakıyor. \"Dosyada usul eksikliği var,\" diyor ortadakine. \"Bu haliyle karar veremeyiz.\"\n\nDışarı çıktığında telefonun titriyor. Kayıtsız numara, tek satır: *Bir iyilik bir iyiliktir.*\n\nCezan yok. Borcun var.",
+          "text": "Sağdaki adam gözlüğünü çıkarıp camını siliyor ve bir an fazla uzun bakıyor. \"Dosyada usul eksikliği var,\" diyor ortadakine. \"Bu haliyle karar veremeyiz.\" Dışarı çıktığında telefonun titriyor. Kayıtsız numara, tek satır: *Bir iyilik bir iyiliktir.* Cezan yok. Borcun var. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "flag": "iliski_fixer",
@@ -460,9 +461,9 @@
           "text": "Kapı gürültüyle açıldı. İçeridekilerin şaşkınlığı, senin öfkenin yanında silikleşti. Odadan çıkarıldığında ligin senden en az üç maç boyunca uzak durması gerektiğini öğrendin. Artık bir kahramansın ama bir yabancısın.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "suspend",
@@ -477,9 +478,9 @@
           "text": "Sandalyesine çöktün. Kimseyle göz göze gelmedin. Kurulun verdiği karar, senin kariyerini askıya alacak kadar ağır ama adil bulundu. Medya bu duruşunu 'asalet' olarak değil, 'yenilgi' olarak yazdı.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "suspend",
@@ -659,9 +660,9 @@
           "text": "Kapıyı tekmelediğin an koridor sessizleşti. Herkesin maskesi düştü. Sözlerin manşetleri süsleyecek, taraftar seni bir kahraman gibi sahiplenecek ama disiplin kurulu bunu bir savaş ilanı kabul etti.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "suspend",
@@ -676,9 +677,9 @@
           "text": "Başını öne eğip kurul odasına girdin. Özür dilemek, bir oyuncunun gururunu kırmak demektir. Kapı kapandığında artık bir hükümlüsün. Kariyerin bir süreliğine buzlukta.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "suspend",
@@ -845,7 +846,7 @@
         "n_profesyonellik": {
           "title": "Kurallara Teslim",
           "kind": "outcome",
-          "text": "Sessizliğin, kurul üzerinde beklediğin etkiyi yaratmıyor. Profesyonel duruşun, hatayı üstlenmişsin gibi algılanıyor. Kariyerinin en uzun cezasını alıyorsun.",
+          "text": "Sessizliğin, kurul üzerinde beklediğin etkiyi yaratmıyor. Profesyonel duruşun, hatayı üstlenmişsin gibi algılanıyor. Kariyerinin en uzun cezasını alıyorsun. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "op": "suspend",
@@ -853,9 +854,9 @@
               "reason": "Soruşturma sonucu disiplin cezası"
             },
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -870,9 +871,9 @@
               "reason": "Federasyon karşıtı söylem cezası"
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },

@@ -2,7 +2,7 @@
   "id": "evt_match_celebration",
   "family": "fam_match_celebration",
   "category": "match",
-  "tier": "minor",
+  "tier": "beat",
   "momentType": "celebration_choice",
   "weight": 15,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Gol sevinci",
           "kind": "branch",
-          "text": "Attın. {opponent} deplasmanında, {minute}. dakikada, skoru {scoreline} yapan gol.\n\nKoşuyorsun ve nereye koştuğunu henüz seçmedin. Solda kendi tribünün, üç yüz kişi, deplasman bloğu. Sağda ev sahibi tribünü, otuz bin kişi ve sana küfrediyorlar. Karşında kamera.\n\nİki saniyen var.",
+          "text": "Attın. {opponent} deplasmanında, {minute}. dakikada, skoru {scoreline} yapan gol. Koşuyorsun ve nereye koştuğunu henüz seçmedin. Solda kendi tribünün, üç yüz kişi, deplasman bloğu. Sağda ev sahibi tribünü, otuz bin kişi ve sana küfrediyorlar. Karşında kamera. İki saniyen var.",
           "choices": [
             {
               "id": "c_fans",
@@ -49,9 +49,9 @@
                   "value": -3
                 },
                 {
-                  "flag": "mem_saved_teammate",
-                  "op": "set",
-                  "value": false
+                  "flag": "npc_agent_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -155,7 +155,7 @@
         "n_provoked": {
           "title": "Otuz bin kişi",
           "kind": "outcome",
-          "text": "Parmağını dudağına götürüyorsun ve otuz bin kişi bir anda susmuyor — daha da bağırıyor. Ama o fotoğraf çekildi ve o fotoğraf artık senin.\n\nHakem sarı kart gösteriyor. Çeyrek saat sonra tribünden bir çakmak sahaya iniyor.\n\n{actor.agent.name} maçtan sonra tek cümle yazıyor: \"Bunun faturası gelecek, hazır ol.\"",
+          "text": "Parmağını dudağına götürüyorsun ve otuz bin kişi bir anda susmuyor — daha da bağırıyor. Ama o fotoğraf çekildi ve o fotoğraf artık senin. Hakem sarı kart gösteriyor. Çeyrek saat sonra tribünden bir çakmak sahaya iniyor. {actor.agent.name} maçtan sonra tek cümle yazıyor: \"Bunun faturası gelecek, hazır ol.\". Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
               "op": "match",
@@ -182,7 +182,7 @@
         "n_teammate": {
           "title": "On sekiz yaşında",
           "kind": "outcome",
-          "text": "Pası veren çocuk on sekiz yaşında ve bu onun üçüncü profesyonel maçı. {actor.youngster.first:acc} belinden tutup kaldırıyorsun ve kamera ikinizi buluyor.\n\nO gece o görüntü senin golünden daha çok paylaşılıyor.\n\nErtesi gün idmanda çocuk yanına gelip bir şey söylemek istiyor, beceremiyor, gidiyor. Bunu bir daha denemeyecek ama unutmayacak.",
+          "text": "Pası veren çocuk on sekiz yaşında ve bu onun üçüncü profesyonel maçı. {actor.youngster.first:acc} belinden tutup kaldırıyorsun ve kamera ikinizi buluyor. O gece o görüntü senin golünden daha çok paylaşılıyor. Ertesi gün idmanda çocuk yanına gelip bir şey söylemek istiyor, beceremiyor, gidiyor. Bunu bir daha denemeyecek ama unutmayacak. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
               "op": "match",
@@ -295,9 +295,9 @@
           "text": "Kendi taraftarın bile sustu. Rakip tribün küfürlerle ayağa kalktı. {actor.agent.name} elleriyle yüzünü kapattı. Gösteri bitti, şimdi fatura zamanı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -311,9 +311,9 @@
           "text": "Hakem cebine gitti. Saha kenarı bir anda hareketlendi. {actor.agent.name} ile göz göze geldin; o bakışta sadece hayal kırıklığı vardı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -327,9 +327,9 @@
           "text": "Alkışlar azaldı. Herkes çılgınca bir kutlama bekliyordu ama sen sadece bir işçisin. {actor.agent.name} kenardan başını sallayarak onay verdi. Doğru olanı yaptın, ama için boşaldı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -422,9 +422,9 @@
           "text": "Sırtını dik tutarak yanından geçiyorsun. O arkanda bir şeyler mırıldanıyor ama duymamazlıktan geliyorsun. Profesyonel kalmak, bu anın fırtınasından çıkmanın tek yolu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -438,9 +438,9 @@
           "text": "Cebine giren bonusun ağırlığı, yüzündeki gerginliği hafifletiyor. {actor.agent.name} başını sallıyor; senin bu umursamazlığın yarın sabahki manşetleri belirleyecek ama kazancın garantide.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -454,9 +454,9 @@
           "text": "Agent'ın gözlerindeki öfkeyi görüyorsun. Disiplin kuruluna sevk edilmen an meselesi, ancak dışarıdaki o kitle seni çoktan kahraman ilan etti. Bu bedeli ödemeye hazırsın.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

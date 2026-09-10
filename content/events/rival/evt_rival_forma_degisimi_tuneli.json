@@ -1,0 +1,180 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Zorlu bir derbi veya Avrupa maçı sonrası tünelde yaşanan evrensel futbol ritüeli: rakip dünya yıldızıyla forma değişimi.",
+    "hangi_soru": "Doksan dakikalık savaşın ardından rakibin dünya yıldızına formanı uzatıp saygı mı göstereceksin, formayı tribüne atıp taraftarla mı bütünleşeceksin, yoksa tünelde laf mı sokacaksın?",
+    "odeme_plani": "Bu uluslararası saygı anı (mem_rakip_yildiz_forma_degisti), kariyer epilogunda küresel itibar mirası olarak konuşur."
+  },
+  "id": "evt_rival_forma_degisimi_tuneli",
+  "family": "fam_rival_forma_degisim",
+  "category": "rival",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 65,
+  "cooldown": {
+    "self": 28,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "rival:opponent_star:forma_degisimi_tuneli",
+    "slot": "opponent_star",
+    "beat": "forma_degisimi_tuneli"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 3
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tüneldeki İki Terli Forma",
+      "kind": "branch",
+      "text": "Son düdük çalmış, stattan yükselen uğultu tünelin beton duvarlarında yankılanıyor. Çim kokusu, ter ve yanık kauçuk kokusu koridora sinmiş.\n\nSoyunma odasına doğru yürürken arkandan omzuna bir el dokunuyor. Döndüğünde rakip takımın dünyaca ünlü forveti {actor.opponent_star.name} ile burun buruna geliyorsun. Doksan dakika boyunca defalarca ikili mücadeleye girdiniz, birkaç kez birbirinizin formasını çektiniz.\n\nAma şimdi yüzünde sakin bir tebessüm var. Kendi formasını başından çıkarıp omzuna atıyor ve senin göğsünü işaret ediyor: 'İyi savaştın çocuk. Değişelim mi?'\n\nTünelin başında bekleyen kameraman kamerayı size çeviriyor.",
+      "choices": [
+        {
+          "id": "c_degis",
+          "text": "Formanı çıkarıp uzat: \"Seninle oynamak büyük bir zevkti.\"",
+          "target": "n_degis",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "sadakat": 4
+          }
+        },
+        {
+          "id": "c_tribun",
+          "text": "\"Kusura bakma, formamı tribündeki bir çocuğa söz verdim.\" Formayı tribüne at.",
+          "target": "n_tribun",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "sadakat": 14,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_laf_sok",
+          "text": "\"Sahada yaptıklarını çabuk unuttun galiba.\" Başını salla ve odaya yürü.",
+          "target": "n_laf_sok",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "mizac": 12,
+            "durus": 6
+          }
+        }
+      ]
+    },
+    "n_degis": {
+      "title": "Uluslararası Saygı",
+      "kind": "outcome",
+      "text": "Terli formaları değiştirdiniz, birbirinizin omzuna vurdunuz. Tünelde çekilen o fotoğraf ertesi sabah uluslararası spor ajanslarının vitrinine çıktı: 'İki Yıldızın Centilmence Vedası.' Rakip taraftarlar bile senin kaliteni takdir etmek zorunda kaldı.",
+      "onEnter": [
+        {
+          "flag": "mem_rakip_yildiz_forma_degisti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_tribun": {
+      "title": "Tribüne Verilen Söz",
+      "kind": "outcome",
+      "text": "{actor.opponent_star.name} şaşkınlıkla baktı ama saygıyla gülümsedi. Tünelden geri dönüp formanı tellere tırmanan on iki yaşındaki bir çocuğa fırlattın. Çocuğun gözlerindeki mutluluk ve tribünlerin alkış tufanı o akşam bütün manşetlerden daha değerliydi.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_laf_sok": {
+      "title": "Kapanmayan Tansiyon",
+      "kind": "outcome",
+      "text": "{actor.opponent_star.name:gen} yüzündeki gülümseme dondu, formasını hışımla geri çekti. 'Rövanşta görüşürüz o zaman' diye homurdandı. Soyunma odasına girdiğinde tansiyonun hâlâ tavan yapmıştı ama kimseye boyun eğmeyen bir savaşçı olduğunu bir kez daha kanıtlamıştın."
+    }
+  }
+}

@@ -40,7 +40,7 @@
         "n_root": {
           "title": "Eski Hesaplar",
           "kind": "branch",
-          "text": "Antrenman sahasının çıkışında, motorunun üzerinde {actor.partner.name} bekliyor. Kaskını çıkarmamış, rüzgarın sesiyle karışık bir sessizlik. Yanına yaklaştığında, ceketinin iç cebinden yıpranmış bir zarf çıkarıp aynasına bırakıyor. 'İyi kazandın,' diyor, sesindeki soğukluk kaskın camından yansıyor. 'Ama söz verdiğin gün geçti. Şimdi borcunu ödeme vakti. Ya buraya bırakırsın ya da herkes bu zarfın içinde ne yazdığını merak etmeye başlar.' Çevredeki birkaç genç oyuncu meraklı bakışlarını üzerinize dikiyor. {actor.partner.name} gazı hafifçe çeviriyor, motorun sesi kalabalığı susturuyor.",
+          "text": "Antrenman sahasının çıkışında, motorunun üzerinde {actor.partner.name} bekliyor. Kaskını çıkarmamış, rüzgarın sesiyle karışık bir sessizlik. Yanına yaklaştığında, ceketinin iç cebinden yıpranmış bir zarf çıkarıp aynasına bırakıyor. 'İyi kazandın,' diyor, sesindeki soğukluk kaskın camından yansıyor. 'Ama söz verdiğin gün geçti. Şimdi borcunu ödeme vakti. Ya buraya bırakırsın ya da herkes bu zarfın içinde ne yazdığını merak etmeye başlar.' Çevredeki birkaç genç oyuncu meraklı bakışlarını üzerinize dikiyor. {actor.partner.name} gazı hafifçe çeviriyor, motorun sesi kalabalığı susturuyor. Birkaç saniyelik bu duraksama, yıllardır ertelenen tüm hesapların aynı anda masaya geldiğini hissettiriyor. Gökyüzünden inen ince yağmur, bu konuşmanın ertelenemeyecek kadar gerçek olduğunu yüzüne çarpıyor.",
           "choices": [
             {
               "id": "c_odeme_yap",
@@ -116,6 +116,37 @@
               "persona": {
                 "mizac": -5
               }
+            },
+            {
+              "id": "c_taksit",
+              "text": "Zarfı cebine koy ve süre iste. 'Hepsini bugün veremem, ama üç maç primiyle bu defteri kapatırım.'",
+              "target": "n_profesyonel_bedel",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 4
+                },
+                {
+                  "flag": "iliski_partner",
+                  "op": "add",
+                  "value": 3
+                }
+              ],
+              "persona": {
+                "durus": 4,
+                "sadakat": 3
+              }
             }
           ]
         },
@@ -164,7 +195,7 @@
         "n_root": {
           "title": "Karanlıkta Yüzleşme",
           "kind": "branch",
-          "text": "Mutfak tezgahının üzerindeki loş ışık, {actor.partner.name} yüzündeki çizgileri derinleştiriyor. Masanın üzerinde, bir zamanlar hayatınızı kurduğunuz hayallerin belgeleri değil, borcun soğuk dökümü duruyor. {actor.partner.name} gözlerini masadan ayırmadan, parmaklarıyla boş bir bardağın kenarını çeviriyor. Dışarıda gece yarısı antrenman sahasının sessizliği çökmüş. Bir cevap bekliyor, ama bu seferki soru 'ne kadar' değil, 'ne zamana kadar' kaçabileceği.",
+          "text": "Mutfak tezgahının üzerindeki loş ışık, {actor.partner.name} yüzündeki çizgileri derinleştiriyor. Masanın üzerinde, bir zamanlar hayatınızı kurduğunuz hayallerin belgeleri değil, borcun soğuk dökümü duruyor. {actor.partner.name} gözlerini masadan ayırmadan, parmaklarıyla boş bir bardağın kenarını çeviriyor. Dışarıda gece yarısı antrenman sahasının sessizliği çökmüş. Bir cevap bekliyor, ama bu seferki soru 'ne kadar' değil, 'ne zamana kadar' kaçabileceği. Buzdolabının uğultusu uzadıkça, bu gecenin ertesi günkü idmanı da ilişkinizi de değiştireceği kesinleşiyor. Masanın üstündeki gölge büyüdükçe, suskunluğun bile artık başlı başına bir cevap olduğunu ikiniz de anlıyorsunuz.",
           "choices": [
             {
               "id": "c_guvenli",
@@ -284,7 +315,7 @@
         "n_riskli": {
           "title": "Karanlık Pazarlık",
           "kind": "outcome",
-          "text": "Kulüpteki ağırlığını kullanarak durumu çözdün. Ancak artık birilerine borçlusun; sahadaki her koşunun, her mücadelenin arkasında bu borcun gölgesi var.",
+          "text": "Kulüpteki ağırlığını kullanarak durumu çözdün. Ancak artık birilerine borçlusun; sahadaki her koşunun, her mücadelenin arkasında bu borcun gölgesi var ve bu gölge soyunma odasına senden önce giriyor.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -296,7 +327,7 @@
         "n_gri": {
           "title": "Kendi Yöntemlerin",
           "kind": "outcome",
-          "text": "Sokağın dilini biliyorsun. Borç kapandı, {actor.partner.name} özgür. Ama aynaya her baktığında, o gece kiminle konuştuğunu hatırlamanın ağırlığı omzunda.",
+          "text": "Sokağın dilini biliyorsun. Borç kapandı, {actor.partner.name} özgür. Ama aynaya her baktığında, o gece kiminle konuştuğunu hatırlamanın ağırlığı omzunda kalıyor ve her galibiyetin tadına ince bir metal tadı karışıyor.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -326,7 +357,7 @@
         "n_root": {
           "title": "Ayna Kırığı",
           "kind": "branch",
-          "text": "Antrenman tesisi kapandı. Otopark zifiri karanlık, sadece sensörlü lambaların cılız ışığı yanıyor. {actor.partner.name} arabanın kaputuna yaslanmış, elindeki yanan sigarayı yere fırlatıyor. Yüzünde, kameralara verdiğin o tanıdık gülümsemeden eser yok. Sadece bir yabancının soğukluğu var. Cebinden çıkan bir ödeme emri, soğuk asfaltın üzerine düşüyor. İkinizin arasında kurulan o ince cam, şimdi binlerce parçaya ayrılıyor.",
+          "text": "Antrenman tesisi kapandı. Otopark zifiri karanlık, sadece sensörlü lambaların cılız ışığı yanıyor. {actor.partner.name} arabanın kaputuna yaslanmış, elindeki yanan sigarayı yere fırlatıyor. Yüzünde, kameralara verdiğin o tanıdık gülümsemeden eser yok. Sadece bir yabancının soğukluğu var. Cebinden çıkan bir ödeme emri, soğuk asfaltın üzerine düşüyor. İkinizin arasında kurulan o ince cam, şimdi binlerce parçaya ayrılıyor. Uzaktan geçen güvenlik aracı ışığı, kırığın geri dönülmez olduğunu bir kez daha yüzünüze vuruyor. Egzoz kokusu yayılırken bu gecenin izinin yalnız bugünde kalmayacağını anlıyorsun.",
           "choices": [
             {
               "id": "c_riskli",
@@ -454,7 +485,7 @@
         "n_riskli": {
           "title": "Sokak Bedeli",
           "kind": "outcome",
-          "text": "Adın, kulüp binasındaki dedikoduların merkezine yerleşti. Artık herkes senin 'karanlık' taraflarını biliyor.",
+          "text": "Adın, kulüp binasındaki dedikoduların merkezine yerleşti. Artık herkes senin 'karanlık' taraflarını biliyor ve bu söylenti her maç öncesi soyunma odasında sana bir adım daha yaklaşıyor.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -466,7 +497,7 @@
         "n_guvenli": {
           "title": "Soğuk Profesyonellik",
           "kind": "outcome",
-          "text": "Kariyerin güvende ama evine döndüğünde o sessizlik artık bir duvar. Yalnızlık, performansınla besleniyor.",
+          "text": "Kariyerin güvende ama evine döndüğünde o sessizlik artık bir duvar. Yalnızlık, performansınla besleniyor; kazandığın her puan ilişkinizde açılan boşluğu biraz daha görünür kılıyor.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -478,7 +509,7 @@
         "n_gri": {
           "title": "Sessiz Tahliye",
           "kind": "outcome",
-          "text": "Banka hesabındaki o rakam bir anda buharlaştı. {actor.partner.name} bakışlarını kaçırarak uzaklaşıyor. İkiniz de bu paranın bir veda olduğunu biliyorsunuz.",
+          "text": "Banka hesabındaki o rakam bir anda buharlaştı. {actor.partner.name} bakışlarını kaçırarak uzaklaşıyor. İkiniz de bu paranın bir veda olduğunu biliyorsunuz, fakat vedanın faturası uzun süre her kararında önüne düşecek.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -490,7 +521,7 @@
         "n_kilitli": {
           "title": "Son Perde",
           "kind": "outcome",
-          "text": "Kamuoyu seni 'fedakar kahraman' olarak kutsuyor ama omuzlarındaki o ağırlık, antrenmanlarda nefesini kesiyor. Bitti.",
+          "text": "Kamuoyu seni 'fedakar kahraman' olarak kutsuyor ama omuzlarındaki o ağırlık, antrenmanlarda nefesini kesiyor. Bitti sandığın şeyin izi, her kritik maçın öncesinde yeniden içini yoklayacak kadar kalıcı kalıyor.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -508,7 +539,7 @@
         "n_root": {
           "title": "Son Ödeme Günü",
           "kind": "branch",
-          "text": "Stadyumun bodrum katındaki teknik odada, havalandırmanın mekanik uğultusu birbirimizin nefesini örtüyor. {actor.partner.name}, loş ışıkta elindeki dosyayı çöp tenekesine değil, doğrudan önündeki metal masanın üzerine bırakıyor. Kendi isminin yanındaki rakamlar, senin bir sezonluk priminden daha yüksek. Kapı kilitli. Dışarıdan gelen antrenman sahası sesleri çok uzak. {actor.partner.name} gözlerini kaçırıyor, duvardaki eski bir posterin kenarıyla oynuyor. Söylenmemiş her şey aramızda bir duvar gibi yükseliyor. Ya o dosyayı görmezden geleceksin ya da içindeki bataklığı temizlemek için kendi hayatını riske atacaksın.",
+          "text": "Stadyumun bodrum katındaki teknik odada, havalandırmanın mekanik uğultusu birbirimizin nefesini örtüyor. {actor.partner.name}, loş ışıkta elindeki dosyayı çöp tenekesine değil, doğrudan önündeki metal masanın üzerine bırakıyor. Kendi isminin yanındaki rakamlar, senin bir sezonluk priminden daha yüksek. Kapı kilitli. Dışarıdan gelen antrenman sahası sesleri çok uzak. {actor.partner.name} gözlerini kaçırıyor, duvardaki eski bir posterin kenarıyla oynuyor. Söylenmemiş her şey aramızda bir duvar gibi yükseliyor. Ya o dosyayı görmezden geleceksin ya da içindeki bataklığı temizlemek için kendi hayatını riske atacaksın. Tavandaki fan dönmeye devam ettikçe, zamanın ikinizin lehine değil aleyhine aktığı daha da belirginleşiyor.",
           "choices": [
             {
               "id": "c_riskli",
@@ -636,7 +667,7 @@
         "n_outcome_risk": {
           "title": "Sokağın Bedeli",
           "kind": "outcome",
-          "text": "İsimler değişti, borç benim üzerime yıkıldı. Artık kulüpten daha çok sokaktaki o adamlara karşı sorumlusun.",
+          "text": "İsimler değişti, borç benim üzerime yıkıldı. Artık kulüpten daha çok sokaktaki o adamlara karşı sorumlusun ve her prim günü bu yeni borç düzeninin ne kadar kırılgan olduğunu yeniden hatırlıyorsun.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -648,7 +679,7 @@
         "n_outcome_gri": {
           "title": "Sessiz Çözüm",
           "kind": "outcome",
-          "text": "Bankadaki haneler azaldı ama {actor.partner.name} artık özgür. Aramızdaki mesafe hiç olmadığı kadar açıldı.",
+          "text": "Bankadaki haneler azaldı ama {actor.partner.name} artık özgür. Aramızdaki mesafe hiç olmadığı kadar açıldı; bu sessiz çözüm ikinize de nefes verdi ama hiçbirinize huzur vermedi.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -660,7 +691,7 @@
         "n_outcome_guvenli": {
           "title": "Prosedür",
           "kind": "outcome",
-          "text": "İş ciddileşti. {actor.partner.name} ile arandaki güven, prosedürlerin soğukluğunda paramparça oldu.",
+          "text": "İş ciddileşti. {actor.partner.name} ile arandaki güven, prosedürlerin soğukluğunda paramparça oldu ve doğru yaptığını bilsen bile bu kopuşun yankısı kulübün her koridorunda sana geri döndü.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",
@@ -672,7 +703,7 @@
         "n_outcome_kilitli": {
           "title": "Gizli Yük",
           "kind": "outcome",
-          "text": "Kendi oyununu feda ettin ama {actor.partner.name} hala yanında. Sırrımız, artık performansımızın bir parçası.",
+          "text": "Kendi oyununu feda ettin ama {actor.partner.name} hala yanında. Sırrımız, artık performansımızın bir parçası; her iyi maçtan sonra bile bu ortak sessizliğin bedelini vücudunda ve zihninde taşıyorsun.",
           "onEnter": [
             {
               "flag": "mem_social_borc_partner",

@@ -1,0 +1,264 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Yükseliş çağında (21-23 yaş) oyuncunun ilk profesyonel sözleşmesi biter. Artık veli satırı yoktur; masada tek başına oturur.",
+    "hangi_soru": "İlk sözleşmedeki acemilikten sonra bu masada masayı kim yönetecek: sen mi, kulüp mü, menajerin mi?",
+    "odeme_plani": "Burada konulan serbest kalma maddesi ya da kulübe bağlılık sözü, Prime çağındaki Avrupa transferinde (evt_business_avrupa_cikisi) ve kariyer epilogunda konuşur."
+  },
+  "id": "evt_business_ikinci_sozlesme_masasi",
+  "family": "fam_business_ikinci_sozlesme",
+  "category": "business",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 70,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "business:sporting_director:ikinci_sozlesme_masasi",
+    "slot": "sporting_director",
+    "beat": "ikinci_sozlesme_masasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Velisiz İlk Masa",
+      "kind": "branch",
+      "text": "Aynı oda, aynı masa, aynı deri koltuklar. Ama odadaki sandalye sayısı bu kez iki. {actor. sporting_director. name} yeni sözleşme klasörünü önüne doğru kaydırıyor. Son sayfayı çevirip işaret parmağıyla altını gösteriyor: tek bir imza çizgisi var. Altında sadece senin adın ve soyadın yazılı. 'Veli' ibaresi artık yok. \"Beş yıl önce o kapıdan çıktığında bir daha bu kadar kolay olmayacağını biliyordum,\" diyor, yüzünde hafif bir tebessümle. \"Artık bu ligin sayılı hücumcularındansın. Sana üç yıllık yeni bir kontrat öneriyoruz. Maaşın dört katına çıkıyor. \" Ama sözleşmenin yedinci maddesinde bir ayrıntı var: 'Avrupa kulüplerine serbest kalma bedeli 15 milyon Euro. ' Menajerin telefonla mesaj atıyor: 'O maddeyi 5 milyona çektirmeden sakın imzalama, kapını çalacaklar.",
+      "choices": [
+        {
+          "id": "c_serbest",
+          "text": "\"Serbest kalma bedeli 5 milyon Euro olacak; yoksa masadan kalkarım.\"",
+          "target": "n_serbest",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_sporting_director",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_sadakat",
+          "text": "\"Ben bu kulüpte mutluyum.\" 15 milyonu kabul et, sözleşmeyi hemen imzala.",
+          "target": "n_sadakat",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "iliski_sporting_director",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 120000
+            },
+            {
+              "flag": "haftalik_gelir",
+              "op": "add",
+              "value": 3000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "sadakat": 14,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_oku",
+          "text": "Çantandan gözlüğünü çıkar: \"Annemin vasiyeti var, her maddeyi tek tek okuyacağım.\"",
+          "target": "n_oku",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "iliski_sporting_director",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "dogruluk": 12,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_eski_hesap",
+          "text": "\"Beş yıl önce 'on sekizine kadar hayır' demiştiniz. Şimdi koşulları ben belirlerim.\"",
+          "target": "n_eski_hesap",
+          "requires": {
+            "flag": "mem_ilk_sozlesme_kendi_istedi",
+            "op": "isSet"
+          },
+          "lockLabel": "[İlk Sözleşmede Kendi İmzalamak İsteyen]",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 150000
+            },
+            {
+              "flag": "haftalik_gelir",
+              "op": "add",
+              "value": 4000
+            },
+            {
+              "flag": "iliski_sporting_director",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "mizac": 8
+          }
+        }
+      ]
+    },
+    "n_serbest": {
+      "title": "Açılan Kapı",
+      "kind": "outcome",
+      "text": "{actor.sporting_director.name} arkasına yaslandı, gözlerini kıstı. Masada bir dakika boyunca sadece saatin tıkırtısı duyuldu. 'Bizi basamak olarak görüyorsun,' dedi soğuk bir sesle. Ama sonunda kalemi uzattı. Maddeyi el yazısıyla 5 milyon Euro olarak değiştirdi ve yanına paraf attı. Maaşın arttı, ayrılış kapın açıldı; ama o odadan çıkarken sportif direktör elini sıkmak için ayağa kalkmadı.",
+      "onEnter": [
+        {
+          "flag": "mem_ikinci_sozlesme_serbest_kalma",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sadakat": {
+      "title": "Bizim Evladımız",
+      "kind": "outcome",
+      "text": "İmzayı tereddütsüz attın. {actor.sporting_director.name} rahat bir nefes aldı; yerinden kalkıp omzunu sıktı. 'Bunu taraftara öyle bir anlatacağız ki,' dedi. Yarım saat sonra kulübün sosyal medya hesabından 'Bizim Evladımız Kalıyor' başlığıyla fotoğraf paylaşıldı. Menajerin arayıp öfkeden delirdiğini söyledi; ama o akşam tesis çıkışında bekleyen yüzlerce taraftar arabayı sallarcasına tezahürat yapıyordu.",
+      "onEnter": [
+        {
+          "flag": "mem_ikinci_sozlesme_sadakat",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_oku": {
+      "title": "Üç Saatlik İnceleme",
+      "kind": "outcome",
+      "text": "Sayfaları tek tek, satır satır okudun. On ikinci maddedeki sakatlık maaş kesintisini buldun, on sekizinci maddedeki imaj hakkı paylaşımını sildirdin. {actor.sporting_director.name} üç saat boyunca masada esnedi ama tek kelime edemedi. Masadan kalktığında sözleşme senin istediğin hale gelmişti. Kapıyı kapatırken mırıldandı: 'Keşke o gün annene o cümleyi kurdurmasaydık.'.",
+      "onEnter": [
+        {
+          "flag": "mem_ikinci_sozlesme_serbest_kalma",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_eski_hesap": {
+      "title": "Masadaki Patron",
+      "kind": "outcome",
+      "text": "{actor.sporting_director.name} donakaldı. O günkü ukala çocuğun büyüyüp ligin en tehlikeli hücumcusu olarak karşısına oturacağını beklemiyordu. Masada patron sendin. Hem maaşı tavana vurdurdun hem de serbest kalma maddesini istediğin rakama çektin. Odadan çıkarken sana hayranlıkla ama korkuyla baktı. Artık bir kulüp evladı değildin; kendi kaderini kendi çizen bir profesyonele dönüşmüştün.",
+      "onEnter": [
+        {
+          "flag": "mem_ikinci_sozlesme_serbest_kalma",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

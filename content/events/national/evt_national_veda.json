@@ -2,7 +2,8 @@
   "id": "evt_national_veda",
   "family": "fam_national_veda",
   "category": "national",
-  "tier": "epic",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 95,
   "once": true,
   "cooldown": {
@@ -33,7 +34,7 @@
         "n_root": {
           "title": "Açıklama Metni",
           "kind": "branch",
-          "text": "Telefonda üç paragraf duruyor. Basın danışmanı yazmış, sana onaylatıyor.\n\n*\"…bugüne kadar bu formayı taşımak hayatımın en büyük onuruydu. Sırayı gençlere bırakmanın zamanı geldi…\"*\n\nİyi yazılmış. Doğru da — hepsi doğru. Sadece hiçbiri senin cümlen değil.\n\n{actor.journalist.name} yarım saat önce mesaj attı: \"Duyduğum doğru mu? Bir cümle yeter.\"\n\n{actor.national_manager.name} aramadı. Aramaması da bir cümle.\n\nEkranda imleç yanıp sönüyor.",
+          "text": "Telefonda üç paragraf duruyor. Basın danışmanı yazmış, sana onaylatıyor. *\"…bugüne kadar bu formayı taşımak hayatımın en büyük onuruydu. Sırayı gençlere bırakmanın zamanı geldi…\"* İyi yazılmış. Doğru da — hepsi doğru. Sadece hiçbiri senin cümlen değil. {actor.journalist.name} yarım saat önce mesaj attı: \"Duyduğum doğru mu? Bir cümle yeter.\" {actor.national_manager.name} aramadı. Aramaması da bir cümle. Ekranda imleç yanıp sönüyor.",
           "choices": [
             {
               "id": "c_onayla",
@@ -150,59 +151,107 @@
               "persona": {
                 "durus": 6
               }
+            },
+            {
+              "id": "c_kaptan",
+              "text": "Basın toplantısı düzenle: \"Bu bandı sıradaki genç kardeşim devralacak.\"",
+              "target": "n_kaptan",
+              "requires": {
+                "flag": "mem_milli_kaptanlik",
+                "op": "isSet"
+              },
+              "lockLabel": "[Millî Takım Kaptanı]",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 18
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": -16
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 12,
+                "sadakat": 10
+              }
             }
           ]
         },
         "n_onayla": {
           "title": "Üç Paragraf",
           "kind": "outcome",
-          "text": "Onayladın. On dakika sonra yayımlandı.\n\nHer şey düzgün gitti. Federasyon teşekkür etti, kulüp paylaştı, eski takım arkadaşların altına yorum yazdı.\n\nO gece annen aradı. \"Sen mi yazdın bunu?\" dedi.\n\n\"Yok,\" dedin.\n\n\"Anlamıştım.\"",
+          "text": "Onayladın. On dakika sonra yayımlandı. Her şey düzgün gitti. Federasyon teşekkür etti, kulüp paylaştı, eski takım arkadaşların altına yorum yazdı. O gece annen aradı. \"Sen mi yazdın bunu?\" dedi. \"Yok,\" dedin. \"Anlamıştım.\". Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_hazir_metin",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_kendi": {
           "title": "Tek Cümle",
           "kind": "outcome",
-          "text": "Üç paragrafı sildin. Yerine sekiz kelime yazdın.\n\nNe yazdığını herkes ezberledi. İki gün sonra tribünde pankart oldu, bir hafta sonra bir çocuğun kolunda dövme.\n\nDanışman aradı: \"Keşke bana sorsaydınız.\" Sormadın. Bütün mesele oydu.",
+          "text": "Üç paragrafı sildin. Yerine sekiz kelime yazdın. Ne yazdığını herkes ezberledi. İki gün sonra tribünde pankart oldu, bir hafta sonra bir çocuğun kolunda dövme. Danışman aradı: \"Keşke bana sorsaydınız.\" Sormadın. Bütün mesele oydu. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_kendi_yazdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sebep": {
           "title": "Neden",
           "kind": "outcome",
-          "text": "Gerçek sebebi yazdın. Dizin değildi. Yaş da değildi.\n\nMetin yayımlandıktan kırk dakika sonra federasyondan bir açıklama geldi; adın geçmiyordu ama herkes anladı.\n\n{actor.national_manager.name} bir daha seninle konuşmadı. Üç yıl sonra görevden alındığında {actor.journalist.name} ona bunu sordu ve o adam gülüp \"Haklıydı,\" dedi.\n\nHaklı olmanın bedelini o üç yılda ödemiştin.",
+          "text": "Gerçek sebebi yazdın. Dizin değildi. Yaş da değildi. Metin yayımlandıktan kırk dakika sonra federasyondan bir açıklama geldi; adın geçmiyordu ama herkes anladı. {actor.national_manager.name} bir daha seninle konuşmadı. Üç yıl sonra görevden alındığında {actor.journalist.name} ona bunu sordu ve o adam gülüp \"Haklıydı,\" dedi. Haklı olmanın bedelini o üç yılda ödemiştin. O gece kapanirken ay-yildizli odadaki guven iliskileri kalici bicimde yeniden ciziliyor.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_gercegi_soyledi",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_federasyona_karsi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_bekle": {
           "title": "Yüzüstü",
           "kind": "outcome",
-          "text": "Telefonu ters çevirdin.\n\nHaber ertesi gün başkasının ağzından çıktı — kaynak belirsiz, cümleler senin değil, tarih yanlış.\n\nDüzeltmek için konuşman gerekti ve konuştuğunda artık veda değil savunma yapıyordun.\n\nBazı metinleri yazmazsan başkası yazar. Bu, öğrenilmesi geç bir ders.",
+          "text": "Telefonu ters çevirdin. Haber ertesi gün başkasının ağzından çıktı — kaynak belirsiz, cümleler senin değil, tarih yanlış. Düzeltmek için konuşman gerekti ve konuştuğunda artık veda değil savunma yapıyordun. Bazı metinleri yazmazsan başkası yazar. Bu, öğrenilmesi geç bir ders. Kamp dagildi, ancak bu hamlenin yankisi sonraki kadro aciklamasina kadar suruyor.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_sessiz_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_kaptan": {
+          "title": "Kaptan Devri",
+          "kind": "outcome",
+          "text": "Basın toplantısı salonu tıklım tıklımdı. Masanın ortasına, yıllarca kolunda taşıdığın kırmızı-beyaz ay-yıldızlı pazubandı bıraktın. \"Bu bant hiçbir zaman tek bir adama ait olmadı,\" dedin. \"Sıra, tünelde arkamda bekleyen çocuklarda.\" Salonda çıt çıkmadı. Flaşlar patlarken içeriye ilk giren o genç oyuncuyu yanına çağırdın ve bandı onun koluna taktın. Bir veda ancak bu kadar haysiyetli olabilirdi. Kamp dagildi, ancak bu hamlenin yankisi sonraki kadro aciklamasina kadar suruyor.",
+          "onEnter": [
+            {
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -336,9 +385,9 @@
           "text": "Kelimeler ağzından bir kağıt parçası gibi dökülürken, odadaki klimaların soğuk uğultusu sessizliği daha da ağırlaştırdı. {actor.manager.name} gözlerini dosyasından bir an olsun ayırmadan masanın üzerindeki kalemi çevirdi. Kimse anlamadı ama sen her hecede bir parçanı, o parlak kariyerinin bir kırıntısını daha o soğuk masaya bıraktın; dışarıda başlayan yağmur camları dövmeye başladığında artık geri dönüşün kalmadığını fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_hazir_metin",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -348,9 +397,9 @@
           "text": "Otoparkın beton zemininde yankılanan sözlerin, yarın sabah tüm manşetlerin rengini değiştirecek keskinlikteydi. Taraftarların stadyum önündeki meşaleleri yağmur altında kısık bir cızırtıyla sönerken, havaya yayılan yanık barut ve ıslak asfalt kokusu genzini yaktı. Bu, profesyonel geleceğin için bir intihar hamlesi olabilir ama otoparktan yükselen cılız tezahüratlar, bu kararın onların kalbinde bir destana dönüştüğünü kanıtladı; güvenlik görevlileri başlarını önlerine eğerek seni geçip gitmen için selamladı.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_kendi_yazdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -360,9 +409,9 @@
           "text": "Sessizlik bir cevap değil, üzerine örülen yüksek bir duvardı. Basın odasındaki ışıklar gözlerini kamaştırırken, karşında oturan muhabirlerin boş bakışları altında sadece mikrofonun tıkırtısı duyuluyordu. Herkes kendi hikayesini zihninde kurup yarınki gazete sayfalarına hazırlarken, sen sahneden inerken yansıyan gölgene bakıp huzursuzca yutkundun; koridorda attığın her adım, kapalı kapıların ardında yankılanan bir yabancı ayak sesine dönüştü.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_sessiz_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -372,9 +421,9 @@
           "text": "Yılların birikimi, üzerindeki formanın ağırlığı gibi omuzlarına çöktü. Federasyon binasının yüksek tavanlı koridorlarında yankılanan bu açıklama, senin için hem bir özgürleşme hem de bir devrin bittiğinin ilanıydı; duvardaki eski şampiyonluk fotoğrafları sanki seni tanımıyor gibi bakıyordu. Çıkış kapısına doğru yürürken, arkandan gelen fısıltılar binanın mermer duvarlarında boğulup gitti; cebindeki kartın artık o kapıları açmayacağını bilmek, teninde soğuk bir ürperti bıraktı.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_gercegi_soyledi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -479,36 +528,36 @@
         "n_sessiz": {
           "title": "Sessiz Bir Veda",
           "kind": "outcome",
-          "text": "Kâğıtları imzaladın. {actor.journalist.name} tek kelime etmeden çıktı. Artık bu hikâyenin sonu, paranın gölgesinde unutulacak.",
+          "text": "Kâğıtları imzaladın. {actor.journalist.name} tek kelime etmeden çıktı. Artık bu hikâyenin sonu, paranın gölgesinde unutulacak. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_sessiz_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_gercek": {
           "title": "Son Hesaplaşma",
           "kind": "outcome",
-          "text": "Tüm kapıları üzerine kapattın. {actor.journalist.name} not almıyor, sadece dinliyor. Bu, saha dışındaki son galibiyetin.",
+          "text": "Tüm kapıları üzerine kapattın. {actor.journalist.name} not almıyor, sadece dinliyor. Bu, saha dışındaki son galibiyetin. O gece kapanirken ay-yildizli odadaki guven iliskileri kalici bicimde yeniden ciziliyor.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_gercegi_soyledi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_profesyonel": {
           "title": "Usulüne Uygun",
           "kind": "outcome",
-          "text": "Herkesin beklediği o nezaket dolu veda gerçekleşti. Kimse incinmedi ama geriye senden hiçbir şey kalmadı.",
+          "text": "Herkesin beklediği o nezaket dolu veda gerçekleşti. Kimse incinmedi ama geriye senden hiçbir şey kalmadı. O gece kapanirken ay-yildizli odadaki guven iliskileri kalici bicimde yeniden ciziliyor.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_hazir_metin",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -639,48 +688,48 @@
         "n_servet": {
           "title": "Sessiz Bir Ticaret",
           "kind": "outcome",
-          "text": "Gazeteci kağıdı alıp hızla uzaklaşıyor. Kariyerin, bir reklam panosunun arkasında siliniyor.",
+          "text": "Gazeteci kağıdı alıp hızla uzaklaşıyor. Kariyerin, bir reklam panosunun arkasında siliniyor. tribunun. ugultusu uzaktan. Kamp dagildi, ancak bu hamlenin yankisi sonraki kadro aciklamasina kadar suruyor.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_hazir_metin",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_risk": {
           "title": "Sokakların Sesi",
           "kind": "outcome",
-          "text": "Ertesi sabah tüm manşetlerde senin ismin var. Kimileri seni kahraman, kimileri ise sorumsuz bir asi olarak anıyor.",
+          "text": "Ertesi sabah tüm manşetlerde senin ismin var. Kimileri seni kahraman, kimileri ise sorumsuz bir asi olarak anıyor. O gece kapanirken ay-yildizli odadaki guven iliskileri kalici bicimde yeniden ciziliyor.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_gercegi_soyledi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_guvenli": {
           "title": "Sessizlik",
           "kind": "outcome",
-          "text": "Arkanı dönüp gitmek, gürültülü bir açıklamadan daha ağır bir veda oldu.",
+          "text": "Arkanı dönüp gitmek, gürültülü bir açıklamadan daha ağır bir veda oldu. kimse. acikca konusmaz. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_sessiz_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_kendi": {
           "title": "Kendi Kelimelerin",
           "kind": "outcome",
-          "text": "Kendi hikayeni, kendi cümlelerinle mühürledin. Kimse değiştiremeyecek.",
+          "text": "Kendi hikayeni, kendi cümlelerinle mühürledin. Kimse değiştiremeyecek. Kisa bir tereddut geciyor, sonra karar sertlesiyor. gecer sonra. Kisa bir tereddut geciyor, sonra karar sertlesiyor. Kamp dagildi, ancak bu hamlenin yankisi sonraki kadro aciklamasina kadar suruyor.",
           "onEnter": [
             {
-              "flag": "mem_milli_veda_kendi_yazdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

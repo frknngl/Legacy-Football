@@ -1,0 +1,270 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Alacakaranlık çağının (35+ yaş) doruk noktası: Jübile maçı ve veda töreni.",
+    "hangi_soru": "Elli bin taraftarın önünde duygusal bir veda mı, Körfez'den gelen milyon dolarlık gösteri maçı mı, yoksa sessizce çekip gitmek mi?",
+    "odeme_plani": "Kariyer epilogundaki en yüksek öncelikli jübile kodasını (koda_jubile) tetikler."
+  },
+  "id": "evt_life_jubile_teklifi",
+  "family": "fam_life_jubile",
+  "category": "life",
+  "tier": "epic",
+  "authored": "hand",
+  "weight": 90,
+  "once": true,
+  "cooldown": {
+    "self": 60,
+    "family": 24
+  },
+  "eras": [
+    "twilight"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "retired"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "life:president:jubile_teklifi",
+    "slot": "president",
+    "beat": "jubile_teklifi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 40,
+    "beatGapTurns": 120,
+    "signatureGapTurns": 80,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "İki Dosya ve Son Perde",
+      "kind": "branch",
+      "text": "Başkanlık makamının yüksek pencerelerinden stadyumun yeşil çimleri görünüyor; çim biçme makinesinin uğultusu odaya kadar geliyor. {actor.president.name} iki fincan kahve söylüyor, ardından çekmecesinden iki ayrı dosya çıkarıp masaya bırakıyor. \"Yirmi yılı devirdin,\" diyor başkan, sesinde samimi bir hüzünle. \"Bu kulübün kapısından içeri giren yüzlerce oyuncu gördüm; ama tribünlerin adını bir marş gibi ezberlediği adam sayısı bir elin parmaklarını geçmez. Şimdi son perdeyi nasıl kapatacağımıza karar vereceğiz.\" Önündeki ilk dosya kulübün hazırladığı veda maçı: Kendi stadında, elli bin taraftarın önünde, tüm eski takım arkadaşlarının davet edildiği bir jübile. Bütün gelirler altyapı akademisine bağışlanacak. İkinci dosya ise Körfez'den gelen bir teklif: Dubai'de dünya yıldızlarıyla iki gösteri maçı ve çantada hazır bir milyon dolar nakit. Başkan arkasına yaslanıyor: \"Bu senin kariyerin. İstediğin gibi veda etmek en doğal hakkın.\".",
+      "choices": [
+        {
+          "id": "c_kendi_stat",
+          "text": "Kendi stadında jübileyi seç: \"Bütün gelir altyapıya kalsın, ben taraftarımla vedalaşacağım.\"",
+          "target": "n_kendi_stat",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 24
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_president",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "sadakat": 16,
+            "durus": 12
+          }
+        },
+        {
+          "id": "c_korfez",
+          "text": "Körfez teklifini kabul et: \"Emeklilik paramı alırım, gösteri maçına çıkarım.\"",
+          "target": "n_korfez",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 600000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -16
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "sadakat": -12
+          }
+        },
+        {
+          "id": "c_sessiz",
+          "text": "\"Tören istemiyorum başkan. Formayı sandalyeye bırakır, sessizce çıkarım.\"",
+          "target": "n_sessiz",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "iliski_president",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "mizac": -6
+          }
+        },
+        {
+          "id": "c_devir_kaptan",
+          "text": "Jübile maçının 10. dakikasında oyundan çıkıp pazubandı genç oyuncuya takmayı şart koş.",
+          "target": "n_devir_kaptan",
+          "requires": {
+            "flag": "mem_son_sezon_fedakarligi",
+            "op": "isSet"
+          },
+          "lockLabel": "[Son Sezonda Fedakarlık Yapmış Olmak]",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 22
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "iliski_president",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "durus": 16,
+            "sadakat": 14
+          }
+        }
+      ]
+    },
+    "n_kendi_stat": {
+      "title": "Gözyaşlarıyla Dolu Stat",
+      "kind": "outcome",
+      "text": "Stadyum hıncahınç doluydu; bilet bulamayan binlerce kişi dışarıdaki dev ekranlardan izledi. Maçın bitiminde omuzlara alındın; stadın ışıkları karartıldığında elli bin telefonun feneri bir yıldız denizi gibi parladı. Bir kulübe ve bir şehre verilebilecek en asil vedaydı.",
+      "onEnter": [
+        {
+          "flag": "mem_jubile_secimi",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_kendi_birakti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_korfez": {
+      "title": "Körfez Işıkları",
+      "kind": "outcome",
+      "text": "Dubai'deki lüks stadyumda havai fişekler patladı. Banka hesabına yatan rakam hayatını garantiye aldı; ama tribünlerde adını haykıran değil, sadece fotoğraf çeken turistler vardı. Maç sonu soyunma odasında tek başınaydın; para çoktu ama içinde tarif edemediğin bir burukluk kaldı.",
+      "onEnter": [
+        {
+          "flag": "mem_jubile_secimi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sessiz": {
+      "title": "Boş Koltuk ve Çanta",
+      "kind": "outcome",
+      "text": "Hiçbir tören yapılmadı. Ligin son maçı bittikten iki saat sonra, herkes stattan ayrıldığında eşyalarını topladın. Formayı dolabın askısına astın, anahtarı masaya bıraktın ve arka kapıdan çıkıp arabana bindin. Şatafatsız, sessiz ve dimdik bir veda.",
+      "onEnter": [
+        {
+          "flag": "mem_jubile_secimi",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_kendi_birakti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_devir_kaptan": {
+      "title": "Onuncu Dakika Meşalesi",
+      "kind": "outcome",
+      "text": "Maçın onuncu dakikasında hakem oyunu durdurdu. Bütün stadyum ayağa fırladı. Kolundaki pazubandı çıkardın, oyuna giren genç oyuncunun koluna taktın ve onu alnından öptün. Sahayı terk ederken iki takımın oyuncuları tünel oluşturup seni alkışladı. Bu sadece bir veda değil, nesilden nesile aktarılan kutsal bir emanetti.",
+      "onEnter": [
+        {
+          "flag": "mem_jubile_secimi",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_kendi_birakti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

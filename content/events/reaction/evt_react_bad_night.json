@@ -2,7 +2,7 @@
   "id": "evt_react_bad_night",
   "family": "fam_react_blame",
   "category": "reaction",
-  "tier": "major",
+  "tier": "minor",
   "weight": 50,
   "cooldown": {
     "self": 8,
@@ -37,12 +37,12 @@
         "n_root": {
           "title": "Hocanın ofisi",
           "kind": "branch",
-          "text": "Salı sabahı. {actor.manager.name:gen} ofisi tesisin en küçük odası; masasında bir bilgisayar ve bir kül tablası var, ikisini de kullanmıyor.\n\n\"Otur,\" diyor. Oturuyorsun.\n\nUzun bir sessizlik. Sonra: \"{opponent} maçında ne oldu?\"\n\nDışarıda takım ısınıyor. Cam açık, ıslık sesleri geliyor. {actor.manager.first} seni izliyor ve cevap vermezsen bütün gün böyle oturabilir.",
+          "text": "Salı sabahı. {actor.manager.name:gen} ofisi tesisin en küçük odası; masasında bir bilgisayar ve bir kül tablası var, ikisini de kullanmıyor. \"Otur,\" diyor. Oturuyorsun. Uzun bir sessizlik. Sonra: \"{opponent} maçında ne oldu?\" Dışarıda takım ısınıyor. Cam açık, ıslık sesleri geliyor. {actor.manager.first} seni izliyor ve cevap vermezsen bütün gün böyle oturabilir.",
           "choices": [
             {
               "id": "c_own",
               "text": "\"Ben beceremedim. Başka açıklaması yok.\"",
-              "target": "n_owned",
+              "target": "n_shape_bridge_v_asil",
               "effects": [
                 {
                   "flag": "iliski_manager",
@@ -159,9 +159,9 @@
                   "value": 15
                 },
                 {
-                  "flag": "mem_fought_coach",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_manager_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -175,7 +175,7 @@
         "n_owned": {
           "title": "Başka açıklaması yok",
           "kind": "outcome",
-          "text": "{actor.manager.first} bir süre bir şey söylemiyor. Sonra sandalyesini geriye itip ayağa kalkıyor.\n\n\"Otuz yıldır bu odada oturuyorum,\" diyor. \"Bu cümleyi kuran altıncı oyuncusun. Diğer beşi de iyi kariyer yaptı.\"\n\nKapıyı açıyor. \"Çık, ısınmaya yetiş.\"",
+          "text": "{actor.manager.first} bir süre bir şey söylemiyor. Sonra sandalyesini geriye itip ayağa kalkıyor. \"Otuz yıldır bu odada oturuyorum,\" diyor. \"Bu cümleyi kuran altıncı oyuncusun. Diğer beşi de iyi kariyer yaptı.\" Kapıyı açıyor. \"Çık, ısınmaya yetiş.\". Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "moral",
@@ -183,16 +183,16 @@
               "value": 6
             },
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_argued_system": {
           "title": "Tahta",
           "kind": "outcome",
-          "text": "{actor.manager.first} tahtaya kalkıp on beş dakika sistem anlatıyor. Haklı olduğun yerleri kabul ediyor, olmadığın yerleri kabul ettiriyor.\n\nSonunda tebeşiri bırakıyor: \"Pazar günü söylediğin gibi oynayacağız. İşe yaramazsa bir daha bu odaya oturarak girmezsin.\"\n\nAnlaşma bu.",
+          "text": "{actor.manager.first} tahtaya kalkıp on beş dakika sistem anlatıyor. Haklı olduğun yerleri kabul ediyor, olmadığın yerleri kabul ettiriyor. Sonunda tebeşiri bırakıyor: \"Pazar günü söylediğin gibi oynayacağız. İşe yaramazsa bir daha bu odaya oturarak girmezsin.\" Anlaşma. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "yonetim_baskisi",
@@ -200,16 +200,16 @@
               "value": 10
             },
             {
-              "flag": "mem_fought_coach",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_admitted_burnout": {
           "title": "İtiraf",
           "kind": "outcome",
-          "text": "Cümle ağzından çıktığı anda odadaki hava değişiyor. {actor.manager.first} öne eğiliyor.\n\n\"Neden söylemedin?\"\n\nCevabın yok. O da beklemiyor.\n\n\"Pazar oynamıyorsun,\" diyor. \"Bu bir ceza değil. {actor.doctor.first:ins} konuş, ben de konuşacağım.\"\n\nOdadan çıkarken omuzlarında bir şeyin eksildiğini fark ediyorsun ve bunun ne olduğunu bilmiyorsun.",
+          "text": "Cümle ağzından çıktığı anda odadaki hava değişiyor. {actor.manager.first} öne eğiliyor. \"Neden söylemedin?\" Cevabın yok. O da beklemiyor. \"Pazar oynamıyorsun,\" diyor. \"Bu bir ceza değil. {actor.doctor.first:ins} konuş, ben de konuşacağım.\" Odadan çıkarken omuzlarında bir şeyin eksildiğini fark ediyorsun ve bunun ne olduğunu bilmiyorsun. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "iliski_doctor",
@@ -231,7 +231,7 @@
         "n_fought": {
           "title": "Kapı",
           "kind": "outcome",
-          "text": "{actor.manager.first} yavaşça arkasına yaslanıyor.\n\n\"Seni seksen ikide çıkardım çünkü seksen birde yürüyordun,\" diyor. \"Bunu televizyonda söylemedim. Şimdi de söylemeyeceğim. Ama sen bana burada bunu söyletiyorsun.\"\n\nKapıyı gösteriyor.\n\nÖğleden sonra takım listesi asılıyor. Adın yok ve nedeni yazmıyor.",
+          "text": "{actor.manager.first} yavaşça arkasına yaslanıyor. \"Seni seksen ikide çıkardım çünkü seksen birde yürüyordun,\" diyor. \"Bunu televizyonda söylemedim. Şimdi de söylemeyeceğim. Ama sen bana burada bunu söyletiyorsun.\" Kapıyı gösteriyor. Öğleden sonra takım listesi asılıyor. Adın yok ve nedeni yazmıyor. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "op": "lifeState",
@@ -249,6 +249,12 @@
               "value": 12
             }
           ]
+        },
+        "n_shape_bridge_v_asil": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Hocanın ofisi aninda \"\"Ben beceremedim. Başka açıklaması yok.\"\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_owned"
         }
       }
     },
@@ -264,7 +270,7 @@
             {
               "id": "c_risk",
               "text": "Yolunu kesip bağırarak hesap sor. Herkes duysun.",
-              "target": "n_outcome_1",
+              "target": "n_shape_bridge_v_reddedilis",
               "effects": [
                 {
                   "flag": "sokak_itibari",
@@ -400,19 +406,19 @@
         "n_outcome_1": {
           "title": "Gürültülü Kopuş",
           "kind": "outcome",
-          "text": "Sesin otoparkta çınladı ama {actor.manager.name} arkasına bile bakmadı. Köprüleri yaktın.",
+          "text": "Sesin otoparkta çınladı ama {actor.manager.name} arkasına bile bakmadı. Köprüleri yaktın. Tribunun ugultusu dagilsa da karar?n izi dagilmiyor. Tribunun sesi uzaklassa da secimin agirligi sende kaliyor. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
-              "flag": "mem_fought_coach",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_outcome_2": {
           "title": "Sessiz Satış",
           "kind": "outcome",
-          "text": "Hızlı bir karar, soğuk bir vedadan daha iyidir. Menajerinden gelen ilk rakamı kabul ettin.",
+          "text": "Hızlı bir karar, soğuk bir vedadan daha iyidir. Menajerinden gelen ilk rakamı kabul ettin. Bakislar ustunde toplanirken verdigin tepkinin etkisi sahadan sonra da surmeye devam etti.",
           "onEnter": [
             {
               "flag": "mem_hid_injury",
@@ -424,26 +430,32 @@
         "n_outcome_3": {
           "title": "Profesyonel Soğukkanlılık",
           "kind": "outcome",
-          "text": "Terin toprağa karışıyor. Kimse senin ne hissettiğini bilmeyecek. İçin yanıyor, ama işin başındasın.",
+          "text": "Terin toprağa karışıyor. Kimse senin ne hissettiğini bilmeyecek. İçin yanıyor, ama işin başındasın. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_outcome_4": {
           "title": "Duygusal Yük",
           "kind": "outcome",
-          "text": "{actor.manager.name} bir an duraksadı, bir şey söyleyecek gibi oldu ama sadece başını salladı. Kapı kapandı.",
+          "text": "{actor.manager.name} bir an duraksadı, bir şey söyleyecek gibi oldu ama sadece başını salladı. Kapı kapandı. Bakislar ustunde toplanirken verdigin tepkinin etkisi sahadan sonra da surmeye devam etti.",
           "onEnter": [
             {
-              "flag": "mem_fought_coach",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_reddedilis": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Karanlık Koridor aninda \"Yolunu kesip bağırarak hesap sor. Herkes duysun.\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_outcome_1"
         }
       }
     }

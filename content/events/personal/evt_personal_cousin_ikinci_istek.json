@@ -1,0 +1,275 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Zirve çağında (24-29 yaş) aile ve akraba ilişkilerinin en çetin sınavı: Çırak çağında forma isteyen kuzen bu kez iş kurma sermayesiyle kapıya gelir.",
+    "hangi_soru": "Milyonlar kazanırken kapıya gelen akrabaya 'hayır' demenin bedeli aile içi soğukluk, 'evet' demenin bedeli ise batacak bir işletmedir.",
+    "odeme_plani": "Çırak çağındaki ilk forma isteğinin (evt_personal_cousin_istek) doğrudan devamıdır; kariyer epilogunda konuşur."
+  },
+  "id": "evt_personal_cousin_ikinci_istek",
+  "family": "fam_personal_ilk_istek",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 75,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "trigger": {
+    "anyOf": [
+      {
+        "flag": "mem_ilk_istek_kabul_etti",
+        "op": "isSet"
+      },
+      {
+        "flag": "mem_ilk_istek_yariladi",
+        "op": "isSet"
+      },
+      {
+        "flag": "mem_ilk_istek_kendisi_gotturdu",
+        "op": "isSet"
+      },
+      {
+        "flag": "mem_ilk_istek_reddetti",
+        "op": "isSet"
+      }
+    ]
+  },
+  "story": {
+    "signature": "personal:cousin:ikinci_istek",
+    "slot": "cousin",
+    "beat": "ikinci_istek"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Mutfak Masasındaki Fizibilite",
+      "kind": "branch",
+      "text": "Yıllar önce kapında çalışan bir arabayla sadece beş dakika durup tek bir forma isteyen {actor.cousin.name}, bu kez evin salonunda geniş koltuğa oturmuş, önüne deri bir dosya açıyor. Üzerinde parlak harflerle yazılmış bir proje var: lüks bir oto yıkama ve nargile kafe projesi. İki katlı, cadde üstü, tabelasında senin adının geçeceği bir mekan. \"Yüz elli bin Euro lazım kuzen,\" diyor, çayından bir yudum alarak. \"Senin için iki haftalık maç primi bile değil. Sen sadece parayı koyacaksın, bütün operasyonu ben yöneteceğim. Ayda en az yirmi bin getirisi var. Hem akrabayız, yabancıya mı gitsin?\" Çırakken tek bir forman vardı ve 'hayır' demenin bedeli ağırdı. Şimdi hesabında milyonlar var ama masada duran şey yine aynı soru: aile ile profesyonellik arasındaki o keskin uçurum.",
+      "choices": [
+        {
+          "id": "c_sermaye_ver",
+          "text": "Çek defterini çıkar: Yüz elli bin Euro'yu yaz ve dosyayı kapat.",
+          "target": "n_sermaye_ver",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -150000
+            },
+            {
+              "flag": "iliski_cousin",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "sadakat": 12,
+            "durus": -6
+          }
+        },
+        {
+          "id": "c_kesin_ret",
+          "text": "\"Ben futbolcuyum, banka değilim.\" Dosyayı önüne geri it.",
+          "target": "n_kesin_ret",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_cousin",
+              "op": "add",
+              "value": -22
+            },
+            {
+              "flag": "iliski_aile",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_sozlesmeli_ortak",
+          "text": "\"Yarısını veririm ama avukatım sözleşme hazırlayacak, resmi ortak olacağız.\"",
+          "target": "n_sozlesmeli_ortak",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -75000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_cousin",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_eski_forma_hatirla",
+          "text": "İlk formayı hatırla: \"Yıllar önce o arabada bana verdiğin sözü unuttun mu sanıyorsun?\"",
+          "target": "n_eski_forma_hatirla",
+          "requires": {
+            "flag": "mem_ilk_istek_kabul_etti",
+            "op": "isSet"
+          },
+          "lockLabel": "[İlk İsteği Kabul Etmiş Olmak]",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_cousin",
+              "op": "add",
+              "value": -16
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "dogruluk": 12
+          }
+        }
+      ]
+    },
+    "n_sermaye_ver": {
+      "title": "Batan Dükkân",
+      "kind": "outcome",
+      "text": "Çeki imzalayıp masaya bıraktın. {actor.cousin.name} boynuna sarıldı, bütün aileye 'Aslan kuzenim' diye mesaj attı. Dokuz ay sonra mekan kapandı; para uçup gitti ama bayramlarda sofrada senin yerin başköşeydi. Aile barışı için pahalı bir diyet ödemiştin.",
+      "onEnter": [
+        {
+          "flag": "mem_kuzene_sermaye_verdi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_kesin_ret": {
+      "title": "Soğuk Koridor",
+      "kind": "outcome",
+      "text": "Dosyayı önüne ittin. {actor.cousin.name} çantasını hışımla kapattı: 'Parayı bulunca köklerini unuttun!' diye bağırdı. Kapıyı çarpıp çıktı. Akşam annenden sitem dolu bir telefon geldi ama paran da sınırların da yerli yerinde duruyordu.",
+      "onEnter": [
+        {
+          "flag": "mem_kuzene_ikinci_ret",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sozlesmeli_ortak": {
+      "title": "Resmi Mesafe",
+      "kind": "outcome",
+      "text": "Avukatın hazırladığı yirmi sayfalık ortaklık sözleşmesini önüne koydun. {actor.cousin.name} bozuldu: 'Akraba arasında sözleşme mi olur?' Ama paraya ihtiyacı vardı; imzaladı. İş yürüdü, zarar etmedin ama bayramlaşmalarda artık iki akraba değil, iki şirket ortağı gibi el sıkışıyordunuz.",
+      "onEnter": [
+        {
+          "flag": "mem_kuzene_sermaye_verdi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_eski_forma_hatirla": {
+      "title": "Kapanmayan Hesap",
+      "kind": "outcome",
+      "text": "Yıllar önce kapında hasta çocuk bahanesiyle forma isteyip akşamında kendi adıyla paylaştığı o anı yüzüne vurdun. {actor.cousin.name:gen} yüzü kızardı; tek kelime edemedi. Dosyayı sessizce çantasına koyup kapıdan çıktı. Bazı hatalar aradan on yıl geçse de silinmiyordu.",
+      "onEnter": [
+        {
+          "flag": "mem_kuzene_ikinci_ret",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

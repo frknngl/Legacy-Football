@@ -1,0 +1,222 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Kupa finali haftasında (next_match_importance == cup_final) bir futbolcunun evinde ve telefonunda kopan en büyük fırtına: sınırlı sayıda protokol bileti ve bitmek bilmeyen akraba talepleri.",
+    "hangi_soru": "Kulübün verdiği on davetiyeyi kime paylaştıracaksın: sadece çekirdek ailene mi, beş yıldır aramayan akrabalara mı, yoksa cebinden servet döküp karaborsa bilet mi toplayacaksın?",
+    "odeme_plani": "Bu maç öncesi dağıtılan biletler aile ve çevre ilişkilerini (npc_cousin_arc) doğrudan etkiler."
+  },
+  "id": "evt_personal_kupa_finali_biletleri",
+  "family": "fam_personal_final_biletleri",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 85,
+  "cooldown": {
+    "self": 24,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "next_match_exists",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "flag": "next_match_importance",
+        "op": "eq",
+        "value": "cup_final"
+      }
+    ]
+  },
+  "story": {
+    "signature": "personal:cousin:kupa_finali_biletleri",
+    "slot": "cousin",
+    "beat": "kupa_finali_biletleri"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 3
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "On Bilet ve Kırk Akraba",
+      "kind": "branch",
+      "text": "Kupa finaline yetmiş iki saat var. Kulüp idari menajeri antrenman çıkışında eline altın yaldızlı bir zarf tutuşturdu: kulübün oyuncu başına ayırdığı on adet VIP protokol bileti. Eve vardığında telefonunun bildirim ekranı kilitlenmiş durumda. Üç yıldır bayramda bile aramayan {actor.cousin.name} arka arkaya yedi sesli mesaj bırakmış: 'Kuzen kayınpeder fanatik, iki bilet ayarlamazsan beni eve sokmazlar.' Mahallenin kıraathane işletmecisi, ilkokul beden eğitimi öğretmenin, annenin altın günü arkadaşları. Herkes finalde protokolde yer arıyor. Masanın üzerinde duran on zarf, kırk farklı insanın beklentisiyle ağırlaşıyor. Dışarıda final maçının taktik konsantrasyonu olması gerekirken evde bir bilet karaborsası bürosuna dönüşmüş durumdasın.",
+      "choices": [
+        {
+          "id": "c_cekirdek",
+          "text": "Biletleri sadece anne, baba ve kardeşine ver. Telefonunu uçak moduna al.",
+          "target": "n_cekirdek",
+          "effects": [
+            {
+              "flag": "iliski_mother",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_cousin",
+              "op": "add",
+              "value": -16
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "npc_cousin_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "sadakat": 8
+          }
+        },
+        {
+          "id": "c_karaborsa",
+          "text": "Cebinden para koy: Menajeri ara, karaborsadan yirmi bilet daha satın alıp dağıt.",
+          "target": "n_karaborsa",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "iliski_cousin",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -45000
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": -6
+          }
+        },
+        {
+          "id": "c_rest",
+          "text": "{actor.cousin.name:dat} mesaj at: \"Ben maça çıkıyorum, kimseden telefon istemiyorum.\"",
+          "target": "n_rest",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_cousin",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_cekirdek": {
+      "title": "Sessiz Çatı Katı",
+      "kind": "outcome",
+      "text": "Telefonu kapattın, on biletten dördünü annenin eline bıraktın, kalan altısını tesis çalışanlarına dağıttın. Akrabalar WhatsApp grubunda arkandan 'Havaya girdi' diye yazdı ama final akşamı tribüne baktığında annenin gururlu gözlerini gördün. Kafan berraktı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_karaborsa": {
+      "title": "Mahallenin Otobüsü",
+      "kind": "outcome",
+      "text": "Menajerin iki katı fiyatına yirmi bilet daha topladı; hesaptan çıkan para bir küçük araba parasıydı. Ama final günü stadyumun önünde mahalleden kalkan kiralık minibüsü ve kuzeninin elindeki davetiyeleri görünce bir efsane gibi karşılandın. Bütçe sarsıldı ama itibarın tavana vurdu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_rest": {
+      "title": "Kapanan Kapılar",
+      "kind": "outcome",
+      "text": "Mesajı gönderip grubu sessize aldın. Birkaç kişi kırıldı, akraba sofralarında dedikodun yapıldı ama odana çekilip maç kasedini izledin. Profesyonellik bazen 'kötü evlat' olmayı göze alabilmekti ve sen o bedeli ödedin.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    }
+  }
+}

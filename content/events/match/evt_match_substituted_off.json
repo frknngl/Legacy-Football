@@ -2,7 +2,7 @@
   "id": "evt_match_substituted_off",
   "family": "fam_match_bench",
   "category": "match",
-  "tier": "minor",
+  "tier": "beat",
   "momentType": "substituted_off",
   "weight": 15,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Dorduncu hakem",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Dorduncu hakem tabelayi kaldiriyor ve uzerinde senin numaran var.\n\nKotu oynamadin. Iyi de oynamadin.\n\n{actor.manager.name} sana bakmiyor bile; kollarini kavusturmus sahaya bakiyor.\n\nYerini alacak cocuk cizgide sicriyor. On dokuz yasinda ve senin gozune bakamiyor.",
+          "text": "{minute}. dakika, skor {scoreline}. Dorduncu hakem tabelayi kaldiriyor ve uzerinde senin numaran var. Kotu oynamadin. Iyi de oynamadin. {actor.manager.name} sana bakmiyor bile; kollarini kavusturmus sahaya bakiyor. Yerini alacak cocuk cizgide sicriyor. On dokuz yasinda ve senin gozune bakamiyor.",
           "choices": [
             {
               "id": "c_clap",
@@ -122,7 +122,7 @@
         "n_clapped": {
           "title": "El teması",
           "kind": "outcome",
-          "text": "Cocugun eline vurup geciyorsun. O sana bir sey soylemek istiyor ama beceremiyor.\n\nYedek kulubesinde {actor.manager.name} bir sure sonra yanina oturuyor: bugun kotu degildin, diyor. Sadece bugun onun gunuydu.\n\nBu, ozur degil. Ama en yakin seyi.",
+          "text": "Cocugun eline vurup geciyorsun. O sana bir sey soylemek istiyor ama beceremiyor. Yedek kulubesinde {actor.manager.name} bir sure sonra yanina oturuyor: bugun kotu degildin, diyor. Sadece bugun onun gunuydu. Bu, ozur degil. Ama en yakin seyi. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -135,16 +135,16 @@
               "value": 1
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_threw": {
           "title": "Yere",
           "kind": "outcome",
-          "text": "Forma yerde. Kamera once formaya, sonra {actor.manager.name} yuzune gidiyor. Adam kipirdamiyor.\n\nMac sonu aciklama yapmasi gerekiyor ve yapiyor: takim ici mesele.\n\nSali gunu antrenmanda ilk on birde yoksun ve nedenini soran olmuyor.",
+          "text": "Forma yerde. Kamera once formaya, sonra {actor.manager.name} yuzune gidiyor. Adam kipirdamiyor. Mac sonu aciklama yapmasi gerekiyor ve yapiyor: takim ici mesele. Sali gunu antrenmanda ilk on birde yoksun ve nedenini soran olmuyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -162,16 +162,16 @@
               "value": 25
             },
             {
-              "flag": "mem_fought_coach",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_slow": {
           "title": "Otuz saniye",
           "kind": "outcome",
-          "text": "Cok yavas yuruyorsun. Tribun ne yaptigini anliyor ve alkislamaya basliyor.\n\n{actor.referee.name} sari kart gosteriyor: oyunu geciktirmek.\n\nSkoru koruyorsunuz. {actor.captain.name} mac sonunda tek kelime soyluyor: iyiydi.",
+          "text": "Cok yavas yuruyorsun. Tribun ne yaptigini anliyor ve alkislamaya basliyor. {actor.referee.name} sari kart gosteriyor: oyunu geciktirmek. Skoru koruyorsunuz. {actor.captain.name} mac sonunda tek kelime soyluyor: iyiydi. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
               "op": "match",
@@ -300,9 +300,9 @@
           "text": "Kulübenin en ücra köşesine oturdun. Havlu kafanda, etrafındaki dünya bulanık. Senin yerin başkası tarafından dolduruldu bile.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -316,9 +316,9 @@
           "text": "Bakışların sahadaki herkesi rahatsız etti. {actor.manager.name} not defterini kapattı. Artık sadece bir oyuncu değil, bir sorun kaynağısın.",
           "onEnter": [
             {
-              "flag": "mem_fought_coach",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -332,9 +332,9 @@
           "text": "Bu formayı çıkardığın an, aslında her şeyi bitirdin. Kapı aralandı, dışarısı belirsiz ama burada kalmaktan daha iyi görünüyor.",
           "onEnter": [
             {
-              "flag": "mem_fought_coach",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Net degil",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Ceza sahasinda bir kariklik oldu ve kimse ne gordugunden emin degil -- sen de degilsin.\n\n{actor.referee.name} ekranin basinda uc dakikadir. Bu kadar uzun surmesi tek bir sey demek: goruntude bir cevap yok.\n\n{actor.captain.name} yanina geliyor: sen gordun mu, diye soruyor. Gormedin. Ama ne dersen o da onu tekrarlayacak.",
+          "text": "{minute}. dakika, skor {scoreline}. Ceza sahasinda bir kariklik oldu ve kimse ne gordugunden emin degil -- sen de degilsin. {actor.referee.name} ekranin basinda uc dakikadir. Bu kadar uzun surmesi tek bir sey demek: goruntude bir cevap yok. {actor.captain.name} yanina geliyor: sen gordun mu, diye soruyor. Gormedin. Ama ne dersen o da onu tekrarlayacak.",
           "choices": [
             {
               "id": "c_honest",
@@ -157,7 +157,7 @@
         "n_honest": {
           "title": "Gormedim",
           "kind": "outcome",
-          "text": "Gormedim, diyorsun. {actor.captain.first} sana bir saniye bakiyor, sonra hakeme donup ayni seyi soyluyor.\n\nHakem karari rakip lehine veriyor.\n\nTribun senin adini soylemiyor bu sefer. Ama {actor.referee.first} sezonun geri kalaninda sana farkli davranacak ve bunun sebebini kimseye acikamayacaksin.",
+          "text": "Gormedim, diyorsun. {actor.captain.first} sana bir saniye bakiyor, sonra hakeme donup ayni seyi soyluyor. Hakem karari rakip lehine veriyor. Tribun senin adini soylemiyor bu sefer. Ama {actor.referee.first} sezonun geri kalaninda sana farkli davranacak ve bunun sebebini kimseye acikamayacaksin.",
           "onEnter": [
             {
               "op": "match",
@@ -170,16 +170,16 @@
               "value": 15
             },
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": false
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_claimed": {
           "title": "Penaltiydi",
           "kind": "outcome",
-          "text": "Penaltiydi, diyorsun. Sesin cok emin cikiyor -- gerekenden emin.\n\nHakem yine de vermiyor.\n\nMac sonu tekrarini izliyorsun. Penalti degilmis. Kimse sana bunu sormuyor ve bu, sormalarindan daha rahatsiz edici.",
+          "text": "Penaltiydi, diyorsun. Sesin cok emin cikiyor -- gerekenden emin. Hakem yine de vermiyor. Mac sonu tekrarini izliyorsun. Penalti degilmis. Kimse sana bunu sormuyor ve bu, sormalarindan daha rahatsiz edici.",
           "onEnter": [
             {
               "op": "match",
@@ -192,16 +192,16 @@
               "value": -6
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_pressure_worked": {
           "title": "Karar dondu",
           "kind": "outcome",
-          "text": "{actor.referee.first} ekrana bir kez daha bakiyor ve karari lehinize ceviriyor.\n\nRakip teknik direktor cileden cikiyor, dorduncu hakem araya giriyor.\n\nKazandin. Ama nasil kazandigini biliyorsun ve o bilgi hafta boyunca seninle kalacak.",
+          "text": "{actor.referee.first} ekrana bir kez daha bakiyor ve karari lehinize ceviriyor. Rakip teknik direktor cileden cikiyor, dorduncu hakem araya giriyor. Kazandin. Ama nasil kazandigini biliyorsun ve o bilgi hafta boyunca seninle kalacak.",
           "onEnter": [
             {
               "op": "match",
@@ -223,7 +223,7 @@
         "n_pressure_backfired": {
           "title": "Iki sari",
           "kind": "outcome",
-          "text": "{actor.referee.first} once sana, sonra {actor.captain.name} adina sari kart gosteriyor.\n\nKarar degismiyor.\n\nKaptan yanindan gecerken tek kelime soyluyor: aptalca.",
+          "text": "{actor.referee.first} once sana, sonra {actor.captain.name} adina sari kart gosteriyor. Karar degismiyor. Kaptan yanindan gecerken tek kelime soyluyor: aptalca.",
           "onEnter": [
             {
               "op": "match",
@@ -357,9 +357,9 @@
               "incident": "inc_argued_ref"
             },
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -373,9 +373,9 @@
               "incident": "inc_ref_conflict"
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -389,9 +389,9 @@
               "incident": "inc_argued_ref"
             },
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

@@ -2,7 +2,7 @@
   "id": "evt_match_ghost_goal",
   "family": "fam_match_var",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "ghost_goal",
   "weight": 12,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Cizgiyi gecti mi",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Vurdun, top ust direkten asagi indi ve {actor.opponent_keeper.name} onu cizginin uzerinden disari cikardi.\n\nSen gectigini gordun. Gercekten gordun -- ya da gordugune inandin; ikisi arasindaki farki bu stadyumda kimse ayirt edemez.\n\nBu ligde cizgi teknolojisi yok. Karar {actor.referee.name} ile yan hakemin arasinda gecen uc saniyelik bir bakismaya kalmis.\n\nHakem devam isareti yapiyor.",
+          "text": "{minute}. dakika, skor {scoreline}. Vurdun, top ust direkten asagi indi ve {actor.opponent_keeper.name} onu cizginin uzerinden disari cikardi. Sen gectigini gordun. Gercekten gordun -- ya da gordugune inandin; ikisi arasindaki farki bu stadyumda kimse ayirt edemez. Bu ligde cizgi teknolojisi yok. Karar {actor.referee.name} ile yan hakemin arasinda gecen uc saniyelik bir bakismaya kalmis. Hakem devam isareti yapiyor.",
           "choices": [
             {
               "id": "c_swear",
@@ -156,7 +156,7 @@
         "n_given": {
           "title": "Gol",
           "kind": "outcome",
-          "text": "Hakem orta noktayi gosteriyor.\n\nRakip savunma cileden cikiyor. {actor.opponent_keeper.name} topu yere firlatip ellerini havaya kaldiriyor.\n\nKale arkasi senin adini soyluyor. Sen ise hala emin degilsin ve bunu kimseye soylemeyeceksin.",
+          "text": "Hakem orta noktayi gosteriyor. Rakip savunma cileden cikiyor. {actor.opponent_keeper.name} topu yere firlatip ellerini havaya kaldiriyor. Kale arkasi senin adini soyluyor. Sen ise hala emin degilsin ve bunu kimseye soylemeyeceksin. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -184,7 +184,7 @@
         "n_denied": {
           "title": "Verilmedi",
           "kind": "outcome",
-          "text": "Devam.\n\nOn dakika sonra hala o topu dusunuyorsun ve o on dakikada iki pas hatasi yapiyorsun.\n\nMac sonu tekrar cikiyor: top tamamen gecmis. Sunucu guluyor ve baska konuya geciyor.",
+          "text": "Devam. On dakika sonra hala o topu dusunuyorsun ve o on dakikada iki pas hatasi yapiyorsun. Mac sonu tekrar cikiyor: top tamamen gecmis. Sunucu guluyor ve baska konuya geciyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -202,16 +202,16 @@
               "value": 10
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_keeper_asked": {
           "title": "Kaleci biliyor",
           "kind": "outcome",
-          "text": "{actor.opponent_keeper.name} sana bakiyor. Uzun bir saniye.\n\nSonra hakeme donuyor ve basini iki yana salliyor.\n\nGecmedi, diyor.\n\nBunun dogru olup olmadigini asla ogrenemeyeceksin. Ama mac sonunda formasini degistirmek icin sana geliyor ve sen formani veriyorsun.",
+          "text": "{actor.opponent_keeper.name} sana bakiyor. Uzun bir saniye. Sonra hakeme donuyor ve basini iki yana salliyor. Gecmedi, diyor. Bunun dogru olup olmadigini asla ogrenemeyeceksin. Ama mac sonunda formasini degistirmek icin sana geliyor ve sen formani veriyorsun. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -229,16 +229,16 @@
               "value": 10
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_played_on": {
           "title": "Devam",
           "kind": "outcome",
-          "text": "Donuyorsun ve kosmaya devam ediyorsun. Kimse itiraz etmedigi icin tribun de sesini kesiyor.\n\nDevre arasinda {actor.captain.name} soruyor: gecti mi?\n\nBilmiyorum, diyorsun.\n\nBiliyorsun.",
+          "text": "Donuyorsun ve kosmaya devam ediyorsun. Kimse itiraz etmedigi icin tribun de sesini kesiyor. Devre arasinda {actor.captain.name} soruyor: gecti mi? Bilmiyorum, diyorsun. Biliyorsun. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
               "op": "match",
@@ -353,12 +353,12 @@
         "n_guvenli": {
           "title": "Sessizlik",
           "kind": "outcome",
-          "text": "Sessizliğin kalkanı işe yarıyor. Kimse seni suçlayamaz, kimse kahraman ilan edemez. Sadece bir maç daha bitti.",
+          "text": "Sessizliğin kalkanı işe yarıyor. Kimse seni suçlayamaz, kimse kahraman ilan edemez. Sadece bir maç daha bitti. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -369,12 +369,12 @@
         "n_riskli": {
           "title": "Yüzleşme",
           "kind": "outcome",
-          "text": "Cümle havada asılı kalıyor. {actor.opponent_keeper.name} gülümsemiyor bile. Yarın manşetlerde senin suçluluk itirafın konuşulacak.",
+          "text": "Cümle havada asılı kalıyor. {actor.opponent_keeper.name} gülümsemiyor bile. Yarın manşetlerde senin suçluluk itirafın konuşulacak. Icindeki gerilim hala diri. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -385,12 +385,12 @@
         "n_gri": {
           "title": "Karanlık Mutabakat",
           "kind": "outcome",
-          "text": "Zarf yere düşüyor. O alırken gözlerini kaçırıyor. İkiniz de bu oyunun bir parçasısınız, gerisi sadece kağıt parçaları.",
+          "text": "Zarf yere düşüyor. O alırken gözlerini kaçırıyor. İkiniz de bu oyunun bir parçasısınız, gerisi sadece kağıt parçaları. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -538,9 +538,9 @@
           "text": "Zarfı aldığı an gözlerindeki o bıkkın ifade yerini soğuk bir kabullenişe bıraktı. Olayın kapanacağını biliyorsun ama bu leke, formanın altına işledi.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -551,12 +551,12 @@
         "n_riskli": {
           "title": "İpler Kopuyor",
           "kind": "outcome",
-          "text": "Çığlıkların boş otoparkta yankılanıyor. {actor.opponent_keeper.name} hiçbir karşılık vermeden gaza basıyor. Yarın manşetler senin ifadenle dolacak.",
+          "text": "Çığlıkların boş otoparkta yankılanıyor. {actor.opponent_keeper.name} hiçbir karşılık vermeden gaza basıyor. Yarın manşetler senin ifadenle dolacak. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -570,9 +570,9 @@
           "text": "Otoparkın soğuk betonunda yürümeye devam ediyorsun. Arkandan gelen motor sesi uzaklaşıyor. Doğru olanı yaptın, ama içindeki o boşluk hissi geçmiyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -586,9 +586,9 @@
           "text": "Arabanın içi sigara dumanı ve gerginlikle dolu. İkiniz de biliyorsunuz ki artık sadece rakipler değil, birbirinin sırrını tutan iki suç ortağısınız.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -731,9 +731,9 @@
           "text": "O, kupayı yerden alırken gözleri bir anlığına seninkilerle buluşuyor. Söylemediği her şey, bu ortak günahın ağırlığıyla odaya yayılıyor.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -744,12 +744,12 @@
         "n_outcome_riskli": {
           "title": "İlan Edilmemiş Savaş",
           "kind": "outcome",
-          "text": "Arkanı dönüp giderken onun arkandan izlediğini biliyorsun. Artık bu sadece bir maç değil, sonu gelmeyecek bir takıntı.",
+          "text": "Arkanı dönüp giderken onun arkandan izlediğini biliyorsun. Artık bu sadece bir maç değil, sonu gelmeyecek bir takıntı. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -760,12 +760,12 @@
         "n_outcome_guvenli": {
           "title": "Gerçeği Gömmek",
           "kind": "outcome",
-          "text": "Ekran kararıyor. O, monitörün soğuk ışığında yalnız kalıyor; sen ise koridorun karanlığına karışıyorsun.",
+          "text": "Ekran kararıyor. O, monitörün soğuk ışığında yalnız kalıyor; sen ise koridorun karanlığına karışıyorsun. Bu secimin sonucu gecikmeli geliyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -776,12 +776,12 @@
         "n_outcome_stat": {
           "title": "Zanaatkarın Saygısı",
           "kind": "outcome",
-          "text": "Kafasını hafifçe öne eğip selam veriyor. Bir an için aranızdaki rekabet, oyunun teknik kusursuzluğuna duyulan hayranlıkla dengeleniyor.",
+          "text": "Kafasını hafifçe öne eğip selam veriyor. Bir an için aranızdaki rekabet, oyunun teknik kusursuzluğuna duyulan hayranlıkla dengeleniyor. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_opponent_keeper_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

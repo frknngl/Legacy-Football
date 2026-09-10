@@ -2,7 +2,7 @@
   "id": "evt_match_teammate_feud",
   "family": "fam_match_locker",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "teammate_feud",
   "weight": 12,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Kendi sahanda",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Bos pozisyondaydin ve {actor.rival_teammate.name} topu vermedi. Ucuncu kez.\n\nBu sefer vurdu, top auta gitti ve o hicbir sey olmamis gibi geri kosuyor.\n\nOnun onune geciyorsun. Otuz bin kisinin onunde iki takim arkadasi burun buruna.\n\n{actor.captain.name} kosarak geliyor ama daha on metre uzakta.",
+          "text": "{minute}. dakika, skor {scoreline}. Bos pozisyondaydin ve {actor.rival_teammate.name} topu vermedi. Ucuncu kez. Bu sefer vurdu, top auta gitti ve o hicbir sey olmamis gibi geri kosuyor. Onun onune geciyorsun. Otuz bin kisinin onunde iki takim arkadasi burun buruna. {actor.captain.name} kosarak geliyor ama daha on metre uzakta.",
           "choices": [
             {
               "id": "c_shove",
@@ -196,7 +196,7 @@
         "n_both_booked": {
           "title": "Ikinize de",
           "kind": "outcome",
-          "text": "{actor.referee.name} ikinize de sari gosteriyor. Ayni takimdan iki oyuncu, ayni anda.\n\nBu goruntu bu sezonun ozetinde yer alacak.\n\nSoyunma odasinda kimse konusmuyor. {actor.manager.name} kapiyi bir kez vuruyor ve ciziyor.",
+          "text": "{actor.referee.name} ikinize de sari gosteriyor. Ayni takimdan iki oyuncu, ayni anda. Bu goruntu bu sezonun ozetinde yer alacak. Soyunma odasinda kimse konusmuyor. {actor.manager.name} kapiyi bir kez vuruyor ve ciziyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -210,16 +210,16 @@
               "value": 15
             },
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_teammate_hurt": {
           "title": "Dizi bukuldu",
           "kind": "outcome",
-          "text": "Geri giderken ayagi takiliyor ve dizi yanlis donuyor.\n\nYerde kaliyor. Gercekten kaliyor.\n\nSedye geliyor. Sen ceza sahasinin kenarinda duruyorsun ve kimse sana bakmiyor -- herkes ona bakiyor, sen de ona bakiyorsun.\n\nUc hafta yok.",
+          "text": "Geri giderken ayagi takiliyor ve dizi yanlis donuyor. Yerde kaliyor. Gercekten kaliyor. Sedye geliyor. Sen ceza sahasinin kenarinda duruyorsun ve kimse sana bakmiyor -- herkes ona bakiyor, sen de ona bakiyorsun. Uc hafta yok. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
               "op": "match",
@@ -242,16 +242,16 @@
               "value": 20
             },
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_defused": {
           "title": "Araya girdiler",
           "kind": "outcome",
-          "text": "Uc kisi araya giriyor. {actor.captain.name} seni belinden kavrayip geri goturuyor.\n\nKart yok. Kamera yakaladi ama yayin baska yere gecti.\n\nDevre arasinda ikinizi de duvara diziyorlar ve otuz saniye kimse konusmuyor.",
+          "text": "Uc kisi araya giriyor. {actor.captain.name} seni belinden kavrayip geri goturuyor. Kart yok. Kamera yakaladi ama yayin baska yere gecti. Devre arasinda ikinizi de duvara diziyorlar ve otuz saniye kimse konusmuyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -273,7 +273,7 @@
         "n_talked": {
           "title": "Bir cumle",
           "kind": "outcome",
-          "text": "Bir cumle soyluyorsun ve donuyorsun. Ne dedigini kimse duymuyor.\n\nSonraki pozisyonda top sana geliyor.\n\nGolu atmiyorsun ama top sana geldi ve mesele buydu.",
+          "text": "Bir cumle soyluyorsun ve donuyorsun. Ne dedigini kimse duymuyor. Sonraki pozisyonda top sana geliyor. Golu atmiyorsun ama top sana geldi ve mesele buydu. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -286,16 +286,16 @@
               "value": 4
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_swallowed": {
           "title": "Yuttun",
           "kind": "outcome",
-          "text": "Geri kosuyorsun. Yuzunde hicbir sey yok.\n\nKalan yarim saatte topa alti kez dokunuyorsun.\n\nGece uyuyamiyorsun ve bunun sebebinin o pozisyon olmadigini, yuttugun sey oldugunu biliyorsun.",
+          "text": "Geri kosuyorsun. Yuzunde hicbir sey yok. Kalan yarim saatte topa alti kez dokunuyorsun. Gece uyuyamiyorsun ve bunun sebebinin o pozisyon olmadigini, yuttugun sey oldugunu biliyorsun. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -308,16 +308,16 @@
               "value": 10
             },
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_captain_handled": {
           "title": "Kaptanin isi",
           "kind": "outcome",
-          "text": "Bekliyorsun. {actor.captain.name} geliyor, once ona sonra sana bakiyor.\n\nOna ne dedigini duymuyorsun ama adam basini onune egiyor.\n\nMac sonu kaptan yanina geliyor: bunu bana birakman dogruydu, diyor. Sonra ekliyor: bir daha birakma, kendin hallet.",
+          "text": "Bekliyorsun. {actor.captain.name} geliyor, once ona sonra sana bakiyor. Ona ne dedigini duymuyorsun ama adam basini onune egiyor. Mac sonu kaptan yanina geliyor: bunu bana birakman dogruydu, diyor. Sonra ekliyor: bir daha birakma, kendin hallet. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -330,9 +330,9 @@
               "value": 5
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -473,9 +473,9 @@
           "text": "Sessizliğin ağırlığı tüneli kaplıyor. Kimse seni savunmuyor, sen de kimseyi savunmuyorsun. Sahaya çıktığında artık bir gölge değilsin, sadece boş bir silüetsin.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -489,9 +489,9 @@
           "text": "Sözlerin duvarda yankılanıyor. Yüzünde şaşkın bir öfke beliriyor. Takım arkadaşların araya girmeye çalışırken, hakem düdüğü çalarak tüneli gösteriyor.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -505,9 +505,9 @@
           "text": "Gözleri kısıldı. Paranın dili her kapıyı açar ama içerideki omuzdaşlığı bir daha asla yerine koyamaz. Artık bir takım değil, ticari bir ortaklık yürütüyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -521,9 +521,9 @@
           "text": "Saha içindeki hareketlerinle ona cevap verdin. İki yetenekli oyuncu aynı hizaya gelince, sistem kendi kendine çalışmaya başladı. Ama bu yorgunluk, bacaklarında bir sızı gibi yarınlara kalacak.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -668,12 +668,12 @@
         "n_out_risk": {
           "title": "Kopuş",
           "kind": "outcome",
-          "text": "Sözlerin tünelde yankılandı. {actor.captain.name} şaşkınlıkla durdu, geri kalan herkes bir adım geriledi. İpler koptu.",
+          "text": "Sözlerin tünelde yankılandı. {actor.captain.name} şaşkınlıkla durdu, geri kalan herkes bir adım geriledi. İpler koptu. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "incident": "inc_fought_opponent",
@@ -684,12 +684,12 @@
         "n_out_gri": {
           "title": "Ticaret",
           "kind": "outcome",
-          "text": "Sahadaki öfkeni cüzdanınla takas ettin. {actor.captain.name} sana küçümseyerek baktı, sen ise başını çevirdin.",
+          "text": "Sahadaki öfkeni cüzdanınla takas ettin. {actor.captain.name} sana küçümseyerek baktı, sen ise başını çevirdin. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "incident": "inc_substituted_angry",
@@ -700,12 +700,12 @@
         "n_out_guvenli": {
           "title": "Teslimiyet",
           "kind": "outcome",
-          "text": "Sessizliği seçtin. Herkesin önünde boyun eğmek, kazandığın profesyonel puanlardan çok daha ağır geldi.",
+          "text": "Sessizliği seçtin. Herkesin önünde boyun eğmek, kazandığın profesyonel puanlardan çok daha ağır geldi. Tribunun ugultusu yavasca dagiliyor, karar?n baskisi dagilmiyor. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "incident": "inc_stood_up",
@@ -716,12 +716,12 @@
         "n_out_stat": {
           "title": "İplerin Rengi",
           "kind": "outcome",
-          "text": "Söylediklerinle kaptanlığı üstlendin ama aranızdaki buzlar daha da keskinleşti.",
+          "text": "Söylediklerinle kaptanlığı üstlendin ama aranızdaki buzlar daha da keskinleşti. Tribunun sesi uzaga cekilirken bu karar?n agirligi icerde kaliyor. Tribunun sesi uzaga cekilirken bu karar?n agirligi icerde kaliyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "incident": "inc_injured_teammate",

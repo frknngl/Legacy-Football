@@ -26,12 +26,26 @@ export type MatchResult = 'win' | 'draw' | 'loss' | 'none';
 
 export type MatchImportance = 'league' | 'derby' | 'cup' | 'cup_final' | 'european' | 'national';
 
-/** Host'un mac oncesi/sonrasi sundugu baglam. Motor bunlari yalnizca OKUR. */
-export interface MatchContext {
+/** Haftalik secimde mac baglaminin asamasi. */
+export type MatchContextPhase = 'free_week' | 'pre_match' | 'in_match' | 'post_match';
+
+/** Takimin ligdeki CANLI konumu. */
+export interface TeamLeagueContext {
+  readonly teamLeaguePosition?: number;
+  readonly teamLeagueSize?: number;
+  readonly teamRelegationLine?: number;
+  readonly teamInRelegationZone?: boolean;
+}
+
+/** Haftalik secimden once kullanilan yaklasan mac baglami. */
+export interface MatchSelectionContext extends TeamLeagueContext {
   readonly opponentName: string;
   readonly importance: MatchImportance;
+}
+
+/** Host'un mac oncesi/sonrasi sundugu baglam. Motor bunlari yalnizca OKUR. */
+export interface MatchContext extends MatchSelectionContext {
   readonly isStarter: boolean;
-  readonly teamLeaguePosition?: number;
   readonly unbeatenStreak?: number;
   readonly scorelessStreak?: number;
   readonly seasonGoals?: number;
@@ -177,7 +191,13 @@ export interface MatchIncident {
   readonly causedByChoiceText?: string;
 }
 
-/** Host'un macin gercek sonucunu motora bildirmesi. */
+/**
+ * Host'un macin gercek sonucunu motora bildirmesi.
+ *
+ * `result: 'none'` yalnizca o hafta bu slotta fikstur YOKSA kullanilir.
+ * Takim maci oynanip Hero dakika almadiysa sonuc yine `win/draw/loss` olur,
+ * sadece `minutes: 0` doner.
+ */
 export interface MatchResultReport {
   readonly result: MatchResult;
   readonly rating: number;

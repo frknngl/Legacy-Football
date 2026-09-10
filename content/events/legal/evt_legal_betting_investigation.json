@@ -2,7 +2,8 @@
   "id": "evt_legal_betting_investigation",
   "family": "fam_legal_fixing",
   "category": "legal",
-  "tier": "epic",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 100,
   "once": true,
   "cooldown": {
@@ -31,7 +32,7 @@
         "n_root": {
           "title": "Sabah altıda kapı",
           "kind": "branch",
-          "text": "Sabah altıda kapı çalıyor ve kapıyı çalanlar gitmiyor.\n\n{actor.prosecutor.name} koridorda duruyor, arkasında dört kişi. Elinde bir kâğıt ve o kâğıdı okumuyor bile — ezberlemiş.\n\n\"Şike soruşturması,\" diyor. \"İki sezon önceki bir maç. Telefon kayıtları var, hesap hareketleri var. İfadenizi almak istiyoruz.\"\n\n{actor.agent.name} on beş dakika sonra geliyor, tıraş olmamış. Salonda sana bakıyor ve tek kelime söylüyor: \"Konuşma.\"\n\n{actor.prosecutor.first} o kelimeyi duyuyor ve gülümsüyor. Bu adamın gülümsemesi iyi bir şey değil.",
+          "text": "Sabah altıda kapı çalıyor ve kapıyı çalanlar gitmiyor. {actor.prosecutor.name} koridorda duruyor, arkasında dört kişi. Elinde bir kâğıt ve o kâğıdı okumuyor bile — ezberlemiş. \"Şike soruşturması,\" diyor. \"İki sezon önceki bir maç. Telefon kayıtları var, hesap hareketleri var. İfadenizi almak istiyoruz.\" {actor.agent.name} on beş dakika sonra geliyor, tıraş olmamış. Salonda sana bakıyor ve tek kelime söylüyor: \"Konuşma.\" {actor.prosecutor.first} o kelimeyi duyuyor ve gülümsüyor. Bu adamın gülümsemesi iyi bir şey değil.",
           "choices": [
             {
               "id": "c_confess",
@@ -188,7 +189,7 @@
         "n_informant": {
           "title": "Koruma",
           "kind": "outcome",
-          "text": "Dokuz saat ifade veriyorsun. {actor.prosecutor.first} bir kez bile sesini yükseltmiyor.\n\nÇıktığında evinin önünde bir araç var ve iki yıl orada duracak.\n\nAltı maç tedbirlisin. Kulüp açıklama yapıyor, taraftar grubu başka bir açıklama yapıyor ve ikisi de seni savunmuyor.\n\nAma hapse girmiyorsun. Bunun bedelini {actor.fixer.first} ödedi ve o bedeli sana hiç unutturmayacak.",
+          "text": "Dokuz saat ifade veriyorsun. {actor.prosecutor.first} bir kez bile sesini yükseltmiyor. Çıktığında evinin önünde bir araç var ve iki yıl orada duracak. Altı maç tedbirlisin. Kulüp açıklama yapıyor, taraftar grubu başka bir açıklama yapıyor ve ikisi de seni savunmuyor. Ama hapse girmiyorsun. Bunun bedelini {actor.fixer.first} ödedi ve o bedeli sana hiç unutturmayacak. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "flag": "npc_fixer_arc",
@@ -210,7 +211,7 @@
         "n_called_cem": {
           "title": "Telefon",
           "kind": "outcome",
-          "text": "{actor.fixer.first} telefonu ikinci çalışta açıyor ve sen konuşmadan önce konuşuyor:\n\n\"Biliyorum. Üç gündür biliyorum.\"\n\nSessizlik.\n\n\"Bir ismi dosyadan çıkarabilirim. Bir isim. Seninki olmak zorunda değil ama seninki olacak, çünkü diğerleri benim için daha değerli.\"\n\nKapatıyor.\n\nİki hafta sonra iddianame çıkıyor ve senin adın en alt sırada, en hafif suçlamayla. Yanında üç isim var ve o üçü seni hiç affetmeyecek.",
+          "text": "{actor.fixer.first} telefonu ikinci çalışta açıyor ve sen konuşmadan önce konuşuyor: \"Biliyorum. Üç gündür biliyorum.\" Sessizlik. \"Bir ismi dosyadan çıkarabilirim. Bir isim. Seninki olmak zorunda değil ama seninki olacak, çünkü diğerleri benim için daha değerli.\" Kapatıyor. İki hafta sonra iddianame çıkıyor ve senin adın en alt sırada, en hafif suçlamayla. Yanında üç isim var ve o üçü seni hiç affetmeyecek. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "op": "suspend",
@@ -241,7 +242,7 @@
                 "modifiers": [
                   {
                     "flag": "servet",
-                    "scale": 8e-06
+                    "scale": 0.000008
                   },
                   {
                     "flag": "medya_itibari",
@@ -275,7 +276,7 @@
         "n_acquitted": {
           "title": "Beraat",
           "kind": "outcome",
-          "text": "\"Yeterli delil bulunamadığından beraatine.\"\n\nSalonda kimse alkışlamıyor. Selim gözlerini kapatıp derin bir nefes alıyor.\n\nDışarıda kameralar var ve hiçbiri sana \"tebrikler\" demiyor; hepsi \"nasıl kurtuldunuz\" diye soruyor.\n\nBeraat ettin. Aklanmadın. Bu ikisi arasındaki farkı önümüzdeki on yıl boyunca her röportajda öğreneceksin.",
+          "text": "\"Yeterli delil bulunamadığından beraatine.\" Salonda kimse alkışlamıyor. Selim gözlerini kapatıp derin bir nefes alıyor. Dışarıda kameralar var ve hiçbiri sana \"tebrikler\" demiyor; hepsi \"nasıl kurtuldunuz\" diye soruyor. Beraat ettin. Aklanmadın. Bu ikisi arasındaki farkı önümüzdeki on yıl boyunca her röportajda öğreneceksin. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "medya_baskisi",
@@ -288,9 +289,9 @@
               "value": -15
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_prosecutor_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "moral",
@@ -302,7 +303,7 @@
         "n_convicted": {
           "title": "Hüküm",
           "kind": "outcome",
-          "text": "Hâkim kararı okurken sen ayaktasın ve kelimeleri duymuyorsun. Sadece bir kelimeyi duyuyorsun ve o kelime yeterli.\n\n{actor.agent.first} arkanda oturuyor ve ayağa kalkmıyor.\n\nJandarma iki tarafında. Salondan çıkarken {actor.journalist.name} fotoğraf çekiyor ve o fotoğraf bir daha hiç kaybolmayacak; on beş yıl sonra bir belgeselin açılış karesi olacak.\n\nKariyerin durdu. Yaşın durmuyor.",
+          "text": "Hâkim kararı okurken sen ayaktasın ve kelimeleri duymuyorsun. Sadece bir kelimeyi duyuyorsun ve o kelime yeterli. {actor.agent.first} arkanda oturuyor ve ayağa kalkmıyor. Jandarma iki tarafında. Salondan çıkarken {actor.journalist.name} fotoğraf çekiyor ve o fotoğraf bir daha hiç kaybolmayacak; on beş yıl sonra bir belgeselin açılış karesi olacak. Kariyerin durdu. Yaşın durmuyor. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "op": "lifeState",
@@ -349,7 +350,7 @@
         "n_root": {
           "title": "Stadyum Otoparkı",
           "kind": "branch",
-          "text": "Antrenman sahasının ışıkları sönmüş, otoparkta sadece tek bir aracın farları yanıyor. {actor.prosecutor.name}, aracın kaputuna yaslanmış bekliyor. Yanında kimse yok. Sadece elindeki deri evrak çantasını yavaşça açıyor. İçinden çıkan tek bir fotoğraf: bir bahis sitesinin arayüzünde, senin imzana benzeyen bir yetkilendirme belgesi. \"Saha içindeki performansınla bahis oranlarını manipüle ettiğine dair elimizde çok net bir iz var,\" diyor. Sesi, gece soğuğunun üzerinde bıraktığı pus gibi. \"Bunu mahkemeye taşımadan, aramızda bir karar verelim.\"",
+          "text": "Antrenman sahasının ışıkları sönmüş, otoparkta sadece tek bir aracın farları yanıyor. {actor. prosecutor. name}, aracın kaputuna yaslanmış bekliyor. Yanında kimse yok. Sadece elindeki deri evrak çantasını yavaşça açıyor. İçinden çıkan tek bir fotoğraf: bir bahis sitesinin arayüzünde, senin imzana benzeyen bir yetkilendirme belgesi. \"Saha içindeki performansınla bahis oranlarını manipüle ettiğine dair elimizde çok net bir iz var,\" diyor. Sesi, gece soğuğunun üzerinde bıraktığı pus gibi. \"Bunu mahkemeye taşımadan, aramızda bir karar verelim.",
           "choices": [
             {
               "id": "c_gri",
@@ -486,12 +487,12 @@
         "n_outcome_riskli": {
           "title": "Açık Çatışma",
           "kind": "outcome",
-          "text": "Seni izliyorlar. Birkaç gün sonra antrenman sahası kapısında bekleyen müfettişler, disiplin kuruluna sevkini hızlandırdı. Ligden uzaklaştırıldın.",
+          "text": "Seni izliyorlar. Birkaç gün sonra antrenman sahası kapısında bekleyen müfettişler, disiplin kuruluna sevkini hızlandırdı. Ligden uzaklaştırıldın. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_prosecutor_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "suspend",
@@ -503,7 +504,7 @@
         "n_outcome_guvenli": {
           "title": "Soğuk İnziva",
           "kind": "outcome",
-          "text": "Ses çıkarmadın, ancak adın dosyaya çoktan yazıldı. Geçici uzaklaştırma kararı, antrenman tesislerine giriş kartını iptal etti.",
+          "text": "Ses çıkarmadın, ancak adın dosyaya çoktan yazıldı. Geçici uzaklaştırma kararı, antrenman tesislerine giriş kartını iptal etti. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
               "flag": "mem_turned_informant",
@@ -520,7 +521,7 @@
         "n_outcome_kilitli": {
           "title": "Demir Parmaklıklar",
           "kind": "outcome",
-          "text": "Otoparktaki o gece, tüm kanıtlar aleyhine döndü. Kapıdaki kelepçelerin sesi, kariyerinin en yüksek sesli çığlığı oldu.",
+          "text": "Otoparktaki o gece, tüm kanıtlar aleyhine döndü. Kapıdaki kelepçelerin sesi, kariyerinin en yüksek sesli çığlığı oldu. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "mem_was_incarcerated",

@@ -776,6 +776,27 @@
       "label": "Takimin lig sirasi"
     },
     {
+      "key": "team_league_size",
+      "kind": "match",
+      "type": "number",
+      "default": 18,
+      "label": "Takimin ligindeki kulup sayisi"
+    },
+    {
+      "key": "team_relegation_line",
+      "kind": "match",
+      "type": "number",
+      "default": 16,
+      "label": "Dusme hattinin basladigi sira"
+    },
+    {
+      "key": "team_relegation_zone",
+      "kind": "match",
+      "type": "boolean",
+      "default": false,
+      "label": "Takim dusme hattinda mi"
+    },
+    {
       "key": "unbeaten_streak",
       "kind": "match",
       "type": "number",
@@ -795,6 +816,62 @@
       "type": "string",
       "default": "",
       "label": "Rakip takim"
+    },
+    {
+      "key": "match_context_phase",
+      "kind": "match",
+      "type": "string",
+      "default": "free_week",
+      "label": "Mac baglam asamasi"
+    },
+    {
+      "key": "next_match_exists",
+      "kind": "match",
+      "type": "boolean",
+      "default": false,
+      "label": "Bu hafta fikstur var mi"
+    },
+    {
+      "key": "next_match_importance",
+      "kind": "match",
+      "type": "string",
+      "default": "none",
+      "label": "Yaklasan mac onemi"
+    },
+    {
+      "key": "next_opponent_name",
+      "kind": "match",
+      "type": "string",
+      "default": "",
+      "label": "Yaklasan rakip takim"
+    },
+    {
+      "key": "next_team_league_position",
+      "kind": "match",
+      "type": "number",
+      "default": 10,
+      "label": "Yaklasan maca girerken lig sirasi"
+    },
+    {
+      "key": "next_team_league_size",
+      "kind": "match",
+      "type": "number",
+      "default": 18,
+      "label": "Yaklasan maca girerken lig boyutu"
+    },
+    {
+      "key": "next_team_relegation_line",
+      "kind": "match",
+      "type": "number",
+      "default": 16,
+      "label": "Yaklasan maca girerken dusme hatti"
+    },
+    {
+      "key": "next_team_relegation_zone",
+      "kind": "match",
+      "type": "boolean",
+      "default": false,
+      "label": "Yaklasan maca girerken dusme hattinda mi"
     },
     {
       "key": "currentTurn",
@@ -2307,28 +2384,44 @@
       "kind": "memory",
       "type": "boolean",
       "default": false,
-      "label": "Bir sezon gol krali oldu"
+      "label": "Bir sezon gol krali oldu",
+      "writableBy": [
+        "engine",
+        "content"
+      ]
     },
     {
       "key": "mem_yilin_oyuncusu",
       "kind": "memory",
       "type": "boolean",
       "default": false,
-      "label": "Bir sezon yilin oyuncusu secildi"
+      "label": "Bir sezon yilin oyuncusu secildi",
+      "writableBy": [
+        "engine",
+        "content"
+      ]
     },
     {
       "key": "mem_turnuva_oynadi",
       "kind": "memory",
       "type": "boolean",
       "default": false,
-      "label": "Buyuk turnuvada oynadi"
+      "label": "Buyuk turnuvada oynadi",
+      "writableBy": [
+        "engine",
+        "content"
+      ]
     },
     {
       "key": "mem_turnuva_sampiyonu",
       "kind": "memory",
       "type": "boolean",
       "default": false,
-      "label": "Buyuk turnuva kazandi"
+      "label": "Buyuk turnuva kazandi",
+      "writableBy": [
+        "engine",
+        "content"
+      ]
     },
     {
       "key": "mem_sponsor_maske_dusmesi_sporting_director",
@@ -2836,6 +2929,139 @@
       "type": "boolean",
       "default": false,
       "label": "ritual devraldi -- evt_ritual_veteran_golge"
+    },
+    {
+      "key": "mem_umit_milli_kampa_yetisti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Lise sinavindan cikip umit milli kampina yetisti -- evt_national_umit_milli_sinav"
+    },
+    {
+      "key": "mem_krampon_anlasmasi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ilk buyuk krampon sponsorlugu anlasmasini imzaladi -- evt_sponsor_ilk_krampon_catismasi"
+    },
+    {
+      "key": "mem_ikinci_sozlesme_sadakat",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ikinci sozlesmede kulube bagli kaldi -- evt_business_ikinci_sozlesme_masasi"
+    },
+    {
+      "key": "mem_ikinci_sozlesme_serbest_kalma",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Ikinci sozlesmede serbest kalma bedeli koydurttu -- evt_business_ikinci_sozlesme_masasi"
+    },
+    {
+      "key": "mem_milli_kaptanlik",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Milli takim kaptanlik pazubandini takti -- evt_national_kaptanlik_pazubandi"
+    },
+    {
+      "key": "mem_eski_dosya_aklandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yillar onceki mac sorusturmasindan aklandi -- evt_legal_eski_dosya_sorusturma"
+    },
+    {
+      "key": "mem_genclere_kol_kanat",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Soyunma odasinda genclere agabeylik yapti -- evt_locker_genc_oyuncu_dolabi"
+    },
+    {
+      "key": "mem_otobus_koltugu_cozuldu",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Takim otobusundeki koltuk hiyerarsisini cozdu -- evt_ritual_otobus_koltugu_savasi"
+    },
+    {
+      "key": "mem_son_sezon_fedakarligi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Son sezonunda diz agrisiyla fedakarlik yapti -- evt_life_son_sezon_diz_karari"
+    },
+    {
+      "key": "mem_jubile_secimi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kariyer sonu jubile tercihini yapti -- evt_life_jubile_teklifi"
+    },
+    {
+      "key": "mem_son_roportaj_mirasi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Son roportajda kariyer muhasebesi yapti -- evt_media_son_roportaj_pismanlik"
+    },
+    {
+      "key": "mem_dolap_bosaltildi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kariyer sonu soyunma odasi dolabini bosaltti -- evt_locker_son_dolap_bosaltma"
+    },
+    {
+      "key": "mem_forma_numarasini_verdi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Yabanci yildiza forma numarasini devretti -- evt_locker_forma_numarasi_kavgasi"
+    },
+    {
+      "key": "mem_forma_numarasini_vermedi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Forma numarasini yeni yildiza vermeyip korudu -- evt_locker_forma_numarasi_kavgasi"
+    },
+    {
+      "key": "mem_kuzene_sermaye_verdi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kuzenine yeni is girisimi icin sermaye verdi -- evt_personal_cousin_ikinci_istek"
+    },
+    {
+      "key": "mem_kuzene_ikinci_ret",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Kuzenin ikinci buyuk para istegini de reddetti -- evt_personal_cousin_ikinci_istek"
+    },
+    {
+      "key": "mem_rakip_yildiz_forma_degisti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Mac sonu rakip yildizla forma degisti -- evt_rival_forma_degisimi_tuneli"
+    },
+    {
+      "key": "mem_hakemle_anlasti",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Hakemle tunelde profesyonel bir diyalog kurdu -- evt_tactics_hakem_kokart_hafizasi"
+    },
+    {
+      "key": "mem_pasaport_krizi_yasandi",
+      "kind": "memory",
+      "type": "boolean",
+      "default": false,
+      "label": "Avrupa deplasmani oncesi havalimaninda pasaport krizi atlatti -- evt_life_havalimani_pasaport_krizi"
     }
   ],
   "_softCapNotu": "AZALAN GETIRI DIZI. Bu degerin uzerindeki ARTISLAR kalan bosluga gore sonumlenir; azalislar sonumlenmez. Olculdu: liderlik bayragina 237 etki dokunuyor ve 233'u ARTI (+1113'e karsilik -23); dizi olmadan 50'den baslayan bayrak kariyerin ortasinda 100'e yapisiyor ve icerikteki 219 kilitli secim kosulu (esikler 55-70) islevsizlesiyor. Diziyi yukseltmek kapilari erken acar, dusurmek tirmanisi zorlastirir -- kod degil bu satir degisir."

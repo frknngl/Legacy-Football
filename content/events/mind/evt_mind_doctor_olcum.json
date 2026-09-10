@@ -2,7 +2,8 @@
   "id": "evt_mind_doctor_olcum",
   "family": "fam_mind_olcum",
   "category": "mind",
-  "tier": "major",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 60,
   "once": true,
   "cooldown": {
@@ -33,7 +34,7 @@
         "n_root": {
           "title": "Kemik Yaşı",
           "kind": "branch",
-          "text": "Revirde duvara yapıştırılmış bir grafik var: yaşa göre boy eğrisi. Senin adının yanındaki nokta eğrinin altında.\n\n{actor.doctor.name} bileğinin röntgenini ışığa tutuyor.\n\n\"Kemik yaşın on beş buçuk. Nüfusta on altı yazıyor ama vücudun öyle demiyor.\"\n\nElindeki kâğıda üç şey yazıyor: ağırlık çalışması yok, haftada iki tam gün dinlenme, maç yükü sınırlı.\n\n\"Bu bir ceza değil,\" diyor. \"Bu bir takvim.\"\n\nAntrenör listeyi görmedi henüz. Kâğıt hâlâ doktorun elinde.",
+          "text": "Revirde duvara yapıştırılmış bir grafik var: yaşa göre boy eğrisi. Senin adının yanındaki nokta eğrinin altında. {actor.doctor.name} bileğinin röntgenini ışığa tutuyor. \"Kemik yaşın on beş buçuk. Nüfusta on altı yazıyor ama vücudun öyle demiyor.\" Elindeki kâğıda üç şey yazıyor: ağırlık çalışması yok, haftada iki tam gün dinlenme, maç yükü sınırlı. \"Bu bir ceza değil,\" diyor. \"Bu bir takvim.\" Antrenör listeyi görmedi henüz. Kâğıt hâlâ doktorun elinde.",
           "choices": [
             {
               "id": "c_kabul",
@@ -130,36 +131,36 @@
         "n_kabul": {
           "title": "Takvim",
           "kind": "outcome",
-          "text": "Kâğıdı antrenöre sen götürdün. Okudu, katladı, cebine koydu. \"Tamam,\" dedi. Başka bir şey demedi.\n\nO hafta iki gün izin yaptın. İkisinde de tesise gittin, sahaya çıkmadın, kenarda oturdun.\n\nOturmak, koşmaktan daha zor bir şeymiş.",
+          "text": "Kâğıdı antrenöre sen götürdün. Okudu, katladı, cebine koydu. \"Tamam,\" dedi. Başka bir şey demedi. O hafta iki gün izin yaptın. İkisinde de tesise gittin, sahaya çıkmadın, kenarda oturdun. Oturmak, koşmaktan daha zor bir şeymiş. Nefesini duzenlemeye calisirken icindeki catlakla yuzlesmenin ertelenemeyecegini hissettin.",
           "onEnter": [
             {
-              "flag": "mem_olcum_takvime_uydu",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_pazarlik": {
           "title": "Bir Gün",
           "kind": "outcome",
-          "text": "\"Bir gün,\" dedi {actor.doctor.name} sonunda. Kâğıda tek çizik attı, rakamı değiştirdi.\n\nÜstüne bir cümle ekledi ve o cümle, kâğıttan daha uzun süre aklında kaldı:\n\n\"Bunu ben yazmadım artık. Sen yazdın.\"",
+          "text": "\"Bir gün,\" dedi {actor.doctor.name} sonunda. Kâğıda tek çizik attı, rakamı değiştirdi. Üstüne bir cümle ekledi ve o cümle, kâğıttan daha uzun süre aklında kaldı: \"Bunu ben yazmadım artık. Sen yazdın.\". Aklin toparlanmaya calisirken bu esigin seni farkli bir dengeye ittigini anladin.",
           "onEnter": [
             {
-              "flag": "mem_olcum_pazarlik_etti",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sus": {
           "title": "Kâğıt Orada Kaldı",
           "kind": "outcome",
-          "text": "Çıktın. Kâğıt masada kaldı.\n\n{actor.doctor.name} onu ertesi gün antrenöre verdi. Aynı şey oldu — ama senin götürmenle onun vermesi arasındaki fark, ikinizin de aklında bir yere yazıldı.\n\nGrafikteki nokta hâlâ eğrinin altında. Acelesi yok. Seninse var.",
+          "text": "Çıktın. Kâğıt masada kaldı. {actor.doctor.name} onu ertesi gün antrenöre verdi. Aynı şey oldu — ama senin götürmenle onun vermesi arasındaki fark, ikinizin de aklında bir yere yazıldı. Grafikteki nokta hâlâ eğrinin altında. Acelesi yok. Seninse var. Kisa bir sessizlikten sonra bu karar zihnindeki dugumu tamamen cozmese de yon verdi.",
           "onEnter": [
             {
-              "flag": "mem_olcum_sessiz_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -285,9 +286,9 @@
           "text": "{actor.doctor.name} bilgisayarındaki tüm kayıtları tek tek siliyor, klavye sesleri boş odada yankılanırken omuzlarındaki o baskıcı ağırlık yavaşça dağılıyordu. Odadan çıkarken zihnindeki sis perdesi aralandı ancak 'uyumlu oyuncu' etiketinin yarattığı o görünmez kafesin, attığın her adımı daha da kısıtladığını hissettin; artık kimse senden sivrilmeni beklemiyor.",
           "onEnter": [
             {
-              "flag": "mem_olcum_takvime_uydu",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -297,9 +298,9 @@
           "text": "{actor.doctor.name} hayretle gözlerini ekrana dikti, vereceğin cevabın ağırlığı odayı buz gibi bir sessizliğe gömdü. Kapıdan çıkıp koridora adım attığında, antrenörlerin ve takım arkadaşlarının sana olan bakışlarının artık sadece bir futbolcuya değil, patlamaya hazır bir dinamite bakar gibi değiştiğini fark ettin; tehlikeli ama çekici bir şöhretin ilk adımları atıldı.",
           "onEnter": [
             {
-              "flag": "mem_olcum_sessiz_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -309,9 +310,9 @@
           "text": "Zarf masanın üzerinden kayarak gözden uzaklaştı, {actor.doctor.name} bakışlarını doğrudan kaçırarak odanın uzak köşesindeki pencereye odaklandı. Para hesabına geçtiğine dair bildirim cebinde titrerken, aynadaki yansımana baktığında yüzündeki ifade yabancılaştı; odaya bıraktığın gururun soğukluğu, cüzdanındaki ağırlıktan çok daha baskın bir hisle boğazını düğümlüyordu.",
           "onEnter": [
             {
-              "flag": "mem_olcum_pazarlik_etti",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -321,9 +322,9 @@
           "text": "İkiniz de gülümsüyorsunuz. Artık bir rakip değilsiniz, ortaklıksınız. Veriler sana karşı değil, başkalarına karşı bir koz olarak saklanacak.",
           "onEnter": [
             {
-              "flag": "mem_olcum_pazarlik_etti",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -462,9 +463,9 @@
           "text": "{actor.doctor.name} kağıdı sana uzatıyor. Çıkışa doğru yürürken odaya yaydığın huzursuzluk, arkanda bıraktığın sessizliği daha da derinleştiriyor.",
           "onEnter": [
             {
-              "flag": "mem_olcum_pazarlik_etti",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -474,21 +475,21 @@
           "text": "{actor.doctor.name} zarfı yavaşça çekmecesine koyuyor. Aramızda geçen her şey, bu odanın kapısı kapandığı an tarihe karışıyor.",
           "onEnter": [
             {
-              "flag": "mem_olcum_sessiz_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_guvenli": {
           "title": "Sıradan Bir Protokol",
           "kind": "outcome",
-          "text": "Söylediklerini onaylıyor. Yeni antrenman takvimin sisteme yükleniyor. Artık sadece bir makine gibi çalışmak zorundasın.",
+          "text": "Söylediklerini onaylıyor. Yeni antrenman takvimin sisteme yükleniyor. Artık sadece bir makine gibi çalışmak zorundasın. Kisa bir sessizlikten sonra bu karar zihnindeki dugumu tamamen cozmese de yon verdi.",
           "onEnter": [
             {
-              "flag": "mem_olcum_takvime_uydu",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -498,9 +499,9 @@
           "text": "Ekranın ışığı yüzüne vururken {actor.doctor.name} ile saatlerce sürecek o yorucu analiz başlıyor. Terin kurumadan yeni bir yükün altına giriyorsun.",
           "onEnter": [
             {
-              "flag": "mem_olcum_takvime_uydu",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

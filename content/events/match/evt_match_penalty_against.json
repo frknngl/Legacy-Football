@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Nokta -- ama bu sefer aleyhine",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Ceza sahasinda bir temas oldu ve {actor.referee.name} hic tereddut etmeden noktayi gosterdi.\n\nTemasi yapan sensin. Ayagini geri cekmistin ama adam ustune dustu ve simdi yerde, kalkmiyor.\n\n{actor.keeper.name} kaleden cikip sana dogru geliyor; yuzunde soru degil sitem var. {actor.captain.name} hakemin yanina kosmus, kollarini aciyor.\n\nOtuz bin kisi ayakta ve hepsi seni gosteriyor.",
+          "text": "{minute}. dakika, skor {scoreline}. Ceza sahasinda bir temas oldu ve {actor.referee.name} hic tereddut etmeden noktayi gosterdi. Temasi yapan sensin. Ayagini geri cekmistin ama adam ustune dustu ve simdi yerde, kalkmiyor. {actor.keeper.name} kaleden cikip sana dogru geliyor; yuzunde soru degil sitem var. {actor.captain.name} hakemin yanina kosmus, kollarini aciyor. Otuz bin kisi ayakta ve hepsi seni gosteriyor.",
           "choices": [
             {
               "id": "c_own",
@@ -217,7 +217,7 @@
         "n_owned": {
           "title": "Bir hata",
           "kind": "outcome",
-          "text": "Golu yiyorsunuz. Orta yuvarlaga donerken kimse sana bir sey soylemiyor -- soylemek istemedikleri icin degil, soyleyecek bir sey olmadigi icin.\n\nDevre arasinda {actor.manager.name} tahtaya bir sey cizmiyor. Sadece devam diyor ve bu, bagirmasindan daha agir.",
+          "text": "Golu yiyorsunuz. Orta yuvarlaga donerken kimse sana bir sey soylemiyor -- soylemek istemedikleri icin degil, soyleyecek bir sey olmadigi icin. Devre arasinda {actor.manager.name} tahtaya bir sey cizmiyor. Sadece devam diyor ve bu, bagirmasindan daha agir.",
           "onEnter": [
             {
               "op": "match",
@@ -234,7 +234,7 @@
         "n_protest_card": {
           "title": "Sari",
           "kind": "outcome",
-          "text": "Sari kart. {actor.referee.first} adini deftere yazarken sen hala konusuyorsun.\n\nPenalti golu oluyor. Tribunun bir bolumu seni alkisliyor, digeri islik caliyor. Ikisi de ayni sey icin.",
+          "text": "Sari kart. {actor.referee.first} adini deftere yazarken sen hala konusuyorsun. Penalti golu oluyor. Tribunun bir bolumu seni alkisliyor, digeri islik caliyor. Ikisi de ayni sey icin.",
           "onEnter": [
             {
               "op": "match",
@@ -257,7 +257,7 @@
         "n_protest_free": {
           "title": "Uyari",
           "kind": "outcome",
-          "text": "Yeter, diyor {actor.referee.first}. Kart gostermiyorum ama bir daha konusma.\n\nPenalti golu oluyor. Kart yemedin ama bu hakemin defterinde bir yer edindin ve o defter sezon boyunca acik kalacak.",
+          "text": "Yeter, diyor {actor.referee.first}. Kart gostermiyorum ama bir daha konusma. Penalti golu oluyor. Kart yemedin ama bu hakemin defterinde bir yer edindin ve o defter sezon boyunca acik kalacak.",
           "onEnter": [
             {
               "op": "match",
@@ -279,7 +279,7 @@
         "n_keeper_saved": {
           "title": "Eldiven",
           "kind": "outcome",
-          "text": "{actor.keeper.name} sag kosede. Top eline carpiyor ve disari gidiyor.\n\nAyaga kalkip sana kosuyor, kollarini aciyor ve bagiriyor. Bu maci kaybetseniz bile bu on saniye ikinizin arasinda kalacak.",
+          "text": "{actor.keeper.name} sag kosede. Top eline carpiyor ve disari gidiyor. Ayaga kalkip sana kosuyor, kollarini aciyor ve bagiriyor. Bu maci kaybetseniz bile bu on saniye ikinizin arasinda kalacak.",
           "onEnter": [
             {
               "op": "match",
@@ -297,16 +297,16 @@
               "value": 12
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_keeper_beaten": {
           "title": "Diger kose",
           "kind": "outcome",
-          "text": "Sol kose. {actor.keeper.first} sag tarafa uctu.\n\nAyaga kalkarken sana bakmiyor. Bakmamasi bakmasindan kotu.\n\nMac sonunda soyunma odasinda yanina gidiyorsun, o dusu aciyor. Konusmuyorsunuz.",
+          "text": "Sol kose. {actor.keeper.first} sag tarafa uctu. Ayaga kalkarken sana bakmiyor. Bakmamasi bakmasindan kotu. Mac sonunda soyunma odasinda yanina gidiyorsun, o dusu aciyor. Konusmuyorsunuz.",
           "onEnter": [
             {
               "op": "match",
@@ -328,7 +328,7 @@
         "n_blamed": {
           "title": "Kamera gordu",
           "kind": "outcome",
-          "text": "{actor.captain.name} sana bakiyor, bir sey soylemiyor ve donuyor. Kamera bu on saniyeyi yakaladi.\n\nPenalti golu oluyor. Mac sonunda o goruntu ekranlarda doner: kaptanina parmagini uzatan oyuncu.\n\nYarin bu konusulacak ve senin ne dedigin degil, nasil durdugun konusulacak.",
+          "text": "{actor.captain.name} sana bakiyor, bir sey soylemiyor ve donuyor. Kamera bu on saniyeyi yakaladi. Penalti golu oluyor. Mac sonunda o goruntu ekranlarda doner: kaptanina parmagini uzatan oyuncu. Yarin bu konusulacak ve senin ne dedigin degil, nasil durdugun konusulacak.",
           "onEnter": [
             {
               "op": "match",
@@ -341,9 +341,9 @@
               "value": 20
             },
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -500,9 +500,9 @@
           "text": "Saha kenarindan yukselen ugultu, {actor.referee.name} otoritesini daha da sertlestirdi. Sari karti havada gorunurken, tribundekiler ismini bir kahraman gibi haykirmaya basladi. Bedelini yarin odersin.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -516,9 +516,9 @@
           "text": "Sessizce uzaklastin. {actor.referee.name} arkandan bakti, hafifce basini salladi. Profesyonelce davrandin ama icindeki ates, simdi bir buz kutlesine donustu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -532,9 +532,9 @@
           "text": "Kaptanin gozlerindeki saskinlik, banka hesabindaki artisla dengelenemeyecek kadar agir. {actor.referee.name} karari kesinlestirdi ama sen artik sahanin bir parçasi degil, bir oyuncususun.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -548,9 +548,9 @@
           "text": "Vucudun, hatayi avantaja cevirmek icin kusursuz bir tepki verdi. {actor.referee.name} sadece bir hakemdi, ama senin zihnin o an bir satranc tahtasina donustu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -657,9 +657,9 @@
           "text": "Kartını havaya kaldırdığında yüzündeki o soğukkanlı ifadeyi unutmayacaksın. Takım arkadaşlarının şaşkın bakışları arasında sahadan ayrılırken, sadece bir hakemi değil, maçın tüm kontrolünü kaybettiğini anlıyorsun.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -673,9 +673,9 @@
           "text": "Herkes sana öfkeyle haykırmanı beklerken sen sadece çimlere bakıp yürüdün. Kaleci, topun başına geçen oyuncuya kilitlendiğinde, senin o anki sakinliğin sahada tuhaf bir huzursuzluk yarattı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -689,9 +689,9 @@
           "text": "Düdük çaldı, top ağlara gitti. {actor.referee.name} arkasını dönüp orta sahaya doğru yürürken, cebine girecek olan paranın soğukluğu vicdanının sıcaklığına galip geldi. Bu penaltı, kariyerindeki en pahalı hatan oldu.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

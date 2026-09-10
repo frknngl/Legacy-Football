@@ -3,6 +3,7 @@
   "family": "fam_social_bahis",
   "category": "social",
   "tier": "epic",
+  "authored": "hand",
   "weight": 85,
   "cooldown": {
     "self": 36,
@@ -30,7 +31,7 @@
         "n_root": {
           "title": "Sadece Basket",
           "kind": "branch",
-          "text": "Deplasman oteli, 21:40. {actor.star_teammate.name} odana geliyor, telefonu elinde.\n\n\"Şuna bak,\" diyor. Ekranda bir uygulama: katsayılar, yeşil rakamlar, altta bir bakiye.\n\n\"Sadece basket oynuyorum,\" diyor. \"Futbola girmiyorum, deli değilim.\"\n\nBakiye altı haneli.\n\n\"Sen de aç. Beş dakika. Adın yok, telefon numarası da benim kuzenimin.\"\n\nYarın maç var. Talimatnamede bu konu yazıyor ve ikiniz de o sayfayı okumadınız.",
+          "text": "Deplasman oteli, 21:40. {actor.star_teammate.name} odana geliyor, telefonu elinde. \"Şuna bak,\" diyor. Ekranda bir uygulama: katsayılar, yeşil rakamlar, altta bir bakiye. \"Sadece basket oynuyorum,\" diyor. \"Futbola girmiyorum, deli değilim.\" Bakiye altı haneli. \"Sen de aç. Beş dakika. Adın yok, telefon numarası da benim kuzenimin.\" Yarın maç var. Talimatnamede bu konu yazıyor ve ikiniz de o sayfayı okumadınız. Koridordan geçen görevlinin ayak sesleri uzaklaşırken, odanın içindeki teklif daha da yakına geliyor. Klimanın uğultusu bile bu teklifi yumuşatmıyor.",
           "choices": [
             {
               "id": "c_ret",
@@ -166,60 +167,32 @@
         "n_ret": {
           "title": "Kapanan Konu",
           "kind": "outcome",
-          "text": "\"Yok.\"\n\n{actor.star_teammate.name} güldü, telefonu cebine koydu. \"Sıkıcısın,\" dedi ve çıktı.\n\nO gece uyudun. On dört ay sonra, o uygulamanın adı gazetelerde çıktığında ve federasyon üç oyuncuyu çağırdığında, sen o listede yoktun.\n\nSıkıcı olmak bazen bir kariyer stratejisidir.",
+          "text": "\"Yok.\" {actor.star_teammate.name} güldü, telefonu cebine koydu. \"Sıkıcısın,\" dedi ve çıktı. O gece uyudun. On dört ay sonra, o uygulamanın adı gazetelerde çıktığında ve federasyon üç oyuncuyu çağırdığında, sen o listede yoktun. Sıkıcı olmak bazen bir kariyer stratejisidir.",
           "onEnter": [
             {
-              "flag": "mem_bahis_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_ac": {
           "title": "Küçük Bir Miktar",
           "kind": "outcome",
-          "text": "Açtın. Basket. Küçük bir miktar.\n\nÜç hafta sonra küçük bir miktar değildi. İki ay sonra tenis de vardı, sonra masa tenisi, sonra saat 03:00'te oynanan bir lig.\n\nFutbola hiç girmedin. Bunu kendine her gece söyledin ve söylemek zorunda kalman bir şey anlatıyordu.\n\nHesap {actor.star_teammate.name:gen} kuzeninin adına. Yani senin adın hiçbir yerde yok. Yani sen de o kuzeni hiç tanımıyorsun.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_hesabi_acti",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_kayit_disi_hesap",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Açtın. Basket. Küçük bir miktar. Üç hafta sonra küçük bir miktar değildi. İki ay sonra tenis de vardı, sonra masa tenisi, sonra saat 03:00'te oynanan bir lig. Futbola hiç girmedin. Bunu kendine her gece söyledin ve söylemek zorunda kalman bir şey anlatıyordu. Hesap {actor.star_teammate.name:gen} kuzeninin adına. Yani senin adın hiçbir yerde yok. Yani sen de o kuzeni hiç tanımıyorsun.",
+          "onEnter": []
         },
         "n_uyar": {
           "title": "Talimatname",
           "kind": "outcome",
-          "text": "\"Kapat şunu. Maddeyi biliyorsun.\"\n\n{actor.star_teammate.name} bir an sana baktı. \"Sen ne zaman avukat oldun?\" dedi ve çıktı. Kapıyı çarpmadı; çarpsa daha iyiydi.\n\nO sezon bir daha odana gelmedi. Sahada pas verdi, dışarıda konuşmadı.\n\nSoruşturma başladığında adın hiç geçmedi. Onunki geçti. İkiniz de bunu hiç konuşmadınız.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_uyardi",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_takim_arkadasini_karsina_aldi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "\"Kapat şunu. Maddeyi biliyorsun.\" {actor.star_teammate.name} bir an sana baktı. \"Sen ne zaman avukat oldun?\" dedi ve çıktı. Kapıyı çarpmadı; çarpsa daha iyiydi. O sezon bir daha odana gelmedi. Sahada pas verdi, dışarıda konuşmadı. Soruşturma başladığında adın hiç geçmedi. Onunki geçti. İkiniz de bunu hiç konuşmadınız.",
+          "onEnter": []
         },
         "n_kaptan": {
           "title": "Sabah Kahvesi",
           "kind": "outcome",
-          "text": "Sabah {actor.captain.name} ile lobide konuştun. İsim vermedin; vermene gerek kalmadı.\n\n\"Biliyorum,\" dedi. \"İki aydır biliyorum.\"\n\nO gün odaya iki kişi girdi ve akşam uygulama silinmişti. Nasıl olduğunu hiç öğrenmedin.\n\n{actor.star_teammate.name} kimin söylediğini hiç öğrenmedi. Ama bir daha sana telefon uzatmadı.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_kaptana_soyledi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Sabah {actor.captain.name} ile lobide konuştun. İsim vermedin; vermene gerek kalmadı. \"Biliyorum,\" dedi. \"İki aydır biliyorum.\" O gün odaya iki kişi girdi ve akşam uygulama silinmişti. Nasıl olduğunu hiç öğrenmedin. {actor.star_teammate.name} kimin söylediğini hiç öğrenmedi. Ama bir daha sana telefon uzatmadı.",
+          "onEnter": []
         }
       }
     },
@@ -230,7 +203,7 @@
         "n_root": {
           "title": "Karanlıkta Gelen Borç",
           "kind": "branch",
-          "text": "Antrenman sahasının otoparkı boş. Farlar kapalı bir aracın içinden {actor.star_teammate.name} iniyor. Yüzünde alışık olduğun o geniş gülümseme yok; aksine, çenesi sıkılı. Kaputun üzerine yaslanıyor, cebinden buruşuk bir not kağıdı çıkarıp sana uzatıyor. 'Geçen ayki mevzuyu hatırlıyorsun,' diyor. Sesi, etrafı saran hafif yağmurdan daha soğuk. 'İnsanlar sabırsız, ben de öyle. Artık bu işin bittiğini duymak istiyorlar, senin de bu işten kurtulmanı istiyorlar.' Kağıtta rakamlar var; hepsi kırmızı.",
+          "text": "Antrenman sahasının otoparkı boş. Farlar kapalı bir aracın içinden {actor.star_teammate.name} iniyor. Yüzünde alışık olduğun o geniş gülümseme yok; aksine, çenesi sıkılı. Kaputun üzerine yaslanıyor, cebinden buruşuk bir not kağıdı çıkarıp sana uzatıyor. 'Geçen ayki mevzuyu hatırlıyorsun,' diyor. Sesi, etrafı saran hafif yağmurdan daha soğuk. 'İnsanlar sabırsız, ben de öyle. Artık bu işin bittiğini duymak istiyorlar, senin de bu işten kurtulmanı istiyorlar.' Kağıtta rakamlar var; hepsi kırmızı. Güvenlik kulübesindeki floresan ışık titredikçe, bu konuşmanın bir şaka olmadığını daha net görüyorsun.",
           "choices": [
             {
               "id": "c_riskli",
@@ -291,6 +264,37 @@
               "persona": {
                 "dogruluk": 10
               }
+            },
+            {
+              "id": "c_sure",
+              "text": "Nefesini toparla ve süre iste. 'Bu gece para yok, ama yarın yönetmeliğe uygun bir çözümü birlikte bulacağım.'",
+              "target": "n_guvenli",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "iliski_star_teammate",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 7,
+                "durus": 4
+              }
             }
           ]
         },
@@ -298,37 +302,19 @@
           "title": "Sokakların Dili",
           "kind": "outcome",
           "text": "Parayı alırken gözlerini ayırmıyor. Bu sadece bir borç ödemesi değil, artık birbirinizin sırrına ortak oldunuz. Sokakta güven kazandın ama saha içindeki konsantrasyonun zayıflayacak.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_uyardi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "onEnter": []
         },
         "n_gri": {
           "title": "Kayıt Dışı Hesap",
           "kind": "outcome",
           "text": "Hesabı ona devretmek, aslında kendi oyun sahanı başkasına açmak demek. Parayı geri kazandın belki ama bu isim artık senin dijital izlerinde bir hayalet gibi dolaşacak.",
-          "onEnter": [
-            {
-              "flag": "mem_kayit_disi_hesap",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "onEnter": []
         },
         "n_guvenli": {
           "title": "Gerçeklerle Yüzleşmek",
           "kind": "outcome",
           "text": "Otoparktan ayrılırken arkanı dönüp yürüyorsun. Bu hamlenin seni takım içinde yalnızlaştıracağını biliyorsun. Kaptan bu olayı öğrendiğinde, aranızdaki güven bir daha asla eskisi gibi olmayacak.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_kaptana_soyledi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "onEnter": []
         }
       }
     },
@@ -339,7 +325,7 @@
         "n_root": {
           "title": "Gece Yarısı Bildirimi",
           "kind": "branch",
-          "text": "Kulüp tesislerinin ortak alanında, herkes çekilmişken tek başına oturuyorsun. {actor.star_teammate.name} yanına geliyor. Elindeki tableti senin görüş açına bırakıyor. Ekranda bir bahis platformunun yönetim paneli açık. \"Bu hafta kendi maçımıza oynamamız için sistem açıldı,\" diyor. Sesi titremiyor bile. \"Senin ismin üzerinden bir hesap oluşturduk. Oranlar yüksek, kimsenin haberi olmaz.\" {actor.star_teammate.name} masanın üzerine bir kalem bırakıyor. Sadece onaylaman gerekiyor.",
+          "text": "Kulüp tesislerinin ortak alanında, herkes çekilmişken tek başına oturuyorsun. {actor.star_teammate.name} yanına geliyor. Elindeki tableti senin görüş açına bırakıyor. Ekranda bir bahis platformunun yönetim paneli açık. \"Bu hafta kendi maçımıza oynamamız için sistem açıldı,\" diyor. Sesi titremiyor bile. \"Senin ismin üzerinden bir hesap oluşturduk. Oranlar yüksek, kimsenin haberi olmaz.\" {actor.star_teammate.name} masanın üzerine bir kalem bırakıyor. Sadece onaylaman gerekiyor. Dışarıdaki sprinkler sesi durduğunda, odadaki sessizlik kararını imzalaman için seni daha da sıkıştırıyor.",
           "choices": [
             {
               "id": "c_gri",
@@ -454,50 +440,26 @@
         "n_outcome_gri": {
           "title": "Karanlık Ortaklık",
           "kind": "outcome",
-          "text": "İmzayı attın. {actor.star_teammate.name} ekranı kapatıp hızla odadan çıktı. Cebindeki ağırlık, attığın imzanın vicdani yükünden daha hafif.",
-          "onEnter": [
-            {
-              "flag": "mem_kayit_disi_hesap",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "İmzayı attın. {actor.star_teammate.name} ekranı kapatıp hızla odadan çıktı. Cebindeki ağırlık, attığın imzanın vicdani yükünden daha hafif değil; aksine her antrenman sonrası seni yeniden yoklayan bir taş gibi kalıyor.",
+          "onEnter": []
         },
         "n_outcome_riskli": {
           "title": "Tehditkâr Red",
           "kind": "outcome",
-          "text": "{actor.star_teammate.name} donup kaldı. Cevabın aranızdaki köprüleri yaktı ama en azından ismin henüz lekelenmedi.",
-          "onEnter": [
-            {
-              "flag": "mem_takim_arkadasini_karsina_aldi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "{actor.star_teammate.name} donup kaldı. Cevabın aranızdaki köprüleri yaktı ama en azından ismin henüz lekelenmedi; yine de bu restin faturası soyunma odasında uzun süre soğumayacak bir gerginlik olarak kalacak.",
+          "onEnter": []
         },
         "n_outcome_guvenli": {
           "title": "Sert Uyarı",
           "kind": "outcome",
-          "text": "Korkuyla karışık bir nefretle baktı sana. Söylediklerini yapacağına emin. Bugün bir arkadaş kaybettin ama kariyerini korudun.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_uyardi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Korkuyla karışık bir nefretle baktı sana. Söylediklerini yapacağına eminsin; bugün bir arkadaş kaybettin ama kariyerini korudun, üstelik bu kararın bedelini yalnız geçecek deplasman gecelerinde ödeyeceğini de biliyorsun.",
+          "onEnter": []
         },
         "n_outcome_kilitli": {
           "title": "Fedakârlık",
           "kind": "outcome",
-          "text": "Ona bir şans daha verdin. {actor.star_teammate.name} durumu düzelteceğine dair söz verdi. Şimdi tüm yük senin omuzlarında.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_kaptana_soyledi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Ona bir şans daha verdin. {actor.star_teammate.name} durumu düzelteceğine dair söz verdi; şimdi tüm yük senin omuzlarında ve her kötü sonuçta bu gizli kararın izini tek başına taşımak zorundasın.",
+          "onEnter": []
         }
       }
     },
@@ -508,7 +470,7 @@
         "n_root": {
           "title": "Karanlık Ekran",
           "kind": "branch",
-          "text": "Kulüp kafeteryasının mutfak çıkışında, dumanı tüten bir çöp konteynerinin gölgesindesiniz. {actor.star_teammate.name} duvara yaslanmış, titreyen parmaklarıyla telefonunu size uzatıyor. Ekranın ışığı yüzündeki ter damlalarını ortaya çıkarıyor. 'İçerideki herkese karşı o kusursuz, disiplinli maskeyi takmaya devam edebilirsin,' diyor, sesi çatallı. Ekranda bahis platformunun kullanıcı paneli açık; kırmızıya dönmüş bakiye, gecikmiş ödemeler ve sizin adınıza açılmış, henüz aktifleşmemiş bir hesap. Dışarıdan gelen antrenman sahası ışıkları, bu kuytu köşeyi bir sorgu odasına çeviriyor.",
+          "text": "Kulüp kafeteryasının mutfak çıkışında, dumanı tüten bir çöp konteynerinin gölgesindesiniz. {actor.star_teammate.name} duvara yaslanmış, titreyen parmaklarıyla telefonunu size uzatıyor. Ekranın ışığı yüzündeki ter damlalarını ortaya çıkarıyor. 'İçerideki herkese karşı o kusursuz, disiplinli maskeyi takmaya devam edebilirsin,' diyor, sesi çatallı. Ekranda bahis platformunun kullanıcı paneli açık; kırmızıya dönmüş bakiye, gecikmiş ödemeler ve sizin adınıza açılmış, henüz aktifleşmemiş bir hesap. Dışarıdan gelen antrenman sahası ışıkları, bu kuytu köşeyi bir sorgu odasına çeviriyor. Çöplük kapağının metal sesi kapanırken, geri dönüşü olmayan bir eşiğin önünde kaldığınızı ikiniz de anlıyorsunuz.",
           "choices": [
             {
               "id": "c_riskli",
@@ -609,50 +571,26 @@
         "n_riskli": {
           "title": "İkinci Bir Yüz",
           "kind": "outcome",
-          "text": "{actor.star_teammate.name} hafifçe gülüyor, korkusu yerini çarpık bir minnete bırakıyor. Artık ikiniz de aynı kirliliğin içindesiniz.",
-          "onEnter": [
-            {
-              "flag": "mem_kayit_disi_hesap",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "{actor.star_teammate.name} hafifçe gülüyor, korkusu yerini çarpık bir minnete bırakıyor. Artık ikiniz de aynı kirliliğin içindesiniz ve bu ortak sır, sahada attığın her doğru pasın arkasına karanlık bir gölge gibi yapışıyor.",
+          "onEnter": []
         },
         "n_guvenli": {
           "title": "Sınırlar",
           "kind": "outcome",
-          "text": "Sırtını ona dönüyorsun. Arkandaki sessizlik, aranızdaki profesyonel saygının aslında ne kadar kırılgan olduğunu kanıtlıyor.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_reddetti",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Sırtını ona dönüyorsun. Arkandaki sessizlik, aranızdaki profesyonel saygının ne kadar kırılgan olduğunu açıkça kanıtlıyor; yine de bu çizgiyi çektiğin için gecenin sonunda aynaya daha düz bakabiliyorsun.",
+          "onEnter": []
         },
         "n_gri": {
           "title": "Sessiz Ortaklık",
           "kind": "outcome",
-          "text": "Para transferi gerçekleştiğinde {actor.star_teammate.name} bir şey söylemeden uzaklaşıyor. Bu sadece bir yardım değil, aynı zamanda bir suç ortaklığı.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_hesabi_acti",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Para transferi gerçekleştiğinde {actor.star_teammate.name} bir şey söylemeden uzaklaşıyor. Bu sadece bir yardım değil, aynı zamanda ileride her tartışmada geri dönüp yüzünüze vurulacak bir suç ortaklığı anlaşması.",
+          "onEnter": []
         },
         "n_ikaz": {
           "title": "Son Uyarı",
           "kind": "outcome",
-          "text": "Odanın soğukluğunda {actor.star_teammate.name} olduğu yerde kalıyor. Yarın sabahın nasıl bir fırtınayla başlayacağını ikiniz de biliyorsunuz.",
-          "onEnter": [
-            {
-              "flag": "mem_bahis_uyardi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Odanın soğukluğunda {actor.star_teammate.name} olduğu yerde kalıyor. Yarın sabahın nasıl bir fırtınayla başlayacağını ikiniz de biliyorsunuz ve bu kez kimsenin diğerine güvenecek rahat bir bahanesi kalmıyor.",
+          "onEnter": []
         }
       }
     }

@@ -2,7 +2,7 @@
   "id": "evt_react_injury_room",
   "family": "fam_react_medical",
   "category": "reaction",
-  "tier": "major",
+  "tier": "minor",
   "weight": 55,
   "cooldown": {
     "self": 10,
@@ -26,7 +26,7 @@
         "n_root": {
           "title": "Sağlık odası",
           "kind": "branch",
-          "text": "Tesisin alt katı, floresan ışığı, dezenfektan kokusu. {actor.doctor.name} MR görüntüsünü ekranda açık bırakmış ve sana bakmıyor, ekrana bakıyor.\n\n\"Bunu daha önce de gördüm,\" diyor. \"Aynı bacak, aynı bölge. İkinci kez.\"\n\nMasada bir dosya var; üstünde senin adın ve kalın bir yığın kâğıt. Otuz yaşındaki bir oyuncunun dosyası bu kadar olur; sen değilsin.\n\n\"Sana bir soru soracağım,\" diyor ve ilk kez dönüp bakıyor. \"Bana doğruyu söyleyecek misin?\"",
+          "text": "Tesisin alt katı, floresan ışığı, dezenfektan kokusu. {actor. doctor. name} MR görüntüsünü ekranda açık bırakmış ve sana bakmıyor, ekrana bakıyor. \"Bunu daha önce de gördüm,\" diyor. \"Aynı bacak, aynı bölge. İkinci kez. \" Masada bir dosya var; üstünde senin adın ve kalın bir yığın kâğıt. Otuz yaşındaki bir oyuncunun dosyası bu kadar olur; sen değilsin. \"Sana bir soru soracağım,\" diyor ve ilk kez dönüp bakıyor. \"Bana doğruyu söyleyecek misin.",
           "choices": [
             {
               "id": "c_truth",
@@ -167,7 +167,7 @@
         "n_truth": {
           "title": "Dört hafta",
           "kind": "outcome",
-          "text": "{actor.doctor.first} uzun uzun dinliyor ve not almıyor — bu bilinçli.\n\n\"Dört hafta,\" diyor sonunda. \"İki değil, dört. Hocayla ben konuşurum, sen konuşma.\"\n\nÇıkarken kapıda duruyorsun. \"Neden bana bunu soruyorsun? Kimse sormuyor.\"\n\nEkranı kapatıyor. \"Çünkü ben on bir yıldır buradayım ve senden önce üç oyuncu bu odada aynı yalanı söyledi. Üçü de otuz yaşında bitti.\"",
+          "text": "{actor.doctor.first} uzun uzun dinliyor ve not almıyor — bu bilinçli. \"Dört hafta,\" diyor sonunda. \"İki değil, dört. Hocayla ben konuşurum, sen konuşma.\" Çıkarken kapıda duruyorsun. \"Neden bana bunu soruyorsun? Kimse sormuyor.\" Ekranı kapatıyor. \"Çünkü ben on bir yıldır buradayım ve senden önce üç oyuncu bu odada aynı yalanı söyledi. Üçü de otuz yaşında bitti.\". Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "is_injured",
@@ -178,18 +178,13 @@
               "flag": "npc_doctor_arc",
               "op": "add",
               "value": 1
-            },
-            {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
             }
           ]
         },
         "n_downplayed": {
           "title": "İki hafta",
           "kind": "outcome",
-          "text": "{actor.doctor.first} bir süre sana bakıyor, sonra dosyayı kapatıp çekmeceye koyuyor.\n\n\"Tamam,\" diyor. \"İki hafta.\"\n\nBu kadar kolay kabul etmesi seni rahatsız ediyor ve haklısın: bu bir kabul değil, bir kayıt. Odadan çıkarken bilgisayarına bir şey yazdığını duyuyorsun.\n\nBir gün o notlar okunacak ve o gün sen bu odada olmayacaksın.",
+          "text": "{actor.doctor.first} bir süre sana bakıyor, sonra dosyayı kapatıp çekmeceye koyuyor. \"Tamam,\" diyor. \"İki hafta.\" Bu kadar kolay kabul etmesi seni rahatsız ediyor ve haklısın: bu bir kabul değil, bir kayıt. Odadan çıkarken bilgisayarına bir şey yazdığını duyuyorsun. Bir gün o notlar okunacak ve o gün sen bu odada olmayacaksın. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "is_injured",
@@ -211,7 +206,7 @@
         "n_asked_her": {
           "title": "Sen olsan",
           "kind": "outcome",
-          "text": "{actor.doctor.first} sandalyeye oturuyor. Bu, uzun cevap vereceği anlamına geliyor.\n\n\"On dokuz yaşında hentbol oynuyordum,\" diyor. \"Omzum çıktı. Oynadım. İki yıl sonra bıraktım ve tıp okudum. Şimdi buradayım.\"\n\nSusuyor.\n\n\"Cevabım: oynardım. Ve yanlış olurdu. İkisi aynı anda doğru.\"",
+          "text": "{actor.doctor.first} sandalyeye oturuyor. Bu, uzun cevap vereceği anlamına geliyor. \"On dokuz yaşında hentbol oynuyordum,\" diyor. \"Omzum çıktı. Oynadım. İki yıl sonra bıraktım ve tıp okudum. Şimdi buradayım.\" Susuyor. \"Cevabım: oynardım. Ve yanlış olurdu. İkisi aynı anda doğru.\". Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "iliski_doctor",
@@ -229,16 +224,16 @@
               "value": 3
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_file": {
           "title": "Kayıt",
           "kind": "outcome",
-          "text": "{actor.doctor.first} dosyayı açıp bir sayfayı çeviriyor ve sana gösteriyor. Tarih, doz, imza. Kendi imzası.\n\n\"Hepsi burada,\" diyor. \"Ben yazdım, ben imzaladım, ben sorumluyum. Sen istedin, ben yaptım ve bunu bir daha yapmayacağım.\"\n\nDosyayı kapatıyor.\n\n\"Bu kayıtlar bir gün mahkemeye gider,\" diyor. \"Ve o gün ikimiz de aynı tarafta olmayacağız.\"",
+          "text": "{actor.doctor.first} dosyayı açıp bir sayfayı çeviriyor ve sana gösteriyor. Tarih, doz, imza. Kendi imzası. \"Hepsi burada,\" diyor. \"Ben yazdım, ben imzaladım, ben sorumluyum. Sen istedin, ben yaptım ve bunu bir daha yapmayacağım.\" Dosyayı kapatıyor. \"Bu kayıtlar bir gün mahkemeye gider,\" diyor. \"Ve o gün ikimiz de aynı tarafta olmayacağız.\". Bakislar ustunde toplanirken verdigin tepkinin etkisi sahadan sonra da surmeye devam etti.",
           "onEnter": [
             {
               "flag": "is_injured",
@@ -435,9 +430,9 @@
           "text": "{actor.doctor.name} titreyen parmaklarıyla raporu onaylarken minnetle başını salladı. Bu maçın kazanılacak zaferi, bacağındaki sakatlığın yarınki kariyerini tamamen enkaz haline getireceğinin tek garantisiydi. Kapı kapandığında, tek duyabildiğin şey odanın içindeki boğucu sessizlikti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -548,9 +543,9 @@
           "text": "{actor.doctor.name} dosyayı alıp parçalara ayırdı. Soyunma odasına giden koridorda yürürken, ayaklarının altındaki zemin artık her zamankinden daha ağır hissettiriyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -698,9 +693,9 @@
           "text": "Doktor raporu imzalayıp masaya bıraktığında, tüm kariyerinin yönü bir anda değişti. {actor.doctor.name} hiçbir şey söylemeden başını hafifçe eğerek, arkasında hafif bir kağıt hışırtısı bırakıp odadan çıktı. Kapı kapandığında odanın içindeki neon ışıklar titreyerek söndü ve geriye sadece soğuk bir boşluk kaldı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -841,7 +836,7 @@
         "n_outcome_2": {
           "title": "Sessiz Anlaşma",
           "kind": "outcome",
-          "text": "{actor.doctor.name} zarfı alıp çekmecesine kilitliyor. Artık aynı sırrı paylaşıyorsunuz. Bu, aranızdaki profesyonel mesafenin sonu.",
+          "text": "{actor.doctor.name} zarfı alıp çekmecesine kilitliyor. Artık aynı sırrı paylaşıyorsunuz. Bu, aranızdaki profesyonel mesafenin sonu. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "mem_took_injection",
@@ -853,12 +848,12 @@
         "n_outcome_3": {
           "title": "Kör İnat",
           "kind": "outcome",
-          "text": "{actor.doctor.name} gözlerini kaçırıyor. Senin gözlerindeki o tehlikeli kararlılığı görmüş olmanın ağırlığıyla kapıyı açıyor.",
+          "text": "{actor.doctor.name} gözlerini kaçırıyor. Senin gözlerindeki o tehlikeli kararlılığı görmüş olmanın ağırlığıyla kapıyı açıyor. Tribunun ugultusu dagilsa da karar?n izi dagilmiyor. Bakislar ustunde toplanirken verdigin tepkinin etkisi sahadan sonra da surmeye devam etti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -980,7 +975,7 @@
         "n_outcome_guvenli": {
           "title": "Dürüst Bir Çöküş",
           "kind": "outcome",
-          "text": "{actor.doctor.name} başını hafifçe sallayıp karanlığa karıştı. Vicdanın rahat, ama sahadaki boşluğun ağırlığı şimdiden hissediliyor.",
+          "text": "{actor.doctor.name} başını hafifçe sallayıp karanlığa karıştı. Vicdanın rahat, ama sahadaki boşluğun ağırlığı şimdiden hissediliyor. Bakislar ustunde toplanirken verdigin tepkinin etkisi sahadan sonra da surmeye devam etti.",
           "onEnter": [
             {
               "flag": "mem_hid_injury",
@@ -992,7 +987,7 @@
         "n_outcome_gri": {
           "title": "Sessiz Anlaşma",
           "kind": "outcome",
-          "text": "Zarf cebinde ağırlaşıyor. Bugün kazandığın şey, yarın sahada kaybedeceğin her şeyin bedeli.",
+          "text": "Zarf cebinde ağırlaşıyor. Bugün kazandığın şey, yarın sahada kaybedeceğin her şeyin bedeli. Icindeki gerilim hala diri. nefesini duzensizlestiriyor. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "mem_took_injection",
@@ -1004,19 +999,19 @@
         "n_outcome_riskli": {
           "title": "Ateşle Dans",
           "kind": "outcome",
-          "text": "Bandaj kanamaya başladı. Taraftarın alkışları kulaklarında, ama bacağındaki zonklama bir sonraki hamlenin sonun başlangıcı olduğunu hatırlatıyor.",
+          "text": "Bandaj kanamaya başladı. Taraftarın alkışları kulaklarında, ama bacağındaki zonklama bir sonraki hamlenin sonun başlangıcı olduğunu hatırlatıyor. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_outcome_kosulsuz": {
           "title": "Yalnızlık",
           "kind": "outcome",
-          "text": "Duşun sesi bütün odayı doldurdu. Hiçbir şey konuşulmadı, hiçbir şey çözülmedi.",
+          "text": "Duşun sesi bütün odayı doldurdu. Hiçbir şey konuşulmadı, hiçbir şey çözülmedi. ince. bir tereddut. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "mem_hid_injury",

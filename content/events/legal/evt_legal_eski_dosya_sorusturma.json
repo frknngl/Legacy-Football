@@ -1,0 +1,258 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Tecrübeli çağında (30-34 yaş) futbolcunun geçmişi yakasına yapışır. Yükseliş çağında karşılaştığı o küçük şike/sarı kart teklifinin faturası adliye koridorunda tebliğ edilir.",
+    "hangi_soru": "Sekiz yıl önceki bir şüphe yüzünden her şeyini kaybetme riski varken itirafçı mı olacaksın, dimdik durup aklanacak mısın?",
+    "odeme_plani": "Yükseliş çağındaki sarı kart teklifine (evt_dark_kucuk_teklif_sari_kart) verilen cevabın faturasıdır; kariyer sonu epilogunda konuşur."
+  },
+  "id": "evt_legal_eski_dosya_sorusturma",
+  "family": "fam_legal_eski_dosya",
+  "category": "legal",
+  "tier": "epic",
+  "authored": "hand",
+  "weight": 80,
+  "once": true,
+  "cooldown": {
+    "self": 60,
+    "family": 24
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured",
+    "suspended"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "legal:prosecutor:eski_dosya_sorusturma",
+    "slot": "prosecutor",
+    "beat": "eski_dosya_sorusturma"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 40,
+    "beatGapTurns": 120,
+    "signatureGapTurns": 80,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Mavi Klasör ve Sekiz Yıl",
+      "kind": "branch",
+      "text": "Çağlayan Adliyesi'nin dördüncü katındaki ağır ahşap kapının üzerinde 'Örgütlü Suçlar Soruşturma Bürosu' yazıyor. İçerisi fotokopi kâğıdı, bayat çay ve rutubet kokuyor. {actor.prosecutor.name} önündeki kalın mavi dosyayı açarken başını kaldırmıyor. Sayfalar sararmış; üzerinde sekiz yıl öncesinin tarihi ve o gün oynadığın maçın hakem raporu iliştirilmiş. \"Sekiz yıl önce, 27. hafta,\" diyor savcı, parmağını tutanağın ortasındaki bir paragrafa basarak. \"Dakika yetmiş iki. Hakeme itirazdan gördüğün sarı kart için o gece yurt dışı bahis borsalarında anormal bir para akışı tespit edildi. Dosyadaki tanıklardan biri, maçtan iki gün önce bir benzinlik arkasında seninle buluştuğunu ve torpidodan bir zarf aldığını iddia ediyor.\" Savcı gözlüklerinin üzerinden doğrudan gözlerinin içine bakıyor. Kariyerinin son demlerindesin; kazandığın kupalar, attığın goller ve biriktirdiğin itibar, masadaki bu tek sayfalık sararmış kâğıdın ucunda sallanıyor.",
+      "choices": [
+        {
+          "id": "c_inkar",
+          "text": "Tutanaktaki iddiaları tamamen reddet: \"O sarı kart taktikseldi, iftirayı kabul etmiyorum.\"",
+          "target": "n_inkar",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_prosecutor",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -30000
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_itiraf",
+          "text": "Her şeyi anlat, itirafçı ol: \"Gençtim, borcum vardı; hata yaptım ama o parayı hayır kurumuna dağıttım.\"",
+          "target": "n_itiraf",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_prosecutor",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -24
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 12,
+            "durus": -8
+          }
+        },
+        {
+          "id": "c_sessiz",
+          "text": "Avukatım olmadan ifade vermiyorum: Susma hakkını kullan ve masadan kalk.",
+          "target": "n_sessiz",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_temiz_gecmis",
+          "text": "O gün o zarfı yüzlerine fırlattığını anlat: \"O arabaya bindim ama o paraya elimi sürmedim!\"",
+          "target": "n_temiz_gecmis",
+          "requires": {
+            "flag": "mem_refused_fixing",
+            "op": "isSet"
+          },
+          "lockLabel": "[Şike Teklifini Reddetmiş Olmak]",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_prosecutor",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "dogruluk": 12
+          }
+        }
+      ]
+    },
+    "n_inkar": {
+      "title": "Adli Emanet",
+      "kind": "outcome",
+      "text": "Savcı gözlüklerini çıkarıp masadaki mavi klasörü kapattı. 'Bunu mahkemede de aynı soğukkanlılıkla anlatabilecek misin?' dedi. Dosyayı adli emanete kaldırdı. Haftalarca süren tebligat trafiği ve avukat ordusu seni akladı ama o adliye koridorunun mermer kokusu bir daha hiç burnundan gitmedi.",
+      "onEnter": [
+        {
+          "flag": "mem_eski_dosya_aklandi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_itiraf": {
+      "title": "Tutanaktaki Çekiç Sesi",
+      "kind": "outcome",
+      "text": "Her şeyi tek tek, saati saatine tutanağa geçirdin. Savcı kâtibi durmaksızın klavyeye bastı; çıkan her tuş sesi kariyerinin üzerine bir çekiç gibi indi. Akşam adliye kapısından çıktığında kameraların flaşları patladı; artık bir efsane değil, sisteme boyun eğmiş bir itirafçıydın.",
+      "onEnter": [
+        {
+          "flag": "mem_turned_informant",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sessiz": {
+      "title": "Mühürlü Suskunluk",
+      "kind": "outcome",
+      "text": "Tek kelime etmedin. Tutanak 'şüpheli susma hakkını kullandı' ibaresiyle imzalandı. Çıkışta basın danışmanın ter içindeydi: 'Manşetleri tutamıyoruz.' Sessizlik seni mahkûm etmedi ama kamuoyunun kafasındaki o zehirli şüpheyi de silemedi.",
+      "onEnter": [
+        {
+          "flag": "mem_eski_dosya_aklandi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_temiz_gecmis": {
+      "title": "Aklanan Haysiyet",
+      "kind": "outcome",
+      "text": "Masaya yumruğunu değil, o günkü kararlılığını koydun. Savcı diğer ifadelerle senin sözlerini karşılaştırdı; telefon kayıtları ve tanık beyanları birleştiğinde gerçeğin rengi değişti. Savcı kâtibe döndü: 'Kovuşturmaya yer olmadığına dair karar yazın.' Odadan başın dik çıktın.",
+      "onEnter": [
+        {
+          "flag": "mem_eski_dosya_aklandi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

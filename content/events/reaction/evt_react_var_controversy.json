@@ -2,7 +2,7 @@
   "id": "evt_react_var_controversy",
   "family": "fam_react_var",
   "category": "reaction",
-  "tier": "epic",
+  "tier": "minor",
   "weight": 60,
   "cooldown": {
     "self": 12,
@@ -26,7 +26,7 @@
         "n_root": {
           "title": "Karma alanı",
           "kind": "branch",
-          "text": "Tünelin ağzında on iki mikrofon. Terin hâlâ soğumadı. {actor.journalist.name} ön sırada, kaydediciyi uzatmıyor — sadece bakıyor, o daha kötü. Arkadan {actor.pundit.name:gen} kanalının muhabiri bağırıyor: \"O golün neresi faulmüş? Bir cümle, tek cümle!\"\n\n{actor.agent.name} koridorun sonunda telefonda; başını hafifçe iki yana sallıyor. Konuşma, diyor. Ama {opponent} maçında sana ne yaptıklarını sen biliyorsun.",
+          "text": "Tünelin ağzında on iki mikrofon. Terin hâlâ soğumadı. {actor.journalist.name} ön sırada, kaydediciyi uzatmıyor — sadece bakıyor, o daha kötü. Arkadan {actor.pundit.name:gen} kanalının muhabiri bağırıyor: \"O golün neresi faulmüş? Bir cümle, tek cümle!\" {actor.agent.name} koridorun sonunda telefonda; başını hafifçe iki yana sallıyor. Konuşma, diyor. Ama {opponent} maçında sana ne yaptıklarını sen biliyorsun.",
           "choices": [
             {
               "id": "c_ref",
@@ -213,9 +213,9 @@
                   "value": -25
                 },
                 {
-                  "flag": "mem_justice_shirt",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_agent_arc",
+                  "op": "add",
+                  "value": 1
                 },
                 {
                   "op": "schedule",
@@ -299,7 +299,7 @@
         "n_warning_only": {
           "title": "Bu sefer",
           "kind": "outcome",
-          "text": "\"Kurtardık,\" diyor {actor.agent.first}. \"Bu sefer. Bir dahakine kurtaramam, onu da söyleyeyim.\" Uykun kaçıyor. Sabaha karşı {actor.journalist.first:gen} haberini okuyorsun; senin lehine yazmış ama tek bir cümlesi var: \"Bu çocuk kendini yakacak.\"",
+          "text": "\"Kurtardık,\" diyor {actor.agent.first}. \"Bu sefer. Bir dahakine kurtaramam, onu da söyleyeyim.\" Uykun kaçıyor. Sabaha karşı {actor.journalist.first:gen} haberini okuyorsun; senin lehine yazmış ama tek bir cümlesi var: \"Bu çocuk kendini yakacak.\".",
           "onEnter": [
             {
               "flag": "medya_baskisi",
@@ -326,7 +326,7 @@
         "n_tff": {
           "title": "Manşet",
           "kind": "outcome",
-          "text": "Cümle ağzından çıkar çıkmaz karma alanındaki uğultu kesiliyor. {actor.journalist.first} gözlerini kapatıyor — senin adına. {actor.agent.first} koridorda telefonu duvara vurmamak için kendini tutuyor.\n\nSabah bütün manşetler aynı: senin yüzün ve tek kelime. {actor.pundit.name} akşam programının tanıtımını çoktan yayınladı. Federasyon iki saat içinde açıklama yaptı.\n\nSevk kesin. Kaçış yok.",
+          "text": "Cümle ağzından çıkar çıkmaz karma alanındaki uğultu kesiliyor. {actor.journalist.first} gözlerini kapatıyor — senin adına. {actor.agent.first} koridorda telefonu duvara vurmamak için kendini tutuyor. Sabah bütün manşetler aynı: senin yüzün ve tek kelime. {actor.pundit.name} akşam programının tanıtımını çoktan yayınladı. Federasyon iki saat içinde açıklama yaptı. Sevk kesin. Kaçış yok. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "medya_itibari",
@@ -353,7 +353,7 @@
         "n_focus": {
           "title": "Güvenli liman",
           "kind": "outcome",
-          "text": "Doğru cümleyi kurdun. Kimse alıntılamayacak.\n\nGece taraftar grubunun hesabından bir paylaşım düşüyor: senin fotoğrafın ve altında \"formayı giymek yetmiyor.\" Tesise giderken kapıdaki pankartı görüyorsun. İsmin yok ama kimi kastettikleri belli.",
+          "text": "Doğru cümleyi kurdun. Kimse alıntılamayacak. Gece taraftar grubunun hesabından bir paylaşım düşüyor: senin fotoğrafın ve altında \"formayı giymek yetmiyor.\" Tesise giderken kapıdaki pankartı görüyorsun. İsmin yok ama kimi kastettikleri belli. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "medya_baskisi",
@@ -366,16 +366,16 @@
               "value": -8
             },
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": false
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_shield": {
           "title": "Duvar",
           "kind": "outcome",
-          "text": "Mikrofonların önüne geçiyorsun ve genç oyuncuların hepsi arkanda kalıyor. Sorular sana geliyor, hepsini alıyorsun.\n\nOtobüste {actor.captain.first} yanına oturuyor. Uzun süre konuşmuyor. Sonra: \"Bunu ben yapardım. Yapmadım.\" Bir daha da hiç bahsetmiyor.",
+          "text": "Mikrofonların önüne geçiyorsun ve genç oyuncuların hepsi arkanda kalıyor. Sorular sana geliyor, hepsini alıyorsun. Otobüste {actor.captain.first} yanına oturuyor. Uzun süre konuşmuyor. Sonra: \"Bunu ben yapardım. Yapmadım.\" Bir daha da hiç bahsetmiyor. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "medya_baskisi",
@@ -388,16 +388,16 @@
               "value": 15
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_shirt": {
           "title": "Tek kelime",
           "kind": "outcome",
-          "text": "Formayı kaldırıyorsun. Karma alanı bir saniye donuyor, sonra deklanşörler makineli tüfek gibi patlıyor.\n\nO fotoğraf bir daha hiç kaybolmayacak. On yıl sonra bir belgeselin afişi olacak. Beş yıl sonra bir çocuk aynı tişörtü kendi maçında giyecek. Ve iki hafta sonra kurulun önünde bu fotoğraf masaya konacak.\n\n{actor.agent.first} koridorda sadece şunu diyor: \"Umarım değmiştir.\"",
+          "text": "Formayı kaldırıyorsun. Karma alanı bir saniye donuyor, sonra deklanşörler makineli tüfek gibi patlıyor. O fotoğraf bir daha hiç kaybolmayacak. On yıl sonra bir belgeselin afişi olacak. Beş yıl sonra bir çocuk aynı tişörtü kendi maçında giyecek. Ve iki hafta sonra kurulun önünde bu fotoğraf masaya konacak. {actor.agent.first} koridorda sadece şunu diyor: \"Umarım değmiştir.\". Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "medya_itibari",
@@ -561,9 +561,9 @@
           "text": "{actor.agent.name} sadece gülümsüyor. Bu gülüş, kariyerinin en büyük fırtınasının başlangıcı. Adalet sarayının kapıları senin için artık resmi olarak açılıyor.",
           "onEnter": [
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "schedule",
@@ -577,12 +577,12 @@
         "n_outcome_gri": {
           "title": "Sessiz Anlaşma",
           "kind": "outcome",
-          "text": "Zarf masada kayarak eline geçiyor. {actor.agent.name} arkasını dönüyor. İhanetle karışık bir huzur hissediyorsun.",
+          "text": "Zarf masada kayarak eline geçiyor. {actor.agent.name} arkasını dönüyor. İhanetle karışık bir huzur hissediyorsun. Tribunun ugultusu dagilsa da karar?n izi dagilmiyor. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "schedule",
@@ -596,12 +596,12 @@
         "n_outcome_guvenli": {
           "title": "Yalnız Yolcu",
           "kind": "outcome",
-          "text": "Kapıyı kapattığında dışarıdaki soğuk havayı ciğerlerinde hissediyorsun. Yalnızsın ama en azından aynaya bakabiliyorsun.",
+          "text": "Kapıyı kapattığında dışarıdaki soğuk havayı ciğerlerinde hissediyorsun. Yalnızsın ama en azından aynaya bakabiliyorsun. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
-              "flag": "mem_justice_shirt",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "schedule",
@@ -615,7 +615,7 @@
         "n_outcome_stat": {
           "title": "Yeni Düzen",
           "kind": "outcome",
-          "text": "Fısıldaştığınız sırlar odanın duvarlarına siniyor. Artık {actor.agent.name} ile aynı karanlığın içindesiniz.",
+          "text": "Fısıldaştığınız sırlar odanın duvarlarına siniyor. Artık {actor.agent.name} ile aynı karanlığın içindesiniz. icindeki. gerilim nefesini. Bakislar ustunde toplanirken verdigin tepkinin etkisi sahadan sonra da surmeye devam etti.",
           "onEnter": [
             {
               "flag": "mem_attacked_tff",

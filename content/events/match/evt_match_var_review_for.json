@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Lehine",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. {opponent} golu attigini sandi; kale arkasi coktan bayrak sallamaya baslamisti.\n\nSonra {actor.referee.name} elini kulagina goturuyor ve ekrana yuruyor.\n\nIki dakika. Rakip santrfor senin yanina gelip duruyor, ikiniz de ekrana bakiyorsunuz ve ikiniz de hicbir sey goremiyorsunuz.\n\nHakem donuyor: gol iptal. Ofsayt.\n\nRakip oyuncu dizlerinin ustune cokuyor. Tribunun o bolumu susuyor.",
+          "text": "{minute}. dakika, skor {scoreline}. {opponent} golu attigini sandi; kale arkasi coktan bayrak sallamaya baslamisti. Sonra {actor.referee.name} elini kulagina goturuyor ve ekrana yuruyor. Iki dakika. Rakip santrfor senin yanina gelip duruyor, ikiniz de ekrana bakiyorsunuz ve ikiniz de hicbir sey goremiyorsunuz. Hakem donuyor: gol iptal. Ofsayt. Rakip oyuncu dizlerinin ustune cokuyor. Tribunun o bolumu susuyor.",
           "choices": [
             {
               "id": "c_celebrate",
@@ -121,7 +121,7 @@
         "n_celebrated": {
           "title": "O tribun",
           "kind": "outcome",
-          "text": "Kollarini aciyorsun ve o tribun senin adini kufurle soyluyor. {actor.referee.first} sana dogru bir adim atiyor ama kart cikarmiyor.\n\nMac sonunda bu goruntu doner. Kimse ofsayti konusmaz; senin kollarini konusur.",
+          "text": "Kollarini aciyorsun ve o tribun senin adini kufurle soyluyor. {actor.referee.first} sana dogru bir adim atiyor ama kart cikarmiyor. Mac sonunda bu goruntu doner. Kimse ofsayti konusmaz; senin kollarini konusur.",
           "onEnter": [
             {
               "op": "match",
@@ -143,7 +143,7 @@
         "n_quiet": {
           "title": "Topu al",
           "kind": "outcome",
-          "text": "Topu alip orta yuvarlaga yuruyorsun. Kimse seni gostermiyor, kimse seni alkislamiyor.\n\n{actor.captain.name} yanina gelip ensene vuruyor: dogru olan buydu, diyor. Sonra ekliyor: ama bir gun bunun bedelini odeyeceksin, cunku taraftar hatirlamaz.",
+          "text": "Topu alip orta yuvarlaga yuruyorsun. Kimse seni gostermiyor, kimse seni alkislamiyor. {actor.captain.name} yanina gelip ensene vuruyor: dogru olan buydu, diyor. Sonra ekliyor: ama bir gun bunun bedelini odeyeceksin, cunku taraftar hatirlamaz.",
           "onEnter": [
             {
               "op": "match",
@@ -165,7 +165,7 @@
         "n_consoled": {
           "title": "Elini uzat",
           "kind": "outcome",
-          "text": "Yerdeki adami kolundan tutup kaldiriyorsun. Sana bakiyor, basini salliyor ve hicbir sey soylemiyor.\n\nO fotograf ertesi gun her yerde: rakibini kaldiran oyuncu.\n\nKendi taraftarinin bir bolumu bunu sevmiyor ve bunu duyuyorsun.",
+          "text": "Yerdeki adami kolundan tutup kaldiriyorsun. Sana bakiyor, basini salliyor ve hicbir sey soylemiyor. O fotograf ertesi gun her yerde: rakibini kaldiran oyuncu. Kendi taraftarinin bir bolumu bunu sevmiyor ve bunu duyuyorsun.",
           "onEnter": [
             {
               "op": "match",
@@ -173,9 +173,9 @@
               "incident": "inc_var_for"
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "medya_itibari",
@@ -284,9 +284,9 @@
           "text": "Hakem kararını iptal ediyor. Tribünlerden yükselen uğultu sana doğru yöneliyor. Takımın sahada sana yabancılaşmış bakışlarla bakıyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -426,9 +426,9 @@
           "text": "Düdük çaldı. {actor.referee.name} kararı verdi. Omuzların çöküyor ama disiplinin korunuyor. Bu bir futbol maçı, hayatın kendisi değil.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -442,9 +442,9 @@
           "text": "Tribünler senin ismini haykırıyor. {actor.referee.name} kartına uzanıyor. Kırmızı, hayatının en pahalı kartı olabilir ama o an tribünlerdeki tek kahraman sensin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -458,9 +458,9 @@
           "text": "Göz göze geliyorsunuz. {actor.referee.name} bakışlarını kaçırıyor. Maç devam ediyor, cüzdanın ağırlaşıyor ama içindeki o boşluk gitmiyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

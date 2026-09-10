@@ -1,0 +1,241 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Yükseliş çağında (20-23 yaş) oyuncu ilk ciddi sponsorluk teklifini alır. Ağır drama değil; futbolun komik, absürt ve renkli gerçeği.",
+    "hangi_soru": "Rakip kulübün renklerini taşıyan neon tabanlı krampon için uzatılan parayı alır mısın, yoksa boyayla kamufle mi edersin?",
+    "odeme_plani": "Bu krampon anlaşması Zirve çağındaki reklam çekimiyle (evt_sponsor_reklam_cekimi) devam eder."
+  },
+  "id": "evt_sponsor_ilk_krampon_catismasi",
+  "family": "fam_sponsor_krampon",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 60,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "rise"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "sponsor:agent:ilk_krampon_catismasi",
+    "slot": "agent",
+    "beat": "ilk_krampon_catismasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gümüş Kutu ve Neon Taban",
+      "kind": "branch",
+      "text": "{actor.agent.name} antrenman tesisinin otoparkında bagajı açıyor. İçeride parlak gümüş rengi bir kutu var. Kutunun kapağını kaldırdığında gözlerini kısıyorsun: küresel bir markanın son teknoloji kramponu. Tek bir sorun var: tabanı ve yan şeritleri, şehrin ezeli rakibinin simgesi olan çiğ neon renkte parlıyor. \"Yıllık seksen bin artı maç başı bonus,\" diyor {actor.agent.name}, gözleri parlayarak. \"Markanın bu sezonki küresel vitrin rengi bu. Değiştiremeyiz. Hafta sonu derbide bunları ayağına geçireceksin.\" Tam o sırada tesisin kapısından amigo lideri geçiyor; gözü bir an bagajdaki o renge takılıyor ve kaşları çatılıyor. Bu kramponla sahaya çıkarsan para cebine girecek ama tribünlerin ilk pas hatanda ne tezahürat yapacağını tahmin etmek zor değil.",
+      "choices": [
+        {
+          "id": "c_giy",
+          "text": "Parayı al ve kramponu giy. \"Ben profesyonelim, renge değil sahaya bakarım.\"",
+          "target": "n_giy",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 80000
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": -8,
+            "sadakat": -8
+          }
+        },
+        {
+          "id": "c_boya",
+          "text": "Malzemeciden siyah ayakkabı boyası iste: \"Tabanı ve logoyu siyaha boyayacağız.\"",
+          "target": "n_boya",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 40000
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "mizac": 8,
+            "dogruluk": -5
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "\"Bu kulüpte bu renk giyilmez.\" Kutuyu kapat ve {actor.agent.name:dat} geri ver.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_sponsor",
+              "op": "add",
+              "value": -18
+            },
+            {
+              "flag": "iliski_agent",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "sadakat": 12,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_pazarlik",
+          "text": "\"Markaya söyle, taban siyah olsun üstü neon kalsın. Yoksa başka markaya gideriz.\"",
+          "target": "n_pazarlik",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 6
+          }
+        }
+      ]
+    },
+    "n_giy": {
+      "title": "Işıklar Altındaki Renk",
+      "kind": "outcome",
+      "text": "Kramponları çantana koydun, sözleşmeye imza attın. Para iki gün içinde hesabına yattı. Hafta sonu sahaya çıktığında o neon renk projektörlerin altında alev gibi parladı. Tribünler ilk yirmi dakika ne olduğunu anlamadı; ama tribün liderinin 'O kramponu çıkar!' tezahüratı başladığında kulakların uğuldadı. Doksan dakikayı iyi oynadın ama maç sonu taraftarlar seni tribüne çağırmadı.",
+      "onEnter": [
+        {
+          "flag": "mem_krampon_anlasmasi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_boya": {
+      "title": "Akan Siyah Boya",
+      "kind": "outcome",
+      "text": "Malzemeciyle kafa kafaya verip kramponun tabanını ve neon şeritlerini üç kat siyah deri boyasıyla kapladınız. Soyunma odasında herkes kahkahalarla izledi. İlk yarıda plan kusursuz çalıştı. Ama kırkıncı dakikada yağmur bastırınca boya çimlere aktı; beyaz çorapların ve yeşil zemin alacalı bulacalı oldu. Maçın en çok paylaşılan görüntüsü kramponundan akan siyah su oldu. Sponsor öfkelendi ama taraftar sana bayıldı.",
+      "onEnter": [
+        {
+          "flag": "mem_krampon_anlasmasi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Kapanan Bagaj",
+      "kind": "outcome",
+      "text": "Kutunun kapağını kapattın. {actor.agent.name} 'Delirdin mi sen? Seksen binden bahsediyoruz!' diye bağırdı ama kararın kesindi. Olay ertesi gün yerel basına sızdı: 'Genç yıldızdan renklere sadakat dersi.' Taraftar dernekleri adını tezahürat yaptı. Menajerin üç hafta boyunca yüzüne bakmadı ama tesis kapısından girerken güvenlik görevlisinin sana verdiği selamın ağırlığı değişti."
+    },
+    "n_pazarlik": {
+      "title": "Orta Yol Çözümü",
+      "kind": "outcome",
+      "text": "{actor.agent.name} önce olmaz dedi ama kararlılığını görünce markanın bölge müdürünü aradı. İki gün süren telefon trafiğinin ardından marka geri adım attı: taban siyah, şeritler gümüş rengine çekildi. Para biraz azaldı ama ne taraftarla papaz oldun ne de koca bir sözleşmeyi çöpe attın. Menajerin otoparkta omzuna vurdu: 'Sen sandığımdan daha dişli çıktın.'.",
+      "onEnter": [
+        {
+          "flag": "mem_krampon_anlasmasi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

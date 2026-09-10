@@ -267,6 +267,12 @@ export interface EngineOptions {
   readonly worldFeed?: WorldFeed;
   /** Baslangic kulubu. Verilmezse arketipin seviyesinden secilir. */
   readonly startClubId?: string;
+  /** Haftalik secimden once yaklasan mac baglamini verir. */
+  readonly selectionMatchContext?: (input: {
+    readonly season: number;
+    readonly week: number;
+    readonly clubId: string;
+  }) => MatchContext | undefined;
 }
 
 /**
@@ -1043,6 +1049,7 @@ export class GameEngine {
     this.syncDerived();
     if (this.state.season !== previousSeason) this.onSeasonChange();
     this.refreshCasting();
+    this.syncSelectionMatchContext();
 
     const ending = this.checkEnding();
     if (ending) return this.report(ending);
@@ -1230,13 +1237,28 @@ export class GameEngine {
   /** Host gercek sonucu bildirir; incident'ler acilir, roportaj olaylari tetiklenebilir. */
   finalizeMatch(result: MatchResultReport): void {
     this.requireStarted();
-    this.matchGate.applyResult(this.state.flags, result, this.state.ratingHistory);
-    this.incidents.record(this.state, this.matchDelta.incidents);
-    this.applyMatchFatigue(result.minutes);
-    this.applyMatchChemistry(result.minutes);
+    const fixturePlayed = result.result !== 'none';
 
-    if (this.state.availability.matchesRemaining > 0) {
-      this.state.availability = this.suspensionConsume();
+    this.matchGate.applyResult(this.state.flags, result, this.state.ratingHistory);
+    if (fixturePlayed) {
+      this.incidents.record(this.state, this.matchDelta.incidents);
+      if (result.minutes > 0) {
+        this.applyMatchFatigue(result.minutes);
+        this.applyMatchChemistry(result.minutes);
+      }
+
+      if (this.state.availability.matchesRemaining > 0) {
+        this.state.availability = this.suspensionConsume();
+      }
+    }
+
+    // Fikstur yoksa yeni bir beginMatch gelmeyecegi icin eski delta tasinmamali.
+    if (!fixturePlayed) {
+      this.matchDelta = emptyDelta();
+      this.momentBaseline = emptyDelta();
+      this.lastResolution = undefined;
+      this.momentQueue = [];
+      this.opponentClubId = undefined;
     }
     this.syncDerived();
   }
@@ -3380,6 +3402,16 @@ export class GameEngine {
     });
     if (ending) this.state.ending = ending.id;
     return ending;
+  }
+
+  private syncSelectionMatchContext(): void {
+    if (!this.options.selectionMatchContext) return;
+    const ctx = this.options.selectionMatchContext?.({
+      season: this.state.season,
+      week: this.state.week,
+      clubId: this.state.clubId,
+    });
+    this.matchGate.applySelectionContext(this.state.flags, ctx);
   }
 
   private eligibilityContext(): EligibilityContext {

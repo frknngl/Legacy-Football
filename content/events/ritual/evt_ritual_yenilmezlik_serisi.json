@@ -1,0 +1,208 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Takım yenilmezlik serisi (unbeaten_streak >= 7) yakaladığında soyunma odasında baş gösteren kolektif totem çılgınlığı ve batıl inanç baskısı.",
+    "hangi_soru": "Yedi maçtır süren seriyi bozmamak için takımın akıl dışı ritüellerine (sakalları kesmeme, aynı müziği dinleme) ortak mı olacaksın, yoksa rasyonel kalıp berbere mi gideceksin?",
+    "odeme_plani": "Bu kriz anında alınan tavır kaptan ve takımın oyuncuya olan aidiyet duygusunu (npc_captain_arc) şekillendirir."
+  },
+  "id": "evt_ritual_yenilmezlik_serisi",
+  "family": "fam_ritual_seri",
+  "category": "ritual",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 70,
+  "cooldown": {
+    "self": 28,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "trigger": {
+    "flag": "unbeaten_streak",
+    "op": "gte",
+    "value": 7
+  },
+  "story": {
+    "signature": "ritual:captain:yenilmezlik_serisi",
+    "slot": "captain",
+    "beat": "yenilmezlik_serisi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 4
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kesilmeyen Sakallar ve Uğurlu Kaset",
+      "kind": "branch",
+      "text": "Takım yedi haftadır kaybetmiyor. Lig tablosunda tırmanış sürüyor ama soyunma odası orta çağ kalesine dönmüş durumda.\n\n{actor.captain.name} kapının eşiğinde kollarını kavuşturmuş, içeri girenlerin yüzünü denetliyor. Yedi haftadır kimsenin sakal tıraşı olmasına izin verilmiyor; şoför deplasman otobüsünde aynı arabesk kaseti kırkıncı kez baştan sarıyor, malzemeci formaları yedi haftadır aynı eski leğende yıkıyor.\n\nAynanın önünde elinde tıraş bıçağıyla duruyorsun. Sakalların kaşındırıyor, yarın akşam maç öncesi canlı yayın röportajı var. Kaptan arkandan aynadaki gözlerine bakıyor: 'O bıçağı çenene sürersen büyüyü bozarsın. Seri biterse faturayı sana keserim.'",
+      "choices": [
+        {
+          "id": "c_uy",
+          "text": "Bıçağı tezgaha bırak: \"Tamam kaptan, seri nereye kadar giderse sakal oraya kadar.\"",
+          "target": "n_uy",
+          "effects": [
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "sadakat": 12,
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_tiras",
+          "text": "Köpüğü sür ve sinekkaydı tıraş ol: \"Futbol çimende oynanır kaptan, sakalda değil.\"",
+          "target": "n_tiras",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_captain",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_totem_ekle",
+          "text": "Gülerek yeni totem uydur: \"Sakal yetmez, maç öncesi herkes koridorda takla atacak!\"",
+          "target": "n_totem_ekle",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 14,
+            "durus": 4
+          }
+        }
+      ]
+    },
+    "n_uy": {
+      "title": "Kolektif Sakal",
+      "kind": "outcome",
+      "text": "Bıçağı masaya bıraktın. {actor.captain.name} sırtına okkalı bir tokat attı: 'İşte bu.' Hafta sonu sahaya çıktığınızda rakip takım karşınızda orman kaçkını gibi duran on bir adam gördü. Maçı 1-0 kazandınız, seri sekize çıktı; röportajda sakallarınla dalga geçtiler ama kimsenin umurunda değildi.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_tiras": {
+      "title": "Pırıl Pırıl Çene",
+      "kind": "outcome",
+      "text": "Köpüğü sürdün, iki dakikada çeneni pırıl pırıl yaptın. Kaptan başını iki yana sallayıp odadan çıktı; soyunma odasında sana birkaç kişi ters ters baktı. Ama ertesi gün sahada iki asist yapıp maçı aldığında kaptan yanına gelip kulağına fısıldadı: 'Neyse ki iyi oynadın yoksa seni otobüse almazdık.'",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_totem_ekle": {
+      "title": "Koridorda Şenlik",
+      "kind": "outcome",
+      "text": "Bütün oda kahkahalara boğuldu; gergin hava bir anda dağıldı. Maçtan önce tünelde üç genç oyuncu gerçekten küçük bir takla attı; hakemler şaşkınlıkla izledi. Gerilimi kahkahayla çözmüştün ve seri sekizinci maça coşkuyla taşındı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  }
+}

@@ -2,7 +2,7 @@
   "id": "evt_match_one_on_one",
   "family": "fam_match_chance",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "one_on_one",
   "weight": 20,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Kaleciyle baş başa",
           "kind": "branch",
-          "text": "{minute}. dakika. {opponent} savunması bir anlığına açıldı ve sen o boşluğun içindesin. Skor {scoreline}. Kaleci çıkıyor, gövdesini büyütüyor, ellerini açıyor.\n\nSol tarafta {actor.captain.name} koşuyor ve bağırıyor; sesini duymuyorsun ama ne dediğini biliyorsun. Sağda kimse yok. Arkanda bir defans ayağını uzatmış geliyor.\n\nHer şey yarım saniye.",
+          "text": "{minute}. dakika. {opponent} savunması bir anlığına açıldı ve sen o boşluğun içindesin. Skor {scoreline}. Kaleci çıkıyor, gövdesini büyütüyor, ellerini açıyor. Sol tarafta {actor.captain.name} koşuyor ve bağırıyor; sesini duymuyorsun ama ne dediğini biliyorsun. Sağda kimse yok. Arkanda bir defans ayağını uzatmış geliyor. Her şey yarım saniye.",
           "choices": [
             {
               "id": "c_shoot",
@@ -320,7 +320,7 @@
         "n_scored_style": {
           "title": "Yürüyerek",
           "kind": "outcome",
-          "text": "Kaleci yere yatıyor ve sen topu yanından geçiriyorsun. Boş kaleye yürüyerek gidiyorsun. Bir saniye durup topa bakıyorsun, sonra içeri itiyorsun.\n\n{actor.manager.name} kenarda ellerini beline koymuş. Golü beğendi. Bir saniye fazla beklemeni beğenmedi. İkisini de sana söyleyecek.",
+          "text": "Kaleci yere yatıyor ve sen topu yanından geçiriyorsun. Boş kaleye yürüyerek gidiyorsun. Bir saniye durup topa bakıyorsun, sonra içeri itiyorsun. {actor.manager.name} kenarda ellerini beline koymuş. Golü beğendi. Bir saniye fazla beklemeni beğenmedi. İkisini de sana söyleyecek. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
               "op": "match",
@@ -380,7 +380,7 @@
         "n_assist": {
           "title": "Asist",
           "kind": "outcome",
-          "text": "{actor.captain.first} boş kaleye gönderiyor ve dönüp seni arıyor. Kaptanlık pazubandını gösteriyor, sonra sana. Ne demek istediğini anlıyorsun.\n\nTribün onun adını söylüyor. Bu doğru olan şeydi ve bunun hiç kimse tarafından hatırlanmayacağını da biliyorsun.",
+          "text": "{actor.captain.first} boş kaleye gönderiyor ve dönüp seni arıyor. Kaptanlık pazubandını gösteriyor, sonra sana. Ne demek istediğini anlıyorsun. Tribün onun adını söylüyor. Bu doğru olan şeydi ve bunun hiç kimse tarafından hatırlanmayacağını da biliyorsun. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
               "op": "match",
@@ -397,18 +397,13 @@
               "flag": "npc_captain_arc",
               "op": "add",
               "value": 1
-            },
-            {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
             }
           ]
         },
         "n_pass_wasted": {
           "title": "Yarım saniye geç",
           "kind": "outcome",
-          "text": "Pas yarım saniye geç çıkıyor. Defans araya giriyor. {actor.captain.first} ellerini havaya kaldırıp \"neden\" diye bağırıyor — sana değil, kendine.\n\nAma kamera seni gösteriyor ve akşam bu görüntünün altında \"cesaret edemedi\" yazacak.",
+          "text": "Pas yarım saniye geç çıkıyor. Defans araya giriyor. {actor.captain.first} ellerini havaya kaldırıp \"neden\" diye bağırıyor — sana değil, kendine. Ama kamera seni gösteriyor ve akşam bu görüntünün altında \"cesaret edemedi\" yazacak. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "op": "match",
@@ -435,7 +430,7 @@
         "n_dive_won": {
           "title": "Nokta",
           "kind": "outcome",
-          "text": "Hakem noktayı gösteriyor. Kaleci deliriyor, {opponent} oyuncuları etrafını sarıyor, sen ayağa kalkıp elini kolunu silkeliyorsun.\n\nKendini iyi hissetmiyorsun. Ama skor tabelası duyguları saymıyor.",
+          "text": "Hakem noktayı gösteriyor. Kaleci deliriyor, {opponent} oyuncuları etrafını sarıyor, sen ayağa kalkıp elini kolunu silkeliyorsun. Kendini iyi hissetmiyorsun. Ama skor tabelası duyguları saymıyor. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
               "op": "match",
@@ -457,7 +452,7 @@
         "n_dive_caught": {
           "title": "Sarı",
           "kind": "outcome",
-          "text": "Hakem elini cebine götürüyor ve sana sarı kart gösteriyor. \"Kalk,\" diyor, \"kalk ve bir daha yapma.\"\n\nKaleci gülüyor. {opponent} tribünü ıslık çalıyor. Kendi taraftarın da susuyor ve bu en ağırı.",
+          "text": "Hakem elini cebine götürüyor ve sana sarı kart gösteriyor. \"Kalk,\" diyor, \"kalk ve bir daha yapma.\" Kaleci gülüyor. {opponent} tribünü ıslık çalıyor. Kendi taraftarın da susuyor ve bu en ağırı. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
               "op": "match",
@@ -496,7 +491,7 @@
         "n_root": {
           "title": "Karar Anı",
           "kind": "branch",
-          "text": "Stadyum uğultusu kesildi. Top ayağının dibinde, saha bir anda daraldı. Kaleciyle burun burunasın. {actor.captain.name} ise arka direkteki koşusuna devam ediyor. Göz göze geliyorsunuz. O an, bu topun nereye gideceğinden çok, senin kim olduğun tartışılıyor. Sessizlik ağırlaşıyor.",
+          "text": "Stadyum uğultusu kesildi. Top ayağının dibinde, saha bir anda daraldı. Kaleciyle burun burunasın. {actor.captain.name} ise arka direkteki koşusuna devam ediyor. Göz göze geliyorsunuz. O an, bu topun nereye gideceğinden çok, senin kim olduğun tartışılıyor. Sessizlik ağırlaşıyor. Kimse bunu yuksek sesle soylemiyor, ama herkes ne oldugunu biliyor. ama.",
           "choices": [
             {
               "id": "c_safe",
@@ -617,9 +612,9 @@
           "text": "Vuruşun sert değil, hesaplı. Kaleci uzanıyor ve topu köşeden çeliyor. Skor değişmiyor ama takım arkadaşların sana bakışları sorgulayıcı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -630,12 +625,12 @@
         "n_winner": {
           "title": "Fedakarlık",
           "kind": "outcome",
-          "text": "Topu yanındaki arkadaşına yuvarlıyorsun. Boş kaleye ağları sarsıyor. Tribünler patlıyor, herkes ona koşuyor.",
+          "text": "Topu yanındaki arkadaşına yuvarlıyorsun. Boş kaleye ağları sarsıyor. Tribünler patlıyor, herkes ona koşuyor. Koridor boyunca uzayan sessizlik sana eslik ediyor. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -646,12 +641,12 @@
         "n_dived": {
           "title": "Düşüş",
           "kind": "outcome",
-          "text": "Ayakların birbirine dolanıyor. Hakem düdüğünü çalıyor. Penaltı. Kimse senin o anki utancını görmüyor, sadece rakamları görüyor.",
+          "text": "Ayakların birbirine dolanıyor. Hakem düdüğünü çalıyor. Penaltı. Kimse senin o anki utancını görmüyor, sadece rakamları görüyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -662,12 +657,12 @@
         "n_sitter": {
           "title": "Otorite",
           "kind": "outcome",
-          "text": "Göz temasınla liderliği eline alıyorsun. Top ayağından çıkarken doğru kararı verdiğini biliyorsun. Kaçsa bile sorumluluk artık ortak.",
+          "text": "Göz temasınla liderliği eline alıyorsun. Top ayağından çıkarken doğru kararı verdiğini biliyorsun. Kaçsa bile sorumluluk artık ortak. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -815,9 +810,9 @@
           "text": "Top ağlarda. {actor.captain.name} sana doğru geliyor, gözlerinde hala o tuhaf, derin bakış var. Seni bir figüran gibi değil, bir ortak gibi selamlıyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -831,9 +826,9 @@
           "text": "Yere kapaklandın. Hakem tereddüt etse de düdüğü çalıyor. {actor.captain.name} arkandan bakıyor; o anki tanınma hissi yerini soğuk bir mesafeye bırakıyor.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -847,9 +842,9 @@
           "text": "Pasın biraz kısa kaldı, savunma topa müdahale etti. {actor.captain.name} topun peşinden koşarken başını çevirip sana baktı. O bakışta hayal kırıklığı yok; sadece paylaşılan bir mağlubiyetin ağırlığı var.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -863,9 +858,9 @@
           "text": "Kaleci uzanıp topu tokatladı. {actor.captain.name} yanına geldi, elini omzuna koydu. Sesini çıkarmadı ama omuzundaki baskı her şeyi anlattı: birbirimizi artık biliyoruz.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

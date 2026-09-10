@@ -1,0 +1,192 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Tecrübeli çağında (30-34 yaş) futbolun en köklü ve mizahi ritüellerinden biri: deplasman otobüsündeki sabit koltuk hiyerarşisi.",
+    "hangi_soru": "Sekiz yıllık sabit koltuğuna kurulan havalı yeni transfere karşı racon mu keseceksin, espriyle mi çözeceksin?",
+    "odeme_plani": "Bu soyunma odası kültürü (mem_otobus_koltugu_cozuldu), kariyer epilogunda takım içi otorite mirası olarak konuşur."
+  },
+  "id": "evt_ritual_otobus_koltugu_savasi",
+  "family": "fam_ritual_otobus",
+  "category": "ritual",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 36,
+    "family": 14
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "ritual:rival_teammate:otobus_koltugu_savasi",
+    "slot": "rival_teammate",
+    "beat": "otobus_koltugu_savasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 2
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dördüncü Sıra Cam Kenarı",
+      "kind": "branch",
+      "text": "Deplasman otobüsünün kapısından bindiğinde koridorda alışılmadık bir sessizlik var. Gençler başlarını telefonlarından kaldırmıyor; şoför dikiz aynasından gergin bir şekilde arkaya bakıyor.\n\nSebebi anlamak için koridorda üç adım atman yetiyor: sekiz yıldır her deplasmanda oturduğun, cam kenarındaki dördüncü sıra koltukta yeni transfer {actor.rival_teammate.name} yayılmış. Kulaklığını takmış, bacaklarını koridora doğru uzatmış, sakız çiğniyor.\n\nO koltuğun sana ait olduğunu bilmemesine imkân yok; malzemeci bile oraya başka kimsenin termosunu koymaz. Arkalardan bir kıkırdama geliyor, sonra hemen kesiliyor. Otobüsteki herkes gözünü dikmiş, vereceğin tepkiyi bekliyor.",
+      "choices": [
+        {
+          "id": "c_kaldir",
+          "text": "Kulaklığını hafifçe çek: \"Kardeşim burası benim yerim, arkada boş koltuk var.\"",
+          "target": "n_kaldir",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_rival_teammate",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "sadakat": 6
+          }
+        },
+        {
+          "id": "c_otur",
+          "text": "Hiç ses etmeden yanındaki koridor koltuğuna otur: \"Mesele nerede oturduğun değil.\"",
+          "target": "n_otur",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_rival_teammate",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            }
+          ],
+          "persona": {
+            "durus": 6,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_sofor",
+          "text": "Şoföre seslen: \"Kaptan otobüsü sağa çek, biri yanlış servise binmiş!\"",
+          "target": "n_sofor",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_rival_teammate",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "mizac": 12,
+            "durus": 6
+          }
+        }
+      ]
+    },
+    "n_kaldir": {
+      "title": "Buz Gibi Racon",
+      "kind": "outcome",
+      "text": "Kulaklığının tekini hafifçe çektin. 'Kardeşim,' dedin sakin ama buz gibi bir sesle. 'Arkada boş yerler var. Burası benim.' {actor.rival_teammate.name} bir an gözlerini kısıp yüzüne baktı; geri adım atmayacağını anlayınca çantasını homurdanarak topladı. Bütün otobüs sessizce nefesini bıraktı; hiyerarşi sarsılmamıştı.",
+      "onEnter": [
+        {
+          "flag": "mem_otobus_koltugu_cozuldu",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_otur": {
+      "title": "Büyük Ağabey Havası",
+      "kind": "outcome",
+      "text": "Hiç sesini çıkarmadan yanındaki boş koltuğa oturdun, gazetenin spor ekini açtın. 'Mesele nerede oturduğun değil evlat,' dedin gülümseyerek, 'sahada ne oynadığın.' {actor.rival_teammate.name} şaşırdı; kavga beklerken gelen bu olgunluk havasını dağıttı. Maçta sana iki kritik pas attı, yolculuk boyunca da saygıyla dinledi.",
+      "onEnter": [
+        {
+          "flag": "mem_otobus_koltugu_cozuldu",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_sofor": {
+      "title": "Otobüs Kahkahası",
+      "kind": "outcome",
+      "text": "Koridorda durdun, şoföre seslendin: 'Kaptan, otobüsü sağa çek, biri yanlış servise binmiş!' Bütün otobüs bir anda kahkahayı patlattı. {actor.rival_teammate.name:gen} kulaklarına kadar kızardı; çantasını alıp arkadaki boş ikiliye geçerken o da gülümsemek zorunda kaldı. Otoriteyi kırmadan, odayı gerdirmeden çözmüştün.",
+      "onEnter": [
+        {
+          "flag": "mem_otobus_koltugu_cozuldu",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

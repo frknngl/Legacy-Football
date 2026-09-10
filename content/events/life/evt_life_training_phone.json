@@ -3,6 +3,7 @@
   "family": "fam_life_daily",
   "category": "life",
   "tier": "beat",
+  "authored": "hand",
   "weight": 30,
   "cooldown": {
     "self": 14,
@@ -21,7 +22,7 @@
         "n_root": {
           "title": "Dört yüz bin görüntülenme",
           "kind": "branch",
-          "text": "İdman sonrası soyunma odasında {actor.captain.name} telefonunu uzatıyor: \"Bak, senin o pozisyonu paylaşmışlar. Yorumları okuma derim ama...\"\n\n{actor.youngster.first} de omzunun üstünden bakıyor, gülüyor. Ekranda kendi hatan, dört yüz bin görüntülenme.",
+          "text": "İdman sonrası soyunma odasında {actor.captain.name} telefonunu uzatıyor: \"Bak, senin o pozisyonu paylaşmışlar. Yorumları okuma derim ama.\" {actor.youngster.first} de omzunun üstünden bakıyor, gülüyor. Ekranda kendi hatan, dört yüz bin görüntülenme. bu.",
           "choices": [
             {
               "id": "c_read",
@@ -38,9 +39,9 @@
                   "value": 3
                 },
                 {
-                  "flag": "mem_reads_own_criticism",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -150,7 +151,7 @@
         "n_root": {
           "title": "Otobüsün arkası",
           "kind": "branch",
-          "text": "Deplasman dönüşü. Otobüsün arka koltukları her zaman aynı üç kişinin: {actor.captain.first}, kaleci ve sen. Işıklar kapalı, herkes kulaklıkta.\n\n{actor.captain.first} camdan dışarı bakarak konuşuyor: \"Ben senin yaşındayken bu koltukta oturmuyordum. Öndeydim, hocanın arkasında. Buraya gelmem altı yıl sürdü.\"\n\nSonra sana dönüyor: \"Sen iki yılda geldin. Bu iyi bir şey mi kötü mü, hâlâ bilmiyorum.\"",
+          "text": "Deplasman dönüşü. Otobüsün arka koltukları her zaman aynı üç kişinin: {actor.captain.first}, kaleci ve sen. Işıklar kapalı, herkes kulaklıkta. {actor.captain.first} camdan dışarı bakarak konuşuyor: \"Ben senin yaşındayken bu koltukta oturmuyordum. Öndeydim, hocanın arkasında. Buraya gelmem altı yıl sürdü.\" Sonra sana dönüyor: \"Sen iki yılda geldin. Bu iyi bir şey mi kötü mü, hâlâ bilmiyorum.\".",
           "choices": [
             {
               "id": "c_joke",
@@ -354,9 +355,9 @@
           "text": "Düzenin dışına çıkmadın. Herkes senin ne yapacağını biliyordu. Beklenti seni korudu ama ruhunu daralttı.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -366,9 +367,9 @@
           "text": "Kapı gürültüyle kapandı. Arkanda ne bir iz ne de bir miras bıraktın. Sadece boş bir dolap ve yükselen fısıltılar.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -378,9 +379,9 @@
           "text": "Cebine giren para, odaya yayılan utanç kokusunu bastıramıyor. Artık hiçbir şey eskisi gibi temiz olmayacak.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

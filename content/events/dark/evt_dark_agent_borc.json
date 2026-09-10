@@ -2,7 +2,7 @@
   "id": "evt_dark_agent_borc",
   "family": "fam_dark_borc",
   "category": "dark",
-  "tier": "major",
+  "tier": "beat",
   "weight": 10,
   "cooldown": {
     "self": 20,
@@ -144,9 +144,9 @@
           "text": "Arabanın motoru kükreyerek çalışıyor. Egzoz dumanı, karanlık otoparkı bir anlığına puslandırıyor. Uzaklaşan kırmızı stop lambalarına bakarken, ceketinin içinde hissettiğin o soğuk boşluk yerini kalıcı bir tedirginliğe bırakıyor. Sözler verildi, ödünler verildi. Bu gece sahadan ayrılırken adımların biraz daha ağır, zihnin biraz daha kalabalık.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -249,9 +249,9 @@
           "text": "Dosya ulaştı. Kendi ismini temize çıkarırken, bir başkasının kariyerini ateşe attın. Vicdanındaki boşluk, hesabına yatan paradan daha ağır.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -261,9 +261,9 @@
           "text": "Ekran aniden karardı, odadaki tek ışık kaynağı olan loş masa lambası cılız bir şekilde titredi. {actor.agent.name} geriye yaslandı, yüzündeki o çarpık gülümseme karanlıkta sadece dişlerinin beyazlığıyla seçiliyordu. Artık bu bataklığın derinliklerine kadar çekilmiş durumdasın; verdiğin bu sessizlik sözü, ileride kopacak devasa bir fırtınanın şimdiden atılan imzasıydı. Masanın üzerindeki soğumuş kahvenin acı kokusu odaya sinerken, kapının ardında bekleyen belirsizliğin ağırlığı omuzlarına çöktü.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -273,9 +273,9 @@
           "text": "Kurulda verdiğin ifade sonrası stadyumdan çıkarken kimse sana selam vermiyor. Profesyonel olarak doğru olanı yaptın, ama arkanda bıraktığın enkaz seninle büyüyecek.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -293,7 +293,7 @@
             {
               "id": "c_riskli",
               "text": "Dosyayı elinden alıp buharın içine fırlat. \"Bu son görüşmemiz.\"",
-              "target": "n_outcome_risk",
+              "target": "n_shape_bridge_v_yuzlesme",
               "effects": [
                 {
                   "flag": "sokak_itibari",
@@ -416,33 +416,33 @@
           "text": "{actor.agent.name} şaşkın değil, sadece gülümsüyor. Kağıtlar suyun içinde eriyip gidiyor. Artık dönüşü yok.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_outcome_gri": {
           "title": "Bedel",
           "kind": "outcome",
-          "text": "Bileğindeki ağırlık gitti ama ruhundaki boşluk arttı. {actor.agent.name} saate bakıp başını sallıyor.",
+          "text": "Bileğindeki ağırlık gitti ama ruhundaki boşluk arttı. {actor.agent.name} saate bakıp başını sallıyor. Yuzune vuran soguk hava seni ayiltsa da Icindeki gerilim hala diri. uzun sure dinmedi.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_outcome_guvenli": {
           "title": "Soğuk Duş",
           "kind": "outcome",
-          "text": "Arkana bakmadan çıktın. Sauna kapısının ardında {actor.agent.name}’in yavaşça doğrulduğunu duyabiliyorsun.",
+          "text": "Arkana bakmadan çıktın. Sauna kapısının ardında {actor.agent.name}’in yavaşça doğrulduğunu duyabiliyorsun. kimse acikca. Bu sessizlik gecenin geri kalaninda da pesini birakmadi ve adimlarini daha temkinli attin.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -452,11 +452,17 @@
           "text": "{actor.agent.name} önündeki dosyayı kapatıp kenara itiyor. Aranızdaki yeni denge, odadaki sıcaklıktan daha ağır.",
           "onEnter": [
             {
-              "flag": "mem_dark_borc_agent",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_yuzlesme": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Karanlık Köşe aninda \"Dosyayı elinden alıp buharın içine fırlat. \"Bu\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_outcome_risk"
         }
       }
     }

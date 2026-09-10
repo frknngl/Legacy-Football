@@ -1,0 +1,233 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Yükseliş çağında (20-22 yaş) ilk büyük galibiyet sonrası gece hayatı acemiliği. Ağır skandal değil, ilk kez flaş patlamasının komik ve tedirgin edici anı.",
+    "hangi_soru": "02:30'da patlayan magazin flaşına karşı ne yapacaksın: koşarak kaçacak mısın, hafıza kartını mı isteyeceksin, kameraya poz mu vereceksin?",
+    "odeme_plani": "Bu gece kaçamağı kariyer sonu epilogunda (koda_kacamak: mem_mac_gecesi_kacti) faturasını verir."
+  },
+  "id": "evt_life_gece_kulubu_ilk_paparazzi",
+  "family": "fam_life_gece_kulubu",
+  "category": "life",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 55,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "rise"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "life:childhood_friend:gece_kulubu_ilk_paparazzi",
+    "slot": "childhood_friend",
+    "beat": "gece_kulubu_ilk_paparazzi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gece Yarısı Patlayan Flaş",
+      "kind": "branch",
+      "text": "Gece 02:40. Derbi galibiyetinin ardından {actor.childhood_friend.name} seni kulübün arka kapısından çıkardı. 'İki kadeh bir şey içeriz, kimse görmez' demişti. Sokak lambasının altındaki sosisçiye doğru yürürken çöp konteynerinin arkasından beyaz bir şimşek çakıyor: flaş. Boynunda teleobjektif asılı bir genç, peş peşe üç deklanşör sesi daha çıkarıyor. Elinde plastik bardak, kafanda kapüşon, yanında mahalleden arkadaşın. {actor.childhood_friend.name} hemen parmak uçlarında dikilip 'Sil onu birader!' diye bağırıyor ama çocuk çoktan köşeyi dönmeye hazırlanıyor. Yarın sabah 10:00'da taktik idmanı var ve hocanın bu kareyi görmesi haftalık primini yakabilir.",
+      "choices": [
+        {
+          "id": "c_kac",
+          "text": "Kapüşonu çek, {actor.childhood_friend.name:gen} kolundan tutup sokağın sonuna depar at.",
+          "target": "n_kac",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "mizac": 6,
+            "durus": -4
+          }
+        },
+        {
+          "id": "c_konus",
+          "text": "\"Dur kaçma, gel iki çift laf edelim.\" Sakince yanına git ve rica et.",
+          "target": "n_konus",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -5000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "dogruluk": 6
+          }
+        },
+        {
+          "id": "c_kart",
+          "text": "{actor.childhood_friend.name:dat} işaret et: \"Ver şu çocuğa bir deste para, hafıza kartını al.\"",
+          "target": "n_kart",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            },
+            {
+              "flag": "iliski_childhood_friend",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": -8,
+            "dogruluk": -6
+          }
+        },
+        {
+          "id": "c_poz",
+          "text": "Plastik bardağı kaldır ve kameraya gülümse: \"Çek çek, güzel açıdan çek!\"",
+          "target": "n_poz",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": 6
+          }
+        }
+      ]
+    },
+    "n_kac": {
+      "title": "Sokak Deparı",
+      "kind": "outcome",
+      "text": "Sokağın başına kadar sprint attınız; köşedeki taksiye nefes nefese bindiniz. Fotoğrafçı arkanızdan yetişemedi ama çamurlu deparınızın bulanık bir karesini yakalamış. Ertesi gün spor sayfasının köşesinde küçük bir kare çıktı: 'Genç hücumcu sahada atamadığı deparı sokakta attı.' Takım içinde haftalarca dalga konusu oldun ama ceza almadın.",
+      "onEnter": [
+        {
+          "flag": "mem_mac_gecesi_kacti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_konus": {
+      "title": "Sosisli Diplomasisi",
+      "kind": "outcome",
+      "text": "Fotoğrafçının yanına gittin. Çocuk yirmi yaşlarında bir stajyer muhabirdi; elin omzuna değince şaşırdı. 'Hocam derbiyi yeni kazandık, bir tost yiyip yatacağız, yapma etme' dedin. Çocuğa sosisli ısmarladın, taksi parasını verdin. Fotoğrafı ana sayfaya basmadı; ertesi gün sadece 'genç yıldız esnafla sohbet ederken' diye sempatik bir kare paylaştı.",
+      "onEnter": [
+        {
+          "flag": "mem_mac_gecesi_kacti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_kart": {
+      "title": "Hafıza Kartı",
+      "kind": "outcome",
+      "text": "{actor.childhood_friend.name} çocuğun eline bir deste para sıkıştırıp kartı makineden söktü. Çocuk korktu, itiraz edemedi. Fotoğraf yayımlanmadı ama çocuk gazete merkezine gidip durumu şefine anlattı. İki gün sonra manşet patladı: 'Genç futbolcunun gece yarısı zorbalığı.' Parayla çözdüğünü sandığın şey, sana paradan çok daha pahalıya patladı.",
+      "onEnter": [
+        {
+          "flag": "mem_mac_gecesi_kacti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_poz": {
+      "title": "Sabah İdmanı Cezası",
+      "kind": "outcome",
+      "text": "Hiç saklanmadın; çocuğun yanına gidip {actor.childhood_friend.name} ile birlikte omuz omuza poz verdin. Fotoğraf sabah internette viral oldu. Genç taraftarlar 'İşte sokaktan gelen adam' diye sahiplendi ama sabah idmanında hocanın yüzü sirke satıyordu. Antrenman sonrası seni sahanın etrafında tam on beş tur koşturdu; ama o kare kariyerinin en ikonik gençlik fotoğraflarından biri olarak kaldı.",
+      "onEnter": [
+        {
+          "flag": "mem_mac_gecesi_kacti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

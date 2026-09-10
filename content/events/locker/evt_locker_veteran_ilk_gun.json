@@ -2,7 +2,8 @@
   "id": "evt_locker_veteran_ilk_gun",
   "family": "fam_locker_ilk_gun",
   "category": "locker",
-  "tier": "major",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 90,
   "cooldown": {
     "self": 40,
@@ -31,7 +32,7 @@
         "n_root": {
           "title": "Dolabın Yeri",
           "kind": "branch",
-          "text": "Soyunma odasında sana ayrılan dolap kapının hemen yanında. Girenin çıkanın omzunu sürttüğü yer. İçeride kimse sana nerede oturacağını söylemedi; sadece çantanı oraya bıraktılar.\n\n{actor.veteran.name} odanın diğer ucunda, pencerenin önündeki köşede. On dört yıldır aynı dolap. Bandajını sararken başını kaldırmadan konuşuyor: \"Kapının yanı iyidir. Erken çıkarsın.\"\n\nOdadaki üç kişi gülüyor. Gülüşün nereye düştüğü belli. {actor.veteran.first} hâlâ bandajıyla meşgul, ama bekliyor. Bir şey söylemeni değil, ne yapacağını.",
+          "text": "Soyunma odasında sana ayrılan dolap kapının hemen yanında. Girenin çıkanın omzunu sürttüğü yer. İçeride kimse sana nerede oturacağını söylemedi; sadece çantanı oraya bıraktılar. {actor.veteran.name} odanın diğer ucunda, pencerenin önündeki köşede. On dört yıldır aynı dolap. Bandajını sararken başını kaldırmadan konuşuyor: \"Kapının yanı iyidir. Erken çıkarsın.\" Odadaki üç kişi gülüyor. Gülüşün nereye düştüğü belli. {actor.veteran.first} hâlâ bandajıyla meşgul, ama bekliyor. Bir şey söylemeni değil, ne yapacağını.",
           "choices": [
             {
               "id": "c_sessiz",
@@ -59,9 +60,9 @@
                   "value": -4
                 },
                 {
-                  "flag": "mem_locker_sessiz_basladi",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_veteran_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -95,9 +96,9 @@
                   "value": 6
                 },
                 {
-                  "flag": "mem_locker_karsilik_verdi",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_veteran_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -129,11 +130,6 @@
                   "flag": "npc_veteran_arc",
                   "op": "add",
                   "value": 1
-                },
-                {
-                  "flag": "mem_locker_veteran_sordu",
-                  "op": "set",
-                  "value": true
                 }
               ],
               "persona": {
@@ -173,9 +169,9 @@
                   "value": 4
                 },
                 {
-                  "flag": "mem_locker_yer_kapti",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_veteran_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -188,22 +184,22 @@
         "n_sessiz": {
           "title": "Kapının Yanı",
           "kind": "outcome",
-          "text": "Formanı giyip çıkıyorsun. Arkanda kimse konuşmuyor.\n\nBir hafta sonra kapının yanındaki dolabın avantajını öğreniyorsun: kimse sana bir şey sormuyor, kimse senden bir şey beklemiyor. Sahada koştuğun kadar varsın.\n\n{actor.veteran.name} bir kez, koridorda geçerken başını hafifçe sallıyor. O kadar."
+          "text": "Formanı giyip çıkıyorsun. Arkanda kimse konuşmuyor. Bir hafta sonra kapının yanındaki dolabın avantajını öğreniyorsun: kimse sana bir şey sormuyor, kimse senden bir şey beklemiyor. Sahada koştuğun kadar varsın. {actor.veteran.name} bir kez, koridorda geçerken başını hafifçe sallıyor. O kadar. Gece sakinlesti, ancak bu tercih kulup icindeki hiyerarsiyi fark edilir bicimde degistirdi."
         },
         "n_karsilik": {
           "title": "Geç Çıkan",
           "kind": "outcome",
-          "text": "Oda bir an sessizleşiyor. {actor.veteran.first} bandajı bırakıyor, sana bakıyor. Uzun bakıyor.\n\n\"Peki,\" diyor sonunda. Gülmüyor.\n\nO gün antrenmandan en son sen çıkıyorsun. Ertesi gün de. Üçüncü gün kaleci yanına gelip \"Sen gerçekten geç mi çıkıyorsun, yoksa inat mı?\" diye soruyor. İkisi de doğru."
+          "text": "Oda bir an sessizleşiyor. {actor.veteran.first} bandajı bırakıyor, sana bakıyor. Uzun bakıyor. \"Peki,\" diyor sonunda. Gülmüyor. O gün antrenmandan en son sen çıkıyorsun. Ertesi gün de. Üçüncü gün kaleci yanına gelip \"Sen gerçekten geç mi çıkıyorsun, yoksa inat mı?\" diye soruyor. İkisi de doğru. Soyunma odasi dagildiginda tartisma bitmedi; yalnizca herkes rolunu sessizce yeniden secmis oldu."
         },
         "n_soru": {
           "title": "On Dört Yıl",
           "kind": "outcome",
-          "text": "{actor.veteran.name} bandajını bitiriyor, sonra cevap veriyor.\n\n\"Dört yıl kapının yanı. Altı yıl ortada. Dört yıldır burada.\" Duruyor. \"Ortadaki kısım en zoru. Kapının yanındayken kimse seni görmez, pencerenin önündeyken herkes görür. Ortada ikisi birden olur.\"\n\nSonra bandajını çantasına atıyor. \"Yerini sorman iyi. Çoğu sormaz, hemen oturur.\""
+          "text": "{actor.veteran.name} bandajını bitiriyor, sonra cevap veriyor. \"Dört yıl kapının yanı. Altı yıl ortada. Dört yıldır burada.\" Duruyor. \"Ortadaki kısım en zoru. Kapının yanındayken kimse seni görmez, pencerenin önündeyken herkes görür. Ortada ikisi birden olur.\" Sonra bandajını çantasına atıyor. \"Yerini sorman iyi. Çoğu sormaz, hemen oturur.\". Ayni formayi tasisiniz suruyor, ama bu geceden sonra aran?zdaki guven eski yerine donmuyor."
         },
         "n_sert": {
           "title": "Boş Dolap",
           "kind": "outcome",
-          "text": "Çantanı pencerenin önündeki boş dolaba koyuyorsun. Odada kimse bir şey söylemiyor ama herkes gördü.\n\nÖğleden sonra malzemeci geliyor: \"Orası {actor.veteran.first:gen} yanındaki yer. Yıllardır boş duruyor çünkü kimse oturmuyor.\"\n\n\"Şimdi oturuyor,\" diyorsun.\n\nO akşam telefonuna menajerinden mesaj geliyor: \"Kulüpten aradılar. 'Uyum sorunu' diye bir laf ettiler. Ne yaptın sen?\""
+          "text": "Çantanı pencerenin önündeki boş dolaba koyuyorsun. Odada kimse bir şey söylemiyor ama herkes gördü. Öğleden sonra malzemeci geliyor: \"Orası {actor.veteran.first:gen} yanındaki yer. Yıllardır boş duruyor çünkü kimse oturmuyor.\" \"Şimdi oturuyor,\" diyorsun. O akşam telefonuna menajerinden mesaj geliyor: \"Kulüpten aradılar. 'Uyum sorunu' diye bir laf ettiler. Ne yaptın sen?\". Takim icindeki denge bozulmadi gibi gorunuyor, fakat cizilen catlak herkesin hafizasina kazindi."
         }
       }
     },
@@ -320,9 +316,9 @@
           "text": "{actor.veteran.name}, kramponlarının bağcıklarını yavaşça çözerken arkandan sadece sessizce gülüyor; bu boğucu odadaki tek ses onun alaycı nefes alıp verişiydi. Sırtında hissettiğin o soğuk bakışlar, soyunma odasının ağır ter kokusuyla birleştiğinde, ileride yaşayacağın baskılı günlerin henüz ilk adımını attığını derinden hissettiriyordu.",
           "onEnter": [
             {
-              "flag": "mem_locker_karsilik_verdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -332,9 +328,9 @@
           "text": "Başını öne eğip ses çıkarmadan dolabını düzenlemeye başladın; metal kapağın menteşelerinden çıkan cızırtı, ortamdaki gerginliği bir anlığına kesti. {actor.veteran.name} artık senin varlığını tamamen yok sayıyor, sanki o köşede hiç kimse yokmuş gibi kramponlarını temizlemeye odaklanıp odadaki otoritesini sessizce korumaya devam ediyordu.",
           "onEnter": [
             {
-              "flag": "mem_locker_sessiz_basladi",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -344,9 +340,9 @@
           "text": "Dolabındaki o kirli çorapların arasında duran zarfa gözleri kayıyor; paranın ağırlığı, odadaki buz gibi havayı bir nebze olsun yumuşatıyor. Saygınlık seviyen gözle görülür şekilde azaldı ama en azından bir süreliğine üzerine çekmekten korktuğun o keskin bakışlar başka yöne kaydı, geriye sadece çaresiz bir sessizlik kaldı.",
           "onEnter": [
             {
-              "flag": "mem_locker_veteran_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -356,9 +352,9 @@
           "text": "{actor.veteran.name} ani bir hareketle başını kaldırıp doğrudan gözlerinin içine baktı; artık seni sadece toy bir çaylak değil, tahtını sallayabilecek bir rakip olarak gördüğünü bakışlarıyla ilan etti. Odadaki florasan lambaların titrek ışığı altında, yerini korumak için vereceğin çetin mücadelenin ilk kıvılcımları bu gergin atmosferde çakıldı.",
           "onEnter": [
             {
-              "flag": "mem_locker_yer_kapti",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -453,12 +449,12 @@
         "n_sessiz_basladi": {
           "title": "Sessiz Kabulleniş",
           "kind": "outcome",
-          "text": "{actor.veteran.name} arkandan kısık bir sesle güldü. Kapı kapandı. Antrenman sahasından gelen sesler kesildi.",
+          "text": "{actor.veteran.name} arkandan kısık bir sesle güldü. Kapı kapandı. Antrenman sahasından gelen sesler kesildi. Koridor boyunca uzayan sessizlik sana eslik ediyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_locker_sessiz_basladi",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -468,21 +464,21 @@
           "text": "Zarfı tezgaha bıraktın. {actor.veteran.name} zarfı alıp cebine attı ama hala geçmene izin vermiyor. Bir sonraki sefer için daha fazlasını bekliyor.",
           "onEnter": [
             {
-              "flag": "mem_locker_veteran_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_karsilik_verdi": {
           "title": "Gerilim",
           "kind": "outcome",
-          "text": "Omuz omuza çarpıştınız. {actor.veteran.name} yerinden kımıldamadı, duvara daha sert çarptın. Herkesin gözü üzerinizde.",
+          "text": "Omuz omuza çarpıştınız. {actor.veteran.name} yerinden kımıldamadı, duvara daha sert çarptın. Herkesin gözü üzerinizde. Bu secimin sonucu gecikmeli geliyor. Ayni formayi tasisiniz suruyor, ama bu geceden sonra aran?zdaki guven eski yerine donmuyor.",
           "onEnter": [
             {
-              "flag": "mem_locker_karsilik_verdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -612,21 +608,21 @@
           "text": "{actor.veteran.name} hafifçe gülümsüyor, ama bu bir onay değil. Bir meydan okuma. Artık herkes gözünü senin üzerinde tutacak.",
           "onEnter": [
             {
-              "flag": "mem_locker_karsilik_verdi",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_guvenli": {
           "title": "Sessiz Çıraklık",
           "kind": "outcome",
-          "text": "Kafasını sallıyor. Kalabalığın içinde kaybolmayı seçtin. Bu seni şimdilik güvende tutacak ama gölgelerden çıkman vakit alacak.",
+          "text": "Kafasını sallıyor. Kalabalığın içinde kaybolmayı seçtin. Bu seni şimdilik güvende tutacak ama gölgelerden çıkman vakit alacak. Kapilar kapandi, sesler dindi; yine de bu hamlenin sertligi her idmanda hissedilmeye devam etti.",
           "onEnter": [
             {
-              "flag": "mem_locker_sessiz_basladi",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -636,21 +632,21 @@
           "text": "Zarfı görmezden geliyor ama masadan çekiyor. Kendi yolunu satın almaya çalıştın. Soyunma odasının duvarları artık senin niyetini biliyor.",
           "onEnter": [
             {
-              "flag": "mem_locker_veteran_sordu",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_liderlik": {
           "title": "Zorunlu Devir",
           "kind": "outcome",
-          "text": "{actor.veteran.name} ayağa kalkıyor. Odadaki hava değişiyor. Bir devrin bittiğini sadece ikiniz biliyorsunuz.",
+          "text": "{actor.veteran.name} ayağa kalkıyor. Odadaki hava değişiyor. Bir devrin bittiğini sadece ikiniz biliyorsunuz. Koridor uzadikca sessizlik daha da agirlasiyor. Soyunma odasi dagildiginda tartisma bitmedi; yalnizca herkes rolunu sessizce yeniden secmis oldu.",
           "onEnter": [
             {
-              "flag": "mem_locker_yer_kapti",
-              "op": "set",
-              "value": true
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

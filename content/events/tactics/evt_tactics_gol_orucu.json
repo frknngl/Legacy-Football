@@ -1,0 +1,255 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Yükseliş ve Zirve çağlarında hücum oyuncusunun en büyük kabusu: beş maçtır süren gol orucu ve taktik tahtasındaki gerginlik.",
+    "hangi_soru": "Tabelanın suskun kaldığı beş haftanın ardından inatla kaleye vurmaya devam mı edeceksin, takıma servis yapmaya mı döneceksin, yoksa batıl inançlara mı sığınacaksın?",
+    "odeme_plani": "Bu kriz anında alınan tavır oyuncunun sahadaki kimliğini ve hoca ile olan güven bağını (npc_manager_arc) şekillendirir."
+  },
+  "id": "evt_tactics_gol_orucu",
+  "family": "fam_tactics_gol_orucu",
+  "category": "tactics",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 75,
+  "cooldown": {
+    "self": 28,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "trigger": {
+    "flag": "scoreless_streak",
+    "op": "gte",
+    "value": 5
+  },
+  "story": {
+    "signature": "tactics:manager:gol_orucu",
+    "slot": "manager",
+    "beat": "gol_orucu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 3
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Taktik Tahtasındaki Boşluk",
+      "kind": "branch",
+      "text": "Taktik tahtasının sağ köşesinde kırmızı asetat kalemiyle yazılmış tek bir rakam parlıyor: 483. Kaleye çektiğin son isabetli şutun üzerinden geçen dakikalar. Beş haftadır adın tabelaya girmedi. {actor.manager.name} tahtanın önünde manyetik taşları parmaklarıyla itip duruyor. Sabah gazetesinin arka sayfasında 'Bonservisinin Ağırlığı Altında Ezildi' manşeti var; malzemeci sabah kramponlarını getirirken sessizce 'Ağabey iki haftadır kalenin sağına vurmuyorsun' diye fısıldadı. Hoca manyetik taşlardan 9 numarayı ceza sahasının dışına, sol çizgiye doğru çekiyor. Sana arkasını dönmeden konuşuyor: \"Her topu kaleye sen vuramazsın. Beş haftadır tabelaya bakıp kafayı yiyorsun, yanındaki adamları görmüyorsun. Ya ceza sahasını biraz boşaltıp orta sahaya yardım edeceksin ya da bu hafta yedek kulübesinde battaniyenin altında düşüneceksin.\".",
+      "choices": [
+        {
+          "id": "c_pas",
+          "text": "\"Haklısın hocam. Bu hafta kaleyi değil yanımdaki adamları arayacağım.\"",
+          "target": "n_pas",
+          "effects": [
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_inat",
+          "text": "\"Ben golcüyüm hocam. Ceza sahasından çıkarsam bu takım hiç gol atamaz.\"",
+          "target": "n_inat",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_manager",
+              "op": "add",
+              "value": -12
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_ekstra_sut",
+          "text": "İdman sonrası sahada kal: Yardımcı antrenörle yüz tane tek vuruş çalış.",
+          "target": "n_ekstra_sut",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_ugur",
+          "text": "Malzemeciye git: \"Dolaptaki o üç yıllık eski sarı kramponları çıkar, onları giyeceğim.\"",
+          "target": "n_ugur",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": -4
+          }
+        }
+      ]
+    },
+    "n_pas": {
+      "title": "Bencil Olmayan Forvet",
+      "kind": "outcome",
+      "text": "Hafta sonu kaleyi gördüğün ilk anda şut çekmek yerine ceza sahası yayındaki arkadaşına yerden sert bir pas çıkardın. Top ağlarla buluştuğunda bütün takım senin boynuna sarıldı. Tabelada adın yoktu ama soyunma odasına girdiğinde {actor.manager.name} sana ilk kez elini uzattı: 'İşte takım oyuncusu böyle olunur.'.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_inat": {
+      "title": "Direğin İnadı",
+      "kind": "outcome",
+      "text": "Maç boyunca yine kaleyi düşündün; otuz beş metreden vurduğun bir şut çatala çarpıp dışarı gitti. Tribünlerden yükselen uğultu kulaklarını yaktı. Maç 0-0 bittiğinde hoca basın toplantısında isim vermeden 'bazı oyuncuların egosundan' bahsetti. Oruç bitmemişti, üzerine bir de yalnızlık eklenmişti.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -8
+        }
+      ]
+    },
+    "n_ekstra_sut": {
+      "title": "Akşamın Işıkları",
+      "kind": "outcome",
+      "text": "Tesisin projektörleri sadece kale sahasını aydınlatırken ceza sahası çizgisine dizilen yüzüncü topu da köşeye gönderdin. Bacakların tir tir titriyordu ama kaleye bakışın netleşti. Hafta sonu ilk gelen topta hiç düşünmeden vurdun; fileler havalandığında sahanın çimlerine dizüstü çöküp derin bir nefes aldın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_ugur": {
+      "title": "Aşınmış Taban",
+      "kind": "outcome",
+      "text": "Ayağındaki sarı kramponların yan dikişleri patlamak üzereydi ama sahaya adım attığın andan itibaren kendini hafif hissettin. 38. dakikada savunmadan seken top kaval kemiğine çarpıp garip bir kavisle köşeden içeri süzüldü. Golün estetiği yoktu ama büyüsü vardı. Malzemeci kulübeden sana çift parmak selamı çaktı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  }
+}

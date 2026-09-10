@@ -2,7 +2,7 @@
   "id": "evt_match_handball_on_line",
   "family": "fam_match_discipline",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "handball_on_line",
   "weight": 12,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Cizgide",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Kaleci cikmis, savunma dagilmis ve top bos kaleye dogru yuvarlaniyor.\n\nCizgide bir tek sen varsin. Top yavas. Kafayla ulasamazsin.\n\nElini uzatirsan durur. Herkes gorur, hakem gorur, kirmizi kart kesin ve penalti kesin. Ama gol olmaz.\n\nYarim saniye.",
+          "text": "{minute}. dakika, skor {scoreline}. Kaleci cikmis, savunma dagilmis ve top bos kaleye dogru yuvarlaniyor. Cizgide bir tek sen varsin. Top yavas. Kafayla ulasamazsin. Elini uzatirsan durur. Herkes gorur, hakem gorur, kirmizi kart kesin ve penalti kesin. Ama gol olmaz. Yarim saniye.",
           "choices": [
             {
               "id": "c_handle",
@@ -152,7 +152,7 @@
         "n_handled": {
           "title": "Kirmizi",
           "kind": "outcome",
-          "text": "Top eline carpiyor ve duruyor. Bir saniye sessizlik, sonra stadyum patliyor.\n\n{actor.referee.name} kosarak geliyor ve kirmizi karti cikariyor. Penalti.\n\nTunele yururken takim arkadaslarin siranin ustunden sana bakiyor. {actor.captain.name} yumrugunu havaya kaldiriyor.\n\nPenaltiyi atiyorlar. Yine de yediniz. Ama sen bunu yapmasaydin gol kesindi ve bu farki sadece o odada oturanlar bilir.",
+          "text": "Top eline carpiyor ve duruyor. Bir saniye sessizlik, sonra stadyum patliyor. {actor.referee.name} kosarak geliyor ve kirmizi karti cikariyor. Penalti. Tunele yururken takim arkadaslarin siranin ustunden sana bakiyor. {actor.captain.name} yumrugunu havaya kaldiriyor. Penaltiyi atiyorlar. Yine de yediniz. Ama sen bunu yapmasaydin gol kesindi ve bu farki sadece o odada oturanlar bilir. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -170,9 +170,9 @@
               "reason": "Kirmizi kart cezasi"
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "medya_baskisi",
@@ -184,7 +184,7 @@
         "n_let_it_in": {
           "title": "Gol",
           "kind": "outcome",
-          "text": "Elini geri cekiyorsun. Top cizgiyi geciyor.\n\nKimse sana bagirmiyor. {actor.captain.name} yalnizca bir saniye bakiyor ve donuyor.\n\nMac sonunda kimse bu ani konusmuyor. Ama iki hafta sonra soyunma odasinda birisi sakayla karisik bir sey soyluyor ve odada kimse gulmuyor.",
+          "text": "Elini geri cekiyorsun. Top cizgiyi geciyor. Kimse sana bagirmiyor. {actor.captain.name} yalnizca bir saniye bakiyor ve donuyor. Mac sonunda kimse bu ani konusmuyor. Ama iki hafta sonra soyunma odasinda birisi sakayla karisik bir sey soyluyor ve odada kimse gulmuyor. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "op": "match",
@@ -206,7 +206,7 @@
         "n_cleared": {
           "title": "Ayak ucu",
           "kind": "outcome",
-          "text": "Ayagin topa cizginin bir karis onunde degiyor. Top korner cizgisine gidiyor.\n\nYerde kaliyorsun. Dizin agriyor ama kalkmiyorsun; bu bir saniyeyi biraz daha uzatmak istiyorsun.\n\n{actor.keeper.name} seni yerden kaldiriyor ve hicbir sey soylemiyor.",
+          "text": "Ayagin topa cizginin bir karis onunde degiyor. Top korner cizgisine gidiyor. Yerde kaliyorsun. Dizin agriyor ama kalkmiyorsun; bu bir saniyeyi biraz daha uzatmak istiyorsun. {actor.keeper.name} seni yerden kaldiriyor ve hicbir sey soylemiyor. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "op": "match",
@@ -224,9 +224,9 @@
               "value": -6
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -375,9 +375,9 @@
           "text": "Hakem düdüğü çaldı. Elin, topun fileye girmesini engelledi. Kırmızı kart havada. Soyunma odasına giden tünelde, attığın o 'zafer' dolu bakışın ağırlığı omuzlarında.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -391,9 +391,9 @@
           "text": "Top göğsüne çarptı ama kale çizgisini geçti. Stadyumda bir uğultu. {actor.captain.name} yanına geldi, omuzuna sertçe vurdu. Hiçbir şey demedi, sadece yürüdü.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -407,9 +407,9 @@
           "text": "Top fileleri titretti. Sen olduğun yerde kaldın. {actor.captain.name} ile göz göze geldin; aranızdaki bağın ne kadar kırılgan olduğunu o an anladın.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -423,9 +423,9 @@
           "text": "Topu çizgiden uzaklaştırdın. Çimlerin üzerine yığıldın. Kaslarındaki o keskin sızı, tribünlerden gelen isminin yankısıyla birleşti. Bedeli ağırdı ama saha içinde kurduğun o saygı baki kaldı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -554,9 +554,9 @@
           "text": "Elini topa vurduğun an, stadyumun yıkıldığını hissettin. Hakem tereddütsüz düdüğü çaldı. {actor.captain.name} yerden kalkıp sana baktı; bu bakışta hem minnet hem de bir ömür sürecek bir borç vardı. Soyunma odasına giden tünelde, attığın o tokatın ağırlığı artık seninle.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -579,9 +579,9 @@
           "text": "Top ağlara girdiğinde ses çıkmadı. Sadece {actor.captain.name} ile birbirinize baktınız. Bazen bir şeyi kurtarmaya çalışmamak, aslında o şeyi kurtarmaktan daha zor gelir. Maç bitti, sessizlik yuvaya döndü.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -600,9 +600,9 @@
           "text": "Çarpışma anı. Yüzünde patlayan acı ile topun çizgiyi geçmediğini gördün. Kulüp primi cebine girecek ancak o anki bencilliğin, takım arkadaşların tarafından sessizce not edildi.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "suspend",
@@ -621,9 +621,9 @@
           "text": "Vücudunu imkansız bir açıyla çizgiye savurdun. Top durdu, takım kurtuldu ancak sen bittin. {actor.captain.name} seni yerden kaldırırken vücudundaki sızıyı değil, omuzlarındaki yükü hissetti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "suspend",

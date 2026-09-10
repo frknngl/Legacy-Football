@@ -44,12 +44,14 @@ import {
   MomentCoverageRule,
   OrphanMemoryFlagRule,
   RawIdentifierRule,
+  TailTemplateRule,
   TextQualityRule,
   TierComplianceRule,
   TradeoffRule,
   UnusedWaiverRule,
 } from './quality.js';
 import { SeniorVoiceRule } from './voice.js';
+import { HandContractRule, HandTemplateIdRule } from './hand.js';
 
 export const ALL_RULES: readonly ValidationRule[] = [
   // yapisal
@@ -74,6 +76,7 @@ export const ALL_RULES: readonly ValidationRule[] = [
   ConsequenceHookRule,
   TradeoffRule,
   TextQualityRule,
+  TailTemplateRule,
   RawIdentifierRule,
   TierComplianceRule,
   InterpolationRule,
@@ -90,6 +93,9 @@ export const ALL_RULES: readonly ValidationRule[] = [
   HandwrittenSuffixRule,
   SlotScopeRule,
   NemesisArcRule,
+  // editor kapisi (elle yazilan icerik standartlari)
+  HandTemplateIdRule,
+  HandContractRule,
 ];
 
 export * from './structure.js';
@@ -97,3 +103,4 @@ export * from './quality.js';
 export * from './actors.js';
 export * from './nemesis.js';
 export * from './voice.js';
+export * from './hand.js';

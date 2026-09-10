@@ -32,7 +32,12 @@ import { ContentLoader } from '../loading/ContentLoader.js';
 import { FileSystemContentSource } from '../loading/FileSystemContentSource.js';
 import { GameEngine, type TurnReport } from '../runtime/GameEngine.js';
 import { runSimulatedMatch } from './runMatch.js';
-import { selectWorld, describeWorld, type GameWorld } from './world.js';
+import {
+  selectWorld,
+  describeWorld,
+  weeklySelectionMatchContext,
+  type GameWorld,
+} from './world.js';
 import { windowAt } from '../domain/transfer.js';
 import { WalletLedger, WALLET_KINDS, WALLET_LABELS } from '../runtime/WalletLedger.js';
 import { realValue } from '../domain/inflation.js';
@@ -183,71 +188,79 @@ async function playOneMatch(
   ask: (q: string) => Promise<string>,
 ): Promise<void> {
   const week = engine.snapshot().week;
-  await runSimulatedMatch(
-    engine,
-    sim.simulator,
-    {
-      onUnavailable: (av) =>
-        console.log(c.red(`
+  const season = engine.snapshot().season;
+  const fixtureCount = sim.schedule.fixturesFor(engine.snapshot().clubId, week).length;
+
+  for (let slot = 0; slot < fixtureCount; slot += 1) {
+    const played = await runSimulatedMatch(
+      engine,
+      sim.simulator,
+      {
+        onUnavailable: (av) =>
+          console.log(c.red(`
 Bu hafta kadroda yoksun: ${av.reason} (kalan ${av.matchesRemaining})`)),
-      onMatchStart: (match) => {
-        console.log('');
-        console.log(
-          c.bold(`>> MAC: ${match.context.opponentName} (${match.context.importance})`) +
-            c.grey(`  ${match.pendingMoments.length} kritik an`),
-        );
-      },
-      onHighlight: (h) =>
-        console.log(
-          c.grey(`  ${String(h.minute).padStart(2)}'  ${h.text}`) +
-            (h.scorer !== undefined ? c.green(`   [${h.scoreline}]`) : ''),
-        ),
-      onDecision: (moment) =>
-        console.log(c.yellow(`
-  ${moment.minute}' -- ${moment.type}`)),
-      chooseMoment: async (node) => {
-        console.log('');
-        console.log(c.bold(c.cyan(node.title)));
-        console.log(wrap(node.text));
-        node.choices.forEach((ch, i) => {
-          if (ch.locked) {
-            console.log(c.grey(`  ${i + 1}) ${ch.lockLabel ?? ''} ${ch.text}`) + c.red('  <- kilitli'));
-          } else {
-            console.log(`  ${c.bold(String(i + 1))}) ${ch.text}`);
-          }
-        });
-        // Gecerli bir secim gelene kadar sorar; bos girdi ani atlar.
-        for (;;) {
-          const answer = (await ask('> ')).trim();
-          if (answer === '') return undefined;
-          const chosen = node.choices[Number.parseInt(answer, 10) - 1];
-          if (chosen && !chosen.locked) return chosen.id;
-          console.log(c.red('Gecersiz secim.'));
-        }
-      },
-      onChoiceMade: (report) => {
-        for (const n of report.notices) console.log(c.yellow(`  * ${n}`));
-      },
-      onResult: (_match, result, delta) => {
-        console.log('');
-        console.log(
-          c.green(
-            `<< SONUC: ${result.result} | reyting ${result.rating} | ${result.goals} gol ${result.assists} asist`,
-          ),
-        );
-        if (delta.goalsDelta !== 0 || delta.redCard || delta.injuryWeeks > 0) {
+        onMatchStart: (match) => {
+          console.log('');
           console.log(
-            c.grey(
-              `   (motor deltasi: gol ${delta.goalsDelta}, kirmizi ${delta.redCard}, sakatlik ${delta.injuryWeeks} hafta)`,
+            c.bold(`>> MAC: ${match.context.opponentName} (${match.context.importance})`) +
+              c.grey(`  ${match.pendingMoments.length} kritik an`),
+          );
+        },
+        onHighlight: (h) =>
+          console.log(
+            c.grey(`  ${String(h.minute).padStart(2)}'  ${h.text}`) +
+              (h.scorer !== undefined ? c.green(`   [${h.scoreline}]`) : ''),
+          ),
+        onDecision: (moment) =>
+          console.log(c.yellow(`
+  ${moment.minute}' -- ${moment.type}`)),
+        chooseMoment: async (node) => {
+          console.log('');
+          console.log(c.bold(c.cyan(node.title)));
+          console.log(wrap(node.text));
+          node.choices.forEach((ch, i) => {
+            if (ch.locked) {
+              console.log(c.grey(`  ${i + 1}) ${ch.lockLabel ?? ''} ${ch.text}`) + c.red('  <- kilitli'));
+            } else {
+              console.log(`  ${c.bold(String(i + 1))}) ${ch.text}`);
+            }
+          });
+          // Gecerli bir secim gelene kadar sorar; bos girdi ani atlar.
+          for (;;) {
+            const answer = (await ask('> ')).trim();
+            if (answer === '') return undefined;
+            const chosen = node.choices[Number.parseInt(answer, 10) - 1];
+            if (chosen && !chosen.locked) return chosen.id;
+            console.log(c.red('Gecersiz secim.'));
+          }
+        },
+        onChoiceMade: (report) => {
+          for (const n of report.notices) console.log(c.yellow(`  * ${n}`));
+        },
+        onResult: (_match, result, delta) => {
+          console.log('');
+          console.log(
+            c.green(
+              `<< SONUC: ${result.result} | reyting ${result.rating} | ${result.goals} gol ${result.assists} asist`,
             ),
           );
-        }
+          if (delta.goalsDelta !== 0 || delta.redCard || delta.injuryWeeks > 0) {
+            console.log(
+              c.grey(
+                `   (motor deltasi: gol ${delta.goalsDelta}, kirmizi ${delta.redCard}, sakatlik ${delta.injuryWeeks} hafta)`,
+              ),
+            );
+          }
+        },
       },
-    },
-    { season: engine.snapshot().season, week },
-  );
-  // Hero'nun skoru tabloya islenir, ayni haftanin diger maclari cozulur.
-  sim.recordHeroMatch();
+      { season, week, slot },
+    );
+
+    if (played !== undefined && played.result !== 'none') {
+      sim.recordHeroMatch();
+    }
+  }
+  // Ayni haftanin diger maclari cozulur (Hero slotlari yukarida tek tek kaydedildi).
   // KUPA: hero'nun kulubu bu hafta bir sey kazandiysa motora bildir.
   // `kupa_sayisi` stature formulunun en agir girdisi (agirlik 25) ve
   // bu kablo cekilmeden HER kariyerde 0 kaliyordu.
@@ -1303,11 +1316,20 @@ async function main(): Promise<void> {
   const dbPath = process.argv.find((a) => a.startsWith('--world='))?.split('=')[1] ?? '';
   const sim = await selectWorld({ registry: loaded.registry, seed, dbPath });
   console.log(`dunya: ${describeWorld(sim, dbPath)}`);
-  const engine = new GameEngine(loaded.registry, {
+  let engine!: GameEngine;
+  engine = new GameEngine(loaded.registry, {
     seed,
     roster: sim.roster,
     world: sim.world,
     worldFeed: sim.worldFeed,
+    selectionMatchContext: ({ season, week, clubId }) =>
+      weeklySelectionMatchContext(sim, {
+        season,
+        week,
+        clubId,
+        availability: engine.availability(),
+        hero: engine.heroProfile(),
+      }),
   });
   // Kimya kablosu: motor kuruldu, simulator artik 'kim kiminle iyi
   // anlasiyor' sorusunu sorabilir. Motorun flag sozlugu yine kapali.

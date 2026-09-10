@@ -1,0 +1,174 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Tünelde hakemle futbolcu arasındaki psikolojik savaş: hakemin önceki maçlardaki aldatma veya kart hafızası.",
+    "hangi_soru": "Hakem seni tünelde açıkça uyardığında profesyonel diplomasi mi yapacaksın, hakeme diklenip maçı baştan gerecek misin?",
+    "odeme_plani": "Bu hakem diyaloğu (mem_hakemle_anlasti), kariyer epilogunda hakemlerle kurulan saygı mirası olarak konuşur."
+  },
+  "id": "evt_tactics_hakem_kokart_hafizasi",
+  "family": "fam_tactics_hakem",
+  "category": "tactics",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 65,
+  "cooldown": {
+    "self": 28,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "tactics:referee:hakem_kokart_hafizasi",
+    "slot": "referee",
+    "beat": "hakem_kokart_hafizasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 3
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tüneldeki Kokart Uyarısı",
+      "kind": "branch",
+      "text": "Maçın başlamasına on beş dakika var. Tünelin girişinde iki takım sıraya girmişken kıdemli hakem {actor.referee.name} düdüğünü boynundan çıkarıp doğrudan senin yanına adımlıyor. Yüzünde en ufak bir tebessüm yok; kokartının üzerindeki FIFA brövesini düzeltiyor. 'Geçen ayki maçta ceza sahasında kendini nasıl yere bıraktığını televizyondan üç açıdan izledim,' diyor alçak ama herkesin duyacağı netlikte bir sesle. 'Bugün gözüm sadece senin ayaklarında. En ufak tiyatroda hiç düşünmeden sarıyı yapıştırırım. Temiz oyna, kafamı ağrıtma.' Arkandaki rakip savunma oyuncusu bıyık altından gülüyor. Düdük çalmadan önce hakemin psikolojik baskısı omuzlarına biniyor.",
+      "choices": [
+        {
+          "id": "c_diyalog",
+          "text": "\"Hocam geçen maçı bırakalım, siz adil olun ben sadece futboluma bakacağım.\"",
+          "target": "n_diyalog",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_referee",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_diklen",
+          "text": "\"Gözünüz bende olsun hocam, tekmeleri de görürsünüz o zaman!\"",
+          "target": "n_diklen",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_referee",
+              "op": "add",
+              "value": -16
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "mizac": 12,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_sessiz",
+          "text": "Göz temasını kesmeden başını salla, kramponunun bağcığını düzelt.",
+          "target": "n_sessiz",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": -4
+          }
+        }
+      ]
+    },
+    "n_diyalog": {
+      "title": "Tünel Diplomasisi",
+      "kind": "outcome",
+      "text": "{actor.referee.name} gözlerini kıstı, sakin ve olgun cevabını tarttı. 'Anlaştık o zaman' deyip hafifçe sırtına vurdu. Maç boyunca ceza sahasındaki sert ikili mücadelelerde sana karşı ön yargılı davranmadı; profesyonel duruşunla hakemin güvenini kazanmıştın.",
+      "onEnter": [
+        {
+          "flag": "mem_hakemle_anlasti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_diklen": {
+      "title": "Erken Kart Gerilimi",
+      "kind": "outcome",
+      "text": "Hakemin kaşları çatıldı: 'Bana işimi öğretme!' Maçın henüz onuncu dakikasında ilk faulünde cebinden sarı kartı çıkarıp yüzüne salladı. Hakemi karşına almıştın; doksan dakika boyunca atılmamak için diken üstünde oynamak zorunda kaldın."
+    },
+    "n_sessiz": {
+      "title": "Çelikten İrade",
+      "kind": "outcome",
+      "text": "Tek bir kelime etmedin, sadece gözlerinin içine bakıp hafifçe başını salladın. Hakem bu soğukkanlı tepkiden sonra sessizce önüne döndü. Sahaya çıktığında hiç kendini yere atmadın, ayakta kaldın ve iki golle maçı aldın. En büyük cevabı çimende vermiştin."
+    }
+  }
+}

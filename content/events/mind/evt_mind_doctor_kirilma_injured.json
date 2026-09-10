@@ -2,7 +2,7 @@
   "id": "evt_mind_doctor_kirilma_injured",
   "family": "fam_mind_kirilma",
   "category": "mind",
-  "tier": "major",
+  "tier": "minor",
   "weight": 100,
   "cooldown": {
     "self": 30,
@@ -29,7 +29,7 @@
             {
               "id": "c_safe",
               "text": "Doktorun uzattığı rehabilitasyon raporunu imzala. Sabır, tek yol.",
-              "target": "n_outcome_safe",
+              "target": "n_shape_bridge_v_asil",
               "effects": [
                 {
                   "flag": "profesyonellik",
@@ -155,9 +155,9 @@
           "text": "İmza atıldı. Kapıdan çıkarken dizindeki metalik sızı seni bir yabancı gibi izliyor. Her şey kontrollü ama ruhun bir parça eksik.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -167,9 +167,9 @@
           "text": "Doktor başını ağır ağır salladı, tek bir kelime bile etmeden odadan ayrıldı. Dizindeki o keskin sızı, her adımında zihninde yankılanıyordu; yürüyüşündeki o belli belirsiz aksaklığı saklamak için olanca gücünle hızlandın. Koridordaki floresan lambaların soğuk ışığı, sakladığın gerçekleri ortaya döküyormuş gibi seni rahatsız etti.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -179,9 +179,9 @@
           "text": "Banka hesabına yatan o yüklü miktar, dizindeki zonklayan ağrının şiddetini bir anlığına dindirdi. {actor.doctor.name} arkasını dönüp gittiğinde, odadaki ağır ilaç kokusu yerini derin bir sessizliğe bıraktı. Hiç kimse nereye gittiğini, neden gittiğini veya bu sakatlıkla ne yapacağını sormayacak; artık sadece kendine aitsin.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -191,11 +191,17 @@
           "text": "Gözleri birbirine kilitlendi. Doktor onayladı ama bu yöntemin bedeli, uykusuz gecelerin ağırlığıyla ödenecek. Artık yalnız değilsin, bu yükü paylaşıyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_asil": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Karanlık Oda aninda \"Doktorun uzattığı rehabilitasyon raporunu imzala. Sabır, tek\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_outcome_safe"
         }
       }
     },
@@ -296,9 +302,9 @@
           "text": "{actor.doctor.name} başını hafifçe öne eğerek selam verdi, kapıyı arkasından ağır bir gıcırtıyla çekti ve seni odanın soğuk sessizliğiyle baş başa bıraktı. Pencereden içeri sızan akşam güneşi, tozlu masanın üzerinde uzun gölgeler oluşturuyordu. Dizindeki bağların gerginliği, atacağın her adımın bir bedeli olduğunu sana en acı haliyle hatırlatıyordu.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -308,9 +314,9 @@
           "text": "Üzerinde isminin yazılı olmadığı o zarf masadan el çabukluğuyla kayboldu. {actor.doctor.name}, kapının kilidini sertçe çevirirken gözlerini kaçırdı; bakışlarında ne bir suçluluk ne de bir pişmanlık vardı. Odanın içindeki oksijen sanki biraz daha azaldı ve deri koltuğun soğukluğu, yaptığın bu gizli mutabakatın ağırlığını bacaklarında hissettirdi.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -320,9 +326,9 @@
           "text": "{actor.doctor.name}, elinde tuttuğu sağlık raporunu buruşturup öfkeyle duvara fırlattı; kağıt yere düştüğünde çıkardığı o kuru ses odada yankılandı. Hiçbir şey demeden kapıya yöneldi, menteşeler yerinden çıkacakmış gibi sertçe çarptı. Koridordan gelen hızlı adımların uzaklaşmasıyla, kendi kendine kaldığın odanın sessizliğinde sadece nabzının atışını duymaya başladın.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -340,7 +346,7 @@
             {
               "id": "c_guvenli",
               "text": "Disketin içindekileri sil. Kariyerimi riske atmaktansa şimdilik susmayı tercih ederim.",
-              "target": "n_outcome_1",
+              "target": "n_shape_bridge_v_itiraf",
               "effects": [
                 {
                   "flag": "profesyonellik",
@@ -463,24 +469,24 @@
         "n_outcome_1": {
           "title": "Sessizlik Anlaşması",
           "kind": "outcome",
-          "text": "Disketin parçalanma sesi, odayı dolduran tek gerçek ses. {actor.doctor.name} başını sallıyor, artık suç ortağısın.",
+          "text": "Disketin parçalanma sesi, odayı dolduran tek gerçek ses. {actor.doctor.name} başını sallıyor, artık suç ortağısın. Kisa bir sessizlikten sonra bu karar zihnindeki dugumu tamamen cozmese de yon verdi.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_outcome_2": {
           "title": "Açık Yara",
           "kind": "outcome",
-          "text": "{actor.doctor.name} şaşkınlıkla sana bakıyor. İtibarın zedelenecek belki ama en azından artık kendi gerçekliğinle yüzleşebilirsin.",
+          "text": "{actor.doctor.name} şaşkınlıkla sana bakıyor. İtibarın zedelenecek belki ama en azından artık kendi gerçekliğinle yüzleşebilirsin. Aklin toparlanmaya calisirken bu esigin seni farkli bir dengeye ittigini anladin.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -490,9 +496,9 @@
           "text": "Yeni imzalar atıldı, rakamlar hesabına yattı. {actor.doctor.name} elindeki kalemle kağıdı sahte bir iyileşme raporuyla dolduruyor. Kazanıyorsun, ama aynaya bakarken zorlanıyorsun.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -502,11 +508,17 @@
           "text": "{actor.doctor.name} gözlerindeki kararlılığı görüyor. Kararlarınızın ağırlığı altında, ikinizin kurduğu bu gizli iyileşme yoluna giriyorsunuz. Zor olacak, ama sadece ikinizin elinde.",
           "onEnter": [
             {
-              "flag": "mem_mind_kirilma_doctor",
-              "op": "set",
-              "value": true
+              "flag": "npc_doctor_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_itiraf": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Kayıt Dışı aninda \"Disketin içindekileri sil. Kariyerimi riske atmaktansa şimdilik\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_outcome_1"
         }
       }
     }

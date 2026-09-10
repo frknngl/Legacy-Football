@@ -1,0 +1,255 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Zirve çağında (24-29 yaş) oyuncu ülkenin en büyük futbol figürüne dönüşür. Millî takım kaptanlığı ve kadro sorumluluğuyla yüzleşir.",
+    "hangi_soru": "Pazubandı koluna takarken kadrodan genç bir yeteneğin kesilmesine izin mi vereceksin, yoksa tecrübelileri karşına alıp ona sahip mi çıkacaksın?",
+    "odeme_plani": "Bu kaptanlık izi (mem_milli_kaptanlik), Veteran çağındaki milli takım vedasında (evt_national_veda) ve kariyer epilogunda konuşur."
+  },
+  "id": "evt_national_kaptanlik_pazubandi",
+  "family": "fam_national_kaptanlik",
+  "category": "national",
+  "tier": "epic",
+  "authored": "hand",
+  "weight": 85,
+  "once": true,
+  "cooldown": {
+    "self": 60,
+    "family": 24
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "national_duty"
+  ],
+  "clubTiers": [
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "national:national_manager:kaptanlik_pazubandi",
+    "slot": "national_manager",
+    "beat": "kaptanlik_pazubandi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 40,
+    "beatGapTurns": 120,
+    "signatureGapTurns": 80,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Balkondaki Kırmızı Bant",
+      "kind": "branch",
+      "text": "Riva tesislerinin üçüncü katındaki balkonundan akşam rüzgârı esiyor; uzakta antrenman sahalarının ışıkları tek tek sönüyor. Masada soğumuş iki fincan çay ve ortada duran kırmızı-beyaz kumaş parçası var: ay-yıldızlı kaptanlık pazubandı. {actor.national_manager.name} parmaklarıyla masaya ritmik bir şekilde vuruyor. {actor.national_captain.name:gen} sakatlığının ardından pazubandın sana geçeceği haftalardır konuşuluyordu ama hoca konuyu doğrudan açmıyor. Masanın kenarına iliştirilmiş kadro listesini sana doğru çeviriyor. \"Yarın akşam sahaya takımı sen çıkaracaksın,\" diyor alçak sesle. \"Ama kaptanlık kura atışında hakemin elini sıkmaktan ibaret değil. Soyunma odasının yükünü de alacaksın. Listeye bak: on dokuz yaşındaki gurbetçi çocukla senin on yıllık oda arkadaşın aynı pozisyonda. Çocuğu başlatırsam oda karışır, arkadaşını başlatırsam dinamizmimiz biter. Karara ortak olacaksın.\" Pazubant ile kadro listesi masada yan yana duruyor. Sorumluluktan kaçmak için artık çok geç.",
+      "choices": [
+        {
+          "id": "c_genc",
+          "text": "Pazubandı tak ve genci koru: \"Gelecek bu çocukta hoca. Oda karışırsa ben toplarım.\"",
+          "target": "n_genc",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_kidem",
+          "text": "Pazubandı tak ama kıdemli hiyerarşiyi koru: \"Bu maç final maçı, çocuk sırasını beklesin.\"",
+          "target": "n_kidem",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_koc_karar",
+          "text": "Pazubandı al ama listeyi geri it: \"Pazubandı taşırım ama arkadaşımın kaderini çizmem. Hoca sensin.\"",
+          "target": "n_koc_karar",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_national_manager",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_tunel",
+          "text": "Tüneldeki ilk gününü hatırla: \"Tünelde arkamda titreyen çocuk bendim. Bu çocuk kesilmeyecek.\"",
+          "target": "n_tunel",
+          "requires": {
+            "flag": "mem_tunelde_konustu",
+            "op": "isSet"
+          },
+          "lockLabel": "[Tünelde Gençle Konuşan Kaptan]",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "iliski_national_manager",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "sadakat": 12
+          }
+        }
+      ]
+    },
+    "n_genc": {
+      "title": "Geleceğin Kararı",
+      "kind": "outcome",
+      "text": "Pazubandı bileğine geçirdin, kalemi alıp gurbetçi çocuğun adının yanına onay işareti koydun. \"Bu çocuk oynayacak,\" dedin. \"Oda karışırsa ben toplarım.\" Hoca gülümsedi ama tecrübelilerin odasındaki buz gibi hava o akşam koridora taştı. Eski dostun yemekte yüzüne bakmadı; ama ertesi gün maçın 70. dakikasında o genç çocuk golü attığında doğrudan sana koşup sarıldı. Bir lidere dönüşmek, bazen en yakınını kırmak demekti.",
+      "onEnter": [
+        {
+          "flag": "mem_milli_kaptanlik",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_kidem": {
+      "title": "Tecrübe Duvarı",
+      "kind": "outcome",
+      "text": "Pazubandı aldın ama kadro listesinde eski dostunu işaret ettin. \"Bu maç final maçı hoca,\" dedin. \"Doksan dakikalık savaşta kimin ne vereceğini bildiğimiz adamlara ihtiyacımız var. Genç çocuk sırasını beklemeyi öğrensin.\" Hoca başını salladı. Soyunma odasında huzur korundu, kıdemliler seni alkışlarla karşıladı. Maçı tecrübeyle kazandınız ama yedek kulübesinde battaniyeye sarılı oturan o genç çocuğun gözlerindeki kırgınlık uzun süre aklından çıkmadı.",
+      "onEnter": [
+        {
+          "flag": "mem_milli_kaptanlik",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_koc_karar": {
+      "title": "Çizilen Sınır",
+      "kind": "outcome",
+      "text": "Pazubandı cebine koydun ama kadro kâğıdını hocaya geri ittin. \"Pazubandı taşırım, sahada canımı veririm ama arkadaşlarımın kaderini çizmem,\" dedin. \"Hoca sensin, kararı sen verirsin. Kim çıkarsa çıksın arkasında dururum.\" {actor.national_manager.name} kaşlarını çattı; sorumluluğu paylaşmak istemişti ama sen sınırını çizdin. Sana olan saygısı arttı ama artık onun gözünde emir alan bir asker değil, kendi terazisi olan bir liderdin.",
+      "onEnter": [
+        {
+          "flag": "mem_milli_kaptanlik",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_tunel": {
+      "title": "Ekolün Doğuşu",
+      "kind": "outcome",
+      "text": "Yıllar önce ilk A Millî maçında tünelde arkanda titreyen o çocuğu hatırladın. \"Hocam,\" dedin gözlerinin içine bakarak, \"ben de bu kampa titreyerek geldim. Birisi bana o gün güvenmeseydi bugün bu masada oturamazdım. Bu çocuk sahaya çıkacak, arkasında da ben duracağım.\" Hoca bir an durdu, sonra kâğıdı imzaladı. O akşam sahada ikiniz de devleştiniz. Maç sonu basın toplantısında hoca mikrofonu sana uzattı: o gün sadece bir kaptan değil, bir ekol inşa etmiştin.",
+      "onEnter": [
+        {
+          "flag": "mem_milli_kaptanlik",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

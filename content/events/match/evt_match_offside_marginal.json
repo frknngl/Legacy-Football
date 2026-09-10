@@ -2,7 +2,7 @@
   "id": "evt_match_offside_marginal",
   "family": "fam_match_var",
   "category": "match",
-  "tier": "minor",
+  "tier": "beat",
   "momentType": "offside_marginal",
   "weight": 14,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Bir omuz",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Attin. Ag saliniyor, tribun ayakta, sen kale arkasina kosuyorsun.\n\nSonra ekrandaki cizgiler.\n\nBir omuz. Belki bir ayakkabi burnu. Karar: ofsayt.\n\nSevincin ortasinda duruyorsun ve sevinci geri almak diye bir sey olmadigini fark ediyorsun. Kollarin hala havada.",
+          "text": "{minute}. dakika, skor {scoreline}. Attin. Ag saliniyor, tribun ayakta, sen kale arkasina kosuyorsun. Sonra ekrandaki cizgiler. Bir omuz. Belki bir ayakkabi burnu. Karar: ofsayt. Sevincin ortasinda duruyorsun ve sevinci geri almak diye bir sey olmadigini fark ediyorsun. Kollarin hala havada.",
           "choices": [
             {
               "id": "c_laugh",
@@ -122,7 +122,7 @@
         "n_laughed": {
           "title": "Bir omuz kadar",
           "kind": "outcome",
-          "text": "Guluyorsun ve bu gulus kameraya yakalaniyor. Ertesi gun o kare paylasilir: golu iptal edilirken gulen adam.\n\nBazilari bunu olgunluk sayar, bazilari umursamazlik.\n\nSen ise sadece agliyor gorunmek istemedin.",
+          "text": "Guluyorsun ve bu gulus kameraya yakalaniyor. Ertesi gun o kare paylasilir: golu iptal edilirken gulen adam. Bazilari bunu olgunluk sayar, bazilari umursamazlik. Sen ise sadece agliyor gorunmek istemedin. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "op": "match",
@@ -135,16 +135,16 @@
               "value": 8
             },
             {
-              "flag": "mem_reads_own_criticism",
+              "flag": "npc_manager_arc",
               "op": "add",
-              "value": 0
+              "value": 1
             }
           ]
         },
         "n_raged": {
           "title": "Yan hakem",
           "kind": "outcome",
-          "text": "Yan hakemin uzerine yuruyorsun. {actor.referee.name} araya giriyor ve seni gogsunden itiyor.\n\nSari kart.\n\nKale arkasi seni alkisliyor. Kenardaki {actor.manager.name} alkislamiyor; iki eliyle yuzunu ovuyor.",
+          "text": "Yan hakemin uzerine yuruyorsun. {actor.referee.name} araya giriyor ve seni gogsunden itiyor. Sari kart. Kale arkasi seni alkisliyor. Kenardaki {actor.manager.name} alkislamiyor; iki eliyle yuzunu ovuyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -171,7 +171,7 @@
         "n_focused": {
           "title": "Sonraki top",
           "kind": "outcome",
-          "text": "Hicbir sey soylemiyorsun. Orta yuvarlaga yuruyup elini kaldiriyorsun: topu istiyorsun.\n\nKalan yirmi dakikada dokuz kez topa dokunuyorsun; sezon ortalamanin iki kati.\n\nGol gelmiyor. Ama {actor.manager.name} mac sonunda sana bakip basini salliyor ve bu sezon ilk kez.",
+          "text": "Hicbir sey soylemiyorsun. Orta yuvarlaga yuruyup elini kaldiriyorsun: topu istiyorsun. Kalan yirmi dakikada dokuz kez topa dokunuyorsun; sezon ortalamanin iki kati. Gol gelmiyor. Ama {actor.manager.name} mac sonunda sana bakip basini salliyor ve bu sezon ilk kez. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
               "op": "match",
@@ -300,9 +300,9 @@
           "text": "Hakemin kararını değiştiremeyeceğini biliyorsun. O bakış, sadece bir futbolcuya değil, bir profesyonele yöneltilmiş bir onaydı. Sahada kalmaya devam ediyorsun.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -316,9 +316,9 @@
           "text": "Bakışınla verdiğin mesaj net. Omuz silkiyorsun. Oyunun içindeki kirli dengeleri, kulüp koridorlarındaki fısıltıları anladığını biliyor.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -336,9 +336,9 @@
           "text": "Kartı göze alıyorsun. Tribünlerin desteği arkanda yükseliyor ama maçın geri kalanında herkesin hedef tahtası sensin. Yönetim bunu not edecek.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -466,9 +466,9 @@
           "text": "Kelimelerin manşetlere düştü. Taraftar seni kahraman ilan etti ama federasyonun radarına girdin. Artık her faulün iki kat daha dikkatli izlenecek.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -482,9 +482,9 @@
           "text": "Doğru olanı yaptın, takımın zarar görmedi. Ancak taraftar tribünde senin samimiyetinden şüphe duymaya başladı bile.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -495,12 +495,12 @@
         "n_gri": {
           "title": "Bedel",
           "kind": "outcome",
-          "text": "Zarfa gelen para hesabına geçti ama taraftarın sana bakışı değişti. Profesyonelliğini paraya sattığını düşünüyorlar.",
+          "text": "Zarfa gelen para hesabına geçti ama taraftarın sana bakışı değişti. Profesyonelliğini paraya sattığını düşünüyorlar. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -514,9 +514,9 @@
           "text": "Sessizlik en güvenli liman. Ama içerideki o öfke, bir sonraki maçta daha büyük bir patlamaya gebe.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

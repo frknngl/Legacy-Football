@@ -4,6 +4,14 @@ Bu dosya "yapilmadi" listesi degil, **karar kaydi**dir. Her madde bir
 sebeple ertelendi; sebep yazili olmazsa altı ay sonra kimse neden
 yapilmadigini bilemez ve yanlis sirayla acilir.
 
+## 0. Faz gecisi kaydi (2026-09-10)
+
+- Phase C kapandi. Kapanis ve metrik ozeti:
+  `reports/phase-c-final/README.md`.
+- Siradaki aktif is: Faz 4b isyan icerigi.
+- Kickoff hedef listesi ve uygulama plani:
+  `docs/faz-4b-kickoff-plani.md`.
+
 ## 1. Kaleci ve defans mevkileri (ilk surumde KILITLI)
 
 Karar: `content/orchestrator/release.json` -> `lockedPositions`.

@@ -3,6 +3,7 @@
   "family": "fam_social_kumar",
   "category": "social",
   "tier": "major",
+  "authored": "hand",
   "weight": 45,
   "cooldown": {
     "self": 30,
@@ -30,7 +31,7 @@
         "n_root": {
           "title": "Kazanan Masa",
           "kind": "branch",
-          "text": "{actor.star_teammate.name} \"bir saat\" dedi. Üç saat oldu.\n\nMasada oturuyorsun ve kazanıyorsun. Otuz bin. Sonra kırk beş.\n\nKazanmak, kaybetmekten daha tehlikeli bir şey — çünkü kaybeden kalkar, kazanan oturur.\n\nKrupiye seni tanıyor. İki masa ötede biri telefonunu kaldırdı, sonra indirdi. Kaldırdığını gördün.\n\nYarın saat dokuzda antrenman var.",
+          "text": "{actor.star_teammate.name} \"bir saat\" dedi. Üç saat oldu. Masada oturuyorsun ve kazanıyorsun. Otuz bin. Sonra kırk beş. Kazanmak, kaybetmekten daha tehlikeli bir şey — çünkü kaybeden kalkar, kazanan oturur. Krupiye seni tanıyor. İki masa ötede biri telefonunu kaldırdı, sonra indirdi. Kaldırdığını gördün. Yarın saat dokuzda antrenman var.",
           "choices": [
             {
               "id": "c_kalk",
@@ -133,36 +134,36 @@
         "n_kalk": {
           "title": "Dokuzda Antrenman",
           "kind": "outcome",
-          "text": "Kalktın. {actor.star_teammate.name} \"Erken oldu,\" dedi ve oturmaya devam etti.\n\nSabah dokuzda sahadaydın. O yoktu; on birde geldi, hoca bir şey demedi.\n\nKırk beş bin hesabında. Kimse bilmiyor. En iyi kısmı bu.",
+          "text": "Kalktın. {actor.star_teammate.name} \"Erken oldu,\" dedi ve oturmaya devam etti. Sabah dokuzda sahadaydın. O yoktu; on birde geldi, hoca bir şey demedi. Kırk beş bin hesabında. Kimse bilmiyor. En iyi kısmı bu.",
           "onEnter": [
             {
-              "flag": "mem_kumarhaneden_kalkti",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_devam": {
           "title": "Bir El Daha",
           "kind": "outcome",
-          "text": "Bir el daha oynadın. Sonra bir tane daha.\n\nSabah dörtte kırk beş bin, yirmi beş bine inmişti. Çıkarken kendine \"yine de kârdayım\" dedin ve bu doğruydu, ama söylemek zorunda kalman bir şey anlatıyordu.\n\nDokuzda antrenmandaydın. Koştun. Kimse bir şey demedi.\n\nAma o gün ilk kez, topa geç gittiğini kendin fark ettin.",
+          "text": "Bir el daha oynadın. Sonra bir tane daha. Sabah dörtte kırk beş bin, yirmi beş bine inmişti. Çıkarken kendine \"yine de kârdayım\" dedin ve bu doğruydu, ama söylemek zorunda kalman bir şey anlatıyordu. Dokuzda antrenmandaydın. Koştun. Kimse bir şey demedi. Ama o gün ilk kez, topa geç gittiğini kendin fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_kumarhanede_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_telefon": {
           "title": "İki Masa Ötesi",
           "kind": "outcome",
-          "text": "Yanına gittin. Adam telefonunu cebine koydu ve gülümsedi.\n\n\"Merak etme,\" dedi. \"Ben senin tarafındayım.\"\n\nBu cümleyi hayatında ilk kez duyuyordun ve son kez duymayacaktın.\n\nFotoğraf çıkmadı. Ama o adam artık senin numaranı biliyor ve sen onunkini bilmiyorsun.",
+          "text": "Yanına gittin. Adam telefonunu cebine koydu ve gülümsedi. \"Merak etme,\" dedi. \"Ben senin tarafındayım.\" Bu cümleyi hayatında ilk kez duyuyordun ve son kez duymayacaktın. Fotoğraf çıkmadı. Ama o adam artık senin numaranı biliyor ve sen onunkini bilmiyorsun.",
           "onEnter": [
             {
-              "flag": "mem_kumarhanede_tanistirildi",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -303,9 +304,9 @@
           "text": "{actor.star_teammate.name}, ağır adımlarla odayı terk ederken sadece başını hafifçe sallamakla yetindi. Havaya sinen yoğun sigara dumanı ve rutubet kokusu, aramızdaki o gergin sessizliğin ağırlığını daha da artırdı. Kapıdan çıkarken arkasında bıraktığı toz bulutu, omuzlarıma yüklediği bu yeni sorumluluğun getirdiği soğukluğu silmeye yetmedi. Artık saha içindeki her pas, bu gizli anlaşmanın gölgesi altında atılacaktı.",
           "onEnter": [
             {
-              "flag": "mem_kumarhaneden_kalkti",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -315,9 +316,9 @@
           "text": "Gözlerindeki hayal kırıklığını gizlemiyor. Motor gürültüyle çalışıyor ve araç karanlıkta hızla uzaklaşıyor. Doğruyu yaptın ama kapı arkanda daha sert kapandı.",
           "onEnter": [
             {
-              "flag": "mem_kumarhanede_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -327,9 +328,9 @@
           "text": "{actor.star_teammate.name} başını hafifçe öne eğdi ve göz teması kurmadan sessizce onayladı. Masanın üzerine bırakılan paranın kaynağını sormadı; sadece parmak uçlarıyla masanın kenarındaki o pürüzlü ahşabı yokladı. İnsanların bilmediği o karanlık detay, bu borcun vadesinin asla dolmayacağı gerçeğiydi. Çıkan bozuk para şıkırtısı, odadaki tek net sesti ve o sesten sonra hiçbir şey eskisi gibi olmayacaktı.",
           "onEnter": [
             {
-              "flag": "mem_kumarhaneden_kalkti",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -339,9 +340,9 @@
           "text": "{actor.star_teammate.name} çanta ile birlikte gülümsüyor. Bu gidiş, aradaki gerilimi bitirdi ama cebindeki boşluk, yarınki idmana yorgunluk olarak yansıyacak.",
           "onEnter": [
             {
-              "flag": "mem_kumarhaneden_kalkti",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -450,9 +451,9 @@
           "text": "Masadakiler sustu. {actor.star_teammate.name} başını hafifçe yana eğdi, dudaklarında ince bir alay var. Bahis yükseldiğinde sadece para değil, kulüpteki ismin de masada kalıyor.",
           "onEnter": [
             {
-              "flag": "mem_kumarhaneden_kalkti",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -462,9 +463,9 @@
           "text": "Kapıya ulaştığında arkandan gelen kahkahayı duyuyorsun. {actor.star_teammate.name} senin için bir şey demedi ama kapı kolunu tutan elin titriyor. Profesyonellik, bazen korkaklık gibi görünür.",
           "onEnter": [
             {
-              "flag": "mem_kumarhanede_kaldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -474,9 +475,9 @@
           "text": "Zarfın ağırlığını hissetmek, üzerindeki baskıyı unutturuyor. Artık o odadaki herkesle bir sırrı paylaşıyorsun. {actor.star_teammate.name} bardağını sana doğru kaldırıyor, bu bir ortaklık değil, bir esaretin başlangıcı.",
           "onEnter": [
             {
-              "flag": "mem_kumarhanede_tanistirildi",
-              "op": "set",
-              "value": true
+              "flag": "npc_star_teammate_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

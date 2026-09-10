@@ -2,7 +2,8 @@
   "id": "evt_legacy_ellinci_gol",
   "family": "fam_legacy_kilometre",
   "category": "legacy",
-  "tier": "major",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 58,
   "once": true,
   "cooldown": {
@@ -31,7 +32,7 @@
         "n_root": {
           "title": "Elli",
           "kind": "branch",
-          "text": "Maç bitti. Malzemeci topu getirdi; üstüne tarihi ve skoru yazmışlar.\n\nEllinci gol. Kimse alkışlamadı çünkü maçı kaybettiniz ve gol seksen sekizinci dakikada, hiçbir şeyi değiştirmeyen bir goldü.\n\nTop elinde duruyor ve ne yapacağını bilmiyorsun.\n\n{actor.journalist.name} kapının önünde bekliyor — \"iki dakika\" diye mesaj attı.\n\n{actor.former_teammate.name} de mesaj attı. Sekiz yıl önce senin ilk golünü asist eden adam. Tek satır: *\"Birincisini hatırlıyor musun?\"*",
+          "text": "Maç bitti. Malzemeci topu getirdi; üstüne tarihi ve skoru yazmışlar. Ellinci gol. Kimse alkışlamadı çünkü maçı kaybettiniz ve gol seksen sekizinci dakikada, hiçbir şeyi değiştirmeyen bir goldü. Top elinde duruyor ve ne yapacağını bilmiyorsun. {actor.journalist.name} kapının önünde bekliyor — \"iki dakika\" diye mesaj attı. {actor.former_teammate.name} de mesaj attı. Sekiz yıl önce senin ilk golünü asist eden adam. Tek satır: *\"Birincisini hatırlıyor musun?\"*.",
           "choices": [
             {
               "id": "c_gazeteci",
@@ -129,41 +130,36 @@
         "n_gazeteci": {
           "title": "İki Dakika",
           "kind": "outcome",
-          "text": "İki dakika on bir dakika oldu. {actor.journalist.name} elli golün hepsini not almış; bazılarını sen hatırlamıyordun.\n\n\"Hangisi en iyisiydi?\" diye sordu.\n\n\"Bilmiyorum,\" dedin ve bu doğruydu. Golleri hatırlamıyorsun; golden sonraki üç saniyeyi hatırlıyorsun ve hepsi aynı.\n\nHaber ertesi gün çıktı. Başlık \"Elli\"ydi. Alt başlık kaybettiğiniz maçtan bahsetmiyordu.",
+          "text": "İki dakika on bir dakika oldu. {actor.journalist.name} elli golün hepsini not almış; bazılarını sen hatırlamıyordun. \"Hangisi en iyisiydi?\" diye sordu. \"Bilmiyorum,\" dedin ve bu doğruydu. Golleri hatırlamıyorsun; golden sonraki üç saniyeyi hatırlıyorsun ve hepsi aynı. Haber ertesi gün çıktı. Başlık \"Elli\"ydi. Alt başlık kaybettiğiniz maçtan bahsetmiyordu. Gecmisin agirligi hafiflemese de verdigin karar adina yeni bir ton ekledi.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_konustu",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_cevap": {
           "title": "Birincisi",
           "kind": "outcome",
-          "text": "{actor.journalist.name} koridorda bekledi. Sen telefona baktın.\n\n*\"Hatırlıyorum. Sen sağdan ortaladın, ben gözümü kapattım.\"*\n\nÜç nokta belirdi, kayboldu, tekrar belirdi.\n\n*\"Gözünü kapatmıştın, evet. Ben de o yüzden ortaladım.\"*\n\nSekiz yıldır konuşmuyordunuz. O gece iki saat konuştunuz. Röportaj hiç yapılmadı.",
+          "text": "{actor.journalist.name} koridorda bekledi. Sen telefona baktın. *\"Hatırlıyorum. Sen sağdan ortaladın, ben gözümü kapattım.\"* Üç nokta belirdi, kayboldu, tekrar belirdi. *\"Gözünü kapatmıştın, evet. Ben de o yüzden ortaladım.\"* Sekiz yıldır konuşmuyordunuz. O gece iki saat konuştunuz. Röportaj hiç yapılmadı. Sahadan cikarken Bu secimin sonucu gecikmeli geliyor. yankisi uzun sure kulaklarinda kaldi.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_eski_arkadas",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_eski_baglanti_canlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_top": {
           "title": "Tutulacak Bir Şey",
           "kind": "outcome",
-          "text": "\"Kaybettik. Tutulacak bir şey yok.\"\n\nMalzemeci topu aldı, bir şey demedi. Ertesi gün top malzeme odasının rafında duruyordu; üstündeki yazı silinmemişti.\n\nSoyunma odası bunu duydu. O hafta antrenmanda üç kişi ayrı ayrı yanına geldi ve hiçbiri golden bahsetmedi.\n\nİki sezon sonra ayrılırken malzemeci o topu çantana koydu. Sormadı, sen de çıkarmadın.",
+          "text": "\"Kaybettik. Tutulacak bir şey yok.\" Malzemeci topu aldı, bir şey demedi. Ertesi gün top malzeme odasının rafında duruyordu; üstündeki yazı silinmemişti. Soyunma odası bunu duydu. O hafta antrenmanda üç kişi ayrı ayrı yanına geldi ve hiçbiri golden bahsetmedi. İki sezon sonra ayrılırken malzemeci o topu çantana koydu. Sormadı, sen de çıkarmadın. Gecmisin agirligi hafiflemese de verdigin karar adina yeni bir ton ekledi.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -181,7 +177,7 @@
             {
               "id": "c_guvenli",
               "text": "Basın açıklamasını yap, sadece istatistikten ve profesyonel gelişimden bahset.",
-              "target": "n_guvenli",
+              "target": "n_shape_bridge_v_geri_donus",
               "effects": [
                 {
                   "flag": "profesyonellik",
@@ -286,9 +282,9 @@
           "text": "Söylediklerin yarın sabah gazetelerin arka sayfalarında, mürekkebi henüz kurumamış küçük bir not olarak yerini alacak. Stüdyonun soğuk ışıkları altında sesin yankılanırken, o görkemli golün sadece bir rakamdan ibaret kaldığını fark ettin. Dışarıdaki caddeden gelen rüzgarın uğultusu, kariyerinin en parlak anını soğuk bir istatistik yığınına dönüştürerek sessizce pencereden içeri süzüldü.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_konustu",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -298,9 +294,9 @@
           "text": "Sözlerin şehrin dar sokaklarında bir fısıltı gibi yayılmaya başlayacak, taraftarların kulaklarında zaferin tınısıyla yankılanacak. {actor.journalist.name} not defterini kapatırken bakışlarındaki tedirginliği gizleyemedi. Yönetim kurulu odasındaki ağır deri koltuklarda oturanların, bu açık sözlülüğün yarattığı huzursuzlukla birbirlerine bakıp fısıldaştıklarını adeta hissedebiliyordun; zaferin bedeli, kurumsal sessizliği bozmanın verdiği o gergin ağırlıkla omuzlarına çöktü.",
           "onEnter": [
             {
-              "flag": "mem_eski_baglanti_canlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -310,9 +306,9 @@
           "text": "Elinde tuttuğun zarfın ağırlığı, o gün sahada attığın ellinci golün verdiği haklı gururu gölgeledi. Masanın üzerindeki loş lambanın ışığı zarfın kenarlarından yansırken, {actor.journalist.name} başını öne eğip derin bir iç çekti. Artık aranızda kurulan bu sessiz mutabakat, karanlık bir sır gibi odanın köşelerine sindi; attığın o muazzam gol, kimsenin gerçeği öğrenemeyeceği bir gölge oyununa hapsedildi.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_eski_arkadas",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -322,11 +318,17 @@
           "text": "Arkanı dönüp kapıya yöneldiğinde, {actor.journalist.name} elindeki kalemi masaya bırakıp şaşkınlıkla arkandan bakakaldı. Odadaki ağır tütün kokusu ve eski belgelerin küf kokusu aranızdaki gerilimi daha da artırdı. Bazı hikayeler, sadece onları yaşayanların zihinlerinde birer anı olarak kalmalıydı; sen ise gerçeği saklamayı seçerek odadan çıkarken, sadece ayak seslerinin koridordaki yankısıyla baş başa kaldın.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_geri_donus": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Eski Tribünlerin Tozu aninda \"Basın açıklamasını yap, sadece istatistikten ve profesyonel\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_guvenli"
         }
       }
     },
@@ -342,7 +344,7 @@
             {
               "id": "c_servet",
               "text": "Cüzdanımdan çıkardığım o eski notu, {actor.journalist.name}’e doğru fırlatıyorum. 'Bunu yaz, manşet yap; bedeli her neyse ödenmiş kabul et.'",
-              "target": "n_servet",
+              "target": "n_shape_bridge_v_zafer_bedeli",
               "effects": [
                 {
                   "flag": "servet",
@@ -463,47 +465,53 @@
           "text": "Cüzdanın boş, ama banka hesabın dolu. {actor.journalist.name} arkandan bakarken artık aranızda sadece bu sessiz anlaşma var. Geçmişin bedeli artık bir fatura.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_konustu",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_taraftar": {
           "title": "Sokağın Sesi",
           "kind": "outcome",
-          "text": "İsimler havada uçuşuyor, eski semtin sokaklarında adın tekrarlanacak. Kulüpteki huzursuzluk ise şimdilik sadece bir fırtına uyarısı.",
+          "text": "İsimler havada uçuşuyor, eski semtin sokaklarında adın tekrarlanacak. Kulüpteki huzursuzluk ise şimdilik sadece bir fırtına uyarısı. Tribunden gelen sesler dinerken Bu anin izi kolay kapanmiyor. izi kariyer hafizanda daha da belirginlesti.",
           "onEnter": [
             {
-              "flag": "mem_eski_baglanti_canlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_profesyonel": {
           "title": "Soğuk Veda",
           "kind": "outcome",
-          "text": "Doğru olanı yaptın, herkes senden bunu bekliyordu. İçindeki yangını ise kimse görmedi, stadyumun otoparkında yalnız bıraktın.",
+          "text": "Doğru olanı yaptın, herkes senden bunu bekliyordu. İçindeki yangını ise kimse görmedi, stadyumun otoparkında yalnız bıraktın. Sahadan cikarken Bu secimin sonucu gecikmeli geliyor. yankisi uzun sure kulaklarinda kaldi.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_red": {
           "title": "Keskin Sözler",
           "kind": "outcome",
-          "text": "Söylediklerin yarın manşetlerde patlayacak. Köprüleri yakmak, bir zaferi kutlamaktan daha fazla cesaret istiyordu.",
+          "text": "Söylediklerin yarın manşetlerde patlayacak. Köprüleri yakmak, bir zaferi kutlamaktan daha fazla cesaret istiyordu. Bu secimin sonucu gecikmeli geliyor. Sahadan cikarken Bu secimin sonucu gecikmeli geliyor. yankisi uzun sure kulaklarinda kaldi.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_eski_arkadas",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_zafer_bedeli": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Stadyum Otoparkı aninda \"Cüzdanımdan çıkardığım o eski notu, {actor.journalist.name}’e doğru\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_servet"
         }
       }
     },
@@ -519,7 +527,7 @@
             {
               "id": "c_gri",
               "text": "Ceketinin iç cebindeki gizli sözleşme teklifini {actor.journalist.name}’in göreceği şekilde hafifçe arala.",
-              "target": "n_gri",
+              "target": "n_shape_bridge_v_taninma",
               "effects": [
                 {
                   "flag": "servet",
@@ -632,9 +640,9 @@
           "text": "{actor.journalist.name}’in bakışları ceketine kayıyor. Gülümsemiyor. Görüntüyü kapatıyor ama o anın kayıtlara geçmediğini, sadece seninle onun arasında bir sır olarak kaldığını ikiniz de biliyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_konustu",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -644,9 +652,9 @@
           "text": "Marşın yankısı koridorun beton duvarlarında eriyor. {actor.journalist.name} kamerasını indiriyor, şaşkın ama belli belirsiz onaylayan bir baş hareketiyle yol veriyor.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_eski_arkadas",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -656,9 +664,9 @@
           "text": "{actor.journalist.name}’in arkanda bıraktığı soğuk bakışlarını hissediyorsun. Söylediğin her kelime, aranızdaki profesyonel çizgiyi bir santim daha kalınlaştırıyor.",
           "onEnter": [
             {
-              "flag": "mem_ellinci_gol_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -668,11 +676,17 @@
           "text": "Lensin ardında ilk kez bir insan evladıyla göz göze geliyorsun. {actor.journalist.name} not defterini kapatıyor, ilk defa seninle sadece mesleki bir bağ değil, insani bir temas kuruyor.",
           "onEnter": [
             {
-              "flag": "mem_eski_baglanti_canlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_journalist_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_taninma": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Karanlık Koridor aninda \"Ceketinin iç cebindeki gizli sözleşme teklifini {actor.journalist.name}’in\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_gri"
         }
       }
     }

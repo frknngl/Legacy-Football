@@ -2,7 +2,8 @@
   "id": "evt_legal_mafia_collects",
   "family": "fam_legal_mafia",
   "category": "legal",
-  "tier": "epic",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 70,
   "once": true,
   "cooldown": {
@@ -42,7 +43,7 @@
         "n_root": {
           "title": "Bir iyilik bir iyiliktir",
           "kind": "branch",
-          "text": "Tesisin otoparkında, arabanin yanında bekliyor. Takım elbiseli değil; gri bir kazak, elinde bir dosya. {actor.fixer.name} hiçbir zaman tehdit etmez, hep hatırlatır.\n\n\"Uzun zaman oldu,\" diyor. Dosyayı kaputun üstüne koyuyor ve açmıyor. \"İçinde ne var biliyorsun.\"\n\nBiliyorsun.\n\n\"Pazar günü bir maç var,\" diyor. \"İlk yarıda bir sarı kart. Sadece bir sarı kart. Kim ne anlar?\"\n\nArabaya yaslanıyor. Acelesi yok. Hiç olmadı.",
+          "text": "Tesisin otoparkında, arabanin yanında bekliyor. Takım elbiseli değil; gri bir kazak, elinde bir dosya. {actor.fixer.name} hiçbir zaman tehdit etmez, hep hatırlatır. \"Uzun zaman oldu,\" diyor. Dosyayı kaputun üstüne koyuyor ve açmıyor. \"İçinde ne var biliyorsun.\" Biliyorsun. \"Pazar günü bir maç var,\" diyor. \"İlk yarıda bir sarı kart. Sadece bir sarı kart. Kim ne anlar?\" Arabaya yaslanıyor. Acelesi yok. Hiç olmadı.",
           "choices": [
             {
               "id": "c_accept",
@@ -155,9 +156,9 @@
                   "value": -12
                 },
                 {
-                  "flag": "mem_reported_fixing",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_fixer_arc",
+                  "op": "add",
+                  "value": 1
                 },
                 {
                   "op": "lifeState",
@@ -217,12 +218,12 @@
         "n_accepted": {
           "title": "Pazar günü",
           "kind": "outcome",
-          "text": "Pazar günü otuz dördüncü dakikada geç bir müdahale yapıyorsun. Hakem sarı gösteriyor. Kimse bir şey fark etmiyor.\n\nHesabına para geçiyor. Rakamı bir kez bakıp bir daha bakmıyorsun.\n\nO geceden sonra bir daha hiçbir maçta rahat olmuyorsun. Her sarı kartta, her faulde, kafanın arkasında bir ses: *kim ne anlar?*\n\nBirisi anlar. Her zaman birisi anlar. Sadece ne zaman olacağını bilmiyorsun.",
+          "text": "Pazar günü otuz dördüncü dakikada geç bir müdahale yapıyorsun. Hakem sarı gösteriyor. Kimse bir şey fark etmiyor. Hesabına para geçiyor. Rakamı bir kez bakıp bir daha bakmıyorsun. O geceden sonra bir daha hiçbir maçta rahat olmuyorsun. Her sarı kartta, her faulde, kafanın arkasında bir ses: *kim ne anlar?* Birisi anlar. Her zaman birisi anlar. Sadece ne zaman olacağını bilmiyorsun. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_sold_derby",
-              "op": "set",
-              "value": true
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "npc_fixer_arc",
@@ -239,7 +240,7 @@
         "n_refused": {
           "title": "Yırtılan kâğıt",
           "kind": "outcome",
-          "text": "Dosyayı alıp yırtıyorsun. {actor.fixer.first} izliyor, hiç kıpırdamıyor.\n\n\"Bu bende kalan tek kopya değildi,\" diyor sakin sakin. \"Sen bunu biliyorsun ve yine de yırttın. Buna saygı duyarım.\"\n\nArabasına biniyor. Camı indirip son bir şey söylüyor:\n\n\"Ben sana bir daha gelmeyeceğim. Ama benden başkaları gelecek ve onlar benim kadar sabırlı değil.\"\n\nÜç hafta sonra o görüntüler internete düşüyor.",
+          "text": "Dosyayı alıp yırtıyorsun. {actor.fixer.first} izliyor, hiç kıpırdamıyor. \"Bu bende kalan tek kopya değildi,\" diyor sakin sakin. \"Sen bunu biliyorsun ve yine de yırttın. Buna saygı duyarım.\" Arabasına biniyor. Camı indirip son bir şey söylüyor: \"Ben sana bir daha gelmeyeceğim. Ama benden başkaları gelecek ve onlar benim kadar sabırlı değil.\" Üç hafta sonra o görüntüler internete düşüyor. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "flag": "npc_fixer_arc",
@@ -261,7 +262,7 @@
         "n_reported": {
           "title": "İfade",
           "kind": "outcome",
-          "text": "{actor.prosecutor.name} seni dört saat dinliyor ve tek bir kez bile şaşırmıyor. Sonunda kalemi bırakıp arkasına yaslanıyor.\n\n\"Bu ifadeyi verdiğinizde hayatınız değişir,\" diyor. \"Kötüye de değişebilir. Bunu bilerek imzalayın.\"\n\nİmzalıyorsun.\n\nİki gün sonra evinin önünde bir polis aracı duruyor ve altı ay orada duracak. {actor.childhood_friend.name} artık telefonlarını açmıyor.",
+          "text": "{actor.prosecutor.name} seni dört saat dinliyor ve tek bir kez bile şaşırmıyor. Sonunda kalemi bırakıp arkasına yaslanıyor. \"Bu ifadeyi verdiğinizde hayatınız değişir,\" diyor. \"Kötüye de değişebilir. Bunu bilerek imzalayın.\" İmzalıyorsun. İki gün sonra evinin önünde bir polis aracı duruyor ve altı ay orada duracak. {actor.childhood_friend.name} artık telefonlarını açmıyor. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
               "flag": "mem_turned_informant",
@@ -288,7 +289,7 @@
         "n_paid": {
           "title": "Kapanan hesap",
           "kind": "outcome",
-          "text": "{actor.fixer.first} parayı saymıyor. Zarfı cebine koyup dosyayı sana uzatıyor.\n\n\"Hesap kapandı,\" diyor. \"Bu benim için bir iş, senin için bir kâbus. Aramızdaki fark bu.\"\n\nArabaya biniyor. Sonra camı indiriyor:\n\n\"Bir şey söyleyeyim mi? Ödeyenler hep geri gelir. Ödemeyenler bir daha gelmez.\"\n\nDosyayı arabanin bagajına atıyorsun. Aylarca orada duracak.",
+          "text": "{actor.fixer.first} parayı saymıyor. Zarfı cebine koyup dosyayı sana uzatıyor. \"Hesap kapandı,\" diyor. \"Bu benim için bir iş, senin için bir kâbus. Aramızdaki fark bu.\" Arabaya biniyor. Sonra camı indiriyor: \"Bir şey söyleyeyim mi? Ödeyenler hep geri gelir. Ödemeyenler bir daha gelmez.\" Dosyayı arabanin bagajına atıyorsun. Aylarca orada duracak. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "flag": "npc_fixer_arc",
@@ -432,9 +433,9 @@
           "text": "Ertesi gün karakolun kapısından içeri girerken kameraların flaşları patlıyor. {actor.fixer.name} çoktan ortadan kayboldu, geriye sadece senin ifaden kaldı. Milli takım kampına çağrılmayı beklerken, savcılık davetiyesi geldi.",
           "onEnter": [
             {
-              "flag": "mem_reported_fixing",
-              "op": "set",
-              "value": true
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "lifeState",
@@ -615,12 +616,12 @@
         "n_outcome_riskli": {
           "title": "İhbar",
           "kind": "outcome",
-          "text": "Çanta artık delil. Yarın sabah stadyumda seni bekleyen kameralar değil, müfettişler olacak. Kariyerin bir süreliğine buzlukta.",
+          "text": "Çanta artık delil. Yarın sabah stadyumda seni bekleyen kameralar değil, müfettişler olacak. Kariyerin bir süreliğine buzlukta. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
-              "flag": "mem_reported_fixing",
-              "op": "set",
-              "value": true
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "lifeState",
@@ -637,7 +638,7 @@
         "n_outcome_guvenli": {
           "title": "Görmezden Gelmek",
           "kind": "outcome",
-          "text": "Otobüs kapandı. İçindeki her şeyle birlikte yola çıktı. Vicdanın hala sızlasa da formanı temiz tuttun.",
+          "text": "Otobüs kapandı. İçindeki her şeyle birlikte yola çıktı. Vicdanın hala sızlasa da formanı temiz tuttun. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
               "flag": "mem_refused_fixing",
@@ -809,7 +810,7 @@
         "n_sonuc_riskli": {
           "title": "Riskli Yüzleşme",
           "kind": "outcome",
-          "text": "Arkanı dönüp yürüdüğünde {actor.fixer.name} sadece gülümsüyor. Bu sessizlik, senin için daha büyük bir fırtınanın başlangıcı.",
+          "text": "Arkanı dönüp yürüdüğünde {actor.fixer.name} sadece gülümsüyor. Bu sessizlik, senin için daha büyük bir fırtınanın başlangıcı. Karar o geceyi bitirdi ama kayit altina dusen izler hikayeyi daha yeni baslatiyor.",
           "onEnter": [
             {
               "flag": "mem_refused_fixing",
@@ -831,7 +832,7 @@
         "n_sonuc_gri": {
           "title": "Karanlık Ortaklık",
           "kind": "outcome",
-          "text": "Kutuyu aldın. Ağırlığı vicdanına yansıyor. Artık bu oyunun sadece saha içinde değil, dışında da bir parçasısın.",
+          "text": "Kutuyu aldın. Ağırlığı vicdanına yansıyor. Artık bu oyunun sadece saha içinde değil, dışında da bir parçasısın. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "mem_accepted_fixing",
@@ -853,12 +854,12 @@
         "n_sonuc_guvenli": {
           "title": "Vicdanın Bedeli",
           "kind": "outcome",
-          "text": "Odanın kapısını kilitlediğinde ellerin titriyor. Doğru olanı yaptın, ama bedelini uzun süre ödeyeceksin.",
+          "text": "Odanın kapısını kilitlediğinde ellerin titriyor. Doğru olanı yaptın, ama bedelini uzun süre ödeyeceksin. Tribunun ugultusu dagilsa da karar?n izi dagilmiyor. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
-              "flag": "mem_reported_fixing",
-              "op": "set",
-              "value": true
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "lifeState",
@@ -875,7 +876,7 @@
         "n_sonuc_kilitli": {
           "title": "Derin İttifak",
           "kind": "outcome",
-          "text": "Göz göze geldiniz. {actor.fixer.name} geri adım atıyor. Artık sahada değil, gölgelerde hareket edeceksin.",
+          "text": "Göz göze geldiniz. {actor.fixer.name} geri adım atıyor. Artık sahada değil, gölgelerde hareket edeceksin. Tribunun ugultusu dagilsa da karar?n izi dagilmiyor. Mesele masadan kalkti, fakat bu hamlenin hukuki bedeli sonraki haftalara sessizce yayiliyor.",
           "onEnter": [
             {
               "flag": "mem_mafia_favor_owed",

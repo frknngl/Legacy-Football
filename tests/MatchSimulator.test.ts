@@ -242,7 +242,7 @@ describe('MatchSimulator', () => {
     expect(seen.has('celebration_choice')).toBe(false);
   });
 
-  it('cezaliyken ve fiksturu olmayan haftada mac uretmez', () => {
+  it('cezaliyken takım maci oynanir ama Hero dakika almaz', () => {
     const { sim } = simulator(3);
     const base = {
       season: 1,
@@ -250,12 +250,40 @@ describe('MatchSimulator', () => {
       heroClubId: 'clb_yildiz',
       hero: HERO,
     };
-    expect(
-      sim.buildMatch({
-        ...base,
-        availability: { available: false, reason: 'ceza', matchesRemaining: 2 },
-      }),
-    ).toBeUndefined();
+    const built = sim.buildMatch({
+      ...base,
+      availability: { available: false, reason: 'ceza', matchesRemaining: 2 },
+    });
+    expect(built).toBeDefined();
+    expect(built?.context.isStarter).toBe(false);
+
+    const report = sim.applyDelta(
+      built!,
+      {
+        goalsDelta: 0,
+        assistsDelta: 0,
+        yellowCards: 0,
+        redCard: false,
+        injuryWeeks: 0,
+        ratingModifier: 0,
+        incidents: [],
+      },
+    );
+    expect(report.minutes).toBe(0);
+    expect(report.rating).toBe(0);
+    expect(report.goals).toBe(0);
+    expect(report.assists).toBe(0);
+    expect(report.cards).toBe(0);
+  });
+
+  it('fiksturu olmayan haftada mac uretmez', () => {
+    const { sim } = simulator(3);
+    const base = {
+      season: 1,
+      week: 1,
+      heroClubId: 'clb_yildiz',
+      hero: HERO,
+    };
 
     // Fikstursuz bir kulup: hicbir hafta maci yok.
     expect(

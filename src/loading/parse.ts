@@ -30,6 +30,7 @@ import { CONDITION_OPS, type Condition } from '../domain/conditions.js';
 import { FLAG_EFFECT_OPS, type Effect, type EffectValue } from '../domain/effects.js';
 import { FLAG_KINDS, type FlagDefinition, type FlagKind, type FlagType } from '../domain/flags.js';
 import type {
+  AuthoringOrigin,
   Choice,
   CooldownSpec,
   EventVariant,
@@ -41,6 +42,8 @@ import type {
   StoryNode,
   WeightExpression,
 } from '../domain/story.js';
+
+const AUTHORED: readonly AuthoringOrigin[] = ['hand', 'generated'];
 
 export interface ParseIssue {
   readonly path: string;
@@ -567,7 +570,22 @@ export function parseEvent(v: unknown, ctx: ParseContext, sourceFile: string): S
   const weight = num(v['weight']) ?? 10;
   const cooldown = parseCooldown(v['cooldown'], ctx, 'cooldown');
 
-  const out: Record<string, unknown> = { id, family, category, tier, weight, cooldown, sourceFile };
+  const rawAuthored = v['authored'];
+  const authored = rawAuthored !== undefined ? oneOf<AuthoringOrigin>(rawAuthored, AUTHORED) : 'generated';
+  if (rawAuthored !== undefined && authored === undefined) {
+    ctx.error('authored', `Gecersiz authored degeri: ${JSON.stringify(rawAuthored)}`, 'Izin verilenler: hand, generated');
+  }
+
+  const out: Record<string, unknown> = {
+    id,
+    family,
+    category,
+    tier,
+    weight,
+    cooldown,
+    authored: authored ?? 'generated',
+    sourceFile,
+  };
 
   const eras = arrOf<Era>(v['eras'], ERAS, ctx, 'eras');
   if (eras) out['eras'] = eras;

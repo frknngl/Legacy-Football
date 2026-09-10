@@ -2,7 +2,7 @@
   "id": "evt_personal_sibling_borc_injured",
   "family": "fam_personal_borc",
   "category": "personal",
-  "tier": "epic",
+  "tier": "major",
   "weight": 10,
   "cooldown": {
     "self": 30,
@@ -29,7 +29,7 @@
         "n_root": {
           "title": "Eski Hesaplar",
           "kind": "branch",
-          "text": "Odanın içi hastane odası kokusu ve ağır bir sessizlikle dolu. {actor.sibling.name}, yatağının ucuna oturmuş, elindeki telefonu yavaşça çeviriyor. Bakışları, alçıda olan bacağında değil, sehpanın üzerindeki lüks saatte. \"Sen burada sakatlanıp yatarken dünya dönmeye devam ediyor,\" diyor sesi soğuk bir metal sürtünmesi gibi. \"Bana söz verdiğin o günleri hatırlıyor musun? O zamanlar ikimizdik, şimdi ise sadece sen ve o sözleşmen varsın. Borcunu ödeme vakti geldi, hem de bugünkü kurdan.\"",
+          "text": "Odanın içi hastane odası kokusu ve ağır bir sessizlikle dolu. {actor.sibling.name}, yatağının ucuna oturmuş, elindeki telefonu yavaşça çeviriyor. Bakışları, alçıda olan bacağında değil, sehpanın üzerindeki lüks saatte. \"Sen burada sakatlanıp yatarken dünya dönmeye devam ediyor,\" diyor sesi soğuk bir metal sürtünmesi gibi. \"Bana söz verdiğin o günleri hatırlıyor musun? O zamanlar ikimizdik, şimdi ise sadece sen ve o sözleşmen varsın. Borcunu ödeme vakti geldi, hem de bugünkü kurdan.\" Pencerenin dışındaki ambulans sesi uzaklaşırken, odadaki hesap defteri daha da yakınlaşıyor.",
           "choices": [
             {
               "id": "c_safe",
@@ -160,9 +160,9 @@
           "text": "{actor.sibling.name} önündeki kağıdı buruşturup masanın kenarına fırlattı, bakışlarını bir an bile olsun gözlerinle birleştirmedi. Odanın içindeki ağır hava, sertçe kapanan kapının çıkardığı yankıyla daha da keskinleşti. Ayak sesleri koridorda hızla uzaklaşırken, geride kalan soğuk sessizlikte aranızdaki bağın profesyonel hayatın taş duvarlarına çarpıp telafisi imkansız bir biçimde parçalandığını hissettin. Kalan tek şey, zihninde yankılanan o kapı sesiydi.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -172,9 +172,9 @@
           "text": "Parayı alıp gülümseyerek çıkıyor. Bu borç bitti ama başka bir borcun kapısı aralandı. Artık dışarıda, senin adına verilen kararların sorumluluğu ona ait.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -184,9 +184,9 @@
           "text": "Kasa boşaldı. Hesabındaki rakamların düşüşünü izlemek, bacağındaki acıdan daha keskin bir sızı bırakıyor. Huzuru para ile satın aldın, ama huzur artık seninle değil.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -196,9 +196,9 @@
           "text": "{actor.sibling.name} duraksıyor, fikrini değiştiriyor. {actor.child.name}’in ismi odaya yeni bir hava getiriyor. Borç ödendi ancak yükün artık sadece para değil, iki hayatın ağırlığı.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -211,7 +211,7 @@
         "n_root": {
           "title": "Karanlıkta Yüzleşme",
           "kind": "branch",
-          "text": "Antrenman sahasının kapalı otoparkında, soğuk betonun üzerine çökmüş durumdasın. Sakatlığın bacağını sızlatıyor ama asıl acı, karşında duran {actor.sibling.name} ile arandaki mesafede. Elinde tuttuğu son hesap özetleri, senin yıllardır gizlediğin transfer primlerinin nereye gittiğini kanıtlıyor. {actor.sibling.name} sadece bakıyor; tek bir ses bile etmiyor. Sadece arabanın dikiz aynasından yansıyan cılız ışıkta, gözlerindeki o tanıdık hayal kırıklığını izliyorsun. Sessizlik, biriken borçların gürültüsünden daha ağır.",
+          "text": "Antrenman sahasının kapalı otoparkında, soğuk betonun üzerine çökmüş durumdasın. Sakatlığın bacağını sızlatıyor ama asıl acı, karşında duran {actor.sibling.name} ile arandaki mesafede. Elinde tuttuğu son hesap özetleri, senin yıllardır gizlediğin transfer primlerinin nereye gittiğini kanıtlıyor. {actor.sibling.name} sadece bakıyor; tek bir ses bile etmiyor. Sadece arabanın dikiz aynasından yansıyan cılız ışıkta, gözlerindeki o tanıdık hayal kırıklığını izliyorsun. Sessizlik, biriken borçların gürültüsünden daha ağır. Uzaktan gelen güvenlik kapısı sesi, bu konuşmanın ertelenemeyeceğini yüzüne çarpıyor.",
           "choices": [
             {
               "id": "c_gri",
@@ -297,6 +297,37 @@
               "persona": {
                 "sadakat": -8
               }
+            },
+            {
+              "id": "c_stat",
+              "text": "Arana mesafe koy ama kapıyı tamamen kapatma. 'Parayı bugün veremem, fakat bu borcu planlı şekilde birlikte bitireceğiz.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "iliski_sibling",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 6
+                }
+              ],
+              "persona": {
+                "sadakat": 6,
+                "dogruluk": 4
+              }
             }
           ]
         },
@@ -306,21 +337,21 @@
           "text": "Kartı avucuna bırakırken parmaklarınız birbirine değmiyor. {actor.sibling.name} arkasını dönüp gidiyor. Biliyorsun, o para tükendiğinde yine geri gelecek ama bu gece, bir süre daha nefes alabileceksin.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_riskli": {
           "title": "Yeni Bir İttifak",
           "kind": "outcome",
-          "text": "{actor.sibling.name} başını sallıyor, otoparkın karanlığında gözleri parlıyor. Bu sadece bir borç kapatma değil, artık bir suç ortaklığı. Tribünlerdeki fısıltılar artacak, biliyorsun.",
+          "text": "{actor.sibling.name} başını sallıyor, otoparkın karanlığında gözleri parlıyor. Bu sadece bir borç kapatma değil, artık bir suç ortaklığına attığın ilk imza. Tribünlerdeki fısıltıların artacağını, kulüp koridorlarında adının farklı bir tonda anılacağını ikiniz de biliyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -330,9 +361,9 @@
           "text": "{actor.sibling.name} gitmeden önce uzun süre yüzüne bakıyor. Arkasından kapı kapandığında, kendi kariyerini kurtardığını hissediyorsun ama odaya dönmek artık sadece yorgunluk veriyor.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -345,7 +376,7 @@
         "n_root": {
           "title": "Eski Mahallede Bir Gece",
           "kind": "branch",
-          "text": "Mahallenin çıkışındaki o paslı bahçe kapısının önündesin. Sakatlığın bacağını bir mengene gibi sıkıyor, yürümek işkence. {actor.sibling.name} kapının eşiğinde, elinde tuttuğu eski bir dosya ile bekliyor. Sokak lambasının titrek ışığı altında, ikinizin de çocukluktan getirdiğiniz o hırçın sessizlik yükseliyor. Bu kapıdan içeri girmek, aslında asla kapatamadığın bir defteri tekrar açmak demek. Dosyayı sana uzatıyor; kağıtlar nemden buruşmuş.",
+          "text": "Mahallenin çıkışındaki o paslı bahçe kapısının önündesin. Sakatlığın bacağını bir mengene gibi sıkıyor, yürümek işkence. {actor.sibling.name} kapının eşiğinde, elinde tuttuğu eski bir dosya ile bekliyor. Sokak lambasının titrek ışığı altında, ikinizin de çocukluktan getirdiğiniz o hırçın sessizlik yükseliyor. Bu kapıdan içeri girmek, aslında asla kapatamadığın bir defteri tekrar açmak demek. Dosyayı sana uzatıyor; kağıtlar nemden buruşmuş. Uzaktan geçen dolmuşun farı kapıya vurunca, geri dönüşün artık sadece bir anı olmadığını anlıyorsun.",
           "choices": [
             {
               "id": "c_gerekli_kötülük",
@@ -462,9 +493,9 @@
           "text": "Para, geçmişteki hataları örtmek için en temiz perde. {actor.sibling.name} yüzüne bile bakmadan arkasını dönüp gidiyor. Yalnızlık, cebindeki eksilmeden daha ağır.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -474,21 +505,21 @@
           "text": "Sırtını dönüp uzaklaşırken, {actor.sibling.name} arkandan bir şey söylemiyor. Sessizlik, bir vedadan çok daha keskin bir hüküm gibi havada asılı kalıyor.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_riskli": {
           "title": "Eski Bağlılıklar",
           "kind": "outcome",
-          "text": "Gözlerini kararttın. Mahallede saygın kazandın belki ama gazetecilerin kameraları artık çok daha yakınında. Bu gölge, kariyerinin üzerine çökecek.",
+          "text": "Gözlerini kararttın. Mahallede saygın kazandın belki ama gazetecilerin kameraları artık çok daha yakınında. Bu gölge, kariyerinin üzerine çökecek. Gece dagildiginda mesele kapanmadi; sadece aile icindeki sessizligin tonu degisti.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -498,9 +529,9 @@
           "text": "Sakat bacağının acısını unutup ona destek oldun. Bağlar güçlendi ama kendi iyileşme sürecini feda etmenin bedeli ağır olacak. Sahaya dönüşün bir hafta daha ertelendi.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -513,7 +544,7 @@
         "n_root": {
           "title": "Karanlık Çıkmazı",
           "kind": "branch",
-          "text": "Evdeki ışıklar kapalı. Sadece mutfaktan gelen cılız bir buzdolabı uğultusu duyuluyor. {actor.sibling.name} masanın diğer ucunda, biriken borçların dökümünü içeren tabletini sessizce önüne itiyor. Bacağındaki sargı, sandalyenin ayağına çarptıkça zonkluyor. {actor.sibling.name} hiçbir şey söylemiyor, sadece bakıyor. Gözlerinde ne bir öfke var ne de bir merhamet; sadece tüketilmiş bir zamanın ağırlığı. Dışarıda gece, içeride ise boğazına oturan o tanıdık hıçkırık. Masanın üzerindeki imza kalemini alıp tableti imzalamanı bekliyor.",
+          "text": "Evdeki ışıklar kapalı. Sadece mutfaktan gelen cılız bir buzdolabı uğultusu duyuluyor. {actor.sibling.name} masanın diğer ucunda, biriken borçların dökümünü içeren tabletini sessizce önüne itiyor. Bacağındaki sargı, sandalyenin ayağına çarptıkça zonkluyor. {actor.sibling.name} hiçbir şey söylemiyor, sadece bakıyor. Gözlerinde ne bir öfke var ne de bir merhamet; sadece tüketilmiş bir zamanın ağırlığı. Dışarıda gece, içeride ise boğazına oturan o tanıdık hıçkırık. Masanın üzerindeki imza kalemini alıp tableti imzalamanı bekliyor. Saatin tik takları uzadıkça, bu masada alınan kararın sezonu da aileyi de farklı bir yola sürükleyeceğini hissediyorsun.",
           "choices": [
             {
               "id": "c_guvenli",
@@ -605,42 +636,73 @@
                 "value": 100000
               },
               "lockLabel": "[Yeterli birikim yok]"
+            },
+            {
+              "id": "c_uzlasi",
+              "text": "Tableti kapatıp önüne çek. 'Bunu tek gecede değil, taksitli bir planla ve açık bir takvimle bitireceğiz.'",
+              "target": "n_gri",
+              "effects": [
+                {
+                  "flag": "iliski_sibling",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "sadakat": 6,
+                "dogruluk": 5
+              }
             }
           ]
         },
         "n_guvenli": {
           "title": "Resmi Yol",
           "kind": "outcome",
-          "text": "{actor.sibling.name} başını sallayarak masadan kalkıyor. Aramızdaki mesafe artık bir oda değil, bir okyanus.",
+          "text": "{actor.sibling.name} başını sallayarak masadan kalkıyor. Aranızdaki mesafe artık bir oda değil, her gün biraz daha açılan bir okyanus; doğru kararı verdiğini bilsen bile bu sessizlik uzun süre peşini bırakmıyor.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_riskli": {
           "title": "Sokak Sözü",
           "kind": "outcome",
-          "text": "İmza atıldı. {actor.sibling.name} karanlıkta gülümseyerek çıkıyor. Bu borç artık bir kağıt parçası değil, bir pranga.",
+          "text": "İmza atıldı. {actor.sibling.name} karanlıkta gülümseyerek çıkıyor. Bu borç artık bir kağıt parçası değil, geceleri uykunu bölecek bir pranga; ödeyeceğin bedelin yalnız para olmayacağını ikiniz de biliyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_gri": {
           "title": "Gri Bölge",
           "kind": "outcome",
-          "text": "Rakamlar birbirine karışıyor. {actor.sibling.name} gidiyor, geriye sadece temizlenmesi gereken bir hesap defteri kalıyor.",
+          "text": "Rakamlar birbirine karışıyor, masadaki çizgiler netliğini kaybediyor. {actor.sibling.name} gidiyor, geriye sadece temizlenmesi gereken bir hesap defteri değil, onarılması zor bir aile dengesi ve uzun bir takvim kalıyor.",
           "onEnter": [
             {
-              "flag": "mem_personal_borc_sibling",
-              "op": "set",
-              "value": true
+              "flag": "npc_sibling_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

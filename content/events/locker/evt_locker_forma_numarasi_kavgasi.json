@@ -1,0 +1,259 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Zirve çağında (24-29 yaş) yeni sezon transfer döneminde soyunma odasında patlayan klasik ego savaşı: forma numarası.",
+    "hangi_soru": "Yıllardır sırtında taşıdığın ikonik numarayı yeni gelen milyonluk yıldıza teslim edecek misin, yoksa sahada meydan mı okuyacaksın?",
+    "odeme_plani": "Numarayı verip vermemek takım içi otoriteyi ve kariyer epilogunu (koda_forma_numarasi / koda_forma_devir) belirler."
+  },
+  "id": "evt_locker_forma_numarasi_kavgasi",
+  "family": "fam_locker_forma_numarasi",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 70,
+  "cooldown": {
+    "self": 36,
+    "family": 14
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "locker:star_teammate:forma_numarasi_kavgasi",
+    "slot": "star_teammate",
+    "beat": "forma_numarasi_kavgasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 2
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Askıdaki On Numara",
+      "kind": "branch",
+      "text": "Sezon başı kampının ilk günü. Soyunma odasının ortasındaki masada yeni sezon formaları dizilmiş. Askıda asılı duran o kutsal 10 numaralı formaya doğru yürürken kapı açılıyor. Kulübün bu yaz altı milyon Euro bonservis ödeyerek transfer ettiği {actor.star_teammate.name} içeri giriyor. Yanında kulüp menajeri var; menajer biraz mahcup, yeni transfer ise gayet rahat bir tavırla askıdaki 10 numarayı işaret ediyor. 'Sözleşmesinde yazılı bir madde yok ama imza töreninde basına bu numarayla poz vermek istiyor,' diyor menajer sana dönerek. 'Başkan da rica etti; sen bu kulübün evladısın, sana 99 numarayı verelim, büyüklük sende kalsın.' {actor.star_teammate.name} kollarını kavuşturup sana bakıyor. O numarayı yıllarca terinle, attığın gollerle aldın; şimdi bir imza töreni fotoğrafı için teslim etmen isteniyor.",
+      "choices": [
+        {
+          "id": "c_diren",
+          "text": "\"Bu numara sahada kazanıldı. Başkana söyleyin, başka numara baksın.\"",
+          "target": "n_diren",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": -16
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_pazarlik",
+          "text": "\"Yıllık sözleşmeme yüz bin Euro zam yaparlarsa 99'u giyerim, yoksa unutun.\"",
+          "target": "n_pazarlik",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 100000
+            },
+            {
+              "flag": "haftalik_gelir",
+              "op": "add",
+              "value": 2500
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": -8,
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_olgunluk",
+          "text": "\"Ben numarasız da bu takımın lideriyim.\" 10 numarayı ona uzat, 99'u al.",
+          "target": "n_olgunluk",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_star_teammate",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "sadakat": 12,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_frikik",
+          "text": "\"Hoca gelsin, antrenmanda beşer frikik atalım. Kazanan 10 numarayı giysin.\"",
+          "target": "n_frikik",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "mizac": 14,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_diren": {
+      "title": "Tavizsiz Duruş",
+      "kind": "outcome",
+      "text": "Askıdaki formayı çekip kendi dolabına astın. {actor.star_teammate.name} hışımla kapıyı çarpıp çıktı; menajer başını tuttu. Ama akşam taraftar forumlarında 'Numaramızı Milyonlara Satmadık' başlığı açıldı. Soyunma odasında ise o sezon kimse senin alanına izinsiz giremeyecekti.",
+      "onEnter": [
+        {
+          "flag": "mem_forma_numarasini_vermedi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_pazarlik": {
+      "title": "Pahalı Devir",
+      "kind": "outcome",
+      "text": "Menajer hemen telefonu çıkarıp başkanı aradı. Yarım saat sonra yeni sözleşme zammı fakslandı. İmzayı attın, 10 numarayı yeni yıldıza uzatıp 99'u sırtına geçirdin. Para cebine girdi ama tribünlerin gözünde ilk kez 'bizim çocuk'tan çok 'hesapçı profesyonele' dönüştün.",
+      "onEnter": [
+        {
+          "flag": "mem_forma_numarasini_verdi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_olgunluk": {
+      "title": "Büyük Ağabey Jest",
+      "kind": "outcome",
+      "text": "Formayı ellerinle uzattın: 'Umarım bu numaranın hakkını verirsin kardeşim.' {actor.star_teammate.name} şaşırdı; kavga beklerken gelen bu asil tavır karşısında sana sarıldı. Yönetim rahat bir nefes aldı; sahada 99 numarayla devleştiğinde herkes o numaranın sadece bir rakamdan ibaret olduğunu gördü.",
+      "onEnter": [
+        {
+          "flag": "mem_forma_numarasini_verdi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_frikik": {
+      "title": "Çimendeki Düello",
+      "kind": "outcome",
+      "text": "Antrenman sonunda bütün takım kale arkasına toplandı. Hoca kollarını kavuşturup izledi. Beşte dört yaptın; rakibin ise son topta direği dövdü. Bütün takım kahkahalarla seni omuzlarına aldı; yeni transfer formasını kendi elleriyle sana teslim edip 11 numaraya geçti. Saygıyı çimende kazanmıştın.",
+      "onEnter": [
+        {
+          "flag": "mem_forma_numarasini_vermedi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

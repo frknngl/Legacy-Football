@@ -2,7 +2,7 @@
   "id": "evt_mind_doctor_maske_dusmesi",
   "family": "fam_mind_maske_dusmesi",
   "category": "mind",
-  "tier": "major",
+  "tier": "minor",
   "weight": 10,
   "cooldown": {
     "self": 20,
@@ -42,12 +42,12 @@
         "n_root": {
           "title": "Karanlık Muayene",
           "kind": "branch",
-          "text": "{actor.doctor.name} masanın arkasında hareketsiz oturuyor. Odanın ışıkları loş, duvarda sadece saatin tik-takları duyuluyor. Masanın üzerinde senin son birkaç yılda verdiğin tüm tepkilerin, yalanların ve gizli öfkenin dökümleri duruyor. Gözlerini kaçırmana izin vermiyor. {actor.partner.name} ise dışarıda, basın ordusuyla başa çıkmaya çalışırken seni bu odaya, bir uzmanın merhametine terk etti. Burası, herkesin senden beklediği o kusursuz, soğukkanlı futbolcu maskesinin ilk kez çatladığı yer. {actor.doctor.name} dosyayı kapatıp hafifçe ileri itiyor. 'Sonsuza kadar oyun oynayamazsın,' diye fısıldıyor. 'Şimdi, kim olduğunla yüzleşme vakti.'",
+          "text": "{actor. doctor. name} masanın arkasında hareketsiz oturuyor. Odanın ışıkları loş, duvarda sadece saatin tik-takları duyuluyor. Masanın üzerinde senin son birkaç yılda verdiğin tüm tepkilerin, yalanların ve gizli öfkenin dökümleri duruyor. Gözlerini kaçırmana izin vermiyor. {actor. partner. name} ise dışarıda, basın ordusuyla başa çıkmaya çalışırken seni bu odaya, bir uzmanın merhametine terk etti. Burası, herkesin senden beklediği o kusursuz, soğukkanlı futbolcu maskesinin ilk kez çatladığı yer. {actor. doctor. name} dosyayı kapatıp hafifçe ileri itiyor. 'Sonsuza kadar oyun oynayamazsın,' diye fısıldıyor. 'Şimdi, kim olduğunla yüzleşme vakti.",
           "choices": [
             {
               "id": "c_1",
               "text": "Maskeyi takmaya devam et. Her şeyin kontrol altında olduğunu söyle ve çıkışa yönel.",
-              "target": "n_outcome_safe",
+              "target": "n_shape_bridge_v_asil",
               "effects": [
                 {
                   "flag": "profesyonellik",
@@ -211,6 +211,12 @@
               "value": true
             }
           ]
+        },
+        "n_shape_bridge_v_asil": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Karanlık Muayene aninda \"Maskeyi takmaya devam et. Her şeyin kontrol\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_outcome_safe"
         }
       }
     },
@@ -527,7 +533,7 @@
         "n_outcome_profesyonel": {
           "title": "Soğuk Kanlılık",
           "kind": "outcome",
-          "text": "{actor.doctor.name} dosyayı imha ediyor. Kimse bilmeyecek. Sadece sen ve vicdanın, o boş koltukta kalıyorsunuz.",
+          "text": "{actor.doctor.name} dosyayı imha ediyor. Kimse bilmeyecek. Sadece sen ve vicdanın, o boş koltukta kalıyorsunuz. icindeki. Nefesini duzenlemeye calisirken icindeki catlakla yuzlesmenin ertelenemeyecegini hissettin.",
           "onEnter": [
             {
               "flag": "mem_mind_maske_dusmesi_doctor",
@@ -639,7 +645,7 @@
         "n_sonuc_servet": {
           "title": "Bedeli Ödenmiş Sessizlik",
           "kind": "outcome",
-          "text": "Cihazı alıyor. İçindeki boşluğun, harcadığın paranın ağırlığından daha ağır olduğunu biliyorsun. Bu borç artık senin bir parçan.",
+          "text": "Cihazı alıyor. İçindeki boşluğun, harcadığın paranın ağırlığından daha ağır olduğunu biliyorsun. Bu borç artık senin bir parçan. Nefesini duzenlemeye calisirken icindeki catlakla yuzlesmenin ertelenemeyecegini hissettin.",
           "onEnter": [
             {
               "flag": "mem_mind_maske_dusmesi_doctor",

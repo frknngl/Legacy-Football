@@ -2,7 +2,8 @@
   "id": "evt_national_ilk_forma",
   "family": "fam_national_ilk_forma",
   "category": "national",
-  "tier": "epic",
+  "tier": "major",
+  "authored": "hand",
   "weight": 100,
   "once": true,
   "cooldown": {
@@ -30,7 +31,7 @@
         "n_root": {
           "title": "Tünelde Doksan Saniye",
           "kind": "branch",
-          "text": "Formayı öğleden sonra verdiler. Numarası sana ait değil; bu kamp için ödünç.\n\nTünelde sıra var. Önünde {actor.national_captain.name}, arkanda on yedi yaşında görünen bir çocuk — o da ilk kez.\n\nSağ tarafta bir görevli sayıyor. Solda kameraman geri geri yürüyor.\n\n{actor.national_captain.name} arkasına dönmüyor ama konuşuyor:\n\n\"Marşta ne yaparsan yap. Ama ne yaparsan onu bir daha her maçta yapacaksın. On iki yıldır aynı yere bakıyorum ben.\"\n\nKapı açılıyor. Ses geliyor.",
+          "text": "Formayı öğleden sonra verdiler. Numarası sana ait değil; bu kamp için ödünç. Tünelde sıra var. Önünde {actor.national_captain.name}, arkanda on yedi yaşında görünen bir çocuk — o da ilk kez. Sağ tarafta bir görevli sayıyor. Solda kameraman geri geri yürüyor. {actor.national_captain.name} arkasına dönmüyor ama konuşuyor: \"Marşta ne yaparsan yap. Ama ne yaparsan onu bir daha her maçta yapacaksın. On iki yıldır aynı yere bakıyorum ben.\" Kapı açılıyor. Ses geliyor.",
           "choices": [
             {
               "id": "c_soyle",
@@ -116,37 +117,85 @@
               "persona": {
                 "dogruluk": 6
               }
+            },
+            {
+              "id": "c_koc",
+              "text": "Tünelde {actor.national_manager.name:dat} bak: U-19 günlerinden bu yana geçen yılları hatırla.",
+              "target": "n_koc",
+              "requires": {
+                "flag": "mem_umit_milli_kampa_yetisti",
+                "op": "isSet"
+              },
+              "lockLabel": "[Ümit Millî Geçmişi]",
+              "effects": [
+                {
+                  "flag": "iliski_national_manager",
+                  "op": "add",
+                  "value": 12
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 8
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": 4
+                }
+              ],
+              "persona": {
+                "sadakat": 8,
+                "durus": 6
+              }
+            }
+          ]
+        },
+        "n_koc": {
+          "title": "Eski Tanışıklık",
+          "kind": "outcome",
+          "text": "{actor.national_manager.name} tünelin çıkışına doğru başını çevirdiğinde göz göze geldiniz. Yıllar önce lise sınavından çıkıp nefes nefese Riva'nın çimlerine ayak bastığın o yağmurlu akşamı ikiniz de hatırlıyordunuz. Hiçbir şey söylemedi; sadece hafifçe başını salladı. O baş sallama, bu formanın sana bir tesadüf eseri verilmediğinin sessiz tesciliydi.",
+          "onEnter": [
+            {
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_soyle": {
           "title": "Bir Daha Her Maçta",
           "kind": "outcome",
-          "text": "Söyledin. Sesin ikinci mısrada titredi, üçüncüde oturdu.\n\nErtesi gün o kare her yerdeydi. Altına yazılanların çoğu iyiydi, bir kısmı değildi, hepsi seninle ilgiliydi ve hiçbiri futbolla ilgili değildi.\n\n{actor.national_captain.name} haklıydı: bir sonraki maçta da söyledin. Söylememek artık bir haber olurdu.",
+          "text": "Söyledin. Sesin ikinci mısrada titredi, üçüncüde oturdu. Ertesi gün o kare her yerdeydi. Altına yazılanların çoğu iyiydi, bir kısmı değildi, hepsi seninle ilgiliydi ve hiçbiri futbolla ilgili değildi. {actor.national_captain.name} haklıydı: bir sonraki maçta da söyledin. Söylememek artık bir haber olurdu. Kamp dagildi, ancak bu hamlenin yankisi sonraki kadro aciklamasina kadar suruyor.",
           "onEnter": [
             {
-              "flag": "mem_marsi_soyledi",
-              "op": "set",
-              "value": true
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sessiz": {
           "title": "Kapalı Gözler",
           "kind": "outcome",
-          "text": "Söylemedin. Gözlerin kapalıydı ve doksan saniye çok uzun sürdü.\n\nKimse bir şey demedi. Ertesi gün bir yorumcu dedi, sonra üç kişi daha dedi, sonra bir hafta boyunca bu konuşuldu.\n\nSen hiç açıklama yapmadın. Açıklama yapmamak da bir cevaptır ve onu da bir daha her maçta vermen gerekecek.",
+          "text": "Söylemedin. Gözlerin kapalıydı ve doksan saniye çok uzun sürdü. Kimse bir şey demedi. Ertesi gün bir yorumcu dedi, sonra üç kişi daha dedi, sonra bir hafta boyunca bu konuşuldu. Sen hiç açıklama yapmadın. Açıklama yapmamak da bir cevaptır ve onu da bir daha her maçta vermen gerekecek. Kamp dagildi, ancak bu hamlenin yankisi sonraki kadro aciklamasina kadar suruyor.",
           "onEnter": [
             {
-              "flag": "mem_marsi_sussmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_cocuk": {
           "title": "Arkandaki",
           "kind": "outcome",
-          "text": "Arkana döndün. Çocuk sana bakıyordu, bakmamaya çalışarak.\n\n\"Ellerin titriyor,\" dedin. \"Benimki de.\"\n\nGüldü. Marşta ikiniz de söylediniz, ikiniz de yarısını unuttunuz.\n\nO çocuk dokuz yıl sonra bu takımın kaptanı oldu ve bir röportajda bu anı anlattı. Senin adını vermedi; \"biri\" dedi. Yeterliydi.",
+          "text": "Arkana döndün. Çocuk sana bakıyordu, bakmamaya çalışarak. \"Ellerin titriyor,\" dedin. \"Benimki de.\" Güldü. Marşta ikiniz de söylediniz, ikiniz de yarısını unuttunuz. O çocuk dokuz yıl sonra bu takımın kaptanı oldu ve bir röportajda bu anı anlattı. Senin adını vermedi; \"biri\" dedi. Yeterliydi. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "mem_tunelde_konustu",
@@ -164,7 +213,7 @@
         "n_root": {
           "title": "Stadyumun Arka Kapısı",
           "kind": "branch",
-          "text": "Milli marşın cızırtılı kaydı stadın hoparlörlerinden dışarıdaki boş otoparka taşıyor. {actor.national_captain.name} kapının eşiğinde durmuş, elindeki ağır deri çantayı bagaja fırlatıyor. Yüzünde, kameralara verdiği o sahte gülümsemeden eser yok. Çantanın fermuarı açık kalmış, içinden sadece bu ülkenin değil, bir başka sponsorun renklerini taşıyan iki farklı forma takımı görünüyor. Sana bakmıyor ama varlığını hissediyor. 'Bu geceki otobüs bizi ayıracak,' diyor soğuk bir tonla. 'Ya bu formayı şerefinle taşırsın ya da o çantadaki diğerini giyip yarına kaybolursun. Kararını ver.'",
+          "text": "Milli marşın cızırtılı kaydı stadın hoparlörlerinden dışarıdaki boş otoparka taşıyor. {actor.national_captain.name} kapının eşiğinde durmuş, elindeki ağır deri çantayı bagaja fırlatıyor. Yüzünde, kameralara verdiği o sahte gülümsemeden eser yok. Çantanın fermuarı açık kalmış, içinden sadece bu ülkenin değil, bir başka sponsorun renklerini taşıyan iki farklı forma takımı görünüyor. Sana bakmıyor ama varlığını hissediyor. 'Bu geceki otobüs bizi ayıracak,' diyor soğuk bir tonla. 'Ya bu formayı şerefinle taşırsın ya da o çantadaki diğerini giyip yarına kaybolursun. Kararını ver.'.",
           "choices": [
             {
               "id": "c_guvenli",
@@ -265,9 +314,9 @@
           "text": "Eğildin, dokundun, kabul ettin. O an, bir daha asla geri dönüşü olmayan bir yola girdiğini biliyordun. {actor.national_captain.name} sana ilk kez omuz attı, bu bir onaydı. Ama içindeki boşluk, formanın ağırlığından daha fazlaydı.",
           "onEnter": [
             {
-              "flag": "mem_marsi_soyledi",
-              "op": "set",
-              "value": true
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -277,9 +326,9 @@
           "text": "Sessizlik, bir suç ortaklığı gibi aranızda büyüdü. Paranın soğukluğunu, kumaşın sıcaklığına tercih ettin. Kimse seni görmedi, ama sen her gece kendi yansımana bakarken o çantayı hatırlayacaksın.",
           "onEnter": [
             {
-              "flag": "mem_marsi_sussmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -410,12 +459,12 @@
         "n_outcome_gri": {
           "title": "Sessiz Ortaklık",
           "kind": "outcome",
-          "text": "Kaptan başıyla onaylıyor. Kapıdan çıkarken artık sadece bir futbolcu değilsin; bir sistemin ortağısın. Yarın marş okunurken bu anı hatırlayacaksın.",
+          "text": "Kaptan başıyla onaylıyor. Kapıdan çıkarken artık sadece bir futbolcu değilsin; bir sistemin ortağısın. Yarın marş okunurken bu anı hatırlayacaksın. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_marsi_sussmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -437,9 +486,9 @@
           "text": "Odadan çıktığında koridorun soğuğu yüzüne çarpıyor. Hiçbir şey olmamış gibi kramponlarını bağlamaya gidiyorsun. Yarınki maçta herkes seni değil, sadece oyununu görecek.",
           "onEnter": [
             {
-              "flag": "mem_marsi_soyledi",
-              "op": "set",
-              "value": true
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -449,9 +498,9 @@
           "text": "Kaptanla yan yana oturup susuyorsunuz. Omuzlarındaki yük iki katına çıkıyor. Artık bu takımın hem lideri hem de bu kararın vicdani hamalisin.",
           "onEnter": [
             {
-              "flag": "mem_marsi_sussmayi_secti",
-              "op": "set",
-              "value": true
+              "flag": "npc_national_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

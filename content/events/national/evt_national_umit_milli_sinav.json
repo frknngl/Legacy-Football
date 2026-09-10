@@ -1,0 +1,233 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Çırak çağında (16-18 yaş) bir gencin hayatındaki en büyük ikilem: lise mezuniyeti telafi sınavı ile ilk milli forma çağrısının çakışması.",
+    "hangi_soru": "Futbol her şeyin önüne mi geçer, yoksa diplomayı garantiye mi alırsın?",
+    "odeme_plani": "Bu sınavdan çıkıp Riva'ya koşan çocuk, A Millî maçında tünelde hoca ile göz göze gelir (evt_national_ilk_forma)."
+  },
+  "id": "evt_national_umit_milli_sinav",
+  "family": "fam_national_umit_milli",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 70,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "rookie"
+  ],
+  "stature": [
+    "nobody",
+    "local_talent",
+    "starter"
+  ],
+  "lifeStates": [
+    "playing",
+    "national_duty"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "national:national_manager:umit_milli_sinav",
+    "slot": "national_manager",
+    "beat": "umit_milli_sinav"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Faks Kâğıdı ve Sınav Giriş Belgesi",
+      "kind": "branch",
+      "text": "Müdür yardımcısının masasında, üzerinde Türkiye Futbol Federasyonu'nun soğuk damgası bulunan ıslak bir faks kâğıdı duruyor: U-19 Millî Takım kamp daveti. Riva'da toplanma saati yarın öğlen 12:00. Hemen yanında ise lise bitirme matematik telafi sınavının giriş belgesi var: yarın sabah 09:30. Kapıda annen bekliyor; elinde şeffaf dosya, yüzünde otuz yıllık bir memuriyetin 'önce diplomanı eline al' tedirginliği. Telefonuna {actor.national_manager.name:gen} yardımcısından kısa bir mesaj düşüyor: 'Riva'ya zamanında gelmeyen formayı başkasına bırakır. Mazeret kabul edilmez.' İki kâğıt arasındaki mesafe kırk santim. Hayatının bundan sonraki yönü ise iki farklı şehre uzanıyor.",
+      "choices": [
+        {
+          "id": "c_ikisine_yetis",
+          "text": "Sabah 09:30'da sınava gir, kırk beşinci dakikada kâğıdı verip taksiyle Riva'ya fırla.",
+          "target": "n_ikisine_yetis",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_mother",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "iliski_national_manager",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_kampa_git",
+          "text": "Sınavı boşver. Çantayı sırtla ve sabahın ilk servisiyle doğrudan Riva'ya git.",
+          "target": "n_kampa_git",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_national_manager",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_mother",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "npc_national_manager_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "sadakat": 7,
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_sinava_gir",
+          "text": "\"Önce okul.\" Sınava tam saatinde gir, federasyona mazeret dilekçesi yolla.",
+          "target": "n_sinava_gir",
+          "effects": [
+            {
+              "flag": "iliski_mother",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_national_manager",
+              "op": "add",
+              "value": -16
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "dogruluk": 9,
+            "durus": 7
+          }
+        },
+        {
+          "id": "c_mudure_git",
+          "text": "Okul müdürünün kapısını çal: \"Hocam bu vatan görevi, sınavı haftaya erteleyin.\"",
+          "target": "n_mudure_git",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "dogruluk": 6
+          }
+        }
+      ]
+    },
+    "n_ikisine_yetis": {
+      "title": "Taksi Arka Koltuğu",
+      "kind": "outcome",
+      "text": "Sınav salonundan çıktığında saat 10:15'ti; son iki soruya bakmadın bile. Taksi köprü trafiğine takıldığında kramponlarının bağcıklarını arka koltukta bağlıyordun. Riva tesislerinin demir kapısından içeri girdiğinde antrenman düdüğü henüz çalmıştı. {actor.national_manager.name} kronometresini durdurdu, nefes nefese kalan kravatlı haline ve elindeki kurşun kaleme baktı. 'Soyunma odası sağda,' dedi sadece. O gün antrenmanda ciğerlerin yandı ama o formayı sırtına geçirdin.",
+      "onEnter": [
+        {
+          "flag": "mem_umit_milli_kampa_yetisti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_kampa_git": {
+      "title": "İlk Servis",
+      "kind": "outcome",
+      "text": "Okulun bahçesinden geri dönüp minibüs durağına yürüdün. Arkandan annenin seslendiğini duydun ama adımlarını yavaşlatmadın. Kampa ilk gelen sen oldun. {actor.national_manager.name} seni sahada tek başına şut çekerken gördüğünde gülümsedi: 'Aç adamı severim.' Ama akşam yurttaki odana geçtiğinde annenin telefonuna cevap veremedin. O diploma bir yıl gecikecekti; karşılığında göğsünde kırmızı-beyaz bir bayrak vardı."
+    },
+    "n_sinava_gir": {
+      "title": "Boş Kalan Dolap",
+      "kind": "outcome",
+      "text": "Sınav kâğıdını son dakikasına kadar doldurdun. Matematikten geçtin; diploma kurtuldu. Ama federasyona yollanan faks hiçbir şeyi kurtarmadı. Kamp kadrosunda senin yerine başka bir kulübün sağ açığı çağrıldı. {actor.national_manager.name} bir daha iki yıl boyunca telefonlarına çıkmadı. Akşam evde yenen yemekte masada zafer değil, sessiz bir mahcubiyet vardı."
+    },
+    "n_mudure_git": {
+      "title": "Mühürlü Faks",
+      "kind": "outcome",
+      "text": "Müdür gözlüğünün üstünden federasyon faksına baktı. 'Burası kahvehane değil evlat,' diye başladı. Ama masaya koyduğun TFF mühürlü yazının ağırlığı odayı değiştirdi. Sınavı pazartesi sabahına, tek kişilik boş bir sınıfa erteletti. Ne kampa geç kaldın ne okuldan atıldın; ama müdürün odasından çıkarken koridordaki hademenin 'Gördün mü bizim topçuyu' fısıltısı okulun duvarlarına çoktan sinmişti."
+    }
+  }
+}

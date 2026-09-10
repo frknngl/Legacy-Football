@@ -41,7 +41,7 @@
         "n_root": {
           "title": "Soyunma odası mahkemesi",
           "kind": "branch",
-          "text": "Antrenman sonrası. {actor.captain.name} kapıyı kapatıyor ve masaj masasının üstüne oturuyor — bu, onun konuşacağı anlamına gelir ve herkes susuyor.\n\n\"{opponent} maçında olanı hepimiz gördük,\" diyor. \"Kimse bir şey söylemedi. Şimdi söyleyelim.\"\n\nOn sekiz kişi. Yarısı sana bakıyor, yarısı yere.\n\n{actor.keeper.first} elini kaldırıyor, sonra indiriyor. Stoper kollarını kavuşturmuş.",
+          "text": "Antrenman sonrası. {actor.captain.name} kapıyı kapatıyor ve masaj masasının üstüne oturuyor — bu, onun konuşacağı anlamına gelir ve herkes susuyor. \"{opponent} maçında olanı hepimiz gördük,\" diyor. \"Kimse bir şey söylemedi. Şimdi söyleyelim.\" On sekiz kişi. Yarısı sana bakıyor, yarısı yere. {actor.keeper.first} elini kaldırıyor, sonra indiriyor. Stoper kollarını kavuşturmuş.",
           "choices": [
             {
               "id": "c_explain",
@@ -173,13 +173,8 @@
         "n_explained": {
           "title": "Yedi dakika",
           "kind": "outcome",
-          "text": "Yedi dakika konuşuyorsun. Bir kısmında sesin titriyor ve bunu saklamıyorsun.\n\nBitirdiğinde kimse alkışlamıyor — bu iyi bir şey, alkış ucuz olurdu. Stoper kollarını indiriyor. {actor.captain.first} başını sallıyor.\n\n{actor.keeper.first} maçtan iki gün sonra sana bir mesaj atıyor: \"Benim babam da böyle bir şey yaşamıştı. Hiç anlatmamıştı.\"",
+          "text": "Yedi dakika konuşuyorsun. Bir kısmında sesin titriyor ve bunu saklamıyorsun. Bitirdiğinde kimse alkışlamıyor — bu iyi bir şey, alkış ucuz olurdu. Stoper kollarını indiriyor. {actor.captain.first} başını sallıyor. {actor.keeper.first} maçtan iki gün sonra sana bir mesaj atıyor: \"Benim babam da böyle bir şey yaşamıştı. Hiç anlatmamıştı.\"",
           "onEnter": [
-            {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
-            },
             {
               "flag": "npc_captain_arc",
               "op": "add",
@@ -190,7 +185,7 @@
         "n_demanded": {
           "title": "Neredeydiniz",
           "kind": "outcome",
-          "text": "Soru odada asılı kalıyor ve kimse cevaplamıyor. En kötüsü bu.\n\n{actor.captain.first} masadan iniyor. \"Haklısın,\" diyor. \"Ve bunu bu şekilde söylemen de yanlış. İkisi aynı anda doğru olabilir.\"\n\nKapıyı açıp çıkıyor. Arkasından yedi kişi daha çıkıyor.\n\nSekiz kişi kalıyor ve o sekiz kişi bundan sonra hep senin tarafında olacak. Diğerleri hiç olmayacak.",
+          "text": "Soru odada asılı kalıyor ve kimse cevaplamıyor. En kötüsü bu. {actor.captain.first} masadan iniyor. \"Haklısın,\" diyor. \"Ve bunu bu şekilde söylemen de yanlış. İkisi aynı anda doğru olabilir.\" Kapıyı açıp çıkıyor. Arkasından yedi kişi daha çıkıyor. Sekiz kişi kalıyor ve o sekiz kişi bundan sonra hep senin tarafında olacak. Diğerleri hiç olmayacak.",
           "onEnter": [
             {
               "flag": "iliski_captain",
@@ -198,9 +193,9 @@
               "value": -12
             },
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "yonetim_baskisi",
@@ -212,7 +207,7 @@
         "n_listened": {
           "title": "Otuz dakika",
           "kind": "outcome",
-          "text": "Oturuyorsun ve otuz dakika konuşuyorlar. Bazıları senin adına, bazıları değil.\n\nStoper konuşuyor: \"Ben o an ne yapacağımı bilmedim. Bunu söylemekten utanıyorum.\" Yirmi yıl futbol oynamış adam.\n\nSonunda {actor.captain.first} kapıyı açıyor. Çıkarken sana bakıp tek kelime söylüyor: \"Doğru olanı yaptın. İkisini de.\"",
+          "text": "Oturuyorsun ve otuz dakika konuşuyorlar. Bazıları senin adına, bazıları değil. Stoper konuşuyor: \"Ben o an ne yapacağımı bilmedim. Bunu söylemekten utanıyorum.\" Yirmi yıl futbol oynamış adam. Sonunda {actor.captain.first} kapıyı açıyor. Çıkarken sana bakıp tek kelime söylüyor: \"Doğru olanı yaptın. İkisini de.\"",
           "onEnter": [
             {
               "flag": "iliski_takim",
@@ -220,9 +215,9 @@
               "value": 10
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "mental_dayaniklilik",
@@ -234,7 +229,7 @@
         "n_young": {
           "title": "Elini kaldıran",
           "kind": "outcome",
-          "text": "{actor.keeper.first} ayağa kalkıyor. On dokuz yaşında, sesi çatlıyor.\n\n\"Ben de duydum,\" diyor. \"Kalede yalnızdım ve duydum. Ve hiçbir şey yapmadım çünkü ilk sezonum ve korktum.\"\n\nOturuyor. Odada kimse konuşmuyor.\n\n{actor.captain.first} masadan iniyor ve çocuğun yanına oturuyor. \"Şimdi yaptın,\" diyor.\n\nBunu sen başlattın ve kimse bunu hatırlamayacak. Sen hatırlayacaksın.",
+          "text": "{actor.keeper.first} ayağa kalkıyor. On dokuz yaşında, sesi çatlıyor. \"Ben de duydum,\" diyor. \"Kalede yalnızdım ve duydum. Ve hiçbir şey yapmadım çünkü ilk sezonum ve korktum.\" Oturuyor. Odada kimse konuşmuyor. {actor.captain.first} masadan iniyor ve çocuğun yanına oturuyor. \"Şimdi yaptın,\" diyor. Bunu sen başlattın ve kimse bunu hatırlamayacak. Sen hatırlayacaksın.",
           "onEnter": [
             {
               "flag": "iliski_keeper",
@@ -242,9 +237,9 @@
               "value": 15
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "liderlik",
@@ -393,9 +388,9 @@
           "text": "Sular üzerindeki kireçli fayanslara ritmik bir şekilde çarparken, odayı saran ağır koku genzini yakıyordu. Kapıdan ağır adımlarla çıkarken, sırtında bıraktığın bakışların o buz gibi keskinliğini ensende hissedebiliyordun. Profesyonel bir veda için fazla sessizdi; arkana dönüp bakmadın, sadece kramponlarının zeminde çıkardığı o mekanik yankıyı dinleyerek koridorun karanlığına doğru ilerledin.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -405,9 +400,9 @@
           "text": "Omuz omuza duştan çıktınız. Herkes bu pervasızlığı izliyor. Gazeteciler yarın ne yazacağını biliyor, disiplin kurulu ise çoktan dosyayı açtı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -417,9 +412,9 @@
           "text": "Kaptan masadaki zarfa bakıyor. Sözcükler gereksizleşiyor. Artık takımın bir parçası değil, bir ortağı gibi bakıyor sana. Kırgınlık, hesap cüzdanında eriyor.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -429,9 +424,9 @@
           "text": "Dışarıdaki gürültü tüm gerginliği alıp götürüyor. Taraftarlar ikinizi de alkışlarken, kaptanın yüzündeki ifade yumuşuyor. Yorgunsun, ama aranızdaki bağın maliyetini ödedin.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -562,9 +557,9 @@
           "text": "Paraya bakmaya tenezzül bile etmedi; gözleri, masanın üzerindeki kirli formaya takılı kaldı. Omuzları, taşıdığı yükün ağırlığıyla biraz daha çökerken derin bir iç çekti. Bu alışveriş, aranızdaki profesyonel saygı sınırlarını bir daha onarılamayacak şekilde yıktı ve geride sadece, bozuk paraların zeminle buluştuğu o metalik yankıdan ibaret bir boşluk bıraktı.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -574,9 +569,9 @@
           "text": "{actor.captain.name} başını hafifçe sana çeviriyor, gözlerinde boş bir ifade var. Kelimelerin havada asılı kalıyor, ama hiçbir şey değişmiyor.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -586,9 +581,9 @@
           "text": "{actor.captain.name} ağır hareketlerle ayağa kalktı; sandalyesinin zeminde çıkardığı o gıcırdayan ses, odadaki gerginliği perçinledi. Gözlerindeki o yoğun öfke, lambaların cılız ışığında parlıyordu. Artık aynı takımın formasını terletiyor olsanız da, bakışlarınızın arasındaki o devasa uçurum, yan yana olmadığınızın ve aranızdaki tüm iplerin koptuğunun en somut kanıtıydı.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -598,9 +593,9 @@
           "text": "{actor.captain.name} titreyen elini senin elinin üzerine koyuyor. İkiniz de bu ağır yükün altına bir daha çıkmamak üzere giriyorsunuz.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -714,9 +709,9 @@
           "text": "Arkanı dönüp kapıya yöneldiğinde, arkandan gelip seni durduracak bir ses duymayı bekledin. Ancak sadece kendi nefes alışverişinin düzensizliği, koridorun soğuk duvarlarında yankılandı. Çıkış kapısının ağır kolunu kavradığında, kariyerinin bir evresinin daha sessizce sona erdiğini ve artık bu soyunma odasında sana ayrılan yerin boşaldığını fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -726,9 +721,9 @@
           "text": "Kapı koluna asıldın ama kilitli olduğu için açılmadı. İçerideki fısıltıların aniden kesilip, ardından yerini boğuk ve alaycı kıkırtılara bıraktığını duymak tüm kanını dondurdu. Koridor duvarına savurduğun tekmenin çıkardığı o tok ses, itibarının nasıl sarsıldığını ve odadakilerin gözünde artık bir yabancıya dönüştüğünü tescilleyen son mühür oldu.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -738,9 +733,9 @@
           "text": "Cebindeki telefonun titremesi, odanın içindeki boğucu sessizliği aniden kesti. Ekrana düşen rakamlar, banka hesabındaki boşluğu doldurmaya yetse de içindeki o huzursuzluğu teskin etmedi. Pencereden vuran soluk akşam ışığı, üzerindeki formanın çizgilerine vururken, profesyonel bir vedanın soğukluğu yavaşça zihnine yerleşmeye başladı; hiçbir sayı, kaybedilen güvenin yerini tutamıyordu.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -750,9 +745,9 @@
           "text": "{actor.captain.name} duraksadı, sanki söyleyecek bir şeyi varmış gibi sadece sana baktı. Gözlerinde ne bir acı ne de bir hayal kırıklığı vardı; sadece olması gerekenin yapıldığına dair o soğuk zorunluluk mevcuttu. Elini omuzundan yavaşça çekti, arkasını dönüp yürüdüğünde kramponlarının koridordaki tıkırtısı, odadaki tek gerçek ses olarak kaldı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -861,9 +856,9 @@
           "text": "Göz temasını kestin. Arka lambalar otoparkı aydınlatırken aynadan ona bir kez daha baktın; hâlâ orada, aynı sessizlikte. Bu mesafe, ikinizi de koruyan tek şeydi.",
           "onEnter": [
             {
-              "flag": "mem_betrayed_captain",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -873,9 +868,9 @@
           "text": "Sigaranın közü geceyi aydınlattı. Hiç konuşmadınız. Ama omuzlarındaki yük, ilk defa o kadar hafiflemiş görünüyordu. Bu sessizliğin bedeli yarın antrenmanda ağır ödenecek.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -885,9 +880,9 @@
           "text": "Zarfı gördü. Gözlerini kaçırdı. Birbirinize hiçbir şey söylemeden kendi yollarınıza gittiniz. Kaybedilen para, satın alınan bir huzurdan başka bir şey değildi.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -897,9 +892,9 @@
           "text": "Gözleri doldu. Yıllardır ilk defa birisi maskesinin arkasına baktı. O an, sahada oynadığınız tüm maçlardan daha anlamlıydı. Bu tanınma, ruhunu biraz daha yordu ama bağınızı kopmaz kıldı.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

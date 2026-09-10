@@ -15,7 +15,7 @@ import { FileSystemContentSource } from '../loading/FileSystemContentSource.js';
 import { GameEngine, type TurnReport } from '../runtime/GameEngine.js';
 import { Rng } from '../selection/Rng.js';
 import { randomOpenChoice, runSimulatedMatch } from './runMatch.js';
-import { selectWorld, describeWorld } from './world.js';
+import { selectWorld, describeWorld, weeklySelectionMatchContext } from './world.js';
 
 function arg(name: string, fallback: string): string {
   const found = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -72,11 +72,20 @@ async function main(): Promise<void> {
 
   const dbPath = arg('world', '');
   const sim = await selectWorld({ registry: loaded.registry, seed, dbPath });
-  const engine = new GameEngine(loaded.registry, {
+  let engine!: GameEngine;
+  engine = new GameEngine(loaded.registry, {
     seed,
     roster: sim.roster,
     world: sim.world,
     worldFeed: sim.worldFeed,
+    selectionMatchContext: ({ season, week, clubId }) =>
+      weeklySelectionMatchContext(sim, {
+        season,
+        week,
+        clubId,
+        availability: engine.availability(),
+        hero: engine.heroProfile(),
+      }),
   });
   // Kimya kablosu: motor kuruldu, simulator artik 'kim kiminle iyi
   // anlasiyor' sorusunu sorabilir. Motorun flag sozlugu yine kapali.

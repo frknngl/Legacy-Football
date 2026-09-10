@@ -2,7 +2,8 @@
   "id": "evt_transfer_rakibe_gecis_hesaplasma",
   "family": "fam_transfer_rakibe_gecis",
   "category": "transfer",
-  "tier": "major",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 220,
   "cooldown": {
     "self": 24,
@@ -39,7 +40,7 @@
         "n_root": {
           "title": "Kapının Önünde",
           "kind": "branch",
-          "text": "Tesisin çıkışında bekliyorlar. Kalabalık değil — on beş kişi, belki yirmi. Ama hepsi tanıdık yüz. En önde {actor.fan_leader.name} duruyor; yıllarca tribünde senin adını bağıran adam. Elinde bir şey yok, pankart yok, taş yok. Sadece duruyor. Arabanın camını indirdiğinde konuşmuyor bile, önce uzun uzun bakıyor.\n\nSonra tek cümle: \"Formayı öptüğün o maçı hatırlıyor musun?\"\n\nArkandan güvenlik yaklaşıyor. Bir işaret etsen bu iş bir dakikada biter. Ama {actor.fan_leader.name} hâlâ orada, cevabı bekliyor.",
+          "text": "Tesisin çıkışında bekliyorlar. Kalabalık değil — on beş kişi, belki yirmi. Ama hepsi tanıdık yüz. En önde {actor.fan_leader.name} duruyor; yıllarca tribünde senin adını bağıran adam. Elinde bir şey yok, pankart yok, taş yok. Sadece duruyor. Arabanın camını indirdiğinde konuşmuyor bile, önce uzun uzun bakıyor. Sonra tek cümle: \"Formayı öptüğün o maçı hatırlıyor musun?\" Arkandan güvenlik yaklaşıyor. Bir işaret etsen bu iş bir dakikada biter. Ama {actor.fan_leader.name} hâlâ orada, cevabı bekliyor.",
           "choices": [
             {
               "id": "c_yuzles",
@@ -159,53 +160,48 @@
         "n_yuzles": {
           "title": "Cevap Yok",
           "kind": "outcome",
-          "text": "İndin. Karşısına geçtin. {actor.fan_leader.name} konuşurken hiçbir şey söylemedin — çünkü söylenecek bir şey yoktu. Bitirdiğinde başını salladı, arkasını döndü ve gitti.\n\nErtesi gün o videoyu paylaşan yine onlar oldu. Altındaki yorumların yarısı hâlâ küfür. Ama diğer yarısı, ilk defa, seni savunuyor.",
+          "text": "İndin. Karşısına geçtin. {actor.fan_leader.name} konuşurken hiçbir şey söylemedin — çünkü söylenecek bir şey yoktu. Bitirdiğinde başını salladı, arkasını döndü ve gitti. Ertesi gün o videoyu paylaşan yine onlar oldu. Altındaki yorumların yarısı hâlâ küfür. Ama diğer yarısı, ilk defa, seni savunuyor. Anlasma tamamlandi gorunuyor; yine de bu adimin yankisi bir sonraki pencereye kadar tasiniyor.",
           "onEnter": [
             {
-              "flag": "mem_rakibe_gecis_yuzlesme",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_savun": {
           "title": "Doğru Ama Yetersiz",
           "kind": "outcome",
-          "text": "Söylediğin doğruydu. Sözleşmeyi sen açmadın, rakamı sen konuşmadın, o toplantıda sen yoktun.\n\n{actor.fan_leader.name} bunu biliyordu zaten. \"Biliyorum,\" dedi. \"Ama sen de hayır diyebilirdin.\"\n\nCamı kaldırırken bunun cevabını bulamadın.",
+          "text": "Söylediğin doğruydu. Sözleşmeyi sen açmadın, rakamı sen konuşmadın, o toplantıda sen yoktun. {actor.fan_leader.name} bunu biliyordu zaten. \"Biliyorum,\" dedi. \"Ama sen de hayır diyebilirdin.\" Camı kaldırırken bunun cevabını bulamadın. Imzalar atildi ama bu hamlenin maliyeti menajer koridorlarinda uzun sure konusulacak.",
           "onEnter": [
             {
-              "flag": "mem_rakibe_gecis_yuzlesme",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_gec": {
           "title": "Aynada Kalan",
           "kind": "outcome",
-          "text": "Güvenlik araya girdi. Araba hareket etti. Dikiz aynasından baktığında {actor.fan_leader.name} hâlâ aynı yerde duruyordu — kimseyi itmeden, bağırmadan.\n\nO görüntü, sonraki üç ay boyunca her derbi öncesi manşetlerde çıkacak.",
+          "text": "Güvenlik araya girdi. Araba hareket etti. Dikiz aynasından baktığında {actor.fan_leader.name} hâlâ aynı yerde duruyordu — kimseyi itmeden, bağırmadan. O görüntü, sonraki üç ay boyunca her derbi öncesi manşetlerde çıkacak. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_rakibe_gecis_yuzlesme",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_meydan": {
           "title": "Köprü Yok",
           "kind": "outcome",
-          "text": "Cümle ağzından çıktığı anda kalabalıktan çıkan ses insan sesi değildi.\n\nO gece kulüp müzesindeki formanı indirdiler. Adını tribün koreografisinden sildiler. Ve yeni taraftarın seni ilk kez gerçekten kendinden saydı — çünkü artık geri dönebileceğin bir yer kalmamıştı.",
+          "text": "Cümle ağzından çıktığı anda kalabalıktan çıkan ses insan sesi değildi. O gece kulüp müzesindeki formanı indirdiler. Adını tribün koreografisinden sildiler. Ve yeni taraftarın seni ilk kez gerçekten kendinden saydı — çünkü artık geri dönebileceğin bir yer kalmamıştı. Imzalar atildi ama bu hamlenin maliyeti menajer koridorlarinda uzun sure konusulacak.",
           "onEnter": [
             {
-              "flag": "mem_rakibe_gecis_yuzlesme",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_kopruleri_yakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -303,9 +299,9 @@
           "text": "Yere savrulan kağıt paraları {actor.fan_leader.name} dönüp izlemedi bile. Ayaklarının altında ezilen onuruna aldırmadan yanından yürüyüp geçti; çamurlu ayakkabılarının çıkardığı ritmik ses, üzerindeki ağır yağmurun uğultusunda yavaşça eriyip gitti. Arkasında bıraktığı soğuk rüzgar, aranızdaki tüm köprülerin artık sadece bir toz bulutu olduğunu fısıldıyordu.",
           "onEnter": [
             {
-              "flag": "mem_kopruleri_yakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -315,9 +311,9 @@
           "text": "Stadyumun loş tünelinde göz göze geldiğiniz o kısa an, zamanın akışını durdurdu. {actor.fan_leader.name} bir an duraksadı, ardından yere doğru ağır ve tiksinti dolu bir nefes bıraktı. Omuzlarını dikleştirip yanından geçerken attığı bakış, yarın sabah tüm gazetelerin manşetlerini süsleyecek o büyük infialin ilk kıvılcımını çoktan yakmıştı bile.",
           "onEnter": [
             {
-              "flag": "mem_rakibe_gecis_yuzlesme",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -327,9 +323,9 @@
           "text": "Sessizlik stadyumun koridorlarını ağır bir koku gibi sardı, hiçbir kelime aranızdaki uçurumu kapatmaya yetmedi. {actor.fan_leader.name} kendi aracına bindiğinde, dikiz aynasında yavaşça küçülen bir silüete dönüştü. Şehrin ışıkları camdan yansıyıp sönerken, o artık tamamen görüş alanından çıkmış, gittiği yolun karanlığına gömülmüştü.",
           "onEnter": [
             {
-              "flag": "mem_kopruleri_yakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -470,21 +466,21 @@
           "text": "Arkanı dönüp gittiğinde arkandan gelen o tekme sesi koridorda yankılanıyor. Yıkılan bir sadakatin ardından artık geri dönüşün imkansız olduğunu biliyorsun.",
           "onEnter": [
             {
-              "flag": "mem_kopruleri_yakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sonuc_gri": {
           "title": "Bedeli Ödenmiş",
           "kind": "outcome",
-          "text": "Zarfı hiç bakmadan alıyor. Yüzündeki ifade, senin vicdanını rahatlatmak için ödediğin bedeli onaylar gibi bir burukluk taşıyor.",
+          "text": "Zarfı hiç bakmadan alıyor. Yüzündeki ifade, senin vicdanını rahatlatmak için ödediğin bedeli onaylar gibi bir burukluk taşıyor. Imzalar atildi ama bu hamlenin maliyeti menajer koridorlarinda uzun sure konusulacak.",
           "onEnter": [
             {
-              "flag": "mem_rakibe_gecis_yuzlesme",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -494,21 +490,21 @@
           "text": "Hiçbir şey söylemedin ama o her şeyi anladı. Profesyonelliğin zırhı, aranızdaki tüm insani bağları bir bıçak gibi kesti.",
           "onEnter": [
             {
-              "flag": "mem_kopruleri_yakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sonuc_stat": {
           "title": "Ağır Yük",
           "kind": "outcome",
-          "text": "Eski günlerin hatırına yüzleşmeyi seçtin. Ama bu yüzleşme, zihninde bitiremediğin bir savaşı gün yüzüne çıkardı.",
+          "text": "Eski günlerin hatırına yüzleşmeyi seçtin. Ama bu yüzleşme, zihninde bitiremediğin bir savaşı gün yüzüne çıkardı. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_rakibe_gecis_yuzlesme",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

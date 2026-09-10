@@ -258,6 +258,110 @@ export const TextQualityRule: ValidationRule = {
   },
 };
 
+const TEMPLATE_CLOSURES = [
+  normalize('Koridordan ayrilirken bu secimin etkisinin beklediginden uzun sure kalacagini fark ettin'),
+  normalize('Kisa bir duraksamadan sonra bu adimin yarina tasinacak bir iz biraktigi netlesti'),
+  normalize('Sahne kapanirken verdigin karar gunun ritmini degistiren sessiz bir kirilmaya donustu'),
+];
+
+const BROKEN_TAIL_FRAGMENTS = new Set<string>([
+  normalize('bu secimin'),
+  normalize('bu secimin izi'),
+  normalize('bu anin'),
+  normalize('bu anin yankisi'),
+  normalize('icindeki gerilim'),
+  normalize('kararin agirligi omzuna'),
+  normalize('kimse acikca konusmaz'),
+  normalize('tribunun ugultusu'),
+  normalize('tribunun ugultusu uzaktan'),
+  normalize('koridorda sessizlik'),
+  normalize('koridorda sessizlik derinlesir'),
+  normalize('ince bir tereddut'),
+]);
+
+function sentenceParts(text: string): string[] {
+  return text
+    .split(/[.!?]+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function repeatedTailSentence(sentences: readonly string[]): string | undefined {
+  if (sentences.length < 2) return undefined;
+  const last = sentences[sentences.length - 1]!;
+  const prev = sentences[sentences.length - 2]!;
+  const nLast = normalize(last);
+  const nPrev = normalize(prev);
+
+  if (nLast === '' || nPrev === '') return undefined;
+  if (nLast === nPrev && Math.max(wordCount(last), wordCount(prev)) <= 8) return last;
+
+  const closeStem = nLast.startsWith(nPrev) || nPrev.startsWith(nLast);
+  if (closeStem && Math.min(wordCount(last), wordCount(prev)) <= 4) {
+    return wordCount(last) <= wordCount(prev) ? last : prev;
+  }
+  return undefined;
+}
+
+function brokenTailFragment(sentences: readonly string[]): string | undefined {
+  for (const s of sentences.slice(-2)) {
+    if (wordCount(s) > 5) continue;
+    const n = normalize(s);
+    if (BROKEN_TAIL_FRAGMENTS.has(n)) return s;
+  }
+  return undefined;
+}
+
+export const TailTemplateRule: ValidationRule = {
+  name: 'TailTemplateRule',
+  defaultSeverity: 'warn',
+  description: 'Kirik kuyruk ve sablon kapanis metni otomatik tespit edilir.',
+  check({ events }): Finding[] {
+    const out: Finding[] = [];
+
+    for (const event of events) {
+      if (isWaived(event, 'TailTemplateRule')) continue;
+      for (const [id, node] of allNodes(event)) {
+        const norm = normalize(node.text);
+
+        if (TEMPLATE_CLOSURES.some((tail) => norm.endsWith(tail))) {
+          out.push(
+            finding(TailTemplateRule, event, `"${id}" metni sablon kapanisla bitiyor.`, {
+              path: `nodes.${id}.text`,
+              fix: 'Kapanisi sahneye ozel odeme cumlesiyle yeniden yazin; stok kapanis kullanmayin.',
+            }),
+          );
+          continue;
+        }
+
+        const sentences = sentenceParts(node.text);
+        const repeat = repeatedTailSentence(sentences);
+        if (repeat !== undefined) {
+          out.push(
+            finding(TailTemplateRule, event, `"${id}" metninin kuyrugunda tekrar eden parcacik var: "${repeat}".`, {
+              path: `nodes.${id}.text`,
+              fix: 'Kuyruktaki tekrari silin ve metni tek bir net kapanisla bitirin.',
+            }),
+          );
+          continue;
+        }
+
+        const broken = brokenTailFragment(sentences);
+        if (broken !== undefined) {
+          out.push(
+            finding(TailTemplateRule, event, `"${id}" metninin kuyrugunda kirik parcacik var: "${broken}".`, {
+              path: `nodes.${id}.text`,
+              fix: 'Kuyruktaki kirik parcayi sahneye bagli tam bir cumleye cevirin ya da kaldirin.',
+            }),
+          );
+        }
+      }
+    }
+
+    return out;
+  },
+};
+
 /**
  * Teknik tanimlayici oyuncuya GORUNMEZ.
  *

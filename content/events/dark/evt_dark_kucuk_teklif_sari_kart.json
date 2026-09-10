@@ -1,0 +1,230 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Yükseliş çağında (20-23 yaş) oyuncu ilk kez piyasanın radarına girer. Şike teklifi maç sattırmakla başlamaz; zararsız görünen 'sarı kart' ile başlar.",
+    "hangi_soru": "Zararsız görünen küçük bir kural ihlali için uzatılan parayı alır mısın, yoksa sınır çeker misin?",
+    "odeme_plani": "Bu maçın faturası 8 yıl sonra tecrübeli çağında soruşturma dosyası olarak masaya gelir (evt_legal_eski_dosya_sorusturma)."
+  },
+  "id": "evt_dark_kucuk_teklif_sari_kart",
+  "family": "fam_dark_kucuk_teklif",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 65,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "rise"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "story": {
+    "signature": "dark:fixer:kucuk_teklif_sari_kart",
+    "slot": "fixer",
+    "beat": "kucuk_teklif_sari_kart"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Benzinliğin Arkasındaki Sedan",
+      "kind": "branch",
+      "text": "Tesis çıkışındaki benzinliğin arkasında, camları filmli siyah bir sedan duruyor. Arka cam iki parmak iniyor; içeriden tanıdık bir ses sesleniyor: {actor.fixer.name}. Yan koltuğu işaret ediyor. Arabanın içi ağır tütün ve pahalı kolonya kokuyor. Torpido gözünden ince, beyaz bir zarf çıkarıp vites kolunun yanına bırakıyor. \"Maçı sat diyen yok sana aslanım,\" diyor, sesinde neredeyse babacan bir sıcaklıkla. \"Haftaya deplasmanda yetmişinci dakikadan sonra hakeme iki çift laf et. Formanı çıkar, topa vur, ne bileyim. Bir sarı kart gör yeter. Kimse puan kaybetmez, hoca sana kızmaz, kimse ölmez. Zarf da senin harçlığın olur.\" Zarfın üzerinde hiçbir isim yok. Ama içindeki banknotların kalınlığı, bir haftalık maaşından daha ağır.",
+      "choices": [
+        {
+          "id": "c_kabul",
+          "text": "Zarfı ceketinin iç cebine koy. \"Yetmişten sonra.\"",
+          "target": "n_kabul",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 35000
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "dogruluk": -12
+          }
+        },
+        {
+          "id": "c_red",
+          "text": "\"Arabayı da al, paranı da.\" Kapıyı çarp ve tesise geri yürü.",
+          "target": "n_red",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "dogruluk": 12
+          }
+        },
+        {
+          "id": "c_ihbar",
+          "text": "Zarfın fotoğrafını çek, plakayı not et ve doğruca kulüp müdürüne git.",
+          "target": "n_ihbar",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "dogruluk": 14,
+            "sadakat": 8
+          }
+        },
+        {
+          "id": "c_oyala",
+          "text": "\"Haftaya bakarız, şimdi kafam dolu.\" Zarfı bırakıp hızla uzaklaş.",
+          "target": "n_oyala",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "npc_fixer_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "mizac": -6,
+            "durus": -6
+          }
+        }
+      ]
+    },
+    "n_kabul": {
+      "title": "İç Cepteki Ağırlık",
+      "kind": "outcome",
+      "text": "Zarf montunun astarına kaydı. {actor.fixer.name} gaza basmadan önce camı kapattı; dikiz aynasından göz kırptı. O cumartesi yetmiş dördüncü dakikada taç atışını geciktirdiğin için sarı kartı gördün. Tribünler sadece homurdandı, spiker 'genç oyuncunun acemiliği' dedi. Ama eve gidip zarfı açtığında o paranın kokusu odadan üç gün boyunca çıkmadı.",
+      "onEnter": [
+        {
+          "flag": "mem_accepted_fixing",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_red": {
+      "title": "Kapanan Kapı",
+      "kind": "outcome",
+      "text": "Kapıyı öyle bir kapattın ki arabanın alarmı kısaca öttü. Arkandan bağırmadı, sadece camı tamamen kapatıp sessizce uzaklaştı. Ertesi gün antrenmanda omzunun üzerinden sürekli otoparka baktın. Paran eksik kaldı ama o hafta sahaya çıktığında formanın ağırlığı göğsünü ezmiyordu. Yine de o benzinliğin önünden her geçişinde sırtında bir bakış hissettin.",
+      "onEnter": [
+        {
+          "flag": "mem_refused_fixing",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_ihbar": {
+      "title": "Tutanak Masası",
+      "kind": "outcome",
+      "text": "Kulüp menajeri fotoğrafı görünce yüzü bembeyaz oldu. Hemen federasyonun güvenlik birimini aradı. İki saat sonra kulüp binasına sivil polisler geldi; tutanak tuttular, ifaden alındı. Olay gizli tutuldu ama soyunma odasında fısıltılar başladı. Bazı takım arkadaşların sana kahraman gibi baktı, bazıları ise yanında telefonla konuşmayı bıraktı. Doğruyu yapmıştın ama doğruluğun da bir yalnızlığı vardı.",
+      "onEnter": [
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_oyala": {
+      "title": "Aralık Kalan Kapı",
+      "kind": "outcome",
+      "text": "Ne 'evet' dedin ne 'hayır'. Zarf vitesin yanında kaldı, sen karanlık yolda adımlarını hızlandırdın. {actor.fixer.name} arkandan korna çalmadı ama ne demek istediğini anladı: kapı aralık kalmıştı. Maçta yetmişinci dakika geldiğinde hakeme her yaklaştığında kalbin göğsünden fırlayacak gibi attı. Karar vermemek seni kurtarmadı; sadece korkuyu bir hafta daha uzattı."
+    }
+  }
+}

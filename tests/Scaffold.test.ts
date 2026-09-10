@@ -127,4 +127,29 @@ describe('iskele sablonu', () => {
     expect(new Set(targets).size).toBe(targets.length);
     for (const t of targets) expect(nodes[t], t).toBeDefined();
   });
+
+  it('varsayilan olarak authored: hand, repeatPolicy, story ve _yazar_notu uretir', () => {
+    const doc = buildEventDoc({
+      id: 'evt_business_sponsor_anlasma',
+      category: 'business',
+      tier: 'major',
+      family: 'fam_business_sponsor',
+      actor: 'sporting_director',
+      era: 'rookie',
+    });
+    expect(doc['authored']).toBe('hand');
+    expect(doc['_yazar_notu']).toBeDefined();
+    expect(doc['story']).toEqual({
+      signature: 'business:sporting_director:sponsor_anlasma',
+      slot: 'sporting_director',
+      beat: 'sponsor_anlasma',
+    });
+    expect(doc['repeatPolicy']).toEqual({
+      arcGapTurns: 16,
+      beatGapTurns: 45,
+      signatureGapTurns: 30,
+      maxBeatUses: 6,
+    });
+    expect(doc['eras']).toEqual(['rookie']);
+  });
 });

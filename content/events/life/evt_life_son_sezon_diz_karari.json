@@ -1,0 +1,261 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Alacakaranlık çağında (35+ yaş) vücut ile hırsın son savaşı. Doktor odasındaki kortizon iğnesi ve diz filmi.",
+    "hangi_soru": "Acıyla iğneyle son on maçı tamamlayıp şerefli bir son mu arayacaksın, yoksa sağlığını koruyup kramponu asacak mısın?",
+    "odeme_plani": "Bu karar jübile sahnesinde (evt_life_jubile_teklifi) ve kariyer epilogunda karşılık bulur."
+  },
+  "id": "evt_life_son_sezon_diz_karari",
+  "family": "fam_life_son_sezon",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 70,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "life:doctor:son_sezon_diz_karari",
+    "slot": "doctor",
+    "beat": "son_sezon_diz_karari"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Işıklı Panodaki Kıkırdak",
+      "kind": "branch",
+      "text": "Kulüp revirinin floresan lambası vızıldıyor. {actor.doctor.name} elindeki manyetik rezonans filmini ışıklı panoya asıyor. Sağ dizinin menisküsü ve kıkırdağı artık yok denecek kadar incelmiş; kemik kemiğe sürtüyor. \"Sezonun bitmesine on hafta var,\" diyor doktor, arkasını dönmeden. \"Sana her cuma kortizon iğnesi yapabilirim. Acıyı hissetmezsin, pazar günleri sahaya çıkarsın, taraftarın seni ayakta alkışlar. Ama kırkından sonra merdiven çıkarken dizin kilitlenir. Ya da bu cuma bu işi burada noktalarız; tribüne geçer, gençlere taktik verirsin.\" Masanın üzerinde paslanmaz çelik tepsi içinde tek kullanımlık enjektör ve buz torbası duruyor. Kapının ardından antrenmana çıkan takımın kahkahaları ve top sesleri geliyor. Otuz beş yaşındasın; vücudun 'yeter' diyor, içindeki ses ise 'on maç daha' diye fısıldıyor.",
+      "choices": [
+        {
+          "id": "c_igne",
+          "text": "Enjektörü işaret et: \"Vur iğneyi doktor. On hafta sonra ne olacağını kırkımda düşünürüm.\"",
+          "target": "n_igne",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "mizac": 8
+          }
+        },
+        {
+          "id": "c_bitti",
+          "text": "\"Buraya kadar.\" Enjektörü kenara it, bırakma kararını ver.",
+          "target": "n_bitti",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 12
+          }
+        },
+        {
+          "id": "c_kulube",
+          "text": "\"Beni ilk 11'e değil son yirmi dakikaya hazırla. Gençlerin arkasında bekleyeceğim.\"",
+          "target": "n_kulube",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -15000
+            }
+          ],
+          "persona": {
+            "sadakat": 12,
+            "durus": 8
+          }
+        },
+        {
+          "id": "c_ameliyat",
+          "text": "\"Bıçağın altına yatacağım. Gerekirse altı ay beklerim ama sahaya sağlam dönerim.\"",
+          "target": "n_ameliyat",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "mizac": 6
+          }
+        }
+      ]
+    },
+    "n_igne": {
+      "title": "Uyuşan Bacak",
+      "kind": "outcome",
+      "text": "İğnenin soğuk sıvısı eklemin içine dolarken dişlerini sıktın. Yarım saat sonra acı kesildi, dizin uyuştu. Sahaya çıktığında taraftar adını haykırdı. Son on haftayı sahada tamamlayacaktın; bedelini yıllar sonra ödeyeceğini bile bile.",
+      "onEnter": [
+        {
+          "flag": "mem_son_sezon_fedakarligi",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_hid_injury",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_bir_sezon_daha",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_bitti": {
+      "title": "Çözülen Bağcıklar",
+      "kind": "outcome",
+      "text": "Doktor rahat bir nefes aldı ama yüzün bembeyazdı. Kramponlarını çıkardın, bağcıklarını ilk kez gevşetmeden bir köşeye bıraktın. Soyunma odasına döndüğünde kimseye bir şey söylemedin; ama dolabını kapatırken bir devrin kapandığını odadaki herkes hissetti.",
+      "onEnter": [
+        {
+          "flag": "mem_kendi_birakti",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_kulube": {
+      "title": "Kulübedeki Akıl",
+      "kind": "outcome",
+      "text": "Doktor gülümsedi: 'En akıllıca karar bu.' İğne yapılmadı; hafif masaj ve bandajla kulübeye geçtin. Son yirmi dakikalarda oyuna girip oyunu soğuttun, gençleri yönlendirdin. Belki doksan dakika koşamadın ama sahadaki aklın takımı şampiyonluğa taşıdı.",
+      "onEnter": [
+        {
+          "flag": "mem_son_sezon_fedakarligi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_ameliyat": {
+      "title": "Beyaz Tavan",
+      "kind": "outcome",
+      "text": "Doktor başını salladı. Ertesi hafta ameliyathanenin beyaz tavanına baktın. Sezon senin için kapandı; ama o ameliyat masasında pes etmemek, kariyerinin sonuna yakışan bir inat hikâyesine dönüştü.",
+      "onEnter": [
+        {
+          "flag": "mem_ameliyat_oldu",
+          "op": "set",
+          "value": true
+        },
+        {
+          "flag": "mem_bir_sezon_daha",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

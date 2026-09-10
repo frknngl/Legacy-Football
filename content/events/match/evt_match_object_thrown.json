@@ -2,7 +2,7 @@
   "id": "evt_match_object_thrown",
   "family": "fam_match_stands",
   "category": "match",
-  "tier": "minor",
+  "tier": "beat",
   "momentType": "object_thrown",
   "weight": 13,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Tribunden",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. Korner bayraginin yaninda topu bekliyorsun ve bir sey omzuna carpiyor.\n\nCakmak. Yere bakiyorsun; iki tane daha var.\n\n{actor.referee.name} gormedi. Yan hakem gordu ve bakislarini kacirdi.\n\nKale arkasi guluyor. Bir cocuk sesi net duyuluyor.",
+          "text": "{minute}. dakika, skor {scoreline}. Korner bayraginin yaninda topu bekliyorsun ve bir sey omzuna carpiyor. Cakmak. Yere bakiyorsun; iki tane daha var. {actor.referee.name} gormedi. Yan hakem gordu ve bakislarini kacirdi. Kale arkasi guluyor. Bir cocuk sesi net duyuluyor.",
           "choices": [
             {
               "id": "c_report",
@@ -122,7 +122,7 @@
         "n_reported": {
           "title": "Kayitlara",
           "kind": "outcome",
-          "text": "Cakmagi hakeme veriyorsun. Anons yapiliyor, mac uc dakika duruyor.\n\nRakip tribun seni yuhaliyor. Kendi tribunun de bir bolumu yuhaliyor -- oyunu gecikirdigin icin.\n\nRapor yazilir. Kulup para cezasi alir. Kimse tesekkur etmez.",
+          "text": "Cakmagi hakeme veriyorsun. Anons yapiliyor, mac uc dakika duruyor. Rakip tribun seni yuhaliyor. Kendi tribunun de bir bolumu yuhaliyor -- oyunu gecikirdigin icin. Rapor yazilir. Kulup para cezasi alir. Kimse tesekkur etmez. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -144,7 +144,7 @@
         "n_pocketed": {
           "title": "Cepte",
           "kind": "outcome",
-          "text": "Cakmagi cebine atiyorsun ve korneri kullaniyorsun. Kimse bir sey gormedi.\n\nMac sonunda soyunma odasinda cebinden cikariyorsun ve masaya birakiyorsun. Kimse sormuyor.\n\nO cakmak dolabinda kaliyor. Neden sakladigini bilmiyorsun.",
+          "text": "Cakmagi cebine atiyorsun ve korneri kullaniyorsun. Kimse bir sey gormedi. Mac sonunda soyunma odasinda cebinden cikariyorsun ve masaya birakiyorsun. Kimse sormuyor. O cakmak dolabinda kaliyor. Neden sakladigini bilmiyorsun. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "op": "match",
@@ -157,16 +157,16 @@
               "value": 6
             },
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": false
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_threw_back": {
           "title": "Geri",
           "kind": "outcome",
-          "text": "Cakmagi geri atiyorsun. Tribun bir anda ayaga kalkiyor.\n\nUc bardak daha geliyor. {actor.referee.name} maci durduruyor.\n\nYarin bu goruntu her yerde ve kimse cakmagin ilk kimden geldigini konusmuyor.",
+          "text": "Cakmagi geri atiyorsun. Tribun bir anda ayaga kalkiyor. Uc bardak daha geliyor. {actor.referee.name} maci durduruyor. Yarin bu goruntu her yerde ve kimse cakmagin ilk kimden geldigini konusmuyor. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "op": "match",
@@ -185,9 +185,9 @@
               "value": 15
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -309,9 +309,9 @@
           "text": "Torba yere carptiginda icindeki metal parca ses cikardi. {actor.referee.name} basini sana cevirdi, bakislarinda bir tehdit degil, bir yorgunluk vardi. Bu odadan ciktiginda herkes senin ismini konusuyor olacak.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -341,9 +341,9 @@
           "text": "Masaya biraktigin sey, odayi daha da daraltti. {actor.referee.name} sadece basini salladi. Ne bir itiraz, ne bir tesekkur. Artik sadece oyunun degil, baska bir denklemin de parcasi oldun.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -461,9 +461,9 @@
           "text": "Tribünler ayağa kalktı. Yaptığın hareketin yankısı, yarın sabahki manşetleri şimdiden belirliyor. {actor.referee.name} gözlerini kısıp kartını hazırlarken, sen sahayı terk ediyorsun.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -477,9 +477,9 @@
           "text": "Arkanı dönüp yürüdün. Arkanda kalan öfke, zeminde sahipsiz bir çöp gibi kaldı. Profesyonel duruşun herkes tarafından takdir edildi, ancak içindeki o buruk tat, soyunma odasına kadar seninle geldi.",
           "onEnter": [
             {
-              "flag": "mem_reads_own_criticism",
-              "op": "set",
-              "value": true
+              "flag": "npc_referee_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",

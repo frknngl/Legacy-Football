@@ -1,0 +1,226 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Ligin son çeyreğinde (week >= 25) takım düşme hattına gerilediğinde (next_team_relegation_zone == true) tesis kapısında yaşanan gece meşaleli taraftar hesaplaşması.",
+    "hangi_soru": "Tesis çıkışını kesen yüzlerce öfkeli taraftarın karşısına çıkıp megafonu alacak mısın, camları kapatıp gaza mı basacaksın, amigo lideriyle kafa kafaya mı geleceksin?",
+    "odeme_plani": "Bu kriz anındaki liderlik tavrı taraftar lideriyle olan geçmişi (npc_fan_leader_arc) ve şehrin sokak hafızasını kalıcı olarak belirler."
+  },
+  "id": "evt_fandom_dusme_hatti_baskini",
+  "family": "fam_fandom_dusme_hatti",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 85,
+  "cooldown": {
+    "self": 28,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender"
+  ],
+  "trigger": {
+    "allOf": [
+      {
+        "flag": "next_match_exists",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "flag": "next_team_relegation_zone",
+        "op": "eq",
+        "value": true
+      },
+      {
+        "flag": "week",
+        "op": "gte",
+        "value": 25
+      }
+    ]
+  },
+  "story": {
+    "signature": "fandom:fan_leader:dusme_hatti_baskini",
+    "slot": "fan_leader",
+    "beat": "dusme_hatti_baskini"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 16,
+    "beatGapTurns": 45,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 3
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tesis Demirlerindeki Meşaleler",
+      "kind": "branch",
+      "text": "Gece 22:30. Takım otobüsü tesisin döner kapısına yaklaştığında yolun kırmızı bir dumanla kaplandığını görüyorsun. Yanan meşaleler, demir kapıya vurulan sopalar ve yüzlerce boğazdan çıkan o uğursuz tezahürat: 'Sabrımız taştı, adam gibi oynayın!' Takım ligde on altıncı sıraya demirledi; küme düşme hattıyla aranızda sadece iki puan var. Otobüsün şoförü frene basıp kapıları kilitliyor. Ön camın hemen önünde {actor.fan_leader.name} duruyor; elinde pilli bir megafon, boynunda kulüp atkısı. Genç oyuncuların yüzü kireç gibi bembeyaz. {actor.fan_leader.name} megafonu cama vuruyor: 'Kaptanlar insin! Bu forma kutsaldır, hakkını vermeyen bu kapıdan çıkamaz!'.",
+      "choices": [
+        {
+          "id": "c_in_megafon",
+          "text": "Şoföre kapıyı açtır ve aşağı in: Megafonu alıp taraftarın gözünün içine bak.",
+          "target": "n_in_megafon",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_lider_basa_bas",
+          "text": "{actor.fan_leader.name:acc} otobüsün basamağına çağır: \"Bağırarak gençlerin ayaklarını titretiyorsun, gel konuşalım.\"",
+          "target": "n_lider_basa_bas",
+          "effects": [
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_guvenlik",
+          "text": "Şoföre 'kapıları açma' de: Güvenliğin yolu açmasını bekle, doğrudan tesise gir.",
+          "target": "n_guvenlik",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -18
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -14
+            },
+            {
+              "flag": "iliski_fan_leader",
+              "op": "add",
+              "value": -16
+            }
+          ],
+          "persona": {
+            "durus": -8,
+            "mizac": -6
+          }
+        }
+      ]
+    },
+    "n_in_megafon": {
+      "title": "Dumanın İçindeki Söz",
+      "kind": "outcome",
+      "text": "Otobüsün basamaklarından tek başına indin. Kırmızı meşale dumanı genzini yaktı. Megafonu aldın: 'Bağırmakta haklısınız! Ama bu takımı bu bataklıktan siz değil biz çıkaracağız. Hafta sonu sahada canımızı vermezsek o zaman gelin hesap sorun!' Kalabalık bir an sustu, sonra tek bir alkış başladı. Bir felaketi liderlikle umuda çevirmiştin.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    },
+    "n_lider_basa_bas": {
+      "title": "Basamaktaki Yüzleşme",
+      "kind": "outcome",
+      "text": "Lideri otobüsün kapı basamağına çektin. 'Dışarıda bağırarak içerideki on sekiz yaşındaki çocukların dizini titretiyorsunuz' dedin sakin bir fısıltıyla. 'Bize destek olacaksanız olun, yoksa bu takım düşer.' {actor.fan_leader.name} gözlerini kaçırdı, dışarı dönüp taraftara yolu açtırdı. Gergin bir barıştı ama takımı korudun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_guvenlik": {
+      "title": "Taşlanan Camlar",
+      "kind": "outcome",
+      "text": "Kimse aşağı inmedi. Çevik kuvvet yolu açarken otobüsün yan camlarına pet şişeler ve madeni paralar çarptı. Tesisin içine girdiniz ama dışarıdaki öfke duvarları aştı. Taraftarla arandaki köprüler o gece telafisi zor bir yara aldı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  }
+}

@@ -3,6 +3,7 @@
   "family": "fam_tactics_mevki",
   "category": "tactics",
   "tier": "major",
+  "authored": "hand",
   "weight": 55,
   "cooldown": {
     "self": 34,
@@ -28,7 +29,7 @@
         "n_root": {
           "title": "Tahtadaki Ok",
           "kind": "branch",
-          "text": "Taktik tahtasında on bir mıknatıs var. Seninki her zaman aynı yerde durdu.\n\n{actor.manager.name} bugün onu aldı ve otuz metre geriye koydu.\n\n\"Bu hafta burada oynuyorsun.\"\n\nOda sessiz. Kimse sana bakmıyor, ki bu bakmaktan beter.\n\n\"Sorusu olan?\"\n\nSorusu olan sensin. Ama bu odada soru sormak, itiraz etmekle aynı şey sayılıyor ve ikisinin de bedeli var. {actor.assistant.name} defterine bir şey yazıyor — ne yazdığını hiç öğrenemeyeceksin.",
+          "text": "Taktik tahtasında on bir mıknatıs var. Seninki her zaman aynı yerde durdu. {actor.manager.name} bugün onu aldı ve otuz metre geriye koydu. \"Bu hafta burada oynuyorsun.\" Oda sessiz. Kimse sana bakmıyor, ki bu bakmaktan beter. \"Sorusu olan?\" Sorusu olan sensin. Ama bu odada soru sormak, itiraz etmekle aynı şey sayılıyor ve ikisinin de bedeli var. {actor.assistant.name} defterine bir şey yazıyor — ne yazdığını hiç öğrenemeyeceksin.",
           "choices": [
             {
               "id": "c_kabul",
@@ -156,53 +157,48 @@
         "n_kabul": {
           "title": "Otuz Metre Geride",
           "kind": "outcome",
-          "text": "O mevkide oynadın. İlk maç kötüydü, ikincisi idare eder, üçüncüsü iyiydi.\n\nDördüncüsünden sonra {actor.manager.name} bir röportajda \"Zaten hep oranın oyuncusuydu,\" dedi.\n\nHiç öyle bir şey söylemedin. Kimse de sormadı.",
+          "text": "O mevkide oynadın. İlk maç kötüydü, ikincisi idare eder, üçüncüsü iyiydi. Dördüncüsünden sonra {actor.manager.name} bir röportajda \"Zaten hep oranın oyuncusuydu,\" dedi. Hiç öyle bir şey söylemedin. Kimse de sormadı.",
           "onEnter": [
             {
-              "flag": "mem_mevki_degisti",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sor": {
           "title": "Kaç Hafta",
           "kind": "outcome",
-          "text": "\"Kaç hafta?\"\n\n{actor.manager.name} mıknatısa baktı, sonra sana. \"Bilmiyorum,\" dedi. Dürüsttü ve dürüst olduğu için daha kötüydü.\n\n{actor.assistant.name} defterine bir şey daha yazdı.\n\nO gece uyumadan önce ilk kez şunu düşündün: *bu kulüpte benim yerim tam olarak neresi?*",
+          "text": "\"Kaç hafta?\" {actor.manager.name} mıknatısa baktı, sonra sana. \"Bilmiyorum,\" dedi. Dürüsttü ve dürüst olduğu için daha kötüydü. {actor.assistant.name} defterine bir şey daha yazdı. O gece uyumadan önce ilk kez şunu düşündün: *bu kulüpte benim yerim tam olarak neresi?*.",
           "onEnter": [
             {
-              "flag": "mem_mevki_sorgulandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_itiraz": {
           "title": "Odanın Önünde",
           "kind": "outcome",
-          "text": "\"Ben orada oynamam.\"\n\nOn kişi duydu. {actor.manager.name} hiç sesini yükseltmedi — sadece mıknatısı tahtadan aldı ve cebine koydu.\n\nO hafta kadroda yoktun. Ertesi hafta da.\n\nÜçüncü hafta yine o mevkide oynadın; hiçbir şey değişmemişti, sadece iki maç kaybetmiştin.",
+          "text": "\"Ben orada oynamam.\" On kişi duydu. {actor.manager.name} hiç sesini yükseltmedi — sadece mıknatısı tahtadan aldı ve cebine koydu. O hafta kadroda yoktun. Ertesi hafta da. Üçüncü hafta yine o mevkide oynadın; hiçbir şey değişmemişti, sadece iki maç kaybetmiştin.",
           "onEnter": [
             {
-              "flag": "mem_mevki_itiraz_etti",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_hocaya_karsi_geldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_sonra": {
           "title": "Kapalı Kapı Ardında",
           "kind": "outcome",
-          "text": "Antrenmandan sonra kapısını çaldın. İçeride yirmi dakika kaldın.\n\nNe konuştuğunuzu kimse duymadı ve ikiniz de anlatmadınız. Ertesi gün mıknatıs yine eski yerindeydi — ama üç hafta sonra tekrar geriye gitti ve bu sefer sen şaşırmadın.\n\nBazı konuşmalar kararı değiştirmez, sadece kararın sana açıklanmasını sağlar. Bu da bir şeydir.",
+          "text": "Antrenmandan sonra kapısını çaldın. İçeride yirmi dakika kaldın. Ne konuştuğunuzu kimse duymadı ve ikiniz de anlatmadınız. Ertesi gün mıknatıs yine eski yerindeydi — ama üç hafta sonra tekrar geriye gitti ve bu sefer sen şaşırmadın. Bazı konuşmalar kararı değiştirmez, sadece kararın sana açıklanmasını sağlar. Bu da bir şeydir.",
           "onEnter": [
             {
-              "flag": "mem_mevki_konusuldu",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -333,9 +329,9 @@
           "text": "Tereddütle başını sallayıp kararı onayladın. İçindeki huzursuzluk soğuk bir kış ayazı gibi kemiklerine işlese de, profesyonelliğin o ağır zırhı altında her şeyi bastırdın. {actor.manager.name}, gözlerini masadaki evraklardan ayırmadan hafifçe nefes verdi ve ofisteki ağır sessizlik, saatin tik taklarıyla birlikte yeniden kendi içine çöktü.",
           "onEnter": [
             {
-              "flag": "mem_mevki_degisti",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -345,9 +341,9 @@
           "text": "Dürüstlüğün soğuk bir maliyeti vardı ama senin için bu bedel, banka hesabındaki rakamların dengesiyle bir anlığına hafifledi. {actor.manager.name} parmaklarını masaya ritmik bir şekilde vurarak teklifin kabulünü onayladı. Karşılıklı imzalar atılırken, odanın içerisine sinen keskin kahve kokusu, atılan bu imzanın uzun vadede bırakacağı ağır yükü hatırlatan tek detay olarak kaldı.",
           "onEnter": [
             {
-              "flag": "mem_mevki_konusuldu",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -357,9 +353,9 @@
           "text": "Sesin sahanın boş tribünlerinde yankılandı, beton duvarlara çarpıp sana geri döndü. {actor.manager.name} sandalyesinde hafifçe arkasına yaslandı, kollarını göğsünde birleştirip o meşhur sessizliğini kuşandı. Gözlerinde ne bir öfke ne de bir hayal kırıklığı vardı; sadece söylediklerinin ağırlığını ölçen, boşlukta asılı kalan o ürkütücü bakışları üzerinde hissettin.",
           "onEnter": [
             {
-              "flag": "mem_mevki_itiraz_etti",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -369,9 +365,9 @@
           "text": "Saatler süren tartışmanın ardından tavan lambasının yaydığı sarı ışık altında zihnin bir harabeye dönmüştü. Bedenin yorgunluktan ağırlaşırken, sonunda {actor.manager.name} ile birbirinizin dilini çözmeyi başardınız. O, masadaki dosyasını yavaşça kapattığında, aranızdaki gerilimin yerini tuhaf bir boşluğa bıraktığını ve kapıdan çıkarken artık aynı sayfada olduğunuzu sessizce fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_mevki_sorgulandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -475,9 +471,9 @@
           "text": "Çöp kutusundan gelen ses odada yankılandı. Kimse irkilmedi. Yarın antrenman sahasında, o kırmızı kalemli notların neden önemli olduğunu saha dışında acı bir şekilde anlayacaksın.",
           "onEnter": [
             {
-              "flag": "mem_mevki_itiraz_etti",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -487,9 +483,9 @@
           "text": "Notlar artık zihninde. Sahaya çıktığında kendi içgüdülerinle değil, başkasının silüetiyle hareket edeceksin. Bu, daha uzun bir kariyerin anahtarı olabilir ama artık kendin için oynamıyorsun.",
           "onEnter": [
             {
-              "flag": "mem_mevki_degisti",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -499,9 +495,9 @@
           "text": "Karakterin değil, değerin konuşuldu. {actor.manager.name} bu talebine sadece garip bir bakış fırlattı. Cüzdanın doldu ama soyunma odasındaki ağırlığın bir miktar eridi.",
           "onEnter": [
             {
-              "flag": "mem_mevki_konusuldu",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

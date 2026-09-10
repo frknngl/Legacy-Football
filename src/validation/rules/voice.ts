@@ -68,7 +68,11 @@ function hasAuthoritySubject(eventId: string): boolean {
  * "senin eski kaptanlik bandin" 16 yasindaki biri icin yazilamaz.
  */
 const NARRATION_MARKERS: readonly Marker[] = [
-  { pattern: /en k[ıi]demli|en tecrübeli oyuncu/iu, label: 'kidemli diye tarif edilmek' },
+  {
+    // "en kidemli hakem" oyuncu kidemi degil, hakem nitelemesidir.
+    pattern: /\ben k[ıi]demli\b(?!\s+hakem\b)|\ben tecrübeli oyuncu\b/iu,
+    label: 'kidemli diye tarif edilmek',
+  },
   { pattern: /eski kaptanl[ıi]k band/iu, label: 'eski kaptan oldugu ima ediliyor' },
 ];
 

@@ -2,7 +2,7 @@
   "id": "evt_match_racist_abuse",
   "family": "fam_match_stands",
   "category": "match",
-  "tier": "epic",
+  "tier": "minor",
   "momentType": "racist_abuse",
   "weight": 22,
   "cooldown": {
@@ -25,7 +25,7 @@
         "n_root": {
           "title": "Kale arkası",
           "kind": "branch",
-          "text": "{minute}. dakika, {opponent} deplasmanı, skor {scoreline}. Korner kullanmak için köşe bayrağına gidiyorsun ve ilk kez net duyuyorsun.\n\nBir kişi değil. Kale arkasının bir bölümü, ritim tutturmuş. Aynı hece, tekrar tekrar. Topu yere koyuyorsun ve elin titriyor; soğuktan değil.\n\nHakem hiçbir şey duymuyormuş gibi elini kaldırıyor: devam. {actor.captain.name} koşarak yanına geliyor ve tek kelime söylemeden omzuna dokunuyor. Kenarda {actor.manager.name} ayakta, dördüncü hakeme bir şeyler anlatıyor.\n\nOtuz bin kişi senin ne yapacağını bekliyor ve bunların çoğu daha ne olduğunu bilmiyor.",
+          "text": "{minute}. dakika, {opponent} deplasmanı, skor {scoreline}. Korner kullanmak için köşe bayrağına gidiyorsun ve ilk kez net duyuyorsun. Bir kişi değil. Kale arkasının bir bölümü, ritim tutturmuş. Aynı hece, tekrar tekrar. Topu yere koyuyorsun ve elin titriyor; soğuktan değil. Hakem hiçbir şey duymuyormuş gibi elini kaldırıyor: devam. {actor.captain.name} koşarak yanına geliyor ve tek kelime söylemeden omzuna dokunuyor. Kenarda {actor.manager.name} ayakta, dördüncü hakeme bir şeyler anlatıyor. Otuz bin kişi senin ne yapacağını bekliyor ve bunların çoğu daha ne olduğunu bilmiyor.",
           "onEnter": [
             {
               "flag": "inc_racist_abuse",
@@ -60,9 +60,9 @@
                   "value": -6
                 },
                 {
-                  "flag": "mem_stayed_silent_racism",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_captain_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -236,7 +236,7 @@
         "n_played_on": {
           "title": "Korner",
           "kind": "outcome",
-          "text": "Korneri kullanıyorsun. Top ceza sahasına gidiyor, kafa, aut. Oyun devam ediyor.\n\nDevre arasında soyunma odasında kimse konuyu açmıyor. Sen de açmıyorsun. Duşta suyun altında duruyorsun ve o heceyi hâlâ duyuyorsun.\n\nGece annen arıyor. \"İyi misin?\" diyor. \"İyiyim,\" diyorsun. İkiniz de inanmıyorsunuz.",
+          "text": "Korneri kullanıyorsun. Top ceza sahasına gidiyor, kafa, aut. Oyun devam ediyor. Devre arasında soyunma odasında kimse konuyu açmıyor. Sen de açmıyorsun. Duşta suyun altında duruyorsun ve o heceyi hâlâ duyuyorsun. Gece annen arıyor. \"İyi misin?\" diyor. \"İyiyim,\" diyorsun. İkiniz de inanmıyorsunuz. Maç biterken tüneldeki sessizlik, duyduğun o tek kelimeden daha uzun süre içinde kalıyor.",
           "onEnter": [
             {
               "op": "match",
@@ -258,7 +258,7 @@
         "n_walked_off": {
           "title": "Orta yuvarlak",
           "kind": "outcome",
-          "text": "Topu yerde bırakıp yürüyorsun. Orta yuvarlağa varıp duruyorsun ve kimseye bakmıyorsun.\n\nÖnce ıslık. Sonra bir sessizlik. Sonra karşı tribünün başka bir bölümü alkışlamaya başlıyor ve alkış yayılıyor. Hakem düdüğü çalıyor, anons yapılıyor. {actor.captain.first} yanına geliyor, sonra kaleci, sonra hepsi.\n\nMaç yedi dakika durdu. Yarın bunu konuşacaklar. Bir kısmı seni suçlayacak.",
+          "text": "Topu yerde bırakıp yürüyorsun. Orta yuvarlağa varıp duruyorsun ve kimseye bakmıyorsun. Önce ıslık. Sonra bir sessizlik. Sonra karşı tribünün başka bir bölümü alkışlamaya başlıyor ve alkış yayılıyor. Hakem düdüğü çalıyor, anons yapılıyor. {actor.captain.first} yanına geliyor, sonra kaleci, sonra hepsi. Maç yedi dakika durdu. Yarın bunu konuşacaklar, bir kısmı yine seni suçlayacak. Yine de o adım, takımın senden ne beklediğini geri dönülmez biçimde değiştiriyor.",
           "onEnter": [
             {
               "op": "match",
@@ -320,7 +320,7 @@
         "n_ref_acted": {
           "title": "Anons",
           "kind": "outcome",
-          "text": "Stadyum anonsu devreye giriyor. Protokol okunuyor, o soğuk resmi metin. Maç dört dakika duruyor.\n\nİşe yarayıp yaramadığını bilmiyorsun. Ama birisi bir şey yaptı ve bunu sen başlattın. Kale arkasından bir grup dışarı çıkarılıyor.",
+          "text": "Stadyum anonsu devreye giriyor. Protokol okunuyor, o soğuk resmi metin. Maç dört dakika duruyor. İşe yarayıp yaramadığını bilmiyorsun. Ama birisi bir şey yaptı ve bunu sen başlattın. Kale arkasından bir grup dışarı çıkarılıyor. Oyun temizlenmiyor belki, fakat sahada yalnız olmadığını ilk kez bu kadar net hissediyorsun.",
           "onEnter": [
             {
               "op": "match",
@@ -347,7 +347,7 @@
         "n_ref_ignored": {
           "title": "Devam",
           "kind": "outcome",
-          "text": "\"Oyna,\" diyor hakem. \"Oyna, gecikme yapma.\"\n\nBir saniye ona bakıyorsun. O gözlerini kaçırıyor. Korneri kullanıyorsun.\n\nBu anı unutmayacaksın ve bir gün, çok sonra, bir mikrofonun önünde bu hakemin adını söyleyeceksin.",
+          "text": "\"Oyna,\" diyor hakem. \"Oyna, gecikme yapma.\" Bir saniye ona bakıyorsun. O gözlerini kaçırıyor. Korneri kullanıyorsun. Bu anı unutmayacaksın ve bir gün, çok sonra, bir mikrofonun önünde bu hakemin adını söyleyeceksin. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -360,9 +360,9 @@
               "value": -14
             },
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "mental_dayaniklilik",
@@ -374,7 +374,7 @@
         "n_team_stand": {
           "title": "On bir kişi",
           "kind": "outcome",
-          "text": "Elini kaldırıyorsun ve bekliyorsun. {actor.captain.first} ilk gelen. Sonra kaleci ceza sahasından çıkıp orta sahaya yürüyor. Sonra hepsi.\n\nOn bir kişi orta yuvarlakta duruyor. {opponent} oyuncularından üçü de geliyor. Kenarda {actor.manager.name} kollarını kavuşturmuş ve gözleri dolu; bunu kimseye söylemeyecek.\n\nMaç on dakika durdu. Bu fotoğraf yarın bütün gazetelerin birinci sayfasında olacak ve on yıl boyunca kullanılacak.",
+          "text": "Elini kaldırıyorsun ve bekliyorsun. {actor.captain.first} ilk gelen. Sonra kaleci ceza sahasından çıkıp orta sahaya yürüyor. Sonra hepsi. On bir kişi orta yuvarlakta duruyor. {opponent} oyuncularından üçü de geliyor. Kenarda {actor.manager.name} kollarını kavuşturmuş ve gözleri dolu; bunu kimseye söylemeyecek. Maç on dakika durdu. Bu fotoğraf yarın bütün gazetelerin birinci sayfasında olacak ve on yıl boyunca kullanılacak. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
               "op": "match",
@@ -449,7 +449,7 @@
         "n_answered": {
           "title": "O tribünün önünde",
           "kind": "outcome",
-          "text": "Topu ağlara gönderiyorsun ve koşuyorsun. O tribünün önüne gidiyorsun, duruyorsun, kollarını iki yana açıyorsun ve hiçbir şey söylemiyorsun.\n\nSaha görevlileri koşarak geliyor. {actor.captain.first} seni omzundan çekiyor. Hakem sarı kart gösteriyor ve gösterirken sana bakamıyor.\n\nO fotoğraf da yarın gazetede. Ama bu sefer sen gülümsemiyorsun.",
+          "text": "Topu ağlara gönderiyorsun ve koşuyorsun. O tribünün önüne gidiyorsun, duruyorsun, kollarını iki yana açıyorsun ve hiçbir şey söylemiyorsun. Saha görevlileri koşarak geliyor. {actor.captain.first} seni omzundan çekiyor. Hakem sarı kart gösteriyor ve gösterirken sana bakamıyor. O fotoğraf da yarın gazetede. Ama bu sefer sen gülümsemiyorsun. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
               "op": "match",
@@ -492,7 +492,7 @@
         "n_burned_out": {
           "title": "Yetmedi",
           "kind": "outcome",
-          "text": "Her topu istedin ve hiçbirini beceremedin. Bacakların öfkeyle koştu, kafan koşmadı. Yetmiş sekizinci dakikada {actor.manager.name} seni oyundan aldı.\n\nKenara gelirken o tribün ayakta ıslık çalıyor. Yedek kulübesine oturup havluyu kafana geçiriyorsun.\n\nOnlar kazandı. Bunu bir daha yapmayacaksın.",
+          "text": "Her topu istedin ve hiçbirini beceremedin. Bacakların öfkeyle koştu, kafan koşmadı. Yetmiş sekizinci dakikada {actor.manager.name} seni oyundan aldı. Kenara gelirken o tribün ayakta ıslık çalıyor. Yedek kulübesine oturup havluyu kafana geçiriyorsun. Onlar kazandı. Bunu bir daha yapmayacaksın. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
               "op": "match",
@@ -648,12 +648,12 @@
         "n_outcome_ignore": {
           "title": "Sessizlik",
           "kind": "outcome",
-          "text": "Kapıyı kapattın. O ses dışarıda, betonun diğer tarafında kaldı. Parayı alıyorsun, profesyonel hayatına devam ediyorsun ama artık o tünelden her geçişinde kulaklarında bir yankı olacak. Sessizliğinin bedeli bu.",
+          "text": "Kapıyı kapattın. O ses dışarıda, betonun diğer tarafında kaldı. Parayı alıyorsun, profesyonel hayatına devam ediyorsun ama artık o tünelden her geçişinde kulaklarında bir yankı olacak. Sessizliğinin bedeli. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -678,9 +678,9 @@
           "text": "{actor.captain.name} ile bakıştın. İkiniz de önünüzdeki işe gömüldünüz. Maç devam ediyor, kural gereği. Ancak sahada topu her ayağına alışında, o uğultu artık daha net duyuluyor.",
           "onEnter": [
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -893,12 +893,12 @@
         "n_outcome_guvenli": {
           "title": "Profesyonel sessizlik",
           "kind": "outcome",
-          "text": "Pasını verdin. Oyun devam etti. İçindeki boşluk, her pasınla biraz daha büyüdü.",
+          "text": "Pasını verdin. Oyun devam etti. İçindeki boşluk, her pasınla biraz daha büyüdü. Bitiş düdüğünde skor tabelası yerinde kaldı, ama yuttuğun sessizlik soyunma odasına kadar peşinden geldi.",
           "onEnter": [
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -916,12 +916,12 @@
         "n_outcome_gri": {
           "title": "Satın alınmış sükunet",
           "kind": "outcome",
-          "text": "Kameralara soğukkanlı bir ifade verdin. Primin hesabına yattı, ama sahada kim olduğun artık silik bir gölge.",
+          "text": "Kameralara soğukkanlı bir ifade verdin. Primin hesabına yattı, ama sahada kim olduğun artık silik bir gölge. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
-              "flag": "mem_stayed_silent_racism",
-              "op": "set",
-              "value": true
+              "flag": "npc_captain_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -939,7 +939,7 @@
         "n_outcome_stood": {
           "title": "Gerilimin zirvesi",
           "kind": "outcome",
-          "text": "Hakemin yüzündeki o şaşkınlık, durumu ne kadar derinleştirdiğinin kanıtı. Kartlar havada uçuşuyor.",
+          "text": "Hakemin yüzündeki o şaşkınlık, durumun ne kadar büyüdüğünü açıkça gösteriyor. Kartlar havada uçuşurken kontrol dağılmış gibi duruyor, fakat çizgiyi nerede çektiğin artık herkes tarafından görülüyor.",
           "onEnter": [
             {
               "flag": "mem_stood_against_racism",

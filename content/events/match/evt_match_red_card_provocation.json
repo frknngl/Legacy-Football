@@ -2,7 +2,7 @@
   "id": "evt_match_red_card_provocation",
   "family": "fam_match_discipline",
   "category": "match",
-  "tier": "major",
+  "tier": "minor",
   "momentType": "red_card_provocation",
   "weight": 18,
   "cooldown": {
@@ -22,7 +22,7 @@
         "n_root": {
           "title": "Kulağına",
           "kind": "branch",
-          "text": "{minute}. dakika, skor {scoreline}. {opponent} stoperi bütün maç arkanda. Her topta bir tekme, her duran topta bir omuz. Hakem üç kez uyardı, kart çıkarmadı.\n\nŞimdi korner bekliyorsunuz ve adam kulağına eğiliyor. Söylediği şeyin futbolla ilgisi yok. Ailenle ilgili.\n\nGeri çekilip sana bakıyor ve gülümsüyor. Bunu bekliyor. Herkes bunu bekliyor — yan hakem bile bu tarafa dönmüş.",
+          "text": "{minute}. dakika, skor {scoreline}. {opponent} stoperi bütün maç arkanda. Her topta bir tekme, her duran topta bir omuz. Hakem üç kez uyardı, kart çıkarmadı. Şimdi korner bekliyorsunuz ve adam kulağına eğiliyor. Söylediği şeyin futbolla ilgisi yok. Ailenle ilgili. Geri çekilip sana bakıyor ve gülümsüyor. Bunu bekliyor. Herkes bunu bekliyor — yan hakem bile bu tarafa dönmüş.",
           "choices": [
             {
               "id": "c_walk_away",
@@ -159,7 +159,7 @@
         "n_walked": {
           "title": "Kırk santim",
           "kind": "outcome",
-          "text": "Dönüyorsun. Kırk santim yürüyorsun ve o kırk santim hayatının en uzun mesafesi.\n\nKorner geliyor, kafaya çıkıyorsun, top aut. Oyun devam ediyor.\n\nMaçtan sonra {actor.manager.name} soyunma odasında yanına oturuyor: \"Bugün seni büyüttüm.\" Sonra bir şey daha ekliyor: \"Ama içinde kaldı. Onunla ne yapacağını bul.\"",
+          "text": "Dönüyorsun. Kırk santim yürüyorsun ve o kırk santim hayatının en uzun mesafesi. Korner geliyor, kafaya çıkıyorsun, top aut. Oyun devam ediyor. Maçtan sonra {actor.manager.name} soyunma odasında yanına oturuyor: \"Bugün seni büyüttüm.\" Sonra bir şey daha ekliyor: \"Ama içinde kaldı. Onunla ne yapacağını bul.\". Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -172,9 +172,9 @@
               "value": 12
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -220,7 +220,7 @@
         "n_both_yellow": {
           "title": "İkisine de",
           "kind": "outcome",
-          "text": "Hakem ikinize de sarı gösteriyor. Adam yerden kalkarken hâlâ gülüyor ama gözleri gülmüyor — istediğini alamadı.\n\n{actor.captain.first} seni omzundan çekiyor: \"Bir daha yapma. Bir daha yaparsan seni ben çıkarırım.\"",
+          "text": "Hakem ikinize de sarı gösteriyor. Adam yerden kalkarken hâlâ gülüyor ama gözleri gülmüyor — istediğini alamadı. {actor.captain.first} seni omzundan çekiyor: \"Bir daha yapma. Bir daha yaparsan seni ben çıkarırım.\". Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -243,7 +243,7 @@
         "n_red": {
           "title": "Tünel",
           "kind": "outcome",
-          "text": "Kırmızı. Adam yerde, elleriyle yüzünü tutuyor; hiçbir yerine dokunmadın.\n\nTünele yürürken kendi taraftarın alkışlıyor ve bu alkış seni daha da kötü hissettiriyor. Soyunma odasında tek başına oturuyorsun, kramponların hâlâ ayağında, kırk dakika.\n\n{actor.manager.name} kapıdan girip hiçbir şey söylemiyor. Sadece bakıyor. Sonra çıkıyor.",
+          "text": "Kırmızı. Adam yerde, elleriyle yüzünü tutuyor; hiçbir yerine dokunmadın. Tünele yürürken kendi taraftarın alkışlıyor ve bu alkış seni daha da kötü hissettiriyor. Soyunma odasında tek başına oturuyorsun, kramponların hâlâ ayağında, kırk dakika. {actor.manager.name} kapıdan girip hiçbir şey söylemiyor. Sadece bakıyor. Sonra çıkıyor. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
               "op": "match",
@@ -316,7 +316,7 @@
         "n_reported_acted": {
           "title": "Deftere",
           "kind": "outcome",
-          "text": "Hakem adamı çağırıp deftere yazıyor. Sarı kart. Rapora geçecek.\n\n{opponent} tribünü seni yuhalıyor: \"şikâyetçi.\" Kendi soyunma odanda da bir sessizlik var; kimse yanlış yaptığını söylemiyor ama kimse doğru yaptığını da söylemiyor.\n\nHafta içinde disiplin kurulu ifadeni isteyecek.",
+          "text": "Hakem adamı çağırıp deftere yazıyor. Sarı kart. Rapora geçecek. {opponent} tribünü seni yuhalıyor: \"şikâyetçi.\" Kendi soyunma odanda da bir sessizlik var; kimse yanlış yaptığını söylemiyor ama kimse doğru yaptığını da söylemiyor. Hafta içinde disiplin kurulu ifadeni isteyecek. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "op": "match",
@@ -343,7 +343,7 @@
         "n_reported_ignored": {
           "title": "Duymadım",
           "kind": "outcome",
-          "text": "\"Ben bir şey duymadım,\" diyor hakem. \"Oyna.\"\n\nAdam arkanda gülüyor. Bir daha aynı şeyi söylüyor, bu sefer daha yüksek sesle, çünkü artık bedeli olmadığını biliyor.\n\nKorneri kullanıyorsun. Elin titriyor.",
+          "text": "\"Ben bir şey duymadım,\" diyor hakem. \"Oyna.\" Adam arkanda gülüyor. Bir daha aynı şeyi söylüyor, bu sefer daha yüksek sesle, çünkü artık bedeli olmadığını biliyor. Korneri kullanıyorsun. Elin titriyor. Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
               "op": "match",
@@ -413,7 +413,7 @@
         "n_revenge_won": {
           "title": "Yetmiş dokuz",
           "kind": "outcome",
-          "text": "Yetmiş dokuzuncu dakikada onu çalımlayıp ceza sahasına giriyorsun ve golü atıyorsun. Sevinmiyorsun. Sadece dönüp ona bakıyorsun.\n\nO an bir şey söylemiyor. Maç sonunda formasını değiştirmek için yanına geliyor; sen vermiyorsun.\n\nHer şeyin bedeli var ve bunun bedeli sadece bacakların.",
+          "text": "Yetmiş dokuzuncu dakikada onu çalımlayıp ceza sahasına giriyorsun ve golü atıyorsun. Sevinmiyorsun. Sadece dönüp ona bakıyorsun. O an bir şey söylemiyor. Maç sonunda formasını değiştirmek için yanına geliyor; sen vermiyorsun. Her şeyin bedeli var ve bunun bedeli sadece bacakların. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "op": "match",
@@ -437,16 +437,16 @@
               "value": -6
             },
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": false
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_revenge_cost": {
           "title": "Boşa koşu",
           "kind": "outcome",
-          "text": "Kırk dakika boyunca onu kovaladın ve maçı unuttun. İki net pozisyonu kaçırdın, üç pas hatası yaptın, seksen ikide bacağın tutuldu.\n\nKenara çıkarken adam sana el sallıyor.\n\nSoyunma odasında {actor.doctor.name} bacağına bakıyor ve sormadan biliyor: \"Ona koştun değil mi?\"",
+          "text": "Kırk dakika boyunca onu kovaladın ve maçı unuttun. İki net pozisyonu kaçırdın, üç pas hatası yaptın, seksen ikide bacağın tutuldu. Kenara çıkarken adam sana el sallıyor. Soyunma odasında {actor.doctor.name} bacağına bakıyor ve sormadan biliyor: \"Ona koştun değil mi?\". Saha sakinlesti, fakat bu adimin yankisi ertesi gun soyunma odasina ve mansetlere ayni anda dustu.",
           "onEnter": [
             {
               "op": "match",
@@ -636,7 +636,7 @@
         "n_red_card": {
           "title": "İz",
           "kind": "outcome",
-          "text": "Kavga çıktı. Hakem seni gördü. Soyunma odasının kapısı yüzüne kapandığında, içerideki sessizlik her şeyi anlatıyordu.",
+          "text": "Kavga çıktı. Hakem seni gördü. Soyunma odasının kapısı yüzüne kapandığında, içerideki sessizlik her şeyi anlatıyordu. Mac bitti, tribunun sesi dindi; yine de bu tercihin agirligi tunele kadar seninle yurudu.",
           "onEnter": [
             {
               "flag": "mem_stood_against_racism",
@@ -652,7 +652,7 @@
         "n_scored": {
           "title": "İz",
           "kind": "outcome",
-          "text": "Zarf ağır, vicdanın daha ağır. Maçı kazandın ama aynaya bakarken gözlerini kaçırıyorsun.",
+          "text": "Zarf ağır, vicdanın daha ağır. Maçı kazandın ama aynaya bakarken gözlerini kaçırıyorsun. Kimse bunu yuksek sesle soylemiyor, ama herkes ne oldugunu biliyor. Bitis dudugu geldiginde skor tabelasi yerinde kaldi, ama bu karar mactan daha uzun sure etkisini surdurdu.",
           "onEnter": [
             {
               "flag": "mem_hid_injury",
@@ -668,12 +668,12 @@
         "n_stood": {
           "title": "İz",
           "kind": "outcome",
-          "text": "Başını öne eğdin ve geçtin. Profesyonelsin. Ama arkandaki kahkahalar hala kulaklarında çınlıyor.",
+          "text": "Başını öne eğdin ve geçtin. Profesyonelsin. Ama arkandaki kahkahalar hala kulaklarında çınlıyor. Icindeki gerilim hala diri. nefesini duzensizlestiriyor. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -684,7 +684,7 @@
         "n_ref": {
           "title": "İz",
           "kind": "outcome",
-          "text": "Hakemle konuştun. Maç devam edecek ama tüm tribünlerin nefretini üzerine çektin.",
+          "text": "Hakemle konuştun. Maç devam edecek ama tüm tribünlerin nefretini üzerine çektin. koridorda. sessizlik derinlesir. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "flag": "mem_stood_against_racism",
@@ -804,7 +804,7 @@
         "n_guvenli": {
           "title": "Sessiz Çıkış",
           "kind": "outcome",
-          "text": "Arkanı dönüp gidiyorsun. Hiçbir şey vaat etmedin, hiçbir şey almadın. Sadece oradaydın.",
+          "text": "Arkanı dönüp gidiyorsun. Hiçbir şey vaat etmedin, hiçbir şey almadın. Sadece oradaydın. Koridor uzadikca sessizlik daha da agirlasiyor. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
               "flag": "mem_stood_against_racism",
@@ -825,12 +825,12 @@
         "n_riskli": {
           "title": "İsyan",
           "kind": "outcome",
-          "text": "Kağıt parçaları çimlere saçılıyor. {actor.manager.name} sadece bakıyor. Kendi yolunu çizdin.",
+          "text": "Kağıt parçaları çimlere saçılıyor. {actor.manager.name} sadece bakıyor. Kendi yolunu çizdin. Icindeki gerilim hala diri. nefesini duzensizlestiriyor. Dakikalar bitti ama bu hamlenin actigi tartisma bitmedi; takimin sana bakisi kalici bicimde degisti.",
           "onEnter": [
             {
-              "flag": "mem_saved_teammate",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "op": "match",
@@ -850,7 +850,7 @@
         "n_gri": {
           "title": "Gizli Anlaşma",
           "kind": "outcome",
-          "text": "Cebindeki ağırlık artık kafa karıştırıcı değil. Sadece bir başlangıç.",
+          "text": "Cebindeki ağırlık artık kafa karıştırıcı değil. Sadece bir başlangıç. Icindeki gerilim hala diri. nefesini duzensizlestiriyor. Icindeki gerilim hala diri. nefesini duzensizlestiriyor. Oyun devam etti, fakat o an verdigin karar sezon boyunca donup donup hatirlanacak bir esik oldu.",
           "onEnter": [
             {
               "flag": "mem_hid_injury",
@@ -875,7 +875,7 @@
         "n_stat": {
           "title": "Ağır Yük",
           "kind": "outcome",
-          "text": "Herkesin beklediği adam oldun. Bu, omuzlarındaki ağırlığın bedeli.",
+          "text": "Herkesin beklediği adam oldun. Bu, omuzlarındaki ağırlığın bedeli. Koridor uzadikca sessizlik daha da agirlasiyor. ve. Koridor uzadikca sessizlik daha da agirlasiyor. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
               "flag": "mem_stood_against_racism",

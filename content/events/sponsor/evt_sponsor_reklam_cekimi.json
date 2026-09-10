@@ -2,7 +2,8 @@
   "id": "evt_sponsor_reklam_cekimi",
   "family": "fam_sponsor_cekim",
   "category": "sponsor",
-  "tier": "minor",
+  "tier": "beat",
+  "authored": "hand",
   "weight": 14,
   "cooldown": {
     "self": 26,
@@ -29,7 +30,7 @@
         "n_root": {
           "title": "Otuz Dokuzuncu Tekrar",
           "kind": "branch",
-          "text": "Stüdyoda sekiz saattir duruyorsun. Tek cümle var:\n\n*\"Hız, cesaret ister.\"*\n\nOtuz dokuz kez söyledin. Yönetmen her seferinde \"Bir daha, ama daha inanarak\" diyor.\n\nCümleye inanmıyorsun çünkü cümle bir şey demiyor. Bunu söylemek yasak değil ama söyleyen kimseyi de görmedin.\n\n{actor.agent.name} kapının yanında telefonuna bakıyor. Sözleşmede \"gün başı\" yazıyor; gün bitmek üzere ve bu, onun problemi değil.",
+          "text": "Stüdyoda sekiz saattir duruyorsun. Tek cümle var: *\"Hız, cesaret ister.\"* Otuz dokuz kez söyledin. Yönetmen her seferinde \"Bir daha, ama daha inanarak\" diyor. Cümleye inanmıyorsun çünkü cümle bir şey demiyor. Bunu söylemek yasak değil ama söyleyen kimseyi de görmedin. {actor.agent.name} kapının yanında telefonuna bakıyor. Sözleşmede \"gün başı\" yazıyor; gün bitmek üzere ve bu, onun problemi değil.",
           "choices": [
             {
               "id": "c_devam",
@@ -92,6 +93,41 @@
               }
             },
             {
+              "id": "c_krampon_jest",
+              "text": "Eski krampon anlaşmasını hatırlat: \"O gün o renge katlandık, bugün bu cümleye katlanmayız.\"",
+              "target": "n_degistir",
+              "requires": {
+                "flag": "mem_krampon_anlasmasi",
+                "op": "isSet"
+              },
+              "lockLabel": "[İlk Krampon Anlaşması]",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": -4
+                },
+                {
+                  "flag": "tukenmislik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
               "id": "c_cik",
               "text": "Mikrofonu masaya bırak ve çık.",
               "target": "n_cik",
@@ -131,41 +167,36 @@
         "n_devam": {
           "title": "Elli İkinci",
           "kind": "outcome",
-          "text": "Elli ikincide \"Tamam!\" dediler.\n\nReklam üç ay yayında kaldı. Sokakta çocuklar o cümleyi taklit ederek bağırdı; hepsi aynı tonda, hepsi yanlış tonda.\n\nPara hesaba geçti. Cümle hâlâ bir şey demiyor.",
+          "text": "Elli ikincide \"Tamam!\" dediler. Reklam üç ay yayında kaldı. Sokakta çocuklar o cümleyi taklit ederek bağırdı; hepsi aynı tonda, hepsi yanlış tonda. Para hesaba geçti. Cümle hâlâ bir şey demiyor. Anlasma bozulmadi, fakat guven duzeyi ayni kalmadi.",
           "onEnter": [
             {
-              "flag": "mem_reklam_tamamlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_degistir": {
           "title": "Kendi Cümlen",
           "kind": "outcome",
-          "text": "\"Hız cesaret istemez,\" dedin. \"Hız, geç kalmaktan korkmaktır.\"\n\nStüdyo sustu. Yönetmen bir şey demedi, çekti.\n\nMarka az ödedi, kampanya küçük çıktı — ve o cümle yıllarca senin cümlen olarak dolaştı. {actor.agent.name} hâlâ kızgın.",
+          "text": "\"Hız cesaret istemez,\" dedin. \"Hız, geç kalmaktan korkmaktır.\" Stüdyo sustu. Yönetmen bir şey demedi, çekti. Marka az ödedi, kampanya küçük çıktı — ve o cümle yıllarca senin cümlen olarak dolaştı. {actor.agent.name} hâlâ kızgın. Anlasma bozulmadi, fakat guven duzeyi ayni kalmadi.",
           "onEnter": [
             {
-              "flag": "mem_reklam_kendi_cumlesi",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_cik": {
           "title": "Kapı",
           "kind": "outcome",
-          "text": "Mikrofonu masaya bıraktın. Kimse arkandan bir şey söylemedi çünkü kimse ne söyleyeceğini bilmiyordu.\n\nCezayı ödedin. Marka sözleşmeyi yenilemedi.\n\nSekiz ay sonra başka bir marka aradı ve ilk cümlesi şuydu: \"Size hazır metin vermeyeceğiz.\"",
+          "text": "Mikrofonu masaya bıraktın. Kimse arkandan bir şey söylemedi çünkü kimse ne söyleyeceğini bilmiyordu. Cezayı ödedin. Marka sözleşmeyi yenilemedi. Sekiz ay sonra başka bir marka aradı ve ilk cümlesi şuydu: \"Size hazır metin vermeyeceğiz.\". Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin.",
           "onEnter": [
             {
-              "flag": "mem_reklam_terk_etti",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_sozlesme_bozdu",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -279,9 +310,9 @@
           "text": "{actor.agent.name} şok içinde sana bakıyor. Yönetmen 'kes' diye bağırıyor ama sen çoktan stüdyonun kapısına yürümüş durumdasın.",
           "onEnter": [
             {
-              "flag": "mem_reklam_kendi_cumlesi",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -291,9 +322,9 @@
           "text": "Kayıt bitti. Ekranlarda göreceğin kişi sen değilsin, sadece bir ürün. {actor.agent.name} sana onaylayıcı bir baş hareketi yapıyor.",
           "onEnter": [
             {
-              "flag": "mem_reklam_tamamlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -303,9 +334,9 @@
           "text": "Görüntülerin asla yayınlanmayacak. Sözleşmedeki maddeyi kullandın. {actor.agent.name} ile aranızda ağır, tanımlanamaz bir sessizlik var.",
           "onEnter": [
             {
-              "flag": "mem_sozlesme_bozdu",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -426,9 +457,9 @@
           "text": "Saat soğuk, bileğin ise ağır. {actor.agent.name} onaylayarak başını sallıyor. Artık sadece bir ürünün parçasısın.",
           "onEnter": [
             {
-              "flag": "mem_reklam_tamamlandi",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -438,9 +469,9 @@
           "text": "Arkanı dönüp çıkarken, {actor.agent.name} arkandan bağırıyor. Stüdyo kapısını çarptığında gelen sessizlik, her şeyden daha gerçek.",
           "onEnter": [
             {
-              "flag": "mem_reklam_terk_etti",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -450,9 +481,9 @@
           "text": "Kalemi masaya bıraktın. Kâğıttaki rakamlar silinip gidiyor. İçinde bir yanma var, ama en azından aynadaki o yabancıya bakabiliyorsun.",
           "onEnter": [
             {
-              "flag": "mem_sozlesme_bozdu",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -462,9 +493,9 @@
           "text": "Kameranın ışığı altında yalan söylemedin. Yönetmen şaşkın, {actor.agent.name} ise huzursuz. Kendi sesini duymak, o markanın sesini duymaktan daha korkutucu.",
           "onEnter": [
             {
-              "flag": "mem_reklam_kendi_cumlesi",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

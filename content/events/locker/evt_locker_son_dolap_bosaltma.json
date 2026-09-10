@@ -1,0 +1,203 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Alacakaranlık çağında (35+ yaş) kariyerin son günü, soyunma odasında malzemeciyle baş başa dolap boşaltma anı.",
+    "hangi_soru": "Yıllarca ter döktüğün o dolaptaki son hatıraları koliye mi koyacaksın, yıllardır kahrını çeken malzemeciye mi bırakacaksın, gençlere mi emanet edeceksin?",
+    "odeme_plani": "Kariyer epilogundaki soyunma odası mirası kodasını (koda_son_dolap) tetikler."
+  },
+  "id": "evt_locker_son_dolap_bosaltma",
+  "family": "fam_locker_son_dolap",
+  "category": "locker",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 60,
+  "once": true,
+  "cooldown": {
+    "self": 40,
+    "family": 16
+  },
+  "eras": [
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing",
+    "retired"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "locker:assistant:son_dolap_bosaltma",
+    "slot": "assistant",
+    "beat": "son_dolap_bosaltma"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 1
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Son Koli ve Malzemeci",
+      "kind": "branch",
+      "text": "Tesislerde akşam antrenmanı bitmiş, ışıklar loş moda alınmış. Soyunma odasında tek bir çıt yok. Masanın üzerinde mukavva bir koli duruyor. Dolabını boşaltıyorsun. On beş yıllık formalar, tozlanmış tekmelikler, eski maç biletleri. Tam dolabın en dibindeki eşyaları çekerken {actor.assistant.name} içeri giriyor. Elinde süpürge, omzunda havlu. Dolabın arkasından çıkan ve bantlarla tutturulmuş, rengi solmuş o eski tekmelikleri gösteriyor: 'Bunu da mı götürüyorsun şampiyon?' diyor gülerek, ama gözlerinin içi hafifçe dolmuş. 'Yoksa bu dolaba yeni gelen veletler görsün diye müzeye mi ayırayım?' Yıllardır kramponlarını temizleyen, formasının çamurunu yıkayan adamla baş başasın.",
+      "choices": [
+        {
+          "id": "c_malzemeci",
+          "text": "Tekmelikleri malzemeciye hediye et: \"Bunlar benden çok senin hakkın ağabey, sende kalsın.\"",
+          "target": "n_malzemeci",
+          "effects": [
+            {
+              "flag": "iliski_assistant",
+              "op": "add",
+              "value": 18
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "sadakat": 14,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_koli",
+          "text": "Her şeyi tek tek koliye koy: \"Bir çöpünü bile bırakmam, her lekesinde bir hatıra var.\"",
+          "target": "n_koli",
+          "effects": [
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_assistant",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            }
+          ],
+          "persona": {
+            "durus": 12,
+            "dogruluk": 8
+          }
+        },
+        {
+          "id": "c_genc_not",
+          "text": "Dolabın kapağına not yaz: \"Bu dolap kutsaldır, temiz tutun.\" Eşyaları gençlere dağıt.",
+          "target": "n_genc_not",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -15000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 14,
+            "sadakat": 12
+          }
+        }
+      ]
+    },
+    "n_malzemeci": {
+      "title": "Emek Kardeşliği",
+      "kind": "outcome",
+      "text": "{actor.assistant.name} tekmelikleri iki eliyle tuttu, başını öne eğdi. 'On beş yıldır kaç hoca, kaç yıldız geçti buradan,' dedi titreyen bir sesle. 'Ama bu tekmeliği evimin başköşesine koyacağım.' Birbirinize sarıldınız; şöhretin ve milyonların ötesinde saf bir insanlık anıydı.",
+      "onEnter": [
+        {
+          "flag": "mem_dolap_bosaltildi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_koli": {
+      "title": "Bütün Bir Ömür",
+      "kind": "outcome",
+      "text": "Son çorabı, son bandajı da koliye koyup koli bandıyla bantladın. Koliyi kucaklayıp koridora adım attığında ayak seslerin boş koridorda yankılandı. Arkana dönüp son bir kez baktın: dolap bomboştu ama o duvarlara kazınan ter ve hırs sonsuza kadar oradaydı.",
+      "onEnter": [
+        {
+          "flag": "mem_dolap_bosaltildi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_genc_not": {
+      "title": "Kapakta Kalan Not",
+      "kind": "outcome",
+      "text": "Dolabın metal kapağının iç tarafına siyah asetat kalemiyle o iki cümleyi yazdın. Ertesi sabah idmana gelen gençler dolabı açtıklarında o yazıyı okudular ve çıt çıkarmadan kramponlarını bağladılar. Bir efsane ayrılmıştı ama mirası o dolabın kapağında nöbet tutmaya devam edecekti.",
+      "onEnter": [
+        {
+          "flag": "mem_dolap_bosaltildi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

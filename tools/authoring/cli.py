@@ -88,7 +88,73 @@ def cmd_report(args, root: Path) -> int:
     print(f"  mevcut sahne (node) : {scenes}")
     print(f"  hedef               : ~1100")
     print(f"  acik                : {max(0, 1100 - scenes)}")
+
+    _report_spine(root)
     return 0
+
+
+def _report_spine(root: Path) -> None:
+    spine_file = root / "tools" / "authoring" / "spine.json"
+    if not spine_file.exists():
+        return
+
+    try:
+        data = json.loads(spine_file.read_text(encoding="utf-8"))
+    except Exception as err:
+        print(f"\n[!] spine.json okunamadi: {err}")
+        return
+
+    items = data.get("items", [])
+    if not items:
+        return
+
+    events_dir = root / "content" / "events"
+    existing_ids = set()
+    hand_count = 0
+    total_count = 0
+    for path in events_dir.rglob("*.json"):
+        try:
+            ev = json.loads(path.read_text(encoding="utf-8"))
+            if "id" in ev:
+                existing_ids.add(ev["id"])
+                total_count += 1
+                if ev.get("authored") == "hand":
+                    hand_count += 1
+        except Exception:
+            continue
+
+    print("\n--- KARIYER OMURGASI (SPINE) ---")
+    print(f"Toplam Korpus  : {total_count} olay ({hand_count} elle yazilmis)")
+
+    eras = ["rookie", "rise", "prime", "veteran", "twilight"]
+    by_era = {e: [] for e in eras}
+    for item in items:
+        era = item.get("era", "unknown")
+        if era in by_era:
+            by_era[era].append(item)
+
+    print("\nCAG BAZINDA KILIT TASLARI:")
+    for era in eras:
+        era_items = by_era[era]
+        written = sum(1 for it in era_items if it.get("id") in existing_ids)
+        total = len(era_items)
+        light_count = sum(1 for it in era_items if it.get("tone") == "light")
+        light_written = sum(
+            1 for it in era_items if it.get("tone") == "light" and it.get("id") in existing_ids
+        )
+        bar = "#" * written + "." * (total - written)
+        print(
+            f"  {era:10}: {written:2}/{total:2} [{bar}] (hafif/renk: {light_written}/{light_count})"
+        )
+
+    planned = [it for it in items if it.get("id") not in existing_ids]
+    if planned:
+        print(f"\nYAZILMAYI BEKLEYEN KILIT TASLARI ({len(planned)}):")
+        for it in planned[:10]:
+            payoff_str = f" <- tohum: {it['payoffOf']}" if "payoffOf" in it else ""
+            print(f"  {it['id']:38} [{it.get('era')}/{it.get('tier')}] {it.get('tone')}{payoff_str}")
+        if len(planned) > 10:
+            print(f"  ... ve {len(planned) - 10} kilit tasi daha (bkz: docs/omurga.md)")
 
 
 def _count_scenes(events_dir: Path) -> int:

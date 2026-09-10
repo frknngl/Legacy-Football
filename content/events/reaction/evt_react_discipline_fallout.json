@@ -2,7 +2,7 @@
   "id": "evt_react_discipline_fallout",
   "family": "fam_react_discipline",
   "category": "reaction",
-  "tier": "epic",
+  "tier": "major",
   "weight": 65,
   "cooldown": {
     "self": 14,
@@ -70,7 +70,7 @@
         "n_root": {
           "title": "Akşam programı",
           "kind": "branch",
-          "text": "{actor.pundit.name:gen} stüdyosu. Kabul etmemen gereken bir davetti ve {actor.agent.name} bunu üç kez söyledi. Yine de buradasın.\n\nYayın açılıyor. {actor.pundit.first} önündeki tabletten okumuyor bile — bunu ezberlemiş: \"{opponent} maçı. Otuz saniyelik bir görüntü izleyeceğiz ve sonra tek soru soracağım.\"\n\nGörüntü dönüyor. Kendi yüzünü ekranda görmek her seferinde tuhaf.\n\nGörüntü bitiyor. {actor.pundit.first} sana dönüyor: \"Bu adam sen misin?\"",
+          "text": "{actor.pundit.name:gen} stüdyosu. Kabul etmemen gereken bir davetti ve {actor.agent.name} bunu üç kez söyledi. Yine de buradasın. Yayın açılıyor. {actor.pundit.first} önündeki tabletten okumuyor bile — bunu ezberlemiş: \"{opponent} maçı. Otuz saniyelik bir görüntü izleyeceğiz ve sonra tek soru soracağım.\" Görüntü dönüyor. Kendi yüzünü ekranda görmek her seferinde tuhaf. Görüntü bitiyor. {actor.pundit.first} sana dönüyor: \"Bu adam sen misin?\".",
           "choices": [
             {
               "id": "c_regret",
@@ -98,9 +98,9 @@
                   "value": -12
                 },
                 {
-                  "flag": "mem_public_apology",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_pundit_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -134,9 +134,9 @@
                   "value": 6
                 },
                 {
-                  "flag": "mem_refused_to_apologize",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_pundit_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -168,11 +168,6 @@
                   "flag": "sosyal_medya_takipci",
                   "op": "add",
                   "value": 80000
-                },
-                {
-                  "flag": "mem_media_war",
-                  "op": "set",
-                  "value": true
                 },
                 {
                   "flag": "npc_pundit_arc",
@@ -216,9 +211,9 @@
                   "value": -15
                 },
                 {
-                  "flag": "mem_media_war",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_pundit_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -273,7 +268,7 @@
         "n_regret": {
           "title": "Doğru cevap",
           "kind": "outcome",
-          "text": "{actor.pundit.first} başını sallıyor. Reklam arasında mikrofonu kapatıp \"iyi cevaptı\" diyor ve bu cümle seni rahatsız ediyor.\n\nGece taraftar grubunun kapalı grubunda o klip dönüyor. Altında bir yorum: \"Bize sahada söylediğini televizyonda geri aldı.\"\n\nDisiplin kurulu ertesi gün cezayı bir maça indiriyor.",
+          "text": "{actor.pundit.first} başını sallıyor. Reklam arasında mikrofonu kapatıp \"iyi cevaptı\" diyor ve bu cümle seni rahatsız ediyor. Gece taraftar grubunun kapalı grubunda o klip dönüyor. Altında bir yorum: \"Bize sahada söylediğini televizyonda geri aldı.\" Disiplin kurulu ertesi gün cezayı bir maça indiriyor. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "yonetim_baskisi",
@@ -290,7 +285,7 @@
         "n_owned_it": {
           "title": "Aynısını",
           "kind": "outcome",
-          "text": "Stüdyoda bir sessizlik oluyor. {actor.pundit.first} bir saniye ne diyeceğini bilemiyor — bu adamda nadir görülür.\n\n\"Peki,\" diyor sonunda. \"En azından dürüstsünüz.\"\n\nO gece taraftar grubu tesise pankart asıyor: senin cümlen, kırmızı harflerle.\n\nKulüp yönetimi sabah açıklama yapmak zorunda kalıyor ve {actor.president.name} o açıklamayı yaparken sana kızgın.",
+          "text": "Stüdyoda bir sessizlik oluyor. {actor.pundit.first} bir saniye ne diyeceğini bilemiyor — bu adamda nadir görülür. \"Peki,\" diyor sonunda. \"En azından dürüstsünüz.\" O gece taraftar grubu tesise pankart asıyor: senin cümlen, kırmızı harflerle. Kulüp yönetimi sabah açıklama yapmak zorunda kalıyor ve {actor.president.name} o açıklamayı yaparken sana kızgın. Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "yonetim_baskisi",
@@ -312,7 +307,7 @@
         "n_turned_it": {
           "title": "Kaç kez",
           "kind": "outcome",
-          "text": "{actor.pundit.first} gülümsüyor ama gözleri gülmüyor. \"Bilmiyorum,\" diyor. \"Siz sayıyor musunuz?\"\n\n\"Kırk bir,\" diyorsun. \"Bu sezon kırk bir kez.\"\n\nYayın kesiliyor. Reklam.\n\nO klip gece sabaha kadar dönüyor ve senin cümlen bir sonraki hafta boyunca tişört oluyor. Ama {actor.pundit.name} artık senin düşmanın ve o çok uzun süre yaşayacak bir düşmanlık.",
+          "text": "{actor.pundit.first} gülümsüyor ama gözleri gülmüyor. \"Bilmiyorum,\" diyor. \"Siz sayıyor musunuz?\" \"Kırk bir,\" diyorsun. \"Bu sezon kırk bir kez.\" Yayın kesiliyor. Reklam. O klip gece sabaha kadar dönüyor ve senin cümlen bir sonraki hafta boyunca tişört oluyor. Ama {actor.pundit.name} artık senin düşmanın ve o çok uzun süre yaşayacak bir düşmanlık. Bakislar ustunde toplanirken verdigin tepkinin etkisi sahadan sonra da surmeye devam etti.",
           "onEnter": [
             {
               "flag": "iliski_basin",
@@ -329,7 +324,7 @@
         "n_walked_out": {
           "title": "Canlı yayın",
           "kind": "outcome",
-          "text": "Kulaklığı masaya bırakıyorsun. {actor.pundit.first} bir şey söylüyor, duymuyorsun. Kamera seni takip ediyor ve stüdyo kapısı arkandan kapanıyor.\n\nOn dört saniye. Ülkenin en çok izlenen on dört saniyesi.\n\n{actor.agent.name} telefonu açtığında hiçbir şey söylemiyor. Sadece nefes alıyor. Sonra: \"İki sponsor bu gece çekildi. Yarın konuşuruz.\"",
+          "text": "Kulaklığı masaya bırakıyorsun. {actor.pundit.first} bir şey söylüyor, duymuyorsun. Kamera seni takip ediyor ve stüdyo kapısı arkandan kapanıyor. On dört saniye. Ülkenin en çok izlenen on dört saniyesi. {actor.agent.name} telefonu açtığında hiçbir şey söylemiyor. Sadece nefes alıyor. Sonra: \"İki sponsor bu gece çekildi. Yarın konuşuruz.\". Kalabaligin ugultusu dagilsa bile Bu anin izi kolay kapanmiyor. sicakligi kolay kolay dusmedi.",
           "onEnter": [
             {
               "flag": "haftalik_gelir",
@@ -351,7 +346,7 @@
         "n_history": {
           "title": "Bir kez",
           "kind": "outcome",
-          "text": "Sinan duruyor. Gerçekten duruyor; yayın boyunca ilk kez konuşmuyor.\n\n\"Hatırlıyorum,\" diyor sonunda. \"Kimse hatırlamaz sanıyordum.\"\n\nProgramın kalanında sana tek bir zor soru sormuyor ve bu, izleyenlerin fark ettiği bir şey. Ertesi gün köşesinde şunu yazıyor: \"Bu çocuğu yıllardır kovalıyorum. Belki de yanlış kovaladım.\"\n\nBu bir ateşkes. Kalıcı değil ama gerçek.",
+          "text": "Sinan duruyor. Gerçekten duruyor; yayın boyunca ilk kez konuşmuyor. \"Hatırlıyorum,\" diyor sonunda. \"Kimse hatırlamaz sanıyordum.\" Programın kalanında sana tek bir zor soru sormuyor ve bu, izleyenlerin fark ettiği bir şey. Ertesi gün köşesinde şunu yazıyor: \"Bu çocuğu yıllardır kovalıyorum. Belki de yanlış kovaladım.\" Bu bir ateşkes. Kalıcı değil ama gerçek. Saniyeler gectikce Bu secimin sonucu gecikmeli geliyor. yarina tasinacak bir hikaye biraktigi belliydi.",
           "onEnter": [
             {
               "flag": "moral",
@@ -359,9 +354,9 @@
               "value": 12
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": false
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             },
             {
               "flag": "iliski_basin",
@@ -384,7 +379,7 @@
             {
               "id": "c_riskli",
               "text": "Mikrofona vurup yere düşür. Sessizlik en iyi cevaptır.",
-              "target": "n_riskli",
+              "target": "n_shape_bridge_v_zafer_bedeli",
               "effects": [
                 {
                   "flag": "sokak_itibari",
@@ -497,9 +492,9 @@
           "text": "Mikrofonun kırılış sesi otoparkta yankılandı. {actor.pundit.name} geri çekilmedi, sadece gülümsedi. Yarınki manşetler seni daha sert vuracak, ama taraftarın senin için otopark kapısına dayandı.",
           "onEnter": [
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -509,9 +504,9 @@
           "text": "Kelimeler boğazına dizilirken özür dilemek bir zorunluluk gibiydi. {actor.pundit.name} not defterine bir şeyler karalarken ortamdaki soğuk hava tenini ürpertti. Profesyonelliğini herkes takdir etti ancak aynada kendine bakarken hissettiğin o boşluk, sanki ruhundan bir parça kopup gitmiş gibi göğsünde ağır bir tortu bıraktı. Odanın loş ışığında kendi aksin bile sana yabancı görünüyordu.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -521,9 +516,9 @@
           "text": "Zarf ağır. İçindeki rakam, az önce sahadaki terin ve emeğinle kıyaslanamaz. {actor.pundit.name} kameraya el sallıyor, sen ise arabanın kapısını kapatıyorsun.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -533,11 +528,17 @@
           "text": "Kameranın karşısında bitkin düştün. Taraftarların desteğiyle kazandın ama enerjinden verdin. İkiniz de kazanan taraf olarak ayrıldınız, fakat içeride bir şeyler tükendi.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
+        },
+        "n_shape_bridge_v_zafer_bedeli": {
+          "title": "Esik",
+          "kind": "outcome",
+          "text": "Stadyum Otoparkı aninda \"Mikrofona vurup yere düşür. Sessizlik en iyi\" dusuncesi zihninde yankilanirken, etraftaki sessizlik keskinlesiyor; bu k?sa esikte verdigin yon, hem bugunun ritmini hem de sonrasinda kurulacak dengeyi belirleyecek kadar agirlasiyor.",
+          "next": "n_riskli"
         }
       }
     },
@@ -664,9 +665,9 @@
           "text": "{actor.pundit.name} elindeki kayıt cihazını sertçe kapattı, metalin çıkardığı o mekanik ses odada yankılandı. Gözlerinde küçümseyen bir pırıltı ile sana bakarken yüzündeki o çarpık gülümseme, pişmanlığının yarın sabah tüm manşetlerde bir silah olarak kullanılacağının habercisiydi. Stüdyodaki ağır toz bulutu, sanki aranızdaki tüm köprülerin yıkılışını izliyormuş gibi durgun bir sessizliğe gömüldü.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -676,9 +677,9 @@
           "text": "{actor.pundit.name} yanından hızla uzaklaştı, telefonu kulağına götürürken ceketinin hışırtısı boş koridorda yankılandı. Birkaç adım ötede senin hakkındaki zehirli cümlelerini kurmaya başladığını hayal edebiliyordun. Yazacakları, sahadaki performansından çok daha ağır bir yıkım getirecek ve yarın sabah gazeteleri açan herkes, o satırlarda senin çöküşünü büyük bir iştahla okuyacak.",
           "onEnter": [
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -688,9 +689,9 @@
           "text": "{actor.pundit.name} parayı sessizce çantasına attı; kağıtların birbirine sürtünürken çıkardığı o hışırtı odanın tek sesiydi. Arabanın içine sinen yoğun parfüm ve eski deri kokusu, aranızda kurulan suç ortaklığının görünmez bir mührü gibiydi. Şimdi bu sessizliğin bedeliyle baş başa kaldın; cüzdanın ağırlaşsa da omuzlarındaki o karanlık yükün gitgide büyüdüğünü hissediyordun.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -700,9 +701,9 @@
           "text": "{actor.pundit.name} bir an duraksadı, not defterini yavaşça kapattı ve bakışlarını bir an bile çekmeden sana dikti. Geri çekilirken yüzündeki ifade bir teslimiyet değil, pusuda bekleyen bir avcının sinsi dinginliğiydi. Odanın kapısı kapanırken çıkardığı tok ses, aranızdaki gerginliğin bir gün patlayacak bir bombaya dönüştüğünü sana fısıldıyordu; şimdi sadece beklemek zorundaydın.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -805,9 +806,9 @@
           "text": "Arkanı döndüğün an omuzlarındaki ağırlık biraz daha arttı, adımların koridorun soğuk zemininde yankılanırken kalbinin ritmi düzensizleşti. Arkanda bıraktığın bu kısa, keskin sessizlik en azından bugün için seni koruyacak olan tek güvenli limandı. Dışarıdaki dünyanın gürültüsüne dönmeden önce son kez derin bir nefes aldın, ciğerlerine dolan tozlu hava gerçeğin acı tadını taşıyordu.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -817,9 +818,9 @@
           "text": "Zarfın ağırlığı ceketinin cebinde adeta bir taş gibi oturuyor, attığın her adımda varlığını hatırlatıyordu. Dışarıdaki kameraların flaşları karanlığı delerken seni beklediklerini biliyordun; artık söyleyeceğin hiçbir kelimenin, sunacağın hiçbir bahanesinin bir önemi kalmadı. Elin cebindeki zarfın kenarına takıldı, bu sessizliğin bedeli bugün seni özgür kılsa da gelecekteki bir günün ipoteği gibiydi.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -829,9 +830,9 @@
           "text": "Odanın havası aniden ağırlaştı, {actor.pundit.name} arkandan bir şeyler mırıldanırken sesindeki o meydan okuyan tını havayı bıçak gibi kesti. Artık çok geç olduğunu, geri dönüşü olmayan o noktayı geçtiğini biliyordun. Kapıyı kapattığında çıkan sert ses, kurduğun tüm köprülerin arkanda alevler içinde kaldığını ve sadece enkazın sana kaldığını sessizce kanıtlıyordu.",
           "onEnter": [
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -958,9 +959,9 @@
           "text": "Gözleri üzerinde, bir şey söylemesini bekliyor. Sessizliğin ağırlığı rayların gürültüsünden daha baskın. Arkana bakmadan istasyondan ayrılıyorsun. Kendi içindeki fırtınayı, dışarıya tek bir kelime sızdırmadan kilitli tutuyorsun.",
           "onEnter": [
             {
-              "flag": "mem_refused_to_apologize",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -970,9 +971,9 @@
           "text": "Bankın üzerindeki parayı görmezden geliyor. Elini bile sürmüyor. Sadece derin bir nefes alıp başını iki yana sallıyor. Satın aldığın bu sükunetin bedeli, aynadaki aksinden biraz daha fazla şey götürüyor.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -982,9 +983,9 @@
           "text": "Yüzündeki ifade değişmiyor ama not defterine bir şeyler karalamaya başlıyor. Biliyorsun, yarın sabahki manşetler bu karşılaşmadan beslenecek. Sokaktaki çocukların desteği cebinde ama medya artık doğrudan hedef tahtasında.",
           "onEnter": [
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -994,9 +995,9 @@
           "text": "Kısa bir sessizlikten sonra not defterini kapatıyor. Gözlerinde ilk defa bir anlayış kırıntısı var. İçini dökmek omuzlarındaki yükü hafifletiyor ama bu dürüstlüğün yorgunluğu zihninde uzun bir geceye dönüşüyor.",
           "onEnter": [
             {
-              "flag": "mem_public_apology",
-              "op": "set",
-              "value": true
+              "flag": "npc_pundit_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

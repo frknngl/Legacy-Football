@@ -1,0 +1,185 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Tecrübeli çağında (30-34 yaş) oyuncu artık odanın en kıdemlilerindendir. Yan dolabına 17 yaşında tir tir titreyen bir altyapı genci oturur.",
+    "hangi_soru": "Gence ağabeylik mi yapacaksın, mesafeli hiyerarşiyi mi koruyacaksın?",
+    "odeme_plani": "Bu mentörlük izi (mem_genclere_kol_kanat), kariyer sonundaki müze ve epilog kodalarında karşılık bulur."
+  },
+  "id": "evt_locker_genc_oyuncu_dolabi",
+  "family": "fam_locker_genc_dolap",
+  "category": "locker",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 60,
+  "cooldown": {
+    "self": 36,
+    "family": 14
+  },
+  "eras": [
+    "veteran",
+    "twilight"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar",
+    "icon",
+    "legend"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "locker:youngster:genc_oyuncu_dolabi",
+    "slot": "youngster",
+    "beat": "genc_oyuncu_dolabi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 2
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yan Dolaptaki Titreme",
+      "kind": "branch",
+      "text": "Soyunma odasındaki yerin sekiz yıldır aynı: duşlara en yakın, klimanın çarpmadığı o köşe. Yanındaki dolap ise üç aydır boş duruyordu. Bugün antrenman öncesi içeri girdiğinde o boş dolabın önünde on yedi yaşında bir çocuk oturuyor: altyapıdan yeni çıkarılan {actor.youngster.name}. Eşyalarını naylon bir spor çantasına tıkmış, kramponlarını benchin altına saklamaya çalışıyor. Sen kapıdan girip çantanı bıraktığında çocuk adeta heykel gibi donup kalıyor; başını yerden kaldıramıyor. Sol kramponunu giyerken çocuğun dizlerinin hafifçe titrediğini fark ediyorsun. Yıllar önce o kapıdan içeri ilk girdiğin gün geldiğin o tedirgin hâlin aynısı karşında oturuyor.",
+      "choices": [
+        {
+          "id": "c_krampon",
+          "text": "Çantandan yedek kramponunu çıkarıp önüne koy: \"Şu bağcıkları düzgün bağla bakalım.\"",
+          "target": "n_krampon",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": 16
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "sadakat": 8
+          }
+        },
+        {
+          "id": "c_saka",
+          "text": "Sertçe bak, sonra kahkahayı bas: \"Korkma be oğlum, yemiyoruz adamı. Çay söyleyeyim mi?\"",
+          "target": "n_saka",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "mizac": 8,
+            "durus": 4
+          }
+        },
+        {
+          "id": "c_mesafe",
+          "text": "\"Burası A takım soyunma odası evlat. Saygıyı sahada kazanırsın.\" Mesafeni koru.",
+          "target": "n_mesafe",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "iliski_youngster",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_krampon": {
+      "title": "Ağabey Kramponu",
+      "kind": "outcome",
+      "text": "Çocuk kramponlara baktı, sonra sana baktı; gözleri parladı. 'Ağabey bu senin kupa maçında giydiğin mi?' diye sordu utangaçça. Güldün, sırtına vurdun. O gün idmanda canını dişine taktı; krampon ayağına yarım numara büyüktü ama sahada devleşti.",
+      "onEnter": [
+        {
+          "flag": "mem_genclere_kol_kanat",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_saka": {
+      "title": "Çözülen Omuzlar",
+      "kind": "outcome",
+      "text": "Çocuk önce yutkundu, sonra bütün odayla birlikte derin bir nefes aldı. Malzemeciye iki bardak demli çay söylettin; ilk idmanında sahaya nasıl ters şortla çıktığını anlattın. Çocuğun gergin omuzları indi, yüzüne kan geldi.",
+      "onEnter": [
+        {
+          "flag": "mem_genclere_kol_kanat",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_mesafe": {
+      "title": "Sert Zemin",
+      "kind": "outcome",
+      "text": "Çocuk başını önüne eğdi, tek kelime etmedi. Sert bir dersti ama burası profesyonel futboldu. Antrenmanda seninle girdiği ilk ikili mücadelede çekinmedi, var gücüyle yüklendi. Saygıyı sahada kazanacağını öğrenmişti."
+    }
+  }
+}

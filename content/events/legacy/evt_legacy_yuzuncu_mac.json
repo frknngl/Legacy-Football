@@ -2,7 +2,8 @@
   "id": "evt_legacy_yuzuncu_mac",
   "family": "fam_legacy_kilometre",
   "category": "legacy",
-  "tier": "epic",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 90,
   "once": true,
   "cooldown": {
@@ -31,7 +32,7 @@
         "n_root": {
           "title": "Yüz",
           "kind": "branch",
-          "text": "Kulüp medya ekibi sabah bir grafik paylaştı: yüzüncü maç.\n\nSayıyı sen tutmuyordun. Biri tutuyormuş.\n\n{actor.president.name} soyunma odasına çerçeveli bir forma getirdi; üstünde senin adın ve büyük bir **100** var. Fotoğraf çekilecek.\n\nTribünde annen var. İki sıra arkasında {actor.fan_leader.name} ve on beş kişi, senin adını bir tezahürata yerleştirmişler — bu sabah öğrendiler, akşama ezberlemişler.\n\nYüz maç. Bunların on birini hatırlıyorsun.",
+          "text": "Kulüp medya ekibi sabah bir grafik paylaştı: yüzüncü maç. Sayıyı sen tutmuyordun. Biri tutuyormuş. {actor.president.name} soyunma odasına çerçeveli bir forma getirdi; üstünde senin adın ve büyük bir **100** var. Fotoğraf çekilecek. Tribünde annen var. İki sıra arkasında {actor.fan_leader.name} ve on beş kişi, senin adını bir tezahürata yerleştirmişler — bu sabah öğrendiler, akşama ezberlemişler. Yüz maç. Bunların on birini hatırlıyorsun.",
           "choices": [
             {
               "id": "c_al",
@@ -159,53 +160,48 @@
         "n_al": {
           "title": "Çerçeve",
           "kind": "outcome",
-          "text": "Fotoğraf çekildi. Kulübün hesabı paylaştı, üç bin beğeni aldı.\n\nÇerçeve eve gitti, salona asıldı, iki ay sonra kimse bakmaz oldu.\n\nİyi bir gündü. Sadece yüzüncü maçın kendisi kötü geçti — kaybettiniz ve sen altmış beşinci dakikada çıktın.",
+          "text": "Fotoğraf çekildi. Kulübün hesabı paylaştı, üç bin beğeni aldı. Çerçeve eve gitti, salona asıldı, iki ay sonra kimse bakmaz oldu. İyi bir gündü. Sadece yüzüncü maçın kendisi kötü geçti — kaybettiniz ve sen altmış beşinci dakikada çıktın. Tribunden gelen sesler dinerken Bu anin izi kolay kapanmiyor. izi kariyer hafizanda daha da belirginlesti.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_toren",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_anne": {
           "title": "İki Sıra Arkası",
           "kind": "outcome",
-          "text": "Çerçeveyi aldın, kenar çizgisini geçtin, korkuluğa tırmandın.\n\nGüvenlik bir adım attı, sonra durdu.\n\nAnnen çerçeveyi aldı ve ağlamadı. Ağlamayacağını biliyordun; onun yerine {actor.fan_leader.name} ağladı ve bunu hayatının sonuna kadar inkâr etti.\n\nO görüntü, attığın hiçbir golden çok izlendi.",
+          "text": "Çerçeveyi aldın, kenar çizgisini geçtin, korkuluğa tırmandın. Güvenlik bir adım attı, sonra durdu. Annen çerçeveyi aldı ve ağlamadı. Ağlamayacağını biliyordun; onun yerine {actor.fan_leader.name} ağladı ve bunu hayatının sonuna kadar inkâr etti. O görüntü, attığın hiçbir golden çok izlendi. Sahadan cikarken Bu secimin sonucu gecikmeli geliyor. yankisi uzun sure kulaklarinda kaldi.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_anneye",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_tribune_cikti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_takim": {
           "title": "On Bir Kişiyle",
           "kind": "outcome",
-          "text": "\"Yüz maç on bir kişiyle olur.\"\n\nÇerçeveyi soyunma odasının ortasındaki masaya bıraktın. Kimse almadı; orada kaldı, sonra duvara asıldı, sonra bir daha indirilmedi.\n\nBasın bunu görmedi. Takım gördü.\n\nÜç sezon sonra sen ayrıldığında o çerçeve hâlâ oradaydı ve yeni gelenler kimin olduğunu sormadan biliyordu.",
+          "text": "\"Yüz maç on bir kişiyle olur.\" Çerçeveyi soyunma odasının ortasındaki masaya bıraktın. Kimse almadı; orada kaldı, sonra duvara asıldı, sonra bir daha indirilmedi. Basın bunu görmedi. Takım gördü. Üç sezon sonra sen ayrıldığında o çerçeve hâlâ oradaydı ve yeni gelenler kimin olduğunu sormadan biliyordu. Gecmisin agirligi hafiflemese de verdigin karar adina yeni bir ton ekledi.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_takima",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_reddet": {
           "title": "Kısa Kesildi",
           "kind": "outcome",
-          "text": "\"Yüz maç bir şey değil.\"\n\n{actor.president.name} gülümsemeye çalıştı, beceremedi. Fotoğrafçı iki kare çekti, ikisinde de bakmıyorsun.\n\nTezahürat başlamadan bitti. {actor.fan_leader.name} on beş kişiye \"Boş verin,\" dedi.\n\nHaklıydın — yüz maç gerçekten bir şey değil. Ama insanlar bir şey olmasını istiyordu ve sen onlara bunu vermedin. İkisi aynı anda doğru olabiliyor.",
+          "text": "\"Yüz maç bir şey değil.\" {actor.president.name} gülümsemeye çalıştı, beceremedi. Fotoğrafçı iki kare çekti, ikisinde de bakmıyorsun. Tezahürat başlamadan bitti. {actor.fan_leader.name} on beş kişiye \"Boş verin,\" dedi. Haklıydın — yüz maç gerçekten bir şey değil. Ama insanlar bir şey olmasını istiyordu ve sen onlara bunu vermedin. İkisi aynı anda doğru olabiliyor. Sahadan cikarken Bu secimin sonucu gecikmeli geliyor. yankisi uzun sure kulaklarinda kaldi.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -218,7 +214,7 @@
         "n_root": {
           "title": "Tünelin Sonu",
           "kind": "branch",
-          "text": "Stadyumun otoparkında, yağmurun altında duruyorsun. {actor.fan_leader.name} bagajına yaslanmış, elinde eski bir stadyum biletiyle bekliyor. Yüzüncü maçının üzerinden yıllar geçti ama o bilet hala sararmış bir hatıra gibi adamın parmakları arasında. \"O günün faturasını çok ağır kestiler,\" diyor. Gözleri ıslak ama bakışı delici. \"Bize bir borcun vardı, hatırlar mısın?\"",
+          "text": "Stadyumun otoparkında, yağmurun altında duruyorsun. {actor. fan_leader. name} bagajına yaslanmış, elinde eski bir stadyum biletiyle bekliyor. Yüzüncü maçının üzerinden yıllar geçti ama o bilet hala sararmış bir hatıra gibi adamın parmakları arasında. \"O günün faturasını çok ağır kestiler,\" diyor. Gözleri ıslak ama bakışı delici. \"Bize bir borcun vardı, hatırlar mısın.",
           "choices": [
             {
               "id": "c_servet",
@@ -351,9 +347,9 @@
           "text": "Zarfı aldığı an bakışı değişti. Artık eski bir taraftar değil, bir alacaklı gibi bakıyor. Arkana bakmadan gaza basarken, arabanın dikiz aynasında bir hatıranın daha paraya dönüştüğünü gördün.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -363,9 +359,9 @@
           "text": "Sessizlik stadyumun duvarlarında yankılandı. Arkandan gelen tek bir küfür sesi, kariyerinin en temiz kararını verdiğini hatırlatıyor. Kendi yolun, tek kişilik bir yol.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_toren",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -375,9 +371,9 @@
           "text": "Arabanın içinde yankılanan motor sesi, eskinin tozunu dağıttı. Şimdi herkes seni izleyecek; o stadyuma beraber girmeniz, bir devrin yeniden alevlenmesi demek.",
           "onEnter": [
             {
-              "flag": "mem_tribune_cikti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -387,9 +383,9 @@
           "text": "{actor.mother.name}’in yorgun bakışları, o eski biletin yıpranmış köşelerinde gezinirken aniden yumuşadı. Çekmecesindeki solgun fotoğrafların arasına bileti yerleştirirken elleri titredi; ikisini de bir ömür boyu saklayacağına dair başını hafifçe salladı. Odadaki naftalin kokusu ağırlaşırken, ikinizin arasında yıllardır biriken o keskin acı, paylaşıldıkça hafifleyip sessizliğe karıştı. Dışarıdan gelen rüzgâr, perdenin ucunu usulca havalandırıyordu.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_anneye",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -399,9 +395,9 @@
           "text": "Verdiğin söz, odadaki soğuk havayı bir anda dağıtarak havada bir sözleşme gibi asılı kaldı. Birbirinizin gözlerine baktınız; omuzlarındaki o ezici yükün, sanki görünmez bir el tarafından çekilip alındığını gördün. Sessizliği, uzaklardan gelen ve kulaklarında uğuldamaya başlayan stadyum uğultusu böldü; sanki zihnin, yüzüncü maça giden o tünelin çıkışındaki yeşil çimlerin kokusunu bile duymaya başlamıştı. Artık sadece önündeki söze odaklıydın.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_takima",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -545,9 +541,9 @@
           "text": "Tribünler boş olsa da sesin yankılandı. {actor.fan_leader.name} geri çekildi, gözlerinde tuhaf bir ışıltı vardı. Şimdi sadece senin değil, herkesin gözü üzerinde. Bir idol olmanın getirdiği o ağır zırhı giyindin; artık hataya yer yok.",
           "onEnter": [
             {
-              "flag": "mem_tribune_cikti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -557,9 +553,9 @@
           "text": "Zarfın sesi sessizliği kesti. {actor.fan_leader.name} parayı aldı, arkasına bakmadan yürüdü. Kazandın, evet; ama o an yaşananların bir bedeli olduğunu ikiniz de biliyordunuz. O hatıra artık senin değil, satın alınmış bir parça.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -569,9 +565,9 @@
           "text": "Arkanı dönüp gitmek en doğrusuydu. {actor.fan_leader.name} arkanda, karanlığın içinde bir gölge gibi kaldı. Kariyerin bir istatistikten ibaret değil, bir disiplin zinciri. Duygularını sahanın ortasında bıraktın.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_takima",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -581,9 +577,9 @@
           "text": "{actor.fan_leader.name} sana gülümsedi; o anın sadece bir maçın bitişi değil, bir ahdin başlangıcı olduğunu anladın. Yorgunsun, dizlerin titriyor ama tribünler senin adını sayıklamaya başlıyor bile. Bu zafer, tüm bedenini tüketen bir yakıta dönüştü.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_toren",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -596,7 +592,7 @@
         "n_root": {
           "title": "Batonun Ağırlığı",
           "kind": "branch",
-          "text": "Kulübün tesislerindeki antrenman sahasında, gün batımı gölgeleri artık çimleri yutuyor. {actor.fan_leader.name}, saha kenarındaki metal çitlere dayanmış, yeni nesil gençlerin sahadaki gürültüsünü izliyor. Yüzüncü maçının üzerinden zaman geçti ama senin için bu saha artık sadece bir çalışma alanı değil; bir tapınak. {actor.fan_leader.name} sana doğru bir adım atıyor, elinde kulübün altyapısından yeni çıkmış birinin ıslak ve çamurlu kaptanlık pazubandı var. Gözleri yaşlı değil, aksine çok sert ve beklenti dolu. 'Zamanın dolduğunu herkes biliyor,' diyor sesini alçaltarak. 'Ama buradaki her şeyi, o çamuru ve o ağırlığı kime bırakacağını henüz kimse bilmiyor.'",
+          "text": "Kulübün tesislerindeki antrenman sahasında, gün batımı gölgeleri artık çimleri yutuyor. {actor. fan_leader. name}, saha kenarındaki metal çitlere dayanmış, yeni nesil gençlerin sahadaki gürültüsünü izliyor. Yüzüncü maçının üzerinden zaman geçti ama senin için bu saha artık sadece bir çalışma alanı değil; bir tapınak. {actor. fan_leader. name} sana doğru bir adım atıyor, elinde kulübün altyapısından yeni çıkmış birinin ıslak ve çamurlu kaptanlık pazubandı var. Gözleri yaşlı değil, aksine çok sert ve beklenti dolu. 'Zamanın dolduğunu herkes biliyor,' diyor sesini alçaltarak. 'Ama buradaki her şeyi, o çamuru ve o ağırlığı kime bırakacağını henüz kimse bilmiyor.",
           "choices": [
             {
               "id": "c_riskli",
@@ -724,48 +720,48 @@
         "n_riskli": {
           "title": "Sokakların Kararı",
           "kind": "outcome",
-          "text": "Pazubandın çamurda sürüklendiğini gördü. Taraftarların bunu bir meydan okuma olarak göreceği kesin. Bedelini sonra ödeyeceksin.",
+          "text": "Pazubandın çamurda sürüklendiğini gördü. Taraftarların bunu bir meydan okuma olarak göreceği kesin. Bedelini sonra ödeyeceksin. Tribunden gelen sesler dinerken Bu anin izi kolay kapanmiyor. izi kariyer hafizanda daha da belirginlesti.",
           "onEnter": [
             {
-              "flag": "mem_tribune_cikti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_gri": {
           "title": "Sessiz Çözüm",
           "kind": "outcome",
-          "text": "Zarf değişimi gölgede kaldı. Kimse görmedi ama vicdanındaki o ağırlık ilk defa bu kadar görünür oldu.",
+          "text": "Zarf değişimi gölgede kaldı. Kimse görmedi ama vicdanındaki o ağırlık ilk defa bu kadar görünür oldu. Sahadan cikarken Bu secimin sonucu gecikmeli geliyor. yankisi uzun sure kulaklarinda kaldi.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_guvenli": {
           "title": "Veda",
           "kind": "outcome",
-          "text": "Sorumluluğu üzerinden attın. Profesyonelce, soğuk ve mesafeli. Ama arkanda kalanların bakışları, o boşluğu doldurmayacak.",
+          "text": "Sorumluluğu üzerinden attın. Profesyonelce, soğuk ve mesafeli. Ama arkanda kalanların bakışları, o boşluğu doldurmayacak. Sahadan cikarken Bu secimin sonucu gecikmeli geliyor. yankisi uzun sure kulaklarinda kaldi.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_toren",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_lider": {
           "title": "Mirası Devretmek",
           "kind": "outcome",
-          "text": "Gencin gözlerindeki o korkuyu gördün. Kendi yükünü ona aktarırken, aslında kendi sonuna bir adım daha yaklaştın.",
+          "text": "Gencin gözlerindeki o korkuyu gördün. Kendi yükünü ona aktarırken, aslında kendi sonuna bir adım daha yaklaştın. Tribunden gelen sesler dinerken Bu anin izi kolay kapanmiyor. izi kariyer hafizanda daha da belirginlesti.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_takima",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -909,9 +905,9 @@
           "text": "Oturduğunda yanına, sessizlik bozulmuyor. Sadece başını sallıyor, sanki yıllardır söyleyemediği bir cümleyi şimdi tamamlıyor. Bu anın bedelini, ileride kulüp kapısında bekleyen kameralar ödetecek.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_toren",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -921,9 +917,9 @@
           "text": "Saati tereddütle alıyor. Gözlerindeki o keskin bakış donuklaşıyor. Bir futbolcu ve bir izleyici arasındaki o kutsal bağ, artık bir nesneyle ölçülebilir hale geldi.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_reddetti",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -933,9 +929,9 @@
           "text": "Yürüyüşün net, adımların kararlı. Arkanı döndüğünde, onun hala arkandan baktığını hissediyorsun. Saygı kazandın ama aranızdaki o gizli bağ, bir daha asla kurulamayacak şekilde koptu.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_takima",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -945,9 +941,9 @@
           "text": "Saatlerce ekrandaki o eski maçın görüntülerini izliyorsunuz. Her karesinde sen varsın, ama her yorumunda o haklı çıkıyor. Takım artık senin değil, ikinizin ortak mirası oldu.",
           "onEnter": [
             {
-              "flag": "mem_yuzuncu_mac_anneye",
-              "op": "set",
-              "value": true
+              "flag": "npc_fan_leader_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

@@ -1,0 +1,202 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Oyuncu ilk 11'de başlamadığında (is_starter == false) yedek kulübesinin o kendine has, mizahi ve hafif hüzünlü atmosferi.",
+    "hangi_soru": "Battaniyenin altında kıdemli yedekle birlikte otururken maça küsecek misin, kulübenin neşesi olup takımı mı ateşleyeceksin, yoksa hırsla ısınma anını mı bekleyeceksin?",
+    "odeme_plani": "Kulübedeki bu olgunluk veteran oyuncularla olan saygı bağını (npc_veteran_arc) güçlendirir."
+  },
+  "id": "evt_locker_yedek_kulubesi_gunlugu",
+  "family": "fam_locker_yedek_kulubesi",
+  "category": "locker",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 70,
+  "cooldown": {
+    "self": 24,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "trigger": {
+    "flag": "is_starter",
+    "op": "eq",
+    "value": false
+  },
+  "story": {
+    "signature": "locker:veteran:yedek_kulubesi_gunlugu",
+    "slot": "veteran",
+    "beat": "yedek_kulubesi_gunlugu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 4
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Battaniyenin Altındaki Dünya",
+      "kind": "branch",
+      "text": "Yedek kulübesinin deri koltukları rüzgârdan buz kesmiş. Üzerinde kalın kulüp montu, dizlerinin üstünde kırmızı polar bir battaniye. Dakika otuz iki. Sahadaki maç kıran kırana geçiyor ama kulübe bambaşka bir cumhuriyet. Yanında oturan otuz dört yaşındaki {actor.veteran.name}, montunun cebinden çıkardığı gofreti gizlice ikiye bölüp sana uzatıyor. 'Ye ye, hoca görmez' diyor gülerek. 'Biz bu kulübede kimleri gördük kimleri geçirdik. Önemli olan oyuna girdiğinde nefesini nereye harcayacağın.' Tam o sırada yardımcı antrenör kulübeye doğru dönüyor: 'İki kişi ısınmaya çıksın!'.",
+      "choices": [
+        {
+          "id": "c_isin",
+          "text": "Battaniyeyi fırlat ve ilk fırlayan sen ol: \"Ben hazırım hocam!\"",
+          "target": "n_isin",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "npc_veteran_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_sohbet",
+          "text": "Gofreti al, veteranla oyunu analiz et: \"Savunmanın arkasında koca bir koridor var ağabey.\"",
+          "target": "n_sohbet",
+          "effects": [
+            {
+              "flag": "iliski_veteran",
+              "op": "add",
+              "value": 14
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": 6
+          }
+        },
+        {
+          "id": "c_atesle",
+          "text": "Kulübenin önüne fırlayıp hakeme ve takıma bağır: Saha dışı amigoluğu yap.",
+          "target": "n_atesle",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "disiplin_sicili",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "mizac": 12,
+            "durus": 4
+          }
+        }
+      ]
+    },
+    "n_isin": {
+      "title": "Korner Bayrağına Depar",
+      "kind": "outcome",
+      "text": "Battaniyeyi yere bırakıp korner bayrağına doğru depar attın. Tribünler hareketliliğini görünce adını tezahürat yaptı. İkinci yarıda oyuna girdiğinde bacakların motor gibiydi; maçı çeviren golün pasını verdin.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_sohbet": {
+      "title": "Usta-Çırak Koridoru",
+      "kind": "outcome",
+      "text": "{actor.veteran.name} gözlerini kısıp sahaya baktı: 'Aferin, iyi görmüşsün.' İkinci yarıda oyuna girdiğinde tam konuştuğunuz o koridora sızdın. Tecrübe bazen sahada değil, o soğuk kulübenin fısıltılarında kazanılıyordu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 6
+        }
+      ]
+    },
+    "n_atesle": {
+      "title": "Kulübe İsyanı",
+      "kind": "outcome",
+      "text": "Dördüncü hakemin burnunun dibine kadar girip itiraz ettin, takım arkadaşlarına 'Uyanın!' diye bağırdın. Hakem yanına gelip seni sertçe uyardı ama sahadaki takımın ateşi yandı. Maç sonu soyunma odasında kaptan gelip alnını öptü.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 8
+        }
+      ]
+    }
+  }
+}

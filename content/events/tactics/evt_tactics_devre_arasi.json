@@ -3,6 +3,7 @@
   "family": "fam_tactics_devre",
   "category": "tactics",
   "tier": "major",
+  "authored": "hand",
   "weight": 50,
   "cooldown": {
     "self": 24,
@@ -26,7 +27,7 @@
         "n_root": {
           "title": "On Beş Dakika",
           "kind": "branch",
-          "text": "Devre arası. Skor aleyhinize ve ikinci gol senin arkandan geldi.\n\nSoyunma odası sessiz. {actor.manager.name} tahtayı almıyor bile — parmağını kaldırıp seni gösteriyor.\n\n\"Sen. Sen nerede duruyordun?\"\n\nNerede durduğunu biliyorsun. Talimatta durman gereken yerde duruyordun ve tam da bu yüzden gol oldu.\n\n{actor.captain.name} yere bakıyor. Kimse konuşmuyor. Saat işliyor: on bir dakika kaldı.",
+          "text": "Devre arası. Skor aleyhinize ve ikinci gol senin arkandan geldi. Soyunma odası sessiz. {actor.manager.name} tahtayı almıyor bile — parmağını kaldırıp seni gösteriyor. \"Sen. Sen nerede duruyordun?\" Nerede durduğunu biliyorsun. Talimatta durman gereken yerde duruyordun ve tam da bu yüzden gol oldu. {actor.captain.name} yere bakıyor. Kimse konuşmuyor. Saat işliyor: on bir dakika kaldı.",
           "choices": [
             {
               "id": "c_ustlen",
@@ -154,60 +155,32 @@
         "n_ustlen": {
           "title": "Benim Hatam",
           "kind": "outcome",
-          "text": "\"Benim hatam.\"\n\n{actor.manager.name} bir şey daha söyleyecekti, söylemedi. Tahtayı aldı, ikinci yarıyı anlattı.\n\nOdadan çıkarken {actor.captain.name} omzuna vurdu. Tek kelime etmedi.\n\nİkinci yarıda bir gol attınız, yetmedi. Ama o odada bir şey kazanmıştın ve skor tablosunda görünmüyordu.",
+          "text": "\"Benim hatam.\" {actor.manager.name} bir şey daha söyleyecekti, söylemedi. Tahtayı aldı, ikinci yarıyı anlattı. Odadan çıkarken {actor.captain.name} omzuna vurdu. Tek kelime etmedi. İkinci yarıda bir gol attınız, yetmedi. Ama o odada bir şey kazanmıştın ve skor tablosunda görünmüyordu.",
           "onEnter": [
             {
-              "flag": "mem_devre_arasi_ustlendi",
-              "op": "set",
-              "value": true
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_acikla": {
           "title": "Talimat Oydu",
           "kind": "outcome",
-          "text": "\"Talimat oydu,\" dedin ve nerede durduğunu anlattın. Doğruydu. Odadaki herkes doğru olduğunu biliyordu.\n\n{actor.manager.name} sana on saniye baktı. \"Tamam,\" dedi.\n\nİkinci yarıda oynadın. Sonraki maçta da oynadın.\n\nAma o \"tamam\" hiç bitmedi. Üç ay sonra kadro dışı kaldığında, o odayı hatırladın ve haklı olmanın nereye yazıldığını merak ettin.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_savundu",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_hocaya_karsi_geldi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "\"Talimat oydu,\" dedin ve nerede durduğunu anlattın. Doğruydu. Odadaki herkes doğru olduğunu biliyordu. {actor.manager.name} sana on saniye baktı. \"Tamam,\" dedi. İkinci yarıda oynadın. Sonraki maçta da oynadın. Ama o \"tamam\" hiç bitmedi. Üç ay sonra kadro dışı kaldığında, o odayı hatırladın ve haklı olmanın nereye yazıldığını merak ettin.",
+          "onEnter": []
         },
         "n_sus": {
           "title": "Krampon Bağı",
           "kind": "outcome",
-          "text": "Eğildin, kramponunu çözdün, yeniden bağladın. İki kez.\n\n{actor.manager.name} bir süre bekledi, sonra tahtaya döndü.\n\nSustuğun için ne ceza aldın ne ödül. Sadece o gün, odadaki herkes senin ne tür biri olduğuna dair küçük bir not aldı — ve o notlar birikiyor.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_sustu",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Eğildin, kramponunu çözdün, yeniden bağladın. İki kez. {actor.manager.name} bir süre bekledi, sonra tahtaya döndü. Sustuğun için ne ceza aldın ne ödül. Sadece o gün, odadaki herkes senin ne tür biri olduğuna dair küçük bir not aldı — ve o notlar birikiyor.",
+          "onEnter": []
         },
         "n_kaptan": {
           "title": "Araya Giren",
           "kind": "outcome",
-          "text": "{actor.captain.name} ayağa kalktı. \"Hocam, orada üç kişiydik,\" dedi. \"Tek kişilik iş değildi.\"\n\n{actor.manager.name} tartışmadı. Konu kapandı.\n\nSen hiç konuşmadın ve korunmuş oldun. İkisi de doğru: korunmak iyidir, korunmaya ihtiyaç duyulduğu görülür.\n\nO gün {actor.captain.name} senin için bir şey harcadı. Böyle şeylerin faizi vardır.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_kaptan_korudu",
-              "op": "set",
-              "value": true
-            },
-            {
-              "flag": "mem_kaptana_borclu",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "{actor.captain.name} ayağa kalktı. \"Hocam, orada üç kişiydik,\" dedi. \"Tek kişilik iş değildi.\" {actor.manager.name} tartışmadı. Konu kapandı. Sen hiç konuşmadın ve korunmuş oldun. İkisi de doğru: korunmak iyidir, korunmaya ihtiyaç duyulduğu görülür. O gün {actor.captain.name} senin için bir şey harcadı. Böyle şeylerin faizi vardır.",
+          "onEnter": []
         }
       }
     },
@@ -301,37 +274,19 @@
           "title": "Sessiz Kabulleniş",
           "kind": "outcome",
           "text": "Omuz omuza çarpışarak geçiyorsun. {actor.manager.name} arkandan bir şey mırıldanıyor ama duymamazlıktan geliyorsun. Zarfın içeriği kadar sessiz bir gece olacak.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_sustu",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "onEnter": []
         },
         "n_riskli": {
           "title": "Açık Cephe",
           "kind": "outcome",
           "text": "Koridordaki yankı ikinizin de sesini büyütüyor. Kimse odaya girmiyor, herkes kapı ağzında donup kalıyor. İpler ilk kez bu kadar geriliyor.",
-          "onEnter": [
-            {
-              "flag": "mem_hocaya_karsi_geldi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "onEnter": []
         },
         "n_guvenli": {
           "title": "Zorunlu Söz",
           "kind": "outcome",
           "text": "Soyunma odasında ağır bir ter ve mentol kokusu yükselirken, {actor.manager.name} derin bir nefes alıp başıyla onay verdi; omuzlarındaki yükün ağırlığı sanki ceketinin kumaşını daha da aşağı çekti. Bakışları yere odaklanmış, taktik tahtasındaki mıknatısların izlerini incelerken sessizliği sadece koridordan gelen yankılı uğultular bozuyordu. Aldığın bu kararın ağırlığı zihninde yer ederken, kramponlarının zeminde çıkardığı ritmik sesler eşliğinde tünele doğru adımladın.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_ustlendi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "onEnter": []
         }
       }
     },
@@ -462,50 +417,26 @@
         "n_kazanc": {
           "title": "Sessiz Anlaşma",
           "kind": "outcome",
-          "text": "Zarfın ağırlığı cebinde. {actor.manager.name} başını hafifçe sallayıp içeri yöneliyor. Bu bir alışveriş değil, bir kabulleniş.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_sustu",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Zarfın ağırlığı cebinde taş gibi duruyor. {actor.manager.name} başını hafifçe sallayıp içeri yönelirken, koridordaki o sessiz anlaşmanın ikinci yarıda her pasına ve her nefesine eşlik edeceğini anlıyorsun.",
+          "onEnter": []
         },
         "n_guvenli": {
           "title": "Profesyonel Mesafe",
           "kind": "outcome",
-          "text": "Sözlerin soğuk ve net. {actor.manager.name} gülümsüyor ama gözlerindeki o tuhaf tanıma anı kayboluyor. Sahaya geri dönüyorsun.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_kaptan_korudu",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Sözlerin soğuk ve net çıkıyor. {actor.manager.name} kısa bir gülümsemeyle başını çeviriyor ama gözlerindeki kırılma saklanmıyor; sahaya dönerken bu mesafenin kolay kapanmayacağını ikiniz de biliyorsunuz.",
+          "onEnter": []
         },
         "n_riskli": {
           "title": "İsyanın İlk Kıvılcımı",
           "kind": "outcome",
-          "text": "Korkusuzca söylediklerin koridorda yankılanıyor. {actor.manager.name} cevap vermiyor, sadece durup izliyor. Yarın gazete manşetlerinde olacağın kesin.",
-          "onEnter": [
-            {
-              "flag": "mem_hocaya_karsi_geldi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Korkusuzca söylediklerin koridorda sert bir yankı bırakıyor. {actor.manager.name} cevap vermeden seni süzüyor; soyunma odasının kapısındaki herkes bu anın yarın manşetlere taşınabilecek kadar tehlikeli olduğunu hissediyor.",
+          "onEnter": []
         },
         "n_kilitli": {
           "title": "Ağırlığı Paylaşmak",
           "kind": "outcome",
-          "text": "Ona bir yük ortaklığı teklif ettin. Artık sadece senin değil, onun da kaderi senin omuzlarında.",
-          "onEnter": [
-            {
-              "flag": "mem_devre_arasi_ustlendi",
-              "op": "set",
-              "value": true
-            }
-          ]
+          "text": "Ona yükü birlikte taşıma teklifini verdiğinde tünelin havası değişiyor. Artık bu hikayede sadece kendi formunu değil, hocanın kırılgan dengesini ve soyunma odasının güvenini de sırtlıyorsun.",
+          "onEnter": []
         }
       }
     }

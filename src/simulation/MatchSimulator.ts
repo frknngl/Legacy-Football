@@ -19,6 +19,7 @@ import type { RosterPerson } from '../domain/actors.js';
 import type {
   HeroProfile,
   HostMatch,
+  MatchContext,
   MatchBuildInput,
   MatchHost,
   MatchImportance,
@@ -80,6 +81,15 @@ export interface SimulatorDeps {
   readonly refereeFor?: (fixture: Fixture) => Referee | undefined;
   /** Hero'nun bu hakemle kini (-100..+100). Motor doldurur. */
   readonly grudgeFor?: (refereeId: number) => number;
+  /** Takimin canli lig baglami (sira, lig buyuklugu, dusme hatti). */
+  readonly tableContextForClub?: (clubId: string) =>
+    | {
+        readonly position?: number;
+        readonly size?: number;
+        readonly relegationLine?: number;
+        readonly inRelegationZone?: boolean;
+      }
+    | undefined;
 }
 
 interface LiveMatch {
@@ -88,6 +98,8 @@ interface LiveMatch {
   readonly away: TeamSquad;
   readonly heroSide: 'home' | 'away';
   readonly hero: FieldPlayer;
+  readonly heroAvailable: boolean;
+  readonly heroStarted: boolean;
   readonly events: readonly TimelineEvent[];
   cursor: number;
   homeGoals: number;
@@ -214,25 +226,35 @@ export class MatchSimulator implements MatchHost {
     this.chemistrySource = source;
   }
 
+  /** Haftalik secimden once host'un kullanacagi, mutasyon yapmayan mac baglami. */
+  previewContext(input: MatchBuildInput): MatchContext | undefined {
+    const fixture = this.fixtureFor(input);
+    if (!fixture) return undefined;
+    const heroAvailable = input.availability.available;
+    const starter = heroAvailable ? this.decideStarter(input.hero) : false;
+    return this.buildContext(fixture, input.heroClubId, heroAvailable, starter);
+  }
+
   // ----------------------------------------------------------- MatchHost portu
 
   /**
-   * Fikstur takvimine bakar. O hafta mac yoksa ya da oyuncu cikamiyorsa
-   * `undefined` doner -- bos hafta gercektir.
+   * Fikstur takvimine bakar. O hafta mac yoksa `undefined` doner.
+   *
+   * Oyuncu cezali/sakatsa fikstur yine oynanir: Hero dakika almaz ama
+   * kulubun maci dunya takvimine yazilir.
    *
    * `pendingMoments` BOS doner: anlar duraklamali akista `step()` ile gelir.
    * Duraklayamayan bir cagiran icin bu, momentsiz ama gecerli bir mactir.
    */
   buildMatch(input: MatchBuildInput): HostMatch | undefined {
-    if (!input.availability.available) return undefined;
-
-    // Haftanin BELIRTILEN maci. Eski `forClub` yalnizca birincisini
-    // donuyordu ve ikinci mac hic oynanmiyordu.
-    const fixture = this.deps.schedule.fixturesFor(input.heroClubId, input.week)[input.slot ?? 0];
+    const fixture = this.fixtureFor(input);
     if (!fixture) return undefined;
 
-    this.start(fixture, input.hero, input.heroClubId);
-    const opponentId = fixture.homeId === input.heroClubId ? fixture.awayId : fixture.homeId;
+    const heroAvailable = input.availability.available;
+    const starter = heroAvailable ? this.decideStarter(input.hero) : false;
+    const context = this.buildContext(fixture, input.heroClubId, heroAvailable, starter);
+
+    this.start(fixture, input.hero, input.heroClubId, heroAvailable, starter);
 
     // ILK 11 KARARI -- eskiden sabit `true` idi.
     //
@@ -244,20 +266,49 @@ export class MatchSimulator implements MatchHost {
     // Ve gelisim sistemi (`GameEngine.develop`) "kac mac oynadin"a
     // bakiyor. Herkes her mac oynarsa forma sansi bir KARAR olmaktan
     // cikar; ikisi birlikte anlam kazanir.
-    const starter = this.decideStarter(input.hero);
-    this.seasonApps += 1;
     return {
-      context: {
-        opponentName: this.clubName(opponentId),
-        importance: fixture.importance,
-        isStarter: starter,
-        unbeatenStreak: this.unbeaten,
-        scorelessStreak: this.scoreless,
-        seasonGoals: this.seasonGoals,
-        seasonAssists: this.seasonAssists,
-        seasonApps: this.seasonApps,
-      },
+      context,
       pendingMoments: [],
+    };
+  }
+
+  // Haftanin BELIRTILEN maci. Eski `forClub` yalnizca birincisini
+  // donuyordu ve ikinci mac hic oynanmiyordu.
+  private fixtureFor(input: MatchBuildInput): Fixture | undefined {
+    return this.deps.schedule.fixturesFor(input.heroClubId, input.week)[input.slot ?? 0];
+  }
+
+  private buildContext(
+    fixture: Fixture,
+    heroClubId: string,
+    heroAvailable: boolean,
+    starter: boolean,
+  ): MatchContext {
+    const opponentId = fixture.homeId === heroClubId ? fixture.awayId : fixture.homeId;
+    const table = this.deps.tableContextForClub?.(heroClubId);
+    const teamContext =
+      table === undefined
+        ? {}
+        : {
+            ...(table.position === undefined ? {} : { teamLeaguePosition: table.position }),
+            ...(table.size === undefined ? {} : { teamLeagueSize: table.size }),
+            ...(table.relegationLine === undefined
+              ? {}
+              : { teamRelegationLine: table.relegationLine }),
+            ...(table.inRelegationZone === undefined
+              ? {}
+              : { teamInRelegationZone: table.inRelegationZone }),
+          };
+    return {
+      opponentName: this.clubName(opponentId),
+      importance: fixture.importance,
+      isStarter: heroAvailable ? starter : false,
+      unbeatenStreak: this.unbeaten,
+      scorelessStreak: this.scoreless,
+      seasonGoals: this.seasonGoals,
+      seasonAssists: this.seasonAssists,
+      seasonApps: this.seasonApps,
+      ...teamContext,
     };
   }
 
@@ -332,10 +383,17 @@ export class MatchSimulator implements MatchHost {
   // ----------------------------------------------------------- duraklamali akis
 
   /** Maci kurar ve dakika 0'a alir. */
-  start(fixture: Fixture, hero: HeroProfile, heroClubId: string): void {
+  start(
+    fixture: Fixture,
+    hero: HeroProfile,
+    heroClubId: string,
+    heroAvailable = true,
+    heroStarted = true,
+  ): void {
     const rng = this.rngFor(fixture);
     const heroSide: 'home' | 'away' = fixture.homeId === heroClubId ? 'home' : 'away';
     const heroPlayer = heroAsFieldPlayer(hero, this.deps.heroName ?? 'Sen');
+    const heroOnPitch = heroAvailable ? heroPlayer : undefined;
 
     // Kimya YALNIZCA Hero'nun takiminda anlamli: rakip kadronun kendi ic
     // kimyasi modellenmiyor (bu bir futbolcu kariyeri simulasyonu).
@@ -343,14 +401,14 @@ export class MatchSimulator implements MatchHost {
       fixture.homeId,
       this.clubName(fixture.homeId),
       this.deps.squadOf(fixture.homeId),
-      heroSide === 'home' ? heroPlayer : undefined,
+      heroSide === 'home' ? heroOnPitch : undefined,
       heroSide === 'home' ? this.chemistrySource : undefined,
     );
     const away = buildTeam(
       fixture.awayId,
       this.clubName(fixture.awayId),
       this.deps.squadOf(fixture.awayId),
-      heroSide === 'away' ? heroPlayer : undefined,
+      heroSide === 'away' ? heroOnPitch : undefined,
       heroSide === 'away' ? this.chemistrySource : undefined,
     );
 
@@ -370,6 +428,8 @@ export class MatchSimulator implements MatchHost {
       away,
       heroSide,
       hero: heroPlayer,
+      heroAvailable,
+      heroStarted,
       events,
       cursor: 0,
       homeGoals: 0,
@@ -744,19 +804,32 @@ export class MatchSimulator implements MatchHost {
     const other = live.heroSide === 'home' ? live.awayGoals : live.homeGoals;
     const result = own > other ? 'win' : own < other ? 'loss' : 'draw';
 
-    this.seasonGoals += live.heroGoals;
-    this.seasonAssists += live.heroAssists;
-    this.scoreless = live.heroGoals > 0 ? 0 : this.scoreless + 1;
+    if (live.heroAvailable) {
+      this.seasonGoals += live.heroGoals;
+      this.seasonAssists += live.heroAssists;
+      this.seasonApps += 1;
+      this.scoreless = live.heroGoals > 0 ? 0 : this.scoreless + 1;
+    }
     this.unbeaten = result === 'loss' ? 0 : this.unbeaten + 1;
     this.playedCount += 1;
 
+    const minutes = !live.heroAvailable
+      ? 0
+      : live.heroRed
+        ? 45 + this.rng.int(40)
+        : live.heroStarted
+          ? 90
+          : 20 + this.rng.int(45);
+
     return {
       result,
-      rating: Math.round(Math.max(1, Math.min(10, live.heroRating)) * 10) / 10,
-      goals: live.heroGoals,
-      assists: live.heroAssists,
-      minutes: live.heroRed ? 45 + this.rng.int(40) : 90,
-      cards: live.heroYellow + (live.heroRed ? 1 : 0),
+      rating: live.heroAvailable
+        ? Math.round(Math.max(1, Math.min(10, live.heroRating)) * 10) / 10
+        : 0,
+      goals: live.heroAvailable ? live.heroGoals : 0,
+      assists: live.heroAvailable ? live.heroAssists : 0,
+      minutes,
+      cards: live.heroAvailable ? live.heroYellow + (live.heroRed ? 1 : 0) : 0,
     };
   }
 

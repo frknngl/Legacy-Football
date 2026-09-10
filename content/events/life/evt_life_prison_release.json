@@ -3,6 +3,7 @@
   "family": "fam_life_prison_end",
   "category": "life",
   "tier": "epic",
+  "authored": "hand",
   "weight": 100,
   "once": true,
   "cooldown": {
@@ -30,7 +31,7 @@
     "n_root": {
       "title": "Tahliye günü",
       "kind": "branch",
-      "text": "Sabah yedide bir naylon poşet veriyorlar: bir saat, bir cüzdan, girerken üstünde olan kıyafetler. Kıyafetler artık bol.\n\nKapı açılıyor. Dışarıda üç kişi var: {actor.agent.name}, {actor.cellmate.first:gen} oğlu (baban gibi ol demişti, gelmiş), ve bir kamera.\n\n{actor.agent.first} dosyayı uzatıyor: \"Üç teklif var. Üçü de bölgesel amatör lig. Biri denizin kenarında, biri dağın dibinde, biri de burada — üçüncü lig, haftada dört bin.\"\n\nYaşın {age}. Bacakların hâlâ çalışıyor. Adını hâlâ biliyorlar; sadece iyi bir şey için değil.",
+      "text": "Sabah yedide bir naylon poşet veriyorlar: bir saat, bir cüzdan, girerken üstünde olan kıyafetler. Kıyafetler artık bol. Kapı açılıyor. Dışarıda üç kişi var: {actor.agent.name}, {actor.cellmate.first:gen} oğlu (baban gibi ol demişti, gelmiş), ve bir kamera. {actor.agent.first} dosyayı uzatıyor: \"Üç teklif var. Üçü de bölgesel amatör lig. Biri denizin kenarında, biri dağın dibinde, biri de burada — üçüncü lig, haftada dört bin.\" Yaşın {age}. Bacakların hâlâ çalışıyor. Adını hâlâ biliyorlar; sadece iyi bir şey için değil.",
       "choices": [
         {
           "id": "c_climb",
@@ -120,9 +121,9 @@
               "value": -15
             },
             {
-              "flag": "mem_media_war",
-              "op": "set",
-              "value": true
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
             }
           ],
           "persona": {
@@ -234,7 +235,7 @@
     "n_climb": {
       "title": "Üçüncü lig",
       "kind": "outcome",
-      "text": "Ertesi sabah dokuzda sahadasın. Saha kötü, file yırtık, soyunma odası soğuk. On sekiz kişi ısınıyor ve on ikisi seni tanıyor.\n\nAntrenör elini sıkarken gözlerinin içine bakmıyor. Kimse hoş geldin demiyor.\n\nİlk koşuda arkada kalıyorsun. İki yıl. İki yılda beden unutuyor.\n\nAma akşam eve gittiğinde bacakların ağrıyor ve bu ağrıyı iki yıldır özlemiştin.",
+      "text": "Ertesi sabah dokuzda sahadasın. Saha kötü, file yırtık, soyunma odası soğuk. On sekiz kişi ısınıyor ve on ikisi seni tanıyor. Antrenör elini sıkarken gözlerinin içine bakmıyor. Kimse hoş geldin demiyor. İlk koşuda arkada kalıyorsun. İki yıl. İki yılda beden unutuyor. Ama akşam eve gittiğinde bacakların ağrıyor ve bu ağrıyı iki yıldır özlemiştin.",
       "onEnter": [
         {
           "flag": "form",
@@ -251,7 +252,7 @@
     "n_camera": {
       "title": "İki yıllık cümle",
       "kind": "outcome",
-      "text": "Kameraya yürüyorsun. Muhabir hazır değil; iki yıldır kimse senden bir cümle alamamıştı.\n\nDört dakika konuşuyorsun. Kimseyi suçlamıyorsun ve kimseyi de aklamıyorsun. Sadece anlatıyorsun.\n\nO görüntü akşam bütün kanallarda. {actor.pundit.name} programında oynatıp uzun süre susuyor, sonra tek cümle söylüyor: \"Bu adamı biz yarattık.\"\n\nErtesi gün üçüncü ligdeki kulübün kombine satışı üçe katlanıyor.",
+      "text": "Kameraya yürüyorsun. Muhabir hazır değil; iki yıldır kimse senden bir cümle alamamıştı. Dört dakika konuşuyorsun. Kimseyi suçlamıyorsun ve kimseyi de aklamıyorsun. Sadece anlatıyorsun. O görüntü akşam bütün kanallarda. {actor.pundit.name} programında oynatıp uzun süre susuyor, sonra tek cümle söylüyor: \"Bu adamı biz yarattık.\" Ertesi gün üçüncü ligdeki kulübün kombine satışı üçe katlanıyor.",
       "onEnter": [
         {
           "flag": "form",
@@ -273,7 +274,7 @@
     "n_quit": {
       "title": "Eve",
       "kind": "outcome",
-      "text": "{actor.agent.first} dosyayı alıp arabanin arka koltuğuna atıyor. Bir şey söylemiyor; on iki yıldır seninle çalışıyor ve ilk kez sana kızgın değil, üzün.\n\nEve varıyorsunuz. Annen kapıda. Baban içeride, ayağa kalkmıyor.\n\nSalonda oturuyorsun. Televizyonda maç var. İzlemiyorsun.\n\nOtuz yıl sonra biri sana \"neden bıraktın\" diye soracak ve sen \"yorgundum\" diyeceksin. Bu doğru olmayacak ama söylenebilecek en yakın şey bu.",
+      "text": "{actor.agent.first} dosyayı alıp arabanin arka koltuğuna atıyor. Bir şey söylemiyor; on iki yıldır seninle çalışıyor ve ilk kez sana kızgın değil, üzün. Eve varıyorsunuz. Annen kapıda. Baban içeride, ayağa kalkmıyor. Salonda oturuyorsun. Televizyonda maç var. İzlemiyorsun. Otuz yıl sonra biri sana \"neden bıraktın\" diye soracak ve sen \"yorgundum\" diyeceksin. Bu doğru olmayacak ama söylenebilecek en yakın şey bu.",
       "onEnter": [
         {
           "flag": "moral",
@@ -285,7 +286,7 @@
     "n_kadir": {
       "title": "Söz",
       "kind": "outcome",
-      "text": "Çocuk on altı yaşında ve babasının yüzünü taşıyor. İki yıl boyunca ona kaleci olmayı anlattın; hiç görmediğin bir çocuğa, camın arkasından, tarif ederek.\n\nSahaya götürüyorsun. Eldiven alıyorsun. İki saat çalıştırıyorsun.\n\nAkşam {actor.cellmate.first:acc} arıyorsun ve telefonda ikiniz de uzun süre konuşmuyorsunuz.\n\n\"Ben sana borçluydum,\" diyorsun.\n\n\"Hayır,\" diyor. \"Sen kendine borçluydun.\"",
+      "text": "Çocuk on altı yaşında ve babasının yüzünü taşıyor. İki yıl boyunca ona kaleci olmayı anlattın; hiç görmediğin bir çocuğa, camın arkasından, tarif ederek. Sahaya götürüyorsun. Eldiven alıyorsun. İki saat çalıştırıyorsun. Akşam {actor. cellmate. first:acc} arıyorsun ve telefonda ikiniz de uzun süre konuşmuyorsunuz. \"Ben sana borçluydum,\" diyorsun. \"Hayır,\" diyor. \"Sen kendine borçluydun.",
       "onEnter": [
         {
           "flag": "form",

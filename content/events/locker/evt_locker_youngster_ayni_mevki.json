@@ -2,7 +2,8 @@
   "id": "evt_locker_youngster_ayni_mevki",
   "family": "fam_locker_ayni_mevki",
   "category": "locker",
-  "tier": "major",
+  "tier": "minor",
+  "authored": "hand",
   "weight": 80,
   "cooldown": {
     "self": 24,
@@ -30,7 +31,7 @@
         "n_root": {
           "title": "Aynı Numara",
           "kind": "branch",
-          "text": "Malzemeci formaları dağıtırken bir tanesi elinde kalıyor. Üstünde senin numaran var ama iki tane basmışlar.\n\n{actor.youngster.name} yanında duruyor. Senin yaşında, senin mevkinde, senden üç ay önce imzalamış. Antrenmanda ikinizden biri sahada, diğeri kenarda; bu böyle sürüyor.\n\nMalzemeci ikinize birden bakıyor: \"Kim alacak bunu?\"\n\n{actor.youngster.first} elini uzatmıyor. Sen de uzatmadın. İkiniz de biliyorsunuz ki mesele forma değil.",
+          "text": "Malzemeci formaları dağıtırken bir tanesi elinde kalıyor. Üstünde senin numaran var ama iki tane basmışlar. {actor.youngster.name} yanında duruyor. Senin yaşında, senin mevkinde, senden üç ay önce imzalamış. Antrenmanda ikinizden biri sahada, diğeri kenarda; bu böyle sürüyor. Malzemeci ikinize birden bakıyor: \"Kim alacak bunu?\" {actor.youngster.first} elini uzatmıyor. Sen de uzatmadın. İkiniz de biliyorsunuz ki mesele forma değil.",
           "choices": [
             {
               "id": "c_birak",
@@ -63,9 +64,9 @@
                   "value": -8
                 },
                 {
-                  "flag": "mem_locker_formayi_birakti",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_youngster_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -99,9 +100,9 @@
                   "value": -4
                 },
                 {
-                  "flag": "mem_locker_formayi_aldi",
-                  "op": "set",
-                  "value": true
+                  "flag": "npc_youngster_arc",
+                  "op": "add",
+                  "value": 1
                 }
               ],
               "persona": {
@@ -138,11 +139,6 @@
                   "flag": "npc_youngster_arc",
                   "op": "add",
                   "value": 1
-                },
-                {
-                  "flag": "mem_locker_hakeme_birakti",
-                  "op": "set",
-                  "value": true
                 }
               ],
               "persona": {
@@ -185,11 +181,6 @@
                   "flag": "npc_youngster_arc",
                   "op": "add",
                   "value": 1
-                },
-                {
-                  "flag": "mem_locker_gizli_anlasma",
-                  "op": "set",
-                  "value": true
                 }
               ],
               "persona": {
@@ -202,22 +193,22 @@
         "n_birak": {
           "title": "Eski Forma",
           "kind": "outcome",
-          "text": "{actor.youngster.name} formayı alıyor, teşekkür etmiyor. Etmesine gerek de yok; ikiniz de ne olduğunu biliyorsunuz.\n\nO hafta sonu o ilk onbirde, sen kenardasın. Doksan dakika boyunca senin numaranı taşıyan birini izliyorsun.\n\nSoyunma odasına dönerken yanına geliyor. \"Ben istememiştim,\" diyor. \"Sen verdin.\""
+          "text": "{actor.youngster.name} formayı alıyor, teşekkür etmiyor. Etmesine gerek de yok; ikiniz de ne olduğunu biliyorsunuz. O hafta sonu o ilk onbirde, sen kenardasın. Doksan dakika boyunca senin numaranı taşıyan birini izliyorsun. Soyunma odasına dönerken yanına geliyor. \"Ben istememiştim,\" diyor. \"Sen verdin.\". Takim icindeki denge bozulmadi gibi gorunuyor, fakat cizilen catlak herkesin hafizasina kazindi."
         },
         "n_al": {
           "title": "Numara Benim",
           "kind": "outcome",
-          "text": "Formayı alıp dolabına asıyorsun. {actor.youngster.first} bir şey demiyor, çıkıyor.\n\nErtesi gün antrenmanda ikili mücadelede ayağına sert giriyor. Hakem yok, ıslık yok. Yerden kalkarken bakışıyorsunuz.\n\nBu, bir sezon sürecek bir şeyin ilk günü."
+          "text": "Formayı alıp dolabına asıyorsun. {actor.youngster.first} bir şey demiyor, çıkıyor. Ertesi gün antrenmanda ikili mücadelede ayağına sert giriyor. Hakem yok, ıslık yok. Yerden kalkarken bakışıyorsunuz. Bu, bir sezon sürecek bir şeyin ilk günü. Takim icindeki denge bozulmadi gibi gorunuyor, fakat cizilen catlak herkesin hafizasina kazindi."
         },
         "n_paylas": {
           "title": "Hocaya Kalsın",
           "kind": "outcome",
-          "text": "Malzemeci omuz silkiyor, iki formayı da rafa koyuyor.\n\nÖğleden sonra {actor.manager.name} seni çağırıyor. \"Malzemeci anlattı,\" diyor. \"Doğru yaptın. Ama bir şeyi bil: benim kararımı beklemek bazen kimsenin kararını almamak demektir.\"\n\nKapıdan çıkarken ekliyor: \"Numarayı ona verdim. Sen kendine bir tane seç.\""
+          "text": "Malzemeci omuz silkiyor, iki formayı da rafa koyuyor. Öğleden sonra {actor.manager.name} seni çağırıyor. \"Malzemeci anlattı,\" diyor. \"Doğru yaptın. Ama bir şeyi bil: benim kararımı beklemek bazen kimsenin kararını almamak demektir.\" Kapıdan çıkarken ekliyor: \"Numarayı ona verdim. Sen kendine bir tane seç.\". Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin."
         },
         "n_anlas": {
           "title": "İki Kişilik Sır",
           "kind": "outcome",
-          "text": "{actor.youngster.first} önce anlamıyor, sonra anlıyor. Başını sallıyor.\n\nO sezon o oynuyor, sen bekliyorsun. Bir kez bile şikâyet etmiyorsun ve bu, hocanın gözünden kaçmıyor — ama yanlış tarafından: \"Rekabet etmiyor,\" diye not düşüyor birileri.\n\nSezon sonunda {actor.youngster.first} yanına geliyor. \"Sözümüz duruyor,\" diyor. Duruyor mu, göreceksin."
+          "text": "{actor.youngster.first} önce anlamıyor, sonra anlıyor. Başını sallıyor. O sezon o oynuyor, sen bekliyorsun. Bir kez bile şikâyet etmiyorsun ve bu, hocanın gözünden kaçmıyor — ama yanlış tarafından: \"Rekabet etmiyor,\" diye not düşüyor birileri. Sezon sonunda {actor.youngster.first} yanına geliyor. \"Sözümüz duruyor,\" diyor. Duruyor mu, göreceksin. Koridordan ayrilirken Bu secimin sonucu gecikmeli geliyor. etkisinin beklediginden uzun sure kalacagini fark ettin."
         }
       }
     },
@@ -351,9 +342,9 @@
           "text": "Soyunma odasının ağır metal dolaplarına vuran yağmurun sesi, {actor.youngster.name}:gen hırslı nefeslerini bastırıyordu. Gözlerini ayakkabı bağlarına diktin, onun senin mevkindeki boşluğu doldurma arzusunu görmezden geldin. Sadece kendi kramponlarının temizliğine odaklanırken, o yanından geçerken duraksayıp tepkini bekledi; ancak sen tek bir kelime bile etmeden sahadaki görevine doğru ilerledin. Artık sadece kendi oyununa odaklısın.",
           "onEnter": [
             {
-              "flag": "mem_locker_formayi_birakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -363,9 +354,9 @@
           "text": "Soyunma odasının loş ışığında, {actor.youngster.name}:acc masanın altında eline tutuşturduğu o zarf, içerideki ağır kokuyla birleşerek havayı ağırlaştırdı. Kağıtların hışırtısı, antrenörün uzaklardan gelen bağırtıları arasında kaybolup gitti. Şimdi o senin sadece bir rakibin değil, yeteneklerini bir meta gibi satmaya başladığın karanlık bir ortaklığın parçası haline geldi; odadan çıkarken attığı çekingen bakış, aranızdaki dengenin artık senin lehine bozulduğunu tescilliyordu.",
           "onEnter": [
             {
-              "flag": "mem_locker_gizli_anlasma",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -375,9 +366,9 @@
           "text": "Antrenman sahasına çıktığında {actor.youngster.name}:gen attığı her adımda yüzünün buruştuğunu fark ettin; bacağındaki hafif aksama, senin gizli müdahalenin bir ürünüydü. Tribünlerdeki taraftarlar, onun topu her kontrol edişinde yükselen uğultularla genç oyuncunun yetersizliğini vurguladı. Kenara çekilip kollarını göğsünde kavuşturduğunda, onun kendine olan güveninin yerle bir olduğunu izlemek, saha kenarındaki çimlerin üzerine düşen gölgen kadar netti.",
           "onEnter": [
             {
-              "flag": "mem_locker_hakeme_birakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -387,9 +378,9 @@
           "text": "Kasların yoğun antrenmanın ardından yorgunluktan sızlasa da {actor.youngster.name}:gen senin yanına gelip hareketlerini pür dikkat izlemesi dikkatini çekti. Pas açını ayarlarken onun senin her hamleni kopyaladığını, nefesini senin ritmine göre ayarladığını fark ettin; bu sessiz iletişim saha dışına taşarak aranızda garip bir usta-çırak bağı kurdu. O artık sadece mevkindeki bir tehdit değil, senin oyun anlayışını ezberlemiş sadık bir çırak gibi yanında yürüyordu.",
           "onEnter": [
             {
-              "flag": "mem_locker_formayi_aldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -472,9 +463,9 @@
           "text": "Sözlerin aranızdaki o kalın duvarı bir anlığına geçirgen kıldı. {actor.youngster.name} başını hafifçe eğdi, bu bir kabullenişti. Sahadaki rekabet yerini sessiz bir saygıya bıraktı.",
           "onEnter": [
             {
-              "flag": "mem_locker_formayi_aldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -484,9 +475,9 @@
           "text": "Arkana bakmadan yürüdün. Otoparktaki sessizlikte, {actor.youngster.name} arkanda hareketsiz kaldı. Korku, bir oyuncunun en keskin silahıdır, bugün onu biledin.",
           "onEnter": [
             {
-              "flag": "mem_locker_formayi_birakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -496,9 +487,9 @@
           "text": "Kartı tereddütle aldı. İkiniz de artık birer rakip değil, aynı büyük masanın düşük ücretli ortaklarısınız. Geleceğiniz artık aynı menajerlik ağının karanlık köşelerine bağlı.",
           "onEnter": [
             {
-              "flag": "mem_locker_gizli_anlasma",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }
@@ -621,9 +612,9 @@
           "text": "Sessizlik en iyi stratejidir. Odanın önünden uzaklaşırken cüzdanındaki kartvizitleri düşünüyorsun. Bazı kapılar kapanır, bazıları ise sadece daha ağır bir bedelle açılır.",
           "onEnter": [
             {
-              "flag": "mem_locker_gizli_anlasma",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -633,9 +624,9 @@
           "text": "Kapıdaki gürültü tüm koridorda yankılandı. Takımdakiler pencerelerinden baktı. Artık herkesin bildiği bir ismin var; ama kimse bir asiyle oynamak istemez.",
           "onEnter": [
             {
-              "flag": "mem_locker_formayi_birakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
@@ -645,21 +636,21 @@
           "text": "Ses çıkarmadın. Gözlerini yere dikip yürüdün. Terin soğumadan soyunma odasına döndün; yarın sabah o sahaya herkesten daha erken çıkacaksın.",
           "onEnter": [
             {
-              "flag": "mem_locker_formayi_aldi",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         },
         "n_hakeme_birakti": {
           "title": "Sessiz Hesaplaşma",
           "kind": "outcome",
-          "text": "Kaderini teknik direktöre değil, antrenman sahasındaki sert müdahalelerine bıraktın. Sahadaki oyunun, kapının ardında konuşulanlardan daha gürültülü olacak.",
+          "text": "Kaderini teknik direktöre değil, antrenman sahasındaki sert müdahalelerine bıraktın. Sahadaki oyunun, kapının ardında konuşulanlardan daha gürültülü olacak. Gece sakinlesti, ancak bu tercih kulup icindeki hiyerarsiyi fark edilir bicimde degistirdi.",
           "onEnter": [
             {
-              "flag": "mem_locker_hakeme_birakti",
-              "op": "set",
-              "value": true
+              "flag": "npc_youngster_arc",
+              "op": "add",
+              "value": 1
             }
           ]
         }

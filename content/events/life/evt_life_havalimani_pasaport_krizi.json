@@ -1,0 +1,188 @@
+{
+  "_yazar_notu": {
+    "neden_bu_cag": "Avrupa kupası veya milli takım deplasman yolculuklarının en eğlenceli ve gerilimli futbol klasiği: havalimanında kaybolan pasaport.",
+    "hangi_soru": "Uçağın kapısına 40 dakika kala pasaportun çıkmadığında malzemecinin krampon sandıklarını mı dökeceksin, otobüse depar mı atacaksın, idari menajere mi sığınacaksın?",
+    "odeme_plani": "Bu deplasman macerası (mem_pasaport_krizi_yasandi), takım içi fıkralara ve kariyer epiloguna neşeli bir anı olarak geçer."
+  },
+  "id": "evt_life_havalimani_pasaport_krizi",
+  "family": "fam_life_pasaport",
+  "category": "life",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 60,
+  "cooldown": {
+    "self": 28,
+    "family": 12
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "clubTiers": [
+    "lower",
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "story": {
+    "signature": "life:assistant:havalimani_pasaport_krizi",
+    "slot": "assistant",
+    "beat": "havalimani_pasaport_krizi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 10,
+    "beatGapTurns": 24,
+    "signatureGapTurns": 16,
+    "maxBeatUses": 3
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dış Hatlar ve Soğuk Ter",
+      "kind": "branch",
+      "text": "İstanbul Havalimanı Dış Hatlar gidiş kapısı. Bordo takım elbiseler, kulüp kravatları ve arkada uçağa doğru ilerleyen kafile. Sıra sana geldiğinde montunun iç cebine elini atıyorsun: boş. Sırt çantanın fermuarını açıyorsun: kulaklık var, şarj aleti var, vitamin kutusu var ama bordo pasaport ortada yok. Polisin 'Beyefendi pasaportunuz?' sorusuyla alnından aşağı soğuk bir ter damlası süzülüyor. Uçağın kalkmasına kırk beş dakika var. Malzemeci {actor.assistant.name} iki dev tekerlekli valizle yanına koşuyor: 'Ne oldu şampiyon, yoksa pasaportu otobüste mi unuttun?' Kafile başkanı uzaktan saati işaret ediyor.",
+      "choices": [
+        {
+          "id": "c_sandik",
+          "text": "Malzemecinin krampon sandığını açtır: \"Eşyaların arasına karışmış olabilir!\"",
+          "target": "n_sandik",
+          "effects": [
+            {
+              "flag": "iliski_assistant",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 6
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": 4
+          }
+        },
+        {
+          "id": "c_otobus",
+          "text": "Otoparka doğru depar at: \"Otobüsün koltuk arasına düştü, hemen geliyorum!\"",
+          "target": "n_otobus",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -6
+            },
+            {
+              "flag": "mental_dayaniklilik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "durus": 8,
+            "mizac": 6
+          }
+        },
+        {
+          "id": "c_idari",
+          "text": "İdari menajere koş: \"Havalimanı emniyetinden acil geçiş belgesi ayarlamamız lazım.\"",
+          "target": "n_idari",
+          "effects": [
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 12
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -8
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -15000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -6
+            }
+          ],
+          "persona": {
+            "durus": -6,
+            "dogruluk": 6
+          }
+        }
+      ]
+    },
+    "n_sandik": {
+      "title": "Krampon Sandığından Çıkan Bordo",
+      "kind": "outcome",
+      "text": "{actor.assistant.name} ile birlikte havalimanının zemininde koca sandığı açtınız; çoraplar, tekmelikler ve masaj kremleri çevreye saçıldı. Ve tam en altta, yedek kramponunun içine sıkışmış bordo pasaportu buldun! Bütün takım kahkahalara boğuldu; son dakikada uçağa bindin ama malzemeciye akşam yemek borcun baki kaldı.",
+      "onEnter": [
+        {
+          "flag": "mem_pasaport_krizi_yasandi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_otobus": {
+      "title": "Otopark Deparı",
+      "kind": "outcome",
+      "text": "Havalimanının yürüyen merdivenlerinden aşağı rüzgâr gibi indin, otoparktaki otobüse koştun. Şoför kapıyı açtığında koltuğun döşeme arasına sıkışmış cüzdanı ve pasaportu çekip aldın. Nefes nefese kontrol noktasına geri döndüğünde uçağın son çağrısı yapılıyordu; bacakların yandı ama maçı kaçırmadın.",
+      "onEnter": [
+        {
+          "flag": "mem_pasaport_krizi_yasandi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    },
+    "n_idari": {
+      "title": "Protokol Telaşı",
+      "kind": "outcome",
+      "text": "İdari menajer ter döktü, telefonlar peş peşe açıldı. Şoför eve gidip yedek pasaportu motorla getirdi. Uçağın kapısı senin için on dakika bekletildi. Hoca uçağa binerken sana öyle bir baktı ki maçta iki katı koşman gerekeceğini hemen anladın.",
+      "onEnter": [
+        {
+          "flag": "mem_pasaport_krizi_yasandi",
+          "op": "set",
+          "value": true
+        }
+      ]
+    }
+  }
+}

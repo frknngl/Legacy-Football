@@ -110,49 +110,84 @@ export interface ScaffoldSpec {
   readonly tier: Tier;
   readonly family: string;
   readonly actor: string;
+  readonly authored?: 'hand' | 'generated' | undefined;
+  readonly era?: string | undefined;
+  readonly beat?: string | undefined;
+  readonly once?: boolean | undefined;
 }
+
+const REPEAT_POLICIES: Record<Tier, Record<string, number>> = {
+  epic: { arcGapTurns: 40, beatGapTurns: 120, signatureGapTurns: 80, maxBeatUses: 1 },
+  major: { arcGapTurns: 16, beatGapTurns: 45, signatureGapTurns: 30, maxBeatUses: 6 },
+  minor: { arcGapTurns: 10, beatGapTurns: 24, signatureGapTurns: 16 },
+};
 
 /** Iskele belgesi. Test bunu dogrulayiciya sokar; sablon asla curumez. */
 export function buildEventDoc(spec: ScaffoldSpec): Record<string, unknown> {
   const memory = memoryFlagFor(spec.id);
   const choices = CHOICES.slice(0, spec.tier === 'minor' ? 3 : 4);
+  const authored = spec.authored ?? 'hand';
+  const beat = spec.beat ?? spec.id.replace(/^evt_[a-z0-9]+_/, '');
+  const signature = `${spec.category}:${spec.actor}:${beat}`;
 
-  return {
+  const doc: Record<string, unknown> = {
+    _yazar_notu: {
+      neden_bu_cag: 'BURAYI YAZ: Neden bu cagda, hangi kariyer basamaginda?',
+      hangi_soru: 'BURAYI YAZ: Bu sahnede oyuncuya asil sorulan soru nedir?',
+      odeme_plani: 'BURAYI YAZ: Bu secimin faturasi/odulu hangi cagda nasil cikacak?',
+    },
     id: spec.id,
     family: spec.family,
     category: spec.category,
     tier: spec.tier,
+    authored,
     weight: 100,
     cooldown: { self: 30, family: 12 },
-
-    rootNode: 'n_root',
-    nodes: {
-      n_root: {
-        title: 'BURAYI YAZ',
-        kind: 'branch',
-        text: bodyFor(spec.tier, spec.actor),
-        choices: choices.map((c, i) => ({
-          id: c.id,
-          text: c.text,
-          target: `n_${c.id.replace(/^c_/, '')}`,
-          effects: [
-            { flag: c.gain[0], op: 'add', value: c.gain[1] },
-            { flag: c.cost[0], op: 'add', value: c.cost[1] },
-            // Kalici iz: bu secim yillar sonra okunabilsin diye.
-            ...(i === 0 ? [{ flag: memory, op: 'set', value: true }] : []),
-            ...(i === 1 ? [{ flag: `npc_${spec.actor}_arc`, op: 'add', value: 1 }] : []),
-          ],
-          persona: c.persona,
-        })),
-      },
-      ...Object.fromEntries(
-        choices.map((c) => [
-          `n_${c.id.replace(/^c_/, '')}`,
-          { title: 'BURAYI YAZ', kind: 'outcome', text: c.outcome },
-        ]),
-      ),
+    story: {
+      signature,
+      slot: spec.actor,
+      beat,
     },
+    repeatPolicy: REPEAT_POLICIES[spec.tier],
   };
+
+  if (spec.era) {
+    doc['eras'] = [spec.era];
+  }
+
+  if (spec.once ?? (spec.tier === 'epic')) {
+    doc['once'] = true;
+  }
+
+  doc['rootNode'] = 'n_root';
+  doc['nodes'] = {
+    n_root: {
+      title: 'BURAYI YAZ',
+      kind: 'branch',
+      text: bodyFor(spec.tier, spec.actor),
+      choices: choices.map((c, i) => ({
+        id: c.id,
+        text: c.text,
+        target: `n_${c.id.replace(/^c_/, '')}`,
+        effects: [
+          { flag: c.gain[0], op: 'add', value: c.gain[1] },
+          { flag: c.cost[0], op: 'add', value: c.cost[1] },
+          // Kalici iz: bu secim yillar sonra okunabilsin diye.
+          ...(i === 0 ? [{ flag: memory, op: 'set', value: true }] : []),
+          ...(i === 1 ? [{ flag: `npc_${spec.actor}_arc`, op: 'add', value: 1 }] : []),
+        ],
+        persona: c.persona,
+      })),
+    },
+    ...Object.fromEntries(
+      choices.map((c) => [
+        `n_${c.id.replace(/^c_/, '')}`,
+        { title: 'BURAYI YAZ', kind: 'outcome', text: c.outcome },
+      ]),
+    ),
+  };
+
+  return doc;
 }
 
 export function memoryFlagFor(id: string): string {
@@ -173,7 +208,7 @@ async function main(): Promise<void> {
   const category = arg('category');
   if (!id || !category) {
     console.error('Kullanim: npm run scaffold -- --id=evt_life_wedding --category=life');
-    console.error('Secimlik: --tier=major --family=fam_x --actor=manager --root=content');
+    console.error('Secimlik: --tier=major --family=fam_x --slot=manager --era=rookie --beat=dugun --once=true');
     process.exitCode = 1;
     return;
   }
@@ -190,12 +225,16 @@ async function main(): Promise<void> {
     return;
   }
   const tier = tierArg as Tier;
-  const actor = arg('actor', 'manager')!;
+  const actor = arg('slot') ?? arg('actor', 'manager')!;
   const family = arg('family', `fam_${id.replace(/^evt_/, '')}`)!;
   const root = arg('root', 'content')!;
+  const era = arg('era');
+  const beat = arg('beat');
+  const once = arg('once') === 'true' ? true : undefined;
+  const authored = (arg('authored', 'hand') as 'hand' | 'generated');
   const memory = memoryFlagFor(id);
 
-  const doc = buildEventDoc({ id, category, tier, family, actor });
+  const doc = buildEventDoc({ id, category, tier, family, actor, authored, era, beat, once });
   const choiceCount = tier === 'minor' ? 3 : 4;
 
   const file = join(root, 'events', category, `${id}.json`);
