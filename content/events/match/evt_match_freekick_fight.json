@@ -90,6 +90,12 @@
       "text": "Atarsın ve kahraman olursun! Takım arkadaşın rezil olur.",
       "onEnter": [
         {
+          "op": "match",
+          "goals": 1,
+          "rating": 1.6,
+          "incident": "inc_scored_winner"
+        },
+        {
           "flag": "sokak_itibari",
           "op": "add",
           "value": 20
@@ -107,6 +113,11 @@
       "text": "Kaçırırsın. Bütün takım ve taraftar seni bencil ilan eder.",
       "onEnter": [
         {
+          "op": "match",
+          "rating": -1.0,
+          "incident": "inc_ref_conflict"
+        },
+        {
           "flag": "form",
           "op": "add",
           "value": -15
@@ -122,13 +133,27 @@
       "title": "Zeki Hamle",
       "kind": "outcome",
       "text": "O kaçırır. Maç 1-1 biter. Taraftarlar ve yorumcular maç sonu 'Neden o vurmadı ki?' diye seni haklı bulur. Otoriten gizliden artar.",
-      "onEnter": []
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.3,
+          "incident": "inc_ref_conflict"
+        }
+      ]
     },
     "n_pasli": {
       "title": "Saha İçi Zeka",
       "kind": "outcome",
       "text": "İkinizin uyumuyla mükemmel bir asist/gol organizasyonu çıkar.",
-      "onEnter": []
+      "onEnter": [
+        {
+          "op": "match",
+          "goals": 1,
+          "assists": 1,
+          "rating": 1.4,
+          "incident": "inc_scored_winner"
+        }
+      ]
     }
   }
 }

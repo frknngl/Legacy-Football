@@ -104,6 +104,12 @@
       "text": "Zorla topu aldın ve golü attın! Maçı kazandırdın ama kaptanla arandaki ipler koptu. Maç sonu sevincine takımın yarısı katılmadı.",
       "onEnter": [
         {
+          "op": "match",
+          "goals": 1,
+          "rating": 1.2,
+          "incident": "inc_scored_winner"
+        },
+        {
           "flag": "npc_captain_arc",
           "op": "add",
           "value": -3
@@ -116,6 +122,11 @@
       "text": "Kaptan penaltıyı gole çevirdi ve ilk sana koşup sarıldı. Tribünler senin bu takımcı hareketini ayakta alkışladı.",
       "onEnter": [
         {
+          "op": "match",
+          "rating": 0.4,
+          "incident": "inc_stood_up"
+        },
+        {
           "flag": "npc_captain_arc",
           "op": "add",
           "value": 2
@@ -127,6 +138,11 @@
       "kind": "outcome",
       "text": "Hakem karışmak istemedi, hoca kenardan kaptanın atmasını işaret etti. Bu şovun medyanın alay konusu oldu ve takım içinde saygınlığını zedeledi.",
       "onEnter": [
+        {
+          "op": "match",
+          "rating": -0.8,
+          "incident": "inc_ref_conflict"
+        },
         {
           "flag": "npc_captain_arc",
           "op": "add",

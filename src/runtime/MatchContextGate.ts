@@ -98,6 +98,39 @@ export class MatchContextGate {
     flags['kariyer_gol_sayisi'] = numberOf(flags['kariyer_gol_sayisi']) + result.goals;
     flags['kariyer_asist_sayisi'] = numberOf(flags['kariyer_asist_sayisi']) + result.assists;
 
+    // Organik Buyume: Iyi performanslar sohreti (stature) artiran degiskenleri yavasca besler.
+    let addedFans = 0.2; // Maca cikmak
+    let addedMedia = 0.2;
+    let addedSocial = 1000;
+
+    if (result.goals > 0) {
+      addedFans += result.goals * 1.0;
+      addedMedia += result.goals * 1.0;
+      addedSocial += result.goals * 10000;
+    }
+    if (result.assists > 0) {
+      addedFans += result.assists * 0.5;
+      addedMedia += result.assists * 0.5;
+      addedSocial += result.assists * 5000;
+    }
+    if (result.rating >= 8.0) {
+      addedFans += 0.5;
+      addedMedia += 0.5;
+      addedSocial += 3000;
+    } else if (result.rating <= 5.0) {
+      addedFans -= 0.5;
+      addedMedia -= 0.5;
+    }
+
+    const currentFans = numberOf(flags['taraftar_destegi']);
+    flags['taraftar_destegi'] = Math.round(Math.max(0, Math.min(100, currentFans + addedFans)));
+
+    const currentMedia = numberOf(flags['medya_itibari']);
+    flags['medya_itibari'] = Math.round(Math.max(0, Math.min(100, currentMedia + addedMedia)));
+
+    const currentSocial = numberOf(flags['sosyal_medya_takipci']);
+    flags['sosyal_medya_takipci'] = currentSocial + addedSocial;
+
     ratingHistory.push(result.rating);
     while (ratingHistory.length > FORM_WINDOW) ratingHistory.shift();
 

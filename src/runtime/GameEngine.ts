@@ -357,6 +357,7 @@ export class GameEngine {
   private notices: string[] = [];
   /** Host'un bildirdigi rakip kulup -- reunion ve mac slotlari icin. */
   private opponentClubId: string | undefined;
+  private inMatch = false;
   /** Bu hafta kac mac oynandi -- haftalik toparlanmanin girdisi. */
   private matchesThisWeek = 0;
   /** Bu hafta sahaya cikildi mi -- kimya erimesi bunu okur. */
@@ -437,7 +438,7 @@ export class GameEngine {
    *
    * Kilit VERIDEN gelir (`release.json`). UI kilitli mevkileri de gostermeli
    * ama sebebiyle birlikte: "yakinda" demek yerine "kaleciye ozel mac anlari
-   * henuz yazilmadi" demek durustur ve oyuncuya neyin eksik oldugunu soyler.
+   * henuz yazılmadı" demek durustur ve oyuncuya neyin eksik oldugunu soyler.
    */
   positionOptions(): readonly {
     position: Position;
@@ -1150,6 +1151,7 @@ export class GameEngine {
     this.momentBaseline = emptyDelta();
     this.lastResolution = undefined;
     this.momentQueue = [];
+    this.inMatch = true;
 
     // Rakip kadrodan mac slotlari dokulur; eski kulubunse arsiv sahneye doner.
     this.opponentClubId = this.resolveOpponentClub(context.opponentName);
@@ -1345,6 +1347,16 @@ export class GameEngine {
       }
       case 'transfer': {
         this.state.flags['kulup'] = event.toClubId;
+        if (this.casting) {
+          this.casting.transferTo(this.state, event.toClubId, this.castingContext(), this.rngCasting);
+          this.syncRngStreams();
+        } else {
+          this.state.clubId = event.toClubId;
+        }
+
+        if (this.state.lifeState === 'transfer_listed') {
+          this.setLifeState('playing');
+        }
 
         if (event.toRival) {
           // EZELI RAKIBE GECIS -- geri alinamaz bir iz.
@@ -3731,6 +3743,18 @@ export class GameEngine {
       this.state.flags['is_injured'] = true;
       this.state.flags['injury_weeks'] = effect.injuryWeeks;
       this.setLifeState('injured');
+    }
+
+    if (!this.inMatch) {
+      this.matchGate.accumulate({
+        result: 'draw',
+        rating: effect.rating ?? 5,
+        goals: effect.goals ?? 0,
+        assists: effect.assists ?? 0,
+        minutes: 90,
+        cards: (effect.yellowCards ?? 0) + (effect.redCard ? 1 : 0),
+      });
+      this.matchDelta = emptyDelta();
     }
   }
 

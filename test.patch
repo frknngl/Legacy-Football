@@ -1,0 +1,18 @@
+--- tools/qa-advanced-simulator.ts
++++ tools/qa-advanced-simulator.ts
+@@ -282,6 +282,9 @@
+           },
+           onResult: (_m, result) => {
+             if (result.minutes > 0) {
++              if (!avBefore.available) {
++                 reporter.temporalIssues.push(\Career \: Played match while not available (Injured: \, Suspended: \). Turn \\);
++              }
+               if (state.lifeState === 'retired') {
+                  reporter.temporalIssues.push(\Career \: Played match while retired. Turn \\);
+               }
+@@ -292,6 +295,9 @@
+             } else {
++                reporter.temporalIssues.push(\Career \: Match Result has 0 minutes! heroAvailable: \\);
+             }
+             
+             matchGoals = result.goals;

@@ -67,9 +67,15 @@ function interestedClub(
   currentClubId: string,
   turn: number,
   rng: Rng,
+  flags: Record<string, unknown>,
 ): { id: string; name: string; reputation: number } | undefined {
   const club = roster.club(currentClubId);
   const current = club?.reputation ?? 50;
+
+  const form = typeof flags['form'] === 'number' ? flags['form'] : 50;
+  const repBoost = form > 75 ? 20 : form > 50 ? 10 : 0;
+  const maxReputation = current + repBoost + 15;
+  const minReputation = current - 12;
 
   // EZELI RAKIBE bilerek nisan alinir -- ama nadiren (~%12).
   //
@@ -84,11 +90,26 @@ function interestedClub(
     }
   }
 
+  // Oyuncu formdaysa kendini asagi cekmeyen bir liste
   const options = roster
     .clubs()
-    .filter((c) => c.id !== currentClubId && (c.reputation ?? 0) >= current - 12);
+    .filter((c) => {
+      if (c.id === currentClubId) return false;
+      const rep = c.reputation ?? 50;
+      return rep >= minReputation && rep <= maxReputation;
+    });
+  
   if (options.length === 0) return undefined;
-  const picked = options[(turn * 2654435761) % options.length];
+  
+  // Sort by reputation descending so we can bias the pick based on form
+  options.sort((a, b) => (b.reputation ?? 50) - (a.reputation ?? 50));
+
+  let poolSize = options.length;
+  if (form > 75) poolSize = Math.max(1, Math.floor(options.length / 3)); // top 33%
+  else if (form > 50) poolSize = Math.max(1, Math.floor(options.length / 2)); // top 50%
+
+  const picked = options[(turn * 2654435761) % poolSize];
+
   return picked === undefined
     ? undefined
     : { id: picked.id, name: picked.name, reputation: picked.reputation };
@@ -141,7 +162,7 @@ export function botTurn(
       // DEGISTIRMIYORDU. Bu yuzden `mem_rakibe_transfer` hic yazilmiyor
       // ve rakibe transfer sahnesi hep olu goruluyordu.
       if (accept) {
-        const target = interestedClub(roster, state.clubId, state.turn, rng);
+        const target = interestedClub(roster, state.clubId, state.turn, rng, state.flags);
         if (target !== undefined) {
           const rival = club?.rivalId !== undefined && club.rivalId === target.id;
           engine.reportWorldEvent({
@@ -152,6 +173,15 @@ export function botTurn(
           });
           out.transferred = true;
           out.toRival = rival;
+        }
+      }
+    } else {
+      // Menajer teklif getiremedi. Form cok iyi ama menajerin capi yetmiyorsa kov.
+      const current = engine.currentAgent();
+      if (current && numberOf(state.flags['form']) > 75 && current.profile.reach < (club?.reputation ?? 50) + 15) {
+        if (rng.next() < 0.2) {
+          engine.releaseAgent();
+          out.agentQuit = true; // BotOutcome icin quit isaretliyoruz.
         }
       }
     }

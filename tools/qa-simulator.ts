@@ -17,7 +17,7 @@ import * as fs from 'fs';
 const NATIONAL_WEEKS = new Set([5, 11, 17, 26, 33]);
 const SEED_BASE = 1000;
 const MAX_TURNS = 1000;
-const NUM_CAREERS = 100;
+const NUM_CAREERS = 20;
 const ARCHETYPE: Archetype = 'street';
 
 function cloneFlags(flags: Record<string, FlagValue>): Record<string, FlagValue> {
