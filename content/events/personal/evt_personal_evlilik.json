@@ -1,0 +1,163 @@
+{
+  "id": "evt_personal_evlilik",
+  "family": "fam_personal_evlilik",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Büyük Adım",
+      "kind": "branch",
+      "text": "Partnerinle ilişkin uzun süredir ciddileşiyor ve sonunda o malum soru gündemde: Evlilik. Ancak sezonun en kritik ayındasınız ve partnerin, ihtişamlı bir düğün planı için sürekli karar vermeni bekliyor. Menajerin ({actor.agent.name}) ise bunun futboluna odaklanmanı engelleyeceğini düşünüyor.",
+      "choices": [
+        {
+          "id": "c_dugune_odaklan",
+          "text": "Evlilik hayatta bir kere olur. Antrenmanlardan arta kalan tüm vaktini düğün mekanlarına ve davetiyelere ayır.",
+          "target": "n_gosterisli",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100000
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_erteleyelim",
+          "text": "Partnerine dürüst ol: 'Şu an kariyerimin en kritik noktası, düğünü sezon sonuna kadar konuşmayalım.'",
+          "target": "n_sade",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_gizli_nikah",
+          "text": "Gösterişten uzak, sadece en yakın arkadaşlarınla gizli bir nikah yapmayı teklif et. Medyadan uzak ve stressiz.",
+          "target": "n_gizli",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_gosterisli": {
+      "title": "Yılın Düğünü",
+      "kind": "outcome",
+      "text": "Magazin basını haftalarca bu düğünü konuştu. Sosyal medyadaki popülariten tavan yaptı ama yorgunluktan balayına bile gidemedin.",
+      "onEnter": [
+        {
+          "flag": "npc_partner_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sade": {
+      "title": "Samimi ve Sıcak",
+      "kind": "outcome",
+      "text": "Sadece gerçekten değer verdiğin insanlar yanındaydı. Zihinsel olarak çok huzurlusun, antrenmanlara kafan rahat döndün.",
+      "onEnter": [
+        {
+          "flag": "npc_partner_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_gizli": {
+      "title": "Gözden Uzak",
+      "kind": "outcome",
+      "text": "Medyadan kaçarak yurt dışında küçük bir kilise/belediye binasında evlendiniz. Taraftar ve basın biraz sitem etse de eşinle ilişkiniz mükemmel başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_partner_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_personal_evlilik",
+    "beat": "evt_personal_evlilik",
+    "signature": "personal:fam_personal_evlilik"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 200,
+    "beatGapTurns": 200,
+    "signatureGapTurns": 200,
+    "maxBeatUses": 1
+  }
+}

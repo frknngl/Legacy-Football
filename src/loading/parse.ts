@@ -461,6 +461,9 @@ function parseNode(v: unknown, ctx: ParseContext, path: string, id: string): Sto
   }
 
   const out: Record<string, unknown> = { id, title, text, kind };
+  const format = oneOf(v['format'], ['text', 'sms', 'voice', 'news', 'tweet'] as const);
+  if (format !== undefined) out['format'] = format;
+  
   const onEnter = parseEffects(v['onEnter'], ctx, `${path}.onEnter`);
   if (onEnter.length > 0) out['onEnter'] = onEnter;
 

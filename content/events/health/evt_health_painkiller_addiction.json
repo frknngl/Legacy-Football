@@ -1,0 +1,112 @@
+{
+  "id": "evt_health_painkiller_addiction",
+  "family": "fam_health_painkiller_addiction",
+  "category": "health",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "painkiller_addiction",
+    "signature": "health:painkiller_addiction"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ağrı Kesici Tuzağı",
+          "kind": "branch",
+          "text": "Son haftalarda dizindeki kronik ağrı yüzünden her maç öncesi iğne oluyorsun. Doktor 'Böyle gidersen kariyerin kısalır' dedi ama önünüzde kupa finali var.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "İğneyi vur ve finale çık. Kupa her şeydir.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -30
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "mizac": 25
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Riski alma, hocadan affını iste ve ameliyat masasına yat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Alternatif tıp ve özel bir fizyoterapist bul, iğneyi bırak.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

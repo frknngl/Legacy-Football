@@ -1,0 +1,112 @@
+{
+  "id": "evt_legal_sponsorship_breach",
+  "family": "fam_legal_sponsorship_breach",
+  "category": "legal",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "match_drama",
+    "beat": "sponsorship_breach",
+    "signature": "legal:sponsorship_breach"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yasak Logo",
+          "kind": "branch",
+          "text": "Maçtan sonra kameralar önünde, kulübün resmi içecek sponsorunun rakibi olan bir markanın şişesinden su içtin. Kulüp sana 50.000€ ceza kesti.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Cezayı öde ve resmi bir özür metni yayınla.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Avukatlarla itiraz et, sözleşmede böyle bir madde olmadığını savun.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Cezayı ödemeyi reddet ve kendi bireysel sponsorumla anlaştığımı duyur.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_1": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_2": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "id": "evt_match_isinma_kavgasi",
+  "family": "fam_match_isinma_kavgasi",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Isınma Turu Gerginliği",
+      "kind": "branch",
+      "text": "Büyük derbi öncesi sahada ısınıyorsunuz. Rakip takımın provokatör oyuncusu {actor.rival_teammate.name} bilerek senin çalışma alanına girip omuz attı ve küfretti. Kameralar tam da sizi çekiyor.",
+      "choices": [
+        {
+          "id": "c_fiziksel_tepki",
+          "text": "Ona sertçe karşılık ver ve yakasına yapış! 'Bu sahayı sana dar ederim!' de.",
+          "target": "n_fiziksel_tepki",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_gulumse",
+          "text": "Alaycı bir şekilde gülümse ve taraftara dönüp alkış isteyerek onu küçük düşür.",
+          "target": "n_gulumse",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_hakeme_sikayet",
+          "text": "Maçın hakemini yanına çağırarak durumu şikayet et.",
+          "target": "n_hakeme_sikayet",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "sadakat": 5
+          }
+        }
+      ]
+    },
+    "n_fiziksel_tepki": {
+      "title": "Tribünlerin Sevgilisi",
+      "kind": "outcome",
+      "text": "Kameralar bu anı saniye saniye çekti. Maç daha başlamadan sarı kart gördün ama taraftar senin bu agresif tutumuna aşık oldu. Maç boyu ekstra efor sarf ettin.",
+      "onEnter": [
+        {
+          "flag": "kondisyon",
+          "op": "add",
+          "value": -10
+        },
+        {
+          "op": "match",
+          "incident": "inc_fought_opponent"
+        }
+      ]
+    },
+    "n_gulumse": {
+      "title": "Buz Adam",
+      "kind": "outcome",
+      "text": "Soğukkanlılığın {actor.rival_teammate.name:dat} daha çok dokundu. Maç başladığında sinirden ne yapacağını bilemedi ve erken kart görerek takımını yalnız bıraktı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_stood_up"
+        }
+      ]
+    },
+    "n_hakeme_sikayet": {
+      "title": "Memur Zihniyeti",
+      "kind": "outcome",
+      "text": "Hakem olayı görmediği için sadece sözlü uyardı. Taraftar senin bu 'şikayetçi' tavrını pek sevmedi, medyada 'korktu' iddiaları yer aldı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_ref_conflict"
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_isinma_kavgasi",
+    "beat": "evt_match_isinma_kavgasi",
+    "signature": "match:fam_match_isinma_kavgasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

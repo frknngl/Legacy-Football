@@ -1,0 +1,107 @@
+{
+  "id": "evt_life_diet_cheat",
+  "family": "fam_life_diet_cheat",
+  "category": "life",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "diet_cheat",
+    "signature": "life:diet_cheat"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kaçamak Gecesi",
+          "kind": "branch",
+          "text": "Diyetisyeninin verdiği sıkı rejimi delip gece yarısı fast food restoranına gittin. Taraftarlar seni elinde koca bir hamburgerle fotoğrafladı.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Espriye vur, 'Arada motoru yağlamak lazım' diye tweet at.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Fotoğrafın eski olduğunu iddia et.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hocadan özür dile ve ertesi gün idmanda iki kat fazla çalış.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

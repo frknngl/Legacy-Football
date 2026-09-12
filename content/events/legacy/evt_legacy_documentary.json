@@ -1,0 +1,112 @@
+{
+  "id": "evt_legacy_documentary",
+  "family": "fam_legacy_docu",
+  "category": "legacy",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 200
+  },
+  "eras": [
+    "prime",
+    "star",
+    "icon",
+    "legend"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kariyer Belgeseli",
+      "text": "Ünlü bir dijital platform senin hayatını anlatan dev bütçeli bir belgesel çekiyor. Kamera ekibi 7/24 peşinde. Sorun şu ki; çekimlerin başladığı aydan beri kariyerinin en formsuz ve en şanssız dönemini geçiriyorsun. Kameramanlar her mutsuzluğunu ve kötü oyununu kaydediyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kov",
+          "text": "Kamera ekibini tesisten kov ve 'Ben kendime gelene kadar çekim yok' de.",
+          "target": "n_kov",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -200000,
+                "perTier": -100000
+              }
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "profesyonellik": -20,
+            "hırs": 10
+          }
+        },
+        {
+          "id": "c_samimi",
+          "text": "Kameralara içinizi döküp bu düşüşün ne kadar acı verici olduğunu anlatın.",
+          "target": "n_samimi",
+          "effects": [
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "legacy",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "cesaret": 15
+          }
+        },
+        {
+          "id": "c_sahte",
+          "text": "Kameranın önünde her şey yolundaymış gibi sahte bir 'Kral Geri Döndü' şovu yap.",
+          "target": "n_sahte",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": -20
+          }
+        }
+      ]
+    },
+    "n_kov": {
+      "title": "İptal Edilen Proje",
+      "kind": "outcome",
+      "text": "Tazminat ödersin ama kafan rahatladığı için tekrar gollerini atmaya başlarsın.",
+      "onEnter": []
+    },
+    "n_samimi": {
+      "title": "Duygusal Başyapıt",
+      "kind": "outcome",
+      "text": "Belgesel yayınlandığında herkes senin insani yanına aşık olur. Tarihe geçersin.",
+      "onEnter": []
+    },
+    "n_sahte": {
+      "title": "Plastik İmaj",
+      "kind": "outcome",
+      "text": "Belgesel yayınlanınca sahici bulunmaz, izleyen herkes yapmacık olduğunu anlar.",
+      "onEnter": []
+    }
+  }
+}

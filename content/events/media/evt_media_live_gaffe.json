@@ -1,0 +1,117 @@
+{
+  "id": "evt_media_live_gaffe",
+  "family": "fam_media_live_gaffe",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "live_gaffe",
+    "signature": "media:live_gaffe"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kamera Arkası Faciası",
+          "kind": "branch",
+          "text": "Maç sonrası röportajında adrenalin seviyen henüz düşmedi. Spikerin kışkırtıcı sorusuna verdiğin cevap, ağzından çıktığı an sosyal medyada 'trend' oldu. Menajerin kameranın arkasından ellerini başına götürüyor. Söylediklerini toparlamak için sadece birkaç saniyen var.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Hemen lafı çevir ve klasik bir futbolcu klişesiyle cümleyi bağla.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Söylediğinin arkasında dur. 'Futbol bu, sahada ne hissediyorsak o!' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Röportajı aniden kes. 'Başka soru almıyorum' diyerek oradan uzaklaş.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

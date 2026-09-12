@@ -1,0 +1,149 @@
+{
+  "id": "evt_fandom_holigan_tehdidi",
+  "family": "fam_fandom_holigan",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tribün Arkası: Holigan Tehdidi",
+      "kind": "branch",
+      "text": "Üst üste alınan kötü sonuçların ardından bir grup öfkeli holigan antrenman tesislerini bastı. Direkt olarak seni hedef alıyorlar ve 'Ruhsuz oynamaya devam edersen formayı üzerinden biz çıkartırız' diye bağırıyorlar. Kaptan {actor.captain.name} onları sakinleştirmeye çalışırken durum giderek gerginleşiyor.",
+      "choices": [
+        {
+          "id": "c_holiganlarla_yuzles",
+          "text": "Ön plana çık ve holiganlarla yüzleş: 'Bana işimi nasıl yapacağımı öğretemezsiniz!'",
+          "target": "n_holiganlarla_yuzles",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_kaptanin_arkasina_saklan",
+          "text": "Sessiz kal ve kaptanın durumu çözmesini bekle.",
+          "target": "n_kaptanin_arkasina_saklan",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_polis_cagir",
+          "text": "Tesis güvenliğini atlayıp doğrudan polisi ara. 'Burası dağ başı değil.'",
+          "target": "n_polis_cagir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": -5,
+            "sadakat": -15
+          }
+        }
+      ]
+    },
+    "n_holiganlarla_yuzles": {
+      "title": "Geri Adım Yok",
+      "kind": "outcome",
+      "text": "Cesaretin tribün liderlerini şaşırttı ve tesisi sessizce terk ettiler. Sokaklarda artık daha çok saygı görüyorsun ama başkan {actor.president.name} kulübün imajının zedelenmesinden rahatsız.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_kaptanin_arkasina_saklan": {
+      "title": "Gölgelerde Kalanlar",
+      "kind": "outcome",
+      "text": "Kaptan {actor.captain.name} olayı çözdü ama takım içinde liderlik vasfını tamamen kaybettin. Holiganlar senin korkak olduğunu düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_polis_cagir": {
+      "title": "Kanun ve Düzen",
+      "kind": "outcome",
+      "text": "Polisin gelmesiyle holiganlar dağıldı. Profesyonelce davrandın ama aşırı uç taraftar grupları artık seni bir 'ihbarcı' olarak görüyor.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_fandom_holigan",
+    "beat": "evt_fandom_holigan_tehdidi",
+    "signature": "fandom:fam_fandom_holigan"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

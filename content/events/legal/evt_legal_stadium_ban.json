@@ -1,0 +1,107 @@
+{
+  "id": "evt_legal_stadium_ban",
+  "family": "fam_legal_stadium_ban",
+  "category": "legal",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "match_drama",
+    "beat": "stadium_ban",
+    "signature": "legal:stadium_ban"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Stadyum Yasağı Tehlikesi",
+          "kind": "branch",
+          "text": "Taraftarla yaşadığın bir arbede sonrası holiganizmle suçlanıyorsun. Rakip takımın stadyumuna girmene yasak getirilmesi mahkemede tartışılıyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Kamuoyundan özür dile ve şiddet karşıtı kampanyaya bağış yap.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -10000
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Mahkemeye 'Bana su attılar, nefsi müdafaa' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hukuk ekibine karşı dava açtırıp tazminat talep et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -5000
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_1": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_2": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "id": "evt_sponsor_rakip_marka",
+  "family": "fam_sponsor_rakip",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yanlış Marka",
+      "kind": "branch",
+      "text": "Basın toplantısına katılırken kulübün resmi içecek sponsorunun rakibi olan bir markanın şişesiyle masaya oturdun. Başkan {actor.president.name} bunu fark edip şok oldu ve sponsor yetkilileri hemen menajerin {actor.agent.name:acc} arayarak sözleşmeyi feshetmekle tehdit etti.",
+      "choices": [
+        {
+          "id": "c_siseyi_sakla",
+          "text": "Şişeyi hemen masanın altına sakla ve kameraların önünde kulübün sponsorunu öv.",
+          "target": "n_siseyi_sakla",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_tavrini_koru",
+          "text": "Şişeyi masada bırak: 'Ben canım ne isterse onu içerim, kimse karışamaz.'",
+          "target": "n_tavrini_koru",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_sucu_menejere_at",
+          "text": "Canlı yayında menajerini suçla: 'Bana yanlış içeceği getiren asistanımdı, sponsorlukla ilgim yok.'",
+          "target": "n_sucu_menejere_at",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_siseyi_sakla": {
+      "title": "Hasar Kontrolü",
+      "kind": "outcome",
+      "text": "Olay büyümeden kapandı ancak bu sahte tavrın medyada alay konusu oldu. Başkan {actor.president.name} durumu idare ettiğin için memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_tavrini_koru": {
+      "title": "Kovulan Sponsor",
+      "kind": "outcome",
+      "text": "Bu asi tavrın genç hayranlarının hoşuna gitti ancak sponsor kulüple sözleşmesini tek taraflı feshetti. Başkan {actor.president.name} faturayı doğrudan sana kesti.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_sucu_menejere_at": {
+      "title": "İhanet",
+      "kind": "outcome",
+      "text": "Kendini kurtardın ama menajerin {actor.agent.name} bu ihanetini unutmadı. Seninle çalışmayı bırakmayı düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_sponsor_rakip",
+    "beat": "evt_sponsor_rakip_marka",
+    "signature": "sponsor:fam_sponsor_rakip"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

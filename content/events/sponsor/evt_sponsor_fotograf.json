@@ -1,0 +1,168 @@
+{
+  "id": "evt_sponsor_fotograf",
+  "family": "fam_sponsor_fotograf",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Küçük Düşürücü Poz",
+      "kind": "branch",
+      "text": "Yeni sponsorun için dev bir reklam kampanyası çekimi yapılıyor. Yönetmen senden, ürün (bir tür enerji içeceği) ile oldukça saçma ve karizmanı zedeleyecek bir poz vermeni istiyor. Menajerin {actor.agent.name} kameranın arkasından 'Yap şunu, parası harika!' diye işaret ediyor.",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "Profesyonel ol ve istenen pozu ver. Önemli olan sözleşmedeki para.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Seti terk et. Hiçbir para senin imajından daha değerli olamaz.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_alternatif_sun",
+          "text": "Yönetmenle pazarlık yap ve karizmanı çizmeyecek daha 'cool' bir alternatif poz öner.",
+          "target": "n_alternatif_sun",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -5000
+            }
+          ],
+          "persona": {
+            "durus": 5,
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Sosyal Medya Malzemesi",
+      "kind": "outcome",
+      "text": "Reklam yayınlandığında sosyal medyada caps oldun. {actor.agent.name} banka hesabındaki artışla mutlu olsa da, takım arkadaşların antrenmanda seninle uzun süre dalga geçti.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Kaprisli Yıldız",
+      "kind": "outcome",
+      "text": "Çekimi iptal ettin. Tazminat ödemek zorunda kaldın ve sponsorlar senin 'çalışması zor' biri olduğunu düşünmeye başladı. Ama sokaktaki itibarın sapasağlam.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_alternatif_sun": {
+      "title": "Kriz Yönetimi",
+      "kind": "outcome",
+      "text": "Senin önerdiğin poz aslında reklamı çok daha havalı yaptı. Hem sponsor memnun kaldı hem de sen imajını korudun. {actor.agent.name} senin bu ikna yeteneğine hayran kaldı.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_sponsor_fotograf",
+    "beat": "evt_sponsor_fotograf",
+    "signature": "sponsor:fam_sponsor_fotograf"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  }
+}

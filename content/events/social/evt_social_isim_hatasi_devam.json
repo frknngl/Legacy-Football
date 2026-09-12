@@ -1,0 +1,164 @@
+{
+  "id": "evt_social_isim_hatasi_devam",
+  "family": "fam_social_isim_hatasi",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "once": true,
+  "cooldown": {
+    "self": 50,
+    "family": 20
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_isim_duzeltilmedi",
+    "op": "eq",
+    "value": true
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Adın Neydi?",
+      "kind": "branch",
+      "text": "Yıllar önce kulübe ilk geldiğinde adını yanlış telaffuz etmişlerdi ve sen sesini çıkarmamıştın. Bugün, adına üretilen yeni bir forma koleksiyonunun lansmanındasın. Arkanda devasa bir pankart var ve adın HÂLÂ o yıllar önceki yanlış şekliyle yazılmış. PR direktörü yanına gelip, \"Harika görünüyor değil mi?\" diye gülümsüyor.",
+      "choices": [
+        {
+          "id": "c_kabullen",
+          "text": "Gülümse ve onay. \"Evet, harika.\" Artık bu isim senin sahadaki yeni kimliğin oldu.",
+          "target": "n_kabullen",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_patla",
+          "text": "\"Bu benim adım değil! Yıllardır bunu yanlış söylüyorsunuz!\" diyerek pankartı işaret et.",
+          "target": "n_patla",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_saka",
+          "text": "\"Bari telifini alayım, bu ismi siz uydurdunuz,\" diyerek espriye vur.",
+          "target": "n_saka",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": -5,
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_kabullen": {
+      "title": "Yeni Kimlik",
+      "kind": "outcome",
+      "text": "O pankart basına dağıtıldı. Artık sokaktaki çocuklar bile seni o yanlış isimle çağırıyor. Sustuğun o ilk gün, kendi tarihini yeniden yazmış oldun.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_patla": {
+      "title": "Gecikmiş İtiraz",
+      "kind": "outcome",
+      "text": "Ortalık buz kesti. PR direktörü kıpkırmızı oldu. Ertesi gün gazeteler \"Yıldız oyuncunun isim isyanı\" manşetini attı. Geç de olsa kimliğini geri aldın, ama kulüp yönetimi bu çıkışından hiç hoşlanmadı.",
+      "onEnter": [
+        {
+          "flag": "npc_sporting_director_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_saka": {
+      "title": "Tarihe Geçen Şaka",
+      "kind": "outcome",
+      "text": "Herkes güldü. Ertesi gün taraftarlar bunu bir pankart yaptı: \"O kadar iyi ki, kendi adını bile kendi uyduruyor.\" Krizi harika yönettin ve artık o yanlış isim bir hata değil, efsanevi bir lakap.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_isim_hatasi",
+    "beat": "evt_social_isim_hatasi_devam",
+    "signature": "social:fam_social_isim_hatasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["OrphanMemoryFlagRule"],
+    "reason": "Resolving old orphaned memory trace"
+  }
+}

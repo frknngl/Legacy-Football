@@ -1,0 +1,140 @@
+{
+  "id": "evt_tactics_krampon_krizi",
+  "family": "fam_tactics_krampon",
+  "category": "tactics",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 10,
+  "cooldown": {
+    "self": 100,
+    "family": 80
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yanlış Krampon Tercihi",
+      "text": "Yağmur dünden beri durmadı. Zemin ağır ve kaygan. Malzemeci maçtan bir saat önce yanına gelip, 'Saha felaket durumda, çivili krampon giymelisin' diyor. Ancak çivili kramponlar ayaklarını sıkıyor ve yeni sponsorunun gönderdiği, üzerinde isminin yazdığı gösterişli plastik kramponları giymek istiyorsun. Tribünler dolmaya başladı bile.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_dinle",
+          "text": "Malzemeciyi dinle ve rahatsız çivili kramponları giy.",
+          "target": "n_dinle",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "profesyonellik": 10,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_sponsor",
+          "text": "Sponsorun kramponlarını giy, risk al.",
+          "target": "n_sponsor_roll",
+          "effects": []
+        },
+        {
+          "id": "c_torpule",
+          "text": "Kramponun altındaki çivileri kendin törpülemeye/ayarlamaya çalış.",
+          "target": "n_torpule",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -1000,
+                "perTier": -1000
+              }
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            }
+          ]
+        }
+      ]
+    },
+    "n_dinle": {
+      "title": "Rahatsız Ama Güvenli",
+      "kind": "outcome",
+      "text": "Sahada hiç kaymıyorsun ama ayakların su topluyor. Performans biraz düşse de hoca disiplininden memnun kalıyor.",
+      "onEnter": []
+    },
+    "n_sponsor_roll": {
+      "title": "Krampon Zarı",
+      "kind": "roll",
+      "text": "Sahaya kendi istediğin gösterişli kramponlarla çıkıyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_sponsor_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_sponsor_fail"
+        }
+      ]
+    },
+    "n_sponsor_success": {
+      "title": "Viral Gol",
+      "kind": "outcome",
+      "text": "Harika bir gol atarsın ve kramponlar manşet olur!",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 10
+        },
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": 2000,
+            "perTier": 2000
+          }
+        }
+      ]
+    },
+    "n_sponsor_fail": {
+      "title": "Yerde Kalan Yıldız",
+      "kind": "outcome",
+      "text": "Kritik bir pozisyonda kayıp düşersin, taraftar alay konusu yapar.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": -15
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_torpule": {
+      "title": "Berbat Bir Fikir",
+      "kind": "outcome",
+      "text": "Kramponu bozarsın, maça eski yırtık yedek kramponla çıkmak zorunda kalırsın.",
+      "onEnter": []
+    }
+  }
+}

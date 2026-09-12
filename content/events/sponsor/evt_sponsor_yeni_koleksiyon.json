@@ -1,0 +1,149 @@
+{
+  "id": "evt_sponsor_yeni_koleksiyon",
+  "family": "fam_sponsor_koleksiyon",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yeni Koleksiyon",
+      "kind": "branch",
+      "text": "Sponsor markan senin adına özel bir spor giyim koleksiyonu hazırlıyor. Ancak tasarımlar senin tarzına hiç uygun değil; fazlasıyla gösterişli ve rahatsız edici. Menajerin {actor.agent.name} tasarımları onaylaman için baskı yapıyor çünkü sözleşmede imzanın gecikmesi ceza şartı içeriyor.",
+      "choices": [
+        {
+          "id": "c_onayla_gec",
+          "text": "Tasarımları olduğu gibi onayla. 'Sonuçta benim giymeme gerek yok, paraya bakarım.'",
+          "target": "n_onayla_gec",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 150000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_kendi_tasarimini_dayat",
+          "text": "Kendi basit ve rahat tasarımlarını dayat. Ceza ödemeyi göze al.",
+          "target": "n_kendi_tasarimini_dayat",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_ortayol_bul",
+          "text": "Sponsorla uzun ve yorucu toplantılar yaparak ortak bir tasarım dili oluşturmaya çalış.",
+          "target": "n_ortayol_bul",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": 5
+          }
+        }
+      ]
+    },
+    "n_onayla_gec": {
+      "title": "Rüküş Yıldız",
+      "kind": "outcome",
+      "text": "Koleksiyon çok sattı ama giyim tarzın moda eleştirmenleri tarafından acımasızca eleştirildi. Menajerin {actor.agent.name} durumdan çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_kendi_tasarimini_dayat": {
+      "title": "Sokak Modası",
+      "kind": "outcome",
+      "text": "Ceza ödemek canını sıktı ama çıkardığın rahat koleksiyon tam bir sokak efsanesine dönüştü. Fanların artık senin gibi giyiniyor.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_ortayol_bul": {
+      "title": "Bitmeyen Toplantılar",
+      "kind": "outcome",
+      "text": "Sonunda kabul edilebilir bir koleksiyon çıktı ama bu süreçte o kadar yoruldun ki antrenmanlarda formdan düştün.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_sponsor_koleksiyon",
+    "beat": "evt_sponsor_yeni_koleksiyon",
+    "signature": "sponsor:fam_sponsor_koleksiyon"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

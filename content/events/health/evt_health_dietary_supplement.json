@@ -1,0 +1,112 @@
+{
+  "id": "evt_health_dietary_supplement",
+  "family": "fam_health_dietary_supplement",
+  "category": "health",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "dietary_supplement",
+    "signature": "health:dietary_supplement"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Şüpheli Toz",
+          "kind": "branch",
+          "text": "Kişisel antrenörün, performansını %20 artıracağını iddia ettiği, henüz WADA listesinde olmayan (ama yakında yasaklanabilecek) yeni bir takviye tozu önerdi.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Riski al ve kullan. Büyük başarılar risk gerektirir.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "karanlik_baglantilar",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Reddet. 'Ben sadece helal ter dökerim' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Kulüp doktoruna götürüp tozu analiz ettir.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

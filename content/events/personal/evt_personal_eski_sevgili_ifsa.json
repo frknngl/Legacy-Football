@@ -1,0 +1,149 @@
+{
+  "id": "evt_personal_eski_sevgili_ifsa",
+  "family": "fam_personal_eski_sevgili",
+  "category": "personal",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Çocukluk Mahallesi: Eski Sevgili Ifsa",
+      "kind": "branch",
+      "text": "Eski sevgilin, katıldığı bir televizyon programında senin hakkında asılsız ama çok sarsıcı iddialarda bulundu. 'Sadece futbola aşık, kimseye değer vermeyen bencilin teki' diyerek özel hayatına dair detaylar anlattı. Sosyal medya yıkılıyor.",
+      "choices": [
+        {
+          "id": "c_dava_ac",
+          "text": "Avukatlarına talimat ver ve yüklü bir tazminat davası aç.",
+          "target": "n_dava_ac",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_cevap_ver",
+          "text": "Kendi sosyal medya hesabından alaycı bir açıklama yayınla: 'Gündemde kalmak için çırpınışlarını izliyorum.'",
+          "target": "n_cevap_ver",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Konuyu tamamen görmezden gel. Futboluna odaklan, cevap vermeye tenezzül bile etme.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 5
+          }
+        }
+      ]
+    },
+    "n_dava_ac": {
+      "title": "Hukuki Mücadele",
+      "kind": "outcome",
+      "text": "Açtığın dava medyada geniş yer buldu. Karşı taraf sessizliğe büründü. Mahkeme masrafları cebini yaksa da imajını kurtardın.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_cevap_ver": {
+      "title": "Magazin Malzemesi",
+      "kind": "outcome",
+      "text": "Attığın tweet sonrası olay daha da büyüdü. İkiniz arasında günlerce süren bir medya savaşı başladı. Hoca senin futbol dışı konularla bu kadar meşgul olmana sinirlendi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Kapanan Konu",
+      "kind": "outcome",
+      "text": "Sen cevap vermeyince dedikodular birkaç gün içinde sönüp gitti. Sadece en yakın arkadaşların senin bu süreçte ne kadar yıprandığını biliyor.",
+      "onEnter": [
+        {
+          "flag": "npc_partner_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_personal_eski_sevgili",
+    "beat": "evt_personal_eski_sevgili_ifsa",
+    "signature": "personal:fam_personal_eski_sevgili"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

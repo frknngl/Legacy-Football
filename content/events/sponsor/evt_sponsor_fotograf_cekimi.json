@@ -1,0 +1,149 @@
+{
+  "id": "evt_sponsor_fotograf_cekimi",
+  "family": "fam_sponsor_fotograf_cekimi",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Zorunlu Çekim",
+      "kind": "branch",
+      "text": "Kulübün ana sponsorunun yeni reklam yüzü seçildin. Ancak çekimler çok yoğun geçiyor ve hoca {actor.manager.name} senin idmanları kaçırmandan, yorgun düşmenden rahatsız. Menajerin {actor.agent.name} ise bu anlaşmanın milyon dolarlar değerinde olduğunu hatırlatıyor.",
+      "choices": [
+        {
+          "id": "c_cekime_git",
+          "text": "İdmanı as ve çekimlere git. 'Bu fırsatı kaçıramam, hoca idare etsin.'",
+          "target": "n_cekime_git",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 150000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "sadakat": -15,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_idmana_git",
+          "text": "Çekimi iptal et ve antrenmana çık. 'Benim işim sahada, podyumda değil.'",
+          "target": "n_idmana_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_ikisini_de_yap",
+          "text": "Hem sabah çekime git hem akşam antrenmana çık. Kendini sınırlarına kadar zorla.",
+          "target": "n_ikisini_de_yap",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -30
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 75000
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_cekime_git": {
+      "title": "Reklam Yıldızı",
+      "kind": "outcome",
+      "text": "Çekimler harika geçti, tüm bilboardlarda sen varsın. Ancak hoca {actor.manager.name} idmana çıkmadığın için seni kadro dışı bırakmayı düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_idmana_git": {
+      "title": "Gerçek Futbolcu",
+      "kind": "outcome",
+      "text": "Hoca {actor.manager.name} bu fedakarlığını çok takdir etti. Fakat menajerin {actor.agent.name} büyük bir komisyon kaybettiği için seninle ciddi bir tartışma yaşadı.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_ikisini_de_yap": {
+      "title": "Tükenmişlik",
+      "kind": "outcome",
+      "text": "Hem para kazandın hem de hocanın gözünden düşmedin. Fakat o kadar yorgunsun ki ertesi günkü maçta bacaklarını hissetmiyorsun.",
+      "onEnter": [
+        {
+          "flag": "sakatlik_riski",
+          "op": "add",
+          "value": 25
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_sponsor_fotograf_cekimi",
+    "beat": "evt_sponsor_fotograf_cekimi",
+    "signature": "sponsor:fam_sponsor_fotograf_cekimi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

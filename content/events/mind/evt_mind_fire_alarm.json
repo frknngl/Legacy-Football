@@ -1,0 +1,137 @@
+{
+  "id": "evt_mind_fire_alarm",
+  "family": "fam_mind_fire",
+  "category": "mind",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yangın Alarmı",
+      "text": "Kritik bir deplasman maçı gecesi saat 03:30. Aniden otelin yangın alarmı inanılmaz bir gürültüyle çalmaya başlıyor. Rakip takım taraftarlarının sabote ettiği çok açık. Uykundan fırlıyorsun. Aşağı inip lobiye geçmen isteniyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kal",
+          "text": "Kulak tıkaçlarını takıp odada kalmaya devam et.",
+          "target": "n_kal_roll",
+          "effects": [],
+          "persona": {
+            "cesaret": 15,
+            "profesyonellik": -10
+          }
+        },
+        {
+          "id": "c_kufret",
+          "text": "Lobiye inip rakip taraftarlara sosyal medyadan küfret.",
+          "target": "n_kufret",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_moral",
+          "text": "Lobide takıma moral ver, 'Bizi böyle yenemezler' diyerek konuşma yap.",
+          "target": "n_moral",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "liderlik": 20
+          }
+        }
+      ]
+    },
+    "n_kal_roll": {
+      "title": "Büyük Risk",
+      "kind": "roll",
+      "text": "Odada uyumaya devam ediyorsun...",
+      "outcomes": [
+        {
+          "weight": 80,
+          "target": "n_kal_success"
+        },
+        {
+          "weight": 20,
+          "target": "n_kal_fail"
+        }
+      ]
+    },
+    "n_kal_success": {
+      "title": "Deliksiz Uyku",
+      "kind": "outcome",
+      "text": "Sabah dinç uyanırsın. Sadece aptalca bir şakaymış.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_kal_fail": {
+      "title": "Gerçek Yangın",
+      "kind": "outcome",
+      "text": "Oda dumanla dolar, hastanelik olursun! Maçı kaçırdın.",
+      "onEnter": [
+        {
+          "flag": "sakatlik_riski",
+          "op": "add",
+          "value": 50
+        },
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -50
+        }
+      ]
+    },
+    "n_kufret": {
+      "title": "Sosyal Medya Savaşçısı",
+      "kind": "outcome",
+      "text": "Kendi taraftarın seni sahiplenir ama ceza alırsın. Maçta yorgun olursun.",
+      "onEnter": []
+    },
+    "n_moral": {
+      "title": "Büyük Lider",
+      "kind": "outcome",
+      "text": "Ertesi gün fiziksel olarak yorgun olsanız da mental olarak fırtına gibi esersiniz.",
+      "onEnter": []
+    }
+  }
+}

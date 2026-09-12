@@ -1,0 +1,155 @@
+{
+  "id": "evt_dark_santaj",
+  "family": "fam_dark_santaj",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 50,
+    "family": 30
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Şantajcı",
+      "kind": "branch",
+      "format": "mail",
+      "text": "Kime: Sen\nKonu: Geçmişinden Bir Hatıra\n\nGeçmişte katıldığın kontrolden çıkmış bir özel partiye ait bazı uygunsuz fotoğraflar mail kutuna düştü. Gönderen, fotoğrafların basına sızmaması için yüklü miktarda kripto para talep ediyor.",
+      "choices": [
+        {
+          "id": "c_ode",
+          "text": "Parayı sessizce öde. İtibarın zedelenirse daha fazlasını kaybedersin.",
+          "target": "n_ode",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -250000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "dogruluk": -5
+          }
+        },
+        {
+          "id": "c_rest_cek",
+          "text": "Rest çek! 'İstediğin yere sat, kimseden korkum yok' de.",
+          "target": "n_rest_cek",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_avukat_tut",
+          "text": "Avukatını ({actor.lawyer.name}) devreye sok. Şantajcıyı siber suçlardan tespit etmeye çalışsın.",
+          "target": "n_avukat_tut",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_ode": {
+      "title": "Sus Payı",
+      "kind": "outcome",
+      "text": "Şantajcı parayı aldıktan sonra ortadan kayboldu. İmajını korudun ama cüzdanın ve gururun ağır bir darbe aldı."
+    },
+    "n_rest_cek": {
+      "title": "Korkusuz",
+      "kind": "outcome",
+      "text": "Fotoğraflar sızdırıldı. Medyada günlerce manşet oldun. Ancak taraftarlar senin bu umursamaz 'kötü çocuk' tavrını gizliden gizliye sevdi."
+    },
+    "n_avukat_tut": {
+      "title": "Av Operasyonu",
+      "kind": "outcome",
+      "text": "{actor.lawyer.name} polisi devreye soktu ve şantajcı yakalandı. Süreç stresli olsa da adaletin yerini bulması seni rahatlattı.",
+      "onEnter": [
+        {
+          "flag": "npc_lawyer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_santaj",
+    "beat": "evt_dark_santaj",
+    "signature": "dark:fam_dark_santaj"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 40,
+    "beatGapTurns": 50,
+    "signatureGapTurns": 45,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "Mail format used"
+  }
+}

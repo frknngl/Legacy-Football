@@ -1,0 +1,157 @@
+{
+  "id": "evt_locker_chat_isyan",
+  "family": "fam_locker_isyan",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hocaya Karşı Kazan Kaldırma",
+      "kind": "branch",
+      "format": "chat",
+      "text": "{actor.captain.name}: 'Beyler, bu taktiklerle daha fazla gidemeyiz. Hoca resmen takımı sabote ediyor. Yarınki antrenmanda kimse sahaya çıkmıyor, tamam mı?'\n{actor.youngster.name}: 'Abi emin misin, sözleşmelerimiz yanmasın?'\n{actor.captain.name}: 'Sen karışma çocuk, biz halledeceğiz. Sen ne diyorsun, bizimle misin?'",
+      "choices": [
+        {
+          "id": "c_katil",
+          "text": "Kaptan haklı. 'Ben de çıkmıyorum, hocanın devri bitti.' yaz.",
+          "target": "n_katil",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_karsi_cik",
+          "text": "Gruba yaz: 'Saçmalamayın. Kötü gidiyor olabiliriz ama burası çiftlik değil. Ben antrenmandayım.'",
+          "target": "n_karsi_cik",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": 10,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Hiçbir şey yazma, sabah tesise git ve havaya göre hareket et.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": -10
+          }
+        }
+      ]
+    },
+    "n_katil": {
+      "title": "İsyan Ateşi",
+      "kind": "outcome",
+      "text": "Ertesi gün sahaya sadece iki üç genç oyuncu çıktı. Yönetim çılgına döndü, hocanın suyu ısınıyor ancak takım içindeki gücünüz perçinlendi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_karsi_cik": {
+      "title": "Hocanın Adamı",
+      "kind": "outcome",
+      "text": "Senin mesajından sonra isyan bölündü. Ertesi gün yarım yamalak bir antrenman yapıldı. Hocan sana minnettar ama takım içindeki ağırlığını, özellikle de kaptanla olan ilişkini zedeledin.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Gölgelerde Kalmak",
+      "kind": "outcome",
+      "text": "Sabah tesislere gittiğinde kimsenin soyunma odasından çıkmadığını gördün. Sessizce onlara katıldın ama kaptan sana 'Zor zamanda sesini çıkarmayan adamı unutmam' bakışı attı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_locker_isyan",
+    "beat": "evt_locker_chat_isyan",
+    "signature": "locker:fam_locker_isyan"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "Chat formati nedeniyle kisa."
+  }
+}

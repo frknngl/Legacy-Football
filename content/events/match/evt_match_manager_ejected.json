@@ -1,0 +1,112 @@
+{
+  "id": "evt_match_manager_ejected",
+  "family": "fam_match_manager_ejected",
+  "category": "match",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "match_drama",
+    "beat": "manager_ejected",
+    "signature": "match:manager_ejected"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Hocasız Takım",
+          "kind": "branch",
+          "text": "İlk yarıda hocanız hakeme şiddetli itirazdan kırmızı kart gördü ve tribüne gönderildi. İkinci yarıda takım sahada taktiksel bir lider arıyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "İnisiyatifi eline al, saha içinde dizilişi değiştir.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Yardımcı hocanın talimatlarına harfiyen uy.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Durumu fırsat bilip kafana göre bireysel oynamaya başla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_1": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_2": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        }
+      }
+    }
+  ]
+}

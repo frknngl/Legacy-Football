@@ -1,0 +1,148 @@
+{
+  "id": "evt_locker_yabanci_krizi",
+  "family": "fam_locker_yabanci_krizi",
+  "category": "locker",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kültür Çatışması",
+      "kind": "branch",
+      "text": "Takımın yeni yabancı yıldızı {actor.star_teammate.name}, tesislerdeki yemeklere ve soyunma odası kurallarına uymadığı için yerli oyuncularla sürekli tartışıyor. Bugün müzik seçimi yüzünden küçük çaplı bir itişme yaşandı. Takımın yerlileri seni kendi yanlarında durmaya çağırıyor.",
+      "choices": [
+        {
+          "id": "c_yerli_yaninda_dur",
+          "text": "Yerli grubun tarafını tut. 'Burası bizim evimiz, kurallara o uyacak' diyerek yabancı yıldıza gözdağı ver.",
+          "target": "n_yerli_yaninda_dur",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_arabulucu_ol",
+          "text": "Araya gir ve iki tarafı da sakinleştir. 'Biz bir takımız, herkes birbirinin kültürüne saygı duyacak' diyerek dengeyi kur.",
+          "target": "n_arabulucu_ol",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_yabanci_yaninda_dur",
+          "text": "Yabancı oyuncunun yanında yer al. 'Saçma kurallarınızla adamı daraltmayın' de.",
+          "target": "n_yabanci_yaninda_dur",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -5,
+            "sadakat": -15
+          }
+        }
+      ]
+    },
+    "n_yerli_yaninda_dur": {
+      "title": "Yerli Çetesi",
+      "kind": "outcome",
+      "text": "Yerli oyuncular senin bu net tavrını çok sevdi. Ancak {actor.star_teammate.name} kendini tamamen dışlanmış hissetti ve sahada sana pas vermemeye başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_star_teammate_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_arabulucu_ol": {
+      "title": "Köprü",
+      "kind": "outcome",
+      "text": "Liderliğin sayesinde sorun büyümeden çözüldü. İki grup arasındaki gerginlik hafifledi ve {actor.star_teammate.name} sana saygı duymaya başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_star_teammate_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_yabanci_yaninda_dur": {
+      "title": "Dışlanma",
+      "kind": "outcome",
+      "text": "Yerli grup senin onlara sırt çevirdiğini düşünüp arkandan konuşmaya başladı. {actor.star_teammate.name} ile aranız çok iyi oldu ama soyunma odasında yalnız kaldınız.",
+      "onEnter": [
+        {
+          "flag": "npc_star_teammate_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_locker_yabanci_krizi",
+    "beat": "evt_locker_yabanci_krizi",
+    "signature": "locker:fam_locker_yabanci_krizi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

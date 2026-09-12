@@ -1,0 +1,107 @@
+{
+  "id": "evt_business_stadium_sponsor",
+  "family": "fam_business_stadium_sponsor",
+  "category": "business",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "board_politics",
+    "beat": "stadium_sponsor",
+    "signature": "business:stadium_sponsor"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tarihi İhanet",
+          "kind": "branch",
+          "text": "Yönetim, stadyumun tarihi adını satıp yerine yabancı bir enerji şirketinin adını koymak üzere. Taraftarlar isyanda ve senin bir kulüp figürü olarak bu karara karşı çıkmanı bekliyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Taraftarın yanında yer al ve sosyal medyadan yönetimi eleştir.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -30
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Yönetimi savun. 'Modern futbolda para olmadan başaramayız' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -25
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Yorum yapmaktan kaçın, soruları yanıtsız bırak.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_1": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_2": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "id": "evt_ritual_ugurlu_esya",
+  "family": "fam_ritual_ugurlu_esya",
+  "category": "ritual",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Uğurlu Şemsiye",
+      "text": "Yıllardır maç günleri stadyuma gelirken otobüsten sol ayağınla inip, elinde her zaman o sarı şemsiyeyi taşıyorsun. Bu senin ritüelin. Ancak bugün deplasman otobüsündeyken şemsiyeyi evde unuttuğunu fark ettin! İçini büyük bir huzursuzluk kapladı. Maça sadece 2 saat var.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_getirt",
+          "text": "Kulüp şoförüne rüşvet verip şemsiyeyi evden getirtmeye çalış.",
+          "target": "n_getirt",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -500,
+                "perTier": -500
+              }
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -1
+            }
+          ]
+        },
+        {
+          "id": "c_bosver",
+          "text": "Ritüeli boşver, profesyonel ol. 'Böyle saçmalıklara ihtiyacım yok' de.",
+          "target": "n_bosver_roll",
+          "effects": []
+        },
+        {
+          "id": "c_alternatif",
+          "text": "Takım arkadaşından başka bir sarı eşya bulmasını iste.",
+          "target": "n_alternatif",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "n_getirt": {
+      "title": "Ucuz Atlattık",
+      "kind": "outcome",
+      "text": "Şemsiye ucu ucuna yetişir. Kafan rahatlar ama şoför geciktiği için kulüpten ceza yersin.",
+      "onEnter": []
+    },
+    "n_bosver_roll": {
+      "title": "Mental Sınav",
+      "kind": "roll",
+      "text": "Stadyuma şemsiyesiz adım atıyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_bosver_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_bosver_fail"
+        }
+      ]
+    },
+    "n_bosver_success": {
+      "title": "Zincirleri Kırdın",
+      "kind": "outcome",
+      "text": "Mükemmel oynayıp bu batıl inançtan kurtuluyorsun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_bosver_fail": {
+      "title": "Uğursuz Maç",
+      "kind": "outcome",
+      "text": "Maça mental olarak gergin başlıyorsun ve kötü oynuyorsun.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_alternatif": {
+      "title": "Sarı Eldiven",
+      "kind": "outcome",
+      "text": "Arkadaşın sana sarı bir kaleci eldiveni bulur. Onunla sahaya çıkarsın, taraftarlar bunu yeni bir trend sanır.",
+      "onEnter": []
+    }
+  }
+}

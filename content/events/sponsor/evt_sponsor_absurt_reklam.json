@@ -1,0 +1,105 @@
+{
+  "id": "evt_sponsor_absurt_reklam",
+  "family": "fam_sponsor_absurt",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yeşil Ekran Çilesi",
+      "text": "Yeni sponsorun olan Asya merkezli bir enerji içeceği firmasının reklam çekimi için stüdyodasın. Arkanda kocaman bir yeşil ekran var. Yönetmen, elinde parlayan kutuyla birlikte abartılı bir aslan kükremesi yapmanı ve ardından garip bir dans figürü sergilemeni istiyor. Bütün set ekibi sana bakıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_yap",
+          "text": "İstenen her şeyi yap. Ne kadar utanç verici olsa da para için değer.",
+          "target": "n_yap",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 50000,
+                "perTier": 20000
+              }
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -2
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Dans etmeyi reddet, sadece içeceği tutup gülümse.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -20000,
+                "perTier": -10000
+              }
+            }
+          ],
+          "persona": {
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_teklif",
+          "text": "Yönetmene kendi 'havalı' gol sevincini yapmayı teklif et.",
+          "target": "n_teklif",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    "n_yap": {
+      "title": "Sosyal Medya Yıldızı",
+      "kind": "outcome",
+      "text": "Reklam Asya'da viral olur. Ciddi bir ekstra para kazanırsın ama takım arkadaşların soyunma odasında seninle dalga geçer.",
+      "onEnter": []
+    },
+    "n_reddet": {
+      "title": "Prensipli Yıldız",
+      "kind": "outcome",
+      "text": "Yönetmen sinirlenir, sponsorluk bedeli yarıya düşürülür ama itibarını korursun.",
+      "onEnter": []
+    },
+    "n_teklif": {
+      "title": "İkonik Poz",
+      "kind": "outcome",
+      "text": "Sponsor bunu beğenir, imza sevincin markalaşır.",
+      "onEnter": []
+    }
+  }
+}

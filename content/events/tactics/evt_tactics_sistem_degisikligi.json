@@ -1,0 +1,164 @@
+{
+  "id": "evt_tactics_sistem_degisikligi",
+  "family": "fam_tactics_sistem_degisikligi",
+  "category": "tactics",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 250,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Taktiksel Devrim",
+      "kind": "branch",
+      "text": "Takımın yeni hocası {actor.manager.name} taktiksel bir devrim yapıyor. Yıllardır oynadığın rahat hücum mevkisinden alınıp, sahanın tamamen farklı bir yerinde (örneğin kanat bek veya defansif orta saha) oynaman isteniyor. 'Sistemin sana ihtiyacı var' diyor ama bu senin gol krallığı veya yıldızlık şansını bitirebilir.",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "Takım için fedakarlık yap. Yeni mevkinde oynamaya çalış ve hocanın sistemine uy.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_isyankar",
+          "text": "Kabul etme! 'Ben o pozisyonun oyuncusu değilim' diyerek hocaya antrenmanda rest çek.",
+          "target": "n_isyankar",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_taktik_oner",
+          "text": "Hocanın odasına git ve sistem içinde hem takımın işine yarayacak hem de senin güçlü yönlerini kullanacak bir 'Mezzala' veya 'Serbest Rol' önerisi yap.",
+          "target": "n_taktik_oner",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Görev Adamı",
+      "kind": "outcome",
+      "text": "Yeni mevkinde gol sayın düştü ve medya seni eleştirdi. Ancak takım arkadaşların ve {actor.manager.name} bu fedakarlığını unutmadı. Soyunma odasında gizli bir lidersin.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_isyankar": {
+      "title": "Kadro Dışı",
+      "kind": "outcome",
+      "text": "İsyanın hocanın hiç hoşuna gitmedi. İki hafta kadro dışı kaldın. Sonunda eski mevkine döndün ama takımdaki kredin tükendi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_taktik_oner": {
+      "title": "İkna Edici Formül",
+      "kind": "outcome",
+      "text": "Toplantıda taktik tahtasına geçip kendi savunduğun sistemi detaylıca anlattın. {actor.manager.name:acc} zar zor da olsa ikna etmeyi başardın ve ilk maçta bu sistemle alınan galibiyet herkesi rahatlattı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_tactics_sistem_degisikligi",
+    "beat": "evt_tactics_sistem_degisikligi",
+    "signature": "tactics:fam_tactics_sistem_degisikligi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 200,
+    "beatGapTurns": 200,
+    "signatureGapTurns": 200,
+    "maxBeatUses": 1
+  }
+}

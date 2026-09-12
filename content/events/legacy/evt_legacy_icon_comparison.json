@@ -1,0 +1,110 @@
+{
+  "id": "evt_legacy_icon_comparison",
+  "family": "fam_legacy_comparison",
+  "category": "legacy",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 200
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski İkonla Kıyaslanma",
+      "text": "Kulübün efsanevi 10 numarasının forması sana verildi. Ancak üst üste iki maç kötü oynadın. Medya ve eski efsane sürekli seni eleştiriyor, 'O formanın ağırlığını kaldıramıyor, benim zamanımda böyle miydi?' diye televizyonda sana laf atıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_cevap",
+          "text": "Sosyal medyadan eski efsaneye saygılı ama sert bir cevap ver: 'Geçmiş geçmişte kaldı'.",
+          "target": "n_cevap",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "cesaret": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_calis",
+          "text": "Kafanı eğ, ekstra çalış ve sahada cevabını ver.",
+          "target": "n_calis",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 25
+          }
+        },
+        {
+          "id": "c_forma",
+          "text": "Menajerini arayıp 'Ben bu formayı istemiyorum, başka numara verin' de.",
+          "target": "n_forma",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "cesaret": -25
+          }
+        }
+      ]
+    },
+    "n_cevap": {
+      "title": "Bölünen Taraftar",
+      "kind": "outcome",
+      "text": "Cesaretin taraftarı böler. Gençler seni destekler, yaşlılar efsaneyi.",
+      "onEnter": []
+    },
+    "n_calis": {
+      "title": "Yeni Efsane Adayı",
+      "kind": "outcome",
+      "text": "En iyi yoldur ama o anki medya baskısını sineye çekmek zorunda kalırsın.",
+      "onEnter": []
+    },
+    "n_forma": {
+      "title": "Ağır Gelen Forma",
+      "kind": "outcome",
+      "text": "Zayıflık göstergesi. Beklentilerden kaçtığın için itibarın yerle bir olur.",
+      "onEnter": []
+    }
+  }
+}

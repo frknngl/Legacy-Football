@@ -1,0 +1,110 @@
+{
+  "id": "evt_legacy_ugly_statue",
+  "family": "fam_legacy_statue",
+  "category": "legacy",
+  "tier": "epic",
+  "authored": "hand",
+  "weight": 10,
+  "cooldown": {
+    "self": 300,
+    "family": 300
+  },
+  "eras": [
+    "legend"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kendi Heykelini Beğenmeme",
+      "text": "Kulüp sana bir sürpriz yaptı ve stadyumun önüne senin devasa bir bronz heykelini dikti. Açılış töreninde perde bir iniyor... Heykel sana hiç benzemiyor! Gözleri şaşı, çenesi yamuk, resmen bir canavara benziyor. Sosyal medya anında patlıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_bozulma",
+          "text": "Yüzünü as, 'Bu ben değilim' diyerek töreni terk et.",
+          "target": "n_bozulma",
+          "effects": [
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "legacy",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "profesyonellik": -25,
+            "ego": 20
+          }
+        },
+        {
+          "id": "c_kucakla",
+          "text": "Heykele sarıl, öp ve 'Biraz yorgun çıkmışım ama kalbim burada' de.",
+          "target": "n_kucakla",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "legacy",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "merhamet": 15
+          }
+        },
+        {
+          "id": "c_yenilet",
+          "text": "Gizlice parasını cebinden verip kendi heykeltıraşını tut ve yenisini yaptır.",
+          "target": "n_yenilet",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -100000,
+                "perTier": -50000
+              }
+            },
+            {
+              "flag": "legacy",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "ego": 25,
+            "zeka": 15
+          }
+        }
+      ]
+    },
+    "n_bozulma": {
+      "title": "Küstah Efsane",
+      "kind": "outcome",
+      "text": "Heykeltıraş depresyona girer, medya seni kaprisli bulur.",
+      "onEnter": []
+    },
+    "n_kucakla": {
+      "title": "Gönüllerin Efendisi",
+      "kind": "outcome",
+      "text": "Heykel o kadar çirkin ki bir turist atraksiyonuna dönüşür. Senin zekan ve mizahın tarihe geçer.",
+      "onEnter": []
+    },
+    "n_yenilet": {
+      "title": "Mükemmeliyetçi",
+      "kind": "outcome",
+      "text": "Bir gece yarısı operasyonuyla heykel değişir. Herkes şaşırır, sen mükemmel imajını korursun.",
+      "onEnter": []
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "id": "evt_money_kripto_vurgunu",
+  "family": "fam_money_kripto_vurgunu",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Rug Pull",
+      "kind": "branch",
+      "text": "Takım arkadaşın (aynı zamanda yakın dostun) sana kesin kazandıracağını iddia ettiği yeni bir kripto projesinden bahsetmiş ve sen de yüklü bir yatırım yapmıştın. Sabah uyandığında projenin bir 'Rug Pull' (vurgun) olduğunu ve tüm paranın buharlaştığını öğreniyorsun. Soyunma odasına girdiğinde o arkadaşın köşede sinmiş oturuyor.",
+      "choices": [
+        {
+          "id": "c_bagir_cagir",
+          "text": "Herkesin ortasında onun yakasına yapış! 'Beni dolandırdın' diyerek tüm takımın önünde rezil et.",
+          "target": "n_bagir_cagir",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -300000
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Acını içine göm. O da parası kaybettiği için üzgün. Konuyu hiç açma ve dostluğunu koru.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -300000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_dava_ac",
+          "text": "Arkadaşını affetmiş gibi görün ama arka planda avukatlarına ({actor.lawyer.name}) talimat verip onun zararı karşılaması için yasal süreç başlat.",
+          "target": "n_dava_ac",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": -25
+          }
+        }
+      ]
+    },
+    "n_bagir_cagir": {
+      "title": "Kopuş",
+      "kind": "outcome",
+      "text": "Soyunma odası buz kesti. Arkadaşın kulüpten ayrılmak için transfer talebinde bulundu. Paranı kaybettin ve takım içindeki uyum tamamen bozuldu."
+    },
+    "n_sessiz_kal": {
+      "title": "Pahalı Bir Ders",
+      "kind": "outcome",
+      "text": "O kadar parayı kaybetmek canını yaktı ama takım içindeki barışı korudun. O arkadaşın sana minnettar kaldı."
+    },
+    "n_dava_ac": {
+      "title": "Soğuk İntikam",
+      "kind": "outcome",
+      "text": "{actor.lawyer.name} süreci çok gizli yürüttü. Arkadaşın haciz kararıyla şok oldu. Paranın bir kısmını kurtardın ama o kişiyle artık düşmansınız.",
+      "onEnter": [
+        {
+          "flag": "npc_lawyer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_kripto_vurgunu",
+    "beat": "evt_money_kripto_vurgunu",
+    "signature": "money:fam_money_kripto_vurgunu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 250,
+    "beatGapTurns": 250,
+    "signatureGapTurns": 250,
+    "maxBeatUses": 1
+  }
+}

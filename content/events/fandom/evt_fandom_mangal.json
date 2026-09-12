@@ -1,0 +1,107 @@
+{
+  "id": "evt_fandom_mangal",
+  "family": "fam_fandom_mangal",
+  "category": "fandom",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tesislerde Mangal",
+      "text": "Kötü giden birkaç maçtan sonra, taraftar gruplarından biri antrenman tesislerinin kapısına dayanıyor. Ancak bu sefer protesto için değil! Bagajdan dev bir mangal çıkarıp köfte yapmaya başlıyorlar. 'Bizim çocuklar aç kalmış, yedireceğiz' diye bağırıyorlar. Koku bütün antrenman sahasını sardı.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_ye",
+          "text": "Antrenmandan sonra gidip onlarla köfte ye ve sohbet et.",
+          "target": "n_ye",
+          "effects": [
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "merhamet": 15,
+            "profesyonellik": -10
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "'Diyetisyenim izin vermiyor' diyerek kibarca reddet ama el salla.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15
+          }
+        },
+        {
+          "id": "c_kiz",
+          "text": "Güvenliği arayıp 'Burası piknik alanı değil, uzaklaştırın' de.",
+          "target": "n_kiz",
+          "effects": [
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "profesyonellik": 20,
+            "ego": 10
+          }
+        }
+      ]
+    },
+    "n_ye": {
+      "title": "Halkın Çocuğu",
+      "kind": "outcome",
+      "text": "Taraftarla bağların kopmaz bir hal alır. Biraz mide fesadı geçirirsin ama değer.",
+      "onEnter": []
+    },
+    "n_reddet": {
+      "title": "Diyet Bozmayan",
+      "kind": "outcome",
+      "text": "Saygı duyarlar, sorun çıkmaz.",
+      "onEnter": []
+    },
+    "n_kiz": {
+      "title": "Tesisin Patronu",
+      "kind": "outcome",
+      "text": "Hoca disiplinini takdir eder ama taraftarlar sana kırılır.",
+      "onEnter": []
+    }
+  }
+}

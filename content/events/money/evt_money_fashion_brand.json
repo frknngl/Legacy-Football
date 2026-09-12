@@ -1,0 +1,112 @@
+{
+  "id": "evt_money_fashion_brand",
+  "family": "fam_money_fashion_brand",
+  "category": "money",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "fashion_brand",
+    "signature": "money:fashion_brand"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kendi Markanı Yarat",
+          "kind": "branch",
+          "text": "Modaya olan ilgini kullanarak kendi giyim markanı yaratmak istiyorsun. Ancak bunun için futbol dışı bir yatırım yapman ve zaman harcaman gerek.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Büyük oyna. Ciddi sermaye koyarak agresif gir.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -100000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Küçük başla. Sadece internet üzerinden sınırlı üretim yap.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -10000
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Futbola odaklan, marka işini emekliliğe bırak.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "id": "evt_mind_uyku_problemi",
+  "family": "fam_mind_uyku_problemi",
+  "category": "mind",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Uykusuz Geceler",
+      "kind": "branch",
+      "text": "Son zamanlarda maç öncesi geceleri uyumakta büyük zorluk çekiyorsun. Performans anksiyetesi yüzünden sabaha kadar yatakta dönüp duruyorsun. Yarın çok kritik bir derbi var ve saat gece 4, hala gözüne uyku girmedi.",
+      "choices": [
+        {
+          "id": "c_uyku_ilaci",
+          "text": "Kulüp doktoruna haber vermeden ağır bir uyku ilacı alıp uyumaya çalış.",
+          "target": "n_uyku_ilaci",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_doktora_soyle",
+          "text": "Kulüp doktorunu ara, uyuyamadığını itiraf et ve maç kadrosundan affını iste.",
+          "target": "n_doktora_soyle",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_uykusuz_oyna",
+          "text": "İlaç almayı reddet. Ne kadar yorgun olursan ol, yarın o sahaya çıkıp savaşacaksın.",
+          "target": "n_uykusuz_oyna",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 30
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_uyku_ilaci": {
+      "title": "Sersemletici Etki",
+      "kind": "outcome",
+      "text": "Uyudun ancak ilacın etkisi ertesi gün geçmedi. Maç sırasında sahada sersem gibiydin. Hoca {actor.manager.name} seni devre arasında oyundan aldı ve kulüp doktoru izinsiz ilaç aldığını fark etti.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_doktora_soyle": {
+      "title": "Dürüstlük Kaybettirdi",
+      "kind": "outcome",
+      "text": "Doktor seni kadrodan çıkardı. Hoca dürüstlüğünü takdir etse de, en kritik maçta takımını yalnız bıraktığın için taraftarlar sana tepkili.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_uykusuz_oyna": {
+      "title": "Kas Yırtığı",
+      "kind": "outcome",
+      "text": "Uykusuz ve bitkin bir halde sahaya çıktın. İradeyle oynamaya çalışsan da vücudun dayanamadı. Maçın ortasında bir depara kalkarken adalen koptu.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_injured_in_match"
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_uyku_problemi",
+    "beat": "evt_mind_uyku_problemi",
+    "signature": "mind:fam_mind_uyku_problemi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

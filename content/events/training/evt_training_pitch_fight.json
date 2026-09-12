@@ -1,0 +1,112 @@
+{
+  "id": "evt_training_pitch_fight",
+  "family": "fam_training_pitch_fight",
+  "category": "training",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "pitch_fight",
+    "signature": "training:pitch_fight"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İdmanda Kavga",
+          "kind": "branch",
+          "text": "Çift kale maçta takım arkadaşın bilerek ayak bileğine çok sert bir tekme attı.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Yumruğu yapıştır. Kimse sana bilerek vuramaz.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "mizac": 30
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Ayağa kalk, gülümse ve ilk fırsatta ona daha sert bir faul yap.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "karanlik_baglantilar",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hocaya dön ve 'Bu adamı idmandan atmazsan ben çıkıyorum' de.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "dogruluk": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

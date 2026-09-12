@@ -1,0 +1,107 @@
+{
+  "id": "evt_social_wedding_crash",
+  "family": "fam_social_wedding_crash",
+  "category": "social",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "wedding_crash",
+    "signature": "social:wedding_crash"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Düğün Krizi",
+          "kind": "branch",
+          "text": "Yakın bir arkadaşının düğününe katıldın ancak düğünde çok fazla alkol alıp mikrofonu eline alarak eski takım hocana laf attın.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Sabah hemen bir özür videosu yayınla.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Arkadaşlarının suçu olduğunu söyleyip sorumluluktan kaç.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Sözlerinin arkasında durduğunu, sadece yeri olmadığını söyle.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

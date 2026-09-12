@@ -1,0 +1,117 @@
+{
+  "id": "evt_legal_contract_dispute",
+  "family": "fam_legal_contract_dispute",
+  "category": "legal",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "match_drama",
+    "beat": "contract_dispute",
+    "signature": "legal:contract_dispute"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İhtarname Şoku",
+          "kind": "branch",
+          "text": "Kulüp, imaj haklarından elde ettiğin gelirin büyük kısmına el koymak için sözleşmendeki yasal bir boşluğu kullanıyor. Avukatın, kulübü mahkemeye verirsen kadro dışı kalabileceğini söylüyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Haklarını savun, mahkeme sürecini başlat.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -30
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Geri adım at, parayı bırak ve sahaya odaklan.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Başkanla gizli bir pazarlık yaparak orta yolu bul.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "karanlik_baglantilar",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_1": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_2": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        }
+      }
+    }
+  ]
+}

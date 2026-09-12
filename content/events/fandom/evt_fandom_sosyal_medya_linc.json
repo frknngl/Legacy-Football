@@ -1,0 +1,149 @@
+{
+  "id": "evt_fandom_sosyal_medya_linc",
+  "family": "fam_fandom_sosyal_medya",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dijital Linç",
+      "kind": "branch",
+      "text": "Takımın farklı mağlup olduğu bir maçın hemen ardından, eski bir tatil fotoğrafını yanlışlıkla 'harika bir gün' notuyla paylaştın. Taraftar çıldırdı ve sana karşı büyük bir linç kampanyası başladı. Başkan {actor.president.name} hesabını dondurmanı, hoca {actor.manager.name} ise çıkıp özür dilemeni istiyor.",
+      "choices": [
+        {
+          "id": "c_hesabi_dondur",
+          "text": "Başkanı dinle, hiçbir şey söylemeden sosyal medya hesaplarını dondur.",
+          "target": "n_hesabi_dondur",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_ozur_dile",
+          "text": "Hocayı dinle, bir video çekerek bunun bir hata olduğunu açıkla ve taraftardan özür dile.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_kavga_et",
+          "text": "Kimseyi dinleme ve taraftara cevap ver: 'Özel hayatıma karışamazsınız!'",
+          "target": "n_kavga_et",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -30
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_hesabi_dondur": {
+      "title": "Sessiz Kaçış",
+      "kind": "outcome",
+      "text": "Fırtına dindi ama korkup kaçtığın düşünüldü. Başkan {actor.president.name} krizin büyümesini engellediğin için memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Samimi İtiraf",
+      "kind": "outcome",
+      "text": "Özrün bazı taraftarları yumuşattı. Hoca {actor.manager.name} bu olgun tavrını takdir ederek seni takımın önemli bir parçası olarak görmeye devam ediyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_kavga_et": {
+      "title": "Dijital Savaşçı",
+      "kind": "outcome",
+      "text": "Kendi taraftarınla girdiğin bu savaş aranızdaki bağları tamamen kopardı. Hoca {actor.manager.name} bu kadar sorun çıkardığın için seni kadro dışı bırakmayı düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_fandom_sosyal_medya",
+    "beat": "evt_fandom_sosyal_medya_linc",
+    "signature": "fandom:fam_fandom_sosyal_medya"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

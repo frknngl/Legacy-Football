@@ -1,0 +1,107 @@
+{
+  "id": "evt_mental_yips",
+  "family": "fam_mental_yips",
+  "category": "mental",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "yips",
+    "signature": "mental:yips"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Basit Hata Korkusu",
+          "kind": "branch",
+          "text": "Geçen haftaki kritik pas hatandan sonra 'Yips' (basit hareketleri yapamama sendromu) yaşamaya başladın. En basit 3 metrelik paslarda bile ayakların titriyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Risk alma, maçta sadece yana ve geriye garanti pas yap.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Korkunun üstüne git, zor pasları denemeye devam et.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Yedek kalmayı kendin iste, kafa olarak hazır değilsin.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "id": "evt_legal_vergi",
+  "family": "fam_legal_vergi",
+  "category": "legal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Mahkeme Celbi",
+      "kind": "branch",
+      "format": "mail",
+      "text": "Kime: {actor.agent.name}\nKonu: Vergi Kaçakçılığı Soruşturması\n\nSavcı {actor.prosecutor.name}, son üç yıla ait imaj hakları gelirlerinin off-shore hesaplara aktarıldığını tespit ettiğini bildiriyor. Hakkında resmi dava açılmak üzere. Avukatın {actor.lawyer.name}, durumu çözmek için üç farklı strateji sunuyor.",
+      "choices": [
+        {
+          "id": "c_uzlas",
+          "text": "Uzlaşmaya git ve cezayı faiziyle hemen öde. Basına sızmasını engelle.",
+          "target": "n_uzlas",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -150000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_savas",
+          "text": "Mahkemede savaş! 'Ben sadece futbolcuyum, parayı yönetenleri bulun' diyerek iddiaları reddet.",
+          "target": "n_savas",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_suc_at",
+          "text": "Bütün suçu menajerine ({actor.agent.name}) at ve ondan şikayetçi ol. Kendi adını temize çıkar.",
+          "target": "n_suc_at",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -25,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_uzlas": {
+      "title": "Sessiz Çözüm",
+      "kind": "outcome",
+      "text": "Yüklü bir miktar para kaybettin ama olay basına yansımadan kapandı. {actor.lawyer.name} bu krizi iyi yönettiğini düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_lawyer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_savas": {
+      "title": "Adliye Koridorları",
+      "kind": "outcome",
+      "text": "Aylarca süren mahkeme süreci performansını derinden etkiledi. Savcı {actor.prosecutor.name} peşini bırakmadı. Sonunda daha az bir ceza aldın ama psikolojik olarak yıprandın.",
+      "onEnter": [
+        {
+          "flag": "npc_prosecutor_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_suc_at": {
+      "title": "Günah Keçisi",
+      "kind": "outcome",
+      "text": "Senin yerine {actor.agent.name} yargılandı. Kamuoyunda adını temize çıkardın ancak menajerin bunu asla unutmayacak ve seni yarı yolda bıraktı.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_legal_vergi",
+    "beat": "evt_legal_vergi",
+    "signature": "legal:fam_legal_vergi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "Mail formati"
+  }
+}

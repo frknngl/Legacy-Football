@@ -1,0 +1,149 @@
+{
+  "id": "evt_fandom_havaalani_karsilama",
+  "family": "fam_fandom_havaalani",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Havaalanı İzdihamı",
+      "kind": "branch",
+      "text": "Deplasmandaki büyük galibiyetten sonra şehre gece yarısı döndünüz. Havaalanında binlerce taraftar sizi bekliyor. Meşaleler, tezahüratlar derken ortam bir anda kontrolden çıkıyor. Taraftarlar otobüsün önünü kesip senin dışarı çıkmanı istiyor. Hoca {actor.manager.name} ise güvenlik nedeniyle otobüste kalmanızı emretti.",
+      "choices": [
+        {
+          "id": "c_disari_cik",
+          "text": "Güvenliği ve hocayı dinleme, otobüsten çıkıp taraftarla tezahürat yap.",
+          "target": "n_disari_cik",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_otobuste_kal",
+          "text": "Hocanın talimatına uy ve otobüste kalarak camdan el salla.",
+          "target": "n_otobuste_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_korkuyla_saklan",
+          "text": "İzdihamdan korkup otobüsün arka tarafına geç ve perdenin arkasına saklan.",
+          "target": "n_korkuyla_saklan",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -25,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_disari_cik": {
+      "title": "Tribün Çocuğu",
+      "kind": "outcome",
+      "text": "Taraftarlarla kurduğun bu bağ seni takımın yaşayan efsanesi yaptı. Ancak hoca {actor.manager.name} otoritesini sarstığın için sana ceza idmanı verdi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_otobuste_kal": {
+      "title": "Güvenli Alan",
+      "kind": "outcome",
+      "text": "Taraftar biraz hayal kırıklığına uğrasa da hoca {actor.manager.name} sözünü dinlediğin için sana olan güvenini tazeledi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_korkuyla_saklan": {
+      "title": "Paniğe Kapılan Yıldız",
+      "kind": "outcome",
+      "text": "Saklandığını gören taraftarlar hayal kırıklığına uğradı. Medya, 'Büyük maçların oyuncusu ama kendi taraftarından korkuyor' manşetleri attı.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_fandom_havaalani",
+    "beat": "evt_fandom_havaalani_karsilama",
+    "signature": "fandom:fam_fandom_havaalani"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

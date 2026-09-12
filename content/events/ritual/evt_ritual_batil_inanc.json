@@ -1,0 +1,150 @@
+{
+  "id": "evt_ritual_batil_inanc",
+  "family": "fam_ritual_batil_inanc",
+  "category": "ritual",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 50,
+    "family": 30
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Uğurlu Krampon",
+      "kind": "branch",
+      "text": "Son haftalarda geliştirdiğin bir batıl inanç var: Maça çıkmadan önce sağ kramponunu tam üç kere öpüyor ve soyunma odasında tek ayak üstünde zıplıyorsun. Kaptan {actor.captain.name} bu durumun takımı motive etmek yerine komik duruma düşürdüğünü söylüyor.",
+      "choices": [
+        {
+          "id": "c_devam_et",
+          "text": "Umurumda değil! Bu ritüel sana şans getiriyor. Zıplamaya ve öpmeye devam et.",
+          "target": "n_devam_et",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_gizli_yap",
+          "text": "Kaptanı dinle ama inancından vazgeçme. Ritüelini tuvalette gizlice yap.",
+          "target": "n_gizli_yap",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 5,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_terk_et",
+          "text": "Haklı olduğunu kabul et. Böyle saçmalıklara ihtiyacın yok, yeteneğine güven.",
+          "target": "n_terk_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_devam_et": {
+      "title": "İnançlı",
+      "kind": "outcome",
+      "text": "Takım seninle dalga geçse de o maçta iki gol attın. Maç sonu röportajında kramponunu öptün ve bu hareketin taraftarlar arasında bir fenomene dönüştü."
+    },
+    "n_gizli_yap": {
+      "title": "Tuvalet Ritüeli",
+      "kind": "outcome",
+      "text": "Soyunma odasında kimse fark etmedi ama sen içsel huzurunu korudun. Kaptan {actor.captain.name} uyarılarını dinlediğin için sana saygı duydu.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_terk_et": {
+      "title": "Saf Yetenek",
+      "kind": "outcome",
+      "text": "Ritüellerden kurtuldun. İlk başlarda kendini garip hissetsen de, sadece futboluna odaklanmak uzun vadede oyun görüşünü olumlu etkiledi."
+    }
+  },
+  "story": {
+    "arc": "fam_ritual_batil_inanc",
+    "beat": "evt_ritual_batil_inanc",
+    "signature": "ritual:fam_ritual_batil_inanc"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 50,
+    "beatGapTurns": 50,
+    "signatureGapTurns": 50,
+    "maxBeatUses": 1
+  }
+}

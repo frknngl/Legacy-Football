@@ -1,0 +1,110 @@
+{
+  "id": "evt_locker_stolen_watch",
+  "family": "fam_locker_watch",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tesislerde Hırsızlık",
+      "text": "Antrenmandan sonra soyunma odasına döndüğünde, dolabına kilitlediğin 100 bin dolarlık saatinin yerinde olmadığını fark ettin. Odaya dışarıdan birinin girmesi imkansız. Hırsız ya bir takım arkadaşın ya da teknik ekipten biri.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_bagir",
+          "text": "Soyunma odasında bağırıp çağır ve herkesin çantasını aramak iste.",
+          "target": "n_bagir",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": -25,
+            "güven": -20
+          }
+        },
+        {
+          "id": "c_gizli",
+          "text": "Hocaya sessizce söyle, güvenlik kameralarını gizlice incelesinler.",
+          "target": "n_gizli",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 50000,
+                "perTier": 25000
+              }
+            }
+          ],
+          "persona": {
+            "zeka": 15,
+            "profesyonellik": 10
+          }
+        },
+        {
+          "id": "c_bosver",
+          "text": "Olayı büyütme, saatin üzerine bir bardak soğuk su iç.",
+          "target": "n_bosver",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -100000,
+                "perTier": -50000
+              }
+            }
+          ],
+          "persona": {
+            "umursamazlik": 20
+          }
+        }
+      ]
+    },
+    "n_bagir": {
+      "title": "Zehirlenen Ortam",
+      "kind": "outcome",
+      "text": "Saat bulunmaz ama takım içindeki güven ortamı tamamen yıkılır.",
+      "onEnter": []
+    },
+    "n_gizli": {
+      "title": "Sessiz Çözüm",
+      "kind": "outcome",
+      "text": "Hırsızın temizlik görevlilerinden biri olduğu ortaya çıkar, saat bulunur ve kriz sessizce çözülür.",
+      "onEnter": []
+    },
+    "n_bosver": {
+      "title": "Ağır Kayıp",
+      "kind": "outcome",
+      "text": "Maddi olarak sarsılırsın ama soyunma odasının huzuru bozulmaz.",
+      "onEnter": []
+    }
+  }
+}

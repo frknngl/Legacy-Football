@@ -1,0 +1,149 @@
+{
+  "id": "evt_social_bagis_gecesi_skandali",
+  "family": "fam_social_bagis",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gösterişli Bağış",
+      "kind": "branch",
+      "text": "Kulüp başkanı {actor.president.name:gen} organize ettiği bir bağış gecesindesin. Açık artırmada çok nadide bir eşya satışa sunuldu. Menajerin {actor.agent.name} bu eşyayı almanın senin marka değerini inanılmaz artıracağını söylüyor ancak fiyatı dudak uçuklatıcı seviyede. Geceye katılan kameralar tüm gözleri sana çevirmiş durumda.",
+      "choices": [
+        {
+          "id": "c_esyati_al",
+          "text": "Fiyatı ne olursa olsun artırmayı kazan ve o eşyayı al.",
+          "target": "n_esyati_al",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -500000
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 30
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_daha_ucuz_bagis",
+          "text": "Açık artırmadan çekil ama kulübün altyapısına yüklü bir nakit bağışında bulun.",
+          "target": "n_daha_ucuz_bagis",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100000
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_hicbir_sey_yapma",
+          "text": "Açık artırmadan sessizce çekil ve gecede hiçbir harcama yapma.",
+          "target": "n_hicbir_sey_yapma",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "durus": -10
+          }
+        }
+      ]
+    },
+    "n_esyati_al": {
+      "title": "Cömert Yıldız",
+      "kind": "outcome",
+      "text": "Eşyayı astronomik bir fiyata aldın. Başkan {actor.president.name} bu gövde gösterinden çok mutlu oldu ama cüzdanında büyük bir delik açıldı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_daha_ucuz_bagis": {
+      "title": "Altyapı Dostu",
+      "kind": "outcome",
+      "text": "Eşyayı almadın ama altyapıya yaptığın bağış seni taraftarın gözünde bir efsane yaptı. Menajerin {actor.agent.name} PR hamleni dahi buldu.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_hicbir_sey_yapma": {
+      "title": "Cimri Suçlaması",
+      "kind": "outcome",
+      "text": "O gece hiçbir harcama yapmaman medyada 'Cimri Milyoner' başlıklarıyla haber oldu. Başkan {actor.president.name} senin bu cimriliğinden dolayı kulübün imajının zedelendiğini düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_bagis",
+    "beat": "evt_social_bagis_gecesi_skandali",
+    "signature": "social:fam_social_bagis"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

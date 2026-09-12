@@ -66,11 +66,14 @@ export type NodeKind =
   /** Motor tohumlu RNG + stat agirliklariyla karar verir. */
   | 'roll';
 
+export type NodeFormat = 'text' | 'sms' | 'voice' | 'news' | 'tweet' | 'mail' | 'chat';
+
 export interface StoryNode {
   readonly id: string;
   readonly title: string;
   readonly text: string;
   readonly kind: NodeKind;
+  readonly format?: NodeFormat;
   /** Node'a girildigi anda kosulsuz uygulanan efektler. */
   readonly onEnter?: readonly Effect[];
   /** branch icin. */

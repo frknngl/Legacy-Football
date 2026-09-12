@@ -1,0 +1,112 @@
+{
+  "id": "evt_media_fake_news",
+  "family": "fam_media_fake_news",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "fake_news",
+    "signature": "media:fake_news"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Asılsız Söylentiler",
+          "kind": "branch",
+          "text": "Sabah gazetelerde 'Takım arkadaşının sevgilisiyle yakalandı' manşeti var. Bu tamamen asılsız bir iftira, ancak soyunma odasındaki atmosfer buz gibi. İftira atılan takım arkadaşın senden açıklama bekliyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Ona gidip sarıl ve olayın tamamen yalan olduğunu, gazeteye dava açacağını söyle.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -10000
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Umursama. 'Medya her zaman yalan yazar, neden ciddiye alıyorsun?' diyerek geçiştir.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Kulübün avukatlarını devreye sok, olayı resmi bir basın toplantısıyla yalanla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

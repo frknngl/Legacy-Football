@@ -1,0 +1,149 @@
+{
+  "id": "evt_social_gizli_iliski",
+  "family": "fam_social_iliski",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gizli Aşk",
+      "kind": "branch",
+      "text": "Magazin basını, rakip takımın başkanının kızıyla gizli bir ilişkin olduğunu ortaya çıkardı. Kulübün taraftarları çılgına döndü ve seni hainlikle suçluyor. Başkan {actor.president.name} ilişkini hemen bitirmeni talep ediyor.",
+      "choices": [
+        {
+          "id": "c_iliskiyi_bitir",
+          "text": "Başkanın sözünü dinle ve ilişkiyi hemen sonlandırarak takıma bağlılığını kanıtla.",
+          "target": "n_iliskiyi_bitir",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_iliskiye_sahip_cik",
+          "text": "Meydan oku ve 'Aşkın forması olmaz' diyerek ilişkine açıkça sahip çık.",
+          "target": "n_iliskiye_sahip_cik",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "sadakat": -20
+          }
+        },
+        {
+          "id": "c_yalanla",
+          "text": "Kameraların karşısına geç ve tüm iddiaları reddet. İlişkiyi gizlice yürütmeye devam et.",
+          "target": "n_yalanla",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": -30,
+            "mizac": 10
+          }
+        }
+      ]
+    },
+    "n_iliskiyi_bitir": {
+      "title": "Kırık Kalp",
+      "kind": "outcome",
+      "text": "Aşkını kulübün çıkarlarına feda ettin. Başkan {actor.president.name} sadakatinden memnun ama sen depresyona girdin ve antrenmanlarda isteksizsin.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_iliskiye_sahip_cik": {
+      "title": "Aşkın Bedeli",
+      "kind": "outcome",
+      "text": "Tribünler seni her topla buluşmanda yuhalıyor. Ancak dik duruşun bazı tarafsız futbolseverlerin takdirini topladı.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_yalanla": {
+      "title": "Tehlikeli Sırlar",
+      "kind": "outcome",
+      "text": "Yalanın şimdilik işe yaradı ve kriz atlatıldı. Ancak gerçeğin bir gün ortaya çıkma korkusu seni içten içe yiyip bitiriyor.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_iliski",
+    "beat": "evt_social_gizli_iliski",
+    "signature": "social:fam_social_iliski"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

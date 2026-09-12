@@ -1,0 +1,152 @@
+{
+  "id": "evt_mind_hedefsizlik",
+  "family": "fam_mind_hedefsizlik",
+  "category": "mind",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tükenmişlik ve Hedefsizlik",
+      "kind": "branch",
+      "text": "Artık neredeyse kazanılacak her kupayı kazandın, banka hesabın dolu, şöhretin zirvesindesin. Sabah uyandığında idmana gitmek için içindeki o eski ateşi bulamıyorsun. 'Artık ne için oynuyorum?' sorusu beynini kemiriyor.",
+      "choices": [
+        {
+          "id": "c_yeni_hedef_bul",
+          "text": "Kendine yeni hedefler koy! Mesela gol krallığı rekoru kırmak ya da gençlere ilham olmak için oyna.",
+          "target": "n_yeni_hedef_bul",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_psikolog",
+          "text": "Spor psikoloğundan destek al. Profesyonel bir yardım olmadan bu boşluğu dolduramayacağını kabul et.",
+          "target": "n_psikolog",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_saliver",
+          "text": "Akışına bırak... İdmanlarda sadece varlık göster, maçlarda kendini çok zorlama ve emekliliğin tadını çıkar.",
+          "target": "n_saliver",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -20
+          }
+        }
+      ]
+    },
+    "n_yeni_hedef_bul": {
+      "title": "Ateşi Harlamak",
+      "kind": "outcome",
+      "text": "Gençlere mentorluk yapmak ve rekorların peşinden koşmak içindeki ateşi yeniden harladı. Hoca {actor.manager.name} senin bu yeni profesyonel tavrına hayran kaldı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_psikolog": {
+      "title": "İçsel Barış",
+      "kind": "outcome",
+      "text": "Psikoloğun yönlendirmesiyle futbolun sadece kupa kazanmaktan ibaret olmadığını anladın. Eski hırsın kalmasa da zihnin daha berrak.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_saliver": {
+      "title": "Gölge",
+      "kind": "outcome",
+      "text": "Sahada bir hayalet gibisin. Vurdumduymaz tavrın takım arkadaşlarını ve medyayı rahatsız etmeye başladı. Kulüp başkanı senin emekliliği beklediğini düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_hedefsizlik",
+    "beat": "evt_mind_hedefsizlik",
+    "signature": "mind:fam_mind_hedefsizlik"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

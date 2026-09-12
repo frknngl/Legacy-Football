@@ -1,0 +1,112 @@
+{
+  "id": "evt_social_political_comment",
+  "family": "fam_social_political_comment",
+  "category": "social",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "political_comment",
+    "signature": "social:political_comment"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Siyasi Paylaşım",
+          "kind": "branch",
+          "text": "Ülkede yaşanan gergin bir siyasi olay hakkında sosyal medyadan görüşünü belirttin. Kulüp yönetimi derhal paylaşımını silmeni istiyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Silmiyorum. 'Düşünce özgürlüğüm var' de.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Paylaşımı sil ve spora siyaset karıştırdığın için özür dile.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Sadece paylaşımı sil ama bir daha yorum yapma.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

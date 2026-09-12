@@ -1,0 +1,145 @@
+{
+  "id": "evt_transfer_agent_wars",
+  "family": "fam_transfer_agent_wars",
+  "category": "transfer",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Menajer Savaşları",
+      "text": "Kariyerinin en iyi sezonunu geçiriyorsun ve Avrupa'nın dev kulüpleri peşinde. Yıllardır seninle olan eski menajerin bir teklif getiriyor, ancak aynı gün çok daha ünlü, 'Süper Menajer' lakaplı başka biri seni lüks bir yemeğe çıkarıp 'Seni Real Madrid'e götürebilirim ama önce diğer adamı kovmalısın' diyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_eski",
+          "text": "Eski menajerine sadık kal.",
+          "target": "n_eski",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -50000,
+                "perTier": -25000
+              }
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "profesyonellik": 10
+          }
+        },
+        {
+          "id": "c_yeni",
+          "text": "Süper Menajer ile anlaş.",
+          "target": "n_yeni",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 200000,
+                "perTier": 100000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "sadakat": -25,
+            "hırs": 20
+          }
+        },
+        {
+          "id": "c_ortak",
+          "text": "İkisini bir araya getirip ortak çalışmaya zorla.",
+          "target": "n_ortak_roll",
+          "effects": [],
+          "persona": {
+            "zeka": 15
+          }
+        }
+      ]
+    },
+    "n_eski": {
+      "title": "Vefa Zamanı",
+      "kind": "outcome",
+      "text": "Saygınlığın artar ancak finansal olarak çok büyük bir fırsatı tepmiş olursun.",
+      "onEnter": []
+    },
+    "n_yeni": {
+      "title": "Para ve Şöhret",
+      "kind": "outcome",
+      "text": "Büyük transfer gerçekleşir ama medyada 'paragöz' olarak yaftalanırsın.",
+      "onEnter": []
+    },
+    "n_ortak_roll": {
+      "title": "Kumar",
+      "kind": "roll",
+      "text": "İki egoyu bir masaya oturtuyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_ortak_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_ortak_fail"
+        }
+      ]
+    },
+    "n_ortak_success": {
+      "title": "Usta Müzakereci",
+      "kind": "outcome",
+      "text": "Harika bir sözleşme koparırsın.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": 100000,
+            "perTier": 50000
+          }
+        }
+      ]
+    },
+    "n_ortak_fail": {
+      "title": "Büyük Hata",
+      "kind": "outcome",
+      "text": "İkisi de masayı terk eder, menajersiz kalırsın.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    }
+  }
+}

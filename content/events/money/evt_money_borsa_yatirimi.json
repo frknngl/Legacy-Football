@@ -1,0 +1,367 @@
+{
+  "id": "evt_money_borsa_yatirimi",
+  "family": "fam_money_borsa",
+  "category": "money",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "once": false,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing",
+    "injured"
+  ],
+  "variants": [
+    {
+      "id": "v_soyunma_odasi_tuyosu",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Soyunma Odası Finansörü",
+          "kind": "branch",
+          "text": "Antrenman sonrası soyunma odasında, takımın tecrübeli isimlerinden biri telefonuyla fazla meşgul. Bir anda heyecanla ayağa fırlıyor. \"Beyler, 'Gezegen Teknoloji' hisseleri uçuşa geçti! Yarın sabah yeni bir anlaşma açıklayacaklarmış, içeriden kesin bilgi.\" Birkaç genç oyuncu hemen telefonlarına sarılıyor. Seni görüp göz kırpıyor: \"Senin sözleşmen iyi, kenara attığın bir şeyler vardır. Ne duruyorsun, gir buraya. Yarına yüzde yirmi garanti.\"",
+          "choices": [
+            {
+              "id": "c_buyuk_gir",
+              "text": "Telefonu çıkarıp yüklü miktarda alım yap. Risk olmadan kazanç olmaz.",
+              "target": "n_buyuk_gir",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": {
+                    "scaleBy": "stature",
+                    "base": -10000,
+                    "perTier": -20000
+                  }
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 8
+              }
+            },
+            {
+              "id": "c_kucuk_gir",
+              "text": "Sadece kaybetmeyi göze alabileceğin ufak bir miktarla şansını dene.",
+              "target": "n_kucuk_gir",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": {
+                    "scaleBy": "stature",
+                    "base": -2000,
+                    "perTier": -4000
+                  }
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 2
+                }
+              ],
+              "persona": {
+                "durus": 4
+              }
+            },
+            {
+              "id": "c_uzak_dur",
+              "text": "\"Ben o topa girmem,\" diyerek dolabını kilitle ve çık.",
+              "target": "n_uzak_dur",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "durus": 7,
+                "dogruluk": 3
+              }
+            }
+          ]
+        },
+        "n_buyuk_gir": {
+          "title": "Kırmızı Ekranlar",
+          "kind": "outcome",
+          "text": "Ertesi sabah uyandığında borsa uygulamasına giriyorsun. Grafik şelale gibi aşağı inmiş. Şirketin CEO'su hakkında soruşturma açıldığı haberi her yerde. Soyunma odasında dün bağıran takım arkadaşın, bugün kulaklıklarını takmış kimseyle konuşmuyor. Telefonun ekranındaki büyük kırmızı eksi işareti, gün boyu moralini bozmaya yetiyor.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "tukenmislik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_kucuk_gir": {
+          "title": "Küçük Bir Heyecan",
+          "kind": "outcome",
+          "text": "Ertesi gün hisseler pek hareket etmedi. Ne söylenen o büyük anlaşma açıklandı ne de hisseler çöktü. Üç beş kuruş zarar ettin, sonra sıkılıp sattın. En azından masada yer aldın ama bu işlerin sana göre olmadığını bir kez daha hatırladın.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -2
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_uzak_dur": {
+          "title": "İzleyici Kalmak",
+          "kind": "outcome",
+          "text": "Ertesi sabah takım arkadaşının küfürler ederek telefonunu yere fırlatışını izliyorsun. Söylenti tamamen asılsız çıkmış, hisse dibe vurmuş. Bazen en iyi yatırım, hiçbir şey yapmamaktır.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 8
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "v_kripto_fenomeni",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "DM'den Gelen Fırsat",
+          "kind": "branch",
+          "text": "[Gelen Mesaj - DM]\n\"Dostum naber? Geçen maç efsaneydin. Sana özel bir projeden bahsedeceğim. Yeni bir coin çıkardık: 'BallerToken'. Sadece birkaç ünlü isme ön satış yapıyoruz. İki haftaya borsaya girecek, X10 garanti. Cüzdan adresini atayım, VIP gruptan giriş yap.\" Mesajı atan, lüks arabalarıyla bilinen bir sosyal medya fenomeni. Profili onaylı, takipçisi çok.",
+          "choices": [
+            {
+              "id": "c_katil",
+              "text": "Büyük fırsat. Fenomenin attığı adrese hatırı sayılır bir miktar transfer et.",
+              "target": "n_katil",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -15000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 7
+              }
+            },
+            {
+              "id": "c_sponsor",
+              "text": "\"Ben para vermem, sosyal medyada paylaşırım bana pay verirseniz\" de.",
+              "target": "n_sponsor",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": -6
+              }
+            },
+            {
+              "id": "c_engelle",
+              "text": "Mesajı görüldüde bırakıp hesabı sessize al. Bu dolandırıcılık kokuyor.",
+              "target": "n_engelle",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 6
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -2
+                }
+              ],
+              "persona": {
+                "dogruluk": 5,
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_avukat",
+              "text": "Durumu doğrudan menajerine ve kulüp avukatına bildir. Seni adlarıyla dolandırıcılığa karıştırmasınlar.",
+              "target": "n_avukat",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "requires": {
+                "flag": "profesyonellik",
+                "op": "gte",
+                "value": 60
+              },
+              "lockLabel": "[Profesyonellik 60]",
+              "persona": {
+                "dogruluk": 8,
+                "sadakat": 5
+              }
+            }
+          ]
+        },
+        "n_katil": {
+          "title": "Rug Pull",
+          "kind": "outcome",
+          "text": "İki hafta geçti. 'BallerToken' borsaya girdi, ancak beş dakika içinde değeri sıfırlandı. Fenomenin hesabına ulaşılmıyor. Magazin siteleri \"Ünlü futbolcu kripto vurgununda parasını kaptırdı\" diye haber yapıyor. Hem paran gitti hem de dalga konusu oldun.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_sponsor": {
+          "title": "Ortaklık Belası",
+          "kind": "outcome",
+          "text": "Paylaşımı yaptın, binlerce takipçin coin aldı. Birkaç gün sonra proje patladı. Senin paran gitmedi ama binlerce taraftar senin yüzünden dolandırıldı. Kulüp yönetimi seni acil toplantıya çağırdı. Menajerin durumu toparlamak için ter döküyor.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_engelle": {
+          "title": "Ucuz Kurtuluş",
+          "kind": "outcome",
+          "text": "Birkaç hafta sonra haberlerde o fenomenin yurt dışına kaçtığını görüyorsun. Takım arkadaşlarından birinin morali çok bozuk, belli ki o mesaj ona da gitmiş. Soğukkanlı kalmanın ödülünü huzurunla aldın.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        },
+        "n_avukat": {
+          "title": "Kurumsal Zırh",
+          "kind": "outcome",
+          "text": "Menajerin hemen devreye girdi ve fenomenin seni kullanarak yaptığı sahte reklamları mahkemeye taşıdı. Adın o pisliğe hiç bulaşmadı. Yönetim bu profesyonel tavrını takdirle karşıladı.",
+          "onEnter": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "npc_agent_arc",
+              "op": "add",
+              "value": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "story": {
+    "arc": "fam_money_borsa",
+    "beat": "evt_money_borsa_yatirimi",
+    "signature": "money:fam_money_borsa"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 40,
+    "signatureGapTurns": 30,
+    "maxBeatUses": 3
+  }
+}

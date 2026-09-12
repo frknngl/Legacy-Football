@@ -1,0 +1,107 @@
+{
+  "id": "evt_life_pet_scandal",
+  "family": "fam_life_pet_scandal",
+  "category": "life",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "pet_scandal",
+    "signature": "life:pet_scandal"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Evcil Hayvan Krizi",
+          "kind": "branch",
+          "text": "Sahip olduğun egzotik evcil hayvanın (kaplan yavrusu) aslında yasadışı yollarla ülkeye sokulduğu ortaya çıktı. Hayvan hakları dernekleri kapında eylem yapıyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Hayvanı hemen barınağa teslim et ve yüklü bağış yap.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Hayvanı geri vermeyi reddet, yasal savaş başlat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hayvanı gizlice bir arkadaşına ver, medyaya 'kaçtı' de.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "karanlik_baglantilar",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

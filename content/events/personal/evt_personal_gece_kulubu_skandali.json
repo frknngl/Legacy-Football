@@ -1,0 +1,149 @@
+{
+  "id": "evt_personal_gece_kulubu_skandali",
+  "family": "fam_personal_gece_kulubu",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gece Kulübü Baskını",
+      "kind": "branch",
+      "text": "Mağlubiyetle sonuçlanan önemli bir maçın ardından sabaha karşı bir gece kulübünden çıkarken paparazzilere yakalandın. Yanında tanımadığın kişiler var ve alkollü görünüyorsun. Flaşlar patlarken muhabirler mikrofon uzatıyor: 'Taraftar kan ağlarken siz burada eğleniyorsunuz, ne diyeceksiniz?'",
+      "choices": [
+        {
+          "id": "c_kavga_et",
+          "text": "Muhabirin üzerine yürü ve kamerasını kır. 'Özel hayatıma saygı duyun!' diye bağır.",
+          "target": "n_kavga_et",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_ozur_dile",
+          "text": "Kameralara dönüp sakin bir şekilde: 'Hata ettim, tüm taraftarlardan özür dilerim.' diyerek uzaklaş.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_umursama",
+          "text": "Gülerek kameralara el salla ve hiçbir şey söylemeden lüks arabana binip git.",
+          "target": "n_umursama",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_kavga_et": {
+      "title": "Karakolluk Gece",
+      "kind": "outcome",
+      "text": "Kamerayı kırdığın için karakolluk oldun. Sabah manşetlerde 'Holigan Yıldız' başlıkları atıldı. Kulüp sana rekor bir para cezası kesti.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": -10000
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Hatasını Bilen Adam",
+      "kind": "outcome",
+      "text": "Ertesi gün idmanda hoca {actor.manager.name} seni kenara çekip uyardı. Taraftar ise özrünü kabul etti ancak bir sonraki maçta her pas hatanda uğultular yükseldi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_umursama": {
+      "title": "Kibirli Şımarık",
+      "kind": "outcome",
+      "text": "Senin bu rahat tavrın taraftarı çıldırttı. Tesislerin önüne gelen bir grup holigan arabanı yumrukladı. Kulüp başkanı seni sert bir şekilde uyardı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_personal_gece_kulubu",
+    "beat": "evt_personal_gece_kulubu_skandali",
+    "signature": "personal:fam_personal_gece_kulubu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

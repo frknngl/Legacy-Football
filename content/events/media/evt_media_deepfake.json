@@ -1,0 +1,110 @@
+{
+  "id": "evt_media_deepfake",
+  "family": "fam_media_deepfake",
+  "category": "media",
+  "tier": "epic",
+  "authored": "hand",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "star",
+    "icon"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Derin Fake Röportaj",
+      "text": "Sabah kalktığında telefonunun kilitlendiğini görüyorsun. Sosyal medyada senin kulüp başkanına, teknik direktöre ve şehrin yemeklerine küfrettiğin bir röportaj dolaşıyor. Oysa sen böyle bir şey asla söylemedin, bu tamamen yapay zeka ile oluşturulmuş bir 'Deepfake' video! Ancak o kadar gerçekçi ki, takım arkadaşların bile şüphe içinde.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_sessiz",
+          "text": "Sessiz kal, kulübün resmi bir açıklama yapmasını bekle.",
+          "target": "n_sessiz",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "profesyonellik": 10,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_video",
+          "text": "Hemen kendi cep telefonundan doğal, makyajsız bir yalanlama videosu çekip paylaş.",
+          "target": "n_video",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "cesaret": 20
+          }
+        },
+        {
+          "id": "c_dava",
+          "text": "Avukatlarına talimat verip videoyu yayan hesapları dava etmeye başla.",
+          "target": "n_dava",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -10000,
+                "perTier": -5000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15
+          }
+        }
+      ]
+    },
+    "n_sessiz": {
+      "title": "Artan Şüphe",
+      "kind": "outcome",
+      "text": "Kriz günlerce büyür. Yavaş hareket ettiğin için şüpheler üstünde kalır.",
+      "onEnter": []
+    },
+    "n_video": {
+      "title": "Samimiyet Testi",
+      "kind": "outcome",
+      "text": "Samimiyetin insanları ikna eder. Olay hızlıca çözülür.",
+      "onEnter": []
+    },
+    "n_dava": {
+      "title": "Gergın Süreç",
+      "kind": "outcome",
+      "text": "Videonun sahte olduğu kanıtlanır ama sert tavrın medyada itici bulunur.",
+      "onEnter": []
+    }
+  }
+}

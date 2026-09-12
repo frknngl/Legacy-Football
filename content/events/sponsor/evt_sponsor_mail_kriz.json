@@ -1,0 +1,157 @@
+{
+  "id": "evt_sponsor_mail_kriz",
+  "family": "fam_sponsor_kriz",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sponsor İhtarnamesi",
+      "kind": "branch",
+      "format": "mail",
+      "text": "Kime: {actor.agent.name}\nKonu: İhlal İhtarnamesi (Sözleşme Madde 4.2)\n\nSn. Menajer, oyuncunuz dünkü maç öncesi antrenmanında ısınmaya sözleşmeli markamız yerine rakip firmanın kramponlarıyla çıkmıştır. Bu açık bir ihlaldir. Eğer resmi bir özür metni yayınlanmazsa sözleşmenin feshi ve tazminat davası süreçleri başlatılacaktır.",
+      "choices": [
+        {
+          "id": "c_ozur_dile",
+          "text": "Sponsor haklı. Resmi bir özür metni yayınla ve hatayı kabul et.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": 10,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_resti_cek",
+          "text": "'Kramponlar ayağımı vuruyordu, ben robot değilim' diyerek rest çek.",
+          "target": "n_resti_cek",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_marka_degis",
+          "text": "Gizlice diğer markayla iletişime geç ve tazminatı onların ödemesini teklif et.",
+          "target": "n_marka_degis",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "sadakat": -15
+          }
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Soğuk Su",
+      "kind": "outcome",
+      "text": "Özür metni yayınlandı. Sponsor geri adım attı ancak taraftarlar sosyal medyada seninle 'sponsor kuklası' diye dalga geçti. Marka değeri korundu, gurur biraz incindi.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_resti_cek": {
+      "title": "Köprüleri Yakmak",
+      "kind": "outcome",
+      "text": "Sözleşme tek taraflı feshedildi ve ağır bir tazminat ödemek zorunda kaldın. Sokaktaki çocuklar tavrını çok havalı buldu ama menajerin kelimenin tam anlamıyla çıldırdı.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_marka_degis": {
+      "title": "Ticari Zeka",
+      "kind": "outcome",
+      "text": "Yeni marka cezayı ödedi ve onlarla daha karlı bir anlaşma imzaladın. Ancak sektörde adın 'güvenilmez' olarak fişlendi. Bir sonraki anlaşman çok daha zor olacak.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_sponsor_kriz",
+    "beat": "evt_sponsor_mail_kriz",
+    "signature": "sponsor:fam_sponsor_kriz"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "Mail formati"
+  }
+}

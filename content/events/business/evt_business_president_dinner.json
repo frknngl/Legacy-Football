@@ -1,0 +1,112 @@
+{
+  "id": "evt_business_president_dinner",
+  "family": "fam_business_president_dinner",
+  "category": "business",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "board_politics",
+    "beat": "president_dinner",
+    "signature": "business:president_dinner"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Başkan'ın Sofrası",
+          "kind": "branch",
+          "text": "Kulüp başkanı seni lüks bir restoranda akşam yemeğine davet etti. Ana yemek geldiğinde konuyu açtı: 'Seni efsane yapmak istiyorum ama bunun için maaşında indirime gitmen gerek.' Masada menajerin yok, sadece sen ve kulübün en güçlü adamı.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Kabul et. Kulüp efsanesi olmak paradan daha önemli.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "dogruluk": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Reddet. 'Menajerim olmadan profesyonel konuları konuşmam' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Pazarlık yap. 'Maaş iner ama serbest kalma bedelim de düşmeli.'",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_1": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_2": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        }
+      }
+    }
+  ]
+}

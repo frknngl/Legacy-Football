@@ -1,0 +1,112 @@
+{
+  "id": "evt_transfer_hijack",
+  "family": "fam_transfer_hijack",
+  "category": "transfer",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "board_politics",
+    "beat": "hijack",
+    "signature": "transfer:hijack"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Uçakta Çalınan Transfer",
+          "kind": "branch",
+          "text": "Sözleşme imzalamak için A takımına giderken, ezeli rakip B takımı sana iki kat maaş teklif etti ve uçağını kendi şehirlerine indirmek istiyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Parayı seç, uçağı yönlendir ve B takımına imza at.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 100000
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -40
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "dogruluk": -20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Söz verdiğin gibi A takımına git. Şeref paradan önemlidir.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Teklifi A takımına söyleyip fiyat artırmalarını sağla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 20000
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_1": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_2": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        }
+      }
+    }
+  ]
+}

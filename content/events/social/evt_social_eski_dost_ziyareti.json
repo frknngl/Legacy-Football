@@ -1,0 +1,149 @@
+{
+  "id": "evt_social_eski_dost_ziyareti",
+  "family": "fam_social_dost",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Geçmişten Gelen Dost",
+      "kind": "branch",
+      "text": "Çocukluk mahalleden eski bir dostun seni ziyarete geldi. Ancak kendisi şu an yer altı dünyasıyla bazı şaibeli işlere bulaşmış durumda. Kulüp başkanı {actor.president.name} ve kaptan {actor.captain.name} onunla görüntülenmeni istemiyor, çünkü basında dedikodular yayılmaya başladı bile.",
+      "choices": [
+        {
+          "id": "c_dosta_sahip_cik",
+          "text": "Arkadaşına sahip çık ve onu kulüp locasında ağırla. 'Geçmişimi asla inkar etmem.'",
+          "target": "n_dosta_sahip_cik",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "sadakat": 30,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_gizlice_gorus",
+          "text": "Kulübün uyarılarını dinle ve onunla sadece gizlice, kimsenin görmediği bir evde görüş.",
+          "target": "n_gizlice_gorus",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "dogruluk": -10
+          }
+        },
+        {
+          "id": "c_baglari_kopar",
+          "text": "Ona bir miktar para vererek şehri terk etmesini ve bir daha seninle görüşmemesini söyle.",
+          "target": "n_baglari_kopar",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -25000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "sadakat": -30,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_dosta_sahip_cik": {
+      "title": "Mahalle Delikanlısı",
+      "kind": "outcome",
+      "text": "Sokaklarda sana duyulan saygı inanılmaz arttı ama medya seni mafyatik ilişkilerle suçluyor. Başkan {actor.president.name} durumdan hiç memnun değil.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_gizlice_gorus": {
+      "title": "Gölge Hayatlar",
+      "kind": "outcome",
+      "text": "Kaptanın {actor.captain.name} haberi bile olmadı, takım içinde profesyonel imajını korudun. Ancak eski dostunla arandaki bağ eski sıcaklığını kaybetti.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_baglari_kopar": {
+      "title": "Kesilen Kökler",
+      "kind": "outcome",
+      "text": "Dostun parayı aldı ama sana karşı büyük bir öfkeyle ayrıldı. Geçmişini silmenin bedelini vicdan azabıyla ödüyorsun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_dost",
+    "beat": "evt_social_eski_dost_ziyareti",
+    "signature": "social:fam_social_dost"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

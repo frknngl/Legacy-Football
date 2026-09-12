@@ -1,0 +1,153 @@
+{
+  "id": "evt_locker_kaptanlik_kavgasi",
+  "family": "fam_locker_kaptanlik_kavgasi",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Bant Kimin Kolunda?",
+      "kind": "branch",
+      "text": "Takımın efsane kaptanı {actor.captain.name}, son haftalarda formsuz. Hoca antrenmanda seni kenara çekip, 'Sahada liderlik eksik, bir sonraki maç sahaya kaptan olarak senin çıkmanı istiyorum. Bunu ona sen mi söylersin yoksa ben mi?' diyor.",
+      "choices": [
+        {
+          "id": "c_ben_soylerim",
+          "text": "Sorumluluğu al. Gidip durumu ona yüz yüze, açıkça anlat.",
+          "target": "n_ben_soylerim",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_hoca_soylesin",
+          "text": "Otoriteyi hocaya bırak. 'Karar sizin hocam, ben karışamam' diyerek kenara çekil.",
+          "target": "n_hoca_soylesin",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Kaptanlık bandını reddet. 'Onun forması ve tecrübesi yeter, o bizim kaptanımız' de.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_ben_soylerim": {
+      "title": "Yüzleşme",
+      "kind": "outcome",
+      "text": "Onunla yüzleştiğinde büyük bir kavga koptu, ancak bu dürüstlüğüne saygı duymak zorunda kaldı. Bandı aldın ama soyunma odasında iki kutup oluştu.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_hoca_soylesin": {
+      "title": "Aradan Çekilen",
+      "kind": "outcome",
+      "text": "Hoca kararını açıkladığında oklar sana değil hocaya yöneldi. Kaptan sana kırgın olmasa da, hocayla aralarındaki gerginlik tüm takıma yansıdı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Sadakat",
+      "kind": "outcome",
+      "text": "Reddetmen {actor.captain.name:acc} o kadar motive etti ki sonraki maçta inanılmaz oynadı. Hoca bu duruma bozulsa da takım içindeki bağınız hiç olmadığı kadar güçlendi.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_locker_kaptanlik_kavgasi",
+    "beat": "evt_locker_kaptanlik_kavgasi",
+    "signature": "locker:fam_locker_kaptanlik_kavgasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "id": "evt_social_vip_brawl",
+  "family": "fam_social_vip_brawl",
+  "category": "social",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "vip_brawl",
+    "signature": "social:vip_brawl"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "VIP Locasında Kavga",
+          "kind": "branch",
+          "text": "İzin gününde gittiğin gece kulübünün VIP locasında, yan masadaki alkollü bir grup kız arkadaşına laf atıyor. Koruma müdahale etmekte gecikiyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Gidip adamlara bizzat yumruk at. Şeref her şeyden önemlidir.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": 30
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Kız arkadaşını alıp mekanı sessizce terk et.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Mekan sahibini ara ve adamları rezil ederek yaka paça attır.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -5000
+                },
+                {
+                  "flag": "karanlik_baglantilar",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

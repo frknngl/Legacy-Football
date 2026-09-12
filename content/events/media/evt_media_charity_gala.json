@@ -1,0 +1,112 @@
+{
+  "id": "evt_media_charity_gala",
+  "family": "fam_media_charity_gala",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "charity_gala",
+    "signature": "media:charity_gala"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Yardım Galası",
+          "kind": "branch",
+          "text": "Kulübün düzenlediği büyük bir yardım galasında açık artırma yapılıyor. Kameralar sürekli senin masanda. Rakip takımın yıldızı 100 bin dolar bağışlayarak alkış aldı. Şimdi sıra sende.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Onun bağışını ikiye katla (200.000$) ve şovu çal.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -200000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Mütevazı bir bağış yap (20.000$) ve geceyi sakin geçir.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Bağış yapmak yerine, bir çocuk hastanesine giderek zamanını harcayacağını söyle.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

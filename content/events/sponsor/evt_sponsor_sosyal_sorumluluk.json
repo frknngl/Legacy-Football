@@ -1,0 +1,149 @@
+{
+  "id": "evt_sponsor_sosyal_sorumluluk",
+  "family": "fam_sponsor_sosyal_sorumluluk",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sosyal Sorumluluk",
+      "kind": "branch",
+      "text": "Kulübün önemli sponsorlarından biri, büyük bir sosyal sorumluluk projesi başlatıyor ve bu projenin yüzü olmanı istiyor. Ancak proje lansmanı, çok kritik bir Avrupa maçı öncesindeki son antrenmanla aynı saate denk geliyor. Hoca {actor.manager.name} antrenmanda olmanı emrederken, başkan {actor.president.name} sponsorun kırılmaması gerektiğini söylüyor.",
+      "choices": [
+        {
+          "id": "c_projeye_katil",
+          "text": "Antrenmanı asıp lansmana katıl. 'Kulübün maddi çıkarları ve bu projenin amacı daha önemli.'",
+          "target": "n_projeye_katil",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_antrenmana_cik",
+          "text": "Projeyi reddet ve antrenmana çık. 'Benim işim futbol oynamak, Avrupa maçına hazırlanmalıyım.'",
+          "target": "n_antrenmana_cik",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_kendi_imkaninla_yap",
+          "text": "Sponsoru reddet ama kendi cebinden benzer bir sosyal proje başlatarak tepkileri dindir.",
+          "target": "n_kendi_imkaninla_yap",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_projeye_katil": {
+      "title": "Halkın Kahramanı",
+      "kind": "outcome",
+      "text": "Lansman çok başarılı geçti ve medyanın sevgilisi oldun. Ancak hoca {actor.manager.name} antrenmanı asmanı affetmedi ve Avrupa maçında seni yedek bıraktı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_antrenmana_cik": {
+      "title": "Saha Adamı",
+      "kind": "outcome",
+      "text": "Antrenmandaki ciddiyetin hoca {actor.manager.name:gen} güvenini kazandı. Ancak başkan {actor.president.name} sponsorla yaşanan gerginliğin faturasını sana kesmeye hazırlanıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_kendi_imkaninla_yap": {
+      "title": "Bireysel İnisiyatif",
+      "kind": "outcome",
+      "text": "Kendi cebinden yaptığın harcama çok takdir topladı. Hem antrenmana çıktın hem de yardımseverliğini gösterdin. Sadece cüzdanın biraz hafifledi.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_sponsor_sosyal_sorumluluk",
+    "beat": "evt_sponsor_sosyal_sorumluluk",
+    "signature": "sponsor:fam_sponsor_sosyal_sorumluluk"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

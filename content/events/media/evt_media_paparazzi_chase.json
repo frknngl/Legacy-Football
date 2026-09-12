@@ -1,0 +1,117 @@
+{
+  "id": "evt_media_paparazzi_chase",
+  "family": "fam_media_paparazzi_chase",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "paparazzi_chase",
+    "signature": "media:paparazzi_chase"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Paparazzi Takibi",
+          "kind": "branch",
+          "text": "Kız arkadaşınla/eşinle yediğin sessiz bir yemeğin çıkışında, magazin ordusu etrafınızı sardı. Kameralar yüzüne doğru patlarken, mikrofonlar takımın son yenilgisi hakkında abuk subuk sorular soruyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Gülümse, eşini koruyarak sessizce arabaya yönel.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Mikrofonlardan birini it, 'Özel hayatıma saygı gösterin!' diye bağır.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Kameralara dön ve 'Yenilgi hakkında konuşmak isteyen antrenmana gelsin' diyerek profesyonel bir ayar ver.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 8
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

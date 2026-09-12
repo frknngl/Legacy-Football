@@ -1,0 +1,134 @@
+{
+  "id": "evt_sponsor_movie_cameo",
+  "family": "fam_sponsor_movie",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "star",
+    "icon"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kötü Film Rolü",
+      "text": "Ünlü bir yönetmen, çekmekte olduğu aksiyon filminde sana küçük bir rol teklif ediyor. Ancak senaryoya göre çok aptalca konuşan ve filmin ilk 10 dakikasında komik bir şekilde dayak yiyen bir kötü adamı canlandırman isteniyor. Meblağ dudak uçuklatıcı.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kabul",
+          "text": "Teklifi kabul et, parayı al ve rezil olmayı göze al.",
+          "target": "n_kabul",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 200000,
+                "perTier": 100000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "'Ben bir sporcuyum, palyaço değil' diyerek reddet.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_degistir",
+          "text": "Yönetmenden rolü 'havalı bir ajana' çevirmesini talep et.",
+          "target": "n_degistir_roll",
+          "effects": [],
+          "persona": {
+            "ego": 20
+          }
+        }
+      ]
+    },
+    "n_kabul": {
+      "title": "Komik Adam",
+      "kind": "outcome",
+      "text": "Soyunma odasında takım arkadaşların filmin o sahnesini açıp bütün sezon seninle dalga geçer.",
+      "onEnter": []
+    },
+    "n_reddet": {
+      "title": "Ciddi Sporcu",
+      "kind": "outcome",
+      "text": "Efsanevi sporcu imajını korursun ama büyük parayı elinin tersiyle itersin.",
+      "onEnter": []
+    },
+    "n_degistir_roll": {
+      "title": "Ego Çatışması",
+      "kind": "roll",
+      "text": "Yönetmene şartlarını sunuyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_degistir_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_degistir_fail"
+        }
+      ]
+    },
+    "n_degistir_success": {
+      "title": "Yeni Hollywood Yıldızı",
+      "kind": "outcome",
+      "text": "Kabul eder ve süper yıldız olursun.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 30
+        },
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": 100000,
+            "perTier": 50000
+          }
+        }
+      ]
+    },
+    "n_degistir_fail": {
+      "title": "Kapı Dışarı",
+      "kind": "outcome",
+      "text": "Seni şımarık bulup projeden kovar.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  }
+}

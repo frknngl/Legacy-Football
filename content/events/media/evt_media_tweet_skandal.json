@@ -1,0 +1,151 @@
+{
+  "id": "evt_media_tweet_skandal",
+  "family": "fam_media_gundem",
+  "category": "media",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 20,
+    "family": 10
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sosyal Medya Gündemi",
+      "kind": "branch",
+      "format": "tweet",
+      "text": "SON DAKİKA | Ünlü futbolcu gece yarısı lüks bir mekandan çıkarken görüntülendi. Yanındaki gizemli kişi kim? Yönetimin bu duruma ne diyeceği merak konusu. 📸 #GündemSpor",
+      "choices": [
+        {
+          "id": "c_yanit_ver",
+          "text": "Tweeti alıntıla ve 'Kuzenimle kahve içmek ne zamandan beri skandal oldu?' yazarak dalga geç.",
+          "target": "n_yanit_ver",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Hiçbir şey yazma, medyanın kendi kendine yorulmasını bekle.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_avukat",
+          "text": "Menajerini ve avukatını devreye sokarak haberi yapan sayfaya ihtar çek.",
+          "target": "n_avukat",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -5000
+            }
+          ],
+          "persona": {
+            "dogruluk": 5,
+            "sadakat": -5
+          }
+        }
+      ]
+    },
+    "n_yanit_ver": {
+      "title": "Taraftarın Sevgilisi",
+      "kind": "outcome",
+      "text": "Verdiğin esprili yanıt binlerce beğeni aldı. Sayfa rezil oldu ve haberi silmek zorunda kaldı. Taraftarlar rahat tavrını çok sevdi.",
+      "onEnter": []
+    },
+    "n_sessiz_kal": {
+      "title": "Dedikodu Kazanı",
+      "kind": "outcome",
+      "text": "Sessiz kaldıkça iddialar büyüdü. Ertesi gün idmanda hocan seni kenara çekip 'Özel hayatına dikkat et' uyarısında bulundu.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_avukat": {
+      "title": "Hukuki Yollar",
+      "kind": "outcome",
+      "text": "Sayfa panikle tweeti sildi ve özür diledi ancak magazin basını artık sana karşı cephe aldı. Gelecekte en ufak hatanı bekliyor olacaklar.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_media_gundem",
+    "beat": "evt_media_tweet_skandal",
+    "signature": "media:fam_media_gundem"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "Tweet formati nedeniyle yari kisa tutulmustur."
+  }
+}

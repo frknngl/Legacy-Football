@@ -1,0 +1,152 @@
+{
+  "id": "evt_mind_tukenmislik",
+  "family": "fam_mind_tukenmislik",
+  "category": "mind",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Zihin",
+      "kind": "branch",
+      "text": "Fikstürün yoğunluğu, medyanın baskısı ve taraftar beklentisi seni dibe çekti. Ağır bir 'Burnout' (tükenmişlik) yaşıyorsun. Antrenmanlara gitmek bile bir işkence gibi gelmeye başladı. Menajerin ({actor.agent.name}) ve kulüp psikoloğu durumu fark edip seninle toplantı yapıyor.",
+      "choices": [
+        {
+          "id": "c_izne_ayril",
+          "text": "Teknik direktörden ekstra izin isteyip doğayla baş başa kal.",
+          "target": "n_tatil",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_terapi",
+          "text": "Kulüp psikoloğuyla yoğun seanslara başla.",
+          "target": "n_meditasyon",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_zorla",
+          "text": "Hiçbir şey yokmuş gibi davran! \"Ben makineyim, bunlar zayıfların bahanesi\" diyerek antrenmanda daha çok çalış.",
+          "target": "n_zorla",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_tatil": {
+      "title": "Küçük Bir Kaçamak",
+      "kind": "outcome",
+      "text": "Dağ evindeki sessizlik zihnini boşaltmana yardımcı oldu. Döndüğünde fiziksel olarak dinlenmiş hissetsen de takım arkadaşlarından koptuğunu hissettin.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_meditasyon": {
+      "title": "İçsel Denge",
+      "kind": "outcome",
+      "text": "Psikolog eşliğindeki meditasyon seansları sahada daha odaklı olmanı sağladı. Ancak bu süreçte fiziksel idmanlardan biraz geri kaldın.",
+      "onEnter": [
+        {
+          "flag": "npc_psychologist_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_zorla": {
+      "title": "Kırılana Kadar",
+      "kind": "outcome",
+      "text": "Acıyı ve yorgunluğu görmezden gelerek oynamaya devam ettin. Antrenörün hırsını takdir etti ama maç sonlarında bacaklarının titremesine engel olamadın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_tukenmislik",
+    "beat": "evt_mind_tukenmislik",
+    "signature": "mind:fam_mind_tukenmislik"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 200,
+    "signatureGapTurns": 180,
+    "maxBeatUses": 1
+  }
+}

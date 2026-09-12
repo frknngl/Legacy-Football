@@ -1,0 +1,140 @@
+{
+  "id": "evt_tactics_setpiece_thief",
+  "family": "fam_tactics_setpiece",
+  "category": "tactics",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Duran Top Hırsızlığı",
+      "text": "Maçın son dakikaları, kritik bir serbest vuruş kazandınız. Hoca maçtan önce açıkça 'Bu noktadan sadece 10 numara vuracak' demişti. Ama sen içinden bir sesin 'Vur' dediğini duyuyorsun. 10 numara topu dikti, geri çekildi, sen o sırada depara kalktın...",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_vur",
+          "text": "Topa onun yerine sen vur!",
+          "target": "n_vur_roll",
+          "effects": [],
+          "persona": {
+            "cesaret": 25,
+            "disiplin": -25
+          }
+        },
+        {
+          "id": "c_kavga",
+          "text": "Topun yanına gidip adamın elinden al, 'Ben vuracağım' diye kavga et.",
+          "target": "n_kavga",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -4
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "ego": 25,
+            "profesyonellik": -20
+          }
+        },
+        {
+          "id": "c_vazgec",
+          "text": "Hocanın sözünü dinle ve adama bırak.",
+          "target": "n_vazgec",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "disiplin": 15
+          }
+        }
+      ]
+    },
+    "n_vur_roll": {
+      "title": "İhanet Şutu",
+      "kind": "roll",
+      "text": "10 numara şok içinde bakarken ayağını topa geçiriyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_vur_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_vur_fail"
+        }
+      ]
+    },
+    "n_vur_success": {
+      "title": "Bencil Kahraman",
+      "kind": "outcome",
+      "text": "Top 90'a asılır! Herkes üstüne atlar. Hoca kızgındır ama gollere laf edemez.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 15
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_vur_fail": {
+      "title": "Rezillik",
+      "kind": "outcome",
+      "text": "Topu tribüne dikersin. Maç bittiğinde soyunma odasında dayak yeme ihtimalin var.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -15
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        },
+        {
+          "flag": "npc_teammates_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_kavga": {
+      "title": "Çocukça Hareketler",
+      "kind": "outcome",
+      "text": "Kameralar önünde çocuk gibi topu paylaşılamaz hale getirirsiniz. Takım zarar görür.",
+      "onEnter": []
+    },
+    "n_vazgec": {
+      "title": "Görev Adamı",
+      "kind": "outcome",
+      "text": "Arkadaşın topu baraja nişanlar. 'Keşke ben vursaydım' dersin ama sistemi bozmamışsındır.",
+      "onEnter": []
+    }
+  }
+}

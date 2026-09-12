@@ -1,0 +1,117 @@
+{
+  "id": "evt_transfer_forced_move",
+  "family": "fam_transfer_forced_move",
+  "category": "transfer",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "board_politics",
+    "beat": "forced_move",
+    "signature": "transfer:forced_move"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "İstenmeyen Satış",
+          "kind": "branch",
+          "text": "Kulüp finansal krizde. Yönetim, yüksek piyasa değerin olduğu için seni satmak istiyor. Sen kalmak istiyorsun ama Sportif Direktör 'Eğer gitmezsen sezonu tribünde geçirirsin' diyerek tehdit ediyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Resti gör. 'Sözleşmem var, hiçbir yere gitmiyorum' de.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -30
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Teslim ol ve menajerinden kulüp bulmasını iste.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Basına sızdır. 'Yönetim beni zorla satıyor' diye isyan et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -40
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_1": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_2": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        }
+      }
+    }
+  ]
+}

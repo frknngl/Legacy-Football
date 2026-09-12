@@ -1,0 +1,117 @@
+{
+  "id": "evt_money_divorce_settlement",
+  "family": "fam_money_divorce_settlement",
+  "category": "money",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "divorce_settlement",
+    "signature": "money:divorce_settlement"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Pahalı Boşanma",
+          "kind": "branch",
+          "text": "Eşin senden boşanma kararı aldı ve şöhret olmadan önce evlendiğiniz için evlilik sözleşmeniz yok. Servetinin tam yarısını talep ediyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Zorluk çıkarma, istediğini verip huzurlu bir şekilde ayrıl.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -500000
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "En pahalı boşanma avukatlarını tut ve tek kuruş vermemek için savaş.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -50000
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Basına sızdırıp eski eşini 'para avcısı' olarak karala.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "karanlik_baglantilar",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

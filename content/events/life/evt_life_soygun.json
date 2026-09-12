@@ -1,0 +1,149 @@
+{
+  "id": "evt_life_soygun",
+  "family": "fam_life_soygun",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 100,
+    "family": 60
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kötü Sürpriz",
+      "kind": "branch",
+      "text": "Deplasmandan döndüğünde evinin darmadağın edildiğini görüyorsun. Hırsızlar lüks saatlerini, mücevherlerini ve en kötüsü, kariyerin boyunca kazandığın tüm madalyaları çalmışlar. Polisin bulma ihtimali düşük. Menajerin {actor.agent.name} 'Önemli olan canına bir şey gelmemesi' diyerek seni sakinleştirmeye çalışıyor.",
+      "choices": [
+        {
+          "id": "c_guvenligi_artir",
+          "text": "Evini bir kaleye çevir. Yeni kameralar, 7/24 güvenlik görevlileri tut. Korkunu maddiyatla yen.",
+          "target": "n_guvenligi_artir",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -150000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_kampanya_baslat",
+          "text": "Sosyal medyada hırsızlara seslen, 'Saatler sizin olsun, madalyalarımı geri verin' diyerek ödül koy.",
+          "target": "n_kampanya_baslat",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_tasi_topragi",
+          "text": "O evde artık güvende hissetmiyorsun. Her şeyi satıp kulübün tesislerine yakın sıkıcı ama ultra güvenli bir siteye taşın.",
+          "target": "n_tasi_topragi",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -200000
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        }
+      ]
+    },
+    "n_guvenligi_artir": {
+      "title": "Paranoya",
+      "kind": "outcome",
+      "text": "Evin güvenlik seviyesi Pentagon'u geçti. Kendini güvende hissediyorsun ama o eski rahat, eğlenceli hayatından eser kalmadı."
+    },
+    "n_kampanya_baslat": {
+      "title": "Halkın Gücü",
+      "kind": "outcome",
+      "text": "Sosyal medyadaki çağrın büyük yankı buldu. Şaşırtıcı bir şekilde madalyaların bir hafta sonra polise isimsiz olarak teslim edildi. Kaybettiğin saatlerin parası umurunda bile değildi."
+    },
+    "n_tasi_topragi": {
+      "title": "Yeni Sayfa",
+      "kind": "outcome",
+      "text": "Yeni siten inanılmaz derecede sıkıcı ama bir o kadar da güvenli. Artık geceleri rahat uyuyorsun. {actor.agent.name} bu kararından çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_life_soygun",
+    "beat": "evt_life_soygun",
+    "signature": "life:fam_life_soygun"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 100,
+    "beatGapTurns": 100,
+    "signatureGapTurns": 100,
+    "maxBeatUses": 1
+  }
+}

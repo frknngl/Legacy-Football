@@ -1,0 +1,112 @@
+{
+  "id": "evt_media_magazine_cover",
+  "family": "fam_media_magazine_cover",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "magazine_cover",
+    "signature": "media:magazine_cover"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Moda Dergisi Kapağı",
+          "kind": "branch",
+          "text": "Ünlü bir moda dergisi seni kapağa taşımak istiyor. Ancak konsept oldukça iddialı ve 'futbolcu' imajından çok uzak, neredeyse provokatif. Maço taraftar gruplarının tepkisini çekebilir.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Teklifi kabul et, yeni bir imaj her zaman kazandırır.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 30000
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Reddet, 'Ben futbolumla konuşulmak istiyorum' de.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Konseptin daha sade olması şartıyla kabul et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "id": "evt_social_twitch_gaf",
+  "family": "fam_social_medya_krizi",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Canlı Yayında Gaf",
+      "text": "Maçtan bir gece önce, stres atmak için takım arkadaşlarınla popüler bir FPS oyununda Twitch yayını yapıyorsun. Oyun çok heyecanlı bir noktadayken, mikrofonun açık olduğunu unutup kulübün taktiği veya hocanın son kararları hakkında eleştirel bir küfür/yorum savuruyorsun. Chat ekranı anında '!!!' işaretleriyle doluyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kapat",
+          "text": "Yayını anında kapat ve hiçbir şey olmamış gibi davran.",
+          "target": "n_kapat",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            }
+          ]
+        },
+        {
+          "id": "c_saka",
+          "text": "Hemen 'Şaka yapıyordum millet, hocamız bir dahi' diye toparlamaya çalış.",
+          "target": "n_saka",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -5000,
+                "perTier": -1000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ]
+        },
+        {
+          "id": "c_agresif",
+          "text": "Suçu oyundaki ping/lag sorununa atıp agresifleş.",
+          "target": "n_agresif",
+          "effects": [
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -1
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    "n_kapat": {
+      "title": "Kriz Büyüyor",
+      "kind": "outcome",
+      "text": "Video anında Twitter'a düşer. Medya krizi büyür, hoca tarafından ertesi gün kadro dışı bırakılırsın.",
+      "onEnter": []
+    },
+    "n_saka": {
+      "title": "Ucuz Kurtuluş",
+      "kind": "outcome",
+      "text": "Samimi bulunmazsın ama kriz küçülür. Sadece ufak bir para cezası alırsın.",
+      "onEnter": []
+    },
+    "n_agresif": {
+      "title": "Toxic Gamer",
+      "kind": "outcome",
+      "text": "Böyle bir imaj çizersin. Bazı genç taraftarlar bunu sever ama kulüp yönetimi uyarır.",
+      "onEnter": []
+    }
+  }
+}

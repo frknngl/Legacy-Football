@@ -1,0 +1,107 @@
+{
+  "id": "evt_tactics_position_change",
+  "family": "fam_tactics_position_change",
+  "category": "tactics",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "position_change",
+    "signature": "tactics:position_change"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Taktiksel Evrim",
+          "kind": "branch",
+          "text": "Yeni hoca seni alıştığın hücum mevkisinden alıp, takımın ihtiyacı var diyerek savunma ağırlıklı bir pozisyona (Bek/Ön Libero) çekmek istiyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "İtiraz et, 'Ben hücum oyuncusuyum, savunma yapmam' de.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -25
+                },
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Kabul et ve yeni pozisyonun inceliklerini öğrenmek için ekstra çalış.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "dogruluk": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Gönülsüzce kabul et ama sahada kendi bildiğin gibi oyna.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "id": "evt_personal_kumar_borcu",
+  "family": "fam_personal_kumar_borcu",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tehlikeli Masalar",
+      "kind": "branch",
+      "text": "Son zamanlarda stres atmak için gittiğin yasadışı poker masalarında işler kontrolden çıktı. Büyük bir meblağ kaybettin ve masanın sahipleri paranı istiyor. Menajerin {actor.agent.name} durumdan haberdar oldu ve kulübün bunu öğrenmemesi gerektiğini söylüyor.",
+      "choices": [
+        {
+          "id": "c_hemen_ode",
+          "text": "Tüm birikimini kullanarak borcu hemen kapat ve konuyu sessizce örtbas et.",
+          "target": "n_hemen_ode",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -150000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_kulupten_yardim",
+          "text": "Başkan {actor.president.name:dat} gidip gerçeği anlat ve kulübün avukatlarıyla sorunu çözmesini iste.",
+          "target": "n_kulupten_yardim",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_kavga_et",
+          "text": "Borcu ödemeyi reddet ve mafyöz tiplere rest çek: 'Bana kimse dokunamaz.'",
+          "target": "n_kavga_et",
+          "effects": [
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": 20
+          }
+        }
+      ]
+    },
+    "n_hemen_ode": {
+      "title": "Sessiz Çözüm",
+      "kind": "outcome",
+      "text": "Büyük bir servet kaybettin ama olay basına sızmadı. Menajerin seninle olan sözleşmesini gözden geçirebileceğini ima etti.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_kulupten_yardim": {
+      "title": "Kurtarıcı Başkan",
+      "kind": "outcome",
+      "text": "Başkan sorunu sessizce çözdü ancak sana artık potansiyel bir sorun kaynağı olarak bakıyor. Bir sonraki sözleşme görüşmesinde elin çok zayıfladı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_kavga_et": {
+      "title": "Sokak Adaleti",
+      "kind": "outcome",
+      "text": "Bir gece idmandan dönerken arabanın önü kesildi ve darp edildin. Olay polise yansıdı. Hafif yaralarla kurtulsan da kulüp imajını zedelediğin için seni süresiz kadro dışı bırakmayı düşünüyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_injured_in_match"
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_personal_kumar_borcu",
+    "beat": "evt_personal_kumar_borcu",
+    "signature": "personal:fam_personal_kumar_borcu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

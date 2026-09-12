@@ -1,0 +1,149 @@
+{
+  "id": "evt_life_diyet_bozma",
+  "family": "fam_life_diyet",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kaçamak Menü",
+      "kind": "branch",
+      "text": "Kulübün diyetisyeni çok sıkı bir beslenme programı uyguluyor. Uzun bir deplasman dönüşü dayanamadın ve gece yarısı lüks bir fast-food restoranına gidip devasa bir menü sipariş ettin. Tam yemeğe başlarken hoca {actor.manager.name} ve kaptan {actor.captain.name:gen} da aynı restorana girdiğini fark ettin.",
+      "choices": [
+        {
+          "id": "c_hemen_kac",
+          "text": "Yemeği masada bırak ve arka kapıdan kimseye görünmeden kaç.",
+          "target": "n_hemen_kac",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_onlari_davet_et",
+          "text": "Saklanmak yerine onlara el salla ve masana davet et. 'Bu gece diyet molası hocam!'",
+          "target": "n_onlari_davet_et",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_kaptani_sucla",
+          "text": "Yakalandığında komik bir yalan uydur: 'Kaptan bana buranın çok iyi olduğunu söyledi.'",
+          "target": "n_kaptani_sucla",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_hemen_kac": {
+      "title": "Aç Geceler",
+      "kind": "outcome",
+      "text": "Kimseye yakalanmadın ama yemeğini yiyemediğin için bütün gece açlıktan uyuyamadın.",
+      "onEnter": [
+        {
+          "flag": "kondisyon",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_onlari_davet_et": {
+      "title": "Masadaki Dostluk",
+      "kind": "outcome",
+      "text": "Hoca {actor.manager.name} başta kızsa da, kaptanla birlikte oturduğunuz o masa takım ruhunu inanılmaz geliştirdi. Ertesi gün tartıda çıkan fazla kiloya ise sadece güldüler.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_kaptani_sucla": {
+      "title": "Kötü Şaka",
+      "kind": "outcome",
+      "text": "Hoca {actor.manager.name} bu şakana hiç gülmedi ve kaptan {actor.captain.name} onu ateşe attığın için sana bozuldu. Ertesi sabah antrenmanda seni ekstra koşturdular.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_life_diyet",
+    "beat": "evt_life_diyet_bozma",
+    "signature": "life:fam_life_diyet"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

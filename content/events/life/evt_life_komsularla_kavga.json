@@ -1,0 +1,149 @@
+{
+  "id": "evt_life_komsularla_kavga",
+  "family": "fam_life_komsu",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gürültülü Ev",
+      "kind": "branch",
+      "text": "Taşındığın lüks malikanede verdiğin partiler yüzünden komşularla büyük bir tartışma yaşadın. Site yönetimi kulübe şikayet dilekçesi yolladı ve başkan {actor.president.name} durumdan çok rahatsız.",
+      "choices": [
+        {
+          "id": "c_ozur_dile",
+          "text": "Komşulara özel hediyeler göndererek özür dile ve parti vermeyi bırak.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_taviz_verme",
+          "text": "Kimseyi umursama, 'Kendi evimde ne yapacağıma kimse karışamaz' de.",
+          "target": "n_taviz_verme",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_tasinma_karari",
+          "text": "Evi satılığa çıkarıp daha izole bir yere taşınmaya karar ver.",
+          "target": "n_tasinma_karari",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "İyi Komşu",
+      "kind": "outcome",
+      "text": "Kulübün imajını korudun. Başkan {actor.president.name} kriz büyümeden çözüldüğü için sana teşekkür etti.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_taviz_verme": {
+      "title": "Parti Canavarı",
+      "kind": "outcome",
+      "text": "Magazin basını günlerce senin partilerini konuştu. Eğleniyorsun ama hoca {actor.manager.name} saha dışı hayatının performansını etkileyeceğinden endişeli.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_tasinma_karari": {
+      "title": "Yeni Hayat",
+      "kind": "outcome",
+      "text": "Emlak masrafları belini bükse de, izole hayat sana mental olarak çok iyi geldi.",
+      "onEnter": [
+        {
+          "flag": "kondisyon",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_life_komsu",
+    "beat": "evt_life_komsularla_kavga",
+    "signature": "life:fam_life_komsu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "evt_transfer_rumor_mill",
+  "family": "fam_transfer_rumor_mill",
+  "category": "transfer",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "board_politics",
+    "beat": "rumor_mill",
+    "signature": "transfer:rumor_mill"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kasıtlı Sızıntı",
+          "kind": "branch",
+          "text": "Kulübün Sportif Direktörü, seni daha düşük maaşa ikna etmek için bilerek basına 'Oyuncu artık takımda istenmiyor' haberi sızdırdı.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Sportif Direktörün odasını bas ve yüzleş.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Menajerin üzerinden karşı atak yapıp başka kulüplerle görüşüyormuş gibi yap.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "iliski_agent",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Sahadaki performansınla cevap ver, gollerini doğrudan yönetime doğru kutla.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_1": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_2": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        }
+      }
+    }
+  ]
+}

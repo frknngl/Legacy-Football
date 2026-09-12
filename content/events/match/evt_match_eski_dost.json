@@ -1,0 +1,168 @@
+{
+  "id": "evt_match_eski_dost",
+  "family": "fam_match_eski_dost",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tanıdık Bir Yüz",
+      "kind": "branch",
+      "text": "Bugün sahada eski takım arkadaşın {actor.former_teammate.name} var. Senin oyun tarzını, zayıflıklarını ve sinirlendiğinde ne yaptığını çok iyi biliyor. Maçın ilk dakikalarından itibaren seni kışkırtmak için elinden geleni yapıyor.",
+      "choices": [
+        {
+          "id": "c_sert_gir",
+          "text": "Ona kimin patron olduğunu göster. İlk fırsatta sert bir müdahaleyle gözdağı ver.",
+          "target": "n_sert_gir",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Sataşmalarını duymazdan gel ve sadece kendi futboluna odaklan.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_trash_talk",
+          "text": "Aynı şekilde karşılık ver. Onun zayıf noktalarını sen de biliyorsun, psikolojik savaşı sen kazan.",
+          "target": "n_trash_talk",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_sert_gir": {
+      "title": "Eski Dost Düşman Olmaz... Mı?",
+      "kind": "outcome",
+      "text": "Sert müdahalen onu susturdu ama hakemden sarı kart gördün. Maç sonu el sıkışmadınız. {actor.former_teammate.name} ile arandaki bağ tamamen koptu.",
+      "onEnter": [
+        {
+          "flag": "npc_former_teammate_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Buz Adam",
+      "kind": "outcome",
+      "text": "Onun tuzağına düşmedin. O sinirlendikçe sen daha iyi oynadın. Maç sonunda yanına gelip sarıldı ve 'Hala eskisi kadar iyisin' dedi.",
+      "onEnter": [
+        {
+          "flag": "npc_former_teammate_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_trash_talk": {
+      "title": "Zihin Oyunları",
+      "kind": "outcome",
+      "text": "Sahada sürekli birbirinize laf attınız. İkinizin bu didişmesi maçı gölgeledi. Basın ertesi gün 'İki eski dostun çirkin kavgası' manşetini attı.",
+      "onEnter": [
+        {
+          "flag": "npc_former_teammate_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_eski_dost",
+    "beat": "evt_match_eski_dost",
+    "signature": "match:fam_match_eski_dost"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "id": "evt_transfer_squad_number",
+  "family": "fam_transfer_number",
+  "category": "transfer",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Forma Numarası Krizi",
+      "text": "Yeni kulübüne büyük umutlarla transfer oldun. Yıllardır 10 numarayı giyiyorsun ve bu senin markanın bir parçası. Ancak kulübün emektar 10 numarası formayı sana bırakmayı reddediyor. Başkan 'Aralarınızda çözün' diyerek topu size atıyor. Sezonun başlamasına günler var ve formalar basılacak.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_taviz_verme",
+          "text": "Egodan taviz verme. 'O formayı ben giyeceğim, gerekirse yönetime baskı yaparım' de.",
+          "target": "n_taviz_verme",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "ego": 20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_farkli",
+          "text": "Kıdemli oyuncuya saygı gösterip farklı, ikonik bir sayı (örn: 99 veya 77) seç.",
+          "target": "n_farkli",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 10000,
+                "perTier": 10000
+              }
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15,
+            "ego": -10
+          }
+        },
+        {
+          "id": "c_para",
+          "text": "Kıdemli oyuncuya formayı bırakması için el altından yüklü miktarda para teklif et.",
+          "target": "n_para",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -50000,
+                "perTier": -25000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "zeka": -10
+          }
+        }
+      ]
+    },
+    "n_taviz_verme": {
+      "title": "Kibirli Yeni",
+      "kind": "outcome",
+      "text": "10 numarayı zorla alırsın ama takım içindeki tüm kıdemli oyuncular sana cephe alır. Soyunma odasında yapayalnız kalırsın.",
+      "onEnter": []
+    },
+    "n_farkli": {
+      "title": "Yeni Bir Marka",
+      "kind": "outcome",
+      "text": "Yüksek karakter göstergesi. Veteran oyuncu seni takdir eder, formaların yok satar. Yaratıcı bir marka hamlesi olur.",
+      "onEnter": []
+    },
+    "n_para": {
+      "title": "Şımarık Zengin Çocuğu",
+      "kind": "outcome",
+      "text": "Adam parayı kabul eder ama kulüpte adın 'şımarık zengin çocuk'a çıkar.",
+      "onEnter": []
+    }
+  }
+}

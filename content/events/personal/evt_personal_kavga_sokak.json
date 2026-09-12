@@ -1,0 +1,149 @@
+{
+  "id": "evt_personal_kavga_sokak",
+  "family": "fam_personal_kavga_sokak",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sokak Kavgası",
+      "kind": "branch",
+      "text": "Şehir merkezinde ailenle akşam yemeği yerken rakip takımın fanatik bir taraftarı masana gelip sana ve ailene küfür etti. İnsanlar telefonlarıyla video çekmeye başladı.",
+      "choices": [
+        {
+          "id": "c_siddet_uygula",
+          "text": "Ayağa kalk ve adama yumruk at. 'Ailene küfrettirme!'",
+          "target": "n_siddet_uygula",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_mekani_terk_et",
+          "text": "Sessizce hesabı ödeyip ailenle birlikte mekanı terk et. Olayı büyütme.",
+          "target": "n_mekani_terk_et",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_sozlu_karsilik_ver",
+          "text": "Adama bağırarak sözlü karşılık ver ama fiziksel temastan kaçın. Güvenliğin gelmesini sağla.",
+          "target": "n_sozlu_karsilik_ver",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": 10
+          }
+        }
+      ]
+    },
+    "n_siddet_uygula": {
+      "title": "Karakol",
+      "kind": "outcome",
+      "text": "Adama vurduğun an videolar internete düştü. Taraftarların seni 'Ailesini koruyan adam' olarak kahramanlaştırsa da başkan {actor.president.name} imaj zedelenmesi nedeniyle çok öfkeli.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_mekani_terk_et": {
+      "title": "Sus Pus",
+      "kind": "outcome",
+      "text": "Kaçıp gitmen medyada 'Korkak' başlıklarıyla haber oldu. Ailen güvenli bir şekilde eve dönse de gururun çok kırıldı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sozlu_karsilik_ver": {
+      "title": "Tartışma",
+      "kind": "outcome",
+      "text": "Olay daha da büyümeden güvenlik araya girdi. Profesyonelce davrandığın için kulüp yönetiminin takdirini kazandın.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_personal_kavga_sokak",
+    "beat": "evt_personal_kavga_sokak",
+    "signature": "personal:fam_personal_kavga_sokak"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

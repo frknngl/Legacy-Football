@@ -1,0 +1,149 @@
+{
+  "id": "evt_media_derbi_oncesi_kiskirtma",
+  "family": "fam_media_derbi_oncesi",
+  "category": "media",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Derbi Ateşi",
+      "kind": "branch",
+      "text": "Büyük derbiye sadece iki gün var. Rakip takımın kaptanı basın toplantısında seni hedef alarak, 'O sadece küçük maçların büyük oyuncusu' dedi. Bütün medya senden bir cevap bekliyor. Hoca {actor.manager.name} ise sessiz kalmanı emretti.",
+      "choices": [
+        {
+          "id": "c_sessiz_kal",
+          "text": "Hocanın sözünü dinle ve hiçbir açıklama yapma. Cevabını sahada ver.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_sosyal_medyadan_vur",
+          "text": "Sosyal medyadan rakip kaptanın geçmişte yaptığı büyük bir hatanın videosunu beğenerek üstü kapalı mesaj ver.",
+          "target": "n_sosyal_medyadan_vur",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_meydan_oku",
+          "text": "Hocayı dinleme ve mikronların karşısına geçip 'Pazar günü kimin büyük olduğunu göreceğiz' de.",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Fırtına Öncesi Sessizlik",
+      "kind": "outcome",
+      "text": "Sessizliğin medyada gerilimi daha da artırdı. Hoca {actor.manager.name} profesyonelliğini takdir etse de, içindeki öfkeyi sahaya yansıtıp yansıtamayacağın merak konusu.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sosyal_medyadan_vur": {
+      "title": "Dijital Savaş",
+      "kind": "outcome",
+      "text": "Bu basit beğeni ortalığı karıştırdı. Taraftar senin bu zekice hamleni sevdi ama rakip takım maça ekstra motive çıkacak.",
+      "onEnter": [
+        {
+          "flag": "kondisyon",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Açık Savaş İlanı",
+      "kind": "outcome",
+      "text": "Yaptığın açıklama derbinin tansiyonunu arşa çıkardı. Hoca {actor.manager.name} sözünü dinlemediğin için sana çok öfkeli.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_media_derbi_oncesi",
+    "beat": "evt_media_derbi_oncesi_kiskirtma",
+    "signature": "media:fam_media_derbi_oncesi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": "evt_locker_genc_hadsizligi",
+  "family": "fam_locker_genc_hadsizligi",
+  "category": "locker",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Genç Kan",
+      "kind": "branch",
+      "text": "Altyapıdan yeni çıkan genç yetenek {actor.youngster.name}, son iki maçta attığı gollerden sonra havaya girdi. İdmanda takımın ağır abilerine ters cevaplar verip, 'Ben bu takımın geleceğiyim' tavırlarıyla dolaşıyor. Soyunma odasında herkes senin ona bir şey demeni bekliyor.",
+      "choices": [
+        {
+          "id": "c_uyar",
+          "text": "Herkesin içinde sertçe uyar. 'Daha dünkü çocuksun, formaya saygı duy' de.",
+          "target": "n_uyar",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Gülüp geç. 'Gençtir, hevesini alsın' diyerek olayı büyütme.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_mentorluk_yap",
+          "text": "Onu kenara çekip yalnızken nasihat et. Hatalarından ders almasını sağla.",
+          "target": "n_mentorluk_yap",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_uyar": {
+      "title": "Ağır Abi",
+      "kind": "outcome",
+      "text": "Sözlerin soyunma odasında buz gibi bir etki yarattı. {actor.youngster.name} hemen yerine oturdu. Takım içindeki otoriten perçinlendi ama genç oyuncu senden korktuğu için uzaklaştı.",
+      "onEnter": [
+        {
+          "flag": "npc_youngster_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Gevşek Disiplin",
+      "kind": "outcome",
+      "text": "Senin umursamaz tavrın takımın diğer tecrübeli isimlerini rahatsız etti. {actor.youngster.name} ise iyice şımarıp antrenman temposunu düşürdü.",
+      "onEnter": [
+        {
+          "flag": "npc_youngster_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_mentorluk_yap": {
+      "title": "Gerçek Lider",
+      "kind": "outcome",
+      "text": "Yalnız konuştuğunuzda onu dinleyip doğru yolu gösterdin. {actor.youngster.name} hatalarını anladı ve sahada sana büyük bir saygı duymaya başladı. Sana 'Abi' diye hitap etmeye başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_youngster_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_locker_genc_hadsizligi",
+    "beat": "evt_locker_genc_hadsizligi",
+    "signature": "locker:fam_locker_genc_hadsizligi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

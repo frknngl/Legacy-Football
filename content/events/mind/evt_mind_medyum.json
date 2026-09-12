@@ -1,0 +1,150 @@
+{
+  "id": "evt_mind_medyum",
+  "family": "fam_mind_medyum",
+  "category": "mind",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kozmik Enerji",
+      "kind": "branch",
+      "text": "Gol orucun haftalardır sürüyor. Takım arkadaşların hocanın idmanlarını eleştirirken, sen çareyi takım dışı bir 'spiritüel yaşam koçu / medyum' tutmakta buldun. Medyum sana, negatif enerjiyi atmak için maçtan bir gece önce kristallerle meditasyon yapıp, kramponlarını adaçayıyla tütsülemeni söylüyor.",
+      "choices": [
+        {
+          "id": "c_uygula",
+          "text": "Denemekten zarar gelmez. Tüm ritüelleri harfiyen uygula.",
+          "target": "n_uygula",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -15000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_medyumu_kov",
+          "text": "Adamın dolandırıcı olduğunu anla ve onu evden kov. Çare çalışmakta, hurafelerde değil.",
+          "target": "n_medyumu_kov",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_takima_yay",
+          "text": "Bunun işe yarayacağına o kadar inandın ki, bu adamı soyunma odasına gizlice sokup tüm takımın enerjisini temizletmeye çalış.",
+          "target": "n_takima_yay",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -25,
+            "mizac": 20
+          }
+        }
+      ]
+    },
+    "n_uygula": {
+      "title": "İlginç Bir Tesadüf",
+      "kind": "outcome",
+      "text": "Ertesi gün sahada şans eseri inanılmaz bir gol attın! Bunun adaçayı sayesinde olup olmadığı tartışılır ama sen artık bu medyuma yüklü paralar ödemeye devam edeceksin."
+    },
+    "n_medyumu_kov": {
+      "title": "Gerçeklere Dönüş",
+      "kind": "outcome",
+      "text": "Hurafe yerine antrenmanda çift mesai yapmayı seçtin. Gol orucun bir hafta daha sürdü ama sonunda bileğinin hakkıyla formunu buldun."
+    },
+    "n_takima_yay": {
+      "title": "Kovucu Kuvvet",
+      "kind": "outcome",
+      "text": "Medyumu soyunma odasına soktuğunda hocan {actor.manager.name} deliye döndü! Adamı yaka paça dışarı attırırken seni de o maçın kadrosundan çıkardı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_medyum",
+    "beat": "evt_mind_medyum",
+    "signature": "mind:fam_mind_medyum"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 200,
+    "beatGapTurns": 200,
+    "signatureGapTurns": 200,
+    "maxBeatUses": 1
+  }
+}

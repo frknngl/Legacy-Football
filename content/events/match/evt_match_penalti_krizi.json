@@ -1,0 +1,149 @@
+{
+  "id": "evt_match_penalti_krizi",
+  "family": "fam_match_penalti_krizi",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kimin Topu?",
+      "kind": "branch",
+      "text": "Maçın 90. dakikasında takımın penaltı kazandı. Durum berabere. Normalde birinci penaltıcı kaptan {actor.captain.name}, ancak sen harika bir maç çıkarıyorsun ve topu aldın. Kaptan yanına gelip topu elinden almak istiyor.",
+      "choices": [
+        {
+          "id": "c_topu_verme",
+          "text": "Topu göğsüne sakla. 'Bu benim hakkım!' diyerek kaptanla saha ortasında inatlaş.",
+          "target": "n_topu_verme",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_saygi_goster",
+          "text": "Topu sessizce {actor.captain.name:dat} ver. Hiyerarşiye saygı duy.",
+          "target": "n_saygi_goster",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_hakem_atisi",
+          "text": "Hakemi çağırıp topu ona ver ve 'Ben kullanmak istiyorum ama kaptan engelliyor, siz karar verin' diyerek kurnazlık yap.",
+          "target": "n_hakem_atisi",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "sadakat": -15
+          }
+        }
+      ]
+    },
+    "n_topu_verme": {
+      "title": "Bencil Yıldız",
+      "kind": "outcome",
+      "text": "Zorla topu aldın ve golü attın! Maçı kazandırdın ama kaptanla arandaki ipler koptu. Maç sonu sevincine takımın yarısı katılmadı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_saygi_goster": {
+      "title": "Takım Oyuncusu",
+      "kind": "outcome",
+      "text": "Kaptan penaltıyı gole çevirdi ve ilk sana koşup sarıldı. Tribünler senin bu takımcı hareketini ayakta alkışladı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_hakem_atisi": {
+      "title": "Sirk",
+      "kind": "outcome",
+      "text": "Hakem karışmak istemedi, hoca kenardan kaptanın atmasını işaret etti. Bu şovun medyanın alay konusu oldu ve takım içinde saygınlığını zedeledi.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_penalti_krizi",
+    "beat": "evt_match_penalti_krizi",
+    "signature": "match:fam_match_penalti_krizi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "id": "evt_media_roportaj_terk_etme",
+  "family": "fam_media_roportaj_terk",
+  "category": "media",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Zor Sorular",
+      "kind": "branch",
+      "text": "Maç sonu flaş röportajda muhabir, tamamen hoca {actor.manager.name} ve taktikleri üzerine provokatif bir soru sordu. 'Bugünkü mağlubiyetin tek sorumlusu taktiği yanlış kurgulayan hocanız değil mi?' diyor. Canlı yayındasın.",
+      "choices": [
+        {
+          "id": "c_hocayi_koru",
+          "text": "Hocayı savun: 'Biz bir takımız. Yenilginin sorumlusu sahadaki oyunculardır, hoca değil.'",
+          "target": "n_hocayi_koru",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Taktiksel eleştirilere üstü kapalı hak ver: 'Sahada bazı şeyler istediğimiz gibi işlemedi, analiz etmeliyiz.'",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_terk_et",
+          "text": "Bu saygısız soruya sinirlen ve röportajı aniden terk et.",
+          "target": "n_terk_et",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": 20
+          }
+        }
+      ]
+    },
+    "n_hocayi_koru": {
+      "title": "Sadık Asker",
+      "kind": "outcome",
+      "text": "Medya senin bu politik cevabını sıkıcı bulsa da hoca {actor.manager.name} ona sahip çıkmanı asla unutmayacak.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Üstü Kapalı Eleştiri",
+      "kind": "outcome",
+      "text": "Basın bu açıklamanı 'Yıldız oyuncu hocayı sattı' diye haberleştirdi. Soyunma odasında hoca sana soğuk davranıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_terk_et": {
+      "title": "Yarım Kalan Yayın",
+      "kind": "outcome",
+      "text": "Canlı yayını terk etmen yayıncı kuruluşu kızdırdı ve kulübe bir ceza faturası gönderildi. Başkan {actor.president.name} bunu senin maaşından kesti.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": -15000
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_media_roportaj_terk",
+    "beat": "evt_media_roportaj_terk_etme",
+    "signature": "media:fam_media_roportaj_terk"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

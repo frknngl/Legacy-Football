@@ -1,0 +1,117 @@
+{
+  "id": "evt_reaction_racial_abuse",
+  "family": "fam_reaction_racial_abuse",
+  "category": "reaction",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "racial_abuse",
+    "signature": "reaction:racial_abuse"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Irkçılığa Karşı",
+          "kind": "branch",
+          "text": "Deplasman maçında rakip tribünlerden sana yönelik ırkçı tezahüratlar yapılıyor. Hakem oyunu durdurmakta tereddüt ediyor. Takım arkadaşların sana bakıyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Sahadan çekilme kararı al, takım arkadaşlarını soyunma odasına çağır.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Oyuna devam et, golünü atıp doğrudan o tribüne karşı sert bir sevinç yap.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hakeme gidip resmi prosedürü uygulaması için baskı yap.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

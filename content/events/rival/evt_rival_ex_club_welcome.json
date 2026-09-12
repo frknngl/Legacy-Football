@@ -1,0 +1,107 @@
+{
+  "id": "evt_rival_ex_club_welcome",
+  "family": "fam_rival_ex_club_welcome",
+  "category": "rival",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "match_drama",
+    "beat": "ex_club_welcome",
+    "signature": "rival:ex_club_welcome"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Cehenneme Dönüş",
+          "kind": "branch",
+          "text": "Eski takımına karşı deplasmanda oynuyorsun. Tribünler senin sahte banknotlarla basılmış maskelerini takıyor ve sahaya bozuk para atıyorlar. Korner kullanmak için köşeye geldiğinde tansiyon dorukta.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Paraları yerden topla ve hakeme ver, oyunu durdur.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Bir bozuk parayı cebine atıp tribünlere 'Teşekkürler' diye bağır.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hiç tepki vermeden soğukkanlılıkla korneri kullan ve asisti yap.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "durus": 20
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_1": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_2": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        }
+      }
+    }
+  ]
+}

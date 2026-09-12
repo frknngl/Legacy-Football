@@ -1,0 +1,112 @@
+{
+  "id": "evt_tactics_rebellion",
+  "family": "fam_tactics_rebellion",
+  "category": "tactics",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "rebellion",
+    "signature": "tactics:rebellion"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Taktik İsyanı",
+          "kind": "branch",
+          "text": "Hocanın oynattığı aşırı defansif sistem takımı boğuyor. Forvetler top alamıyor ve taraftar ıslıklıyor. Kaptan olarak oyuncular senden hocayla konuşmanı bekliyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Hocanın odasına gidip 'Sistemi değiştir yoksa soyunma odasını kaybedersin' de.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -30
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "mizac": 20
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Oyuncuları yatıştır ve hocanın kararlarına sadık kalmalarını söyle.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Medya üzerinden üstü kapalı şekilde sistemi eleştir.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

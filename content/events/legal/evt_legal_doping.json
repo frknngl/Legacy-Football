@@ -1,0 +1,156 @@
+{
+  "id": "evt_legal_doping",
+  "family": "fam_legal_doping",
+  "category": "legal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 50,
+    "family": 30
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kırmızı Çizgi",
+      "kind": "branch",
+      "text": "Kulüp doktoru {actor.physio.name} telaşla yanına geliyor. Maç sonrası verdiğin idrar örneğinde yasaklı bir madde bulunmuş! Oysa sen sadece yeni sponsorunun hediye ettiği bir enerji içeceğinden içmiştin. Numunenin B testi istenmeden önce bir açıklama yapman veya strateji belirlemen gerekiyor.",
+      "choices": [
+        {
+          "id": "c_doktoru_sucla",
+          "text": "Sorumluluğu sağlık heyetine at. \"Bana ne verdilerse onu içtim, benim suçum yok\" diyerek medyada kurban rolü oyna.",
+          "target": "n_doktoru_sucla",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "sadakat": -25,
+            "dogruluk": -15
+          }
+        },
+        {
+          "id": "c_bagimsiz_test",
+          "text": "Kendi imkanlarınla bağımsız bir laboratuvarda test yaptır ve B numunesi sonucuna kadar avukatlarınla ({actor.lawyer.name}) beraber itiraz et.",
+          "target": "n_bagimsiz_test",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Sessiz kal, kulübün krizi yönetmesini bekle. Antrenmanlarına devam et.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 5,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_doktoru_sucla": {
+      "title": "Kurban",
+      "kind": "outcome",
+      "text": "Kamuoyu sana acıdı ama {actor.physio.name} işinden kovuldu. Kulüp içindeki güvenilirliğini kaybettin. B testi temiz çıksa bile takım arkadaşların artık sana şüpheyle bakıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_physio_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_bagimsiz_test": {
+      "title": "Aklanma Süreci",
+      "kind": "outcome",
+      "text": "Bağımsız testler o içeceğin üretim hatası taşıdığını kanıtladı! Ceza almaktan son anda kurtuldun ama süreç cüzdanını ve psikolojini epey yıprattı.",
+      "onEnter": [
+        {
+          "flag": "npc_lawyer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Bilinmezlik",
+      "kind": "outcome",
+      "text": "Kulüp olayı örtbas etmeye çalıştı ancak sızıntılar basında büyük yankı uyandırdı. B testi temiz çıktı ama adın bir süre 'Dopingci' iddialarıyla yan yana anıldı."
+    }
+  },
+  "story": {
+    "arc": "fam_legal_doping",
+    "beat": "evt_legal_doping",
+    "signature": "legal:fam_legal_doping"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 40,
+    "beatGapTurns": 50,
+    "signatureGapTurns": 45,
+    "maxBeatUses": 1
+  }
+}

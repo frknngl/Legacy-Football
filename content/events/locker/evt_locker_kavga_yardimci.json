@@ -1,0 +1,164 @@
+{
+  "id": "evt_locker_kavga_yardimci",
+  "family": "fam_locker_kavga_yardimci",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 250,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yardımcı Hocanın Takıntısı",
+      "kind": "branch",
+      "text": "Teknik direktörün {actor.manager.name} sağ kolu olan yardımcı antrenör sana kafayı takmış durumda. Antrenmanlarda sürekli seni küçük düşürüyor. Bugüne kadar sabrettin ama bugün takım arkadaşlarının önünde sana fiziksel olarak müdahale edip bağırmaya başladı.",
+      "choices": [
+        {
+          "id": "c_karsilik_ver",
+          "text": "Daha fazla dayanamadın! Onu iterek karşılık ver ve sözlü bir kavgaya gir.",
+          "target": "n_karsilik_ver",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_hocaya_git",
+          "text": "Sakin kalıp antrenmanı terk et. Doğruca teknik direktörün {actor.manager.name} odasına gidip durumu anlat.",
+          "target": "n_hocaya_git",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_takimi_orgutle",
+          "text": "O an ses çıkarma ama soyunma odasında kaptan {actor.captain.name} ve diğer oyuncuları örgütleyerek yönetime şikayette bulun.",
+          "target": "n_takimi_orgutle",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_karsilik_ver": {
+      "title": "Antrenmanda Skandal",
+      "kind": "outcome",
+      "text": "Kavganız basına sızdı. Yardımcı hoca kovuldu ama sen de ağır para cezası aldın. {actor.manager.name} sana artık güvenmiyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_hocaya_git": {
+      "title": "Akil Adam",
+      "kind": "outcome",
+      "text": "Hocan {actor.manager.name} seni haklı buldu ve yardımcısını arka planda uyardı. Sorun sessizce çözüldü, takımda otoriten arttı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_takimi_orgutle": {
+      "title": "İç Siyaset",
+      "kind": "outcome",
+      "text": "Kaptan {actor.captain.name} ile birlikte yönetime gittiniz. Yönetim yardımcı hocanın görev yerini değiştirdi. Soyunma odasında politik gücün iyice sağlamlaştı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_locker_kavga_yardimci",
+    "beat": "evt_locker_kavga_yardimci",
+    "signature": "locker:fam_locker_kavga_yardimci"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 200,
+    "beatGapTurns": 200,
+    "signatureGapTurns": 200,
+    "maxBeatUses": 1
+  }
+}

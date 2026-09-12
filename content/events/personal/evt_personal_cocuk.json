@@ -1,0 +1,157 @@
+{
+  "id": "evt_personal_cocuk",
+  "family": "fam_personal_cocuk",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 300,
+    "family": 200
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hayatın Anlamı",
+      "kind": "branch",
+      "text": "Sezonun en önemli kupası için final maçına çıkıyorsun. Otelde maça saatler kala telefonun çalıyor; eşinin doğumu başlamış! Hastaneye gidersen kariyerinin en büyük maçını kaçıracaksın, kalırsan çocuğunun doğumunda orada olamayacaksın. Hocan {actor.manager.name} kararı sana bırakıyor.",
+      "choices": [
+        {
+          "id": "c_hastaneye_git",
+          "text": "Hiçbir kupa aileden önemli değildir. Hemen hastaneye koş.",
+          "target": "n_hastaneye_git",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "sadakat": 30,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_maca_cik",
+          "text": "Eşinle telefonda konuş ve bu maçı onun ve çocuğun için kazanacağına söz verip sahaya çık.",
+          "target": "n_maca_cik",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_ozel_jet",
+          "text": "Menajerini ({actor.agent.name}) zorla ve maçtan hemen sonra hastaneye yetişmek için özel bir helikopter ayarla. Kafanı maça vermeye çalış.",
+          "target": "n_ozel_jet",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -80000
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": 10
+          }
+        }
+      ]
+    },
+    "n_hastaneye_git": {
+      "title": "İlk Çığlık",
+      "kind": "outcome",
+      "text": "Kupayı kaybettiniz ve hocan {actor.manager.name} o maçta sana çok ihtiyaç duyduğunu defalarca söyledi. Ancak bebeğini ilk kez kucağına aldığında dünyadaki hiçbir kupa umurunda değildi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_maca_cik": {
+      "title": "Bebek İçin Kupa",
+      "kind": "outcome",
+      "text": "Sahada insanüstü bir efor sergiledin ve kupayı takımına kazandırdın. Kutlamalara bile katılmadan direkt hastaneye koştun ama ilk anı kaçırmış olmanın burukluğunu hep yaşadın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_ozel_jet": {
+      "title": "Yıldız Gibi Yaşamak",
+      "kind": "outcome",
+      "text": "Maç biter bitmez saha ortasına inen helikopterle hastaneye uçtun! Hem maçı oynadın hem de ucu ucuna doğuma yetiştin. Hikayen bir Hollywood filmine benzedi."
+    }
+  },
+  "story": {
+    "arc": "fam_personal_cocuk",
+    "beat": "evt_personal_cocuk",
+    "signature": "personal:fam_personal_cocuk"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 300,
+    "beatGapTurns": 300,
+    "signatureGapTurns": 300,
+    "maxBeatUses": 1
+  }
+}

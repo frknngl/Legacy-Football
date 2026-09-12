@@ -1,0 +1,149 @@
+{
+  "id": "evt_media_kotu_performans_manseti",
+  "family": "fam_media_kotu_performans",
+  "category": "media",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ağır Eleştiri",
+      "kind": "branch",
+      "text": "Üst üste oynadığın birkaç kötü maçın ardından spor gazetelerinden biri senin için tam sayfa, 'Bitmiş Bir Yıldızın Anatomisi' başlıklı, kariyerini ve karakterini hedef alan çok ağır bir makale yayınladı. Hoca {actor.manager.name} bu haberin motivasyonunu bozmasından korkuyor.",
+      "choices": [
+        {
+          "id": "c_hirs_yap",
+          "text": "Haberi soyunma odasındaki dolabına as. 'Bana bitti diyenlere sahada cevap vereceğim!'",
+          "target": "n_hirs_yap",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_gazeteye_ambargo",
+          "text": "O gazeteye röportaj vermeme kararı al ve diğer basın mensuplarına da sitem et.",
+          "target": "n_gazeteye_ambargo",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_gulup_gec",
+          "text": "Sosyal medyada makaleyle dalga geçen komik bir fotoğraf paylaş.",
+          "target": "n_gulup_gec",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_hirs_yap": {
+      "title": "Motivasyon Kaynağı",
+      "kind": "outcome",
+      "text": "Hoca {actor.manager.name} bu inatçı tavrını çok sevdi. Makale seni yıkmak yerine daha da biledi. Antrenmanlardaki hırsın herkesi etkiledi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_gazeteye_ambargo": {
+      "title": "Medya Savaşı",
+      "kind": "outcome",
+      "text": "Medya ile arana kalın bir duvar ördün. Kendi huzurunu sağladın ancak başkan {actor.president.name} basının kulübe cephe almasından endişeli.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_gulup_gec": {
+      "title": "Alaycı Karakter",
+      "kind": "outcome",
+      "text": "Taraftar mizahını sevdi ama eski futbolcular ve otoriteler bu vurdumduymazlığını saygısızlık olarak nitelendirdi.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_media_kotu_performans",
+    "beat": "evt_media_kotu_performans_manseti",
+    "signature": "media:fam_media_kotu_performans"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

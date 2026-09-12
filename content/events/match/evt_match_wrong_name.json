@@ -1,0 +1,104 @@
+{
+  "id": "evt_match_wrong_name",
+  "family": "fam_match_name",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yanlış Yazılan İsim",
+      "text": "Büyük bir maça çıkacaksın. Kameralar soyunma odasını çekerken, formanın arkasında soyadının tamamen yanlış ve çok komik/argo bir anlama gelecek şekilde basıldığını fark ediyorsun! Malzemeci panik içinde ama yeni forma basmak için vakit yok.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_reddet",
+          "text": "Bu formayı giymeyi kesinlikle reddet, maça geç başla.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -2
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "profesyonellik": -10,
+            "ego": 15
+          }
+        },
+        {
+          "id": "c_giy",
+          "text": "Gülüp geç, o formayla sahaya çık ve efsane ol.",
+          "target": "n_giy",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 20
+          }
+        },
+        {
+          "id": "c_bant",
+          "text": "Formanın arkasındaki ismi siyah bantla kapat.",
+          "target": "n_bant",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -2000,
+                "perTier": -1000
+              }
+            }
+          ],
+          "persona": {
+            "zeka": 10
+          }
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Kriz Çıkarıcı",
+      "kind": "outcome",
+      "text": "Maç öncesi kriz çıkar, hocanın gözünden düşersin.",
+      "onEnter": []
+    },
+    "n_giy": {
+      "title": "Tarihi Forma",
+      "kind": "outcome",
+      "text": "Tüm sosyal medya senin bu rahatlığını konuşur, forma müzayedede rekor fiyata satılır.",
+      "onEnter": []
+    },
+    "n_bant": {
+      "title": "Pratik Çözüm",
+      "kind": "outcome",
+      "text": "Sponsor logoları da kapandığı için ufak bir ceza yersin ama durumu idare edersin.",
+      "onEnter": []
+    }
+  }
+}

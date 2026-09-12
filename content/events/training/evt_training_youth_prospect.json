@@ -1,0 +1,112 @@
+{
+  "id": "evt_training_youth_prospect",
+  "family": "fam_training_youth_prospect",
+  "category": "training",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "youth_prospect",
+    "signature": "training:youth_prospect"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Genç Yetenek",
+          "kind": "branch",
+          "text": "Altyapıdan A takıma yeni çıkan 17 yaşındaki genç oyuncu idmanlarda sürekli sana sert giriyor ve senin yerini almak için çok hırslı.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Bir pozisyonda ona çok sert girip 'Burası A takım, haddini bil' de.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "mizac": 25
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Antrenman sonrası onu kenara çek ve tecrübelerini aktararak abilik yap.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 25
+                }
+              ],
+              "persona": {
+                "dogruluk": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hocaya gidip 'Bu çocuğu idmanlarda benden uzak tutun' diyerek şikayet et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -5
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": -10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

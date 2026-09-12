@@ -1,0 +1,161 @@
+{
+  "id": "evt_transfer_chat_dedikodu",
+  "family": "fam_transfer_dedikodu",
+  "category": "transfer",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Milli Takım Dedikoduları",
+      "kind": "branch",
+      "format": "chat",
+      "text": "Milli Takım Whatsapp Grubu:\n{actor.national_captain.name}: 'Beyler, gazetelerde okuyorum bizim kulüple anlaştığın yazıyor. Geliyor musun harbiden?'\n{actor.rival_teammate.name}: 'Abi bırak gelmesin, forma aslanın ağzında zaten!'\n{actor.national_captain.name}: 'Cidden ne düşünüyorsun, bizim yönetim teklif yapmış galiba?'",
+      "choices": [
+        {
+          "id": "c_dogrula",
+          "text": "Gruba yaz: 'Menajerim görüşüyor, şartlar uyarsa neden olmasın?'",
+          "target": "n_dogrula",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_yalanla",
+          "text": "Gruba yaz: 'Yok abi asparagas haber. Kulübümde mutluyum.'",
+          "target": "n_yalanla",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_saka_yap",
+          "text": "Gülme emojisi at ve 'Beni alacak paraları yetmez' diye espri yap.",
+          "target": "n_saka_yap",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 5
+          }
+        }
+      ]
+    },
+    "n_dogrula": {
+      "title": "Sızdırılan Ekran Görüntüsü",
+      "kind": "outcome",
+      "text": "Yazdığın mesaj gruptan bir şekilde basına sızdı. Kendi taraftarların seni hain ilan etmek üzere, antrenmanlarda soğuk rüzgarlar esiyor.",
+      "onEnter": [
+        {
+          "flag": "npc_national_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_yalanla": {
+      "title": "Sadakat Yemini",
+      "kind": "outcome",
+      "text": "Gruptaki konuşma kısa sürede kulübünün kulağına gitti. Yönetim sadakatinden dolayı sana olan güvenini tazeledi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_saka_yap": {
+      "title": "Gündemi Değiştirmek",
+      "kind": "outcome",
+      "text": "Espri grupta çok tuttu, hatta bazı arkadaşların bunu sosyal medyada bile dolaylı yoldan paylaştı. Hem transfer ateşini söndürdün hem de ortamı yumuşattın.",
+      "onEnter": [
+        {
+          "flag": "npc_national_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_transfer_dedikodu",
+    "beat": "evt_transfer_chat_dedikodu",
+    "signature": "transfer:fam_transfer_dedikodu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "Chat formati"
+  }
+}

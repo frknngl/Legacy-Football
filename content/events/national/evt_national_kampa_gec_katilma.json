@@ -1,0 +1,149 @@
+{
+  "id": "evt_national_kampa_gec_katilma",
+  "family": "fam_national_kamp",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Milli Kamp Krizi",
+      "kind": "branch",
+      "text": "Milli takım kampına katılman gerekiyor ancak aynı tarihlerde çok kârlı bir sponsorluk çekimin var. Kulüp hocası {actor.manager.name} da zaten milli takıma gitmeni istemiyor, dinlenmeni tercih ediyor.",
+      "choices": [
+        {
+          "id": "c_kampa_vaktinde_git",
+          "text": "Her şeyi iptal et ve kampa vaktinde katıl. 'Milli forma her şeyden üstündür.'",
+          "target": "n_kampa_vaktinde_git",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_gec_katil",
+          "text": "Sponsorluk çekimini tamamla ve kampa 2 gün geç katıl. Para ve reklam fırsatını kaçırma.",
+          "target": "n_gec_katil",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 100000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_sakatlik_bahanesi",
+          "text": "Kulüp hocanla anlaşıp sahte bir sakatlık raporu al ve milli takıma gitme. Kamp süresince tatil yap.",
+          "target": "n_sakatlik_bahanesi",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "dogruluk": -30,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_kampa_vaktinde_git": {
+      "title": "Vatansever",
+      "kind": "outcome",
+      "text": "Milli formaya olan bağlılığın ülke çapında takdir edildi. Ancak kulüp hocan {actor.manager.name} yorgun döneceğin için pek mutlu değil.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_gec_katil": {
+      "title": "Cüzdan Sevgisi",
+      "kind": "outcome",
+      "text": "Milli takım teknik direktörü seni ilk maçta yedek bıraktı. Ülke basını seni paragöz olmakla suçluyor.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_sakatlik_bahanesi": {
+      "title": "Tatil Kaçamağı",
+      "kind": "outcome",
+      "text": "Tamamen dinlendin ve kulüp hocası {actor.manager.name} bu durumdan çok memnun. Fakat Ibiza'da teknede çekilen fotoğrafların sızınca milli takımda bir daha forma giymen çok zorlaştı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_national_kamp",
+    "beat": "evt_national_kampa_gec_katilma",
+    "signature": "national:fam_national_kamp"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

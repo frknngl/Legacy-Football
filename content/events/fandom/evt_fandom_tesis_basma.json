@@ -1,0 +1,168 @@
+{
+  "id": "evt_fandom_tesis_basma",
+  "family": "fam_fandom_tesis",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Taraftar Derneği: Tesis Basma",
+      "kind": "branch",
+      "text": "Takım son haftalarda çok kötü sonuçlar aldı. Antrenman çıkışı tesisin kapısında öfkeli taraftar grubunu ve liderleri {actor.fan_leader.name:acc} gördün. Arabanın önünü kestiler, camlara vurarak oyunculardan hesap soruyorlar. Kaptan {actor.captain.name} de arkadaki arabada mahsur kaldı.",
+      "choices": [
+        {
+          "id": "c_arabadan_in",
+          "text": "Arabadan in ve taraftar lideriyle yüzleş. Sorumluluğu üstüne al.",
+          "target": "n_arabadan_in",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "yonetim_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_kaptani_bekle",
+          "text": "Kapıları kilitle ve kaptanın gelip onlarla konuşmasını bekle.",
+          "target": "n_kaptani_bekle",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_gaza_bas",
+          "text": "Kornaya bas ve kalabalığı yararak hızla oradan uzaklaş.",
+          "target": "n_gaza_bas",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "sadakat": -10
+          }
+        }
+      ]
+    },
+    "n_arabadan_in": {
+      "title": "Ateşle İmtihan",
+      "kind": "outcome",
+      "text": "Arabadan indiğinde kalabalık bir an duraksadı. {actor.fan_leader.name} sana sert sözler söylese de, kaçmadığın için saygılarını kazandın. Olay büyümeden dağıldılar.",
+      "onEnter": [
+        {
+          "flag": "npc_fan_leader_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_kaptani_bekle": {
+      "title": "Lidersiz Gemiler",
+      "kind": "outcome",
+      "text": "{actor.captain.name} gelip ortalığı yatıştırdı. Ancak taraftarlar camın arkasından sana korkak bakışları atarak gittiler. Güvenliğin sağlandı ama itibarın zedelendi.",
+      "onEnter": [
+        {
+          "flag": "npc_fan_leader_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_gaza_bas": {
+      "title": "Kaçış",
+      "kind": "outcome",
+      "text": "Arabayı kalabalığın üzerine sürüp oradan koptun. Kimseye zarar gelmedi ama ertesi gün radyolarda ve tribünlerde adın 'Hain' olarak yankılanıyordu.",
+      "onEnter": [
+        {
+          "flag": "npc_fan_leader_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_fandom_tesis",
+    "beat": "evt_fandom_tesis_basma",
+    "signature": "fandom:fam_fandom_tesis"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  }
+}

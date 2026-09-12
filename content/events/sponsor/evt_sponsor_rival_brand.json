@@ -1,0 +1,143 @@
+{
+  "id": "evt_sponsor_rival_brand",
+  "family": "fam_sponsor_rival_brand",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "star",
+    "icon"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Rakip Markanın Ayakkabısı",
+      "text": "Sen A markasının küresel yüzüsün. Ama evden aceleyle çıkarken yanlışlıkla ezeli rakibi olan B markasının son model spor ayakkabılarını giydin. Havaalanında çekilen boy boy fotoğraflarında kocaman B markası logosu parlıyor. Menajerin ağlamaklı bir sesle arıyor: 'Sponsor çıldırdı!'",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_yalan",
+          "text": "'Bir arkadaşımındı, ayaklarım şiştiği için giydim' yalanını uydur.",
+          "target": "n_yalan",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "zeka": -10
+          }
+        },
+        {
+          "id": "c_sansur",
+          "text": "Sosyal medyadan ayakkabının üstüne dijital çarpı koyarak 'Benim tek aşkım A markası' yaz.",
+          "target": "n_sansur",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "zeka": 20,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_rest",
+          "text": "'Sözleşmemi feshedebilirsiniz' diyerek rest çek.",
+          "target": "n_rest_roll",
+          "effects": [],
+          "persona": {
+            "cesaret": 25,
+            "ego": 20
+          }
+        }
+      ]
+    },
+    "n_yalan": {
+      "title": "Beceriksiz Bahane",
+      "kind": "outcome",
+      "text": "Kimse inanmaz, sponsor yüklü bir ceza keser.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": -20000,
+            "perTier": -10000
+          }
+        }
+      ]
+    },
+    "n_sansur": {
+      "title": "Krizi Fırsata Çevirmek",
+      "kind": "outcome",
+      "text": "PR çalışması harika sonuç verir. Sponsor memnun kalır.",
+      "onEnter": []
+    },
+    "n_rest_roll": {
+      "title": "Kumar Masası",
+      "kind": "roll",
+      "text": "Markanın merkezinde olağanüstü hal toplantısı yapılıyor...",
+      "outcomes": [
+        {
+          "weight": 30,
+          "target": "n_rest_success"
+        },
+        {
+          "weight": 70,
+          "target": "n_rest_fail"
+        }
+      ]
+    },
+    "n_rest_success": {
+      "title": "Vazgeçilmez",
+      "kind": "outcome",
+      "text": "Sponsor seni kaybetmekten o kadar korkar ki sözleşmeni iyileştirir!",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": 50000,
+            "perTier": 25000
+          }
+        }
+      ]
+    },
+    "n_rest_fail": {
+      "title": "İptal",
+      "kind": "outcome",
+      "text": "Sponsor sözleşmeni tek taraflı fesheder. Milyonlar kaybedersin.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": -250000,
+            "perTier": -100000
+          }
+        }
+      ]
+    }
+  }
+}

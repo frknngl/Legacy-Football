@@ -1,0 +1,112 @@
+{
+  "id": "evt_business_salary_cut",
+  "family": "fam_business_salary_cut",
+  "category": "business",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "board_politics",
+    "beat": "salary_cut",
+    "signature": "business:salary_cut"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Maaş İndirimi Baskısı",
+          "kind": "branch",
+          "text": "Covid sonrası ekonomik kriz bahanesiyle yönetim tüm takımdan %20 maaş indirimi istiyor. Ama yabancı yıldızların bu durumdan muaf tutulduğunu öğrendin.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Takımı örgütle ve idmana çıkmama kararı aldır.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -40
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "mizac": 25
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Sadece kendi indirimini reddet, bireysel savaş ver.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Kulübün durumu kötüyse kabul et, ancak şeffaflık talep et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_1": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_2": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        }
+      }
+    }
+  ]
+}

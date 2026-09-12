@@ -1,0 +1,149 @@
+{
+  "id": "evt_social_unlu_partisi",
+  "family": "fam_social_parti",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ünlüler Gecidi",
+      "kind": "branch",
+      "text": "Şehrin en ünlü isimlerinden birinin düzenlediği kapalı devre bir partiye davet edildin. Ancak aynı akşam takımın çok önemli bir kampa girmesi gerekiyor. Menajerin {actor.agent.name} bu partinin networking için kaçırılmaz bir fırsat olduğunu söylerken, hoca {actor.manager.name} herkesin kampa vaktinde katılmasını emretti.",
+      "choices": [
+        {
+          "id": "c_partiye_git",
+          "text": "Kampa geç kalmayı göze alıp partiye katıl. Yeni sponsorlar ve ünlü dostlar edin.",
+          "target": "n_partiye_git",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "sadakat": -20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_kampa_git",
+          "text": "Daveti kibarca reddet ve kampa vaktinde katıl.",
+          "target": "n_kampa_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_partiye_ugra_cik",
+          "text": "Sadece 15 dakikalığına görünmek için partiye uğra, sonra hızla kampa dön.",
+          "target": "n_partiye_ugra_cik",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_partiye_git": {
+      "title": "Sosyetik Yıldız",
+      "kind": "outcome",
+      "text": "Menajerin {actor.agent.name} yeni bağlantılardan çok memnun, ancak hoca seni kampa almadı ve maçı tribünden izlemek zorundasın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_kampa_git": {
+      "title": "İşine Odaklı",
+      "kind": "outcome",
+      "text": "Hoca {actor.manager.name} kamp kurallarına uymanı takdir etti. Menajerin sana kızgın olsa da, sahada işine odaklanmış durumdasın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_partiye_ugra_cik": {
+      "title": "Sınırda Yaşamak",
+      "kind": "outcome",
+      "text": "Hem fotoğraflarda yer aldın hem de kampa saniye farkıyla yetiştin. Hoca bir şey diyemedi ama stres seni oldukça yıprattı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_parti",
+    "beat": "evt_social_unlu_partisi",
+    "signature": "social:fam_social_parti"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

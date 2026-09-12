@@ -1,0 +1,164 @@
+{
+  "id": "evt_national_camp_kavga",
+  "family": "fam_national_kavga",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Milli Takımda Kulüpçülük",
+      "kind": "branch",
+      "text": "Milli takım kampındasın. Akşam yemeğinde rakip takımın yıldız oyuncusu, senin takımının son derbide 'hakemle kazandığını' iddia edince ortam geriliyor. Milli Takım Kaptanı {actor.national_captain.name} araya girmeye çalışsa da tansiyon çok yüksek.",
+      "choices": [
+        {
+          "id": "c_kavga_et",
+          "text": "Masaya yumruğunu vur ve 'Sen önce kendi oynadığın futbola bak!' diyerek tartışmayı büyüt.",
+          "target": "n_kavga_et",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_alttan_al",
+          "text": "Kaptanın uyarısını dinle, 'Burası milli takım, kulüpçülük yapmayalım' diyerek masadan kalk.",
+          "target": "n_alttan_al",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "liderlik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_hocaya_sikayet",
+          "text": "Ertesi gün hocanın ({actor.national_manager.name}) odasına git ve huzursuzluk çıkaranların kamptan gönderilmesini iste.",
+          "target": "n_hocaya_sikayet",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": -10,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_kavga_et": {
+      "title": "Masadaki Çatlak",
+      "kind": "outcome",
+      "text": "Kavga büyüdü ve araya diğer oyuncular girdi. Kendi kulübünün taraftarları seni bir kahraman gibi görse de milli takım teknik direktörü durumdan hiç memnun değil.",
+      "onEnter": [
+        {
+          "flag": "npc_national_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_alttan_al": {
+      "title": "Gerçek Kaptan Kim?",
+      "kind": "outcome",
+      "text": "Olayı soğukkanlılıkla yatıştırman {actor.national_captain.name:gen} çok hoşuna gitti. Takım içindeki saygınlığın arttı, kulüpçülük geride bırakıldı.",
+      "onEnter": [
+        {
+          "flag": "npc_national_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_hocaya_sikayet": {
+      "title": "Hocanın Odası",
+      "kind": "outcome",
+      "text": "{actor.national_manager.name} seni dinledi ama 'Soyunma odasındaki olaylar odama taşınmamalı' diyerek seni tersledi. Kamptaki dedikoducu damgasını yemek üzeresin.",
+      "onEnter": [
+        {
+          "flag": "npc_national_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_national_kavga",
+    "beat": "evt_national_camp_kavga",
+    "signature": "national:fam_national_kavga"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  }
+}

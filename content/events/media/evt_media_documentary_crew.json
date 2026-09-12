@@ -1,0 +1,117 @@
+{
+  "id": "evt_media_documentary_crew",
+  "family": "fam_media_documentary_crew",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "documentary_crew",
+    "signature": "media:documentary_crew"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Belgesel Ekibi",
+          "kind": "branch",
+          "text": "Büyük bir dijital platform, kulübün sezonluk belgeselini çekiyor. Soyunma odasındaki en gergin anlarda bile kameralar yüzünüzde. Yönetmen, senden daha 'dramatik' davranmanı ve bir oyuncuyla sahte bir kavga çıkarmanı istiyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Reddet. 'Ben futbolcuyum, aktör değil' diyerek kameraları odadan çıkarttır.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "İstediklerini ver. Reytinglerin artması, senin de global marka değerini artırır.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 50000
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "durus": -5
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Yönetmene, 'Sahte kavga yerine antrenmanda gerçek bir şov yapacağım, onu çekin' de.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

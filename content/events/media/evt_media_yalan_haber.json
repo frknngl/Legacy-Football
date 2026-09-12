@@ -1,0 +1,155 @@
+{
+  "id": "evt_media_yalan_haber",
+  "family": "fam_media_yalan_haber",
+  "category": "media",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Asılsız İddia",
+      "kind": "branch",
+      "text": "Sabah uyandığında telefonunda yüzlerce cevapsız arama görüyorsun. Ulusal basında büyük bir dedikodu sitesi, senin gece geç saatlerde ağır bir trafik kazası geçirdiğini ve futbol hayatının bittiğini iddia etmiş! Sponsorların panik içinde, borsada kulübün hisseleri düşüyor.",
+      "choices": [
+        {
+          "id": "c_canli_yayin",
+          "text": "Hemen sosyal medyada canlı yayın aç. Antrenman tesisinde top sektirerek iyi olduğunu herkese göster.",
+          "target": "n_canli_yayin",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_dava_et",
+          "text": "Umursamaz davran. Sadece avukatına ({actor.lawyer.name}) talimat verip o haber sitesine milyon dolarlık dava aç.",
+          "target": "n_dava_et",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Kulübün resmi bir açıklama yapmasını bekle. Sen şahsi bir cevap verme.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_canli_yayin": {
+      "title": "Şov Başlıyor",
+      "kind": "outcome",
+      "text": "Canlı yayının milyonlar izledi! Eğlenceli tavrın ve top sektirme şovun sayesinde yalan haber anında çürüdü. Sponsorların sana olan güveni daha da arttı."
+    },
+    "n_dava_et": {
+      "title": "Mahkeme Yolu",
+      "kind": "outcome",
+      "text": "Sen açıklama yapmadığın için kriz birkaç saat sürdü ancak açtığın dev dava haber sitesini iflasın eşiğine getirdi. Medya artık senin hakkında yalan yazarken iki kere düşünecek.",
+      "onEnter": [
+        {
+          "flag": "npc_lawyer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Resmi Yollar",
+      "kind": "outcome",
+      "text": "Kulübün akşam saatlerinde yaptığı yavan bir basın açıklamasıyla kriz sönümlendi. Soğukkanlıydın ama dedikodular gün boyu canını sıktı."
+    }
+  },
+  "story": {
+    "arc": "fam_media_yalan_haber",
+    "beat": "evt_media_yalan_haber",
+    "signature": "media:fam_media_yalan_haber"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

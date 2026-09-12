@@ -1,0 +1,112 @@
+{
+  "id": "evt_media_podcast_invite",
+  "family": "fam_media_podcast_invite",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "podcast_invite",
+    "signature": "media:podcast_invite"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Tartışmalı Podcast",
+          "kind": "branch",
+          "text": "Ülkenin en popüler, ama bir o kadar da sivri dilli futbol podcastine davet edildin. Sunucu, eski kulübünle neden kötü ayrıldığını ve eski başkanın yolsuzluklarını soruyor. Yanıtlarsan manşet olacaksın, susarsan korkak diyecekler.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Politik davran. 'Eski konuları açmak istemiyorum, önüme bakıyorum' de.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "dogruluk": 5
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Her şeyi dök. Sektördeki çürük elmaları isim vererek anlat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 25
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Espriye vur, soruları ustalıkla savuşturarak kendini sempatik göster.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "taraftar_destegi",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

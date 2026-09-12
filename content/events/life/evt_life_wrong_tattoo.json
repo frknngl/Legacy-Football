@@ -1,0 +1,140 @@
+{
+  "id": "evt_life_wrong_tattoo",
+  "family": "fam_life_tattoo",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 200,
+    "family": 200
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yanlış Dövme",
+      "text": "Şampiyonlar Ligi finaline bir hafta kala aşırı gaza geldin. Büyük bir ego patlamasıyla koluna devasa bir 'Champions 2026' dövmesi yaptırdın ve fotoğrafını paylaştın. Herkes bu özgüvenin delilik olduğunu, finali kaybedersen rezil olacağını söylüyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_sildir",
+          "text": "Korkuya kapılıp apar topar lazerle sildirmeye çalış.",
+          "target": "n_sildir",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "cesaret": -25,
+            "özgüven": -20
+          }
+        },
+        {
+          "id": "c_arkasinda_dur",
+          "text": "'Kazanacağız, ben sadece tarihi erken yazdım' de.",
+          "target": "n_arkasinda_dur_roll",
+          "effects": [],
+          "persona": {
+            "özgüven": 30,
+            "ego": 25
+          }
+        },
+        {
+          "id": "c_yalan",
+          "text": "'O dövme sahte, kına ile yaptırdım şakaydı' diye açıklama yap.",
+          "target": "n_yalan",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "zeka": 10
+          }
+        }
+      ]
+    },
+    "n_sildir": {
+      "title": "Acı ve Rezillik",
+      "kind": "outcome",
+      "text": "Kolun yara bere içinde kalır, maça sargıyla çıkarsın. Tam bir fiyasko.",
+      "onEnter": []
+    },
+    "n_arkasinda_dur_roll": {
+      "title": "Kader Zarı",
+      "kind": "roll",
+      "text": "Final günü gelip çatıyor...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_arkasinda_dur_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_arkasinda_dur_fail"
+        }
+      ]
+    },
+    "n_arkasinda_dur_success": {
+      "title": "Kahin",
+      "kind": "outcome",
+      "text": "Kupayı alırsınız! O dövmenin fotoğrafı kariyerinin en ikonik anı olur.",
+      "onEnter": [
+        {
+          "flag": "legacy",
+          "op": "add",
+          "value": 30
+        },
+        {
+          "flag": "fame",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_arkasinda_dur_fail": {
+      "title": "Ömürlük Pişmanlık",
+      "kind": "outcome",
+      "text": "Kaybedersiniz. Rakipler her sene o dövmeyi paylaşıp seninle dalga geçer.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": -30
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_yalan": {
+      "title": "Erken Geri Vites",
+      "kind": "outcome",
+      "text": "Taraftarlar korktuğunu anlar, saygınlığın zedelenir.",
+      "onEnter": []
+    }
+  }
+}

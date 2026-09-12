@@ -1,0 +1,108 @@
+{
+  "id": "evt_money_pink_car",
+  "family": "fam_money_pink_car",
+  "category": "money",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Aşırı Pahalı Araba",
+      "text": "İlk büyük primini aldın ve çocukluk hayalin olan o süper spor arabayı satın aldın. Ancak bayideki son renk parlak neon pembe ve yeşil detaylı bir tasarıma sahipti. Arabayla antrenman tesislerine geldiğinde takım arkadaşların ve magazinciler yerlere yatarak gülmeye başlıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_sat",
+          "text": "Utancından arabayı o gün yarı fiyatına galericiye geri sat.",
+          "target": "n_sat",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -50000,
+                "perTier": -20000
+              }
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "özgüven": -20
+          }
+        },
+        {
+          "id": "c_sahip_cik",
+          "text": "'Bu benim tarzım, alışın' diyerek arabaya havalı pozlar ver.",
+          "target": "n_sahip_cik",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "özgüven": 25,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_kapla",
+          "text": "Arabayı hemen siyah mat folyo ile kaplat.",
+          "target": "n_kapla",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -5000,
+                "perTier": -2000
+              }
+            }
+          ],
+          "persona": {
+            "zeka": 10
+          }
+        }
+      ]
+    },
+    "n_sat": {
+      "title": "Hızlı Para Kaybı",
+      "kind": "outcome",
+      "text": "Olay kapanır ama servetinin büyük bir kısmını çöpe atmış olursun.",
+      "onEnter": []
+    },
+    "n_sahip_cik": {
+      "title": "İkonik Pembe",
+      "kind": "outcome",
+      "text": "Senin neon pembe araban şehrin simgelerinden biri olur. Taraftarlar bunu çok sever.",
+      "onEnter": []
+    },
+    "n_kapla": {
+      "title": "Sade Çözüm",
+      "kind": "outcome",
+      "text": "Maliyetli ama akıllıca bir çözüm. Dedikodular hemen kesilir.",
+      "onEnter": []
+    }
+  }
+}

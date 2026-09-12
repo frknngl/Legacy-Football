@@ -1,0 +1,149 @@
+{
+  "id": "evt_media_canli_yayin_gafi",
+  "family": "fam_media_canli_yayin",
+  "category": "media",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Canlı Yayın Gafı",
+      "kind": "branch",
+      "text": "Katıldığın ulusal bir televizyon programında sunucunun tahrik edici sorularına dayanamayıp kulüp başkanı {actor.president.name} hakkında ağır bir laf ettin. Reklam arasına girildiğinde telefonun çalmaya başladı.",
+      "choices": [
+        {
+          "id": "c_ozur_dile",
+          "text": "Reklam dönüşü kameralara bakarak başkan {actor.president.name:dat} özür dile. 'Sözlerimi yanlış ifade ettim' de.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_sozunun_arkasinda_dur",
+          "text": "Yayın başladığında sözlerinin arkasında dur. 'Gerçekleri söylemek suç mu?' diyerek meydan oku.",
+          "target": "n_sozunun_arkasinda_dur",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_studyoyu_terk_et",
+          "text": "Reklam arasında mikrofonu masaya bırakıp stüdyoyu terk et. Konuyu cevapsız bırak.",
+          "target": "n_studyoyu_terk_et",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": 5
+          }
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Tükürdüğünü Yalamak",
+      "kind": "outcome",
+      "text": "Canlı yayındaki özrünün ardından başkan seni affetti ancak medyanın ve taraftarın gözünde 'Başkanın adamı' damgası yedin.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sozunun_arkasinda_dur": {
+      "title": "Asi Karakter",
+      "kind": "outcome",
+      "text": "Sözlerinin arkasında durman taraftarı ateşledi ama başkan {actor.president.name} bunu bir savaş ilanı olarak gördü. Kulüple bağların kopma noktasına geldi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_studyoyu_terk_et": {
+      "title": "Cevapsız Sorular",
+      "kind": "outcome",
+      "text": "Stüdyoyu terk etmen günlerce konuşuldu. Medya baskısı artsa da kimse asıl konunun ne olduğunu tam olarak çözemedi. Hoca {actor.manager.name} sadece futbola odaklanmanı istedi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_media_canli_yayin",
+    "beat": "evt_media_canli_yayin_gafi",
+    "signature": "media:fam_media_canli_yayin"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

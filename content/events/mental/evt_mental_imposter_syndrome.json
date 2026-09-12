@@ -1,0 +1,117 @@
+{
+  "id": "evt_mental_imposter_syndrome",
+  "family": "fam_mental_imposter_syndrome",
+  "category": "mental",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "imposter_syndrome",
+    "signature": "mental:imposter_syndrome"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahtekar Sendromu",
+          "kind": "branch",
+          "text": "Son maçlarda çok iyisin, taraftar sana tapıyor ama içten içe 'Ben bu kadar iyi değilim, yakında balonum patlayacak' korkusu yaşıyorsun.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Bu korkuyu yenmek için idmanlardan sonra sahada kalıp tek başına saatlerce çalış.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Gece hayatına akıp bu düşünceleri kafandan atmaya çalış.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "kondisyon",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Eski hocanı veya akıl hocanı arayıp ondan tavsiye iste.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

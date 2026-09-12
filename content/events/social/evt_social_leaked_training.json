@@ -1,0 +1,105 @@
+{
+  "id": "evt_social_leaked_training",
+  "family": "fam_social_leaked",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 150,
+    "family": 100
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sızdırılan Antrenman Videosu",
+      "text": "Antrenman sırasında takımın yedek oyuncularından biriyle kısa ama sert bir fiziksel kavga yaşadınız. Hoca sizi ayırdı ve olayı tatlıya bağladınız. Ancak ertesi sabah, tel örgüler arkasından gizlice çekilmiş bir cep telefonu videosunun Twitter'da milyonlarca kez izlendiğini görüyorsun.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_aciklama",
+          "text": "Hemen ortak bir açıklama yayınlayıp oyuncuyla sarıldığın bir fotoğraf paylaş.",
+          "target": "n_aciklama",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15
+          }
+        },
+        {
+          "id": "c_sessiz",
+          "text": "Hiçbir şey söyleme, sahada cevabını ver.",
+          "target": "n_sessiz",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -1
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_alayci",
+          "text": "Kendi hesabından alaycı bir şekilde 'Ona UFC'deki yeni hareketimi gösteriyordum' yaz.",
+          "target": "n_alayci",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_aciklama": {
+      "title": "Kriz Yönetimi",
+      "kind": "outcome",
+      "text": "Kriz hızlıca söner. İkiniz de yolunuza devam edersiniz.",
+      "onEnter": []
+    },
+    "n_sessiz": {
+      "title": "Büyüyen Dedikodular",
+      "kind": "outcome",
+      "text": "Dedikodular büyür. Bütün gözler bir sonraki maçta senin üzerinde olacak.",
+      "onEnter": []
+    },
+    "n_alayci": {
+      "title": "Bad Boy",
+      "kind": "outcome",
+      "text": "Genç taraftarlar bunu çok sever, 'Bad Boy' imajın güçlenir ama yönetim ceza keser.",
+      "onEnter": []
+    }
+  }
+}

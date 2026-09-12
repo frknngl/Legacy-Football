@@ -1,0 +1,147 @@
+{
+  "id": "evt_match_kasitli_sakatlama",
+  "family": "fam_match_kasitli_sakatlama",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hedefteki Adam",
+      "kind": "branch",
+      "text": "Maçın başından beri rakibin sert adamı {actor.opponent_hardman.name} sana kasıtlı tekmeler atıyor. Hakem uyarmakla yetiniyor. Son pozisyonda ayak bileğine öyle sert bastı ki acıdan çığlık attın. Ayağa kalktığında tam karşında sana sırıtarak bakıyor.",
+      "choices": [
+        {
+          "id": "c_karsilik_ver",
+          "text": "Üzerine yürü ve kafa at! 'Beni sakatlayamazsın!' diye bağır.",
+          "target": "n_karsilik_ver",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_hakeme_git",
+          "text": "Soğukkanlı kal ve {actor.referee.name:dat} gidip kart göstermesi için yoğun itiraz et.",
+          "target": "n_hakeme_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_futbolla_cevap_ver",
+          "text": "Ona hiç bakma bile. Topu iste, çalım atarak onu rezil et ve golü ara.",
+          "target": "n_futbolla_cevap_ver",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_karsilik_ver": {
+      "title": "Kırmızı Kart",
+      "kind": "outcome",
+      "text": "Kafa attığın anda rakip kendini yere attı ve direkt kırmızı kart gördün. Soyunma odasına giderken taraftarların bir kısmı hırsını alkışlasa da maçın kaybedilmesine sebep oldun.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCards": 1,
+          "incident": "inc_red_card"
+        }
+      ]
+    },
+    "n_hakeme_git": {
+      "title": "Tepkisiz Hakem",
+      "kind": "outcome",
+      "text": "{actor.referee.name} itirazlarını dinlemedi bile. Ancak sen profesyonel kalıp maçı bitirdin. Maç sonu bileğindeki şişlik nedeniyle antrenmanları aksatmak zorunda kaldın.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_ref_conflict"
+        }
+      ]
+    },
+    "n_futbolla_cevap_ver": {
+      "title": "Sahanın Yıldızı",
+      "kind": "outcome",
+      "text": "Acıyı umursamadan oynamaya devam ettin. Onu her pozisyonda ekarte edip oyundan düşmesini sağladın. Medya senin bu elit ve soğukkanlı duruşuna methiyeler düzdü.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_stood_up"
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_kasitli_sakatlama",
+    "beat": "evt_match_kasitli_sakatlama",
+    "signature": "match:fam_match_kasitli_sakatlama"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

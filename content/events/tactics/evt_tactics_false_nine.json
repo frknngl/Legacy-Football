@@ -1,0 +1,112 @@
+{
+  "id": "evt_tactics_false_nine",
+  "family": "fam_tactics_false_nine",
+  "category": "tactics",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "underrepresented",
+    "beat": "false_nine",
+    "signature": "tactics:false_nine"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sahte Dokuz",
+          "kind": "branch",
+          "text": "Hoca senden klasik forvet oynamayı bırakıp orta sahaya yardım eden 'Sahte Dokuz' rolüne geçmeni istiyor. Bu, daha az gol atacağın ama takımın daha iyi oynayacağı anlamına geliyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Takım için egonu bir kenara bırak ve yeni rolü benimse.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "dogruluk": 25
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Taktik kağıdında sahte dokuz görün, sahada yine sadece gol kovala.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Hocayla tartış, 'Ben istatistik oyuncusuyum, beni harcıyorsun' de.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
+        }
+      }
+    }
+  ]
+}

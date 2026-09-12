@@ -1,0 +1,102 @@
+{
+  "id": "evt_social_dog_jersey",
+  "family": "fam_social_dog",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Köpeğin Formayı Yemesi",
+      "text": "Evinin bahçesinde köpeğinle oynuyorsun. Yeni aldığın yavru köpeğin, yanlışlıkla kendi takımının efsanevi formasını paramparça ettiğini görüyorsun. Tam o sırada arkadaşın bu komik anı videoya çekip Instagram hikayesine atıyor. Taraftarlar formaya saygısızlık yaptığını düşünüp çıldırıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_ozur",
+          "text": "Hemen köpeğine kulübün renklerinde bir tasma alıp tatlı bir özür fotoğrafı paylaş.",
+          "target": "n_ozur",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "zeka": 15,
+            "merhamet": 10
+          }
+        },
+        {
+          "id": "c_sildir",
+          "text": "Arkadaşına bağırıp videoyu hemen sildir.",
+          "target": "n_sildir",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_bosver",
+          "text": "'O sadece bir kumaş parçası, büyütmeyin' yaz.",
+          "target": "n_bosver",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "profesyonellik": -20
+          }
+        }
+      ]
+    },
+    "n_ozur": {
+      "title": "Kriz Yönetimi",
+      "kind": "outcome",
+      "text": "Akıllıca bir PR, kriz fırsata dönüşür. Taraftarlar köpeğini çok sever.",
+      "onEnter": []
+    },
+    "n_sildir": {
+      "title": "Geç Kalınmış Müdahale",
+      "kind": "outcome",
+      "text": "Görüntü yayılmıştır bile. Sessiz kalarak unutturmaya çalışırsın.",
+      "onEnter": []
+    },
+    "n_bosver": {
+      "title": "Saygısız",
+      "kind": "outcome",
+      "text": "Taraftar çıldırır, başkan seni tesislerde fırçalar.",
+      "onEnter": []
+    }
+  }
+}

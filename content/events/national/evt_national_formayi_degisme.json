@@ -1,0 +1,149 @@
+{
+  "id": "evt_national_formayi_degisme",
+  "family": "fam_national_forma",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Forma Tartışması",
+      "kind": "branch",
+      "text": "Ülkenin en ezeli rakibiyle oynanan ve çok gergin geçen bir milli maçın devre arasında, rakibin en nefret edilen oyuncusuyla forma değiştirdin. Bu görüntü kameralara yansıyınca ülkede infial koptu. Kulüp hocan {actor.manager.name} bu dikkatsizliğine kızarken, milli takım kaptanı da senden açıklama bekliyor.",
+      "choices": [
+        {
+          "id": "c_ozur_dile",
+          "text": "Halktan ve takımdan özür dile: 'Sadece sportif bir refleksti, düşüncesizlik ettim.'",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_baris_mesaji_ver",
+          "text": "Bunu bir barış mesajı olarak savun: 'Futbol insanları birleştirir, düşmanlıkları değil.'",
+          "target": "n_baris_mesaji_ver",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_umursama",
+          "text": "Olayı tamamen umursa ve 'İstediğim kişiyle forma değiştiririm' diye kestirip at.",
+          "target": "n_umursama",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Geri Adım",
+      "kind": "outcome",
+      "text": "Özrünün ardından olay yatıştı ama bazı fanatik gruplar sana hala şüpheyle bakıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_baris_mesaji_ver": {
+      "title": "Evrensel Oyuncu",
+      "kind": "outcome",
+      "text": "Uluslararası medya seni barış elçisi ilan etti ama milliyetçi taraftarların sevgisini tamamen kaybettin.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_umursama": {
+      "title": "Umursamaz Efsane",
+      "kind": "outcome",
+      "text": "Küstah tavrın medyayı çıldırttı ama sen kendi dünyanda oldukça mutlusun. Ancak hoca {actor.manager.name} saha dışı olaylarından artık çok sıkıldı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_national_forma",
+    "beat": "evt_national_formayi_degisme",
+    "signature": "national:fam_national_forma"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

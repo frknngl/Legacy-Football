@@ -1,0 +1,102 @@
+{
+  "id": "evt_match_referee_shoelaces",
+  "family": "fam_match_shoelaces",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 10,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hakemin Ayakkabı Bağcığı",
+      "text": "Maçın çok kritik bir anında, ceza sahasında topla buluşmak üzeresin. Tam atağa kalkacakken düdük çalıyor. Hakem, kramponunun bağcığı çözüldüğü için oyunu durdurmuş! Bütün stat şok içinde.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_bagla",
+          "text": "Hakemin yanına gidip şakayla karışık bağcığını bağlamayı teklif et.",
+          "target": "n_bagla",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 20
+          }
+        },
+        {
+          "id": "c_itiraz",
+          "text": "Çılgına dönüp 'Atağı nasıl kesersin!' diye hakemin üstüne yürü.",
+          "target": "n_itiraz",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "hırs": 20
+          }
+        },
+        {
+          "id": "c_soguk",
+          "text": "Sessizce bekle ve konsantrasyonunu bozma.",
+          "target": "n_soguk",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15
+          }
+        }
+      ]
+    },
+    "n_bagla": {
+      "title": "Centilmen",
+      "kind": "outcome",
+      "text": "Kameralara çok sempatik yansır, taraftar seni alkışlar.",
+      "onEnter": []
+    },
+    "n_itiraz": {
+      "title": "Sarı Kart",
+      "kind": "outcome",
+      "text": "Hakem sana acımaz ve itirazdan sarı kart gösterir. Sinirden maça odaklanamazsın.",
+      "onEnter": []
+    },
+    "n_soguk": {
+      "title": "Buz Adam",
+      "kind": "outcome",
+      "text": "Oyun tekrar başladığında kaldığın yerden devam edersin.",
+      "onEnter": []
+    }
+  }
+}

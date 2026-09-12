@@ -1,0 +1,107 @@
+{
+  "id": "evt_ritual_armband",
+  "family": "fam_ritual_armband",
+  "category": "ritual",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "veteran",
+    "icon",
+    "legend"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kaptanlık Bandı Batıl İnancı",
+      "text": "Artık takımın efsanevi kaptanısın. Yıllardır kolunda taşıdığın, yıpranmış ve terden rengi solmuş şanslı kaptanlık bandın maçtan önce kayboldu! Genç oyunculardan birinin onu çöpe attığını veya 'yeni ve temiz' bir bantla değiştirdiğini düşünüyorsun.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_fircala",
+          "text": "Soyunma odasını birbirine kat, herkesi fırçala.",
+          "target": "n_fircala",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "ego": 15
+          }
+        },
+        {
+          "id": "c_yeni",
+          "text": "Derin bir nefes al, yeni ve pırıl pırıl olan bandı tak.",
+          "target": "n_yeni",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "profesyonellik": 20,
+            "liderlik": 15
+          }
+        },
+        {
+          "id": "c_bantsiz",
+          "text": "Bantsız çıkmaya çalış.",
+          "target": "n_bantsiz",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "profesyonellik": -10
+          }
+        }
+      ]
+    },
+    "n_fircala": {
+      "title": "Toksik Kaptan",
+      "kind": "outcome",
+      "text": "Odada terör estirirsin, takım maça gergin ve moralsiz çıkar.",
+      "onEnter": []
+    },
+    "n_yeni": {
+      "title": "Gerçek Lider",
+      "kind": "outcome",
+      "text": "Takıma 'Önemli olan bant değil, bu formadır' mesajı verirsin. Kaptanlığın perçinlenir.",
+      "onEnter": []
+    },
+    "n_bantsiz": {
+      "title": "Kural Hatası",
+      "kind": "outcome",
+      "text": "Hakem izin vermez, kural hatası olur, alay konusu olursun.",
+      "onEnter": []
+    }
+  }
+}

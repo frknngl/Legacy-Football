@@ -1,0 +1,107 @@
+{
+  "id": "evt_match_last_minute_freekick",
+  "family": "fam_match_last_minute_freekick",
+  "category": "match",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "match_drama",
+    "beat": "last_minute_freekick",
+    "signature": "match:last_minute_freekick"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Kader Anı",
+          "kind": "branch",
+          "text": "90+4. Skor 1-1. Ceza yayı üzerinde kazanılan bir frikik var. Frikikleri genelde 10 numara kullanır, ama sen bugün çok iyi hissediyorsun.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Topu ondan zorla al ve kaleye vur.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 15
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Geri çekil ve kurala uyarak vuruşu 10 numaraya bırak.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 10
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Ona paslı kullanmasını teklif et, sürpriz bir organizasyon yap.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "form",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_1": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_2": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        }
+      }
+    }
+  ]
+}

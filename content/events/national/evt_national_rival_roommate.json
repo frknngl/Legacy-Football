@@ -1,0 +1,97 @@
+{
+  "id": "evt_national_rival_roommate",
+  "family": "fam_national_rival",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Milli Kampta Düşmanla Aynı Oda",
+      "text": "Milli takım kampına katıldın. Teknik direktör, takım ruhunu güçlendirmek için oyuncuları karmaya karar vermiş. Ve oda arkadaşın olarak kimi seçmiş? Ligde her derbide kavga ettiğin, rakip takımın o sinir bozucu yıldızını! Odaya girdiğinde eşyalarını çoktan en iyi yatağa yaymış ve televizyonu kendi istediği kanalda açmış.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_baris",
+          "text": "Profesyonel davran, barış çubuğu uzat ve onunla sohbet etmeye çalış.",
+          "target": "n_baris",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15
+          }
+        },
+        {
+          "id": "c_soguk",
+          "text": "Odayı ortadan ikiye böl (mecazen) ve onunla tek kelime konuşma.",
+          "target": "n_soguk",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ]
+        },
+        {
+          "id": "c_rest",
+          "text": "Teknik direktörün odasına gidip 'Onunla kalmam' diye rest çek.",
+          "target": "n_rest",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "profesyonellik": -10
+          }
+        }
+      ]
+    },
+    "n_baris": {
+      "title": "Yeni İkili",
+      "kind": "outcome",
+      "text": "Şaşırtıcı şekilde iyi anlaşırsınız. Sahada harika bir uyum yakalarsınız ama kendi kulüp taraftarların sosyal medyada tepki gösterir.",
+      "onEnter": []
+    },
+    "n_soguk": {
+      "title": "Soğuk Savaş",
+      "kind": "outcome",
+      "text": "Kampta soğuk savaş yaşanır. Stres seviyen artar, maçlarda uyumsuzluk yüzünden kötü performans sergilersiniz.",
+      "onEnter": []
+    },
+    "n_rest": {
+      "title": "Dışlanmış Yıldız",
+      "kind": "outcome",
+      "text": "Hoca bunu zayıflık olarak görür. Odalar değişir ama ilk 11'deki yerini kaybedersin.",
+      "onEnter": []
+    }
+  }
+}

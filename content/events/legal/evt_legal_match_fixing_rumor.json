@@ -1,0 +1,107 @@
+{
+  "id": "evt_legal_match_fixing_rumor",
+  "family": "fam_legal_match_fixing_rumor",
+  "category": "legal",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "match_drama",
+    "beat": "match_fixing_rumor",
+    "signature": "legal:match_fixing_rumor"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Şike İddiası",
+          "kind": "branch",
+          "text": "Polis, ligde süregelen bir bahis soruşturması kapsamında senin ifadene başvurmak istiyor. Sen tamamen masumsun ama adının bu dosyada geçmesi bile sponsorlarını tedirgin ediyor.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Gizlice ifade ver, olayın basına sızmamasını sağla.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "karanlik_baglantilar",
+                  "op": "add",
+                  "value": 5
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "durus": 5
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Halka açık bir açıklama yap: 'Soruşturmaya gönüllü destek veriyorum.'",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 20
+                },
+                {
+                  "flag": "medya_itibari",
+                  "op": "add",
+                  "value": 15
+                }
+              ],
+              "persona": {
+                "dogruluk": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Polise ifade vermeyi avukatlarına devret, futboluna odaklan.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -10000
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "mizac": 5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_1": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        },
+        "n_outcome_2": {
+          "title": "Hakemin Düdüğü",
+          "kind": "outcome",
+          "text": "Olay tatlıya bağlanmış gibi görünse de, spor kamuoyu senin verdiğin bu kararı uzun süre tartışacak."
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "id": "evt_money_team_dinner",
+  "family": "fam_money_dinner",
+  "category": "money",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Akşam Yemeği Hesabı",
+      "text": "Takım olarak moral yemeğine çıktınız. Herkesin keyfi yerinde. Gecenin sonunda masaya astronomik bir hesap geliyor. Genç oyuncular hesap pusulasına korkuyla bakarken, takımın veteranı sana dönüp 'Bugün senin yeni sözleşmeni kutluyoruz, hesabı sen alırsın değil mi?' diyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_ode",
+          "text": "Gülümseyerek tüm hesabı öde.",
+          "target": "n_ode",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -10000,
+                "perTier": -5000
+              }
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "cömertlik": 20
+          }
+        },
+        {
+          "id": "c_alman",
+          "text": "'Alman usulü yapıyoruz çocuklar' deyip herkesin kendi ödemesini iste.",
+          "target": "n_alman",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "cömertlik": -20
+          }
+        },
+        {
+          "id": "c_baskan",
+          "text": "Hesabı kulüp başkanının hesabına yazdır.",
+          "target": "n_baskan",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_ode": {
+      "title": "Soyunma Odası Kralı",
+      "kind": "outcome",
+      "text": "Cüzdanın hafifler ama soyunma odasında krallar gibi karşılanırsın.",
+      "onEnter": []
+    },
+    "n_alman": {
+      "title": "Cimri",
+      "kind": "outcome",
+      "text": "Paran cebinde kalır ama takım içinde cimri olarak anılmaya başlarsın.",
+      "onEnter": []
+    },
+    "n_baskan": {
+      "title": "Cesur ve Aptal",
+      "kind": "outcome",
+      "text": "Oyuncular cesaretine hayran kalır ancak başkan ertesi gün seni fena haşlar.",
+      "onEnter": []
+    }
+  }
+}

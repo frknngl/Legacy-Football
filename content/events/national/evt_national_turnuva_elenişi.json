@@ -1,0 +1,149 @@
+{
+  "id": "evt_national_turnuva_elenişi",
+  "family": "fam_national_turnuva",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Turnuvaya Veda",
+      "kind": "branch",
+      "text": "Milli takımın büyük bir turnuvadan erken elenmesi ülkede şok etkisi yarattı. Eleştirilerin odağında senin kaçırdığın kritik penaltı var. Kulübüne döndüğünde hoca {actor.manager.name} seni teselli etmeye çalışırken, medya peşini bırakmıyor.",
+      "choices": [
+        {
+          "id": "c_sorumlulugu_al",
+          "text": "Basın toplantısı düzenle ve tüm sorumluluğu üstlen. 'Hata benimdi, takım arkadaşlarımın suçu yok.'",
+          "target": "n_sorumlulugu_al",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_sistemi_elestir",
+          "text": "Milli takımın taktiğini ve hocasını eleştir. 'Bu sistemle zaten bir yere gidemezdik, penaltı sadece bahane.'",
+          "target": "n_sistemi_elestir",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "sadakat": -20
+          }
+        },
+        {
+          "id": "c_sessizce_kulube_odaklan",
+          "text": "Medyanın sorularını cevapsız bırak ve sadece kulüp antrenmanlarına odaklan.",
+          "target": "n_sessizce_kulube_odaklan",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "sadakat": 10
+          }
+        }
+      ]
+    },
+    "n_sorumlulugu_al": {
+      "title": "Ağır Yük",
+      "kind": "outcome",
+      "text": "Liderliğin ve dürüstlüğün takdir topladı. Ancak bu travmayı atlatman biraz zaman alacak, sahada eski neşenden eser yok.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sistemi_elestir": {
+      "title": "İsyankar Yıldız",
+      "kind": "outcome",
+      "text": "Yaptığın açıklamalar milli takımı karıştırdı. Halk faturayı sana kesti. Hoca {actor.manager.name} bu fevri tavrından endişe duyuyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_sessizce_kulube_odaklan": {
+      "title": "Yeni Sayfa",
+      "kind": "outcome",
+      "text": "Gündemi değiştirmek için en iyi yolun susmak olduğuna karar verdin. Hoca {actor.manager.name} bu profesyonel yaklaşımından çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_national_turnuva",
+    "beat": "evt_national_turnuva_elenişi",
+    "signature": "national:fam_national_turnuva"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

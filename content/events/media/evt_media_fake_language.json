@@ -1,0 +1,105 @@
+{
+  "id": "evt_media_fake_language",
+  "family": "fam_media_fake_language",
+  "category": "media",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sahte Dil Bilme",
+      "text": "Yeni transfer olduğun yabancı ülkede taraftara şirin görünmek için röportaja yerel dille girmek istedin. Ezberlediğin birkaç cümleyi söyledin ama muhabirin gözleri fal taşı gibi açıldı. Meğerse 'Şehri çok sevdim' demek yerine, çok ağır bir argo kelime kullanmışsın!",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kac",
+          "text": "Panikleyip röportajı anında terk et.",
+          "target": "n_kac",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "cesaret": -20
+          }
+        },
+        {
+          "id": "c_gul",
+          "text": "Kahkaha atıp kendi hatanla dalga geç, tercümandan yardım iste.",
+          "target": "n_gul",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "özgüven": 20,
+            "mizac": 25
+          }
+        },
+        {
+          "id": "c_sucla",
+          "text": "Sana o kelimeyi öğreten takım arkadaşını canlı yayında sat.",
+          "target": "n_sucla",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": -25
+          }
+        }
+      ]
+    },
+    "n_kac": {
+      "title": "Korkak Şovmen",
+      "kind": "outcome",
+      "text": "Tüm ülke günlerce o anın videosunu izler.",
+      "onEnter": []
+    },
+    "n_gul": {
+      "title": "Sempatik Yabancı",
+      "kind": "outcome",
+      "text": "Halk seni çok sempatik bulur. Hatanı bağışlarlar.",
+      "onEnter": []
+    },
+    "n_sucla": {
+      "title": "İspiyoncu",
+      "kind": "outcome",
+      "text": "Soyunma odasında o arkadaşınla kavga edersin.",
+      "onEnter": []
+    }
+  }
+}

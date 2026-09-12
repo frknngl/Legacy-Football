@@ -1,0 +1,169 @@
+{
+  "id": "evt_social_voice_tehdit",
+  "family": "fam_social_tehdit",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 20,
+    "family": 10
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Bilinmeyen Numaradan Sesli Mesaj",
+      "kind": "branch",
+      "format": "voice",
+      "text": "[Arka planda uğultulu bir rüzgar ve trafik sesi]... 'Kardeşim... Dinle bak, o pazar günkü maçta ayağını denk alacaksın. Bizi çok üzdün geçen sezon. Seni seviyoruz ama sevgimizin de bir sınırı var. Sahada fazla uçup kaçma, tamam mı? Hadi eyvallah.' ...[Bip]",
+      "choices": [
+        {
+          "id": "c_polise_git",
+          "text": "Mesajı kulüp yönetimine ve polise teslim et.",
+          "target": "n_polise_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 10,
+            "sadakat": 5
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Salla, kendini bilmez bir holiganın teki. Mesajı sil ve antrenmana devam et.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 5,
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_sosyal_medya",
+          "text": "Ses kaydını doğrudan sosyal medya hesabından 'Köpekler istedi diye atlar ölmez' notuyla paylaş.",
+          "target": "n_sosyal_medya",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 10,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_polise_git": {
+      "title": "Güvenlik Çemberi",
+      "kind": "outcome",
+      "text": "Kulüp sana özel bir koruma tahsis etti ve olay savcılığa intikal etti. Güvendesin ama artık sokağa bile çıkarken yanında iki iri adamla gezmek zorundasın. Sokaktaki adın 'korumalı yıldıza' çıktı.",
+      "onEnter": [
+        {
+          "flag": "npc_sporting_director_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Sahada Konuşan",
+      "kind": "outcome",
+      "text": "Sessizce çalışmaya devam ettin. Pazar günkü maçta sahaya çıktığında o karanlık tehdidi tamamen kafandan atmıştın. Onlara sahada cevap verdin ve maçtan sonra kimse bir daha aramadı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sosyal_medya": {
+      "title": "Yangın Yeri",
+      "kind": "outcome",
+      "text": "Paylaşımın ortalığı ateşe verdi! Rakip takım taraftarları çıldırdı, kendi taraftarın ise seni bir savaşçı ilan etti. Ligin geri kalanında artık her maç bir savaş alanına dönecek.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_tehdit",
+    "beat": "evt_social_voice_tehdit",
+    "signature": "social:fam_social_tehdit"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "Sesli mesaj formati nedeniyle yari kisa tutulmustur."
+  }
+}

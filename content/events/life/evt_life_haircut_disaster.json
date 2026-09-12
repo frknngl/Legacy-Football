@@ -1,0 +1,133 @@
+{
+  "id": "evt_life_haircut_disaster",
+  "family": "fam_life_haircut",
+  "category": "life",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Saç Tıraşı Faciası",
+      "text": "Büyük kupa finalinden bir gece önce, yıllardır gittiğin kuaför yerine otelin lobisindeki ünlü 'Vip Berber'e gitmeye karar verdin. Berber, yeni bir tarz denemek istediğini sandı ve saçının tam ortasına kocaman bir çizik atıp yanları sıfıra vurdu. Aynaya baktığında kafanda bir felaket olduğunu görüyorsun.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_sifir",
+          "text": "Berbere kız ve saçını tamamen sıfıra vurmasını iste.",
+          "target": "n_sifir",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "cesaret": 15
+          }
+        },
+        {
+          "id": "c_saka",
+          "text": "Bu garip saçı kullanıp 'Yeni uğurum' diyerek şova dönüştür.",
+          "target": "n_saka_roll",
+          "effects": [],
+          "persona": {
+            "özgüven": 20
+          }
+        },
+        {
+          "id": "c_bere",
+          "text": "Maç boyu kafana bir bant veya ince bir bere/kasket takıp saklamaya çalış.",
+          "target": "n_bere",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "özgüven": -20
+          }
+        }
+      ]
+    },
+    "n_sifir": {
+      "title": "Gladyatör",
+      "kind": "outcome",
+      "text": "Kel kafa sana agresif bir hava katar. Sahada rakiplerini korkutursun.",
+      "onEnter": []
+    },
+    "n_saka_roll": {
+      "title": "Moda Zarı",
+      "kind": "roll",
+      "text": "Ertesi gün gazetelere o fotoğraflar düşer...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_saka_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_saka_fail"
+        }
+      ]
+    },
+    "n_saka_success": {
+      "title": "Yeni Trend",
+      "kind": "outcome",
+      "text": "Kupa maçını kazanırsınız ve binlerce çocuk ertesi gün o iğrenç saç tıraşını yaptırır!",
+      "onEnter": [
+        {
+          "flag": "legacy",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_saka_fail": {
+      "title": "Sirk Palyaçosu",
+      "kind": "outcome",
+      "text": "Maçı kaybedersiniz, faturayı 'Ciddiyetsiz saçına' keserler.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        },
+        {
+          "flag": "fandom",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_bere": {
+      "title": "Güvensiz Yıldız",
+      "kind": "outcome",
+      "text": "Bant sürekli düşer, saçınla uğraşmaktan topa vuramazsın.",
+      "onEnter": []
+    }
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "id": "evt_match_kendi_kalesine",
+  "family": "fam_match_kendi_kalesine",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "local_talent",
+    "starter",
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Büyük Hata",
+      "kind": "branch",
+      "text": "Maçın 80. dakikası. Geri pas vermek isterken kaleci {actor.keeper.name} ile anlaşmazlık yaşadın ve topu kendi ağlarına gönderdin. Stadyumda ölüm sessizliği var ve herkes sana bakıyor.",
+      "choices": [
+        {
+          "id": "c_kaleciye_kiz",
+          "text": "Kaleciye bağırarak suçu ona at! 'Neden yerinde değildin?!' de.",
+          "target": "n_kaleciye_kiz",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_ozur_dile",
+          "text": "Ellerini havaya kaldırıp taraftardan ve takımdan özür dile.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_hirs_yap",
+          "text": "Hatanı telafi etmek için hücuma çık ve kalan dakikalarda deli gibi gol ara.",
+          "target": "n_hirs_yap",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_kaleciye_kiz": {
+      "title": "Bölünme",
+      "kind": "outcome",
+      "text": "Kaleciyle sahada itişmen taraftarın tepkisini çekti. Maç sonu soyunma odasında kimse seninle konuşmadı.",
+      "onEnter": [
+        {
+          "flag": "npc_keeper_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Sorumluluk",
+      "kind": "outcome",
+      "text": "Bu dürüst ve erdemli davranışın taraftarı yumuşattı. Maçı kaybetseniz de senin karakterin medyada övüldü.",
+      "onEnter": [
+        {
+          "flag": "npc_keeper_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_hirs_yap": {
+      "title": "Telafi Çabası",
+      "kind": "outcome",
+      "text": "Kalan 10 dakikada basmadık yer bırakmadın. Gol atamasan da bu hırsın hatanı affettirdi. Ancak maç sonu soyunma odasında yere yığılıp kaldın."
+    }
+  },
+  "story": {
+    "arc": "fam_match_kendi_kalesine",
+    "beat": "evt_match_kendi_kalesine",
+    "signature": "match:fam_match_kendi_kalesine"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

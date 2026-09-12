@@ -1,0 +1,148 @@
+{
+  "id": "evt_locker_hoca_isyani",
+  "family": "fam_locker_hoca_isyani",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Devre Arası İsyanı",
+      "kind": "branch",
+      "text": "Şampiyonluk yolundaki en kritik maçın devre arasında 2-0 geridesiniz. Hoca {actor.manager.name} soyunma odasına hışımla girip taktik tahtasını deviriyor ve özellikle sana ağır hakaretler ediyor. Bütün takım şok içinde, sessizce senin tepkini bekliyor.",
+      "choices": [
+        {
+          "id": "c_karsilik_ver",
+          "text": "Ayağa kalkıp bağırarak karşılık ver. 'Sorun bizde değil, senin kokuşmuş taktiklerinde!' de.",
+          "target": "n_karsilik_ver",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Sessiz kalıp yere bak. Karşılık verip takımın motivasyonunu daha da bozma.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_takimi_topla",
+          "text": "Hocayı tamamen görmezden gel, takım arkadaşlarını etrafına toplayıp kendi konuşmanı yap.",
+          "target": "n_takimi_topla",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": 10
+          }
+        }
+      ]
+    },
+    "n_karsilik_ver": {
+      "title": "Kopuş",
+      "kind": "outcome",
+      "text": "Kavganız neredeyse fiziksel boyuta ulaşıyordu. İkinci yarı oyundan alındın. Hoca ile ipler tamamen koptu.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Suskunluk",
+      "kind": "outcome",
+      "text": "Senin alttan almanı hoca otoritesinin bir zaferi olarak gördü. İkinci yarı takım biraz toparlansa da senin moralin tamamen sıfırlandı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_takimi_topla": {
+      "title": "Gerçek Lider",
+      "kind": "outcome",
+      "text": "Sen konuşmaya başlayınca hoca şok içinde sustu. Takım senin sözlerinle ateşlendi ve ikinci yarı müthiş bir geri dönüşe imza attınız. Artık o odada hocanın değil, senin sözün geçiyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_locker_hoca_isyani",
+    "beat": "evt_locker_hoca_isyani",
+    "signature": "locker:fam_locker_hoca_isyani"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

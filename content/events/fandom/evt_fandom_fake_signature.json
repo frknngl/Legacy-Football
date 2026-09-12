@@ -1,0 +1,103 @@
+{
+  "id": "evt_fandom_fake_signature",
+  "family": "fam_fandom_fake",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "star",
+    "icon"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sahte İmza Krizi",
+      "text": "İnternette dolaşırken bir açık artırma sitesinde, 'Maçta Giyilmiş ve İmzalanmış' formanın 5000 Euro'ya satıldığını görüyorsun. Sorun şu ki; o formayı o maçta hiç giymedin ve imza kesinlikle senin değil. Satan kişinin, kulüp tesislerinde çalışan birinin akrabası olduğunu fark ediyorsun.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_dava",
+          "text": "Avukatlarına talimat ver, şahsı dava et.",
+          "target": "n_dava",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 15000,
+                "perTier": 5000
+              }
+            }
+          ],
+          "persona": {
+            "profesyonellik": 10,
+            "merhamet": -15
+          }
+        },
+        {
+          "id": "c_hediye",
+          "text": "Formayı satın alan taraftara ulaşıp ona gerçek bir forma hediye et.",
+          "target": "n_hediye",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -2000,
+                "perTier": -1000
+              }
+            }
+          ],
+          "persona": {
+            "merhamet": 20
+          }
+        },
+        {
+          "id": "c_sessiz",
+          "text": "Hiç ses çıkarma, piyasanın yükselmesini keyifle izle.",
+          "target": "n_sessiz",
+          "effects": [],
+          "persona": {
+            "profesyonellik": -10
+          }
+        }
+      ]
+    },
+    "n_dava": {
+      "title": "Acımasızlık",
+      "kind": "outcome",
+      "text": "Yasal olarak kazanırsın ama sosyal medyada 'Gözünü para bürümüş' denilerek taşlanırsın.",
+      "onEnter": []
+    },
+    "n_hediye": {
+      "title": "Halkın Kahramanı",
+      "kind": "outcome",
+      "text": "İnanılmaz bir PR hamlesi olur. Taraftarın gözünde ilahlaşırsın.",
+      "onEnter": []
+    },
+    "n_sessiz": {
+      "title": "Gizli Gurur",
+      "kind": "outcome",
+      "text": "Olay unutulur ama sahte forma piyasası senin adına büyümeye devam eder.",
+      "onEnter": []
+    }
+  }
+}

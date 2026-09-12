@@ -1,0 +1,153 @@
+{
+  "id": "evt_locker_prim_krizi",
+  "family": "fam_locker_prim_krizi",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Prim Krizi",
+      "kind": "branch",
+      "text": "Büyük kupa maçından önce soyunma odasında takımca primlerin ödenmediği konusu tartışılıyor. Kaptan takımı ateşleyemeyince tüm gözler sana döndü. Oyuncular idmana çıkmamayı teklif ediyor. Başkan {actor.president.name} ise tesisin önünde bekliyor.",
+      "choices": [
+        {
+          "id": "c_isyana_katil",
+          "text": "Takımın arkasında dur. 'Paramız yatmadan sahaya çıkmayız' diyerek boykota öncülük et.",
+          "target": "n_isyana_katil",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_baskani_ikna",
+          "text": "Gidip Başkan {actor.president.name:dat} durumu izah et ve takımı sahaya çıkmaya ikna etmek için senet/söz al.",
+          "target": "n_baskani_ikna",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_kendi_ode",
+          "text": "Kendi cebinden primi öde. 'Bugün maça çıkıyoruz, parayı dert etmeyin' de.",
+          "target": "n_kendi_ode",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -200000
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_isyana_katil": {
+      "title": "Grev",
+      "kind": "outcome",
+      "text": "İdmana çıkmadığınız için basın olayı duydu. Kulübün itibarı sarsıldı. Takım arkadaşların seninle gurur duyuyor ama başkan seni artık bir tehdit olarak görüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_baskani_ikna": {
+      "title": "Diplomat",
+      "kind": "outcome",
+      "text": "Başkan söz verdi ve takımı sahaya çıkardın. Olası bir krizi profesyonellikle yönettin ancak bu stres seni zihinsel olarak çok yordu.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_kendi_ode": {
+      "title": "Kralın Hediyesi",
+      "kind": "outcome",
+      "text": "Tüm takıma kendi cebinden ödeme yapman efsanevi bir hareket olarak tarihe geçti. Başkan bu duruma hem utandı hem de senin gücünden çekindi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_locker_prim_krizi",
+    "beat": "evt_locker_prim_krizi",
+    "signature": "locker:fam_locker_prim_krizi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

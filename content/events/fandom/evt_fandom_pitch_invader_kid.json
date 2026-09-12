@@ -1,0 +1,102 @@
+{
+  "id": "evt_fandom_pitch_invader_kid",
+  "family": "fam_fandom_invader",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran",
+    "twilight"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Açık Antrenmanda Sahaya Atlayan Çocuk",
+      "text": "Taraftara açık yapılan antrenmanda, 8-9 yaşlarında üzerinde senin forman olan küçük bir çocuk güvenliği aşıp sahaya dalıyor. Sana doğru koşarken güvenlik görevlileri çocuğu yakalayıp sertçe yere yatırıyorlar. Çocuk ağlamaya başlıyor. Tribünlerdeki binlerce kişi durumu izliyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kurtar",
+          "text": "Güvenliklere müdahale et, çocuğu kurtar ve ona kramponlarını hediye et.",
+          "target": "n_kurtar",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "merhamet": 20
+          }
+        },
+        {
+          "id": "c_izle",
+          "text": "Olayı uzaktan izle, kurallara uy. Antrenmana odaklan.",
+          "target": "n_izle",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "profesyonellik": 10,
+            "merhamet": -15
+          }
+        },
+        {
+          "id": "c_davet",
+          "text": "Antrenmandan sonra çocuğun ailesine ulaşıp onları locanda maça davet et.",
+          "target": "n_davet",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "merhamet": 15,
+            "zeka": 10
+          }
+        }
+      ]
+    },
+    "n_kurtar": {
+      "title": "Kahraman",
+      "kind": "outcome",
+      "text": "Video tüm dünyada viral olur. İnanılmaz bir PR başarısı yakalarsın. İnsanlar karakterini över.",
+      "onEnter": []
+    },
+    "n_izle": {
+      "title": "Soğuk Yıldız",
+      "kind": "outcome",
+      "text": "Sosyal medyada 'soğuk ve kibirli' olarak etiketlenirsin. Çocuğa yardım etmediğin için eleştiri oklarının hedefi olursun.",
+      "onEnter": []
+    },
+    "n_davet": {
+      "title": "Klas Hareket",
+      "kind": "outcome",
+      "text": "O an şov yapmazsın ama arka planda kalpleri kazanırsın. Medya bunu sonradan öğrenir, saygınlığın artar.",
+      "onEnter": []
+    }
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "id": "evt_life_hobi_meraki",
+  "family": "fam_life_hobi",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tehlikeli Hobi",
+      "kind": "branch",
+      "text": "Son günlerde ekstrem sporlara, özellikle de serbest dalışa büyük bir merak sardın. Sosyal medyada paylaştığın dalış videoları milyonlarca izleniyor ancak kulüp sözleşmendeki 'tehlikeli aktiviteler' maddesini ihlal ediyorsun. Başkan {actor.president.name} bunu derhal bırakmanı istiyor.",
+      "choices": [
+        {
+          "id": "c_hobiyi_birak",
+          "text": "Başkanın uyarısını dikkate al, dalış ekipmanlarını sat ve videoyu sil.",
+          "target": "n_hobiyi_birak",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -10,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_gizlice_devam_et",
+          "text": "Söz vermiş gibi yap ama boş günlerinde gizlice dalış yapmaya devam et.",
+          "target": "n_gizlice_devam_et",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_meydan_oku",
+          "text": "Açıkça kulübe meydan oku ve 'Sözleşmem bedenimi esir alamaz' diyerek yeni bir video paylaş.",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 20
+          }
+        }
+      ]
+    },
+    "n_hobiyi_birak": {
+      "title": "Kurumsal Köle",
+      "kind": "outcome",
+      "text": "Başkan {actor.president.name} itaatkar tavrından çok memnun. Kariyerini riske atmadın ama ruhun biraz daha köreldi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_gizlice_devam_et": {
+      "title": "Çift Hayat",
+      "kind": "outcome",
+      "text": "Hem tutkunu yaşıyorsun hem de kulüple aranı bozmuyorsun. Ancak yakalanma korkusu her dalışta peşini bırakmıyor.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Adrenalin Bağımlısı",
+      "kind": "outcome",
+      "text": "Bu özgür ruhlu tavrın gençlerin idolü olmanı sağladı. Başkan {actor.president.name} sana ağır bir para cezası kesti ve hoca {actor.manager.name} antrenmanlarda sana karşı çok soğuk.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_life_hobi",
+    "beat": "evt_life_hobi_meraki",
+    "signature": "life:fam_life_hobi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

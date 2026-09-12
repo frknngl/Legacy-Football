@@ -1,0 +1,112 @@
+{
+  "id": "evt_business_unpaid_wages",
+  "family": "fam_business_unpaid_wages",
+  "category": "business",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "board_politics",
+    "beat": "unpaid_wages",
+    "signature": "business:unpaid_wages"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Ödenmeyen Maaşlar",
+          "kind": "branch",
+          "text": "Kulüp tam 4 aydır kimseye maaş ödemiyor. Genç oyuncuların kiralarını ödeyemedikleri için ağladıklarını gördün.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Kendi cebinden gençlerin kirasını öde.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": 30
+                },
+                {
+                  "flag": "liderlik",
+                  "op": "add",
+                  "value": 20
+                }
+              ],
+              "persona": {
+                "dogruluk": 25
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "İdmana çıkmayı reddet ve grev başlat.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "disiplin_sicili",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "iliski_board",
+                  "op": "add",
+                  "value": -30
+                }
+              ],
+              "persona": {
+                "mizac": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Menajerin aracılığıyla sadece kendi alacaklarını tahsil et.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": 10000
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -20
+                }
+              ],
+              "persona": {
+                "dogruluk": -15
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_1": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        },
+        "n_outcome_2": {
+          "title": "Oyun Bitti",
+          "kind": "outcome",
+          "text": "Kariyer sadece sahada oynanmaz. Bu hamlen ofis koridorlarında ve yönetim toplantılarında dengeleri değiştirdi."
+        }
+      }
+    }
+  ]
+}

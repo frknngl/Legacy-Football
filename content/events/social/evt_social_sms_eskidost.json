@@ -1,0 +1,155 @@
+{
+  "id": "evt_social_sms_eskidost",
+  "family": "fam_social_eski_dost",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 20,
+    "family": 10
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Dosttan Mesaj",
+      "kind": "branch",
+      "format": "sms",
+      "text": "Naber devrem, nasılsın? Yıllar oldu görüşmeyeli. Benim pederin işleri biraz bozuldu, biliyorsun bizim bir dükkan vardı... Elinde 50-60 bin nakit varsa bir haftalığına atabilir misin? Çok sıkıştık.",
+      "choices": [
+        {
+          "id": "c_gonder",
+          "text": "Parayı hemen gönder. Eski dostlar zor günde belli olur.",
+          "target": "n_gonder",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -60000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Görüldü at ve cevap verme. Bu devirde kimseye borç verilmez.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": 5,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_yardim",
+          "text": "Para yerine onu menajerlik şirketinde ufak bir işe yerleştir. Balık tutmayı öğret.",
+          "target": "n_yardim",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_gonder": {
+      "title": "Geri Dönmeyen Para",
+      "kind": "outcome",
+      "text": "Parayı gönderdin ama bir daha o dosttan haber alamadın. Belki cidden ihtiyacı vardı, belki de seni bir cüzdan olarak gördü. Yine de vicdanın rahat.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Soğuk Rüzgarlar",
+      "kind": "outcome",
+      "text": "Ertesi gün mahalleden başka bir arkadaşın aradı ve 'Oğlum insan bir cevap yazar, adam seninle büyüdü' diye fırça attı. Sokaktaki adın yavaş yavaş 'vefasız'a çıkıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_yardim": {
+      "title": "Yeni İş Arkadaşı",
+      "kind": "outcome",
+      "text": "İşe girdiğinden beri eski dostun şirketin maskotu oldu. Seni sömürmesine izin vermedin ve ona gerçekten kalıcı bir iyilik yaptın. Ancak bu karar yüzünden menajerinle ufak bir tartışma yaşadın.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_eski_dost",
+    "beat": "evt_social_sms_eskidost",
+    "signature": "social:fam_social_eski_dost"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "SMS formati nedeniyle kisa tutulmustur."
+  }
+}

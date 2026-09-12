@@ -1,0 +1,149 @@
+{
+  "id": "evt_national_ilk_11_krizi",
+  "family": "fam_national_ilk11",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Milli Takımda Yedeklik",
+      "kind": "branch",
+      "text": "Dünya Kupası elemeleri için milli takım kampındasın. Ancak milli takım hocası seni kritik maçta yedek bırakacağını açıkladı. Kulüp hocan {actor.manager.name} bu duruma çok sevindi çünkü sakatlık riskin azalıyor, ama senin egon fena halde sarsıldı.",
+      "choices": [
+        {
+          "id": "c_karara_saygi_duy",
+          "text": "Karara saygı duy ve takım arkadaşlarına destek ol. 'Önemli olan ülkenin kazanması.'",
+          "target": "n_karara_saygi_duy",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_hoca_ile_kavga",
+          "text": "Milli hocanın odasını bas ve kavga et: 'Ben yoksam bu maçı kazanamazsınız!'",
+          "target": "n_hoca_ile_kavga",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_kampi_terk_et",
+          "text": "Eşyalarını topla ve kampı tamamen terk ederek kulübüne geri dön.",
+          "target": "n_kampi_terk_et",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "sadakat": -25
+          }
+        }
+      ]
+    },
+    "n_karara_saygi_duy": {
+      "title": "Gerçek Takım Oyuncusu",
+      "kind": "outcome",
+      "text": "Kulübende oturmak zor olsa da takıma verdiğin destek ülkedeki herkes tarafından takdir edildi. Üstelik kulüp hocan {actor.manager.name} dinlendiğin için çok mutlu.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_hoca_ile_kavga": {
+      "title": "Soyunma Odası Kaosu",
+      "kind": "outcome",
+      "text": "Bu kavga basına sızdı ve ülkedeki futbol gündemini kitledi. Milli formayı bir daha giyip giyemeyeceğin belirsiz.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_kampi_terk_et": {
+      "title": "Ülkeye İhanet",
+      "kind": "outcome",
+      "text": "Kampı terk etmen vatan hainliğiyle eşdeğer tutuldu. Ancak kulübüne erken döndüğün için hoca {actor.manager.name} seninle özel ilgileniyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_national_ilk11",
+    "beat": "evt_national_ilk_11_krizi",
+    "signature": "national:fam_national_ilk11"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

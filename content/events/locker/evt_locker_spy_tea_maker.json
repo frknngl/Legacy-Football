@@ -1,0 +1,135 @@
+{
+  "id": "evt_locker_spy_tea_maker",
+  "family": "fam_locker_spy",
+  "category": "locker",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Casus Çaycı",
+      "text": "Takımın formsuz olduğu bir dönem. Soyunma odasındaki gizli taktik konuşmalarının ve kavgaların saniyesi saniyesine taraftar forumlarına düştüğünü fark ediyorsun. Bir gün antrenmandan sonra, yıllardır kulüpte çalışan tonton çaycının holiganlarla telefonda fısıldaştığını yakalıyorsun.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_ispiyon",
+          "text": "Hemen yönetime şikayet et ve adamı kovdur.",
+          "target": "n_ispiyon",
+          "effects": [
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 3
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "merhamet": -20
+          }
+        },
+        {
+          "id": "c_tehdit",
+          "text": "Adamı köşeye çek ve 'Bir daha yaparsan seni ben kovarım' diye tehdit et.",
+          "target": "n_tehdit_roll",
+          "effects": [],
+          "persona": {
+            "liderlik": 20,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_yanilt",
+          "text": "Ona bilerek yanlış taktikler duyurup holiganları trolle.",
+          "target": "n_yanilt",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "zeka": 25,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_ispiyon": {
+      "title": "Kovulan Efsane",
+      "kind": "outcome",
+      "text": "Çaycı kovulur ama taraftarlar seni 'İspiyoncu' ilan eder, kulüp karışır.",
+      "onEnter": []
+    },
+    "n_tehdit_roll": {
+      "title": "Otorite Sınavı",
+      "kind": "roll",
+      "text": "Gözlerinin içine bakarak konuşuyorsun...",
+      "outcomes": [
+        {
+          "weight": 60,
+          "target": "n_tehdit_success"
+        },
+        {
+          "weight": 40,
+          "target": "n_tehdit_fail"
+        }
+      ]
+    },
+    "n_tehdit_success": {
+      "title": "Sindirilmiş Casus",
+      "kind": "outcome",
+      "text": "Çaycı korkudan titrer ve sızıntılar bıçak gibi kesilir.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_tehdit_fail": {
+      "title": "Bumerang Etkisi",
+      "kind": "outcome",
+      "text": "Adam gidip 'Yıldız oyuncu beni dövdü' diye ağlayarak yalan söyler. Büyük kriz çıkar.",
+      "onEnter": [
+        {
+          "flag": "fandom",
+          "op": "add",
+          "value": -20
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_yanilt": {
+      "title": "Zeka Oyunu",
+      "kind": "outcome",
+      "text": "Forumlar birbirine girer, soyunma odası kahkahalara boğulur.",
+      "onEnter": []
+    }
+  }
+}

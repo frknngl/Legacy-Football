@@ -1,0 +1,173 @@
+{
+  "id": "evt_money_ilk_maas_kredisi",
+  "family": "fam_money_yatirim",
+  "category": "money",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "once": true,
+  "cooldown": {
+    "self": 50,
+    "family": 20
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_ilk_maas_hepsini_harcadi",
+    "op": "eq",
+    "value": true
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "İlk Maaşın Hayaleti",
+      "kind": "branch",
+      "text": "Yıllar önce profesyonel kariyerinin ilk maaşını aldığın gün hepsini harcayıp lüks bir araba peşinatına yatırmıştın. Bugün, finansal danışmanın elinde o döneme ait kapanmamış küçük bir kredi veya vergi cezası dosyasıyla kapını çalıyor. 'O zamanlar sistemi çok iyi bilmiyordun, ama bu pürüz şimdi yeni sponsorluk anlaşmalarında risk skorunu etkiliyor. Bunu hemen çözmeliyiz.'",
+      "choices": [
+        {
+          "id": "c_ode_kurtul",
+          "text": "Soru sorma, cezasıyla birlikte öde. O günlerin toy hatasıydı, kapat gitsin.",
+          "target": "n_ode",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_itiraz",
+          "text": "Avukatlarına talimat ver: 'Bu hatayı o zaman bana kredi veren kurum yaptı, itiraz edin.'",
+          "target": "n_itiraz",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_belgesel",
+          "text": "Bu komik hatayı sosyal medyadaki belgeselinde anlat, cezayı öderken süreci bir PR fırsatına çevir.",
+          "target": "n_belgesel",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 20000
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": -5,
+            "dogruluk": 5
+          }
+        }
+      ]
+    },
+    "n_ode": {
+      "title": "Temiz Sayfa",
+      "kind": "outcome",
+      "text": "Bedelini ödeyip dosyayı sessizce kapattırdın. Eski, hatalı gençliğinle olan son bağını da koparmış oldun. Sponsorların hiçbir şeyden haberi olmadı.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_itiraz": {
+      "title": "Uzayan Süreç",
+      "kind": "outcome",
+      "text": "Mahkeme süreci basına sızdı. Yıllar önceki toy halinin mali sorumsuzluğu magazin programlarında dalga konusu oldu. Sonunda kazansan da imajın zedelendi.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_belgesel": {
+      "title": "Hatasını Seven Adam",
+      "kind": "outcome",
+      "text": "İnsanlar 'İşte bizim gibi biri, gençken o da saçmalamış!' diyerek sana daha çok bağlandı. Belgesel bölümü izlenme rekoru kırarken, o vergi cezasından daha fazla para kazandın.",
+      "onEnter": [
+        {
+          "flag": "npc_sporting_director_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_yatirim",
+    "beat": "evt_money_ilk_maas_kredisi",
+    "signature": "money:fam_money_yatirim"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["OrphanMemoryFlagRule"],
+    "reason": "Resolving old orphaned memory trace"
+  }
+}

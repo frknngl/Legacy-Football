@@ -1,0 +1,149 @@
+{
+  "id": "evt_personal_araba_kazasi",
+  "family": "fam_personal_araba_kazasi",
+  "category": "personal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hız Tutkusu",
+      "kind": "branch",
+      "text": "Antrenmana yetişmek için yeni aldığın lüks spor arabanla hız yaparken ufak çaplı bir kaza yaptın. Sana bir şey olmadı ama araç yolda kaldı ve trafik kilitlendi. Gazeteciler olay yerine gelmek üzere. İdman yarım saat sonra başlıyor.",
+      "choices": [
+        {
+          "id": "c_arabayi_birak",
+          "text": "Arabayı yolun ortasında bırak, bir taksiye atla ve idmana yetiş.",
+          "target": "n_arabayi_birak",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_polisi_bekle",
+          "text": "Kurallara uygun şekilde polisin gelmesini bekle ve idmanı kaçır.",
+          "target": "n_polisi_bekle",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_olayi_ortbas_et",
+          "text": "Menajerini {actor.agent.name} ara, aracı çektirmesi için rüşvet ve nüfuz kullanmasını iste.",
+          "target": "n_olayi_ortbas_et",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -20000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "sadakat": -10
+          }
+        }
+      ]
+    },
+    "n_arabayi_birak": {
+      "title": "Sorumsuz Milyoner",
+      "kind": "outcome",
+      "text": "İdmana yetiştin ve hoca durumdan memnun kaldı. Ancak arabayı yolun ortasında bırakıp trafiği felç etmen 'Sorumsuz Milyoner' başlıklarıyla haber oldu.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_polisi_bekle": {
+      "title": "Örnek Vatandaş",
+      "kind": "outcome",
+      "text": "Polisi bekleyip tutanak tutturdun. Medya bu örnek davranışını takdir etti ama idmanı kaçırdığın için hoca sana yüklü bir para cezası verdi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_olayi_ortbas_et": {
+      "title": "Gölgelerin Gücü",
+      "kind": "outcome",
+      "text": "Menajerin olayı kimseye duyurmadan çözdü. İdmana yetiştin, ancak menajerin bu iyiliğinin karşılığını ileride ağır bir şekilde isteyeceğini biliyorsun.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_personal_araba_kazasi",
+    "beat": "evt_personal_araba_kazasi",
+    "signature": "personal:fam_personal_araba_kazasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "id": "evt_life_rich_investor",
+  "family": "fam_life_investor",
+  "category": "life",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "VIP Locasındaki Zengin Adam",
+      "text": "Maçtan sonra kulüp başkanının davetiyle VIP locaya çıktın. Orada, elinde şampanya kadehiyle duran ve futboldan zerre anlamayan milyarder bir yatırımcı var. Sana dönüp hafif alaycı bir tavırla, 'Bugün çok koşmadın sanki ha? Ama merak etme, yeni NFT projeme katılırsan koşmana gerek kalmaz' diyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_katil",
+          "text": "Adamı bozma, NFT projesine katıl ve paraya bak.",
+          "target": "n_katil",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 100000,
+                "perTier": 50000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_tersle",
+          "text": "'Futboldan anlamadığınız çok açık' deyip tersle ve locadan çık.",
+          "target": "n_tersle",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_gecistir",
+          "text": "Gülümseyerek geçiştir, kartvizitini al ama asla arama.",
+          "target": "n_gecistir",
+          "effects": [],
+          "persona": {
+            "profesyonellik": 10
+          }
+        }
+      ]
+    },
+    "n_katil": {
+      "title": "Kripto Fiyaskosu",
+      "kind": "outcome",
+      "text": "Finansal olarak çok kazanırsın ancak taraftarlar 'dolandırıcı projeye alet oldun' diye isyan eder. İtibarın zedelenir.",
+      "onEnter": []
+    },
+    "n_tersle": {
+      "title": "Taraftarın Sevgilisi",
+      "kind": "outcome",
+      "text": "Taraftarın gözünde efsane olursun ama kulüp başkanı sponsorunu küstürdüğün için sana çok öfkelenir.",
+      "onEnter": []
+    },
+    "n_gecistir": {
+      "title": "Güvenli Liman",
+      "kind": "outcome",
+      "text": "Risksiz, güvenli yol. Hiçbir şey olmaz ama bir fırsat (veya kriz) pas geçilmiş olur.",
+      "onEnter": []
+    }
+  }
+}

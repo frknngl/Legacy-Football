@@ -1,0 +1,134 @@
+{
+  "id": "evt_match_freekick_fight",
+  "family": "fam_match_freekick",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Frikik Paylaşımı",
+      "text": "Maçın 89. dakikası, skor 1-1. Ceza sahası yayının tam üzerinde mükemmel bir noktadan serbest vuruş kazandınız. Topu aldın ve vurmaya hazırlanıyorsun. Ancak takımın esas oğlanı gelip topu senin elinden almaya çalışıyor. 'Bunu ben kullanacağım, sen çekil' diyor. Stadyum sessizleşti, kameralar size zum yapıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_reddet",
+          "text": "Topu vermeyi reddet, takım arkadaşını it ve vuruşu sen yap.",
+          "target": "n_reddet_roll",
+          "effects": [],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_birak",
+          "text": "Topu efendice ona bırak ve barajın yanına git.",
+          "target": "n_birak",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15,
+            "ego": -10
+          }
+        },
+        {
+          "id": "c_pasli",
+          "text": "İkiniz birlikte topun başına geçin ve kaleciyi şaşırtacak paslı bir organizasyon deneyin.",
+          "target": "n_pasli",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "zeka": 15
+          }
+        }
+      ]
+    },
+    "n_reddet_roll": {
+      "title": "Kahraman ya da Hain",
+      "kind": "roll",
+      "text": "Topa doğru koşuyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_reddet_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_reddet_fail"
+        }
+      ]
+    },
+    "n_reddet_success": {
+      "title": "Efsane Gol",
+      "kind": "outcome",
+      "text": "Atarsın ve kahraman olursun! Takım arkadaşın rezil olur.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "npc_teammates_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_reddet_fail": {
+      "title": "Bencil Karar",
+      "kind": "outcome",
+      "text": "Kaçırırsın. Bütün takım ve taraftar seni bencil ilan eder.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -15
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_birak": {
+      "title": "Zeki Hamle",
+      "kind": "outcome",
+      "text": "O kaçırır. Maç 1-1 biter. Taraftarlar ve yorumcular maç sonu 'Neden o vurmadı ki?' diye seni haklı bulur. Otoriten gizliden artar.",
+      "onEnter": []
+    },
+    "n_pasli": {
+      "title": "Saha İçi Zeka",
+      "kind": "outcome",
+      "text": "İkinizin uyumuyla mükemmel bir asist/gol organizasyonu çıkar.",
+      "onEnter": []
+    }
+  }
+}

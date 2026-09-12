@@ -136,7 +136,29 @@ function renderReport(r: TurnReport): void {
   console.log('');
   console.log(c.bold(c.cyan(p.title)) + c.grey(`  [${p.category}/${p.tier}${p.isMoment ? ' - MAC ANI' : ''}]`));
   console.log('');
-  console.log(wrap(p.text));
+  
+  if (p.format === 'sms') {
+    console.log(c.green(`📱 Gelen Mesaj:`));
+    console.log(c.dim(wrap(p.text)));
+  } else if (p.format === 'voice') {
+    console.log(c.yellow(`🎤 Sesli Mesaj:`));
+    console.log(c.dim(`▶ ` + wrap(p.text)));
+  } else if (p.format === 'news') {
+    console.log(c.cyan(`📰 HABER BÜLTENİ:`));
+    console.log(c.bold(wrap(p.text)));
+  } else if (p.format === 'tweet') {
+    console.log(c.cyan(`🐦 @GundemSpor:`));
+    console.log(wrap(p.text));
+  } else if (p.format === 'mail') {
+    console.log(c.magenta(`✉️ GELEN KUTUSU:`));
+    console.log(c.italic(wrap(p.text)));
+  } else if (p.format === 'chat') {
+    console.log(c.green(`💬 Grup Sohbeti:`));
+    console.log(wrap(p.text));
+  } else {
+    console.log(wrap(p.text));
+  }
+  
   console.log('');
   p.choices.forEach((choice, i) => {
     if (choice.locked) {

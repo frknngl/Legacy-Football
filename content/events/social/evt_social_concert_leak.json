@@ -1,0 +1,142 @@
+{
+  "id": "evt_social_concert_leak",
+  "family": "fam_social_concert",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 100
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sızan Konser Görüntüsü",
+      "text": "Hafta sonu 'hafif sakatlığın' nedeniyle deplasman kadrosuna alınmadın. Ancak o gece çok sevdiğin bir rapçinin konserine gizlice gittin ve VIP locada çılgınca dans ederken bir taraftar seni videoya çekti. Video ertesi sabah 'Sakatlık bahane, eğlence şahane' başlığıyla her yerde.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_ozur",
+          "text": "Tesislerde hocanın odasına koş, özür dile ve ekstra antrenman iste.",
+          "target": "n_ozur",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -10000,
+                "perTier": -5000
+              }
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 15
+          }
+        },
+        {
+          "id": "c_dalga",
+          "text": "'Müzik iyileştirir, rehabilitasyonumun bir parçasıydı' diyerek dalga geç.",
+          "target": "n_dalga",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "umursamazlik": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_doktor",
+          "text": "Kulüp doktorunu rüşvet/ikna ile 'Oynayamazdı ama yürüyebilirdi' şeklinde rapor vermeye zorla.",
+          "target": "n_doktor_roll",
+          "effects": [],
+          "persona": {
+            "dogruluk": -20,
+            "zeka": 10
+          }
+        }
+      ]
+    },
+    "n_ozur": {
+      "title": "Af Dileme",
+      "kind": "outcome",
+      "text": "Bir miktar para cezası alırsın ama olayı çabuk toparlarsın.",
+      "onEnter": []
+    },
+    "n_dalga": {
+      "title": "Eğlence Makinesi",
+      "kind": "outcome",
+      "text": "Büyük bir popüler kültür figürü olursun ama teknik direktör seni tamamen siler.",
+      "onEnter": []
+    },
+    "n_doktor_roll": {
+      "title": "Tehlikeli Oyun",
+      "kind": "roll",
+      "text": "Doktorla konuşuyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_doktor_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_doktor_fail"
+        }
+      ]
+    },
+    "n_doktor_success": {
+      "title": "Kılıfına Uydurmak",
+      "kind": "outcome",
+      "text": "Doktor kabul eder, ceza almaktan kurtulursun.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": -5000,
+            "perTier": -2000
+          }
+        }
+      ]
+    },
+    "n_doktor_fail": {
+      "title": "Çift Skandal",
+      "kind": "outcome",
+      "text": "Doktor reddeder ve bunu yönetime bildirir. Skandal ikiye katlanır!",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -5
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 30
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "id": "evt_match_wrong_shorts",
+  "family": "fam_match_shorts",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yanlış Şort Vakası",
+      "text": "Devre arasında tuvalete gittin ve üstünü hızla değiştirip sahaya koştun. İkinci yarı başladıktan 5 dakika sonra tribünlerden inanılmaz bir kahkaha tufanı kopuyor. Yanlışlıkla başka bir takım arkadaşının (kendi bedeninden çok daha küçük/büyük) şortunu giymişsin! Hakem bile gülmemek için kendini zor tutuyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_durdur",
+          "text": "Oyunu durdurup kenardan doğru şortu iste.",
+          "target": "n_durdur",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "profesyonellik": 10
+          }
+        },
+        {
+          "id": "c_devam",
+          "text": "Durumu ti'ye al, garip şortla oynamaya devam et ve gol atmaya odaklan.",
+          "target": "n_devam",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_sakatlik",
+          "text": "Utançla hemen kendini yere bırakıp sakatlanmış numarası yap.",
+          "target": "n_sakatlik",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -20
+          }
+        }
+      ]
+    },
+    "n_durdur": {
+      "title": "Oyun Soğudu",
+      "kind": "outcome",
+      "text": "Oyun soğur, hoca konsantrasyon kaybından dolayı sinirlenir.",
+      "onEnter": []
+    },
+    "n_devam": {
+      "title": "İnternet Fenomeni",
+      "kind": "outcome",
+      "text": "Maçı o şortla bitirirsen anında meme (caps) olursun ve büyük bir popülarite kazanırsın.",
+      "onEnter": []
+    },
+    "n_sakatlik": {
+      "title": "Utanç Verici An",
+      "kind": "outcome",
+      "text": "Kimse inanmaz, hem rezil olursun hem de oyundan alınırsın.",
+      "onEnter": []
+    }
+  }
+}

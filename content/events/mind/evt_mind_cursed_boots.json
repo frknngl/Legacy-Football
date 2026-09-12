@@ -1,0 +1,137 @@
+{
+  "id": "evt_mind_cursed_boots",
+  "family": "fam_mind_cursed",
+  "category": "mind",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Uğursuz Krampon",
+      "text": "Sponsorundan yepyeni, tamamen özel üretim bir krampon geldi. Ancak bu kramponu giydiğin ilk iki antrenmanda da inanılmaz basit hatalar yaptın ve üstüne hafifçe bileğini burktun. Kafanda 'Bu kramponlar kesinlikle uğursuz' düşüncesi oluşmaya başladı, ama sponsor maçta giymeni şart koşuyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_eski",
+          "text": "İçindeki sese güven ve eski yırtık kramponlarını giy.",
+          "target": "n_eski",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -5000,
+                "perTier": -2000
+              }
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "profesyonellik": -10
+          }
+        },
+        {
+          "id": "c_yeni",
+          "text": "'Batıl inançlara yer yok' diyerek yeni kramponu giy.",
+          "target": "n_yeni_roll",
+          "effects": [],
+          "persona": {
+            "profesyonellik": 15,
+            "cesaret": 10
+          }
+        },
+        {
+          "id": "c_okut",
+          "text": "Kramponları bir hocaya/medyuma 'okutup' öyle giy.",
+          "target": "n_okut",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "zeka": -10
+          }
+        }
+      ]
+    },
+    "n_eski": {
+      "title": "Psikolojik Rahatlama",
+      "kind": "outcome",
+      "text": "Sponsor ceza keser ama sen kendini sahanın hakimi hissedersin.",
+      "onEnter": []
+    },
+    "n_yeni_roll": {
+      "title": "Lanet Testi",
+      "kind": "roll",
+      "text": "Sahaya o kramponlarla çıkıyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_yeni_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_yeni_fail"
+        }
+      ]
+    },
+    "n_yeni_success": {
+      "title": "Lanet Kırıldı",
+      "kind": "outcome",
+      "text": "Harika oynayıp laneti kırarsın, özgüvenin tavan yapar.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_yeni_fail": {
+      "title": "Kendi Kendini Doğrulayan Kehanet",
+      "kind": "outcome",
+      "text": "Kötü oynayıp psikolojik olarak çökersin.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        },
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_okut": {
+      "title": "Garip Yöntem",
+      "kind": "outcome",
+      "text": "Medyaya sızar, herkes seninle dalga geçer ama sen rahatlarsın.",
+      "onEnter": []
+    }
+  }
+}

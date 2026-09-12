@@ -1,0 +1,99 @@
+{
+  "id": "evt_money_crypto_bros",
+  "family": "fam_money_crypto",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kripto Çetesi",
+      "text": "Takımın iki veteran oyuncusu soyunma odasını 'borsa'ya çevirmiş durumda. Şimdi de senin devasa sosyal medya kitleni kullanarak kendi çıkardıkları şaibeli bir kripto parayı övmeni istiyorlar. 'Bunu yaparsan sahadaki her topu sana atarız' diye üstü kapalı rüşvet veriyorlar.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_paylas",
+          "text": "Projeyi paylaş ve paraya para deme.",
+          "target": "n_paylas",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": 300000,
+                "perTier": 150000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "dogruluk": -25,
+            "hırs": 20
+          }
+        },
+        {
+          "id": "c_sikayet",
+          "text": "Kesin bir dille reddet ve hocaya durumu şikayet et.",
+          "target": "n_sikayet",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_sessiz",
+          "text": "Onlara projeye inanmadığını söyle ama sessiz kal.",
+          "target": "n_sessiz",
+          "effects": [],
+          "persona": {
+            "profesyonellik": 5
+          }
+        }
+      ]
+    },
+    "n_paylas": {
+      "title": "Vurgun",
+      "kind": "outcome",
+      "text": "Birkaç ay sonra proje patlar, dolandırıcılıktan adın kirlenir ama banka hesabın şişer.",
+      "onEnter": []
+    },
+    "n_sikayet": {
+      "title": "Dışlanmış Doğrucu",
+      "kind": "outcome",
+      "text": "Takım içinde dışlanırsın, maçta sana pas atmazlar ama doğru olanı yaparsın.",
+      "onEnter": []
+    },
+    "n_sessiz": {
+      "title": "İzleyici",
+      "kind": "outcome",
+      "text": "Çatışmadan kaçarsın, olay seni etkilemez.",
+      "onEnter": []
+    }
+  }
+}

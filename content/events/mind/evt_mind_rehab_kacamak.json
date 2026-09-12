@@ -1,0 +1,162 @@
+{
+  "id": "evt_mind_rehab_kacamak",
+  "family": "fam_mind_rehab",
+  "category": "mind",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Bitmeyen Rehabilitasyon",
+      "kind": "branch",
+      "text": "Ağır bir sakatlık dönüşü rehabilitasyon sürecindesin. Fizyoterapistin {actor.physio.name} sana çok sıkı bir diyet ve uyku programı verdi. Ancak bu akşam en yakın arkadaşların büyük bir parti veriyor ve seni de davet ettiler. Zaten aylardır evdesin ve bunalmış durumdasın.",
+      "choices": [
+        {
+          "id": "c_partiye_git",
+          "text": "Fizyoterapistin programını bir geceliğine boşver ve partiye git.",
+          "target": "n_partiye_git",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_evde_kal",
+          "text": "Dişini sık, evde kalıp erkenden uyu. Sahalara bir an önce dönmen lazım.",
+          "target": "n_evde_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_evde_parti",
+          "text": "Partiye gitme ama arkadaşlarını kendi evine çağır. En azından kontrol sende olsun.",
+          "target": "n_evde_parti",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_partiye_git": {
+      "title": "Küçük Bir Kaçamak",
+      "kind": "outcome",
+      "text": "Gece harika geçti, ayların stresini attın. Fakat ertesi sabahki testlerde {actor.physio.name} değerlerindeki düşüşü hemen fark etti ve sana çok ağır fırça kaydı.",
+      "onEnter": [
+        {
+          "flag": "npc_physio_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_evde_kal": {
+      "title": "Buz Banyosu",
+      "kind": "outcome",
+      "text": "Arkadaşların sabaha kadar eğlenirken sen evde buz banyosuna girdin. Moral bozuk olsa da ertesi günkü idmanda gösterdiğin gelişim {actor.physio.name:gen} yüzünü güldürdü.",
+      "onEnter": [
+        {
+          "flag": "npc_physio_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_evde_parti": {
+      "title": "Kontrollü Kaos",
+      "kind": "outcome",
+      "text": "Evde verilen küçük parti fena değildi. Ne diyetini tamamen bozdun ne de eğlenceden mahrum kaldın. {actor.physio.name} durumdan şüphelense de elinde bir kanıt yok.",
+      "onEnter": [
+        {
+          "flag": "npc_physio_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_rehab",
+    "beat": "evt_mind_rehab_kacamak",
+    "signature": "mind:fam_mind_rehab"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  }
+}

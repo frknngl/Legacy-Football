@@ -1,0 +1,133 @@
+{
+  "id": "evt_tactics_tikitaka_obsession",
+  "family": "fam_tactics_tikitaka",
+  "category": "tactics",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tiki-Taka Saplantısı",
+      "text": "Yeni hocanız 'Total Futbol' ve topa sahip olma konusunda takıntılı. Ceza sahası yayındasın, kaleciyle karşı karşıyasın ve şut atarsan %90 gol olacak. Ama hoca kenardan yırtınarak 'Topu geriye ver, pas yap!' diye bağırıyor. Karar saniyesi.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_sut",
+          "text": "Hocayı dinleme, şutu çek.",
+          "target": "n_sut_roll",
+          "effects": [],
+          "persona": {
+            "cesaret": 20,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_pas",
+          "text": "Taktik sadakat! Müsait pozisyonda pası geriye çıkar.",
+          "target": "n_pas",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "profesyonellik": 15
+          }
+        },
+        {
+          "id": "c_calim",
+          "text": "Pas verir gibi yapıp çalım atarak kaleye gir.",
+          "target": "n_calim",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -1
+            }
+          ],
+          "persona": {
+            "yetenek": 20
+          }
+        }
+      ]
+    },
+    "n_sut_roll": {
+      "title": "Sisteme İhanet",
+      "kind": "roll",
+      "text": "Vuruşunu yapıyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_sut_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_sut_fail"
+        }
+      ]
+    },
+    "n_sut_success": {
+      "title": "Bireysel Yetenek",
+      "kind": "outcome",
+      "text": "Gol yaparsın ama hoca basın toplantısında 'Sisteme uymadı' diyerek seni eleştirir.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_sut_fail": {
+      "title": "Sistem Dışı",
+      "kind": "outcome",
+      "text": "Kaçırırsın. Kadro dışı kalma tehlikesi yaşarsın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        },
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_pas": {
+      "title": "Korkak Yıldız",
+      "kind": "outcome",
+      "text": "Hoca seni alkışlar ama taraftarlar ıslıklar. 'Korkak' damgası yersin.",
+      "onEnter": []
+    },
+    "n_calim": {
+      "title": "Sihirbaz",
+      "kind": "outcome",
+      "text": "Harika bir hareket olur, hoca bile bir şey diyemez ama taktiksel güven zedelenir.",
+      "onEnter": []
+    }
+  }
+}

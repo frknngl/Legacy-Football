@@ -1,0 +1,159 @@
+{
+  "id": "evt_life_gece_kulubu",
+  "family": "fam_life_gece",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gece Kulübünde Arbede",
+      "kind": "branch",
+      "text": "Maç sonrası kafa dağıtmak için takımın genç yeteneği {actor.youngster.name} ile popüler bir gece kulübüne gittiniz. İlerleyen saatlerde yan masadaki bir grup, {actor.youngster.name:gen} üzerine yürümeye başladı. Ortam hızla geriliyor ve kameraların flaşları patlamaya hazır.",
+      "choices": [
+        {
+          "id": "c_araya_gir",
+          "text": "Araya girip kavgayı önle. Gerekirse darbe al ama takım arkadaşını koru.",
+          "target": "n_araya_gir",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_guvenlik_cagir",
+          "text": "Olay büyümeden korumaları çağır ve sessizce arka kapıdan çık.",
+          "target": "n_guvenlik_cagir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_saldira_gec",
+          "text": "Kimse senin masana posta koyamaz! İlk yumruğu sen at.",
+          "target": "n_saldira_gec",
+          "effects": [
+            {
+              "flag": "skandal_seviyesi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_araya_gir": {
+      "title": "Abi Figürü",
+      "kind": "outcome",
+      "text": "Kavgayı büyümeden bitirdin ama itiş kakış sırasında yüzüne aldığın darbe ertesi gün idmanda belli oluyordu. {actor.youngster.name} sana hayat boyu minnettar kalacak.",
+      "onEnter": [
+        {
+          "flag": "npc_youngster_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_guvenlik_cagir": {
+      "title": "Görünmez Adam",
+      "kind": "outcome",
+      "text": "Güvenlik olayı çözerken sen çoktan mekanı terk etmiştin. Ertesi gün gazetelerde ufak bir haber çıksa da senin adın hiç geçmedi. Belki 'korkak' dediler ama ceza almaktan iyidir.",
+      "onEnter": [
+        {
+          "flag": "npc_youngster_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_saldira_gec": {
+      "title": "Manşetlerdeki İsim",
+      "kind": "outcome",
+      "text": "Attığın ilk yumruk kameralara saniye saniye yansıdı. Ertesi gün tüm kanallarda sen varsın. Taraftarın bir kısmı bu asi tavrını sevse de yönetim kurulu hiç memnun değil.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_life_gece",
+    "beat": "evt_life_gece_kulubu",
+    "signature": "life:fam_life_gece"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  }
+}

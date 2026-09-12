@@ -1,0 +1,149 @@
+{
+  "id": "evt_life_gece_hayatindan_kacis",
+  "family": "fam_life_gece",
+  "category": "life",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Zoraki Eğlence",
+      "kind": "branch",
+      "text": "Kaptan {actor.captain.name}, takım bağlarını güçlendirmek için tüm oyuncuları şehrin en lüks gece kulübüne götürdü. Ancak yarın erken saatte ekstra bireysel idmanın var ve hoca {actor.manager.name} bu konuda çok katı.",
+      "choices": [
+        {
+          "id": "c_erken_kalk",
+          "text": "Takımla bir içki içip bahaneyle erkenden eve dön.",
+          "target": "n_erken_kalk",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_sabaha_kadar_eglen",
+          "text": "İdmanı umursama ve takımla sabaha kadar eğlen.",
+          "target": "n_sabaha_kadar_eglen",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_kulube_gitme",
+          "text": "Kaptanın davetini tamamen reddet ve geceyi evde geçir.",
+          "target": "n_kulube_gitme",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_erken_kalk": {
+      "title": "İşkolik",
+      "kind": "outcome",
+      "text": "Erken kalkman takımda şaka konusu oldu ancak ertesi sabahki bireysel idmanda hoca {actor.manager.name} azmini çok beğendi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_sabaha_kadar_eglen": {
+      "title": "Takım Ruhu",
+      "kind": "outcome",
+      "text": "Kaptan {actor.captain.name} ile arandaki buzlar tamamen eridi. Ancak sabah idmanında ayakta zor durdun ve hoca seni antrenmandan kovdu.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_kulube_gitme": {
+      "title": "Dışlanmış Yıldız",
+      "kind": "outcome",
+      "text": "Takım ortamından tamamen soyutlandın. Soyunma odasında kaptan {actor.captain.name} dahil kimse seninle konuşmuyor.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_life_gece",
+    "beat": "evt_life_gece_hayatindan_kacis",
+    "signature": "life:fam_life_gece"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

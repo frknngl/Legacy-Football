@@ -1,0 +1,107 @@
+{
+  "id": "evt_national_flight_home",
+  "family": "fam_national_flight",
+  "category": "national",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "star",
+    "superstar"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Aynı Uçakta Dönüş",
+      "text": "Şampiyonlar Ligi finalinde rakip takımın forvetiyle 90 dakika boyunca birbirinizi tekmelediniz ve küfürleştiniz. Ertesi sabah, Milli Takım kampına katılmak üzere bindiğin uçağın business class kabininde... Yanındaki koltukta o var! Yolculuk tam 6 saat sürecek.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_gormezden",
+          "text": "Göz bandını tak, kulaklığını son ses aç ve 6 saat boyunca yokmuş gibi davran.",
+          "target": "n_gormezden",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "inat": 15
+          }
+        },
+        {
+          "id": "c_degistir",
+          "text": "Hostesi çağırıp 'Ben bu adamın yanında oturmam, beni ekonomiye alın' de.",
+          "target": "n_degistir",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "ego": 20,
+            "profesyonellik": -15
+          }
+        },
+        {
+          "id": "c_baris",
+          "text": "Şampiyonayı düşünerek elini uzat ve 'Sahada olan sahada kalır' de.",
+          "target": "n_baris",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "liderlik": 25,
+            "profesyonellik": 20
+          }
+        }
+      ]
+    },
+    "n_gormezden": {
+      "title": "Soğuk Rüzgarlar",
+      "kind": "outcome",
+      "text": "İnanılmaz gergin bir yolculuk olur, kampa yorgun gidersiniz.",
+      "onEnter": []
+    },
+    "n_degistir": {
+      "title": "Kaprisli Yıldız",
+      "kind": "outcome",
+      "text": "Medyaya sızar, kaprisli yıldız damgası yersin ama rahat bir yolculuk yaparsın.",
+      "onEnter": []
+    },
+    "n_baris": {
+      "title": "Kaptan Gibi",
+      "kind": "outcome",
+      "text": "Harika bir liderlik örneği. Uçaktan kankalar olarak inersiniz, milli takımın ruhu şahlanır.",
+      "onEnter": []
+    }
+  }
+}

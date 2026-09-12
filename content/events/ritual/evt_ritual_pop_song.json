@@ -1,0 +1,103 @@
+{
+  "id": "evt_ritual_pop_song",
+  "family": "fam_ritual_song",
+  "category": "ritual",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Aynı Şarkı Saplantısı",
+      "text": "Maçlara çıkmadan önce kulaklıkta 80'lerden kalma çok garip ve eğlenceli bir pop şarkısı dinlemeyi uğur edindin. Ancak bugün şarjın bitti! Takım arkadaşından telefonunu istiyorsun ama müzik zevkin ortaya çıkacak.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_iste",
+          "text": "Umursama, telefonu al ve şarkıyı tüm soyunma odasına dinlet.",
+          "target": "n_iste",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "özgüven": 25,
+            "mizac": 20
+          }
+        },
+        {
+          "id": "c_sakla",
+          "text": "İmajın zedelenmesin diye isteme ve şarkısız çık.",
+          "target": "n_sakla",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "özgüven": -20,
+            "ego": 15
+          }
+        },
+        {
+          "id": "c_sarki_soyle",
+          "text": "Kendi kendine mırıldanarak koridorda şarkıyı söyle.",
+          "target": "n_sarki_soyle",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "umursamazlik": 15
+          }
+        }
+      ]
+    },
+    "n_iste": {
+      "title": "Soyunma Odası DJ'i",
+      "kind": "outcome",
+      "text": "Şarkı takımın yeni marşı olur! Herkes maçtan önce bunu dinlemeye başlar.",
+      "onEnter": []
+    },
+    "n_sakla": {
+      "title": "Ritüel Bozuldu",
+      "kind": "outcome",
+      "text": "Kendini inanılmaz eksik hissedersin ve sahada bocalarsın.",
+      "onEnter": []
+    },
+    "n_sarki_soyle": {
+      "title": "Deli Dahi",
+      "kind": "outcome",
+      "text": "Rakipler tünelde sana 'Bu adam deli galiba' diye bakıp korkar. İşe yarar.",
+      "onEnter": []
+    }
+  }
+}

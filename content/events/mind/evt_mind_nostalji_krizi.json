@@ -1,0 +1,148 @@
+{
+  "id": "evt_mind_nostalji_krizi",
+  "family": "fam_mind_nostalji",
+  "category": "mind",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Günler",
+      "kind": "branch",
+      "text": "Eski takım arkadaşlarınla çekilmiş bir fotoğrafı incelerken gözlerin doluyor. Altyapı yıllarındaki o masum ve hırslı çocuk artık şöhretin ve baskının altında ezilmiş hissediyor. Futbol sana artık bir oyun değil, sadece iş gibi geliyor.",
+      "choices": [
+        {
+          "id": "c_eski_hocayi_ara",
+          "text": "Altyapıdaki ilk antrenörünü ara ve onunla uzun uzun dertleş. Nereden geldiğini hatırla.",
+          "target": "n_eski_hocayi_ara",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_sosyal_medya",
+          "text": "Fotoğrafı duygusal bir metinle sosyal medyada paylaş: 'Keşke zamanı geri alabilsem...'",
+          "target": "n_sosyal_medya",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -5
+          }
+        },
+        {
+          "id": "c_duygulari_bastir",
+          "text": "Fotoğrafı kaldır ve kendine gel. 'Eski günler bitti, ben artık bir profesyonelim' de.",
+          "target": "n_duygulari_bastir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_eski_hocayi_ara": {
+      "title": "Köklerine Dönüş",
+      "kind": "outcome",
+      "text": "Eski hocanla konuşmak sana ne kadar yol kat ettiğini hatırlattı. Futbol oynamanın tadını yeniden hatırladın.",
+      "onEnter": [
+        {
+          "flag": "npc_partner_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sosyal_medya": {
+      "title": "Romantik Yıldız",
+      "kind": "outcome",
+      "text": "Paylaşımın binlerce beğeni aldı ve spor medyasında nostaljik yazılara konu oldu. Ancak hocan, geçmişte bu kadar yaşamaman gerektiğini söyledi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_duygulari_bastir": {
+      "title": "Buz Adam",
+      "kind": "outcome",
+      "text": "Duygularını bastırıp işine odaklandın. Taktiksel olarak harikasın ama içindeki o amatör ruhu yavaş yavaş kaybediyorsun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_nostalji",
+    "beat": "evt_mind_nostalji_krizi",
+    "signature": "mind:fam_mind_nostalji"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

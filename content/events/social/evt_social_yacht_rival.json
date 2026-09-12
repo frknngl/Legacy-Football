@@ -1,0 +1,134 @@
+{
+  "id": "evt_social_yacht_rival",
+  "family": "fam_social_yacht",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "star",
+    "icon"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Rakip Takım Kaptanıyla Tatil",
+      "text": "Lig arası tatilinde Ibiza'da lüks bir yatta güneşleniyorsun. Sıkıntı şu ki, yatta ezeli rakibinizin kaptanı (ve yakın arkadaşın) da var! Birlikte şampanya patlatırken çekilen fotoğraflarınız magazin sayfalarına sızıyor. Taraftarlarınız 'O adamla nasıl tatil yaparsın!' diye ateş püskürüyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_sil",
+          "text": "Fotoğrafları yalanla ve 'O sadece tesadüfen aynı yattaydı' de.",
+          "target": "n_sil",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": -20
+          }
+        },
+        {
+          "id": "c_savun",
+          "text": "'Saha içi rekabet başka, özel hayatım başka' diyerek dik dur.",
+          "target": "n_savun",
+          "effects": [
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "legacy",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "cesaret": 15
+          }
+        },
+        {
+          "id": "c_eglence",
+          "text": "Dalga geçmek için ikinizin kulüp formalarını değiştiğiniz yeni bir poz paylaş.",
+          "target": "n_eglence_roll",
+          "effects": [],
+          "persona": {
+            "mizac": 25,
+            "umursamazlik": 20
+          }
+        }
+      ]
+    },
+    "n_sil": {
+      "title": "Yalancı Yıldız",
+      "kind": "outcome",
+      "text": "Kimse sana inanmaz ve medyada rezil olursun.",
+      "onEnter": []
+    },
+    "n_savun": {
+      "title": "Sınır Çizgisi",
+      "kind": "outcome",
+      "text": "Bazı taraftarlar seni asla affetmez ama tarafsız izleyiciler profesyonelliğini takdir eder.",
+      "onEnter": []
+    },
+    "n_eglence_roll": {
+      "title": "Büyük Zar",
+      "kind": "roll",
+      "text": "Milyonlarca takipçin o fotoğrafı görüyor...",
+      "outcomes": [
+        {
+          "weight": 30,
+          "target": "n_eglence_success"
+        },
+        {
+          "weight": 70,
+          "target": "n_eglence_fail"
+        }
+      ]
+    },
+    "n_eglence_success": {
+      "title": "İkonik Dostluk",
+      "kind": "outcome",
+      "text": "Fotoğraf spor tarihinin ikonik anlarından biri olur. İki camia da gülüp geçer.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 30
+        }
+      ]
+    },
+    "n_eglence_fail": {
+      "title": "Taraftar İsyanı",
+      "kind": "outcome",
+      "text": "Kendi formanı rakibe giydirmen büyük bir skandal yaratır. Kulüp ağır para cezası keser.",
+      "onEnter": [
+        {
+          "flag": "fandom",
+          "op": "add",
+          "value": -30
+        },
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    }
+  }
+}

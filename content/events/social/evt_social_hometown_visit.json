@@ -1,0 +1,107 @@
+{
+  "id": "evt_social_hometown_visit",
+  "family": "fam_social_hometown_visit",
+  "category": "social",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "daily_life",
+    "beat": "hometown_visit",
+    "signature": "social:hometown_visit"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Eski Mahalleye Dönüş",
+          "kind": "branch",
+          "text": "Milli arada doğup büyüdüğün mahalleyi ziyarete gittin. Çocukluk arkadaşların şimdi asgari ücretle zar zor geçiniyor ve sana karşı içten içe bir kıskançlık/uzaklık seziyorsun.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Tüm mahalleye büyük bir ziyafet çek ve nakit para dağıt.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -20000
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": 30
+                }
+              ],
+              "persona": {
+                "mizac": -10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Sadece eski dostlarınla sessiz bir kahve içip mütevazı kal.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "moral",
+                  "op": "add",
+                  "value": 15
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                }
+              ],
+              "persona": {
+                "dogruluk": 20
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Erkenden mahalleyi terk et. 'Ben artık bu dünyaya ait değilim' hissine kapıl.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": 5
+                }
+              ],
+              "persona": {
+                "durus": 10
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_1": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        },
+        "n_outcome_2": {
+          "title": "Yarın Yine Güneş Doğacak",
+          "kind": "outcome",
+          "text": "Şöhret ve para birleştiğinde hayat hiçbir zaman normal akmaz. Yaptığın seçimle hayatındaki bir krizi daha atlattın, ama yenisi yolda."
+        }
+      }
+    }
+  ]
+}

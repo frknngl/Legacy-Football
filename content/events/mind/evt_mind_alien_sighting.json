@@ -1,0 +1,102 @@
+{
+  "id": "evt_mind_alien_sighting",
+  "family": "fam_mind_alien",
+  "category": "mind",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 10,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Uzaylı Görme İddiası",
+      "text": "Maçtan bir gün önce evinin bahçesinde otururken gökyüzünde çok tuhaf, hızla zikzaklar çizen bir ışık hüzmesi gördün. O kadar eminsin ki bir UFO gördüğünden! Ertesi sabah tesislere gittiğinde heyecanla bunu anlatıyorsun ama herkes sana delirmişsin gibi bakıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_basin",
+          "text": "Basın toplantısında 'Uzaylılar var, kendi gözümle gördüm' diye açıkla.",
+          "target": "n_basin",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "cesaret": 15,
+            "zeka": -10
+          }
+        },
+        {
+          "id": "c_sus",
+          "text": "Hocanın tepkisini görünce 'Şaka yaptım ya, dronedur o' diyerek konuyu kapat.",
+          "target": "n_sus",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "zeka": 10
+          }
+        },
+        {
+          "id": "c_meditasyon",
+          "text": "Bunu kozmik bir işaret olarak kabul et ve maça özel bir meditasyonla hazırlan.",
+          "target": "n_meditasyon",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "icgoru": 20
+          }
+        }
+      ]
+    },
+    "n_basin": {
+      "title": "UFOcu Futbolcu",
+      "kind": "outcome",
+      "text": "Spor medyasında günün konusu olursun. Performansın umursanmaz, herkes 'Uzaylı' lakabını takar.",
+      "onEnter": []
+    },
+    "n_sus": {
+      "title": "Unutulan Sır",
+      "kind": "outcome",
+      "text": "Kimse olayı büyütmez, normal hayatına devam edersin.",
+      "onEnter": []
+    },
+    "n_meditasyon": {
+      "title": "Kozmik Enerji",
+      "kind": "outcome",
+      "text": "Sahada sanki yerçekimi yokmuş gibi harika oynarsın. Herkes şaşkın.",
+      "onEnter": []
+    }
+  }
+}

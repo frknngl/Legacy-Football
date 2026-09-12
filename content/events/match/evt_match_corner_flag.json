@@ -1,0 +1,116 @@
+{
+  "id": "evt_match_corner_flag",
+  "family": "fam_match_corner",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise",
+    "prime"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Köşe Gönderi Kavgası",
+      "text": "Derbi maçında son dakika golünü attın. Sevincin o kadar coşkulu ki, gidip köşe gönderine karate tekmesi atıyorsun... Ve direk ortadan ikiye kırılıyor! Hakem kartını çıkarıyor, taraftar çıldırıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kucakla",
+          "text": "Kırık direği eline alıp gitar gibi çal.",
+          "target": "n_kucakla",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "fame",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "profesyonellik": -20
+          }
+        },
+        {
+          "id": "c_ozur",
+          "text": "Hemen hakemden özür dile ve direği tamir etmeye çalış.",
+          "target": "n_ozur",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 20
+          }
+        },
+        {
+          "id": "c_hatira",
+          "text": "Kırık parçayı hatıra olarak alıp yedek kulübesine fırlat.",
+          "target": "n_hatira",
+          "effects": [
+            {
+              "flag": "fandom",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "ego": 20
+          }
+        }
+      ]
+    },
+    "n_kucakla": {
+      "title": "Rock Yıldızı",
+      "kind": "outcome",
+      "text": "Sarı kartı yersin, federasyondan ceza gelir ama o fotoğraf poster yapılıp satılır.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": {
+            "scaleBy": "stature",
+            "base": -2000,
+            "perTier": -1000
+          }
+        }
+      ]
+    },
+    "n_ozur": {
+      "title": "Utangaç Kahraman",
+      "kind": "outcome",
+      "text": "Zavallı bir görüntü çizersin ama kart görmekten kurtulursun.",
+      "onEnter": []
+    },
+    "n_hatira": {
+      "title": "Savaş Ganimeti",
+      "kind": "outcome",
+      "text": "Hoca sinirlenir ama taraftar bu agresif tutumu sever.",
+      "onEnter": []
+    }
+  }
+}

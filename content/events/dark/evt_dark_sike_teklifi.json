@@ -1,0 +1,160 @@
+{
+  "id": "evt_dark_sike_teklifi",
+  "family": "fam_dark_sike_teklifi",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 50,
+    "family": 30
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "starter",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gizli Numara",
+      "kind": "branch",
+      "format": "chat",
+      "text": "Bilinmeyen Numara ({actor.fixer.name}): \"Dostum, bu haftaki maçta ilk yarıda sarı kart görmen karşılığında banka hesabına yarım milyon Euro yatacak. İlgilenirsen tek bir emoji gönder.\"",
+      "choices": [
+        {
+          "id": "c_ihbar_et",
+          "text": "Mesajın ekran görüntüsünü alıp kulübün güvenlik müdürüne ve polise bildir.",
+          "target": "n_ihbar_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Numarayı engelle ve mesajı anında sil. Başın derde girmesin.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "dogruluk": 5,
+            "durus": 5
+          }
+        },
+        {
+          "id": "c_kabul_et",
+          "text": "Olumlu bir emoji gönder. İlk yarıda o sarı kartı gör ve parayı al.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 500000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -30
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": -30,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_ihbar_et": {
+      "title": "Temiz Futbol",
+      "kind": "outcome",
+      "text": "Olay basına yansıdı ve sen dürüstlüğünle kahraman ilan edildin. Ancak yeraltı dünyası sana bilenmeye başladı. Güvenlik önlemlerin artırıldı.",
+      "onEnter": [
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Üç Maymun",
+      "kind": "outcome",
+      "text": "Sessizce konuyu kapattın ama haftalarca \"Acaba başkalarına da yazdılar mı?\" stresiyle maçlara çıktın.",
+      "onEnter": [
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Karanlık Para",
+      "kind": "outcome",
+      "text": "İlk yarıda basit bir faulle sarı kartı gördün. Para kripto olarak hesabına yattı ama artık ruhunu şeytana sattın. Bu sırrı ömür boyu taşıyacaksın.",
+      "onEnter": [
+        {
+          "flag": "npc_fixer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_sike_teklifi",
+    "beat": "evt_dark_sike_teklifi",
+    "signature": "dark:fam_dark_sike_teklifi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 40,
+    "beatGapTurns": 50,
+    "signatureGapTurns": 45,
+    "maxBeatUses": 1
+  }
+}

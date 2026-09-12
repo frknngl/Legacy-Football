@@ -1,0 +1,149 @@
+{
+  "id": "evt_media_basinda_sizar",
+  "family": "fam_media_basinda_sizar",
+  "category": "media",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Soyunma Odası Sızıntısı",
+      "kind": "branch",
+      "text": "Soyunma odasında hoca {actor.manager.name} ile kaptan {actor.captain.name} arasında geçen büyük bir kavga, ertesi gün tam da senin ifadelerinle gazetelere manşet oldu. Takım içinde bir 'köstebek' avı başladı ve oklar nedense seni gösteriyor.",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "Kaptana gidip bilgiyi yanlışlıkla senin sızdırdığını itiraf et ve özür dile.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_inkar_et",
+          "text": "Her şeyi kesin bir dille inkar et ve gazetecileri dava edeceğini söyle.",
+          "target": "n_inkar_et",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_baskasina_at",
+          "text": "Suçu takımdaki genç bir oyuncunun üzerine atarak kendini akla.",
+          "target": "n_baskasina_at",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -25,
+            "sadakat": -15
+          }
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Kırılan Güven",
+      "kind": "outcome",
+      "text": "Kaptan {actor.captain.name} dürüstlüğünü takdir etse de sana olan güveni sarsıldı. Takım içinde bir süre dışlanacaksın.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_inkar_et": {
+      "title": "Gölgede Kalan Gerçek",
+      "kind": "outcome",
+      "text": "Sert tepkin sayesinde kimse konuyu daha fazla deşemedi ama hoca {actor.manager.name} sana şüpheyle yaklaşmaya devam ediyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_baskasina_at": {
+      "title": "Günah Keçisi",
+      "kind": "outcome",
+      "text": "Genç oyuncu kadro dışı kaldı. Kendini kurtardın ancak vicdan azabı geceleri uyumanı zorlaştırıyor.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_media_basinda_sizar",
+    "beat": "evt_media_basinda_sizar",
+    "signature": "media:fam_media_basinda_sizar"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

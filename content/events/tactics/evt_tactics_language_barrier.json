@@ -1,0 +1,104 @@
+{
+  "id": "evt_tactics_language_barrier",
+  "family": "fam_tactics_language",
+  "category": "tactics",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dil Bariyeri",
+      "text": "Kulübe yeni atanan yabancı teknik direktör, çevirmen olmadan taktik tahtasında saatlerce bir şeyler anlatıyor. Yeni bir pres sisteminden bahsediyor ama ne dediğini zerre anlamadın. Maçta senden çok kritik bir rolde oynamanı bekliyor. Yanındaki takım arkadaşın da en az senin kadar boş bakıyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_icgudu",
+          "text": "Bildiğin gibi oyna, içgüdülerine güven.",
+          "target": "n_icgudu",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -2
+            }
+          ],
+          "persona": {
+            "ozguven": 15
+          }
+        },
+        {
+          "id": "c_sor",
+          "text": "Kaptana gidip hocanın ne istediğini çaktırmadan sor.",
+          "target": "n_sor",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 1
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "profesyonellik": 10
+          }
+        },
+        {
+          "id": "c_cevirmen",
+          "text": "Hocayı durdurup, herkesin önünde 'Hocam hiçbir şey anlamıyoruz, lütfen çevirmen çağırın' de.",
+          "target": "n_cevirmen",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 3
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -3
+            }
+          ],
+          "persona": {
+            "liderlik": 15
+          }
+        }
+      ]
+    },
+    "n_icgudu": {
+      "title": "Bireysel Şov",
+      "kind": "outcome",
+      "text": "Bireysel yeteneğinle iyi bir maç çıkarırsın ama hocanın sistemini bozduğun için fırça yersin.",
+      "onEnter": []
+    },
+    "n_sor": {
+      "title": "Pasif Futbol",
+      "kind": "outcome",
+      "text": "Doğru pozisyon alırsın ama özgüven eksikliğinden maçta pasif kalırsın.",
+      "onEnter": []
+    },
+    "n_cevirmen": {
+      "title": "Cesur Yürek",
+      "kind": "outcome",
+      "text": "Takımın sesi olursun ama hocanın kara listesine girme riskini alırsın.",
+      "onEnter": []
+    }
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "id": "evt_social_president_wedding",
+  "family": "fam_social_president",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 200,
+    "family": 200
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Başkanın Düğünü",
+      "text": "Kulüp başkanının kızı evleniyor ve takımın yıldızı olarak şatafatlı düğüne katılmak zorundasın. Gece yarısına doğru başkan biraz sarhoş olup mikrofonu eline alıyor ve senin sahneye çıkıp yöresel bir dans etmeni istiyor. Kameralar kayıtta.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_dans",
+          "text": "Sahneye fırla ve bütün figürlerini sergileyerek dans et.",
+          "target": "n_dans",
+          "effects": [
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": 4
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "fame",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "ego": -10
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Kibarca gülümse ve 'Ben sadece sahada dans ederim' diyerek reddet.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -2
+            },
+            {
+              "flag": "durus",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "profesyonellik": 15
+          }
+        },
+        {
+          "id": "c_kac",
+          "text": "Görünmeden arka kapıdan kaçarak düğünü terk et.",
+          "target": "n_kac",
+          "effects": [
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "cesaret": -15,
+            "profesyonellik": -10
+          }
+        }
+      ]
+    },
+    "n_dans": {
+      "title": "Düğün Yıldızı",
+      "kind": "outcome",
+      "text": "Görüntüler viral olur. Başkan seni manevi oğlu ilan eder. Yeni sözleşme garanti.",
+      "onEnter": []
+    },
+    "n_reddet": {
+      "title": "Buz Gibi Atmosfer",
+      "kind": "outcome",
+      "text": "Başkan bozulur ama saygınlığını korursun.",
+      "onEnter": []
+    },
+    "n_kac": {
+      "title": "Kayıp Aranıyor",
+      "kind": "outcome",
+      "text": "Ertesi gün başkan idmanda hesap sorar. Ciddi bir fırça yersin.",
+      "onEnter": []
+    }
+  }
+}

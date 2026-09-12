@@ -1,0 +1,165 @@
+{
+  "id": "evt_social_hesap_calinmasi",
+  "family": "fam_social_hesap_calinmasi",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hack Krizi",
+      "kind": "branch",
+      "format": "chat",
+      "text": "Menajer ({actor.agent.name}): \"Hemen X (Twitter) hesabına bak! Biri hesabını hacklemiş ve ezeli rakibimizin taraftarlarına ağza alınmayacak küfürler ediyor! Medya çalkalanıyor, ne yapacağız?!\"",
+      "choices": [
+        {
+          "id": "c_hemen_aciklama",
+          "text": "Instagram'dan videolu bir açıklama yapıp hacklendiğini kanıtla ve herkesten özür dile.",
+          "target": "n_hemen_aciklama",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Sessiz kal, hesabın geri alınmasını bekle. Zaten kendi taraftarın bu küfürlü mesajları çok sevdi.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_dava_ac",
+          "text": "Polisi ve bilişim avukatlarını devreye sokarak o hacker'ı bulmaya çalış.",
+          "target": "n_dava_ac",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -15000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_hemen_aciklama": {
+      "title": "Kriz Yönetimi",
+      "kind": "outcome",
+      "text": "Videolu açıklaman sayesinde durum çabuk toparlandı. Rakip takım taraftarları sana inanmasa da medya bu olgun tavrını takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Holiganların Sevgilisi",
+      "kind": "outcome",
+      "text": "Açıklama yapmadığın için herkes o küfürleri senin yazdığını sandı. Kendi taraftarın seni kahraman ilan ederken, federasyondan 'sportmenliğe aykırı' imaj çizdiğin için uyarı aldın.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_dava_ac": {
+      "title": "Adalet Gecikmez",
+      "kind": "outcome",
+      "text": "Avukatlarının çabasıyla hesabını geri aldın ve hacker tespit edildi. Bu ciddi ve resmi duruşun sana sponsorlar nezdinde puan kazandırdı.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_hesap_calinmasi",
+    "beat": "evt_social_hesap_calinmasi",
+    "signature": "social:fam_social_hesap_calinmasi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 250,
+    "beatGapTurns": 250,
+    "signatureGapTurns": 250,
+    "maxBeatUses": 1
+  }
+}

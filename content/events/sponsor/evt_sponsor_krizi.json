@@ -1,0 +1,149 @@
+{
+  "id": "evt_sponsor_krizi",
+  "family": "fam_sponsor_krizi",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Defile Kulisi: Krizi",
+      "kind": "branch",
+      "text": "Yıllardır yüzü olduğun global bir marka, sosyal medyadaki son paylaşımlarından birini politik bularak sözleşmeni askıya almayı tartışıyor. Menajerin {actor.agent.name} acilen paylaşımı silmeni ve kamuoyundan özür dilemeni istiyor.",
+      "choices": [
+        {
+          "id": "c_paylasimi_sil",
+          "text": "Sponsoru kaybetmemek için paylaşımı hemen sil ve 'Yanlış anlaşıldım' şeklinde bir özür metni yayınla.",
+          "target": "n_paylasimi_sil",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 100000
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -20,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_sabit_kal",
+          "text": "Paylaşımı silmeyi reddet. 'Sözlerimin arkasındayım, paramı kesebilirsiniz.'",
+          "target": "n_sabit_kal",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -200000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_ikiyuzlu_davran",
+          "text": "Paylaşımı silme ama sponsporla gizli bir toplantı yaparak onları özel olarak ikna etmeye çalış.",
+          "target": "n_ikiyuzlu_davran",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -15,
+            "durus": -10
+          }
+        }
+      ]
+    },
+    "n_paylasimi_sil": {
+      "title": "Bükülen Boyun",
+      "kind": "outcome",
+      "text": "Milyonlarca dolarlık sözleşmeyi kurtardın ancak hayranların senin para için inançlarını sattığını düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_sabit_kal": {
+      "title": "Onurlu Kayıp",
+      "kind": "outcome",
+      "text": "Sözleşmen feshedildi ve ciddi bir servet kaybettin. Ancak omurgalı duruşun seni belli bir kitle için efsane haline getirdi.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_ikiyuzlu_davran": {
+      "title": "Gizli Anlaşmalar",
+      "kind": "outcome",
+      "text": "Sponsoru arka kapı diplomasisiyle ikna ettin. Anlaşma devam ediyor ancak bu süreç psikolojik olarak seni çok yordu.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_sponsor_krizi",
+    "beat": "evt_sponsor_krizi",
+    "signature": "sponsor:fam_sponsor_krizi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

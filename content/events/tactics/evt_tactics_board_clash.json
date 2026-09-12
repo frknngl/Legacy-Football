@@ -1,0 +1,124 @@
+{
+  "id": "evt_tactics_board_clash",
+  "family": "fam_tactics_isyan",
+  "category": "tactics",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Taktik Tahtası İsyanı",
+      "text": "Devre arası. Soyunma odasında takım 1-0 geride. Hoca sinirle taktik tahtasına yeni bir diziliş çiziyor. Seni en etkili olduğun bölgeden alıp, tamamen defansif bir kanat bekine çekiyor. Senin özelliklerini tamamen öldürecek bir hamle. Gözler sana çevrildi, hocanın kararına tepki verecek misin?",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "İtiraz etmeden tahtadaki yeni yerini kabul et.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_itiraz_et",
+          "text": "Tahtaya yürü ve 'Orada oynarsam maçı kaybederiz, beni önde serbest bırak' de.",
+          "target": "n_itiraz_roll",
+          "effects": [],
+          "persona": {
+            "durus": 20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_kaptan",
+          "text": "Kaptana dön ve ondan destek iste.",
+          "target": "n_kaptan",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 2
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -2
+            }
+          ]
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Gorev Adami",
+      "kind": "outcome",
+      "text": "Takım için kendini feda edersin. İkinci yarı yorulursun ve kötü puan alırsın ama hoca sadakatini takdir eder.",
+      "onEnter": []
+    },
+    "n_itiraz_roll": {
+      "title": "Riskli Hamle",
+      "kind": "roll",
+      "text": "Tahtadaki planı siliyorsun...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_itiraz_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_itiraz_fail"
+        }
+      ]
+    },
+    "n_itiraz_success": {
+      "title": "Dahi Hamle",
+      "kind": "outcome",
+      "text": "İkinci yarı maçı çevirirsin, kahraman olursun. Hoca bile sana hak verir.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_itiraz_fail": {
+      "title": "Ego Patlaması",
+      "kind": "outcome",
+      "text": "Başarısız olursun. Hoca seni hemen oyundan alır, kriz çıkar.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_kaptan": {
+      "title": "Siyaset",
+      "kind": "outcome",
+      "text": "Kaptan devreye girer, hoca taktiği yumuşatır ama otoritesi sarsıldığı için sana bilenir.",
+      "onEnter": []
+    }
+  }
+}

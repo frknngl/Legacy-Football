@@ -1,0 +1,149 @@
+{
+  "id": "evt_fandom_cocuk_hayran",
+  "family": "fam_fandom_cocuk",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Sahaya Giren Çocuk",
+      "kind": "branch",
+      "text": "Çok kritik bir maçın son dakikalarında oyun durakladığında, küçük bir çocuk taraftar güvenlikleri aşarak sahaya fırladı ve doğrudan sana doğru koşmaya başladı. Ancak güvenlik görevlileri çocuğu sert bir şekilde yakaladı. Hoca {actor.manager.name} kenardan maça konsantre olman için bağırıyor.",
+      "choices": [
+        {
+          "id": "c_cocugu_kurtar",
+          "text": "Güvenliklere müdahale et, çocuğu kucağına al ve ona formanı ver.",
+          "target": "n_cocugu_kurtar",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Hocanın dediğini yap, maça odaklan ve olaya hiç karışma.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_hakeme_itiraz_et",
+          "text": "Güvenlik zafiyeti nedeniyle hakeme ve organizasyona sert çık, çocuğu umursamadan güvenliği eleştir.",
+          "target": "n_hakeme_itiraz_et",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_cocugu_kurtar": {
+      "title": "Halkın Sevgilisi",
+      "kind": "outcome",
+      "text": "O anki fotoğrafın tüm dünyada viral oldu. Maça olan konsantrasyonun biraz düşse de, kulüp başkanı {actor.president.name} bu mükemmel PR fırsatından çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Buz Adam",
+      "kind": "outcome",
+      "text": "Buz gibi bir profesyonel olduğunu kanıtladın ama sosyal medyada 'duygusuz' olmakla suçlanıyorsun. Hoca {actor.manager.name} ise konsantrasyonunu bozmadığın için takdir ediyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_hakeme_itiraz_et": {
+      "title": "Gergin Ortam",
+      "kind": "outcome",
+      "text": "Hem çocuk ağlayarak dışarı çıkarıldı hem de sen gerginliğinle ortamı daha da gerdin. Medya senin sadece şikayet eden bir yıldız olduğunu yazıyor.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_fandom_cocuk",
+    "beat": "evt_fandom_cocuk_hayran",
+    "signature": "fandom:fam_fandom_cocuk"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

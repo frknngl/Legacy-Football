@@ -1,0 +1,154 @@
+{
+  "id": "evt_mind_medya_takintisi",
+  "family": "fam_mind_medya_takintisi",
+  "category": "mind",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Yorumları Okumak",
+      "kind": "branch",
+      "text": "Son maçtaki vasat performansından sonra evde telefonla saatler geçirip sosyal medyadaki tüm olumsuz yorumları okumaya başladın. Giderek sinirleniyor ve psikolojik olarak kendini yıpratıyorsun. Bazı yorumlar gerçekten çok ağır.",
+      "choices": [
+        {
+          "id": "c_fake_hesapla_kavga",
+          "text": "Sahte bir hesap açıp sana küfür eden taraftarlarla tek tek kavga et.",
+          "target": "n_fake_hesapla_kavga",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_hesabi_kapat",
+          "text": "Tüm sosyal medya hesaplarını geçici olarak dondur ve zihnini temizle.",
+          "target": "n_hesabi_kapat",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_meydan_oku",
+          "text": "Kendi resmi hesabından iddialı bir tweet at: 'Beni eleştirenler, bir sonraki maçı bekleyin!'",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_fake_hesapla_kavga": {
+      "title": "İfşa",
+      "kind": "outcome",
+      "text": "Sahte hesabın bir şekilde deşifre oldu. 'Yıldız oyuncu fake hesapla taraftara küfretti' haberleri internete düştü. Kulüp başkanı sana ağır bir para cezası verdi.",
+      "onEnter": [
+        {
+          "flag": "servet",
+          "op": "add",
+          "value": -15000
+        }
+      ]
+    },
+    "n_hesabi_kapat": {
+      "title": "Dijital Detoks",
+      "kind": "outcome",
+      "text": "Sosyal medyadan uzaklaşmak sana çok iyi geldi. İdmanlarda daha odaklıydın ve bu durum hocanın {actor.manager.name} dikkatinden kaçmadı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Büyük Kumar",
+      "kind": "outcome",
+      "text": "Attığın tweet taraftarı heyecanlandırdı ancak sırtına inanılmaz bir baskı yükledin. Bir sonraki maçta kötü oynarsan medya seni paramparça edecek.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_medya_takintisi",
+    "beat": "evt_mind_medya_takintisi",
+    "signature": "mind:fam_mind_medya_takintisi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

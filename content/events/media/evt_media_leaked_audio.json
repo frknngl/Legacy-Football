@@ -1,0 +1,117 @@
+{
+  "id": "evt_media_leaked_audio",
+  "family": "fam_media_leaked_audio",
+  "category": "media",
+  "tier": "minor",
+  "weight": 10,
+  "authored": "hand",
+  "cooldown": {
+    "self": 15,
+    "family": 10
+  },
+  "story": {
+    "arc": "media_drama",
+    "beat": "leaked_audio",
+    "signature": "media:leaked_audio"
+  },
+  "variants": [
+    {
+      "id": "v_default",
+      "rootNode": "n_root",
+      "nodes": {
+        "n_root": {
+          "title": "Sızdırılan Ses Kaydı",
+          "kind": "branch",
+          "text": "Gece yarısı telefonun çalıyor. WhatsApp grubunda teknik direktör hakkında yaptığın ağır eleştirilerin ses kaydı, bilinmeyen bir hesaptan basına sızdırılmış. Kulüp karışmak üzere ve sabah idmanında hoca ile yüz yüze geleceksin.",
+          "choices": [
+            {
+              "id": "c_0",
+              "text": "Hocayı ilk sen ara, 'Benim sesim değil, montaj' diyerek inkar et.",
+              "target": "n_outcome_0",
+              "effects": [
+                {
+                  "flag": "profesyonellik",
+                  "op": "add",
+                  "value": -10
+                },
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -15
+                }
+              ],
+              "persona": {
+                "dogruluk": -10
+              }
+            },
+            {
+              "id": "c_1",
+              "text": "Tesislere gidip hocanın odasına gir, 'Ne söylediysem arkasındayım, takım iyi gitmiyor' diyerek yüzleş.",
+              "target": "n_outcome_1",
+              "effects": [
+                {
+                  "flag": "iliski_manager",
+                  "op": "add",
+                  "value": -20
+                },
+                {
+                  "flag": "mental_dayaniklilik",
+                  "op": "add",
+                  "value": 10
+                },
+                {
+                  "flag": "takim_uyumu",
+                  "op": "add",
+                  "value": -10
+                }
+              ],
+              "persona": {
+                "durus": 15
+              }
+            },
+            {
+              "id": "c_2",
+              "text": "Menajeri devreye sok, kriz yönetimi ajansıyla anlaşıp dikkatleri başka yöne çekecek sahte bir haber yay.",
+              "target": "n_outcome_2",
+              "effects": [
+                {
+                  "flag": "servet",
+                  "op": "add",
+                  "value": -25000
+                },
+                {
+                  "flag": "medya_baskisi",
+                  "op": "add",
+                  "value": -15
+                },
+                {
+                  "flag": "sokak_itibari",
+                  "op": "add",
+                  "value": -5
+                }
+              ],
+              "persona": {
+                "mizac": -5
+              }
+            }
+          ]
+        },
+        "n_outcome_0": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_1": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        },
+        "n_outcome_2": {
+          "title": "Sonuç",
+          "kind": "outcome",
+          "text": "Verdiğin bu karar, medyanın ve taraftarın sana olan bakış açısını derinden etkiledi. Sonuçlarıyla yaşamak zorundasın."
+        }
+      }
+    }
+  ]
+}

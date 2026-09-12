@@ -1,0 +1,164 @@
+{
+  "id": "evt_rival_kutlama_hirsizi",
+  "family": "fam_rival_kutlama_hirsizi",
+  "category": "rival",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 50,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kutlama Hırsızı",
+      "kind": "branch",
+      "text": "Sezonun en kritik derbisi. Son dakikada harika bir gol attın! Tam kendi ikonik gol sevincini yapacakken rakip takımın yıldızı {actor.nemesis.name} gelip senin sevinç hareketini yaparak taraftarını kışkırttı ve dikkatleri üzerine çekti.",
+      "choices": [
+        {
+          "id": "c_sert_dal",
+          "text": "Santra yapılır yapılmaz ona çok sert bir müdahalede bulunarak haddini bildir.",
+          "target": "n_sert_dal",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_gol_at",
+          "text": "Öfkeni kontrol et ve maçı çevirmek için insanüstü bir çaba göster. Cevabını gol atarak ver.",
+          "target": "n_gol_at",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -5
+          }
+        },
+        {
+          "id": "c_alkisla",
+          "text": "Onun bu hareketine gülümseyip alaycı bir şekilde alkışla. Kameraların senin psikolojik üstünlüğünü çekmesini sağla.",
+          "target": "n_alkisla",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_sert_dal": {
+      "title": "Göze Göz",
+      "kind": "outcome",
+      "text": "Maçın geri kalanında {actor.nemesis.name} topla her buluştuğunda sert müdahaleler yaptın. Birinde sarı kart gördün ama taraftarın senin bu hırsını çok sevdi.",
+      "onEnter": [
+        {
+          "flag": "npc_nemesis_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_gol_at": {
+      "title": "Tarihi Cevap",
+      "kind": "outcome",
+      "text": "Öfkeden deliye dönsen de sakin kaldın. Maçın uzatmalarında ona çalımlar atarak ikinci golü yazdın ve bu kez KENDİ SEVİNCİNİ kameranın tam önünde yaptın!",
+      "onEnter": [
+        {
+          "flag": "npc_nemesis_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_alkisla": {
+      "title": "Psikolojik Üstünlük",
+      "kind": "outcome",
+      "text": "Gülümseyerek {actor.nemesis.name:acc} alkışladın. Bu beklenmedik tepki onu şaşırttı, medyanın manşeti ertesi gün \"Olguluğun Zaferi\" oldu.",
+      "onEnter": [
+        {
+          "flag": "npc_nemesis_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_rival_kutlama_hirsizi",
+    "beat": "evt_rival_kutlama_hirsizi",
+    "signature": "rival:fam_rival_kutlama_hirsizi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

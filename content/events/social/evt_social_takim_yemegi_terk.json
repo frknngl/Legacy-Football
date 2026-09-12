@@ -1,0 +1,149 @@
+{
+  "id": "evt_social_takim_yemegi_terk",
+  "family": "fam_social_yemek",
+  "category": "social",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gergin Akşam Yemeği",
+      "kind": "branch",
+      "text": "Sezonun en kritik maçı öncesinde kaptan {actor.captain.name} moral için tüm takımı yemeğe çıkardı. Ancak yemekte genç bir oyuncuyla tartışmaya başladın. Ortam bir anda gerildi ve hoca {actor.manager.name} araya girip senin haksız olduğunu söyledi.",
+      "choices": [
+        {
+          "id": "c_ozur_dile",
+          "text": "Alttan al, genç oyuncudan ve hocadan özür dileyerek yemeğe devam et.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_mekani_terk_et",
+          "text": "Kimseye eyvallahın yok. Hesaba ortak olmadan masadan kalk ve mekanı terk et.",
+          "target": "n_mekani_terk_et",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_hocaya_cevap_ver",
+          "text": "Genç oyuncuyu bırakıp doğrudan hocaya cevap ver: 'Bana herkesin içinde bağıramazsın!'",
+          "target": "n_hocaya_cevap_ver",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "sadakat": -15
+          }
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Büyüklük Bende Kalsın",
+      "kind": "outcome",
+      "text": "Gururun biraz incinse de takımın morali bozulmadı. Kaptan {actor.captain.name} bu olgunluğunu çok takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_mekani_terk_et": {
+      "title": "Ayrıksı Ot",
+      "kind": "outcome",
+      "text": "Mekanı terk etmen takımdaki havayı tamamen bozdu. Kaptan {actor.captain.name} artık seninle aynı masaya oturmak istemiyor.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_hocaya_cevap_ver": {
+      "title": "Otorite Sarsıntısı",
+      "kind": "outcome",
+      "text": "Bu tartışma ertesi gün boy boy gazetelerdeydi. Hoca {actor.manager.name} sana karşı öfkeli ve ilk antrenmanda ceza olarak seni yedek takıma gönderdi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_yemek",
+    "beat": "evt_social_takim_yemegi_terk",
+    "signature": "social:fam_social_yemek"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "id": "evt_locker_dj_fight",
+  "family": "fam_locker_dj",
+  "category": "locker",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 100,
+    "family": 100
+  },
+  "eras": [
+    "rookie",
+    "rise"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Müzik Sistemi Krizi",
+      "text": "Soyunma odasında yıllardır aynı arabesk/nostaljik müzikler çalıyor ve bunu takımın 35 yaşındaki kaptanı belirliyor. Maçtan önce enerjini tamamen düşürüyor. Kaptan duştayken telefonu Bluetooth'a bağlayıp en sevdiğin hareketli hip-hop şarkısını açıyorsun. Kaptan odaya girdiğinde müziği duyup sinirleniyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kapat",
+          "text": "Hemen müziği kapat ve özür dile.",
+          "target": "n_kapat",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": 1
+            }
+          ],
+          "persona": {
+            "sadakat": 10,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_savun",
+          "text": "'Bu müzik bizi uyutuyor, biraz enerjiye ihtiyacımız var!' diyerek savun.",
+          "target": "n_savun_roll",
+          "effects": [],
+          "persona": {
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_kulaklik",
+          "text": "Kulaklıklarını takıp kendi dünyana dön.",
+          "target": "n_kulaklik",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "icekapaniklik": 15
+          }
+        }
+      ]
+    },
+    "n_kapat": {
+      "title": "Sessiz Çırak",
+      "kind": "outcome",
+      "text": "Kaptan hiyerarşiyi koruduğun için memnun kalır ama gençler seni pısırık bulur.",
+      "onEnter": []
+    },
+    "n_savun_roll": {
+      "title": "Devrim Denemesi",
+      "kind": "roll",
+      "text": "Odadaki herkesin tepkisi bekleniyor...",
+      "outcomes": [
+        {
+          "weight": 50,
+          "target": "n_savun_success"
+        },
+        {
+          "weight": 50,
+          "target": "n_savun_fail"
+        }
+      ]
+    },
+    "n_savun_success": {
+      "title": "Yeni DJ",
+      "kind": "outcome",
+      "text": "Gençler seni destekler ve devrim yaparsın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_savun_fail": {
+      "title": "Fırça",
+      "kind": "outcome",
+      "text": "Kaptan seni kovar, maç öncesi tadın kaçar.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_kulaklik": {
+      "title": "Kopuk Yıldız",
+      "kind": "outcome",
+      "text": "İzole olursun, maç öncesi takımın kolektif ruhundan koparsın.",
+      "onEnter": []
+    }
+  }
+}

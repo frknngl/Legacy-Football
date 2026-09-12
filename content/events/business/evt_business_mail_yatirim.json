@@ -1,0 +1,146 @@
+{
+  "id": "evt_business_mail_yatirim",
+  "family": "fam_business_girisim",
+  "category": "business",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Start-up Yatırım Teklifi",
+      "kind": "branch",
+      "format": "mail",
+      "text": "Kime: {actor.agent.name}\nKonu: Çok Gizli Yatırım Fırsatı\n\nSelam. Silikon Vadisi merkezli yeni bir spor teknolojileri start-up'ı için melek yatırımcı arıyoruz. 200.000€ giriş bedeli var ancak projenin 2 yıl içinde değerini dörde katlayacağı öngörülüyor. Sadece özel müşterilerime sunuyorum. Hızlı dönüş yaparsan sevinirim.",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "Riski göze al ve teklifi kabul et. 'Parayı hemen transfer ediyorum' yaz.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -200000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Bu işler bana göre değil. 'Futboldan kazandığımı betona (gayrimenkule) yatırırım' de.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 5
+          }
+        },
+        {
+          "id": "c_avukata_sor",
+          "text": "Maili doğrudan avukatına yönlendir ve sözleşmeleri detaylıca incelemesini iste.",
+          "target": "n_avukata_sor",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            }
+          ],
+          "persona": {
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Melek Yatırımcı",
+      "kind": "outcome",
+      "text": "Para hesabından çıktı. Belki geleceğin büyük patronu olacaksın, belki de bir bardak soğuk su içeceksin. Zaman gösterecek.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Geleneksel Yol",
+      "kind": "outcome",
+      "text": "Menajerin bu kararına biraz bozulsa da, sen risk almamayı seçtin. Para hesabında güvenle durmaya devam ediyor.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_avukata_sor": {
+      "title": "Şeytan Ayrıntıda",
+      "kind": "outcome",
+      "text": "Avukatın {actor.lawyer.name}, sözleşmedeki ağır tazminat maddelerini fark etti ve seni büyük bir beladan kurtardı. Menajerinle arana hafif bir soğukluk girdi.",
+      "onEnter": [
+        {
+          "flag": "npc_lawyer_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_business_girisim",
+    "beat": "evt_business_mail_yatirim",
+    "signature": "business:fam_business_girisim"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  }
+}

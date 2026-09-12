@@ -1,0 +1,154 @@
+{
+  "id": "evt_money_borsa_tuyosu",
+  "family": "fam_money_yatirim",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 25,
+    "family": 15
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "İçeriden Bilgi",
+      "kind": "branch",
+      "format": "sms",
+      "text": "'Dostum selam, X Enerji şirketinin yarın büyük bir ihale alacağı kesinleşti. Sabah piyasa açılmadan portföyünün yarısını buraya kaydır. Kimseye de söyleme. - {actor.childhood_friend.name}'",
+      "choices": [
+        {
+          "id": "c_hepsini_bas",
+          "text": "Risk al ve portföyündeki likit fonları bu hisseye yönlendir.",
+          "target": "n_hepsini_bas",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 150000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_guvenli_kal",
+          "text": "Bu işler tehlikeli. İçeriden bilgiyle işlem yapmak başını derde sokabilir, mesajı sil.",
+          "target": "n_guvenli_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -10000
+            }
+          ],
+          "persona": {
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_arkadaslara_soyle",
+          "text": "Sadece kendin kazanma, haberi takım arkadaşlarınla da paylaş.",
+          "target": "n_arkadaslara_soyle",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 15
+          }
+        }
+      ]
+    },
+    "n_hepsini_bas": {
+      "title": "Tavan Yapan Hisseler",
+      "kind": "outcome",
+      "text": "Gerçekten de ihale haberi düştüğünde kağıt art arda tavan yaptı. Ciddi bir kazanç elde ettin ancak Sermaye Piyasası Kurulu'nun dikkatini çekmek üzere olabilirsin.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_guvenli_kal": {
+      "title": "Kacırılan Fırsat",
+      "kind": "outcome",
+      "text": "İhale haberi doğru çıktı ve kağıt uçuşa geçti. Belki büyük bir fırsat teptin ama akşam yastığa başını koyduğunda için rahat. En azından yasadışı bir işe bulaşmadın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_arkadaslara_soyle": {
+      "title": "Soyunma Odası Borsacıları",
+      "kind": "outcome",
+      "text": "Tüm takım hisseye girdi ve herkes kazandı. Soyunma odasında seni 'Wall Street Kurdu' ilan ettiler ama kulüp başkanı bu dedikodulardan hiç memnun değil.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_yatirim",
+    "beat": "evt_money_borsa_tuyosu",
+    "signature": "money:fam_money_yatirim"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["TierComplianceRule"],
+    "reason": "SMS formati nedeniyle metin kisa tutulmustur."
+  }
+}

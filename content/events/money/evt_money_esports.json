@@ -1,0 +1,144 @@
+{
+  "id": "evt_money_esports",
+  "family": "fam_money_esports",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 200,
+    "family": 200
+  },
+  "eras": [
+    "prime",
+    "star",
+    "icon"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "E-Spor Yatırımı",
+      "text": "Modaya uyup büyük paralar vererek bir E-Spor takımı satın aldın. Ancak takımın, katıldığı ilk uluslararası turnuvada daha ilk turdan rezil olarak elendi. Rakipler maçta senin takımınla 'kolay lokma' diye dalga geçiyor. Twitch chat'i seninle alay ediyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_kapat",
+          "text": "Sinirlenip takımı ertesi gün anında dağıt/kapat.",
+          "target": "n_kapat",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": {
+                "scaleBy": "stature",
+                "base": -100000,
+                "perTier": -50000
+              }
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sabır": -25,
+            "hırs": 10
+          }
+        },
+        {
+          "id": "c_destek",
+          "text": "Takıma destek mesajı at, 'Düşmeden kalkmayı öğrenemeyiz' de.",
+          "target": "n_destek",
+          "effects": [
+            {
+              "flag": "fame",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "legacy",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "sabır": 20,
+            "liderlik": 15
+          }
+        },
+        {
+          "id": "c_yayin",
+          "text": "Kendin Twitch açıp rakip takımın oyuncularına meydan oku.",
+          "target": "n_yayin_roll",
+          "effects": [],
+          "persona": {
+            "ego": 20,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_kapat": {
+      "title": "Kötü Patron",
+      "kind": "outcome",
+      "text": "Paran boşa gider, oyuncuları işsiz bırakırsın. E-Spor dünyasında nefret edilirsin.",
+      "onEnter": []
+    },
+    "n_destek": {
+      "title": "Vizyoner",
+      "kind": "outcome",
+      "text": "Genç kitle seni çok sever. Takım bir sonraki turnuvada toparlar.",
+      "onEnter": []
+    },
+    "n_yayin_roll": {
+      "title": "1v1 Düello",
+      "kind": "roll",
+      "text": "Oyun kolunu eline alıyorsun...",
+      "outcomes": [
+        {
+          "weight": 40,
+          "target": "n_yayin_success"
+        },
+        {
+          "weight": 60,
+          "target": "n_yayin_fail"
+        }
+      ]
+    },
+    "n_yayin_success": {
+      "title": "Gizli Yetenek",
+      "kind": "outcome",
+      "text": "Profesyonel oyuncuyu yenersin! İnternet alemi yıkılır.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 30
+        },
+        {
+          "flag": "fame",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_yayin_fail": {
+      "title": "Canlı Yayında Rezillik",
+      "kind": "outcome",
+      "text": "Adam seni saniyeler içinde yok eder. Kariyerin boyunca meme (caps) olarak kalırsın.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": -20
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  }
+}

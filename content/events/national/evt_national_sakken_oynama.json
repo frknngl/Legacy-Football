@@ -1,0 +1,149 @@
+{
+  "id": "evt_national_sakken_oynama",
+  "family": "fam_national_sakat",
+  "category": "national",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Fedakarlık Sınavı",
+      "kind": "branch",
+      "text": "Milli takımın turnuvaya katılması için son maçta mutlaka kazanması gerekiyor. Ancak dizinde ciddi bir ağrı var. Kulüp hocan {actor.manager.name} oynamanı kesinlikle yasakladı. Milli takım teknik heyeti ise iğneyle sahaya çıkmanı istiyor.",
+      "choices": [
+        {
+          "id": "c_igneyle_oyna",
+          "text": "Kulübünü hiçe say, iğne vurulup sahaya çık. 'Milletim için bacağımı bile veririm.'",
+          "target": "n_igneyle_oyna",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 40
+            }
+          ],
+          "persona": {
+            "sadakat": 30,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_oynama",
+          "text": "Kulüp hocanı dinle ve riske girme. 'Benim ekmek paramı kulüp veriyor, kariyerimi bitiremem.'",
+          "target": "n_oynama",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": -15
+          }
+        },
+        {
+          "id": "c_yedek_kulubesi",
+          "text": "Sadece son 15 dakika oynamak için anlaş. Hem riski azalt hem takımı yalnız bırakma.",
+          "target": "n_yedek_kulubesi",
+          "effects": [
+            {
+              "flag": "sakatlik_riski",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": -5
+          }
+        }
+      ]
+    },
+    "n_igneyle_oyna": {
+      "title": "Ulusal Kahraman",
+      "kind": "outcome",
+      "text": "Sahada mucizeler yarattın ve ülkeyi turnuvaya taşıdın. Halk sana tapıyor. Ancak maç sonu dizin kilitlendi ve hoca {actor.manager.name} sözünü dinlemediğin için öfkeden deliye döndü.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_oynama": {
+      "title": "Mantığın Sesi",
+      "kind": "outcome",
+      "text": "Ülke maçı kaybetti ve tüm suç senin fedakarlık yapmamana bağlandı. Ancak kulüp hocan {actor.manager.name} profesyonelliğini takdir ederek seni takımın merkezine koydu.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_yedek_kulubesi": {
+      "title": "Orta Yol",
+      "kind": "outcome",
+      "text": "Son 15 dakikada elinden geleni yaptın ama sonuç değişmedi. En azından dizini tamamen kaybetmedin ve kulüp hocan {actor.manager.name} durumu anlayışla karşıladı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_national_sakat",
+    "beat": "evt_national_sakken_oynama",
+    "signature": "national:fam_national_sakat"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

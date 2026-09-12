@@ -192,6 +192,7 @@ import {
   type Favor,
   type FavorOffer,
 } from '../domain/favor.js';
+import type { NodeFormat } from '../domain/story.js';
 import {
   dividendFor,
   portfolioValue,
@@ -222,6 +223,7 @@ export interface PresentedNode {
   readonly title: string;
   readonly text: string;
   readonly kind: StoryNode['kind'];
+  readonly format?: NodeFormat;
   readonly tier: string;
   readonly category: string;
   readonly choices: readonly PresentedChoice[];
@@ -3866,6 +3868,7 @@ export class GameEngine {
       title: this.interpolator.interpolate(node.title, interpolation),
       text: this.interpolator.interpolate(node.text, interpolation),
       kind: node.kind,
+      format: node.format,
       tier: active.event.tier,
       category: active.event.category,
       choices,

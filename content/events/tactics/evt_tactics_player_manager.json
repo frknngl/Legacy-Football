@@ -1,0 +1,134 @@
+{
+  "id": "evt_tactics_player_manager",
+  "family": "fam_tactics_player_manager",
+  "category": "tactics",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 15,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "veteran",
+    "icon",
+    "legend"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Oyuncu/Menajer",
+      "text": "Maçın 70. dakikasında teknik direktör hakeme yoğun itirazdan dolayı kırmızı kartla tribüne gönderiliyor. Yardımcı antrenör de daha önce hastalandığı için kulübede değil. Hoca çıkarken seni yanına çağırıp 'Takım sana emanet, değişiklikleri sen yap' diyor.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_defans",
+          "text": "Hemen takımı tamamen defansa çekip skoru korumaya çalış.",
+          "target": "n_defans",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "liderlik": 10
+          }
+        },
+        {
+          "id": "c_hucum",
+          "text": "Kendi insiyatifini kullan, oyuna 3 forvet sokup çılgın bir hücum başlat.",
+          "target": "n_hucum_roll",
+          "effects": [],
+          "persona": {
+            "cesaret": 25,
+            "zeka": 10
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "'Ben sadece futbolcuyum' diyip sorumluluktan kaç.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "npc_teammates_arc",
+              "op": "add",
+              "value": -3
+            },
+            {
+              "flag": "legacy",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "cesaret": -20,
+            "liderlik": -25
+          }
+        }
+      ]
+    },
+    "n_defans": {
+      "title": "Park Edilen Otobüs",
+      "kind": "outcome",
+      "text": "Maçı zar zor 0-0 bitirirsiniz. Taraftar sıkıcı futbol için seni değil, hocayı suçlar.",
+      "onEnter": []
+    },
+    "n_hucum_roll": {
+      "title": "Taktik Deha mı?",
+      "kind": "roll",
+      "text": "Kulübedeki arkadaşlarına işaret veriyorsun...",
+      "outcomes": [
+        {
+          "weight": 40,
+          "target": "n_hucum_success"
+        },
+        {
+          "weight": 60,
+          "target": "n_hucum_fail"
+        }
+      ]
+    },
+    "n_hucum_success": {
+      "title": "Geleceğin Hocası",
+      "kind": "outcome",
+      "text": "Takım coşar, 3 gol atarsınız. Medya senin ileride harika bir teknik adam olacağını yazar.",
+      "onEnter": [
+        {
+          "flag": "legacy",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_hucum_fail": {
+      "title": "Taktiksel İntihar",
+      "kind": "outcome",
+      "text": "Kontrataktan üst üste goller yersiniz. Maç sonu faturası sana kesilir.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -20
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Lidersiz Gemi",
+      "kind": "outcome",
+      "text": "Takım sahipsiz kalır ve maçı kaybeder. Kaptanlık pazıbendin sarsılır.",
+      "onEnter": []
+    }
+  }
+}

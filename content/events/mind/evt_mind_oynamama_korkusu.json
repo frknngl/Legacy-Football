@@ -1,0 +1,149 @@
+{
+  "id": "evt_mind_oynamama_korkusu",
+  "family": "fam_mind_oynamama_korkusu",
+  "category": "mind",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Forma Kaybetme Korkusu",
+      "kind": "branch",
+      "text": "Son haftalarda kendi bölgene transfer edilen yeni yetenek antrenmanlarda harika işler çıkarıyor. Hoca {actor.manager.name} da onunla özel olarak ilgileniyor. İçten içe formayı kaybedeceğin korkusu zihnini kemirmeye başladı. Gece uykuların kaçıyor.",
+      "choices": [
+        {
+          "id": "c_daha_cok_calis",
+          "text": "Korkuyu motivasyona çevir! İdmanlardan sonra sahada kal ve ekstra bireysel antrenman yap.",
+          "target": "n_daha_cok_calis",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_hocayla_konus",
+          "text": "Hocanın odasına git ve durumunu sor. 'Oynayacak mıyım, yoksa beni gözden mi çıkardın?' diye net konuş.",
+          "target": "n_hocayla_konus",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 10,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_yetenegi_sabote_et",
+          "text": "İdmanlarda o çocuğa kasıtlı olarak sert girip gözdağı ver. 'Buranın patronu benim' mesajı ver.",
+          "target": "n_yetenegi_sabote_et",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_daha_cok_calis": {
+      "title": "Çalışmanın Gücü",
+      "kind": "outcome",
+      "text": "Ekstra çalışmaların sayesinde formunu inanılmaz bir seviyeye taşıdın. Hoca formayı sana verdi ancak vücudun aşırı yüklenmeden dolayı alarm veriyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_hocayla_konus": {
+      "title": "Açık İletişim",
+      "kind": "outcome",
+      "text": "Hoca senin bu dürüst yaklaşımını sevdi. Formayı hak edenin alacağını söyledi. Ancak senin kafandaki şüpheler hala tam olarak geçmiş değil.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_yetenegi_sabote_et": {
+      "title": "Zehirli Lider",
+      "kind": "outcome",
+      "text": "İdmanda ona attığın o sert tekme takımda buz gibi bir rüzgar estirdi. Genç yetenek senden korktu ama takım arkadaşların senin bencil olduğunu düşünmeye başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_oynamama_korkusu",
+    "beat": "evt_mind_oynamama_korkusu",
+    "signature": "mind:fam_mind_oynamama_korkusu"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

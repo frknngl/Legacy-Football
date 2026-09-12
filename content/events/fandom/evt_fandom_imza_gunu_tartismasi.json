@@ -1,0 +1,149 @@
+{
+  "id": "evt_fandom_imza_gunu_tartismasi",
+  "family": "fam_fandom_imza",
+  "category": "fandom",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "İmza Günü Gerginliği",
+      "kind": "branch",
+      "text": "Kulübün resmi mağazasında düzenlenen imza gününde saatlerce hayranlarına imza dağıttın. Ancak sıra sona doğru yaklaşırken agresif bir taraftar, formayı fırlatarak 'Kazandığın paranın hakkını ver!' diye bağırdı. Menajerin {actor.agent.name} güvenliği çağırıyor, başkan {actor.president.name} ise durumu sessizce atlatmanı bekliyor.",
+      "choices": [
+        {
+          "id": "c_karsilik_ver",
+          "text": "Adamın üzerine yürü ve 'Sen benim ne kadar çalıştığımı biliyor musun?' diyerek kavga et.",
+          "target": "n_karsilik_ver",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_sakin_kal",
+          "text": "Formayı yerden al, gülümseyerek imzala ve adama geri ver.",
+          "target": "n_sakin_kal",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_etkinligi_bitir",
+          "text": "Kalemi masaya fırlat ve etkinliği derhal iptal ederek arka kapıdan çık.",
+          "target": "n_etkinligi_bitir",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -5
+          }
+        }
+      ]
+    },
+    "n_karsilik_ver": {
+      "title": "Mağaza Kavgası",
+      "kind": "outcome",
+      "text": "Güvenlik araya girmeden önce büyük bir arbede yaşandı. Görüntüler sızdı ve başkan {actor.president.name} kulübün itibarını zedelediğin için sana çok kızgın.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_sakin_kal": {
+      "title": "Büyük Karakter",
+      "kind": "outcome",
+      "text": "Bu olgun tavrın adamı bile utandırdı. Medyada 'Örnek Sporcu' olarak manşetlerdesin ama içindeki öfkeyi bastırmak seni mental olarak yordu.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_etkinligi_bitir": {
+      "title": "Tepkili Yıldız",
+      "kind": "outcome",
+      "text": "Dışarıda bekleyen yüzlerce masum hayran da imza alamadan evine döndü. Menajerin {actor.agent.name} bu PR felaketini toparlamak için ekstra mesai yapıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_fandom_imza",
+    "beat": "evt_fandom_imza_gunu_tartismasi",
+    "signature": "fandom:fam_fandom_imza"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "id": "evt_sponsor_ugly_kit",
+  "family": "fam_sponsor_ugly",
+  "category": "sponsor",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 20,
+  "cooldown": {
+    "self": 150,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "star"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kötü Tasarımlı Forma",
+      "text": "Kulübün forma sponsoru yeni sezon lansmanını yaptı. Ancak tasarladıkları 3. forma (alternatif forma) parlak pembe üzerine fosforlu yeşil puantiyeli korkunç bir şey! Kameralar lansman sırasında doğrudan senin yüz ifadeni çekiyor. Mikrofon uzatıp 'Nasıl buldunuz?' diyorlar.",
+      "kind": "branch",
+      "choices": [
+        {
+          "id": "c_yalan",
+          "text": "'Harika, tam vizyoner bir tasarım' diyerek yalan söyle.",
+          "target": "n_yalan",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": 2
+            }
+          ],
+          "persona": {
+            "dogruluk": -15,
+            "profesyonellik": 15
+          }
+        },
+        {
+          "id": "c_gercek",
+          "text": "'Hayatımda gördüğüm en çirkin şey, bunu sahada giymem' de.",
+          "target": "n_gercek",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "npc_president_arc",
+              "op": "add",
+              "value": -4
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_moda",
+          "text": "'Benim tarzım değil ama moda böyle bir şey sanırım' diyerek politik ol.",
+          "target": "n_moda",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "zeka": 15
+          }
+        }
+      ]
+    },
+    "n_yalan": {
+      "title": "Satılmış Ruh",
+      "kind": "outcome",
+      "text": "Taraftarlar seninle dalga geçer, ancak yönetim seni lansmanın yüzü yapar.",
+      "onEnter": []
+    },
+    "n_gercek": {
+      "title": "Dobra Yıldız",
+      "kind": "outcome",
+      "text": "Sponsor kulübe ceza keser. Yönetim seni kadro dışı bırakmakla tehdit etse de taraftar seni destekler.",
+      "onEnter": []
+    },
+    "n_moda": {
+      "title": "Diplomat",
+      "kind": "outcome",
+      "text": "Ne şiş yandı ne kebap. Akıllıca bir açıklamayla krizden sıyrılırsın.",
+      "onEnter": []
+    }
+  }
+}

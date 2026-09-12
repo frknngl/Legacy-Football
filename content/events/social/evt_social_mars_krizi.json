@@ -1,0 +1,174 @@
+{
+  "id": "evt_social_mars_krizi",
+  "family": "fam_social_mars",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 50,
+  "once": true,
+  "cooldown": {
+    "self": 50,
+    "family": 20
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "mid",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "trigger": {
+    "flag": "mem_marsi_sussmayi_secti",
+    "op": "eq",
+    "value": true
+  },
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Sessizliğin Yankısı",
+      "kind": "branch",
+      "text": "Milli takım kampındasın. Yıllar önce o ilk maçta marş okunurken susmayı seçmiştin ve o günkü kameralar bunu yakalamıştı. Bugüne kadar çok konuşulmadı ama dünkü maçta yine kameralar sana odaklandığında dudaklarının kıpırdamadığı fark edildi. Bugün antrenman çıkışında sinirli bir grup taraftar otobüsün önünü kesti. 'Neden söylemiyorsun? Bu formayı hak etmiyorsun!' diye bağırıyorlar. Kaptan yanına gelip, 'Bir şeyler söylemen lazım, yoksa olay büyüyecek,' diyor.",
+      "choices": [
+        {
+          "id": "c_savunma",
+          "text": "Basın toplantısı düzenle. 'Marşı içimden okuyorum, bu benim kişisel saygı duruşum,' diyerek kendini savun.",
+          "target": "n_savunma",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 5
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 5,
+            "dogruluk": 5
+          }
+        },
+        {
+          "id": "c_sessizlik",
+          "text": "Otobüse bin, kulaklıklarını tak ve kimseye açıklama yapma. 'Sahada konuşurum' tavrını koru.",
+          "target": "n_sessizlik",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "durus": -5,
+            "mizac": 5
+          }
+        },
+        {
+          "id": "c_pr",
+          "text": "PR ekibinin yazdığı o sahte ve coşkulu metni sosyal medyadan paylaş. Göz boya.",
+          "target": "n_pr",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -5
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 5
+            }
+          ],
+          "persona": {
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_savunma": {
+      "title": "Denge Kuruldu",
+      "kind": "outcome",
+      "text": "Açıklaman tansiyonu biraz düşürdü. Bazıları ikna olmasa da, senin profesyonel tavrın konunun en azından bir süre daha kapanmasını sağladı.",
+      "onEnter": [
+        {
+          "flag": "npc_national_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_sessizlik": {
+      "title": "Büyüyen Tepki",
+      "kind": "outcome",
+      "text": "Sessizliğin bir itiraf gibi algılandı. Olay günlerce televizyonlarda tartışıldı. Tribünlerden gelen yuhalamalar artık sadece rakip takım taraftarlarına ait değil.",
+      "onEnter": [
+        {
+          "flag": "npc_national_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_pr": {
+      "title": "Sahte Sempati",
+      "kind": "outcome",
+      "text": "Metin o kadar klişeydi ki herkes ajansın yazdığını anladı. Yine de taraftarın gazı alındı. İnandırıcılığını kaybettin ama en azından sokakta yürürken güvendesin.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_mars",
+    "beat": "evt_social_mars_krizi",
+    "signature": "social:fam_social_mars"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 20,
+    "beatGapTurns": 30,
+    "signatureGapTurns": 25,
+    "maxBeatUses": 1
+  },
+  "lint": {
+    "ignore": ["OrphanMemoryFlagRule"],
+    "reason": "Resolving old orphaned memory trace"
+  }
+}

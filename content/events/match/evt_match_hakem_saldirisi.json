@@ -1,0 +1,152 @@
+{
+  "id": "evt_match_hakem_saldirisi",
+  "family": "fam_match_hakem_saldirisi",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Adalet Yoksa",
+      "kind": "branch",
+      "text": "Maçın son dakikası, durum 1-1. Yüzde yüzlük bir penaltı pozisyonunda ceza sahasında yere indirildin ama hakem {actor.referee.name} 'Devam' dedi. İtiraz eden kaptana da direkt kırmızı kart çıkardı. Takım arkadaşların çıldırmış halde hakemin üzerine yürüyor.",
+      "choices": [
+        {
+          "id": "c_katil",
+          "text": "Sen de kavgaya katıl! Hakemi iterek 'Nasıl penaltı vermezsin?!' diye bağır.",
+          "target": "n_katil",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_araya_gir",
+          "text": "Arkadaşlarını sakinleştirip hakemi korumak için araya gir. Takımı geriye çek.",
+          "target": "n_araya_gir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": -5
+          }
+        },
+        {
+          "id": "c_taraftari_kiskirt",
+          "text": "Tribünlere dön ve ellerinle 'Alkışlayın şu rezaleti' işareti yaparak taraftarı hakeme karşı ateşle.",
+          "target": "n_taraftari_kiskirt",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_katil": {
+      "title": "Ceza Kurulu",
+      "kind": "outcome",
+      "text": "Hakemi ittiğin için sen de kırmızı kart gördün. Federasyon 3 maç ceza verdi. Medya seni holigan ilan etse de taraftar senin ateşli savunmanı destekliyor.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCards": 1,
+          "incident": "inc_red_card"
+        }
+      ]
+    },
+    "n_araya_gir": {
+      "title": "Mantığın Sesi",
+      "kind": "outcome",
+      "text": "Olayların büyümesini engelledin. Maç bittikten sonra hakem hatasını kabul etmedi ama takımını daha büyük cezalardan kurtardın. Takım içindeki öfke bir süre sana yöneldi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_ref_conflict"
+        }
+      ]
+    },
+    "n_taraftari_kiskirt": {
+      "title": "Kaos",
+      "kind": "outcome",
+      "text": "Senin hareketinle tribünlerden sahaya yabancı madde yağdı. Hakem maçı bitirdi. Sahada kahraman oldun ama kulüp yüklü bir para cezası ödemek zorunda kaldı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "incident": "inc_ref_conflict"
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_hakem_saldirisi",
+    "beat": "evt_match_hakem_saldirisi",
+    "signature": "match:fam_match_hakem_saldirisi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}
