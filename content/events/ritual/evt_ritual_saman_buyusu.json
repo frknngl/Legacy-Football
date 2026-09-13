@@ -1,0 +1,148 @@
+{
+  "id": "evt_ritual_saman_buyusu",
+  "family": "fam_ritual_saman",
+  "category": "ritual",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Şamanın Laneti",
+      "kind": "branch",
+      "text": "Üç haftadır gol atamıyorsun. Takımdaki Afrikalı bir oyuncu, kramponlarına 'kötü ruhların' musallat olduğunu iddia ediyor. Kendi köyündeki bir Şaman ile videolu görüşme ayarlamış. Şaman, kramponlarına süt döküp onları gömmeni istiyor.",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "Denemekten zarar gelmez! Kramponlarına süt dök ve tesislerin bahçesine göm.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Saçmalık! Böyle hurafelere inanmadığını sert bir dille ifade et.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "mizac": -20
+          }
+        },
+        {
+          "id": "c_pr_kullan",
+          "text": "Şaman ayinini sosyal medyadan canlı yayınla paylaş ve bunu bir eğlenceye dönüştür.",
+          "target": "n_pr_kullan",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Toprağın Gücü",
+      "kind": "outcome",
+      "text": "Tesis bahçıvanı kramponları bulduğunda büyük bir olay çıktı ama o hafta sonu maçı iki golle tamamladın. Belki de işe yaradı?",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Aklın Yolu Bir",
+      "kind": "outcome",
+      "text": "O haftaki maçta yine gol atamadın. Takım arkadaşın sana 'Ben demiştim' bakışları atıyor, canın oldukça sıkkın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_pr_kullan": {
+      "title": "Modern Büyücü",
+      "kind": "outcome",
+      "text": "Yayın milyonlarca izlendi. Başkan {actor.president.name} bu durumdan pek hoşnut değil ama sponsorlar 'Ritüel' isimli yeni bir ayakkabı serisi için kapını çalıyor.",
+      "onEnter": [
+        {
+          "flag": "para",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_ritual_saman",
+    "beat": "evt_ritual_saman_buyusu",
+    "signature": "ritual:fam_ritual_saman"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

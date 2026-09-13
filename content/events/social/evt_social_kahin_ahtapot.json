@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_kahin_ahtapot",
+  "family": "fam_social_ahtapot",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kahin Ahtapotun Kehaneti",
+      "kind": "branch",
+      "text": "Şehirdeki ünlü bir akvaryumda yaşayan ve maç sonuçlarını bilmesiyle ünlenen 'Kahin Ahtapot', hafta sonu oynayacağınız derbide sizin kaybedeceğinizi tahmin etti. Medya bunu büyük bir olaya dönüştürdü ve taraftarlar tedirgin.",
+      "choices": [
+        {
+          "id": "c_meydan_oku",
+          "text": "Medyaya 'O sadece bir deniz ürünü, pazar günü onu meze yapacağız' diye esprili ve iddialı bir demeç ver.",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_ahtapotu_ziyaret_et",
+          "text": "Akvaryuma gidip ahtapotla fotoğraf çektir ve 'Barış imzaladık' mesajı paylaş.",
+          "target": "n_ahtapotu_ziyaret",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "antrenman_verimi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Böyle saçmalıklarla ilgilenmediğini söyleyip tamamen antrenmana odaklan.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "mizac": -15
+          }
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Deniz Ürünü",
+      "kind": "outcome",
+      "text": "Taraftar bu özgüvenli duruşuna bayıldı. Derbi öncesi statta ahtapot maskeli taraftarlar sana tezahürat yapıyor.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_ahtapotu_ziyaret": {
+      "title": "Ahtapotla Barış",
+      "kind": "outcome",
+      "text": "Fotoğraf sosyal medyada viral oldu. Antrenmanı aksattığın için hoca {actor.manager.name} sana kızsa da medyanın sevgilisi oldun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Buz Gibi Profesyonel",
+      "kind": "outcome",
+      "text": "Magazin gazetecileri seni sıkıcı buldu ama hoca {actor.manager.name} sadece futbola odaklandığın için seni takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_ahtapot",
+    "beat": "evt_social_kahin_ahtapot",
+    "signature": "social:fam_social_ahtapot"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_ufo_iddiasi",
+  "family": "fam_social_ufo",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Üçüncü Türden Yakınlaşmalar",
+      "kind": "branch",
+      "text": "Deplasman dönüşü takım uçağının penceresinden parlak ve hızlı hareket eden garip bir cisim gördün. Takım arkadaşların uyuyor ama sen bunun kesinlikle bir UFO olduğuna eminsin. Sabah uyandığında medyada bir ufoloji dergisine bunu anonim olarak sızdırıp sızdırmamayı düşünüyorsun.",
+      "choices": [
+        {
+          "id": "c_sessiz_kal",
+          "text": "Deli muamelesi görmemek için kimseye bir şey söyleme ve konuyu unut.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_internette_yayinla",
+          "text": "Sosyal medyada gördüklerini anlatan uzun ve inançlı bir 'UFO' teorisi paylaş.",
+          "target": "n_internette_yayinla",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_hocaya_anlat",
+          "text": "Ciddiyetle hocanın {actor.manager.name} odasına git ve uzaylıların futbolu izlediğini anlat.",
+          "target": "n_hocaya_anlat",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": -15
+          }
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Sıradan Bir Gece",
+      "kind": "outcome",
+      "text": "Gerçeği sadece sen biliyorsun. Performansın etkilenmedi ama içinde hep o ışığın ne olduğu merakı kaldı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_internette_yayinla": {
+      "title": "Uzaylı Elçisi",
+      "kind": "outcome",
+      "text": "Taraftar sana 'Uzaylı' lakabını taktı. Başkan {actor.president.name} bu durumun kulübü komik duruma düşürdüğünü düşünse de forma satışları uzaylı maskeleriyle patlama yaptı.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_hocaya_anlat": {
+      "title": "Hocanın Şaşkınlığı",
+      "kind": "outcome",
+      "text": "Hocan {actor.manager.name} sana acıyarak baktı ve kulüp psikoloğundan acil randevu aldı. Takım içinde gizliden gizliye alay konusu oldun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_ufo",
+    "beat": "evt_social_ufo_iddiasi",
+    "signature": "social:fam_social_ufo"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

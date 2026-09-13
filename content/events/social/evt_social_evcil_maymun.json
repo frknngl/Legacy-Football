@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_evcil_maymun",
+  "family": "fam_social_maymun",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tesislerde Bir Maymun",
+      "kind": "branch",
+      "text": "Egzotik hayvanlara olan merakınla bilinen takım arkadaşın, antrenman tesislerine yeni aldığı evcil maymunuyla geldi. Maymun soyunma odasında senin kramponlarını alıp tavandaki borulara tırmandı. Antrenmanın başlamasına 5 dakika var ve kramponların maymunun elinde.",
+      "choices": [
+        {
+          "id": "c_muz_ver",
+          "text": "Kafeteryadan muz alıp nazikçe maymunu ikna etmeye çalış.",
+          "target": "n_muz_ver",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_bagir_cagir",
+          "text": "Arkadaşına bağırıp kramponlarını hemen getirmesini söyle, sinir krizi geçir.",
+          "target": "n_bagir_cagir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -25
+          }
+        },
+        {
+          "id": "c_video_cek",
+          "text": "Durumu komik bulup maymunun videosunu çek ve sosyal medyada paylaş.",
+          "target": "n_video_cek",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_muz_ver": {
+      "title": "Hayvan Fısıldayan",
+      "kind": "outcome",
+      "text": "Maymun muzu alıp kramponları bıraktı. Takım arkadaşların senin bu soğukkanlı ve şefkatli tavrına kahkahalarla güldü.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_bagir_cagir": {
+      "title": "Huysuz Yıldız",
+      "kind": "outcome",
+      "text": "Sen bağırdıkça maymun korkup kramponlarına zarar verdi. Arkadaşınla aran bozuldu ve antrenmana yedek kramponlarla moralsiz çıktın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_video_cek": {
+      "title": "Viral Maymun",
+      "kind": "outcome",
+      "text": "Video milyonlarca kez izlendi! Ancak hoca {actor.manager.name} soyunma odası mahremiyetini ihlal ettiğin için sana kızgın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_maymun",
+    "beat": "evt_social_evcil_maymun",
+    "signature": "social:fam_social_maymun"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}
