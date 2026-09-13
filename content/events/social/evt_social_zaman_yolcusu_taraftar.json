@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_zaman_yolcusu_taraftar",
+  "family": "fam_social_zaman",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gelecekten Gelen Taraftar",
+      "kind": "branch",
+      "text": "Antrenman çıkışında yanına tuhaf giyimli bir taraftar yaklaştı. Kendisinin 2050 yılından geldiğini ve bu hafta sonu atacağın golün futbol tarihini değiştireceğini söylüyor. Sana bazı 'taktiksel sırlar' içeren eski bir defter uzatıyor.",
+      "choices": [
+        {
+          "id": "c_defteri_al",
+          "text": "Adamın delirdiğini düşünsen de merakına yenik düşüp defteri al.",
+          "target": "n_defteri_al",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_guvenlik",
+          "text": "Güvenliği çağırıp bu tuhaf adamı uzaklaştır. Konsantrasyonunu bozmasına izin verme.",
+          "target": "n_guvenlik",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_selfie_cek",
+          "text": "Adamla selfie çekilip 'Gelecekte de efsaneyim' diye paylaşım yap.",
+          "target": "n_selfie_cek",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_defteri_al": {
+      "title": "Geleceğin Sırları",
+      "kind": "outcome",
+      "text": "Defterdeki taktikler saçma sapan çizgilerden ibaret ama okumaya çalışmak seni güldürdü ve maça stressiz çıkmanı sağladı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_guvenlik": {
+      "title": "Sıfır Tolerans",
+      "kind": "outcome",
+      "text": "Adam yaka paça dışarı atılırken sana 'Bunu ödeyeceksin!' diye bağırdı. Biraz tadın kaçtı ama işine odaklanmaya devam ettin.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_selfie_cek": {
+      "title": "Zamanın Ötesinde",
+      "kind": "outcome",
+      "text": "Paylaşım viral oldu, internette 'Zaman Yolcusu' capsleri dolaşıyor. Taraftarlar stadyumda sana bilimkurgu maskeleriyle destek verdi.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_zaman",
+    "beat": "evt_social_zaman_yolcusu_taraftar",
+    "signature": "social:fam_social_zaman"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

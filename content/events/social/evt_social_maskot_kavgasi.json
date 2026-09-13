@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_maskot_kavgasi",
+  "family": "fam_social_maskot",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Maskotla Gerginlik",
+      "kind": "branch",
+      "text": "Maç önü ısınmasındasın. Rakip takımın devasa kuş maskotu sürekli senin etrafında dolanıp komik danslar yaparak konsantrasyonunu bozuyor. Bir ara arkandan gelip kafana hafifçe vurdu ve taraftarları coşturdu.",
+      "choices": [
+        {
+          "id": "c_maskota_saldir",
+          "text": "Sinirlenip maskotu it ve 'Uzak dur benden!' diye bağır.",
+          "target": "n_maskota_saldir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -25
+          }
+        },
+        {
+          "id": "c_dans_et",
+          "text": "Gülümse ve maskotun dansına katılarak onu kendi oyununda yen.",
+          "target": "n_dans_et",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_hakeme_sikayet",
+          "text": "Ciddi bir şekilde dördüncü hakeme gidip maskotun ısınma alanından çıkarılmasını iste.",
+          "target": "n_hakeme_sikayet",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_maskota_saldir": {
+      "title": "Küçük Düşürücü Kavga",
+      "kind": "outcome",
+      "text": "Maskot yere düşüp numaradan ağlamaya başladı. Bütün stadyum seni yuhaladı ve sosyal medyada alay konusu oldun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_dans_et": {
+      "title": "Eğlenceli Karakter",
+      "kind": "outcome",
+      "text": "Dansın o kadar iyiydi ki rakip taraftarlar bile seni alkışladı. Maça çok rahat bir psikolojiyle çıktın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_hakeme_sikayet": {
+      "title": "Oyunbozan",
+      "kind": "outcome",
+      "text": "Maskot sahadan çıkarıldı ama rakip taraftarlar sana maç boyunca 'Ağlak' diye tezahürat yaptı. İşine odaklandın.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_maskot",
+    "beat": "evt_social_maskot_kavgasi",
+    "signature": "social:fam_social_maskot"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

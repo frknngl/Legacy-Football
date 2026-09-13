@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_klonlama_iddiasi",
+  "family": "fam_social_klon",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Klonlama Teorisi",
+      "kind": "branch",
+      "text": "Son dönemdeki üstün performansın nedeniyle internette 'Senin aslında gerçek olmadığın, gizli bir laboratuvarda klonlandığın' teorisi yayıldı. Magazin programları bile bunu ciddi ciddi tartışmaya başladı.",
+      "choices": [
+        {
+          "id": "c_saka_yap",
+          "text": "Antrenmana barkodlu bir tişörtle git ve kameralara 'Klon-01 Göreve Hazır' de.",
+          "target": "n_saka_yap",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_kan_testi",
+          "text": "Sinirlenip canlı yayında doktorunla kan testi sonuçlarını paylaş, insan olduğunu kanıtla.",
+          "target": "n_kan_testi",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Hiçbir açıklama yapma. Sahadaki performansınla cevap ver.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_saka_yap": {
+      "title": "Eğlenceli Cyborg",
+      "kind": "outcome",
+      "text": "Bu harika PR hamlesi sayesinde tüm dünya senin zekanı konuştu. Formana barkod çizdiren taraftarlar stadyumu doldurdu.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_kan_testi": {
+      "title": "Aşırı Ciddiyet",
+      "kind": "outcome",
+      "text": "İnsanlar senin mizah anlayışından yoksun olduğunu düşündü. Hocan {actor.manager.name} bu gereksiz açıklamayı saçma buldu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Mükemmel Makine",
+      "kind": "outcome",
+      "text": "Sessiz kaldıkça iddialar daha da büyüdü ama sen sahada o kadar iyi oynadın ki, klon olup olmadığın kimsenin umurunda değildi.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_klon",
+    "beat": "evt_social_klonlama_iddiasi",
+    "signature": "social:fam_social_klon"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

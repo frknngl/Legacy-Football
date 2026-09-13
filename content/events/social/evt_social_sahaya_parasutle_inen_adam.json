@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_sahaya_parasutle_inen_adam",
+  "family": "fam_social_parasut",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gökyüzünden Gelen Davetsiz Misafir",
+      "kind": "branch",
+      "text": "Önemli bir maçın tam ortasındayken sahaya bir anda paraşütle bir adam iniyor! Adam çevre aktivisti ve üzerinde garip sloganlar yazan bir tişörtle tam senin yanına iniş yapıyor. Hakem maçı durdurdu.",
+      "choices": [
+        {
+          "id": "c_adama_saril",
+          "text": "Adama sarıl, aktivist duruşuna gülümseyerek destek ver.",
+          "target": "n_adama_saril",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_adami_uzaklastir",
+          "text": "Sinirle adamı iterek sahadan çıkmasını söyle, maçın temposunu bozdu.",
+          "target": "n_adami_uzaklastir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_parasut_ile_oyna",
+          "text": "Yerdeki paraşütü alıp pelerin gibi sırtına takarak şov yap.",
+          "target": "n_parasut_oyna",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_adama_saril": {
+      "title": "Barışçıl Futbolcu",
+      "kind": "outcome",
+      "text": "Çevre örgütleri seni kahraman ilan etti ama başkan {actor.president.name} maçın ciddiyetini bozduğun için sana ufak bir uyarı yaptı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_adami_uzaklastir": {
+      "title": "Oyunun Kuralları",
+      "kind": "outcome",
+      "text": "Saha güvenliği adamı hızlıca dışarı aldı. Seyirciler senin bu agresif tavrını yuhalasa da hocan {actor.manager.name} konsantrasyonunu bozmadığın için memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_parasut_oyna": {
+      "title": "Sahanın Süper Kahramanı",
+      "kind": "outcome",
+      "text": "Tüm stadyum kahkahalara boğuldu. Ertesi gün spor sayfalarında 'Pelerinli Uçan Adam' manşetleriyle yer aldın.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_parasut",
+    "beat": "evt_social_sahaya_parasutle_inen_adam",
+    "signature": "social:fam_social_parasut"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

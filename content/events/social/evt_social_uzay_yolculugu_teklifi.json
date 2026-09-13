@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_uzay_yolculugu_teklifi",
+  "family": "fam_social_uzay",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Uzay Yolculuğu Teklifi",
+      "kind": "branch",
+      "text": "Dünyanın en zengin iş adamlarından biri, düzenleyeceği turistik uzay yolculuğuna marka yüzü olman için sana teklifte bulundu. Sezon sonundaki tatil dönemine denk gelen bu teklif harika duyuluyor ancak kulüp sözleşmendeki 'ekstrem sporlar yasaktır' maddesine takılabilir.",
+      "choices": [
+        {
+          "id": "c_gizlice_kabul_et",
+          "text": "Kulüpten gizli anlaşmayı imzala. Uzaydan gol sevinci pozu atma fikri çok cazip.",
+          "target": "n_gizlice_kabul",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -20
+          }
+        },
+        {
+          "id": "c_yonetimle_konus",
+          "text": "Başkan {actor.president.name} ile görüşüp izin iste, 'Uzayda kulübün bayrağını açarım' de.",
+          "target": "n_yonetimle_konus",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Bu riske girmeye değmez, kariyerine odaklanmak için kibarca reddet.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "antrenman_verimi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -15
+          }
+        }
+      ]
+    },
+    "n_gizlice_kabul": {
+      "title": "Astronot Futbolcu",
+      "kind": "outcome",
+      "text": "Haber sızınca kulüp çıldırdı ve kontratını feshetmekle tehdit etti. Ancak bu çılgın hamle taraftarın ilgisini o kadar çekti ki sponsorluk gelirlerin tavan yaptı.",
+      "onEnter": [
+        {
+          "flag": "para",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_yonetimle_konus": {
+      "title": "Hayaller Suya Düştü",
+      "kind": "outcome",
+      "text": "Başkan {actor.president.name} sana gülerek 'Önce sahada yıldız ol, sonra uzaya çıkarsın' dedi. İzin çıkmadı, hevesin kursağında kaldı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Ayaklar Yere Basıyor",
+      "kind": "outcome",
+      "text": "İş adamı bu duruma biraz bozulsa da hocan {actor.manager.name} bu profesyonel kararını takdir etti ve sana ekstra sorumluluklar verdi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_uzay",
+    "beat": "evt_social_uzay_yolculugu_teklifi",
+    "signature": "social:fam_social_uzay"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1251,6 +1251,11 @@ export class GameEngine {
         this.applyMatchChemistry(result.minutes);
       }
 
+      if (this.matchDelta.redCard) {
+        this.suspend(3, 'Kirmizi Kart');
+        this.notices.push('Kirmizi kart gordugunuz icin 3 mac ceza aldiniz.');
+      }
+
       if (this.state.availability.matchesRemaining > 0) {
         this.state.availability = this.suspensionConsume();
       }
@@ -3750,6 +3755,12 @@ export class GameEngine {
       this.state.flags['is_injured'] = true;
       this.state.flags['injury_weeks'] = effect.injuryWeeks;
       this.setLifeState('injured');
+      this.notices.push(`Macta sakatlandiniz: ${effect.injuryWeeks} hafta saha disisiniz.`);
+
+      if (isSerious(effect.injuryWeeks, this.registry.config.treatments)) {
+        this.state.injury.pending = { baseWeeks: effect.injuryWeeks, askedTurn: this.state.turn };
+        this.notices.push('Doktor tedavi karari bekliyor.');
+      }
     }
 
     if (!this.inMatch) {

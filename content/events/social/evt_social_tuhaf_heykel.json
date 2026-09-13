@@ -1,0 +1,146 @@
+{
+  "id": "evt_social_tuhaf_heykel",
+  "family": "fam_social_heykel",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "superstar"
+  ],
+  "clubTiers": [
+    "elite",
+    "contender"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Heykel Faciası",
+      "kind": "branch",
+      "text": "Memleketinin belediyesi, senin anına şehir meydanına bir heykelini dikti. Ancak açılış töreninde kurdele kesildiğinde bir de ne göresin! Heykelin sana uzaktan yakından alakası yok, şaşı bakıyor ve dişleri orantısız.",
+      "choices": [
+        {
+          "id": "c_gulumse",
+          "text": "Bozuntuya verme, heykeltraşa teşekkür et ve 'Sanat görecelidir' diyerek poz ver.",
+          "target": "n_gulumse",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_dalga_gec",
+          "text": "Mikrofonu al ve 'Umarım sahada bu heykelden daha yakışıklı görünüyorumdur' diyerek dalga geç.",
+          "target": "n_dalga_gec",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_sok_ettir",
+          "text": "Menajerine {actor.agent.name} talimat ver, bu utanç verici heykeli gizlice gece vakti kaldırt.",
+          "target": "n_sok_ettir",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_gulumse": {
+      "title": "Alçakgönüllü Yıldız",
+      "kind": "outcome",
+      "text": "İnsanlar senin nezaketine hayran kaldı. Sosyal medyada capsler yapıldı ama hepsi seni daha da sevimli gösterdi.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_dalga_gec": {
+      "title": "Mizahşör",
+      "kind": "outcome",
+      "text": "Şakan günlerce televizyonlarda döndü. Heykel, şehrin en komik turistik mekanlarından biri haline geldi.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_sok_ettir": {
+      "title": "Kaprisli Şöhret",
+      "kind": "outcome",
+      "text": "Heykel ortadan kaybolunca belediye başkanı sana çok kırıldı. Memleketindeki taraftarlar bu egonu hiç hoş karşılamadı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_heykel",
+    "beat": "evt_social_tuhaf_heykel",
+    "signature": "social:fam_social_heykel"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": "evt_mind_zombi_istilasi_ruyasi",
+  "family": "fam_mind_zombi",
+  "category": "mind",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Zombi İstilası",
+      "kind": "branch",
+      "text": "Üst üste izlediğin dizilerin etkisiyle gece rüyanda tesisleri zombilerin bastığını ve hocanın {actor.manager.name} zombiye dönüştüğünü gördün. Sabah uyandığında hala rüyanın etkisindesin ve hocana bakarken garip hissediyorsun.",
+      "choices": [
+        {
+          "id": "c_hocadan_kac",
+          "text": "Hocadan uzak dur. Bütün gün ondan köşe bucak kaç, taktik toplantısında arkaya saklan.",
+          "target": "n_hocadan_kac",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_ruyayi_anlat",
+          "text": "Hocana gidip rüyanı detaylarıyla anlatıp 'Beni yemeyeceksiniz değil mi?' diye şaka yap.",
+          "target": "n_ruyayi_anlat",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_kahve_ic",
+          "text": "Soğuk bir duş al, sert bir kahve iç ve rüyayı kafandan silip antrenmana asıl.",
+          "target": "n_kahve_ic",
+          "effects": [
+            {
+              "flag": "antrenman_verimi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_hocadan_kac": {
+      "title": "Paranoyak Oyuncu",
+      "kind": "outcome",
+      "text": "Hocan {actor.manager.name} ondan neden kaçtığını anlamadı ve seninle iletişim kuramadığı için ilk 11'deki yerini sorgulamaya başladı.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_ruyayi_anlat": {
+      "title": "Soyunma Odası Komedyeni",
+      "kind": "outcome",
+      "text": "Hocan {actor.manager.name} başta tuhaf tuhaf baksada takım arkadaşların gülmekten yerlere yattı. Güzel bir atmosfer oluştu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_kahve_ic": {
+      "title": "Gerçekliğe Dönüş",
+      "kind": "outcome",
+      "text": "Kahve işe yaradı. İdman sahasında zombiler yerine sadece yorucu kondisyon antrenmanı vardı ve sen harika çalıştın.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_zombi",
+    "beat": "evt_mind_zombi_istilasi_ruyasi",
+    "signature": "mind:fam_mind_zombi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

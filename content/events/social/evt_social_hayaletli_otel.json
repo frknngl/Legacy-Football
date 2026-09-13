@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_hayaletli_otel",
+  "family": "fam_social_hayalet",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hayaletli Otel Macerası",
+      "kind": "branch",
+      "text": "Deplasman için gittiğiniz tarihi otelin hayaletli olduğu dedikoduları var. Gece yarısı koridordan garip tıkırtılar duydun. Oda arkadaşın yorganı kafasına çekmiş titriyor.",
+      "choices": [
+        {
+          "id": "c_kesfetmeye_cik",
+          "text": "Cesaretini topla, telefonun fenerini aç ve koridora çıkıp sesin kaynağını ara.",
+          "target": "n_kesfet",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_oda_degistir",
+          "text": "Resepsiyonu ara, kesin bir dille hocanın {actor.manager.name} yanındaki boş odaya geçmek istediğini söyle.",
+          "target": "n_oda_degistir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_canli_yayin_ac",
+          "text": "Hemen Instagram'da 'Hayalet Avı' adında bir canlı yayın başlat ve tıkırtıları takipçilerine dinlet.",
+          "target": "n_canli_yayin",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_kesfet": {
+      "title": "Korkusuz Savaşçı",
+      "kind": "outcome",
+      "text": "Sesin kaynağı sadece bozuk bir buz makinesiymiş. Takım arkadaşların sabah senin bu cesaretine saygı duyarak sana 'Hayalet Avcısı' lakabını taktı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_oda_degistir": {
+      "title": "Güvenli Bölge",
+      "kind": "outcome",
+      "text": "Hocanın bitişiğinde rahat bir uyku çektin ancak oda arkadaşın bütün gece uyuyamadı ve ertesi gün sahada döküldü.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_canli_yayin": {
+      "title": "Sosyal Medya Fenomeni",
+      "kind": "outcome",
+      "text": "Canlı yayın o kadar çok izlendi ki sabah haberlerine çıktın. Kulüp yönetimi {actor.president.name} maç konsantrasyonunu bozduğun için sana ufak bir ceza kesti.",
+      "onEnter": [
+        {
+          "flag": "para",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_hayalet",
+    "beat": "evt_social_hayaletli_otel",
+    "signature": "social:fam_social_hayalet"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}
