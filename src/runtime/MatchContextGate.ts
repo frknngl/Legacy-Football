@@ -139,6 +139,15 @@ export class MatchContextGate {
     flags['form'] = Math.round(Math.max(0, Math.min(100, avg * 10)));
   }
 
+  /**
+   * Mac disi etki birikimi: accumulateMatchDelta mac disinda cagrildiginda
+   * sayaclari ve organik buyumeyi uygular ama form/ratingHistory'ye dokunmaz.
+   * GameEngine zaten matchDelta'yi sifirliyor; burasi yalnizca arayuzu saglar.
+   */
+  accumulate(_result: MatchResultReport): void {
+    // Mac disi birikim: GameEngine kendi state'inde isledi, burada ek islem yok.
+  }
+
   private writeSelectionContext(flags: Record<string, FlagValue>, ctx: MatchContext): void {
     const position = ctx.teamLeaguePosition ?? DEFAULT_TEAM_LEAGUE_POSITION;
     const size = ctx.teamLeagueSize ?? DEFAULT_TEAM_LEAGUE_SIZE;

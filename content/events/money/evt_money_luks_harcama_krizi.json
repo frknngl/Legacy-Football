@@ -1,0 +1,154 @@
+{
+  "id": "evt_money_luks_harcama_krizi",
+  "family": "fam_money_luks",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Altın Kaplama Araba",
+      "kind": "branch",
+      "text": "Son kazandığınız derbiden sonra kendini şımartmak istedin ve altın kaplamalı, özel yapım, aşırı lüks bir spor araba satın aldın. Ancak kulübün maddi krizde olduğu bir dönemde bu harcama taraftarın büyük tepkisini çekti. Kulüp başkanı {actor.president.name}, bu arabayla antrenman tesislerine gelmeni kesinlikle yasakladı.",
+      "choices": [
+        {
+          "id": "c_arabayi_sat",
+          "text": "Tepkileri dindirmek için arabayı hemen zararına sat ve özür dile.",
+          "target": "n_arabayi_sat",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100000
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": -20
+          }
+        },
+        {
+          "id": "c_arabayi_sakla",
+          "text": "Arabayı satma ama başkanın sözünü dinleyip tesislere sıradan bir arabayla git.",
+          "target": "n_arabayi_sakla",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_meydan_oku",
+          "text": "Karara itiraz et ve inatla altın kaplama arabayla tesisin kapısına dayan.",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": 30,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_arabayi_sat": {
+      "title": "Halkın Adamı",
+      "kind": "outcome",
+      "text": "Hızlıca geri adım atman taraftarla aranı düzeltti. Başkan {actor.president.name} kriz yönetiminden memnun, ama arabanın hasreti içinde kaldı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_arabayi_sakla": {
+      "title": "İki Yüzlü Yaşam",
+      "kind": "outcome",
+      "text": "Gizli gizli gece gezmelerinde arabanın tadını çıkarıyorsun ama gündüzleri kulübün kurallarına uyuyorsun. Medya her an seni yakalamak için peşinde.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Şımarık Yıldız",
+      "kind": "outcome",
+      "text": "Kapıdaki güvenlik seni içeri almadı ve olay büyük bir skandala dönüştü. Hoca {actor.manager.name} bu disiplinsizliğinden dolayı seni kadro dışı bırakmayı düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_luks",
+    "beat": "evt_money_luks_harcama_krizi",
+    "signature": "money:fam_money_luks"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

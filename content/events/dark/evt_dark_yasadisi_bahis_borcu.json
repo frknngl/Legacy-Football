@@ -1,0 +1,159 @@
+{
+  "id": "evt_dark_yasadisi_bahis_borcu",
+  "family": "fam_dark_bahis",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Bataklık",
+      "kind": "branch",
+      "text": "Eğlence amaçlı girdiğin yasadışı bahis sitelerinde işler kontrolden çıktı. Çok büyük bir borcun var ve mafyöz tipler antrenman çıkışı tesislerin önünde seni bekliyor. Ya parayı hemen bulacaksın ya da hafta sonu oynanacak maçta kendi takımın aleyhine bilerek penaltı yaptıracaksın.",
+      "choices": [
+        {
+          "id": "c_penalti_yaptir",
+          "text": "Borcunu silmek için ruhunu sat ve maçta bilerek penaltı yaptır.",
+          "target": "n_penalti_yaptir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -35
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": -35,
+            "sadakat": -25
+          }
+        },
+        {
+          "id": "c_baskandan_yardim_iste",
+          "text": "Gururunu yut, başkanın {actor.president.name} odasına gidip her şeyi itiraf et ve borcu kapatması için yalvar.",
+          "target": "n_baskandan_yardim_iste",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": -25
+          }
+        },
+        {
+          "id": "c_kacis_plani",
+          "text": "Hiçbir şey söyleme, antrenmanlara gitmeyip birkaç gün ortadan kaybol.",
+          "target": "n_kacis_plani",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": -20,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_penalti_yaptir": {
+      "title": "Satılmış Adam",
+      "kind": "outcome",
+      "text": "Borcun silindi ama vicdan azabından uyuyamıyorsun. Takım o penaltı yüzünden maçı kaybetti, kaptan {actor.captain.name} soyunma odasında üzerine yürüdü.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -30
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_baskandan_yardim_iste": {
+      "title": "Büyük Yüzleşme",
+      "kind": "outcome",
+      "text": "Başkan borcu kapattı ama artık onun kölesisin. Maaşından devasa bir kesinti yapıldı ve seni satmakla tehdit etti.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_kacis_plani": {
+      "title": "Kayıp Yıldız",
+      "kind": "outcome",
+      "text": "Ortadan kaybolman ülke gündemine oturdu. Polis olaya dahil olunca mafya geri çekildi ama kulüp bu disiplinsizliğinden dolayı sözleşmeni feshetmeyi düşünüyor.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 4,
+          "reason": "Izinsiz antrenman ve maca cikmama"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_bahis",
+    "beat": "evt_dark_yasadisi_bahis_borcu",
+    "signature": "dark:fam_dark_bahis"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

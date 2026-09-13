@@ -1,0 +1,148 @@
+{
+  "id": "evt_rival_derbi_basini",
+  "family": "fam_rival_derbi",
+  "category": "rival",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ateşli Mikrofon",
+      "kind": "branch",
+      "text": "Büyük derbi öncesi basın toplantısında mikrofon sana uzatıldı. Rakip takımın başkanı hafta içi kulübünüze ve hocana {actor.manager.name} yönelik oldukça küçümseyici açıklamalar yapmıştı. Medya senin nasıl bir cevap vereceğini merakla bekliyor.",
+      "choices": [
+        {
+          "id": "c_meydan_oku",
+          "text": "Sert bir üslupla rakip başkana haddini bildir ve 'Sahada kimin büyük olduğunu göreceksiniz' de.",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_politik_cevap",
+          "text": "'Biz sadece futbolumuza odaklanıyoruz, polemiğe girmek bize yakışmaz' diyerek konuyu kapat.",
+          "target": "n_politik_cevap",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "mizac": -20
+          }
+        },
+        {
+          "id": "c_hocayi_yucelt",
+          "text": "Rakibe laf atmak yerine, kendi hocan {actor.manager.name} ne kadar büyük bir taktisyen olduğunu öv.",
+          "target": "n_hocayi_yucelt",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Savaş Çığlığı",
+      "kind": "outcome",
+      "text": "Taraftarlar açıklamalarını coşkuyla karşıladı ama maça aşırı gergin bir atmosferde çıktınız. Medya baskısı yüzünden takım hata yapmaya meyilli hale geldi.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_politik_cevap": {
+      "title": "Buz Adam",
+      "kind": "outcome",
+      "text": "Açıklaman medyaya sıkıcı geldi ama başkan {actor.president.name} kulübün imajını koruduğun için seni takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_hocayi_yucelt": {
+      "title": "Sadık Asker",
+      "kind": "outcome",
+      "text": "Hocan {actor.manager.name} bu korumacı tavrından çok etkilendi. Sana olan güveni tam ve derbide takımın liderliğini sana verecek.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_rival_derbi",
+    "beat": "evt_rival_derbi_basini",
+    "signature": "rival:fam_rival_derbi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

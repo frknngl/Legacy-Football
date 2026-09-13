@@ -1,0 +1,149 @@
+{
+  "id": "evt_money_restoran_acma",
+  "family": "fam_money_restoran",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gastronomi Sınavı",
+      "kind": "branch",
+      "text": "Şehrin en lüks semtlerinden birinde kendi adına bir restoran açtın. Açılış gecesinde menajerin {actor.agent.name} tüm basını oraya topladı ancak mutfakta büyük bir kriz var, yemekler yetişmiyor. Hoca {actor.manager.name} de davetliler arasında ve saatlerdir sipariş bekliyor.",
+      "choices": [
+        {
+          "id": "c_mutfaga_gir",
+          "text": "Takım elbisenle mutfağa girip aşçılara bizzat yardım et. 'Müşteri beklemez!'",
+          "target": "n_mutfaga_gir",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_basina_poz_ver",
+          "text": "İçerideki krizi görmezden gel ve kapıda gazetecilere poz vermeye devam et.",
+          "target": "n_basina_poz_ver",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": -20
+          }
+        },
+        {
+          "id": "c_bedava_ikram",
+          "text": "Hocanın masasına gidip özür dile ve herkese bedava içki ikram ederek durumu kurtarmaya çalış.",
+          "target": "n_bedava_ikram",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -25000
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "sadakat": 10
+          }
+        }
+      ]
+    },
+    "n_mutfaga_gir": {
+      "title": "Mutfak Kahramanı",
+      "kind": "outcome",
+      "text": "Aşçılık becerilerin sınırlı olsa da çaban büyük takdir topladı. Gece yorucu geçtiği için ertesi gün antrenmanda bitkin düştün.",
+      "onEnter": [
+        {
+          "flag": "kondisyon",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_basina_poz_ver": {
+      "title": "Gösterişli Felaket",
+      "kind": "outcome",
+      "text": "Fotoğraflarda harika görünüyorsun ama restoranın yemekleri tam bir felaketti. Hoca {actor.manager.name} aç kaldığı için sana hala kızgın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_bedava_ikram": {
+      "title": "Kriz Yönetimi",
+      "kind": "outcome",
+      "text": "Bedava içki taktiği işe yaradı, hocanın {actor.manager.name} da yüzü güldü. Geceyi maddi zararla kapatsan da itibarını kurtardın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_restoran",
+    "beat": "evt_money_restoran_acma",
+    "signature": "money:fam_money_restoran"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

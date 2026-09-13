@@ -1,0 +1,158 @@
+{
+  "id": "evt_rival_saha_ici_provokasyon",
+  "family": "fam_rival_provokasyon",
+  "category": "rival",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kulağa Fısıldananlar",
+      "kind": "branch",
+      "text": "Derbi maçının tansiyonu yüksek. Seni marke eden rakip defans oyuncusu, konsantrasyonunu bozmak için maç boyunca ailene ve özel hayatına dair ağır küfürler ediyor. Hakem duymuyor, kameralar uzakta. Kaptan {actor.captain.name} sakin kalmanı işaret etse de sabrın taşmak üzere.",
+      "choices": [
+        {
+          "id": "c_kafa_at",
+          "text": "Dayanamayıp adama kafa at ve intikamını sahada al.",
+          "target": "n_kafa_at",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -35
+            }
+          ],
+          "persona": {
+            "mizac": 35,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_hakeme_sikayet_et",
+          "text": "Soğukkanlı kalıp durumu hakeme ve kendi kaptanına {actor.captain.name} şikayet et.",
+          "target": "n_hakeme_sikayet_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -25
+          }
+        },
+        {
+          "id": "c_gol_sevinciyle_karsilik",
+          "text": "Sus ve enerjini oyuna sakla, gol attıktan sonra gidip tam onun yüzüne karşı sevin.",
+          "target": "n_gol_sevinciyle_karsilik",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "dogruluk": 15
+          }
+        }
+      ]
+    },
+    "n_kafa_at": {
+      "title": "Kırmızı Kart",
+      "kind": "outcome",
+      "text": "Direkt kırmızı kart gördün. Rakip oyuncu amacına ulaştı ve takımın 10 kişi kalarak maçı kaybetti. Hocan {actor.manager.name} bu disiplinsizliğe faturayı ağır kesti.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCard": true,
+          "rating": -3
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_hakeme_sikayet_et": {
+      "title": "Şikayetçi",
+      "kind": "outcome",
+      "text": "Hakem hiçbir şey yapmadı, rakip defans seni 'ağlak' diyerek daha da sinirlendirdi. Ancak kaptan {actor.captain.name} bu olgunluğundan ötürü seni takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_gol_sevinciyle_karsilik": {
+      "title": "Susturan Gol",
+      "kind": "outcome",
+      "text": "Harika bir gol attın ve sevincini abartarak ona karşılık verdin. Taraftar çılgına döndü, medya bu ikonik anı manşetlere taşıdı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 2,
+          "goals": 1
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_rival_provokasyon",
+    "beat": "evt_rival_saha_ici_provokasyon",
+    "signature": "rival:fam_rival_provokasyon"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

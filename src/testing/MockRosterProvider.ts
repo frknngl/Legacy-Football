@@ -24,6 +24,7 @@ import {
   type AnyPerson,
 } from '../domain/actors.js';
 import type { ClubInfo, RosterProvider } from '../domain/roster.js';
+import type { AgentProfile } from '../domain/agent.js';
 import { hashString, NameForge, type NameConfig } from '../evaluation/NameForge.js';
 import { Rng } from '../selection/Rng.js';
 
@@ -123,6 +124,44 @@ export class MockRosterProvider implements RosterProvider {
 
   clubs(): readonly ClubInfo[] {
     return this.opts.clubs;
+  }
+
+  agents(): readonly AgentProfile[] {
+    return [
+      {
+        id: 1,
+        name: 'Mock Agent 1',
+        archetype: 'super_agent',
+        reach: 90,
+        negotiation: 90,
+        loyalty: 10,
+        patience: 10,
+        commission: 0.15,
+        reputation: 90
+      },
+      {
+        id: 2,
+        name: 'Mock Agent 2',
+        archetype: 'developer',
+        reach: 40,
+        negotiation: 50,
+        loyalty: 80,
+        patience: 80,
+        commission: 0.05,
+        reputation: 40
+      },
+      {
+        id: 3,
+        name: 'Mock Agent 3',
+        archetype: 'opportunist',
+        reach: 60,
+        negotiation: 70,
+        loyalty: 30,
+        patience: 30,
+        commission: 0.1,
+        reputation: 60
+      }
+    ];
   }
 
   club(clubId: string): ClubInfo | undefined {

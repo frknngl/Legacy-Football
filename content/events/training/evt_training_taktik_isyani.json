@@ -1,0 +1,154 @@
+{
+  "id": "evt_training_taktik_isyani",
+  "family": "fam_training_taktik",
+  "category": "training",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Taktik Tahtası",
+      "kind": "branch",
+      "text": "Hoca {actor.manager.name} takımın hücum şablonunu tamamen değiştirip, seni kaleye çok uzak olan kanat bek pozisyonunda oynatmaya karar verdiğini açıklıyor. Antrenmanda bu sistemi deniyorsunuz ve takım dökülüyor. Kaptan {actor.captain.name} sessiz kalsa da takımın kalanı bu sistemden şikayetçi.",
+      "choices": [
+        {
+          "id": "c_hocaya_karsi_cik",
+          "text": "Antrenmanın ortasında sistemi eleştir ve takımın önünde hocayla tartış.",
+          "target": "n_hocaya_karsi_cik",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_sessizce_uygula",
+          "text": "Hocanın kararına saygı duy, kendi pozisyonundan fedakarlık ederek sistemi uygulamaya çalış.",
+          "target": "n_sessizce_uygula",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_kaptani_gaza_getir",
+          "text": "Kaptanı kenara çek ve 'Eğer bu sistemle oynarsak küme düşeriz, hocayla sen konuş' diye baskı yap.",
+          "target": "n_kaptani_gaza_getir",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_hocaya_karsi_cik": {
+      "title": "İsyankar Lider",
+      "kind": "outcome",
+      "text": "Takım arkadaşlarının sesi oldun ama hoca otoritesini sarsan bu çıkışını affetmedi. Seni as takımdan geçici olarak kesti.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 1,
+          "reason": "Antrenmanda disiplinsizlik"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_sessizce_uygula": {
+      "title": "Fedakar Yıldız",
+      "kind": "outcome",
+      "text": "Kanat bek oynamak skor üretmeni engelledi ama hoca senin bu takım oyuncusu tavrını çok beğendi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_kaptani_gaza_getir": {
+      "title": "Arka Kapı Diplomasisi",
+      "kind": "outcome",
+      "text": "Kaptan hocayla konuştu ve hoca sistemi geri çekti. Sen hedefe ulaşmış oldun ama kaptan {actor.captain.name} seni taşın altına elini koymamakla suçluyor.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_training_taktik",
+    "beat": "evt_training_taktik_isyani",
+    "signature": "training:fam_training_taktik"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

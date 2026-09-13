@@ -1,0 +1,149 @@
+{
+  "id": "evt_money_arkadasa_borc",
+  "family": "fam_money_borc",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Batan Gemi",
+      "kind": "branch",
+      "text": "Takım kaptanının {actor.captain.name:gen} büyük bir iş girişimi battı ve tefecilere ciddi bir borcu var. Soyunma odasında senden gizlice çok yüklü miktarda borç istedi. Menajerin {actor.agent.name} bu paranın asla geri dönmeyeceğini söyleyerek seni uyarıyor.",
+      "choices": [
+        {
+          "id": "c_kaptana_borc_ver",
+          "text": "Menajerini dinleme ve kaptanı kurtarmak için tüm borcunu öde.",
+          "target": "n_kaptana_borc_ver",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -200000
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 30
+            }
+          ],
+          "persona": {
+            "sadakat": 35,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_borcu_reddet",
+          "text": "Menajerin tavsiyesine uy ve parayı vermeyi kesin bir dille reddet.",
+          "target": "n_borcu_reddet",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": -20
+          }
+        },
+        {
+          "id": "c_yonetime_bildir",
+          "text": "Bu işin altından tek başına kalkamayacağını düşünüp durumu gizlice kulüp başkanına anlat.",
+          "target": "n_yonetime_bildir",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": -20,
+            "sadakat": -30
+          }
+        }
+      ]
+    },
+    "n_kaptana_borc_ver": {
+      "title": "Gizli Kahraman",
+      "kind": "outcome",
+      "text": "Paranı büyük ihtimalle geri alamayacaksın ama kaptan {actor.captain.name} sana hayatı boyunca minnettar kalacak. Takım içindeki saygınlığın zirveye ulaştı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    },
+    "n_borcu_reddet": {
+      "title": "Soğuk Karar",
+      "kind": "outcome",
+      "text": "Paranı korudun ama kaptan büyük bir krize girdi ve takımın morali tamamen çöktü. Kaptan {actor.captain.name} sana artık çok soğuk davranıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_yonetime_bildir": {
+      "title": "Köstebek",
+      "kind": "outcome",
+      "text": "Başkan sorunu çözdü ama soyunma odasının sırrını yönetime taşıdığın için takım arkadaşların tarafından dışlanıyorsun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_borc",
+    "beat": "evt_money_arkadasa_borc",
+    "signature": "money:fam_money_borc"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

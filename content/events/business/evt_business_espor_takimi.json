@@ -1,0 +1,153 @@
+{
+  "id": "evt_business_espor_takimi",
+  "family": "fam_business_espor",
+  "category": "business",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "E-Spor Yatırımı",
+      "kind": "branch",
+      "text": "Oyun dünyasına olan ilgini bir adım ileriye taşıdın ve kendi e-spor takımını kurdun. Takımın büyük bir turnuvada finale kaldı ama final maçı senin kritik bir antrenman saatinle çakışıyor. Menajerin {actor.agent.name}, takımının yanında görünmenin büyük bir reklam olacağını söylüyor.",
+      "choices": [
+        {
+          "id": "c_antrenmani_ek",
+          "text": "Antrenmana 'hasta' olduğunu söyleyerek katılma ve e-spor turnuvasının finaline git.",
+          "target": "n_antrenmani_ek",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "sadakat": -15
+          }
+        },
+        {
+          "id": "c_antrenmana_git",
+          "text": "Final maçını kaçırmayı göze alarak antrenmana katıl.",
+          "target": "n_antrenmana_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_ikisini_de_idare_et",
+          "text": "Antrenmana git ama sahada gizlice telefondan maçı takip et.",
+          "target": "n_ikisini_de_idare_et",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_antrenmani_ek": {
+      "title": "Dijital Kupa",
+      "kind": "outcome",
+      "text": "Takımın kupayı aldı ve sen de sahnede coşkuyla kutladın. Ancak kameralar seni yakaladığı için hoca {actor.manager.name} yalan söylediğini anladı ve sana ağır ceza verdi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_antrenmana_git": {
+      "title": "Gerçek Çimler",
+      "kind": "outcome",
+      "text": "Takımın finali kaybetti ve oyuncuların senin desteğin olmadığı için biraz buruk. Ancak hoca {actor.manager.name} antrenmandaki performansından çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_ikisini_de_idare_et": {
+      "title": "Yarım Konsantrasyon",
+      "kind": "outcome",
+      "text": "Telefona bakarken kaptan {actor.captain.name} seni sertçe uyardı. Hem antrenmanda verimsiz oldun hem de maçtan pek keyif alamadın.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_business_espor",
+    "beat": "evt_business_espor_takimi",
+    "signature": "business:fam_business_espor"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

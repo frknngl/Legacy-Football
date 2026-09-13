@@ -1,0 +1,153 @@
+{
+  "id": "evt_training_genc_yetenek_kavga",
+  "family": "fam_training_kavga",
+  "category": "training",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Saygısız Çaylak",
+      "kind": "branch",
+      "text": "Antrenman maçında A takıma yeni yükselen genç bir yetenek sana arkadan çok sert bir müdahalede bulunuyor. Acı içinde yerde kalıyorsun ama çocuk senden özür dilemek yerine 'Futbol bu abi, sert oynamak lazım' diyerek gülümsüyor. Hoca {actor.manager.name} olayı izliyor.",
+      "choices": [
+        {
+          "id": "c_sert_karsilik",
+          "text": "Ayağa kalkıp genci formasından tut ve 'Önce saygı duymayı öğreneceksin' diyerek üzerine yürü.",
+          "target": "n_sert_karsilik",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_ders_ver",
+          "text": "Sakin kal ama sonraki pozisyonda top sana geldiğinde ona çalımlarla futbol dersi ver.",
+          "target": "n_ders_ver",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_hocaya_sikayet",
+          "text": "Tavrını bozmadan hocaya dönüp 'Bu çocuğu idmandan atmazsan ben çıkarım' de.",
+          "target": "n_hocaya_sikayet",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_sert_karsilik": {
+      "title": "Ağabey Kuralları",
+      "kind": "outcome",
+      "text": "Kavga büyümeden kaptan araya girdi. Genç oyuncu senden korktu ama medya idmandaki bu gerginliği 'Takımda huzursuzluk' diye manşet yaptı.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -10
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    },
+    "n_ders_ver": {
+      "title": "Ustaya Saygı",
+      "kind": "outcome",
+      "text": "Ona attığın bacak arası çalım idmandaki herkesi güldürdü. Genç yetenek hatasını anlayıp senden idman sonu özür diledi.",
+      "onEnter": [
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_hocaya_sikayet": {
+      "title": "Hocanın Otoritesi",
+      "kind": "outcome",
+      "text": "Hoca restini gördü ve 'Senin değil, takımın kuralları geçerli' diyerek seni idmandan kovdu. Genç oyuncuya istemeden güç vermiş oldun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_training_kavga",
+    "beat": "evt_training_genc_yetenek_kavga",
+    "signature": "training:fam_training_kavga"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

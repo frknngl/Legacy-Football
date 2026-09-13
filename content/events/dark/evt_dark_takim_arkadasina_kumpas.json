@@ -1,0 +1,149 @@
+{
+  "id": "evt_dark_takim_arkadasina_kumpas",
+  "family": "fam_dark_kumpas",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Şeytanın Avukatı",
+      "kind": "branch",
+      "text": "Takıma yeni transfer edilen genç yıldız adayı son haftalarda formanı elinden aldı. Hoca {actor.manager.name} onu ilk 11'e yerleştirdi. Hırslı menajerin seni arayıp bir planı olduğunu söylüyor: Gence gece kulübünde tuzak kurup sarhoşken fotoğraflarını basına sızdırmak. 'Forma senin hakkın, izin ver onu bitireyim' diyor.",
+      "choices": [
+        {
+          "id": "c_kumpasi_onayla",
+          "text": "Menajerin planını onayla ve formanı geri almak için bu kirli oyuna ortak ol.",
+          "target": "n_kumpasi_onayla",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -30
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": -35,
+            "sadakat": -20
+          }
+        },
+        {
+          "id": "c_menajeri_kov",
+          "text": "Böyle ahlaksız bir teklifi reddet ve menajeri anında kov.",
+          "target": "n_menajeri_kov",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 35,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_genc_yildizi_uyar",
+          "text": "Genç oyuncuyu gizlice uyar: 'Menajerim sana tuzak kuracak, dikkatli ol.'",
+          "target": "n_genc_yildizi_uyar",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 25
+          }
+        }
+      ]
+    },
+    "n_kumpasi_onayla": {
+      "title": "Kirli Forma",
+      "kind": "outcome",
+      "text": "Fotoğraflar sızdı, genç oyuncu kadro dışı kaldı ve forma sana döndü. Ancak takım içindeki söylentiler kaptan {actor.captain.name}'ın sana şüpheyle bakmasına neden oldu.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_menajeri_kov": {
+      "title": "Onurlu Yedek",
+      "kind": "outcome",
+      "text": "Menajeri kovdun. Formanı geri alamadın ve bir süre daha yedek kulübesinde bekleyeceksin ama aynaya bakarken için rahat.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_genc_yildizi_uyar": {
+      "title": "Abilik Dersi",
+      "kind": "outcome",
+      "text": "Genç oyuncu sana minnettar kaldı. Takım içindeki dostluğunuz pekişti. Formanı kaybettin ama soyunma odasında büyük bir saygı kazandın.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_kumpas",
+    "beat": "evt_dark_takim_arkadasina_kumpas",
+    "signature": "dark:fam_dark_kumpas"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

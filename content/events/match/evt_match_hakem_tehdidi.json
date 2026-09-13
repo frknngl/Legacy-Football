@@ -1,0 +1,153 @@
+{
+  "id": "evt_match_hakem_tehdidi",
+  "family": "fam_match_tehdit",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Koridorda Karşılaşma",
+      "kind": "branch",
+      "text": "İlk yarıda hakem tüm takdir haklarını rakip takımdan yana kullandı. Devre arasında tünele girerken hakemle yan yana geldin. Kameralar uzakta ve sadece sen, hoca {actor.manager.name} ve kaptan {actor.captain.name} var. Hakem size bakarak alaycı bir şekilde 'Bugün şansınız yok' dedi.",
+      "choices": [
+        {
+          "id": "c_sert_tepki_ver",
+          "text": "Hakeme dön ve 'Eğer o düdüğü düzgün çalmazsan maçı sana zehir ederim' de.",
+          "target": "n_sert_tepki_ver",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 20
+          }
+        },
+        {
+          "id": "c_sessizce_gec",
+          "text": "Hakemi duymazdan gel ve soyunma odasına gidip hocanın taktiğine odaklan.",
+          "target": "n_sessizce_gec",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_gulumse",
+          "text": "Gülümse ve 'Maç sonunda o formayı ben senden isteyeceğim' diyerek psikolojik baskı kur.",
+          "target": "n_gulumse",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_sert_tepki_ver": {
+      "title": "Ateşle Oynamak",
+      "kind": "outcome",
+      "text": "Hakem bu tehdidini raporlarına yazdı. Maçın ikinci yarısında attığın ilk faule direkt sarı kart gösterdi ama takım arkadaşların bu cesaretinden güç aldı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "yellowCards": 1
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_sessizce_gec": {
+      "title": "Soğuk Su",
+      "kind": "outcome",
+      "text": "Hoca {actor.manager.name} provokasyona gelmediğin için seni tebrik etti. İkinci yarıda oyununa odaklanıp takımına fayda sağladın.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_gulumse": {
+      "title": "Psikolojik Savaş",
+      "kind": "outcome",
+      "text": "Hakem ikinci yarıda kararlarında daha dikkatliydi. Bu psikolojik zaferin seni maçın adamı yaptı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 1,
+          "goals": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_tehdit",
+    "beat": "evt_match_hakem_tehdidi",
+    "signature": "match:fam_match_tehdit"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

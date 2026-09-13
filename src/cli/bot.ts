@@ -178,8 +178,16 @@ export function botTurn(
     } else {
       // Menajer teklif getiremedi. Form cok iyi ama menajerin capi yetmiyorsa kov.
       const current = engine.currentAgent();
-      if (current && numberOf(state.flags['form']) > 75 && current.profile.reach < (club?.reputation ?? 50) + 15) {
-        if (rng.next() < 0.2) {
+      if (current && (current.state.satisfaction < 30 || Number(engine.snapshot().flags['form'] ?? 0) > 75)) {
+        const statureStr = engine.snapshot().flags['stature'] as string;
+        
+        // Rough estimate of standing (0-100) based on stature index
+        const statureIndex = ['nobody', 'local_talent', 'starter', 'star', 'superstar', 'icon', 'legend'].indexOf(statureStr || 'nobody');
+        const standing = (Math.max(0, statureIndex) / 6) * 100;
+        
+        // console.log(`Bot evaluating agent. Form: ${form}, StatureStr: ${statureStr}, Standing: ${standing}, Reach: ${current.profile.reach}`);
+        if (current.profile.reach < standing + 10 && rng.next() < 0.2) {
+          // console.log(`Firing agent! reach ${current.profile.reach} < ${standing + 10}`);
           engine.releaseAgent();
           out.agentQuit = true; // BotOutcome icin quit isaretliyoruz.
         }

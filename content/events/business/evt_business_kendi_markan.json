@@ -1,0 +1,154 @@
+{
+  "id": "evt_business_kendi_markan",
+  "family": "fam_business_marka",
+  "category": "business",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Giyim Markası Kurucusu",
+      "kind": "branch",
+      "text": "Kendi ismini taşıyan bir sokak giyim markası kurdun. Lansman çok başarılı oldu ancak koleksiyonun en popüler tişörtünde yer alan slogan, kulüp başkanı {actor.president.name:gen} tepkisini çekti. Sloganın kulübün ahlaki değerlerine uymadığını ve derhal toplatılmasını istiyor.",
+      "choices": [
+        {
+          "id": "c_urunu_toplat",
+          "text": "Ticari zararı göze alarak ürünü piyasadan çek ve başkandan özür dile.",
+          "target": "n_urunu_toplat",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -100000
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_savun",
+          "text": "Sloganın sadece sanatsal bir ifade olduğunu söyleyerek satmaya devam et.",
+          "target": "n_savun",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 50000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_bagis_yap",
+          "text": "Ürünü satmaya devam et ama bu üründen elde edilen tüm geliri kulübün altyapısına bağışla.",
+          "target": "n_bagis_yap",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 10
+          }
+        }
+      ]
+    },
+    "n_urunu_toplat": {
+      "title": "Sadık Çalışan",
+      "kind": "outcome",
+      "text": "Başkan {actor.president.name} kulübü her şeyin üstünde tutmandan memnun. Markan biraz zarar görse de formandaki yerin garanti.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_savun": {
+      "title": "İsyankar Tasarımcı",
+      "kind": "outcome",
+      "text": "Ürün yok sattı ama başkan seni kara listesine aldı. Hoca {actor.manager.name} saha dışında çok meşgul olduğun için form düşüklüğü yaşamandan korkuyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_bagis_yap": {
+      "title": "Kurnaz Patron",
+      "kind": "outcome",
+      "text": "Hem ürünün reklamını yaptın hem de başkanı susturdun. Taraftar senin zekanı ve kulübe katkını alkışlıyor.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_business_marka",
+    "beat": "evt_business_kendi_markan",
+    "signature": "business:fam_business_marka"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

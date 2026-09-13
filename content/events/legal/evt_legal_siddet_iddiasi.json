@@ -1,0 +1,149 @@
+{
+  "id": "evt_legal_siddet_iddiasi",
+  "family": "fam_legal_siddet",
+  "category": "legal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karalama Kampanyası",
+      "kind": "branch",
+      "text": "Eski kız arkadaşın medyaya çıkıp kendisine şiddet uyguladığını iddia ederek sana dava açtı. Suçlamalar tamamen asılsız olsa da kamuoyu sana karşı dönmeye başladı. Kulüp başkanı {actor.president.name} sponsorların baskısı nedeniyle seni geçici olarak kadro dışı bırakmayı düşünüyor.",
+      "choices": [
+        {
+          "id": "c_karsi_dava",
+          "text": "İftira atıldığı gerekçesiyle hemen karşı dava aç ve basın önünde kendini sertçe savun.",
+          "target": "n_karsi_dava",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "dogruluk": 20
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Yargı süreci bitene kadar sessiz kal, kulübün kararını saygıyla karşıla.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "mizac": -20
+          }
+        },
+        {
+          "id": "c_sosyal_medya",
+          "text": "Avukatları beklemeden sosyal medyada bir video çekip duygusal bir dille masumiyetini haykır.",
+          "target": "n_sosyal_medya",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_karsi_dava": {
+      "title": "Adaletin Kılıcı",
+      "kind": "outcome",
+      "text": "Davayı kazandın ve iftiraya uğradığın kanıtlandı. Başkan {actor.president.name} arkanda duramadığı için senden özür diledi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Lekeli Günler",
+      "kind": "outcome",
+      "text": "Sessiz kalman suçlu olduğun izlenimi yarattı. Mahkemede aklansan da sponsorların bir kısmı seninle çalışmayı bıraktı.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_sosyal_medya": {
+      "title": "Halk Mahkemesi",
+      "kind": "outcome",
+      "text": "Video çok ses getirdi ve taraftarlar sana inandı. Hukuki süreç uzasa da kamuoyunun desteğini arkana aldığın için kadro dışı kalmadın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_legal_siddet",
+    "beat": "evt_legal_siddet_iddiasi",
+    "signature": "legal:fam_legal_siddet"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

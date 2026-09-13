@@ -1,0 +1,154 @@
+{
+  "id": "evt_health_rehabilitasyon_kacamak",
+  "family": "fam_health_rehab",
+  "category": "health",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gece Kulübü Kaçamağı",
+      "kind": "branch",
+      "text": "Sakatlığın yüzünden 1 aydır takımdan ayrısın ve rehabilitasyon sürecin çok sıkıcı geçiyor. Bir akşam evde otururken yakın bir arkadaşın seni şehrin en lüks gece kulübüne davet ediyor. 'Sadece arka kapıdan girip bir şeyler içeceğiz, kimse seni görmeyecek' diyor. Ancak paparazziler o kulübün kapısında pusu kurmuş olabilir.",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "Bunalımdan kurtulmak için teklifi kabul et ve gece kulübüne git.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_evde_kal",
+          "text": "Evde kal ve arkadaşını reddedip dinlenmeye devam et.",
+          "target": "n_evde_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_takimi_cagir",
+          "text": "Gece kulübüne gitmek yerine takımdaki diğer oyuncuları evine davet edip oyun oyna.",
+          "target": "n_takimi_cagir",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Flaşlar Patlıyor",
+      "kind": "outcome",
+      "text": "Koltuk değnekleriyle kulüpten çıkarken paparazzilere yakalandın! Ertesi gün manşetlerdesin. Hoca {actor.manager.name} iyileşme sürecini hiçe saydığın için çok öfkeli.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -15
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_evde_kal": {
+      "title": "Sıkıcı Ama Güvenli",
+      "kind": "outcome",
+      "text": "Evde sıkılsan da magazin sayfalarından uzak kalmayı başardın. Ertesi sabah televizyonda kulübün önünde çıkan kavgayı görünce doğru kararı verdiğini anladın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_takimi_cagir": {
+      "title": "Ev Partisi",
+      "kind": "outcome",
+      "text": "Takım arkadaşlarınla sabaha kadar FIFA oynadınız. Sakatlık psikolojisini atlatmana yardımcı oldular ve takım içi bağınız güçlendi.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_health_rehab",
+    "beat": "evt_health_rehabilitasyon_kacamak",
+    "signature": "health:fam_health_rehab"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

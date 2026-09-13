@@ -1,0 +1,162 @@
+{
+  "id": "evt_rival_intikam_maci",
+  "family": "fam_rival_intikam",
+  "category": "rival",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kapanmayan Hesap",
+      "kind": "branch",
+      "text": "Geçen sezon seni sakatlayıp aylarca sahalardan uzak kalmana neden olan o kasap defans oyuncusuyla tekrar karşı karşıyasın. Taraftarın tüm hafta sosyal medyada 'İntikamını al' kampanyası yaptı. Hocan {actor.manager.name} maçtan önce seni kenara çekip 'Sadece futbolunu oyna, rövanş peşine düşme' diye uyardı.",
+      "choices": [
+        {
+          "id": "c_intikam_tekmeleri",
+          "text": "İlk fırsatta adama sert bir tekme atarak geçen senenin intikamını al.",
+          "target": "n_intikam_tekmeleri",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "mizac": 35,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_calim_sov",
+          "text": "Fiziksel şiddet yerine maç boyu onu çalımlarla rezil ederek en büyük cevabı sahada ver.",
+          "target": "n_calim_sov",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_korkak_oyun",
+          "text": "Tekrar sakatlanma korkusuyla ikili mücadelelerden kaç, topu hemen ayağından çıkar.",
+          "target": "n_korkak_oyun",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "mizac": -30,
+            "durus": -25
+          }
+        }
+      ]
+    },
+    "n_intikam_tekmeleri": {
+      "title": "Kanlı Rövanş",
+      "kind": "outcome",
+      "text": "Adamı sakatladın ama direkt kırmızı kartla atıldın. Taraftar seni bağrına bassa da hocan {actor.manager.name} 'Bizi 10 kişi bıraktın' diyerek sana ceza verdi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCard": true,
+          "rating": -2
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_calim_sov": {
+      "title": "Klasik Cevap",
+      "kind": "outcome",
+      "text": "Adamı sahada adeta rezil ettin, her çalımında tribünler 'Oley' çekti. Kaptan {actor.captain.name} bu profesyonel intikamdan çok keyif aldı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 2,
+          "assists": 1
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_korkak_oyun": {
+      "title": "Psikolojik Çöküş",
+      "kind": "outcome",
+      "text": "Sahada hayalet gibiydin. Adamın yanına bile yaklaşamadın. Maç sonu basın, travmayı hala atlatamadığını yazdı.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -2
+        },
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_rival_intikam",
+    "beat": "evt_rival_intikam_maci",
+    "signature": "rival:fam_rival_intikam"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

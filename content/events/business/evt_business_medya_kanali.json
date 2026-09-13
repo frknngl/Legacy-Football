@@ -1,0 +1,154 @@
+{
+  "id": "evt_business_medya_kanali",
+  "family": "fam_business_medya",
+  "category": "business",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dijital Medya Patronu",
+      "kind": "branch",
+      "text": "Kendine ait bir YouTube ve Twitch kanalı açarak büyük bir medya yatırımı yaptın. Kanal hızla büyüyor ancak canlı yayınların çoğu gece geç saatlere kadar sürüyor. Son maçta yorgunluktan dökülünce hoca {actor.manager.name} antrenman tesislerinde seni sertçe uyardı. Başkan {actor.president.name} ise kanalın kulüp imajına zarar verdiğini düşünüyor.",
+      "choices": [
+        {
+          "id": "c_yayini_birak",
+          "text": "Futbol kariyerine odaklanmak için kanalı kapat ve tüm yayınları durdur.",
+          "target": "n_yayini_birak",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_profesyonel_ekip",
+          "text": "Yayınları azalt ama kanalı yönetmesi için profesyonel bir ekip tutarak işi ticarete çevir.",
+          "target": "n_profesyonel_ekip",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_meydan_oku",
+          "text": "Hocaya ve başkana meydan oku, canlı yayınlarda kulübün taktiklerini eleştirerek reyting rekorları kır.",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "mizac": 30,
+            "sadakat": -30
+          }
+        }
+      ]
+    },
+    "n_yayini_birak": {
+      "title": "Klasik Futbolcu",
+      "kind": "outcome",
+      "text": "Tekrar sadece futbola odaklandığın için hoca {actor.manager.name} form grafiğinden çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_profesyonel_ekip": {
+      "title": "Girişimci Yıldız",
+      "kind": "outcome",
+      "text": "Kanal arkada para basarken sen de uyku düzenini geri kazandın. Başkan {actor.president.name} iş zekanı takdir etmeye başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Kovulan Yayıncı",
+      "kind": "outcome",
+      "text": "Dijital dünyada kralsın ama gerçek dünyada işsiz kaldın. Başkan {actor.president.name} disiplinsizliğin yüzünden seni satış listesine koydu.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_business_medya",
+    "beat": "evt_business_medya_kanali",
+    "signature": "business:fam_business_medya"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "id": "evt_transfer_eski_takim",
+  "family": "fam_transfer_eskitakim",
+  "category": "transfer",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Yuvaya Dönüş Çağrısı",
+      "kind": "branch",
+      "text": "Avrupa'da işler fena gitmiyor ama altyapısından yetiştiğin ve kaptanlığını yaptığın eski kulübün zor durumda. Eski kulübünün başkanı seni bizzat aradı ve 'Yuvaya dön, bizi bu bataktan kurtar' diyerek duygusal bir transfer teklifi yaptı.",
+      "choices": [
+        {
+          "id": "c_duygusal_kabul",
+          "text": "Avrupa'daki yüksek maaşını bırakıp fedakarlık yap ve eski takımına dönmeyi kabul et.",
+          "target": "n_duygusal_kabul",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 40,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_profesyonel_red",
+          "text": "Eski başkana teşekkür et ama 'Profesyonel kariyerim burada devam etmeli' diyerek teklifi kibarca reddet.",
+          "target": "n_profesyonel_red",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": -25
+          }
+        },
+        {
+          "id": "c_ikili_oyna",
+          "text": "Şu anki kulübüne bu teklifi göstererek maaşında iyileştirme talep et.",
+          "target": "n_ikili_oyna",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "dogruluk": -20
+          }
+        }
+      ]
+    },
+    "n_duygusal_kabul": {
+      "title": "Efsane Geri Döndü",
+      "kind": "outcome",
+      "text": "Eski takımına döndün! Kariyerinde maddi bir geri adım attın ancak eski taraftarın seni havalimanında krallar gibi karşıladı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_profesyonel_red": {
+      "title": "Soğuk Karar",
+      "kind": "outcome",
+      "text": "Eski taraftarların sosyal medyada sana 'hain' damgası vurdu. Ancak hocan {actor.manager.name} takımda kalmandan çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_ikili_oyna": {
+      "title": "Kurnaz Menajerlik",
+      "kind": "outcome",
+      "text": "Mevcut başkanın {actor.president.name} restini gördü ve zammı yaptı ama bu sadakatsizliğin kulüp içinde sana duyulan güveni zedeledi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_transfer_eskitakim",
+    "beat": "evt_transfer_eski_takim",
+    "signature": "transfer:fam_transfer_eskitakim"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

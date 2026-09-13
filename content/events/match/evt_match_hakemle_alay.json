@@ -1,0 +1,154 @@
+{
+  "id": "evt_match_hakemle_alay",
+  "family": "fam_match_alay",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gözlük İşareti",
+      "kind": "branch",
+      "text": "Rakip defansın ceza sahasında topla elle oynamasını hakem görmedi. Bütün stat ayağa kalktı. Hakem oyunu devam ettirirken yanından geçiyorsun. Sinirlerine hakim olamayarak hakeme ellerinle 'gözlük' işareti yaptın. Yan hakem bunu gördü ve orta hakeme bildirmek üzere telsizini tuttu.",
+      "choices": [
+        {
+          "id": "c_ozur_dile",
+          "text": "Hemen hakemin yanına git, anlık bir sinir olduğunu söyleyerek özür dile.",
+          "target": "n_ozur_dile",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_inkar_et",
+          "text": "Yan hakem şikayet ettiğinde inkar et: 'Gözümdeki teri siliyordum, yanlış anladınız.'",
+          "target": "n_inkar_et",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_hareketi_tekrarl_et",
+          "text": "Geri adım atma. Hakem sana doğru gelirken işareti tribünlere dönerek tekrarla.",
+          "target": "n_hareketi_tekrarl_et",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 20
+          }
+        }
+      ]
+    },
+    "n_ozur_dile": {
+      "title": "Ucuz Kurtuluş",
+      "kind": "outcome",
+      "text": "Hakem özrünü kabul etti ve sadece sözlü bir uyarıyla yetindi. Ancak taraftarlar bu pasif tavrını pek beğenmedi.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_inkar_et": {
+      "title": "Zeki Yalancı",
+      "kind": "outcome",
+      "text": "İnkarın işe yaradı, kartsız kurtuldun. Maç sonu yayıncı kuruluş pozisyonu defalarca tekrar edip seninle dalga geçse de hoca {actor.manager.name} saha içindeki zekanı beğendi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    },
+    "n_hareketi_tekrarl_et": {
+      "title": "Tribünlerin Çocuğu",
+      "kind": "outcome",
+      "text": "Tribünler seninle birlikte 'Gözlük' diye bağırmaya başladı. Hakem sana direkt kırmızı kart çıkardı ama soyunma odasına bir kahraman gibi indin.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCard": true,
+          "rating": -1
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_alay",
+    "beat": "evt_match_hakemle_alay",
+    "signature": "match:fam_match_alay"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

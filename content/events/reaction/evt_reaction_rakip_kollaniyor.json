@@ -1,0 +1,154 @@
+{
+  "id": "evt_reaction_rakip_kollaniyor",
+  "family": "fam_reaction_kollama",
+  "category": "reaction",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ayrıcalıklı Rakip",
+      "kind": "branch",
+      "text": "Sezon başından beri şampiyonluk yarışındaki en büyük rakibiniz bariz şekilde hakem hatalarıyla maç kazanıyor. Taraftarlarınız bu 'kollanma' durumu yüzünden isyanda. Kaptan {actor.captain.name} takımın hakkını savunmak için medyaya sert bir bildiri okuyacak. Bildiride senin de imzanın olmasını istiyor.",
+      "choices": [
+        {
+          "id": "c_imzala",
+          "text": "Tereddütsüz imzala ve kaptanın yanında dur.",
+          "target": "n_imzala",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_imzalama",
+          "text": "İmzalamayı reddet, 'Masa başı oyunları beni ilgilendirmez, ben sahaya bakarım' de.",
+          "target": "n_imzalama",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "sadakat": -20
+          }
+        },
+        {
+          "id": "c_daha_sert_bildiri",
+          "text": "Bildiriyi yeterince sert bulma, 'Doğrudan TFF başkanını istifaya çağırmalıyız' diyerek metni değiştir.",
+          "target": "n_daha_sert_bildiri",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 20
+          }
+        }
+      ]
+    },
+    "n_imzala": {
+      "title": "Birlik Beraberlik",
+      "kind": "outcome",
+      "text": "Tüm takımın ortak imzasıyla çıkan bu bildiri camiayı kenetledi. Kaptan {actor.captain.name} senin bu dayanışmanı unutmayacak.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_imzalama": {
+      "title": "Aykırı Ses",
+      "kind": "outcome",
+      "text": "Bildiride imzanın olmaması 'Takım içinde bölünme var' söylentilerine yol açtı. Hoca {actor.manager.name} bu kararından memnun olsa da soyunma odasında soğuk rüzgarlar esiyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_daha_sert_bildiri": {
+      "title": "Kaosun Elçisi",
+      "kind": "outcome",
+      "text": "Yeniden yazdığın radikal bildiri büyük yankı uyandırdı. Federasyon başkanı ertesi gün istifa etmek zorunda kaldı ama bu süreçte sen hedef tahtasına oturdun.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_reaction_kollama",
+    "beat": "evt_reaction_rakip_kollaniyor",
+    "signature": "reaction:fam_reaction_kollama"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

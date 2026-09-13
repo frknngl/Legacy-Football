@@ -1,0 +1,154 @@
+{
+  "id": "evt_dark_hacker_santaj",
+  "family": "fam_dark_santaj",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dijital Şantaj",
+      "kind": "branch",
+      "text": "Telefonun kimliği belirsiz bir grup tarafından hacklendi. Hocan {actor.manager.name} ve başkan {actor.president.name} hakkında yazdığın alaycı mesajlar ellerinde. Yarın akşama kadar 500 bin Euro ödemezsen her şeyi medyaya sızdıracaklar.",
+      "choices": [
+        {
+          "id": "c_parayi_ode",
+          "text": "Skandalı önlemek için istenen parayı sessizce öde.",
+          "target": "n_parayi_ode",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": -15,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_polise_git",
+          "text": "Şantaja boyun eğme ve hemen siber suçlar polisine gidip şikayetçi ol.",
+          "target": "n_polise_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 30,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_kendin_acikla",
+          "text": "Onlardan önce davran, sosyal medyadan tüm yazışmaları kendin yayınla ve herkesten özür dile.",
+          "target": "n_kendin_acikla",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 20
+          }
+        }
+      ]
+    },
+    "n_parayi_ode": {
+      "title": "Geçici Huzur",
+      "kind": "outcome",
+      "text": "Parayı ödedin ve şantajcılar sustu. Ancak bu durum seni finansal ve mental olarak çok yıprattı. Geceleri rahat uyuyamıyorsun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_polise_git": {
+      "title": "Sızdırılan Mesajlar",
+      "kind": "outcome",
+      "text": "Polis soruşturma başlatana kadar mesajlar medyaya düştü! Başkan {actor.president.name} ve hocan {actor.manager.name} okudukları karşısında şok oldu.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_kendin_acikla": {
+      "title": "Hasar Kontrolü",
+      "kind": "outcome",
+      "text": "Dürüstlüğün taraftarların tepkisini azalttı ama yönetim seni para cezasına çarptırdı. Başkan {actor.president.name} 'Zamanla unutulur' diyerek olayı kapattı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_santaj",
+    "beat": "evt_dark_hacker_santaj",
+    "signature": "dark:fam_dark_santaj"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

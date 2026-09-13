@@ -1,0 +1,149 @@
+{
+  "id": "evt_training_ekstra_mesai",
+  "family": "fam_training_ekstra",
+  "category": "training",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Ekstra Mesai",
+      "kind": "branch",
+      "text": "Yoğun geçen bir idman sonrası tamamen bitkin durumdasın. Herkes duşa yönelirken hoca {actor.manager.name} seni yanına çağırıyor. 'Son maçlarda bitiriciliğin kötü, sahada kalıp benimle özel frikik ve şut çalışmanı istiyorum' diyor. Ancak çok yorgunsun ve bu ekstra yüklemeler sakatlanmana neden olabilir.",
+      "choices": [
+        {
+          "id": "c_sahada_kal",
+          "text": "Hocayı kırma, dişini sıkıp sahada kal ve şut çalışmasına başla.",
+          "target": "n_sahada_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 25
+          }
+        },
+        {
+          "id": "c_hocayi_reddet",
+          "text": "Net bir dille 'Çok yorgunum, kaslarımı riske atamam' diyerek soyunma odasına git.",
+          "target": "n_hocayi_reddet",
+          "effects": [
+            {
+              "flag": "mizac",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": -15
+          }
+        },
+        {
+          "id": "c_kaptani_da_cagir",
+          "text": "Kaptana seslen: 'Kaptan, sen de gelsene, iddia atışalım' diyerek olayı eğlenceye çevir.",
+          "target": "n_kaptani_da_cagir",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_sahada_kal": {
+      "title": "Kas Spazmı",
+      "kind": "outcome",
+      "text": "Ekstra çalışma bitiriciliğini geliştirdi ama idman sonunda kas spazmı geçirip soyunma odasına doktor eşliğinde gittin. Hoca senin bu azmini çok takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_hocayi_reddet": {
+      "title": "Hocanın Kara Listesi",
+      "kind": "outcome",
+      "text": "Fiziksel olarak dinlendin ve kendini korudun ama hoca {actor.manager.name} bu kararını 'iş ahlakı eksikliği' olarak görüyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_kaptani_da_cagir": {
+      "title": "İkili Çete",
+      "kind": "outcome",
+      "text": "Kaptanla yaptığın şut yarışması yorgunluğunu unutturdu. Eğlenceli bir çalışma oldu ve takım içi kaynaşmayı artırdı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_training_ekstra",
+    "beat": "evt_training_ekstra_mesai",
+    "signature": "training:fam_training_ekstra"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

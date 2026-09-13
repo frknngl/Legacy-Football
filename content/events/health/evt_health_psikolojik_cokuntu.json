@@ -1,0 +1,159 @@
+{
+  "id": "evt_health_psikolojik_cokuntu",
+  "family": "fam_health_psikoloji",
+  "category": "health",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Günler",
+      "kind": "branch",
+      "text": "Üst üste yaşadığın sakatlıklar nedeniyle artık futbol oynayamayacağını düşünmeye başladın. Geceleri uyuyamıyor, antrenmanlarda odaklanamıyorsun. Kulüp psikoloğu durumu fark etti ve hocan {actor.manager.name} ile konuşmadan önce seninle özel bir seans yapmak istediğini söyledi.",
+      "choices": [
+        {
+          "id": "c_psikologa_git",
+          "text": "Teklifi kabul et ve tüm korkularını psikologla dürüstçe paylaş.",
+          "target": "n_psikologa_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_reddet",
+          "text": "Teklifi reddet. 'Benim psikolojik desteğe ihtiyacım yok, sahada cevabımı veririm' de.",
+          "target": "n_reddet",
+          "effects": [
+            {
+              "flag": "mizac",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_hoca_ile_konus",
+          "text": "Psikoloğu atla, doğrudan hocanın odasına gidip izin iste.",
+          "target": "n_hoca_ile_konus",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_psikologa_git": {
+      "title": "Zihinsel Arınma",
+      "kind": "outcome",
+      "text": "Seanslar işe yaradı. Korkularınla yüzleşmek saha içindeki performansını artırdı. Zihinsel olarak hiç olmadığın kadar güçlü hissediyorsun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 25
+        }
+      ]
+    },
+    "n_reddet": {
+      "title": "Çöken Duvar",
+      "kind": "outcome",
+      "text": "Baskıyı kaldıramadın. İlk maçında taraftarların homurdanmasıyla kontrolü kaybettin ve saçma bir kırmızı kart gördün. Hoca {actor.manager.name} çok kızgın.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCard": true,
+          "rating": -1
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_hoca_ile_konus": {
+      "title": "Kafa İzni",
+      "kind": "outcome",
+      "text": "Hoca durumunu anladı ve sana 1 hafta izin verdi. Medyaya 'hafif sakatlık' açıklaması yapıldı. Dinlenmek iyi gelse de formandan uzak kalmak seni endişelendiriyor.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 1,
+          "reason": "Psikolojik yorgunluk"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_health_psikoloji",
+    "beat": "evt_health_psikolojik_cokuntu",
+    "signature": "health:fam_health_psikoloji"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

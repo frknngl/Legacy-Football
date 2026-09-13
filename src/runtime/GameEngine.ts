@@ -1354,6 +1354,13 @@ export class GameEngine {
           this.state.clubId = event.toClubId;
         }
 
+        // KULUP SEVIYESINI GUNCELLE: transferde yeni kulubun tier'i state'e yazilmali.
+        // Bu olmadan oyuncu "lower"da basladigi yerde sonsuza kadar kaliyordu.
+        const newClub = this.options.roster?.club(event.toClubId);
+        if (newClub?.tier !== undefined) {
+          this.state.clubTier = this.progression.setClubTier(this.state.flags, newClub.tier);
+        }
+
         if (this.state.lifeState === 'transfer_listed') {
           this.setLifeState('playing');
         }
@@ -3892,7 +3899,7 @@ export class GameEngine {
       title: this.interpolator.interpolate(node.title, interpolation),
       text: this.interpolator.interpolate(node.text, interpolation),
       kind: node.kind,
-      format: node.format,
+      ...(node.format !== undefined ? { format: node.format } : {}),
       tier: active.event.tier,
       category: active.event.category,
       choices,

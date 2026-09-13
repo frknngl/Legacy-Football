@@ -1,0 +1,149 @@
+{
+  "id": "evt_business_rakip_sponsor",
+  "family": "fam_business_sponsor",
+  "category": "business",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Rakip Markanın Tuzağı",
+      "kind": "branch",
+      "text": "Kulübün ana sponsorunun ezeli rakibi olan bir marka, sana gizli bir ticari ortaklık teklif etti. Kendi adına çıkaracağın bir enerji içeceğinin üretim ve dağıtımını onlar yapacak. Menajerin {actor.agent.name} bu fırsatın çok karlı olduğunu söylüyor ama kulüp başkanı {actor.president.name} bunu öğrenirse sözleşmeni feshedebilir.",
+      "choices": [
+        {
+          "id": "c_gizli_anlasma",
+          "text": "Risk alarak anlaşmayı gizlice imzala. İçecek senin adınla çıksın ama üretici marka saklansın.",
+          "target": "n_gizli_anlasma",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 150000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_reddet_ve_sadakat",
+          "text": "Teklifi reddet ve bunu hemen başkana {actor.president.name} bildirerek sadakatini kanıtla.",
+          "target": "n_reddet_ve_sadakat",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -50000
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_medyaya_sizdir",
+          "text": "Teklifi kabul etme ama rakip markanın sana geldiğini medyaya sızdırıp kulübün ana sponsorundan zam koparmaya çalış.",
+          "target": "n_medyaya_sizdir",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "dogruluk": -15
+          }
+        }
+      ]
+    },
+    "n_gizli_anlasma": {
+      "title": "Buzda Yürüyüş",
+      "kind": "outcome",
+      "text": "Para hesabına yattı ama gerçeğin ortaya çıkma ihtimali seni her an strese sokuyor. Antrenmanlarda dikkatin oldukça dağınık.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_reddet_ve_sadakat": {
+      "title": "Sadık Asker",
+      "kind": "outcome",
+      "text": "Başkan {actor.president.name} dürüstlüğün karşısında sana büyük bir saygı duydu. Kazançtan vazgeçtin ama kulüpteki geleceğini sağlama aldın.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_medyaya_sizdir": {
+      "title": "Pazarlık Masası",
+      "kind": "outcome",
+      "text": "Ana sponsor korkuya kapılıp kulübe ek bütçe sağladı ancak başkan senin bu kurnaz oyununu fark etti ve seni güvenilmez buluyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_business_sponsor",
+    "beat": "evt_business_rakip_sponsor",
+    "signature": "business:fam_business_sponsor"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

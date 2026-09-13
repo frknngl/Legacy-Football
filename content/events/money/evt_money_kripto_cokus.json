@@ -1,0 +1,159 @@
+{
+  "id": "evt_money_kripto_cokus",
+  "family": "fam_money_kripto",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kripto Kabusu",
+      "kind": "branch",
+      "text": "Menajerin {actor.agent.name} sana çok kazançlı olduğunu iddia ettiği yeni bir kripto para projesine yüklü miktarda yatırım yapmanı önerdi. Ancak projeye girdikten kısa süre sonra piyasa çöktü ve coin neredeyse sıfırlandı. Büyük bir maddi kayıp yaşıyorsun ve bu durum soyunma odasına bile yansıdı.",
+      "choices": [
+        {
+          "id": "c_menajeri_kov",
+          "text": "Seni bu işe soktuğu için menajerini {actor.agent.name} hemen kov ve tüm suçu ona at.",
+          "target": "n_menajeri_kov",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -250000
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": -25
+          }
+        },
+        {
+          "id": "c_sessizce_zarari_kabul_et",
+          "text": "Sessizce zararı kabullen. 'Ticarette böyle şeyler olur' diyerek antrenmanlarına odaklan.",
+          "target": "n_sessizce_zarari_kabul_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -500000
+            }
+          ],
+          "persona": {
+            "mizac": -10,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_sosyal_medyada_pompala",
+          "text": "Zararını kurtarmak için takipçilerine projeyi överek sosyal medyada suni bir yükseliş (pump) yaratmaya çalış.",
+          "target": "n_sosyal_medyada_pompala",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 100000
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "dogruluk": -35,
+            "durus": -15
+          }
+        }
+      ]
+    },
+    "n_menajeri_kov": {
+      "title": "Keskin Karar",
+      "kind": "outcome",
+      "text": "Menajerini {actor.agent.name} kovararak net bir duruş sergiledin ancak yeni bir menajer bulana kadar sponsorluk görüşmelerin aksadı.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_sessizce_zarari_kabul_et": {
+      "title": "Büyük Çöküş",
+      "kind": "outcome",
+      "text": "Paran gitti ama karakterin sağlam kaldı. Kaptan {actor.captain.name} bu zor dönemde sana çok destek oluyor.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_sosyal_medyada_pompala": {
+      "title": "Etik Dışı Kazanç",
+      "kind": "outcome",
+      "text": "Biraz paranı kurtardın ama taraftarların senin tavsiyenle para kaybettiği için sana öfke kusuyor. Hoca {actor.manager.name} saha dışı olaylarından bıktı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_kripto",
+    "beat": "evt_money_kripto_cokus",
+    "signature": "money:fam_money_kripto"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

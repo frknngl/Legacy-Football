@@ -1,0 +1,152 @@
+{
+  "id": "evt_rival_taraftar_baskisi",
+  "family": "fam_rival_taraftar",
+  "category": "rival",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Düşman Toprakları",
+      "kind": "branch",
+      "text": "Ezeli rakibinin sahasında maça çıkmak için takım otobüsüyle stadyuma yaklaşıyorsunuz. Rakip taraftarlar otobüsün etrafını sardı, meşaleler yakıp camlara vuruyorlar. Hoca {actor.manager.name} takımın sakin kalmasını istiyor ama bazı genç oyuncular korkudan titriyor.",
+      "choices": [
+        {
+          "id": "c_taraftara_karsilik_ver",
+          "text": "Cama vurarak ve el hareketleri yaparak rakip taraftarı daha da kışkırt, takıma cesaret ver.",
+          "target": "n_taraftara_karsilik_ver",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_gencleri_sakinlestir",
+          "text": "Genç oyuncuların yanına git, onlara güven verip maça odaklanmalarını sağla.",
+          "target": "n_gencleri_sakinlestir",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_hocayi_elestir",
+          "text": "Bu cehenneme güvenlik önlemi almadan girdiği için kulübü ve başkanı yüksek sesle eleştir.",
+          "target": "n_hocayi_elestir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_taraftara_karsilik_ver": {
+      "title": "Ateşle Oynayan Adam",
+      "kind": "outcome",
+      "text": "Hareketlerin rakibi çıldırttı. Sahaya adım attığında ıslıklardan kulakların sağır olacaktı. Maçta gerginlikten ötürü performansın etkilendi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": -1
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_gencleri_sakinlestir": {
+      "title": "Gerçek Lider",
+      "kind": "outcome",
+      "text": "Takım senin sayende sakin kaldı ve sahaya daha odaklı çıktılar. Kaptan {actor.captain.name} bu liderlik özelliğinden çok etkilendi.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_hocayi_elestir": {
+      "title": "Kriz Anında Şikayet",
+      "kind": "outcome",
+      "text": "Söylenmelerin takımın moralini daha da bozdu. Başkan {actor.president.name} bunu duyduğunda, korktuğun için mazeret ürettiğini düşündü.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_rival_taraftar",
+    "beat": "evt_rival_taraftar_baskisi",
+    "signature": "rival:fam_rival_taraftar"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

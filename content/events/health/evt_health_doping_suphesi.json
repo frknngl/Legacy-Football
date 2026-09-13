@@ -1,0 +1,154 @@
+{
+  "id": "evt_health_doping_suphesi",
+  "family": "fam_health_doping",
+  "category": "health",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Şüpheli Vitamin",
+      "kind": "branch",
+      "text": "Özel atletik performans antrenörünün sana verdiği yeni 'vitamin' haplarından sonra kendini inanılmaz enerjik hissediyorsun ama aynı zamanda uykusuzluk çekiyorsun. Kulüp doktoru rutin kan testleri yapacak. Antrenörün, kan testlerinden önce bol su içmeni ve testleri bir gün ertelemeni istiyor. Bu durum sende şüphe uyandırdı.",
+      "choices": [
+        {
+          "id": "c_doktora_ver",
+          "text": "Hemen haplardan birini alıp gizlice kulüp doktoruna analize götür.",
+          "target": "n_doktora_ver",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 30,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_antrenoru_dinle",
+          "text": "Antrenörü dinle, testleri ertele ve hapları kullanmaya devam et.",
+          "target": "n_antrenoru_dinle",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_haplari_cope_at",
+          "text": "Kimseye bir şey söylemeden hapları çöpe at ve özel antrenörü kov.",
+          "target": "n_haplari_cope_at",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "dogruluk": 15
+          }
+        }
+      ]
+    },
+    "n_doktora_ver": {
+      "title": "Temiz Sicil",
+      "kind": "outcome",
+      "text": "Doktor haplarda yasaklı madde tespit etti! Erken müdahalen sayesinde kulüp büyük bir skandaldan kurtuldu. Başkan {actor.president.name} sana teşekkür etti.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_antrenoru_dinle": {
+      "title": "Doping Skandalı",
+      "kind": "outcome",
+      "text": "Ertelenen testte yine de yakalandın. 'Bilmeden kullandım' desen de federasyon sana ağır bir ceza verdi. Medya seni tefe koydu.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 5,
+          "reason": "Yasakli madde kullanimi"
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -20
+        }
+      ]
+    },
+    "n_haplari_cope_at": {
+      "title": "Radikal Çözüm",
+      "kind": "outcome",
+      "text": "Antrenörle yollarını ayırdın. Kan testin temiz çıktı ama antrenör medyaya 'Bana haksızlık yapıldı' diye demeç verip kafaları karıştırdı.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_health_doping",
+    "beat": "evt_health_doping_suphesi",
+    "signature": "health:fam_health_doping"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

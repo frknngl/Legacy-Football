@@ -1,0 +1,154 @@
+{
+  "id": "evt_match_var_krizi",
+  "family": "fam_match_var",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "VAR Odası Skandalı",
+      "kind": "branch",
+      "text": "Maçın son saniyesinde attığın şampiyonluk golü VAR'dan ofsayt gerekçesiyle iptal edildi. Ancak saha içindeki dev ekranda gösterilen çizgi açıkça yanlış çizilmiş! Hoca {actor.manager.name} kenarda çıldırıyor, kaptan {actor.captain.name} ise takımı sahadan çekmekle tehdit ediyor.",
+      "choices": [
+        {
+          "id": "c_sahadan_cekil",
+          "text": "Kaptana destek ver, formanı çıkar ve takımla birlikte protesto için sahayı terk et.",
+          "target": "n_sahadan_cekil",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "durus": 30,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_hakeme_itiraz",
+          "text": "Sahada kalıp doğrudan orta hakemin yanına git ve kararı değiştirmesi için yalvar/baskı yap.",
+          "target": "n_hakeme_itiraz",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_sakin_kal",
+          "text": "Hocanın ve kaptanın aksine sakin kal, maçı başlatmak için topu alıp santraya götür.",
+          "target": "n_sakin_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "mizac": -20
+          }
+        }
+      ]
+    },
+    "n_sahadan_cekil": {
+      "title": "Tarihi Protesto",
+      "kind": "outcome",
+      "text": "Bu olay yıllarca unutulmayacak. Federasyon ağır cezalar kesse de taraftarlar seni ve takımı birer kahraman olarak bağrına bastı.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 2,
+          "reason": "Sahadan cekilme eylemine katilim"
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_hakeme_itiraz": {
+      "title": "Faydasız Çaba",
+      "kind": "outcome",
+      "text": "Hakem kararından dönmedi ve maç bu şekilde bitti. Kaptan seni takımla birlikte hareket etmediğin için eleştirdi.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_sakin_kal": {
+      "title": "Soğukkanlı Profesyonel",
+      "kind": "outcome",
+      "text": "Takım sahadan çekilmekten senin sayende vazgeçti ve ağır bir cezadan kurtuldu. Hoca {actor.manager.name} bu liderlik vasfını not etti.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_var",
+    "beat": "evt_match_var_krizi",
+    "signature": "match:fam_match_var"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

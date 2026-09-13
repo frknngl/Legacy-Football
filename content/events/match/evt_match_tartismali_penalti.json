@@ -1,0 +1,154 @@
+{
+  "id": "evt_match_tartismali_penalti",
+  "family": "fam_match_penalti",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Haksız Penaltı",
+      "kind": "branch",
+      "text": "Maçın son anları... Ceza sahasında kendini hafifçe yere bıraktın ve hakem tereddütsüz penaltı noktasını gösterdi! Rakip oyuncular çıldırmış durumda, çünkü hiçbir müdahale yoktu. Hoca {actor.manager.name} kenarda seviniyor, kaptan {actor.captain.name} topu eline almış atışı yapmak için bekliyor. Ancak hakem atışı senin kullanmanı işaret etti.",
+      "choices": [
+        {
+          "id": "c_penaltiyi_at",
+          "text": "Fırsatı kaçırma, topu kaptandan al ve penaltıyı gole çevir.",
+          "target": "n_penaltiyi_at",
+          "effects": [
+            {
+              "op": "match",
+              "goals": 1,
+              "rating": 1
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -25
+          }
+        },
+        {
+          "id": "c_dısarı_at",
+          "text": "Hakeme itiraf edemesen de vicdanını rahatlatmak için penaltıyı bilerek dışarı at.",
+          "target": "n_disari_at",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "dogruluk": 35,
+            "sadakat": -15
+          }
+        },
+        {
+          "id": "c_kaptana_birak",
+          "text": "Tüm sorumluluğu üzerinden at ve topu zorla kaptana bırakarak atışı onun yapmasını sağla.",
+          "target": "n_kaptana_birak",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "sadakat": 10
+          }
+        }
+      ]
+    },
+    "n_penaltiyi_at": {
+      "title": "Hilekar Golcü",
+      "kind": "outcome",
+      "text": "Maçı kazandırdın ama rakip taraftarlar ve medya sana 'Sahtekar' damgası vurdu. Hoca {actor.manager.name} için tek önemli şey 3 puan.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_disari_at": {
+      "title": "Fair-Play Ödülü",
+      "kind": "outcome",
+      "text": "Penaltıyı dışarı atman futbol dünyasında büyük yankı uyandırdı. Takımın puan kaybettiği için taraftarlar sana çok öfkeli ama sen vicdanen rahatsın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_kaptana_birak": {
+      "title": "Sıyrılan Sorumluluk",
+      "kind": "outcome",
+      "text": "Kaptan atışı gole çevirdi ve tepkilerin odak noktası o oldu. Sen sahnenin arkasında kaldın, bu da liderlik vasfını biraz sorgulattı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_penalti",
+    "beat": "evt_match_tartismali_penalti",
+    "signature": "match:fam_match_penalti"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

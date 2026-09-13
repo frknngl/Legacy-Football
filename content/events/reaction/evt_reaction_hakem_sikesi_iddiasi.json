@@ -1,0 +1,149 @@
+{
+  "id": "evt_reaction_hakem_sikesi_iddiasi",
+  "family": "fam_reaction_sike",
+  "category": "reaction",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık İddialar",
+      "kind": "branch",
+      "text": "Sezonun kaderini belirleyecek maçtan sonra sosyal medyada hakemin maçı bahis çeteleri için manipüle ettiği iddiaları ayyuka çıktı. Hatta bir muhabir maçtan çıkarken sana 'Bugün şike mi yapıldı?' diye bağırdı. Başkan {actor.president.name} kulüp adına resmi bir şikayete hazırlanırken takımın yıldızı olarak senden destek bekliyor.",
+      "choices": [
+        {
+          "id": "c_destek_ver",
+          "text": "Başkanın arkasında dur: 'Bugün sahada futbol değil, başka bir oyun oynandı.'",
+          "target": "n_destek_ver",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": 25
+          }
+        },
+        {
+          "id": "c_temkinli_ol",
+          "text": "Geri adım at: 'Ortada kanıt yokken böyle ağır suçlamalar yapmak doğru değil.'",
+          "target": "n_temkinli_ol",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": -15
+          }
+        },
+        {
+          "id": "c_kinayeli_cevap",
+          "text": "Gülerek: 'Bahis oranlarını bilmiyorum, ben sadece futbol oynamaya çalışıyorum.'",
+          "target": "n_kinayeli_cevap",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_destek_ver": {
+      "title": "Bayrak Tutan",
+      "kind": "outcome",
+      "text": "Sözlerin büyük bir soruşturmanın fitilini ateşledi. Başkan {actor.president.name} kulübü sahiplenmeni takdir etti ancak haftalarca ifade vermek için kurullara çağrıldın.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_temkinli_ol": {
+      "title": "Kulübün Hedefi",
+      "kind": "outcome",
+      "text": "Sözlerin yönetimi yalnız bıraktı. Başkan {actor.president.name} 'Bizim futbolcumuz bize inanmıyor' diyerek seni basın önünde eleştirdi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_kinayeli_cevap": {
+      "title": "İşin Şakası Yok",
+      "kind": "outcome",
+      "text": "Sosyal medyada viral oldun. Taraftarlar rahat tavrını sevdi ancak yönetim bu ciddi konuda şaka yapmandan hiç hoşlanmadı.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_reaction_sike",
+    "beat": "evt_reaction_hakem_sikesi_iddiasi",
+    "signature": "reaction:fam_reaction_sike"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

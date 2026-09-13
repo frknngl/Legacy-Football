@@ -1,0 +1,159 @@
+{
+  "id": "evt_legal_ifade_cagrisi",
+  "family": "fam_legal_ifade",
+  "category": "legal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Adliye Koridorları",
+      "kind": "branch",
+      "text": "Kulüp başkanı {actor.president.name} hakkında yürütülen büyük bir kara para aklama soruşturması kapsamında savcılık seni 'bilgi sahibi' sıfatıyla ifadeye çağırdı. Kulüp avukatları sana bir metin verdi ve 'Sadece bunları söyle, başka bir şey bilmiyorum de' diyerek baskı yapıyor.",
+      "choices": [
+        {
+          "id": "c_avukati_dinle",
+          "text": "Kulübe sadık kal ve avukatın verdiği metnin dışına çıkmadan ifade ver.",
+          "target": "n_avukati_dinle",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "sadakat": 30,
+            "dogruluk": -20
+          }
+        },
+        {
+          "id": "c_gercegi_soyle",
+          "text": "Savcıya bildiğin her şeyi şeffaf bir şekilde anlat ve bildiklerini gizleme.",
+          "target": "n_gercegi_soyle",
+          "effects": [
+            {
+              "flag": "dogruluk",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": 35,
+            "sadakat": -30
+          }
+        },
+        {
+          "id": "c_ifadeye_gitme",
+          "text": "Basın ordusunun önünden geçmemek için ifade vermeye gitme, süreci uzat.",
+          "target": "n_ifadeye_gitme",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": -20,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_avukati_dinle": {
+      "title": "Kukla",
+      "kind": "outcome",
+      "text": "Başkanı kurtardın ama savcı senin de işin içinde olduğundan şüpheleniyor. Başkan {actor.president.name} sana minnettar olsa da medya senin 'kulübün kuklası' olduğunu yazıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    },
+    "n_gercegi_soyle": {
+      "title": "Muhbir",
+      "kind": "outcome",
+      "text": "İfaden sonrası başkan tutuklandı! Kulübe kayyum atandı ve herkes seni 'muhbir' olarak yaftaladı. Dürüst olmanın bedelini sahada yuhalanarak ödüyorsun.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -5
+        },
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": -25
+        }
+      ]
+    },
+    "n_ifadeye_gitme": {
+      "title": "Zorla Getirme",
+      "kind": "outcome",
+      "text": "Polis seni antrenmandan zorla ifadeye götürdü. Bu görüntüler kulübün ve senin imajını yerle bir etti. Hoca {actor.manager.name} bu durumdan çok rahatsız.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 1,
+          "reason": "Adli surec nedeniyle kadro disi"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_legal_ifade",
+    "beat": "evt_legal_ifade_cagrisi",
+    "signature": "legal:fam_legal_ifade"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

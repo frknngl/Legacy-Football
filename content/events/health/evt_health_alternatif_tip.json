@@ -1,0 +1,164 @@
+{
+  "id": "evt_health_alternatif_tip",
+  "family": "fam_health_tedavi",
+  "category": "health",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kocakarı İlaçları",
+      "kind": "branch",
+      "text": "Kronikleşen kasık ağrılarından dolayı kulüp doktorları ameliyat öneriyor ve bu sezonu kapatman demek. Bir takım arkadaşın sana 'mucizevi' bir şifacıdan bahsediyor. Sırbistan'da yaşayan bu kadının özel at plasentası tedavisiyle oyuncuları bir haftada iyileştirdiği söyleniyor.",
+      "choices": [
+        {
+          "id": "c_sifaciya_git",
+          "text": "Kulüpten habersiz Sırbistan'a git ve alternatif tedaviyi dene.",
+          "target": "n_sifaciya_git",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_ameliyat_ol",
+          "text": "Bilimi dinle, ameliyat masasına yatıp sezonu kapatmayı göze al.",
+          "target": "n_ameliyat_ol",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_oynamaya_devam_et",
+          "text": "Ne ameliyat ne şifacı. Ağrı kesici iğnelerle dayanabildiğin yere kadar oyna.",
+          "target": "n_oynamaya_devam_et",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_sifaciya_git": {
+      "title": "Tıbbi Mucize",
+      "kind": "outcome",
+      "text": "At plasentası işe yaradı! Ağrılar sihirli bir şekilde geçti ve sahaya döndün. Kulüp doktorları şokta, medya ise bu hikayeyi günlerce konuştu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 20
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_ameliyat_ol": {
+      "title": "Uzun Mola",
+      "kind": "outcome",
+      "text": "Ameliyat başarılı geçti ancak aylar sürecek bir rehabilitasyon dönemi seni bekliyor. Yönetim profesyonelliğini takdir etse de sahadan uzak kalmak mental olarak seni zorlayacak.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 6,
+          "reason": "Kasik ameliyati ve rehabilitasyon"
+        },
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_oynamaya_devam_et": {
+      "title": "Kopma Noktası",
+      "kind": "outcome",
+      "text": "İğnelerle sahaya çıktın, takım için büyük fedakarlık yaptın ama maçın 20. dakikasında kasığın tamamen koptu. Sedye ile çıkarken herkes senin için üzgündü.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 4,
+          "reason": "Kasik yirtilmasi"
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_health_tedavi",
+    "beat": "evt_health_alternatif_tip",
+    "signature": "health:fam_health_tedavi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

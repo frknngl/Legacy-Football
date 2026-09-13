@@ -1,0 +1,149 @@
+{
+  "id": "evt_reaction_hakeme_saldiri_sonrasi",
+  "family": "fam_reaction_saldiri",
+  "category": "reaction",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Stadyumda Arbede",
+      "kind": "branch",
+      "text": "Maç sonu tribünlerden sahaya atlayan holigan bir taraftar doğrudan maçın hakemine saldırdı. Ortalık savaş alanına döndü. Hakem yerde savunmasız kalırken, hoca {actor.manager.name} ve kaptan {actor.captain.name} güvenlik görevlilerini bekliyor. Sen ise olay yerine çok yakınsın.",
+      "choices": [
+        {
+          "id": "c_hakemi_koru",
+          "text": "Hemen araya gir, taraftarı iterek hakemi koruma altına al.",
+          "target": "n_hakemi_koru",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 35,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_uzak_dur",
+          "text": "Karışma. 'Beni ilgilendirmez' diyerek soyunma odasına yönel.",
+          "target": "n_uzak_dur",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_taraftari_sakinlestir",
+          "text": "Taraftarın üstüne yürümek yerine ona sarılıp sakinleştirerek dışarı çıkar.",
+          "target": "n_taraftari_sakinlestir",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_hakemi_koru": {
+      "title": "Gerçek Lider",
+      "kind": "outcome",
+      "text": "Hakemi koruduğun görüntüler dünya basınında yankı buldu. Holiganlardan tepki alsan da FIFA seni Fair-Play adayı olarak gösterdi.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_uzak_dur": {
+      "title": "Umursamaz Yıldız",
+      "kind": "outcome",
+      "text": "Güvenlik geç müdahale etti ve hakem yaralandı. Medya senin bu duyarsızlığını sert dille eleştirdi, kaptan {actor.captain.name} de sana tavırlı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_taraftari_sakinlestir": {
+      "title": "Halkın Kahramanı",
+      "kind": "outcome",
+      "text": "Taraftarı şiddete başvurmadan sakinleştirmen tribünlerin sana olan sevgisini artırdı ancak medya 'Holigana şefkat gösterdi' diyerek seni eleştirdi.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_reaction_saldiri",
+    "beat": "evt_reaction_hakeme_saldiri_sonrasi",
+    "signature": "reaction:fam_reaction_saldiri"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "id": "evt_reaction_hakem_aciklamasi",
+  "family": "fam_reaction_hakem",
+  "category": "reaction",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Maç Sonu Mikrofonu",
+      "kind": "branch",
+      "text": "Olaylı biten ve hakemin tartışmalı kararlarıyla damga vurduğu maçın ardından flaş röportajdasın. Taraftarlar sosyal medyadan hakeme ateş püskürüyor. Muhabir mikrofonu uzattı ve 'Hakemin bugünkü yönetimi hakkında ne düşünüyorsunuz?' diye sordu.",
+      "choices": [
+        {
+          "id": "c_sert_elestiri",
+          "text": "Kendini tutma: 'Hakem bugün emeğimizi çaldı, maçı katletti.'",
+          "target": "n_sert_elestiri",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_politik_cevap",
+          "text": "Politik ol: 'Hakemler de insan, hata yapabilirler. Biz kendi oyunumuza bakacağız.'",
+          "target": "n_politik_cevap",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "sadakat": -10
+          }
+        },
+        {
+          "id": "c_alayci_gulumseme",
+          "text": "Sadece alaycı bir şekilde gülümse ve 'Söyleyeceklerim beni cezaya sokar' diyerek röportajı bitir.",
+          "target": "n_alayci_gulumseme",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": 10
+          }
+        }
+      ]
+    },
+    "n_sert_elestiri": {
+      "title": "Federasyonun Gazabı",
+      "kind": "outcome",
+      "text": "Açıklamaların taraftarın gönlüne su serpti ama federasyon sana 1 maç men cezası verdi. Hoca {actor.manager.name} yokluğunda kara kara düşünüyor.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 1,
+          "reason": "Hakem hakkinda centilmenlige aykiri aciklama"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_politik_cevap": {
+      "title": "Diplomat",
+      "kind": "outcome",
+      "text": "Medyada 'Sümsük' eleştirileri alsan da ceza almaktan kurtuldun. Kaptan {actor.captain.name} takımın menfaatini düşündüğün için seni tebrik etti.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_alayci_gulumseme": {
+      "title": "Manidar Sessizlik",
+      "kind": "outcome",
+      "text": "Konuşmadan çok şey anlattın. Spor programları sabaha kadar senin bu gizemli tebessümünü konuştu. Ancak hoca {actor.manager.name} takımı ilgilendiren maçlarda daha ciddi olmanı istiyor.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_reaction_hakem",
+    "beat": "evt_reaction_hakem_aciklamasi",
+    "signature": "reaction:fam_reaction_hakem"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

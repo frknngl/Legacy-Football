@@ -1,0 +1,148 @@
+{
+  "id": "evt_rival_eski_dosta_karsi",
+  "family": "fam_rival_dost",
+  "category": "rival",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kardeş Payı",
+      "kind": "branch",
+      "text": "Şampiyonluk yolundaki en kritik maçta rakip takımın forveti, senin altyapıdan beri en yakın arkadaşın. Maçtan bir gün önce seni arayıp 'Yarın acımayacağım, hazır ol' diye şakalaşıyor. Ancak basında 'İki dostun maçı satma ihtimali' üzerine çirkin söylentiler dolaşıyor.",
+      "choices": [
+        {
+          "id": "c_sert_oyna",
+          "text": "Söylentileri susturmak için sahada arkadaşına bilerek çok sert girip profesyonelliğini kanıtla.",
+          "target": "n_sert_oyna",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_kucaklas",
+          "text": "Söylentilere inat maç öncesi arkadaşına sarıl ve adil bir mücadele olacağını basına göster.",
+          "target": "n_kucaklas",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_arkadasi_kisirt",
+          "text": "Maç içinde arkadaşının zayıf yönlerini kendi hocana {actor.manager.name} detaylıca anlatarak ona ihanet et.",
+          "target": "n_arkadasi_kisirt",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": -25,
+            "dogruluk": -15
+          }
+        }
+      ]
+    },
+    "n_sert_oyna": {
+      "title": "Dostluğun Bedeli",
+      "kind": "outcome",
+      "text": "Arkadaşını sakatladın. Medya senin ne kadar 'profesyonel' olduğunu yazsa da maç sonu arkadaşın seninle konuşmayı reddetti.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        }
+      ]
+    },
+    "n_kucaklas": {
+      "title": "Centilmen",
+      "kind": "outcome",
+      "text": "Dostça ve adil bir maç oldu. Taraftar 'Bu kadar samimiyete gerek yoktu' dese de hocan {actor.manager.name} fair-play ruhunu takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_arkadasi_kisirt": {
+      "title": "Taktiksel Zeka",
+      "kind": "outcome",
+      "text": "Verdiğin tüyolar sayesinde maçı rahatça kazandınız. Hocan {actor.manager.name} bu fedakarlığını çok beğendi ama eski dostunu temelli kaybettin.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_rival_dost",
+    "beat": "evt_rival_eski_dosta_karsi",
+    "signature": "rival:fam_rival_dost"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

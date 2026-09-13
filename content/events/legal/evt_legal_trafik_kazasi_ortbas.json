@@ -1,0 +1,149 @@
+{
+  "id": "evt_legal_trafik_kazasi_ortbas",
+  "family": "fam_legal_kaza",
+  "category": "legal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gece Yarısı Kazası",
+      "kind": "branch",
+      "text": "Gece geç saatlerde lüks spor arabanla alkollü şekilde ufak bir maddi hasarlı kazaya karıştın. Kimse yaralanmadı ama polis gelirse ehliyetine el konulacak ve skandal patlayacak. Başkan {actor.president.name} kulübün nüfuzlu avukatını hemen olay yerine gönderdi. Avukat, karşı tarafa büyük bir para verip kazayı kendi üstlenmeyi teklif ediyor.",
+      "choices": [
+        {
+          "id": "c_ortbas_et",
+          "text": "Avukatın teklifini kabul et, parayı öde ve olay yerinden hızla uzaklaş.",
+          "target": "n_ortbas_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": -30,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_sorumluluk_al",
+          "text": "Avukatı geri gönder, polisin gelmesini bekle ve cezanı çekmeye razı ol.",
+          "target": "n_sorumluluk_al",
+          "effects": [
+            {
+              "flag": "dogruluk",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            }
+          ],
+          "persona": {
+            "dogruluk": 35,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_baskani_sucla",
+          "text": "Avukata 'Bu işi temizlersiniz ama bedeli sonra konuşuruz' diyerek başkana şantajvari bir imada bulun.",
+          "target": "n_baskani_sucla",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "sadakat": -25
+          }
+        }
+      ]
+    },
+    "n_ortbas_et": {
+      "title": "Temiz Kaçış",
+      "kind": "outcome",
+      "text": "Skandal medyadan gizlendi ama başkan {actor.president.name} bu iyiliğini sana her fırsatta hatırlatacak ve artık onun avucunun içindesin.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_sorumluluk_al": {
+      "title": "Düşen Maske",
+      "kind": "outcome",
+      "text": "Alkollü araç kullandığın için ehliyetine el konuldu ve kulüp sana ağır bir para cezası kesti. Dürüstlüğün takdir edilse de kariyerine büyük bir leke sürdün.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_baskani_sucla": {
+      "title": "Tehlikeli Oyun",
+      "kind": "outcome",
+      "text": "Olay örtbas edildi ama başkan {actor.president.name} tehdidinden hiç hoşlanmadı. Sözleşme yenileme görüşmelerinde bu olayı koz olarak kullanacak.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_legal_kaza",
+    "beat": "evt_legal_trafik_kazasi_ortbas",
+    "signature": "legal:fam_legal_kaza"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

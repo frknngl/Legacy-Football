@@ -1,0 +1,153 @@
+{
+  "id": "evt_transfer_son_dakika_iptali",
+  "family": "fam_transfer_iptal",
+  "category": "transfer",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Evrak Krizi",
+      "kind": "branch",
+      "text": "Transferin son gününde hayallerindeki takımla anlaştın. Sağlık kontrolleri bitti, havaalanındasın. Ancak karşı kulübün yöneticileri evrakları sisteme girmekte gecikiyor ve transferin iptal olma riski var. Menajerin 'Bu iş yatabilir, eski başkanını {actor.president.name} arayıp yedekte tut' diyor.",
+      "choices": [
+        {
+          "id": "c_eski_baskani_ara",
+          "text": "Gururunu yut, eski başkanı ara ve 'Gerekirse takımda kalabilirim' de.",
+          "target": "n_eski_baskani_ara",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_bekle_ve_dua_et",
+          "text": "Eski başkanı arama, risk alarak havaalanında evrakların yetişmesini bekle.",
+          "target": "n_bekle_ve_dua_et",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_karsi_yonetime_patla",
+          "text": "Karşı takımın yöneticisine mesaj atıp amatörlüklerinden dolayı onları sertçe eleştir.",
+          "target": "n_karsi_yonetime_patla",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 30,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_eski_baskani_ara": {
+      "title": "Bükülen Boyun",
+      "kind": "outcome",
+      "text": "Transfer iptal oldu ve eski takımına dönmek zorunda kaldın. Başkan {actor.president.name} seni kabul etti ama zayıf anını gördüğü için artık sana eskisi kadar saygı duymuyor.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_bekle_ve_dua_et": {
+      "title": "Büyük Yıkım",
+      "kind": "outcome",
+      "text": "Evraklar 1 dakika farkla yetişmedi. Transfer yattı. Eski takımında da ipleri kopardığın için hocan {actor.manager.name} seni uzun süre oynatmayacak.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        },
+        {
+          "op": "suspend",
+          "matches": 1,
+          "reason": "Transfer krizi sonrasi form dusuklugu"
+        }
+      ]
+    },
+    "n_karsi_yonetime_patla": {
+      "title": "Haklı Öfke",
+      "kind": "outcome",
+      "text": "Transfer iptal oldu ama gösterdiğin duruş sosyal medyada sana destek kazandırdı. Mevcut taraftarın 'Bizi isteyen oyuncuyu bağrımıza basarız' diyerek sana sahip çıktı.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_transfer_iptal",
+    "beat": "evt_transfer_son_dakika_iptali",
+    "signature": "transfer:fam_transfer_iptal"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

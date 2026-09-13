@@ -1,0 +1,152 @@
+{
+  "id": "evt_transfer_arabistan_teklifi",
+  "family": "fam_transfer_arabistan",
+  "category": "transfer",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Çöl Rüzgarı",
+      "kind": "branch",
+      "text": "Avrupa'nın zirvesindeyken Suudi Arabistan'dan akıl almaz bir transfer teklifi aldın. Şimdiki maaşının tam 10 katı! Kulüp başkanı {actor.president.name} yüksek bonservis geliri için gitmeni isterken, hocan {actor.manager.name} kariyerini çöpe atmaman gerektiğini söylüyor.",
+      "choices": [
+        {
+          "id": "c_parayi_sec",
+          "text": "Bavullarını topla ve astronomik maaş için kariyer rekabetini geride bırakmayı kabul et.",
+          "target": "n_parayi_sec",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "sadakat": -30
+          }
+        },
+        {
+          "id": "c_tutkuyu_sec",
+          "text": "Teklifi elinin tersiyle it ve Avrupa'da büyük kupalar için mücadele etmeye devam et.",
+          "target": "n_tutkuyu_sec",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": 25
+          }
+        },
+        {
+          "id": "c_bonservis_direnisi",
+          "text": "Gitmek istediğini ama bonservisinin bedavaya verilmesini talep et, başkana baskı yap.",
+          "target": "n_bonservis_direnisi",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "sadakat": -20
+          }
+        }
+      ]
+    },
+    "n_parayi_sec": {
+      "title": "Altın Kafes",
+      "kind": "outcome",
+      "text": "Muazzam bir servet kazandın ama futbol dünyası seni unuttu. Hocan {actor.manager.name} veda ederken yüzüne bile bakmadı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_tutkuyu_sec": {
+      "title": "Avrupa'nın Kralı",
+      "kind": "outcome",
+      "text": "Taraftarların gözünde bir efsaneye dönüştün. Başkan transfer geliri kaçtığı için bozulsa da sahadaki hırsın herkesi büyüledi.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -2
+        },
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_bonservis_direnisi": {
+      "title": "Yarım Kalan Hayaller",
+      "kind": "outcome",
+      "text": "Başkan bu şımarıklığına izin vermedi ve teklifi reddetti. Hem kulüpte kaldın hem de kulüple arandaki ipler koptu.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_transfer_arabistan",
+    "beat": "evt_transfer_arabistan_teklifi",
+    "signature": "transfer:fam_transfer_arabistan"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

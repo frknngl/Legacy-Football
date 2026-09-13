@@ -1,0 +1,149 @@
+{
+  "id": "evt_training_medya_acik_idman",
+  "family": "fam_training_medya",
+  "category": "training",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gösteri Maçı",
+      "kind": "branch",
+      "text": "Bugün idman hem basına hem de taraftara açık. Tribünler tıklım tıklım, herkes seni izlemeye gelmiş. Ancak hoca {actor.manager.name} takımın ciddi bir taktik idman yapmasını ve kimsenin 'şov yapmamasını' kesin bir dille emretti. Taraftarlar ise senden jeneriklik hareketler bekliyor.",
+      "choices": [
+        {
+          "id": "c_sov_yap",
+          "text": "Taraftarı coşturmak için hocanın uyarılarını dikkate alma ve röveşata, topuk pası gibi klas hareketler yap.",
+          "target": "n_sov_yap",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_ciddi_calis",
+          "text": "Hocanın emrine harfiyen uy ve sadece basit, garantili paslarla idmanı tamamla.",
+          "target": "n_ciddi_calis",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 20
+          }
+        },
+        {
+          "id": "c_taraftarla_idalasma",
+          "text": "İdman sonrası sahada kalıp çocuk taraftarlarla maç yap ve medyanın ilgi odağı ol.",
+          "target": "n_taraftarla_idalasma",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_sov_yap": {
+      "title": "Tribünlerin Sevgilisi",
+      "kind": "outcome",
+      "text": "Attığın estetik goller taraftarları mest etti. Ancak idman sonrası hoca seni odasına çağırıp ciddiyetsizliğin yüzünden uyardı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_ciddi_calis": {
+      "title": "Sıkıcı Profesyonel",
+      "kind": "outcome",
+      "text": "Taraftarlar senden beklediklerini alamadıkları için biraz hayal kırıklığına uğradı. Ancak hoca sistemine olan bağlılığından ötürü çok memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_taraftarla_idalasma": {
+      "title": "Halkla İlişkiler Ustası",
+      "kind": "outcome",
+      "text": "Çocuklarla yaptığın bu etkinlik hem kulübün PR çalışmalarına büyük katkı sağladı hem de tüm televizyon kanallarında ilk haber oldun. Başkan {actor.president.name} sana bizzat teşekkür etti.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_training_medya",
+    "beat": "evt_training_medya_acik_idman",
+    "signature": "training:fam_training_medya"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "id": "evt_health_gizli_sakatlik",
+  "family": "fam_health_gizli",
+  "category": "health",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gizli Ağrılar",
+      "kind": "branch",
+      "text": "Sezonun en kritik derbisi öncesi arka adalende ciddi bir çekme var. Kulüp doktoru durumu fark etmedi. Hoca {actor.manager.name} taktik tahtasında tüm oyun planını senin üzerine kurduğunu söylüyor. Eğer sakatlığını söylersen bu maçı kaçıracaksın.",
+      "choices": [
+        {
+          "id": "c_söyle_ve_dinlen",
+          "text": "Hocaya ve doktora dürüstçe durumu anlat. Derbiyi kaçırmayı göze al.",
+          "target": "n_soyle_ve_dinlen",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_gizle_ve_oyna",
+          "text": "Ağrıları gizle, maça ilk 11'de çık ve kendini zorla.",
+          "target": "n_gizle_ve_oyna",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -15
+          }
+        },
+        {
+          "id": "c_ozel_igne",
+          "text": "Sadece kaptana {actor.captain.name} söyle ve onun ayarlayacağı özel bir ağrı kesici iğneyle sahaya çık.",
+          "target": "n_ozel_igne",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "sadakat": 20
+          }
+        }
+      ]
+    },
+    "n_soyle_ve_dinlen": {
+      "title": "Doğru Karar",
+      "kind": "outcome",
+      "text": "Dürüstlüğün hocanın {actor.manager.name} sana olan güvenini artırdı. Takım derbiyi zor da olsa kazandı ve sen de uzun süreli bir sakatlıktan kurtuldun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_gizle_ve_oyna": {
+      "title": "Erken Değişiklik",
+      "kind": "outcome",
+      "text": "Maçın 15. dakikasında depara kalkarken adalen tamamen attı. Takımın 1 oyuncu değişikliği hakkı yandı ve hoca {actor.manager.name} sana çok sinirlendi.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 3,
+          "reason": "Adale yirtigi"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_ozel_igne": {
+      "title": "Fedakar Savaşçı",
+      "kind": "outcome",
+      "text": "İğne sayesinde ağrıyı hissetmedin ve maçın kahramanı oldun. Kaptan {actor.captain.name} ile arandaki bağ daha da güçlendi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "rating": 1,
+          "goals": 1
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_health_gizli",
+    "beat": "evt_health_gizli_sakatlik",
+    "signature": "health:fam_health_gizli"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

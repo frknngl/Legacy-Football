@@ -17,7 +17,7 @@ import * as fs from 'fs';
 const NATIONAL_WEEKS = new Set([5, 11, 17, 26, 33]);
 const SEED_BASE = 1000;
 const MAX_TURNS = 1000;
-const NUM_CAREERS = 20;
+const NUM_CAREERS = 100;
 const ARCHETYPE: Archetype = 'street';
 
 function cloneFlags(flags: Record<string, FlagValue>): Record<string, FlagValue> {
@@ -90,7 +90,16 @@ async function playQACareer(
       }
     }
 
-    botTurn(engine, sim.roster, botRng, report.week);
+    const clubBeforeBot = state.clubId;
+    const botOut = botTurn(engine, sim.roster, botRng, report.week);
+    
+    // bot.ts icindeki transfer logic transfer_done atarsa transfer olmustur
+    if (botOut.transferred) {
+      transfers++;
+    }
+
+    const currentState = engine.snapshot();
+    clubsPlayedFor.add(currentState.clubId);
 
     const eventCoverageCtx = {
       era: report.era,
@@ -200,12 +209,14 @@ async function playQACareer(
           },
           chooseMoment: (node) => randomOpenChoice(node, (max) => rng.int(max)),
           onMatchStart: () => {
-            if (!avBefore.available) {
-               reports.consistencyIssues.push(`Career #${seed} FAIL: Played match while not available. Turn ${report.turn}`);
-            }
-            matches += 1;
           },
           onResult: (_m, result) => {
+            if (result.minutes > 0) {
+              if (!avBefore.available) {
+                 reports.consistencyIssues.push(`Career #${seed} FAIL: Played match while not available. Turn ${report.turn}`);
+              }
+              matches += 1;
+            }
             goals += result.goals;
             assists += result.assists;
             if (result.cards > 0) redCards++; // simplistic

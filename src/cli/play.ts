@@ -150,8 +150,8 @@ function renderReport(r: TurnReport): void {
     console.log(c.cyan(`🐦 @GundemSpor:`));
     console.log(wrap(p.text));
   } else if (p.format === 'mail') {
-    console.log(c.magenta(`✉️ GELEN KUTUSU:`));
-    console.log(c.italic(wrap(p.text)));
+    console.log(c.cyan(`✉️ GELEN KUTUSU:`));
+    console.log(c.dim(wrap(p.text)));
   } else if (p.format === 'chat') {
     console.log(c.green(`💬 Grup Sohbeti:`));
     console.log(wrap(p.text));

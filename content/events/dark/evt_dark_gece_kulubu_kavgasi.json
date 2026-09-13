@@ -1,0 +1,154 @@
+{
+  "id": "evt_dark_gece_kulubu_kavgasi",
+  "family": "fam_dark_kavga",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Barda Arbede",
+      "kind": "branch",
+      "text": "Gece kulübünün VIP bölümünde eğlenirken yan masadaki bir grup sana ve kulübüne küfürler savurmaya başlıyor. Alkolün de etkisiyle sinirler gerildi ve gruptan biri üzerine yürüyüp seni itti. Güvenlik henüz gelmedi, herkesin gözü senin üzerinde.",
+      "choices": [
+        {
+          "id": "c_yumruk_at",
+          "text": "Kontrolünü kaybet ve sana saldıran adama yumruk atarak onu hastanelik et.",
+          "target": "n_yumruk_at",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "mizac": 35,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_geri_cekil",
+          "text": "Geri adım at, 'Sizin seviyenize inmem' diyerek mekanı derhal terk et.",
+          "target": "n_geri_cekil",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "mizac": -20
+          }
+        },
+        {
+          "id": "c_kavga_cikartmadan_rezil_et",
+          "text": "Sakin kalıp adamın üzerine içkisini dök ve alaycı bir şekilde gülerek korumaların arkasına geç.",
+          "target": "n_kavga_cikartmadan_rezil_et",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "dogruluk": -15
+          }
+        }
+      ]
+    },
+    "n_yumruk_at": {
+      "title": "Karakolda Sabah",
+      "kind": "outcome",
+      "text": "Adamın burnu kırıldı ve geceyi nezarette geçirdin. Başkan {actor.president.name} avukatları gönderip seni kefaletle çıkardı ama kadro dışı kaldın.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 3,
+          "reason": "Siddet olayina karisma"
+        },
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_geri_cekil": {
+      "title": "Korkak Yıldız",
+      "kind": "outcome",
+      "text": "Kavgadan kaçman profesyonelceydi ama medya ve taraftar grupları 'Korkup kaçtı' diye seninle alay etti. Hoca {actor.manager.name} ise bu olgun davranışından memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_kavga_cikartmadan_rezil_et": {
+      "title": "Küstah Tavır",
+      "kind": "outcome",
+      "text": "Fiziksel şiddet olmadı ama sosyal medyada kibrin yüzünden linç edildin. Kulüp imajına zarar verdiğin için ufak bir para cezası aldın.",
+      "onEnter": [
+        {
+          "flag": "medya_baskisi",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_kavga",
+    "beat": "evt_dark_gece_kulubu_kavgasi",
+    "signature": "dark:fam_dark_kavga"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "id": "evt_dark_mafya_tehdidi",
+  "family": "fam_dark_mafya",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Karanlık Teklif",
+      "kind": "branch",
+      "text": "Evine giderken yolda siyah bir araç önünü kesti. İçinden çıkan adamlar, hafta sonu oynanacak şampiyonluk maçında bilerek kırmızı kart görmeni istiyor. Karşılığında büyük bir para teklif ediyorlar ama reddedersen 'ailen zarar görür' diyerek tehdit ediyorlar.",
+      "choices": [
+        {
+          "id": "c_kirmizi_gor",
+          "text": "Tehditlere boyun eğ, maçta bilerek rakibe sert girip kırmızı kart gör.",
+          "target": "n_kirmizi_gor",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "dogruluk": -35,
+            "sadakat": -20
+          }
+        },
+        {
+          "id": "c_polise_git",
+          "text": "Risk alarak hemen polise başvur ve koruma talep et.",
+          "target": "n_polise_git",
+          "effects": [
+            {
+              "flag": "dogruluk",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 35,
+            "durus": 20
+          }
+        },
+        {
+          "id": "c_hocaya_anlat",
+          "text": "Hocaya durumu anlat ve bu kritik maçta oynamak istemediğini, seni kadroya almamasını iste.",
+          "target": "n_hocaya_anlat",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "sadakat": 20,
+            "durus": -15
+          }
+        }
+      ]
+    },
+    "n_kirmizi_gor": {
+      "title": "Lekeli Kariyer",
+      "kind": "outcome",
+      "text": "Aileni korudun ama takım maçı kaybedip şampiyonluktan oldu. Herkes o saçma kırmızı kartı konuşuyor. Hoca {actor.manager.name} sana olan tüm güvenini yitirdi.",
+      "onEnter": [
+        {
+          "op": "match",
+          "redCard": true,
+          "rating": -2
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_polise_git": {
+      "title": "Korkusuz Yürek",
+      "kind": "outcome",
+      "text": "Polis operasyonla çeteyi çökertti. Medya seni kahraman ilan etti ancak yaşadığın stres nedeniyle bir süre sahalardan uzak kalacaksın.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 2,
+          "reason": "Guvenlik ve psikolojik nedenler"
+        },
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 25
+        }
+      ]
+    },
+    "n_hocaya_anlat": {
+      "title": "Güvenli Liman",
+      "kind": "outcome",
+      "text": "Hoca {actor.manager.name} seni korudu ve 'sakatlığı nüksetti' diyerek kadrodan çıkardı. Maçı tribünden izlemek zor olsa da ailen güvende.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_mafya",
+    "beat": "evt_dark_mafya_tehdidi",
+    "signature": "dark:fam_dark_mafya"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "id": "evt_dark_santaj_kasedi",
+  "family": "fam_dark_santaj",
+  "category": "dark",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Gizli Kamera",
+      "kind": "branch",
+      "text": "Evinde verdiğin özel bir partide gizli kamerayla çekilmiş, kariyerini bitirebilecek uygunsuz görüntüler var. Görüntüleri elinde bulunduran kişi yüklü miktarda para istiyor, aksi takdirde bunları medyaya sızdıracağını söylüyor.",
+      "choices": [
+        {
+          "id": "c_parayi_ode",
+          "text": "Skandalın duyulmasından korkarak istenen parayı sessizce öde.",
+          "target": "n_parayi_ode",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": -25,
+            "durus": -20
+          }
+        },
+        {
+          "id": "c_meydan_oku",
+          "text": "'Neyin varsa yayınla, kimseden korkum yok' diyerek şantajcıya meydan oku.",
+          "target": "n_meydan_oku",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": 30,
+            "dogruluk": 20
+          }
+        },
+        {
+          "id": "c_kendi_yayinla",
+          "text": "Görüntülerin hafif bir kısmını sosyal medyada kendin yayınlayarak, 'Bana şantaj yapıyorlar' diye polise git.",
+          "target": "n_kendi_yayinla",
+          "effects": [
+            {
+              "flag": "dogruluk",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": 15
+          }
+        }
+      ]
+    },
+    "n_parayi_ode": {
+      "title": "Karanlık Sır",
+      "kind": "outcome",
+      "text": "Görüntüler yayınlanmadı ama paranın nereye gittiğini fark eden eşin veya ailenle aranda büyük sorunlar çıktı. Psikolojik olarak çökmüş durumdasın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    },
+    "n_meydan_oku": {
+      "title": "Sosyal Medya Patlaması",
+      "kind": "outcome",
+      "text": "Görüntüler yayınlandı! Medya haftalarca seni konuştu. Başkan {actor.president.name} imajını korumak için seni geçici olarak kadro dışı bıraktı.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -5
+        },
+        {
+          "op": "suspend",
+          "matches": 3,
+          "reason": "Ozel hayat skandali"
+        }
+      ]
+    },
+    "n_kendi_yayinla": {
+      "title": "Krizi Fırsata Çevirmek",
+      "kind": "outcome",
+      "text": "Cesaretin takdir topladı. Polis şantajcıları yakaladı. Biraz utanç verici olsa da hocan {actor.manager.name} dürüstlüğünü takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_dark_santaj",
+    "beat": "evt_dark_santaj_kasedi",
+    "signature": "dark:fam_dark_santaj"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

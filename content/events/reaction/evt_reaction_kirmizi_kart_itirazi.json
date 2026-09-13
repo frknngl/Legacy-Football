@@ -1,0 +1,154 @@
+{
+  "id": "evt_reaction_kirmizi_kart_itirazi",
+  "family": "fam_reaction_kirmizi",
+  "category": "reaction",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Disiplin Kurulu Savunması",
+      "kind": "branch",
+      "text": "Geçen maçta gördüğün ve tamamen haksız olduğunu düşündüğün kırmızı kart yüzünden PFDK'ya (Profesyonel Futbol Disiplin Kurulu) sevkedildin. Yönetim itiraz dosyası hazırlarken senden de yazılı bir savunma istiyor. Kaptan {actor.captain.name} federasyona karşı alttan almanı öneriyor.",
+      "choices": [
+        {
+          "id": "c_sert_savunma",
+          "text": "Hakemi 'art niyetli' olmakla suçlayan sert bir dilekçe yaz.",
+          "target": "n_sert_savunma",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 20
+          }
+        },
+        {
+          "id": "c_ozur_dilekcesi",
+          "text": "Kaptanın tavsiyesini dinle, alttan alarak pozisyonu yanlış anladığını belirtip özür dile.",
+          "target": "n_ozur_dilekcesi",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Savunma vermeyi reddet, 'Kararı verecek olan onlar, benim söyleyecek sözüm yok' de.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "durus": 15,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_sert_savunma": {
+      "title": "Ağır Ceza",
+      "kind": "outcome",
+      "text": "Federasyon bu asi tavrını affetmedi ve kestiği cezaya ek maç ilave etti. Hoca {actor.manager.name} bu dik başlılığın takıma zarar verdiğini düşünüyor.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 2,
+          "reason": "Kurula saygisizlik"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_ozur_dilekcesi": {
+      "title": "İndirim",
+      "kind": "outcome",
+      "text": "Alttan alman işe yaradı, cezan 1 maça indirildi. Taraftarlar geri adım attığın için tepkili olsa da kaptan {actor.captain.name} bu fedakarlığını takdir etti.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Standart Prosedür",
+      "kind": "outcome",
+      "text": "Kurul rutin prosedürü işletti ve cezayı onadı. Sessiz kalman spor medyasında gizemli bir tepki olarak yorumlandı.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_reaction_kirmizi",
+    "beat": "evt_reaction_kirmizi_kart_itirazi",
+    "signature": "reaction:fam_reaction_kirmizi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

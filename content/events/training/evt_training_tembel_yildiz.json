@@ -1,0 +1,149 @@
+{
+  "id": "evt_training_tembel_yildiz",
+  "family": "fam_training_tembel",
+  "category": "training",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tembel Yıldız",
+      "kind": "branch",
+      "text": "Takımın senden sonraki en yetenekli oyuncusu idmanlarda adeta yürüyor, koşulara katılmıyor ve kondisyonerle dalga geçiyor. Genç oyuncular da ondan kötü örnek almaya başladı. Hoca {actor.manager.name} bu durumla başa çıkamıyor. Takımın liderlerinden biri olarak müdahale etmen gerektiği düşünülüyor.",
+      "choices": [
+        {
+          "id": "c_sertca_uyar",
+          "text": "Tüm takımın önünde ona bağırarak 'Ya koşarsın ya da bu tesisi terk edersin' de.",
+          "target": "n_sertca_uyar",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 20
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Bu senin işin değil. Kulaklığını tak ve sadece kendi antrenmanına odaklan.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -10,
+            "mizac": -15
+          }
+        },
+        {
+          "id": "c_ornek_ol",
+          "text": "Onunla konuşmak yerine idmanda ekstra efor sarf eterek gençlere 'gerçek yıldız böyle olur' mesajı ver.",
+          "target": "n_ornek_ol",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "durus": 15
+          }
+        }
+      ]
+    },
+    "n_sertca_uyar": {
+      "title": "Soyunma Odası Lideri",
+      "kind": "outcome",
+      "text": "Sesini yükseltmen genç oyuncuları hizaya soktu. Ancak tartıştığın oyuncuyla arandaki ipler koptu. Hoca {actor.manager.name} saha içindeki bu otoriteni beğendi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Dağılan Takım",
+      "kind": "outcome",
+      "text": "İşine baksan da takımın idman kalitesi yerlerde sürünüyor. Kaptan {actor.captain.name} inisiyatif almadığın için hayal kırıklığına uğradı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_ornek_ol": {
+      "title": "Çalışan Kazanır",
+      "kind": "outcome",
+      "text": "Genç oyuncular senin peşinden gelmeye karar verdi. Tembel yıldız yalnız kaldı ve kısa süre sonra kadro dışı bırakıldı. Liderliğin takdir topluyor.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_training_tembel",
+    "beat": "evt_training_tembel_yildiz",
+    "signature": "training:fam_training_tembel"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

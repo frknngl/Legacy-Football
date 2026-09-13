@@ -1,0 +1,147 @@
+{
+  "id": "evt_legal_vergi_kacirma",
+  "family": "fam_legal_vergi",
+  "category": "legal",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Maliye Baskını",
+      "kind": "branch",
+      "text": "Maliye müfettişleri imaj hakları gelirlerini offshore hesaplarda tutarak vergi kaçırdığın iddiasıyla kapına dayandı. Haber medyaya sızdı ve manşetleri süslüyor. Başkan {actor.president.name} kulübün imajının zarar görmesinden çok rahatsız, acil bir basın toplantısı düzenlemeni istiyor.",
+      "choices": [
+        {
+          "id": "c_suclanmayi_kabul_et",
+          "text": "Basın toplantısında tüm suçu kabul et, muhasebecilerinin hatası olduğunu söyleyip vergi borcunu faiziyle ödeyeceğini açıkla.",
+          "target": "n_suclanmayi_kabul_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": 10
+          }
+        },
+        {
+          "id": "c_inkar_et",
+          "text": "Her şeyi inkar et, 'Bana komplo kuruluyor' diyerek devlete meydan oku ve hukuki mücadele başlat.",
+          "target": "n_inkar_et",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "dogruluk": -20
+          }
+        },
+        {
+          "id": "c_sessiz_anlasma",
+          "text": "Basın toplantısına çıkma. Arka planda devlete bağış yaparak anlaşma sağla ve olayın üstünü ört.",
+          "target": "n_sessiz_anlasma",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "durus": -15
+          }
+        }
+      ]
+    },
+    "n_suclanmayi_kabul_et": {
+      "title": "Vergi Rekortmeni mi Kaçakçısı mı?",
+      "kind": "outcome",
+      "text": "Dürüstlüğün sana itibar kaybettirse de mahkeme sürecinden kurtuldun. Başkan {actor.president.name} krizi iyi yönettiğin için memnun.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_inkar_et": {
+      "title": "Mahkeme Koridorları",
+      "kind": "outcome",
+      "text": "Devlete kafa tutman fanatikler arasında seni bir isyankar yapsa da aylar süren davalar performansını düşürdü ve hapis cezasıyla burun buruna geldin.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -20
+        }
+      ]
+    },
+    "n_sessiz_anlasma": {
+      "title": "Zenginlerin Adaleti",
+      "kind": "outcome",
+      "text": "Milyonlarca euro bağış yaparak hapis cezasından yırttın ama servetinin büyük bir kısmını kaybettin. Medya bu 'özel' anlaşmayı uzun süre eleştirdi.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_legal_vergi",
+    "beat": "evt_legal_vergi_kacirma",
+    "signature": "legal:fam_legal_vergi"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "id": "evt_match_hakem_kavgasi",
+  "family": "fam_match_hakem",
+  "category": "match",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Adaletsiz Düdük",
+      "kind": "branch",
+      "text": "Şampiyonluk yolundaki en kritik maçta hakem net bir golünüzü haksız yere iptal etti. Sinirler çok gergin. Kaptan {actor.captain.name} itiraz ederken sarı kart gördü. Hakem şimdi sana doğru bakıyor ve gülümsediğini fark ettin, bu durum seni çileden çıkarıyor.",
+      "choices": [
+        {
+          "id": "c_hakemin_uzerine_yuru",
+          "text": "Kendini kaybedip hakemin üzerine yürü ve onu formasından iterek hesap sor.",
+          "target": "n_hakemin_uzerine_yuru",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 30
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -30
+            }
+          ],
+          "persona": {
+            "mizac": 35,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_kaptani_sakinlestir",
+          "text": "Öfkeni yut, araya girerek kaptanı oradan uzaklaştır ve takımın 10 kişi kalmasını engelle.",
+          "target": "n_kaptani_sakinlestir",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 15
+          }
+        },
+        {
+          "id": "c_alkislayarak_protesto",
+          "text": "Hakemin gözünün içine bakarak alaycı bir şekilde alkışla ve sahadan çıkıyormuş gibi yap.",
+          "target": "n_alkislayarak_protesto",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "mizac": 10
+          }
+        }
+      ]
+    },
+    "n_hakemin_uzerine_yuru": {
+      "title": "Kırmızı Kart ve Ceza",
+      "kind": "outcome",
+      "text": "Direkt kırmızı kart gördün. Taraftar bu isyanını çok sevdi ama hoca {actor.manager.name} seni bu kritik maçta takımı yalnız bıraktığın için affetmeyecek.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 3,
+          "reason": "Hakeme fiziksel müdahale"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_kaptani_sakinlestir": {
+      "title": "Buz Adam",
+      "kind": "outcome",
+      "text": "Soğukkanlılığın sayesinde takım eksik kalmadı ve maçı son dakikada çevirdiniz. Kaptan {actor.captain.name} sana minnettar.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_alkislayarak_protesto": {
+      "title": "İkonik Protesto",
+      "kind": "outcome",
+      "text": "Bu alaycı alkışın bir anda sosyal medyada viral oldu. Sarı kartla yırttın ama merkez hakem kurulu seninle uğraşmaya karar verdi.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_hakem",
+    "beat": "evt_match_hakem_kavgasi",
+    "signature": "match:fam_match_hakem"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "id": "evt_transfer_gizli_gorusme",
+  "family": "fam_transfer_gorusme",
+  "category": "transfer",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Arka Kapı Diplomasisi",
+      "kind": "branch",
+      "text": "Sözleşmen devam ederken rakip takımın başkanı lüks bir otelde seninle gizlice görüşmek istedi. Eğer anlaşırsan bonservisini bir şekilde halledeceklerini söylüyorlar. Ancak kulübün izni olmadan yapılan bu görüşme açığa çıkarsa büyük ceza alabilirsin.",
+      "choices": [
+        {
+          "id": "c_gorusmeye_git",
+          "text": "Otelin arka kapısından gizlice gir ve rakip takımın teklifini dinle.",
+          "target": "n_gorusmeye_git",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": -25,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_baskana_ihbar_et",
+          "text": "Görüşmeyi reddet ve rakip takımın ahlaksız teklifini hemen kendi başkanına {actor.president.name} anlat.",
+          "target": "n_baskana_ihbar_et",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 30,
+            "sadakat": 25
+          }
+        },
+        {
+          "id": "c_menajeri_gonder",
+          "text": "Kendin gitme ama menajerini göndererek nabız yokla. Olumsuz bir durumda 'Haberim yok' dersin.",
+          "target": "n_menajeri_gonder",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": -15,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_gorusmeye_git": {
+      "title": "Patlayan Flaşlar",
+      "kind": "outcome",
+      "text": "Otel çıkışında magazin muhabirlerine yakalandın! Kendi hocan {actor.manager.name} bu ihanetini affetmedi ve seni kadro dışı bıraktı.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 2,
+          "reason": "Izinsiz transfer gorusmesi"
+        },
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_baskana_ihbar_et": {
+      "title": "Sadakat Ödülü",
+      "kind": "outcome",
+      "text": "Başkan bu dürüstlüğünden çok etkilendi ve rakip takımı şikayet etti. Sözleşmende iyileştirme yapılması için söz aldın.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": 4
+        }
+      ]
+    },
+    "n_menajeri_gonder": {
+      "title": "Suya Sabuna Dokunmadan",
+      "kind": "outcome",
+      "text": "Menajerin şartları öğrendi ama anlaşma sağlanamadı. Olay basına sızmadı, sen de güvenli bölgede kalmış oldun.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_transfer_gorusme",
+    "beat": "evt_transfer_gizli_gorusme",
+    "signature": "transfer:fam_transfer_gorusme"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

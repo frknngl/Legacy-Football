@@ -1,0 +1,154 @@
+{
+  "id": "evt_legal_eski_menajer_davasi",
+  "family": "fam_legal_menajer",
+  "category": "legal",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Eski Menajerin İntikamı",
+      "kind": "branch",
+      "text": "Seni yıllarca temsil eden ama sonra yollarını ayırdığın eski menajerin, haksız fesih gerekçesiyle sana milyonlarca dolarlık bir dava açtı. Üstelik elinde, önceki kulübünde hocan {actor.manager.name} hakkında söylediğin ağır sözlerin ses kayıtları olduğunu ve mahkemeye sunacağını iddia ediyor.",
+      "choices": [
+        {
+          "id": "c_uzlas",
+          "text": "Ses kayıtlarının sızmasından korkarak davanın dışında menajerle anlaşıp istediği parayı öde.",
+          "target": "n_uzlas",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": -15,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_mahkemeye_git",
+          "text": "Şantaja boyun eğme, 'Elinden geleni ardına koyma' diyerek mahkemede savaş.",
+          "target": "n_mahkemeye_git",
+          "effects": [
+            {
+              "flag": "durus",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 25,
+            "dogruluk": 15
+          }
+        },
+        {
+          "id": "c_hocaya_itiraf",
+          "text": "Mahkemeden önce hocanın {actor.manager.name} odasına git, kayıtlar çıkmadan önce her şeyi kendin itiraf et.",
+          "target": "n_hocaya_itiraf",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 25,
+            "sadakat": 20
+          }
+        }
+      ]
+    },
+    "n_uzlas": {
+      "title": "Satın Alınan Sessizlik",
+      "kind": "outcome",
+      "text": "Büyük bir meblağ ödedin ama kariyerini kurtardın. Hocan bu durumdan asla haberdar olmadı ama menajerin yüzünü her gördüğünde miden bulanıyor.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_mahkemeye_git": {
+      "title": "Sızan Kayıtlar",
+      "kind": "outcome",
+      "text": "Mahkeme sürecinde kayıtlar basına sızdı. Hocan {actor.manager.name} sana çok kırıldı ve seni bir süre yedek bıraktı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -4
+        },
+        {
+          "op": "suspend",
+          "matches": 2,
+          "reason": "Kadro disi - Disiplinsizlik"
+        }
+      ]
+    },
+    "n_hocaya_itiraf": {
+      "title": "Acı Gerçekler",
+      "kind": "outcome",
+      "text": "Hocan dürüstlüğünü takdir etti ama duydukları onu incitti. 'Sahadaki performansınla kendini affettir' diyerek konuyu kapattı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 1
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_legal_menajer",
+    "beat": "evt_legal_eski_menajer_davasi",
+    "signature": "legal:fam_legal_menajer"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

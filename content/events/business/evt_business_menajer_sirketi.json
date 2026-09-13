@@ -1,0 +1,159 @@
+{
+  "id": "evt_business_menajer_sirketi",
+  "family": "fam_business_menajer",
+  "category": "business",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Rakip Menajerlik Şirketi",
+      "kind": "branch",
+      "text": "Sahadaki başarıların sayesinde çok popülersin. Bunu fırsat bilen kaptan {actor.captain.name:gen} kendi menajerlik şirketine ortak olmanı ve genç yetenekleri birlikte keşfetmenizi öneriyor. Ancak senin halihazırda birlikte çalıştığın menajerin {actor.agent.name} bu duruma çok öfkeli ve 'Ya o ya ben' diyerek rest çekiyor.",
+      "choices": [
+        {
+          "id": "c_kaptanla_ortak_ol",
+          "text": "Menajerini {actor.agent.name:acc} gözden çıkar ve kaptanın şirketine ortak ol.",
+          "target": "n_kaptanla_ortak_ol",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 100000
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": -25
+          }
+        },
+        {
+          "id": "c_menajere_sadik_kal",
+          "text": "Yıllardır yanında olan menajerine {actor.agent.name:dat} sadık kal ve kaptanı reddet.",
+          "target": "n_menajere_sadik_kal",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "sadakat": 25,
+            "dogruluk": 10
+          }
+        },
+        {
+          "id": "c_ikisini_birbirine_dusur",
+          "text": "Menajerinle kaptanı gizlice aynı masada buluştur ve komisyon pazarlığı yap.",
+          "target": "n_ikisini_birbirine_dusur",
+          "effects": [
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -20
+          }
+        }
+      ]
+    },
+    "n_kaptanla_ortak_ol": {
+      "title": "Yeni İş Ortağı",
+      "kind": "outcome",
+      "text": "Kaptanla olan ortaklığınız takım içinde büyük bir dayanışma yarattı ancak eski menajerin medyada senin aleyhinde konuşmaya başladı.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 3
+        },
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_menajere_sadik_kal": {
+      "title": "Eski Dostlar",
+      "kind": "outcome",
+      "text": "Menajerin sadakatine karşılık sana yeni ve kazançlı bir reklam filmi ayarladı. Kaptan ise senin ticari vizyonunu zayıf buluyor.",
+      "onEnter": [
+        {
+          "flag": "npc_agent_arc",
+          "op": "add",
+          "value": 3
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    },
+    "n_ikisini_birbirine_dusur": {
+      "title": "Kurtlar Sofrası",
+      "kind": "outcome",
+      "text": "İki taraf da birbiriyle anlaşamadı ve masa devrildi. İkisiyle de aran açıldı ama ticari zekan saygı uyandırdı.",
+      "onEnter": [
+        {
+          "flag": "sokak_itibari",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_business_menajer",
+    "beat": "evt_business_menajer_sirketi",
+    "signature": "business:fam_business_menajer"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "id": "evt_transfer_sozlesme_isyani",
+  "family": "fam_transfer_isyan",
+  "category": "transfer",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime"
+  ],
+  "stature": [
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Maaş Krizi",
+      "kind": "branch",
+      "text": "Takımın en golcü ismi olmana rağmen maaşın yeni transfer edilen yedek oyuncudan bile düşük. Menajerin sana 'Artık isyan etme vakti geldi' diyor. Sözleşme yenileme talebin kulüp başkanı {actor.president.name} tarafından sürekli erteleniyor.",
+      "choices": [
+        {
+          "id": "c_antrenman_boykotu",
+          "text": "Antrenmanlara çıkmayı reddet ve maaşına zam yapılana kadar oynamayacağını menajerin aracılığıyla başkana ilet.",
+          "target": "n_antrenman_boykotu",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": -20,
+            "sadakat": -25
+          }
+        },
+        {
+          "id": "c_medyaya_aciklama",
+          "text": "Medyaya bir röportaj vererek kulübün sana hak ettiğin değeri vermediğini açıkça söyle.",
+          "target": "n_medyaya_aciklama",
+          "effects": [
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_sahada_cevap_ver",
+          "text": "Sesini çıkarma, 'Cevabımı sahada vereceğim' diyerek hırsla çalışmaya devam et.",
+          "target": "n_sahada_cevap_ver",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 25
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "sadakat": 30
+          }
+        }
+      ]
+    },
+    "n_antrenman_boykotu": {
+      "title": "Kadro Dışı",
+      "kind": "outcome",
+      "text": "Başkan şantaja boyun eğmedi ve seni süresiz kadro dışı bıraktı. Kaptan {actor.captain.name} takımı yalnız bıraktığın için sana çok öfkeli.",
+      "onEnter": [
+        {
+          "op": "suspend",
+          "matches": 3,
+          "reason": "Boykot"
+        },
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_medyaya_aciklama": {
+      "title": "Masadaki Güç",
+      "kind": "outcome",
+      "text": "Taraftarın baskısı işe yaradı. Başkan {actor.president.name} istemeyerek de olsa sana zam yaptı ancak bu restleşmeyi asla unutmayacak.",
+      "onEnter": [
+        {
+          "flag": "npc_president_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_sahada_cevap_ver": {
+      "title": "Profesyonelin Yolu",
+      "kind": "outcome",
+      "text": "Aylarca ucuza oynadın ama sessiz sedasız gösterdiğin bu büyük profesyonellik hocan {actor.manager.name} tarafından takdir edildi.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_transfer_isyan",
+    "beat": "evt_transfer_sozlesme_isyani",
+    "signature": "transfer:fam_transfer_isyan"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "id": "evt_money_emlak_dolandiriciligi",
+  "family": "fam_money_emlak",
+  "category": "money",
+  "tier": "major",
+  "authored": "hand",
+  "weight": 40,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar",
+    "icon"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hayalet Proje",
+      "kind": "branch",
+      "text": "Takım kaptanı {actor.captain.name:gen} önerisiyle şehrin dışında lüks bir konut projesinden temelden ev aldın. Ancak haftalar sonra müteahhidin ortadan kaybolduğunu ve projenin aslında yasal olmadığını öğrendin. Kaptan da seninle birlikte dolandırıldı ama zararı senden daha az.",
+      "choices": [
+        {
+          "id": "c_kaptani_sucla",
+          "text": "Soyunma odasında kaptanın üzerine yürü ve zararını onun karşılamasını iste.",
+          "target": "n_kaptani_sucla",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -25
+            },
+            {
+              "flag": "sokak_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "sadakat": -20
+          }
+        },
+        {
+          "id": "c_sessiz_kal",
+          "text": "Olan oldu diyerek zararı sineye çek ve kaptanla aranı bozmamaya çalış.",
+          "target": "n_sessiz_kal",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": -300000
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "sadakat": 15,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_mafyadan_yardim",
+          "text": "Eski tanıdıkların aracılığıyla karanlık yollara başvurup paranı müteahhitten zorla geri al.",
+          "target": "n_mafyadan_yardim",
+          "effects": [
+            {
+              "flag": "servet",
+              "op": "add",
+              "value": 200000
+            },
+            {
+              "flag": "medya_baskisi",
+              "op": "add",
+              "value": 25
+            }
+          ],
+          "persona": {
+            "dogruluk": -30,
+            "durus": 20
+          }
+        }
+      ]
+    },
+    "n_kaptani_sucla": {
+      "title": "Bölünen Takım",
+      "kind": "outcome",
+      "text": "Kaptanla olan büyük kavganız hocanın {actor.manager.name} kulağına gitti. Takımdaki gruplaşma yüzünden herkes diken üstünde.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": -4
+        }
+      ]
+    },
+    "n_sessiz_kal": {
+      "title": "Pahalı Ders",
+      "kind": "outcome",
+      "text": "Maddi olarak büyük yara aldın ama kaptan {actor.captain.name} senin bu olgun tavrına minnettar kaldı. Sana saha içinde daha çok pas atıyor.",
+      "onEnter": [
+        {
+          "flag": "npc_captain_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_mafyadan_yardim": {
+      "title": "Kirli Para",
+      "kind": "outcome",
+      "text": "Paranı büyük ölçüde geri kurtardın ama bu yasa dışı hareketin gazetecilerin dikkatini çekti. Hoca {actor.manager.name} saha dışında bu tarz işlere karışmandan hiç hoşnut değil.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_money_emlak",
+    "beat": "evt_money_emlak_dolandiriciligi",
+    "signature": "money:fam_money_emlak"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}
