@@ -1,0 +1,148 @@
+{
+  "id": "evt_social_tuvalette_kilitli_kalmak",
+  "family": "fam_social_tuvalet",
+  "category": "social",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Maç Öncesi Kriz",
+      "kind": "branch",
+      "text": "Kariyerinin en önemli maçlarından birine çıkmak üzeresin ama soyunma odasının tuvaletinde kilitli kaldın! Kapı kolu koptu ve takım arkadaşların sahaya çıkmaya hazırlanırken müzik sesinden seni duymuyorlar. 10 dakikan var.",
+      "choices": [
+        {
+          "id": "c_kapiyi_kir",
+          "text": "Geri çekil ve bütün gücünle omuz atarak kapıyı kır.",
+          "target": "n_kapiyi_kir",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_havalandirma",
+          "text": "Tavandaki havalandırma boşluğundan sürünerek dışarı çıkmayı dene.",
+          "target": "n_havalandirma",
+          "effects": [
+            {
+              "flag": "antrenman_verimi",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_sosyal_medya",
+          "text": "X'te (Twitter) 'Yardım edin, soyunma odası tuvaletinde mahsur kaldım!' diye tweet at.",
+          "target": "n_sosyal_medya",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_kapiyi_kir": {
+      "title": "Aksiyon Kahramanı",
+      "kind": "outcome",
+      "text": "Kapıyı kırdın ama omzun ezildi. Maça acı içinde çıktın fakat takım arkadaşların bu vahşi çıkışını ayakta alkışladı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_havalandirma": {
+      "title": "Ajan Futbolcu",
+      "kind": "outcome",
+      "text": "Toz ve örümcek ağları içinde tavandan hocanın {actor.manager.name} masasının üstüne düştün. Herkes şok oldu, yorgunluktan ilk yarı çok kötü oynadın.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_sosyal_medya": {
+      "title": "Dijital Kurtarış",
+      "kind": "outcome",
+      "text": "Tweet saniyeler içinde viral oldu, malzemeci tweeti görüp gelip kapıyı açtı. Milyonlar bu komik olayı konuşuyor ama hoca disiplinsizliğine kızdı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -2
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_social_tuvalet",
+    "beat": "evt_social_tuvalette_kilitli_kalmak",
+    "signature": "social:fam_social_tuvalet"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

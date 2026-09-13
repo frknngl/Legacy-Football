@@ -1,0 +1,151 @@
+{
+  "id": "evt_match_goalkeeper_assist",
+  "family": "fam_match_gk_assist",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kaleciden Asist Şansı",
+      "kind": "branch",
+      "text": "Kaleciniz rakip kornerini mükemmel yakaladıktan sonra oyunu hızlı başlatmak için topu eliyle savunmanın arkasına, tam senin önüne fırlattı! Tek başınasın ama top sekiyor ve kontrolü zor.",
+      "choices": [
+        {
+          "id": "c_gelisine_vur",
+          "text": "Top yere inmeden ceza sahası dışından gelişine muazzam bir vole vurmayı dene.",
+          "target": "n_gelisine_vur",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_kontrol_et",
+          "text": "Topu göğsünle yumuşat, kaleciyle karşı karşıya kalarak garanti bir gol ara.",
+          "target": "n_kontrol_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_pas_ver",
+          "text": "Seninle birlikte koşan kanat oyuncusuna kafayla pas aşırıp onu golle burun buruna getir.",
+          "target": "n_pas_ver",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_gelisine_vur": {
+      "title": "Yılın Golü Adayı",
+      "kind": "outcome",
+      "text": "Vole ağlarla buluştu! Kaleciniz asist yaptığı için çılgına döndü ve maçın adamı ikiniz oldunuz.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 20
+        }
+      ]
+    },
+    "n_kontrol_et": {
+      "title": "Soğukkanlı Bitirici",
+      "kind": "outcome",
+      "text": "Topu indirdin, kaleciyi şık bir çalımla geçtin ve topu boş kaleye yuvarladın. Harika bir iş çıkardın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 10
+        }
+      ]
+    },
+    "n_pas_ver": {
+      "title": "Takım Oyuncusu",
+      "kind": "outcome",
+      "text": "Kanat oyuncusu golü attıktan sonra direkt sana koştu. Tribünler bencillik etmeyip pas vermeni ayakta alkışladı.",
+      "onEnter": [
+        {
+          "flag": "npc_teammates_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_gk_assist",
+    "beat": "evt_match_goalkeeper_assist",
+    "signature": "match:fam_match_gk_assist"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

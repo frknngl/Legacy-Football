@@ -1,0 +1,151 @@
+{
+  "id": "evt_reaction_manager_praise",
+  "family": "fam_reaction_praise",
+  "category": "reaction",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Hocanın Övgüsü",
+      "kind": "branch",
+      "text": "Harika oynadığın bir maçın ardından hocan {actor.manager.name} soyunma odasında herkesin içinde seni işaret ederek, 'Bugün galibiyetin tek bir mimarı var, o da o!' diyerek seni göklere çıkardı. Tüm gözler senin üzerinde.",
+      "choices": [
+        {
+          "id": "c_mutevazi_ol",
+          "text": "Mahçup bir şekilde gülümse ve 'Bu hepimizin başarısı hocam' de.",
+          "target": "n_mutevazi_ol",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_egonu_goster",
+          "text": "Göğsünü kabart ve 'Benden de bu beklenirdi' diyerek özgüvenini sergile.",
+          "target": "n_egonu_goster",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -20
+          }
+        },
+        {
+          "id": "c_hocaya_tesekkur",
+          "text": "Ayağa kalkıp hocaya {actor.manager.name} sarıl ve taktiksel dehasını öv.",
+          "target": "n_hocaya_tesekkur",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -10,
+            "mizac": 20
+          }
+        }
+      ]
+    },
+    "n_mutevazi_ol": {
+      "title": "Takımın Gülü",
+      "kind": "outcome",
+      "text": "Takım arkadaşların bu alçakgönüllü tavrını çok takdir etti. Soyunma odasındaki uyum zirveye ulaştı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_egonu_goster": {
+      "title": "Kibirli Yıldız",
+      "kind": "outcome",
+      "text": "Kendi özgüvenin arttı ama bazı tecrübeli oyuncular arkandan 'Şımarık' diye konuşmaya başladı.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_hocaya_tesekkur": {
+      "title": "Hocanın Prensi",
+      "kind": "outcome",
+      "text": "Hocanın gözdesi oldun. Formayı kapman artık garanti ama bazı takım arkadaşların seni yalakalıkla suçluyor.",
+      "onEnter": [
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_reaction_praise",
+    "beat": "evt_reaction_manager_praise",
+    "signature": "reaction:fam_reaction_praise"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

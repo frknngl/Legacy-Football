@@ -1,0 +1,151 @@
+{
+  "id": "evt_training_rain_storm",
+  "family": "fam_training_storm",
+  "category": "training",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tufanda İdman",
+      "kind": "branch",
+      "text": "Antrenman esnasında inanılmaz bir sağanak yağmur başladı. Göz gözü görmüyor ve saha göle döndü. Hoca {actor.manager.name} antrenmanı iptal etmiyor ve çift kale maça devam edeceğinizi söylüyor.",
+      "choices": [
+        {
+          "id": "c_ciddiye_al",
+          "text": "Sanki Şampiyonlar Ligi finaliymiş gibi çamurun içinde ölümüne oyna.",
+          "target": "n_ciddiye_al",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_eglenceye_cevir",
+          "text": "Çamura kayarak sevinçler yap, top oynamaktan çok suyun tadını çıkar.",
+          "target": "n_eglence",
+          "effects": [
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "antrenman_verimi",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_dikkatli_oyna",
+          "text": "Sakatlıktan korktuğun için topa hiç girme ve sadece ayakta kalmaya çalış.",
+          "target": "n_dikkat",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": -10
+          }
+        }
+      ]
+    },
+    "n_ciddiye_al": {
+      "title": "Savaşçı",
+      "kind": "outcome",
+      "text": "Çamur banyosu yaptın ama hırsın herkesi etkiledi. Ertesi gün hafif hasta uyansan da hocanın gözüne tam anlamıyla girdin.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_eglence": {
+      "title": "Çocuklar Gibi",
+      "kind": "outcome",
+      "text": "Senin başlattığın su savaşlarına tüm takım katıldı. İdman iptal oldu ama takım içi arkadaşlık inanılmaz seviyeye geldi.",
+      "onEnter": [
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_dikkat": {
+      "title": "Korkak Yıldız",
+      "kind": "outcome",
+      "text": "Hocan senin bu çekingen tavrından hiç hoşlanmadı. Hafta sonu oynanacak maçta seni yedek soyundurmayı düşünüyor.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_training_storm",
+    "beat": "evt_training_rain_storm",
+    "signature": "training:fam_training_storm"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

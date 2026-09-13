@@ -1,0 +1,151 @@
+{
+  "id": "evt_reaction_post_match_fight",
+  "family": "fam_reaction_fight",
+  "category": "reaction",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Tünel Kavgaları",
+      "kind": "branch",
+      "text": "Gergin geçen bir derbi maçının ardından, soyunma odasına giden tünelde rakip takımın agresif stoperi sana omuz atıp küfür ediyor. Etrafta kameralar yok ama iki takımın da oyuncuları olayı izliyor.",
+      "choices": [
+        {
+          "id": "c_karsilik_ver",
+          "text": "Sert bir şekilde iterek karşılık ver ve kavgayı başlat.",
+          "target": "n_karsilik_ver",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -20
+          }
+        },
+        {
+          "id": "c_gormezden_gel",
+          "text": "Gülümseyerek 'Sahada yenemedin, burada da yenemezsin' de ve soyunma odasına yürü.",
+          "target": "n_gormezden_gel",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_hakeme_bildir",
+          "text": "Tüneldeki dördüncü hakeme gidip oyuncuyu şikayet et.",
+          "target": "n_hakeme_bildir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "durus": -15
+          }
+        }
+      ]
+    },
+    "n_karsilik_ver": {
+      "title": "Büyük Arbede",
+      "kind": "outcome",
+      "text": "Tünel karıştı ve güvenlik güçleri araya girmek zorunda kaldı. Hocan {actor.manager.name} bu agresifliğini eleştirse de takım arkadaşların seni bir savaşçı olarak görüyor.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_gormezden_gel": {
+      "title": "Psikolojik Üstünlük",
+      "kind": "outcome",
+      "text": "Rakip oyuncu senin bu soğukkanlı tavrın karşısında sinirden deliye döndü. Medya sonradan duyulan bu olayda senin zekanı övdü.",
+      "onEnter": [
+        {
+          "flag": "medya_itibari",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_hakeme_bildir": {
+      "title": "Resmi Yollar",
+      "kind": "outcome",
+      "text": "Rakip oyuncuya ekstra ceza verildi ancak kendi takım arkadaşların arasında 'Korktu ve şikayet etti' şeklinde dedikodular çıktı.",
+      "onEnter": [
+        {
+          "flag": "iliski_takim",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_reaction_fight",
+    "beat": "evt_reaction_post_match_fight",
+    "signature": "reaction:fam_reaction_fight"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

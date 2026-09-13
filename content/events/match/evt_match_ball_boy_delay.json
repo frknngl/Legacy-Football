@@ -1,0 +1,151 @@
+{
+  "id": "evt_match_ball_boy_delay",
+  "family": "fam_match_ball_boy",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Top Toplayıcı Kaptanı",
+      "kind": "branch",
+      "text": "Maçın son dakikaları ve 1-0 geridesiniz. Top taca çıkıyor ama rakip takımın taraftarı olan top toplayıcı çocuk topu sana vermek yerine arkasına saklıyor ve zaman geçiriyor.",
+      "choices": [
+        {
+          "id": "c_cocuga_bagir",
+          "text": "Sinirlenip çocuğun üzerine yürü ve topu zorla elinden al.",
+          "target": "n_cocuga_bagir",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_hakeme_goster",
+          "text": "Sakin kalıp hakeme dön, sürenin durdurulmasını ve çocuğun uyarılmasını iste.",
+          "target": "n_hakeme_goster",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_topu_baska_yerden",
+          "text": "Çocukla hiç muhatap olma, hızla koşup başka bir top alıp oyunu başlat.",
+          "target": "n_topu_baska_yerden",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -5
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_cocuga_bagir": {
+      "title": "Kırmızı Kart Tehlikesi",
+      "kind": "outcome",
+      "text": "Çocuğa müdahalen hakem tarafından aşırı bulundu. Sarı kart gördün ve basında 'Çocuklara kötü örnek oluyor' diye eleştirildin.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_hakeme_goster": {
+      "title": "Adalet Arayışı",
+      "kind": "outcome",
+      "text": "Hakem süreyi durdurdu ama rakip takım savunmaya yerleşti. Oyunu hızlı başlatma şansını kaçırdın.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_topu_baska_yerden": {
+      "title": "Sadece Oyuna Odaklı",
+      "kind": "outcome",
+      "text": "Hızla başka top alarak savunmayı hazırlıksız yakaladın ve yarattığın pozisyon takıma büyük bir fırsat sundu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_ball_boy",
+    "beat": "evt_match_ball_boy_delay",
+    "signature": "match:fam_match_ball_boy"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

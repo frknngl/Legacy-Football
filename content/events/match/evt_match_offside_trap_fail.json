@@ -1,0 +1,151 @@
+{
+  "id": "evt_match_offside_trap_fail",
+  "family": "fam_match_offside_trap",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Bozulan Ofsayt Taktiği",
+      "kind": "branch",
+      "text": "Savunma çizginiz rakibi ofsayta düşürmek için öne çıktığında, sen bir anlık dalgınlıkla geride kaldın. Rakip forvet senin bozduğun çizgiden fırlayıp kaleciyle karşı karşıya kaldı!",
+      "choices": [
+        {
+          "id": "c_depar_at",
+          "text": "Hatanı telafi etmek için bütün gücünle geriye depar at ve topa kayarak müdahale etmeye çalış.",
+          "target": "n_depar_at",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_hakeme_itiraz",
+          "text": "Pozisyonu bırakıp 'Ofsayt!' diye elini kaldırarak hakeme itiraz et.",
+          "target": "n_hakeme_itiraz",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_arkadasini_sucla",
+          "text": "Stoper arkadaşına dönüp 'Neden öne çıkıyorsun!' diye bağırarak suçu ona at.",
+          "target": "n_arkadasini_sucla",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "dogruluk": -10
+          }
+        }
+      ]
+    },
+    "n_depar_at": {
+      "title": "Fedakar Geri Dönüş",
+      "kind": "outcome",
+      "text": "İnanılmaz bir hızla geriye dönüp topu çizgiden çıkardın. Hocan {actor.manager.name} bu insanüstü çabanı ayakta alkışladı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 2
+        }
+      ]
+    },
+    "n_hakeme_itiraz": {
+      "title": "Boş İtiraz",
+      "kind": "outcome",
+      "text": "Hakem ofsayt bayrağını kaldırmadı ve golü yediniz. Sen elin havada kalakalırken hocan {actor.manager.name} kenarda deliye döndü.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_arkadasini_sucla": {
+      "title": "Soyunma Odası Gerilimi",
+      "kind": "outcome",
+      "text": "Stoper sana çok öfkelendi. Maç boyunca aranızda iletişim koptu ve savunma hattı tel tel döküldü.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_offside_trap",
+    "beat": "evt_match_offside_trap_fail",
+    "signature": "match:fam_match_offside_trap"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

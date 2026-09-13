@@ -1,112 +1,151 @@
 {
   "id": "evt_training_new_drill",
-  "family": "fam_training_new_drill",
+  "family": "fam_training_drill",
   "category": "training",
   "tier": "minor",
-  "weight": 10,
   "authored": "hand",
+  "weight": 30,
   "cooldown": {
-    "self": 15,
-    "family": 10
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Çılgın Antrenman Metodu",
+      "kind": "branch",
+      "text": "Hocanız {actor.manager.name} antrenman sahasına enteresan aletlerle geldi. Futbolcuları bellerinden direnç lastikleriyle ağaçlara bağlayıp o şekilde depar atmalarını istiyor. Çoğu oyuncu homurdanıyor.",
+      "choices": [
+        {
+          "id": "c_liderlik_yap",
+          "text": "Hiç şikayet etmeden ilk sen bağlan ve var gücünle çalışarak takıma örnek ol.",
+          "target": "n_liderlik_yap",
+          "effects": [
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 10
+          }
+        },
+        {
+          "id": "c_itiraz_et",
+          "text": "Bunun sakatlık riski taşıdığını belirterek bu saçma antrenmanı yapmayı reddet.",
+          "target": "n_itiraz_et",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "durus": -20,
+            "mizac": -10
+          }
+        },
+        {
+          "id": "c_kaytar",
+          "text": "Kasığından sakatlık numarası yapıp antrenmanı yarıda bırakarak fizyoterapiste git.",
+          "target": "n_kaytar",
+          "effects": [
+            {
+              "flag": "antrenman_verimi",
+              "op": "add",
+              "value": -20
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "dogruluk": -25,
+            "durus": -15
+          }
+        }
+      ]
+    },
+    "n_liderlik_yap": {
+      "title": "Gladyatör",
+      "kind": "outcome",
+      "text": "Bu zorlu idman seni fiziksel olarak yordu ama hocan azmini çok beğendi. Diğerleri de seni görünce çalışmak zorunda kaldı.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": 3
+        }
+      ]
+    },
+    "n_itiraz_et": {
+      "title": "İsyankar Oyuncu",
+      "kind": "outcome",
+      "text": "Hocan {actor.manager.name} seni idmandan kovdu ama takım arkadaşların içten içe seni kahraman ilan etti.",
+      "onEnter": [
+        {
+          "flag": "npc_manager_arc",
+          "op": "add",
+          "value": -3
+        }
+      ]
+    },
+    "n_kaytar": {
+      "title": "Tembel Kurnazlık",
+      "kind": "outcome",
+      "text": "Fizyoterapist masasında sıcak kahveni yudumlarken dışarıda acı çeken takım arkadaşlarını izledin. İdman eksiğin formunu düşürdü.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
   },
   "story": {
-    "arc": "underrepresented",
-    "beat": "new_drill",
-    "signature": "training:new_drill"
+    "arc": "fam_training_drill",
+    "beat": "evt_training_new_drill",
+    "signature": "training:fam_training_drill"
   },
-  "variants": [
-    {
-      "id": "v_default",
-      "rootNode": "n_root",
-      "nodes": {
-        "n_root": {
-          "title": "Ağır İdman",
-          "kind": "branch",
-          "text": "Takımın yeni kondisyoneri 'Eski usul askeri idman' yöntemini getirdi. Herkes kusma noktasına gelirken o hala 'Daha hızlı!' diye bağırıyor.",
-          "choices": [
-            {
-              "id": "c_0",
-              "text": "Dişini sık ve herkesten daha çok koş.",
-              "target": "n_outcome_0",
-              "effects": [
-                {
-                  "flag": "kondisyon",
-                  "op": "add",
-                  "value": 20
-                },
-                {
-                  "flag": "mental_dayaniklilik",
-                  "op": "add",
-                  "value": 10
-                }
-              ],
-              "persona": {
-                "durus": 20
-              }
-            },
-            {
-              "id": "c_1",
-              "text": "İsyan et, 'Biz asker değil futbolcuyuz' de.",
-              "target": "n_outcome_1",
-              "effects": [
-                {
-                  "flag": "disiplin_sicili",
-                  "op": "add",
-                  "value": 15
-                },
-                {
-                  "flag": "iliski_manager",
-                  "op": "add",
-                  "value": -15
-                },
-                {
-                  "flag": "takim_uyumu",
-                  "op": "add",
-                  "value": 10
-                }
-              ],
-              "persona": {
-                "mizac": 20
-              }
-            },
-            {
-              "id": "c_2",
-              "text": "Gizlice tempoyu düşür, sakatlanmamaya bak.",
-              "target": "n_outcome_2",
-              "effects": [
-                {
-                  "flag": "kondisyon",
-                  "op": "add",
-                  "value": -5
-                },
-                {
-                  "flag": "profesyonellik",
-                  "op": "add",
-                  "value": -10
-                }
-              ],
-              "persona": {
-                "dogruluk": -10
-              }
-            }
-          ]
-        },
-        "n_outcome_0": {
-          "title": "Sonuç",
-          "kind": "outcome",
-          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
-        },
-        "n_outcome_1": {
-          "title": "Sonuç",
-          "kind": "outcome",
-          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
-        },
-        "n_outcome_2": {
-          "title": "Sonuç",
-          "kind": "outcome",
-          "text": "Kariyerinin görünmeyen yüzü: Mental savaşlar, taktik tahtasındaki çekişmeler ve idman sahasındaki ter. Kararın seni şekillendiriyor."
-        }
-      }
-    }
-  ]
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
 }

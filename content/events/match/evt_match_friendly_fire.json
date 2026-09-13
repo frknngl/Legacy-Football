@@ -1,0 +1,151 @@
+{
+  "id": "evt_match_friendly_fire",
+  "family": "fam_match_friendly_fire",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "prospect",
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "relegation",
+    "midtable",
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Dost Ateşi",
+      "kind": "branch",
+      "text": "Takım arkadaşın ceza sahası dışından sert bir şut çekti ancak top doğrudan senin suratına çarptı! Yere yığıldın, kısa bir süreliğine dünyan karardı ama top senin yüzüne çarpıp ağlara gitti. Hakem golü verdi.",
+      "choices": [
+        {
+          "id": "c_gole_sevin",
+          "text": "Acıyı unutup ayağa fırla ve yüzünü tutarak taraftarlara doğru koşup sevin.",
+          "target": "n_gole_sevin",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 20
+            },
+            {
+              "flag": "kondisyon",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_arkadasa_kiz",
+          "text": "Yerden kalkıp takım arkadaşına 'Beni öldürüyordun!' diye bağırarak tepki göster.",
+          "target": "n_arkadasa_kiz",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            }
+          ],
+          "persona": {
+            "mizac": -20,
+            "durus": 10
+          }
+        },
+        {
+          "id": "c_saglik_ekibi",
+          "text": "Golü umursama, sağlık ekibini çağırıp burnunun kırılıp kırılmadığını kontrol ettir.",
+          "target": "n_saglik_ekibi",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "dogruluk": 20,
+            "mizac": -10
+          }
+        }
+      ]
+    },
+    "n_gole_sevin": {
+      "title": "Fedakar Yıldız",
+      "kind": "outcome",
+      "text": "Burnundan kanlar akarken attığın gol sevinci kulüp tarihinin ikonik fotoğraflarından biri oldu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_arkadasa_kiz": {
+      "title": "Gergin Anlar",
+      "kind": "outcome",
+      "text": "Gol sevinciniz yarıda kaldı, takım arkadaşınla saha ortasında tartıştınız. Hocanız bu duruma oldukça sinirlendi.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    },
+    "n_saglik_ekibi": {
+      "title": "Önce Sağlık",
+      "kind": "outcome",
+      "text": "Oyun birkaç dakika durdu. Burnunda sorun yoktu ama ritmin bozuldu, maça adapte olmakta zorlandın.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_friendly_fire",
+    "beat": "evt_match_friendly_fire",
+    "signature": "match:fam_match_friendly_fire"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "id": "evt_mind_komplo_teorisi_kampi",
+  "family": "fam_mind_komplo",
+  "category": "mind",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "rise",
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Komplo Teorisi Kampı",
+      "kind": "branch",
+      "text": "Milli ara boşluğunda internetteki komplo teorisi videolarına o kadar daldın ki, hafta sonu ormanda düzenlenen gizli bir 'Uyanış Kampı'na katılmaya karar verdin. Ancak kampta magazin muhabirleri gizlice fotoğrafını çekti.",
+      "choices": [
+        {
+          "id": "c_kabul_et",
+          "text": "Saklamaya gerek yok, 'Dünya düz olabilir, araştırıyorum' diyerek medyaya açıklama yap.",
+          "target": "n_kabul_et",
+          "effects": [
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": 20,
+            "durus": -15
+          }
+        },
+        {
+          "id": "c_yalanla",
+          "text": "Fotoğrafları yalanla, 'Sadece kamp yapıyordum, onların kim olduğunu bilmiyorum' de.",
+          "target": "n_yalanla",
+          "effects": [
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": 10
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": -20,
+            "durus": 15
+          }
+        },
+        {
+          "id": "c_hocaya_sor",
+          "text": "Hocana {actor.manager.name} gidip 'Hocam, taktik tahtasındaki üçgenler İlluminati mesajı mı?' diye sor.",
+          "target": "n_hocaya_sor",
+          "effects": [
+            {
+              "flag": "npc_manager_arc",
+              "op": "add",
+              "value": -10
+            },
+            {
+              "flag": "moral",
+              "op": "add",
+              "value": 15
+            }
+          ],
+          "persona": {
+            "mizac": 25,
+            "dogruluk": 10
+          }
+        }
+      ]
+    },
+    "n_kabul_et": {
+      "title": "Çatlak Profesör",
+      "kind": "outcome",
+      "text": "Kulüp başkanı {actor.president.name} saçmalamanı durdurman için sana uyarı gönderdi ama tuhaf komplo teorisyenleri seni kral ilan etti.",
+      "onEnter": [
+        {
+          "flag": "taraftar_destegi",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_yalanla": {
+      "title": "Hasar Kontrolü",
+      "kind": "outcome",
+      "text": "Muhabirler yalanladığını ispat edemediler. Kısa süreli bir magazin dedikodusu olarak kaldı ve herkes çabuk unuttu.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 5
+        }
+      ]
+    },
+    "n_hocaya_sor": {
+      "title": "Hocanın Sabrı",
+      "kind": "outcome",
+      "text": "Hocan {actor.manager.name} seni tesisten dışarı atıp psikoloğa gitmeni emretti. Eğlendin ama ilk 11'den kesildin.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_mind_komplo",
+    "beat": "evt_mind_komplo_teorisi_kampi",
+    "signature": "mind:fam_mind_komplo"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}

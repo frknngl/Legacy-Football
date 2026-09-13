@@ -1,0 +1,147 @@
+{
+  "id": "evt_match_captain_injury",
+  "family": "fam_match_captain",
+  "category": "match",
+  "tier": "minor",
+  "authored": "hand",
+  "weight": 30,
+  "cooldown": {
+    "self": 200,
+    "family": 150
+  },
+  "eras": [
+    "prime",
+    "veteran"
+  ],
+  "stature": [
+    "star",
+    "superstar"
+  ],
+  "clubTiers": [
+    "contender",
+    "elite"
+  ],
+  "lifeStates": [
+    "playing"
+  ],
+  "rootNode": "n_root",
+  "nodes": {
+    "n_root": {
+      "title": "Kaptanın Sorumluluğu",
+      "kind": "branch",
+      "text": "Maçın henüz başında takımın birinci kaptanı ciddi bir sakatlık geçirerek oyundan çıkmak zorunda kaldı. Sahayı terk ederken pazu bandını doğrudan sana taktı. Takım demoralize olmuş durumda ve zorlu bir maç sizi bekliyor.",
+      "choices": [
+        {
+          "id": "c_taktik_degistir",
+          "text": "Takım arkadaşlarını etrafına toplayıp kısa bir motive edici konuşma yap.",
+          "target": "n_konusma_yap",
+          "effects": [
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "profesyonellik",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "durus": 20,
+            "mizac": 15
+          }
+        },
+        {
+          "id": "c_sakin_kal",
+          "text": "Hiç tepki vermeden pazu bandını koluna tak ve sessizce sadece kendi oyununa odaklan.",
+          "target": "n_sakin_kal",
+          "effects": [
+            {
+              "flag": "form",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "iliski_takim",
+              "op": "add",
+              "value": -10
+            }
+          ],
+          "persona": {
+            "dogruluk": 15,
+            "durus": -10
+          }
+        },
+        {
+          "id": "c_hakeme_baski",
+          "text": "Kaptanlık yetkini hemen kullanarak rakibin her sert hareketinde hakemin yanına git.",
+          "target": "n_hakeme_baski",
+          "effects": [
+            {
+              "flag": "taraftar_destegi",
+              "op": "add",
+              "value": 15
+            },
+            {
+              "flag": "medya_itibari",
+              "op": "add",
+              "value": -15
+            }
+          ],
+          "persona": {
+            "mizac": -15,
+            "durus": 20
+          }
+        }
+      ]
+    },
+    "n_konusma_yap": {
+      "title": "Gerçek Lider",
+      "kind": "outcome",
+      "text": "Konuşman takımı ateşledi. Kaptanın yokluğunu hissettirmeden sahada harika bir liderlik gösterdin.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": 15
+        }
+      ]
+    },
+    "n_sakin_kal": {
+      "title": "Buz Gibi",
+      "kind": "outcome",
+      "text": "Takım arkadaşların senden bir liderlik beklese de sen sadece kendi performansını düşünerek bireysel olarak iyi oynadın.",
+      "onEnter": [
+        {
+          "flag": "moral",
+          "op": "add",
+          "value": -5
+        }
+      ]
+    },
+    "n_hakeme_baski": {
+      "title": "Agresif Kaptan",
+      "kind": "outcome",
+      "text": "Hakem sürekli seninle muhatap olmaktan bunaldı ve sana sarı kart gösterdi. Ancak taraftarlar bu mücadeleci ruhunu sevdi.",
+      "onEnter": [
+        {
+          "flag": "form",
+          "op": "add",
+          "value": -10
+        }
+      ]
+    }
+  },
+  "story": {
+    "arc": "fam_match_captain",
+    "beat": "evt_match_captain_injury",
+    "signature": "match:fam_match_captain"
+  },
+  "repeatPolicy": {
+    "arcGapTurns": 150,
+    "beatGapTurns": 150,
+    "signatureGapTurns": 150,
+    "maxBeatUses": 1
+  }
+}
