@@ -10,98 +10,39 @@
  *   degistirmeyi gerektiriyordu. Bu, projenin kendi ilkesine aykiriydi
  *   ("yeni bir basamak eklemek kod degil satir gerektirir").
  *
- *   Artik hepsi `tools/roster/referee-pool.json`da. Yeni hakem eklemek,
- *   kokart dagilimini degistirmek ya da bir ulkeye ozel isim havuzu tanimlamak
- *   icin kod degismez.
+ *   Artik hepsi VERITABANINDA: `ref_name_pool`, `ref_attribute_band`,
+ *   `ref_distribution`, `ref_setting` ve `ref_manual_referee`. Once JSON
+ *   dosyasindaydilar; gercek veri veritabaninda yasar ve editorden
+ *   duzenlenebilir. Yeni hakem eklemek, kokart dagilimini degistirmek ya da
+ *   bir ulkeye ozel isim havuzu tanimlamak icin kod degismez -- SATIR eklenir.
  *
  * DETERMINIZM: ayni tohum + ayni havuz = ayni hakem kadrosu.
  * MASKE KILIDI: bir kere uretilen hakem adi ve ID'si degismez; havuza yeni
  * isim eklemek eski hakemleri yeniden adlandirmaz.
  */
 
-import { readFileSync, existsSync } from 'node:fs';
 import type { IssueLog } from '../db.js';
 import type { DatabaseSyncType } from '../sqlite.js';
 import { MaskBinder, hashString } from '../masking.js';
+import {
+  readBands,
+  readDistribution,
+  readManualReferees,
+  readNamePool,
+  readSetting,
+  type BandTable,
+} from './reference.js';
 
 export type RefereeBadge = 'regional' | 'national' | 'elite' | 'fifa';
 const BADGES: readonly RefereeBadge[] = ['regional', 'national', 'elite', 'fifa'];
 
 type Range = readonly [number, number];
 
-interface BadgeProfile {
-  readonly consistency: Range;
-  readonly bias: number;
-  readonly reputation: Range;
-}
-
-interface NamePool {
-  readonly first: readonly string[];
-  readonly last: readonly string[];
-}
-
-/** Elle tanimlanmis hakem -- `manual` dizisinden. */
-interface ManualReferee {
-  readonly name: string;
-  readonly country: string;
-  readonly badge: RefereeBadge;
-  readonly attributes?: Partial<Record<string, number>>;
-}
-
-export interface RefereePool {
-  readonly refereesPerLeague: number;
-  readonly badgeDistribution: Readonly<Record<RefereeBadge, number>>;
-  readonly badgeProfiles: Readonly<Record<RefereeBadge, BadgeProfile>>;
-  readonly attributeRanges: Readonly<Record<string, Range>>;
-  readonly namePools: Readonly<Record<string, NamePool>>;
-  readonly manual: readonly ManualReferee[];
-}
-
-/** Havuz dosyasi yoksa oyun yine calissin diye asgari varsayilan. */
-const FALLBACK_POOL: RefereePool = {
-  refereesPerLeague: 8,
-  badgeDistribution: { regional: 0.45, national: 0.35, elite: 0.15, fifa: 0.05 },
-  badgeProfiles: {
-    regional: { consistency: [35, 65], bias: 12, reputation: [20, 45] },
-    national: { consistency: [50, 78], bias: 8, reputation: [40, 70] },
-    elite: { consistency: [65, 88], bias: 5, reputation: [65, 88] },
-    fifa: { consistency: [75, 95], bias: 3, reputation: [80, 99] },
-  },
-  attributeRanges: {
-    strictness: [35, 85],
-    cardTendency: [30, 85],
-    penaltyCourage: [30, 90],
-    varReliance: [20, 90],
-    experience: [0, 250],
-  },
-  namePools: {
-    default: { first: ['Marco', 'Felix', 'Michael'], last: ['Rossi', 'Weber', 'Oliver'] },
-  },
-  manual: [],
-};
-
-export function loadRefereePool(path: string, log: IssueLog): RefereePool {
-  if (!existsSync(path)) {
-    log.warn('referees', `havuz dosyasi yok, varsayilana dusuluyor: ${path}`);
-    return FALLBACK_POOL;
-  }
-  const raw = JSON.parse(readFileSync(path, 'utf-8')) as Partial<RefereePool>;
-  return {
-    refereesPerLeague: raw.refereesPerLeague ?? FALLBACK_POOL.refereesPerLeague,
-    badgeDistribution: raw.badgeDistribution ?? FALLBACK_POOL.badgeDistribution,
-    badgeProfiles: raw.badgeProfiles ?? FALLBACK_POOL.badgeProfiles,
-    attributeRanges: raw.attributeRanges ?? FALLBACK_POOL.attributeRanges,
-    namePools: raw.namePools ?? FALLBACK_POOL.namePools,
-    manual: raw.manual ?? [],
-  };
-}
-
 export interface RefereeStageInput {
   readonly db: DatabaseSyncType;
   readonly binder: MaskBinder;
   readonly log: IssueLog;
   readonly seed: number;
-  readonly poolPath: string;
 }
 
 export interface RefereeStageResult {
@@ -115,7 +56,15 @@ const REFEREE_ID_OFFSET = 1_000_000;
 
 export function generateReferees(input: RefereeStageInput): RefereeStageResult {
   const { db, binder, log } = input;
-  const pool = loadRefereePool(input.poolPath, log);
+
+  // KURULUM VERISI VERITABANINDAN.
+  const perLeague = readSetting(db, 'referee', 'per_league', 8);
+  const badgeDistribution = readDistribution(db, 'referee', 'badge');
+  const globalRanges = readBands(db, 'referee', '*');
+  const manualReferees = readManualReferees(db);
+  const badgeBands = new Map<RefereeBadge, BandTable>(
+    BADGES.map((b) => [b, readBands(db, 'referee', b)]),
+  );
 
   const countries = db.prepare('SELECT id, name_real FROM country').all() as unknown as {
     id: number;
@@ -163,21 +112,24 @@ export function generateReferees(input: RefereeStageInput): RefereeStageResult {
     //
     // Once bunlar: kullanicinin acikca istedigi hakemler cekilisle uretilen
     // kadronun arasinda kaybolmasin.
-    pool.manual.forEach((entry, index) => {
-      const countryId = countryIdByName.get(entry.country);
+    manualReferees.forEach((entry, index) => {
+      const countryId = countryIdByName.get(entry.countryName);
       if (countryId === undefined) {
         log.warn(
           'referees',
-          `elle hakem "${entry.name}" atlandi: "${entry.country}" ithal edilen ulkeler arasinda yok`,
+          `elle hakem "${entry.name}" atlandi: "${entry.countryName}" ithal edilen ulkeler arasinda yok`,
           'referee',
           entry.name,
         );
         return;
       }
-      const profile = pool.badgeProfiles[entry.badge] ?? FALLBACK_POOL.badgeProfiles.national;
+      const badge = entry.badge as RefereeBadge;
+      const bands = badgeBands.get(badge) ?? new Map();
       const roll = pseudo(input.seed, `manual:${index}`);
-      const attr = (key: string, fallbackRoll: number): number =>
-        entry.attributes?.[key] ?? span(roll(fallbackRoll), pool.attributeRanges[key] ?? [40, 70]);
+      // Elle verilen deger varsa o; yoksa banttan cekilis.
+      const attr = (key: string, index2: number, band?: Range): number =>
+        entry.overrides.get(key) ?? span(roll(index2), band ?? globalRanges.get(key));
+      const bias = bands.get('bias')?.[0] ?? 8;
 
       const bound = binder.resolve('player', `ref-manual-${index}`, entry.name, () => ({
         name: entry.name,
@@ -190,17 +142,17 @@ export function generateReferees(input: RefereeStageInput): RefereeStageResult {
         entry.name,
         bound.name,
         countryId,
-        entry.badge,
+        badge,
         attr('strictness', 1),
-        attr('cardTendency', 2),
-        attr('penaltyCourage', 3),
-        attr('varReliance', 4),
-        entry.attributes?.['consistency'] ?? span(roll(5), profile.consistency),
-        entry.attributes?.['homeBias'] ?? 50 + Math.round((roll(6) * 2 - 1) * profile.bias),
+        attr('card_tendency', 2),
+        attr('penalty_courage', 3),
+        attr('var_reliance', 4),
+        attr('consistency', 5, bands.get('consistency')),
+        entry.overrides.get('home_bias') ?? 50 + Math.round((roll(6) * 2 - 1) * bias),
         attr('experience', 7),
-        entry.attributes?.['reputation'] ?? span(roll(8), profile.reputation),
+        attr('reputation', 8, bands.get('reputation')),
       );
-      byBadge[entry.badge] += 1;
+      byBadge[badge] += 1;
       manualCount += 1;
       generated += 1;
     });
@@ -208,14 +160,15 @@ export function generateReferees(input: RefereeStageInput): RefereeStageResult {
     // --- TOHUMDAN URETILENLER
     for (const country of countries) {
       const leagues = leaguesPerCountry.get(country.id) ?? 1;
-      const count = Math.max(6, Math.round(leagues * pool.refereesPerLeague));
-      const names = pool.namePools[country.name_real] ?? pool.namePools['default'];
-      if (!names || names.first.length === 0 || names.last.length === 0) continue;
+      const count = Math.max(6, Math.round(leagues * perLeague));
+      const names = readNamePool(db, 'referee', country.name_real);
+      if (names.first.length === 0 || names.last.length === 0) continue;
 
       for (let i = 0; i < count; i += 1) {
         const roll = pseudo(input.seed, `ref:${country.id}:${i}`);
-        const badge = pickBadge(pool.badgeDistribution, roll(0));
-        const profile = pool.badgeProfiles[badge] ?? FALLBACK_POOL.badgeProfiles.national;
+        const badge = pickBadge(badgeDistribution, roll(0));
+        const bands = badgeBands.get(badge) ?? new Map();
+        const bias = bands.get('bias')?.[0] ?? 8;
 
         const name = `${pick(names.first, roll(1))} ${pick(names.last, roll(2))}`;
         const bound = binder.resolve('player', `ref-${country.id}-${i}`, name, (salt) => ({
@@ -230,14 +183,14 @@ export function generateReferees(input: RefereeStageInput): RefereeStageResult {
           bound.name,
           country.id,
           badge,
-          span(roll(3), pool.attributeRanges['strictness'] ?? [35, 85]),
-          span(roll(4), pool.attributeRanges['cardTendency'] ?? [30, 85]),
-          span(roll(5), pool.attributeRanges['penaltyCourage'] ?? [30, 90]),
-          span(roll(6), pool.attributeRanges['varReliance'] ?? [20, 90]),
-          span(roll(7), profile.consistency),
-          50 + Math.round((roll(8) * 2 - 1) * profile.bias),
-          span(roll(9), pool.attributeRanges['experience'] ?? [0, 250]),
-          span(roll(10), profile.reputation),
+          span(roll(3), globalRanges.get('strictness')),
+          span(roll(4), globalRanges.get('cardTendency')),
+          span(roll(5), globalRanges.get('penaltyCourage')),
+          span(roll(6), globalRanges.get('varReliance')),
+          span(roll(7), bands.get('consistency')),
+          50 + Math.round((roll(8) * 2 - 1) * bias),
+          span(roll(9), globalRanges.get('experience')),
+          span(roll(10), bands.get('reputation')),
         );
 
         byBadge[badge] += 1;
@@ -264,10 +217,12 @@ function badgeCounter(): Record<RefereeBadge, number> {
 }
 
 /** Kumulatif dagilimdan kokart seceri. Toplam 1'e ulasmazsa en dusuge duser. */
-function pickBadge(distribution: Readonly<Record<RefereeBadge, number>>, roll: number): RefereeBadge {
+function pickBadge(distribution: ReadonlyMap<string, number>, roll: number): RefereeBadge {
+  const total = [...distribution.values()].reduce((s, w) => s + w, 0);
+  if (total <= 0) return 'regional';
   let acc = 0;
   for (const badge of BADGES) {
-    acc += distribution[badge] ?? 0;
+    acc += (distribution.get(badge) ?? 0) / total;
     if (roll <= acc) return badge;
   }
   return 'regional';
@@ -277,8 +232,10 @@ function pick<T>(items: readonly T[], roll: number): T {
   return items[Math.min(items.length - 1, Math.floor(roll * items.length))]!;
 }
 
-function span(roll: number, range: Range): number {
-  return Math.round(range[0] + roll * (range[1] - range[0]));
+/** Banttan cekilis. Bant tanimli degilse notr 40-70 araligina duser. */
+function span(roll: number, range: Range | undefined): number {
+  const [min, max] = range ?? [40, 70];
+  return Math.round(min + roll * (max - min));
 }
 
 /** (tohum, anahtar) ikilisinden tekrar edilebilir cekilis dizisi. */

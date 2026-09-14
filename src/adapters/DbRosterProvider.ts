@@ -104,6 +104,32 @@ interface PlayerRow {
   physical: number;
   goalkeeping: number;
   overall: number;
+  /**
+   * FC26 anligindan GELEN degerler. Transfermarkt hatti tasimaz -> NULL.
+   * Null geldiginde eski tahmin yoluna dusulur (zarif bozulma).
+   */
+  aggression: number | null;
+  composure: number | null;
+  intl_reputation: number | null;
+  shirt_number: number | null;
+}
+
+interface StaffRow {
+  id: number;
+  name_masked: string;
+  first_masked: string;
+  last_masked: string;
+  role: string;
+  birth_year: number | null;
+  origin: string;
+  reputation: number;
+  tactical: number | null;
+  training: number | null;
+  development: number | null;
+  motivation: number | null;
+  man_management: number | null;
+  discipline: number | null;
+  preferred_formation: string | null;
 }
 
 export interface DbRosterOptions {
@@ -127,9 +153,20 @@ export class DbRosterProvider implements RosterProvider {
   private readonly byId: Map<string, ClubInfo>;
   private readonly squadCache = new Map<string, readonly RosterPerson[]>();
   private readonly staffCache = new Map<string, readonly StaffPerson[]>();
+  private readonly freeStaffCache = new Map<string, readonly StaffPerson[]>();
   private readonly personIndex = new Map<string, AnyPerson>();
   private readonly staffGender = new Map<StaffRole, 'male' | 'female' | 'any'>();
   private readonly squadStmt;
+  /**
+   * Teknik heyet sorgusu -- OPSIYONEL.
+   *
+   * `staff` tablosu v5 ile geldi. Eski bir world.db ile calisirken
+   * `prepare` patlar; bu yuzden hazirlama denemesi sarmalanir ve
+   * basarisizlikta saglayici tohum yoluna duser. Motorun eski veriyle
+   * calismayi reddetmesi icin bir sebep yok.
+   */
+  private readonly staffStmt: ReturnType<DatabaseSyncType['prepare']> | undefined;
+  private readonly freeStaffStmt: ReturnType<DatabaseSyncType['prepare']> | undefined;
 
   constructor(private readonly opts: DbRosterOptions) {
     this.forge = new NameForge(opts.names);
@@ -143,10 +180,52 @@ export class DbRosterProvider implements RosterProvider {
     this.squadStmt = opts.db.prepare(
       `SELECT p.id, p.first_masked, p.last_masked, p.birth_year, p.nationality,
               p.position, p.height_cm,
+              p.aggression, p.composure, p.intl_reputation, p.shirt_number,
               a.pace, a.shooting, a.passing, a.defending, a.physical, a.goalkeeping, a.overall
        FROM player p JOIN player_attributes a ON a.player_id = p.id
        WHERE p.club_id = ?
        ORDER BY a.overall DESC`,
+    );
+
+    this.staffStmt = prepareOrUndefined(
+      opts.db,
+      `SELECT s.id, s.name_masked, s.first_masked, s.last_masked, s.role,
+              s.birth_year, s.origin, s.reputation,
+              a.tactical, a.training, a.development, a.motivation,
+              a.man_management, a.discipline, a.preferred_formation
+       FROM staff s LEFT JOIN staff_attributes a ON a.staff_id = s.id
+       WHERE s.club_id = ?`,
+    );
+
+    // BOSTA HEYET -- kulube atanmamis kisiler.
+    //
+    // SIRALAMA IKI OLCUTLU ve ikisi de kasitli:
+    //
+    //   1. ITIBAR YAKINLIGI -- nitelige gore DEGIL. Once 'a.overall DESC'
+    //      yazilmisti ve olcumde her kulup havuzun en iyisini aliyordu:
+    //      dort ard arda kovulmada gelen hocalarin taktik degeri
+    //      74/74/74/79 ciktil. Yani her kovulma bir YUKSELTMEYE donusuyordu
+    //      ve kume hattindaki takimla dev kulup ayni hocayi celbediyordu.
+    //      Itibar farkina gore siralamak bunu kendiliginden duzeltir.
+    //
+    //   2. ULKE -- ESITLIK BOZUCU, kapi DEGIL. Once mutlak kapiydi ve
+    //      olcumde itibari 96 olan bir kulube havuzun en iyi yerli hocasi
+    //      (itibar 61) geliyordu; itibari 94 olan yabanci hoca sirada ondan
+    //      SONRA bekliyordu. Gercek bir dev en iyi ismi yurt disindan da
+    //      alir. Ulke tercihi artik sekiz itibar puani degerinde: yakin
+    //      adaylarda yerliyi one alir, arayi acan farki kapatmaz.
+    this.freeStaffStmt = prepareOrUndefined(
+      opts.db,
+      `SELECT s.id, s.name_masked, s.first_masked, s.last_masked, s.role,
+              s.birth_year, s.origin, s.reputation,
+              a.tactical, a.training, a.development, a.motivation,
+              a.man_management, a.discipline, a.preferred_formation
+       FROM staff s LEFT JOIN staff_attributes a ON a.staff_id = s.id
+       WHERE s.club_id IS NULL AND s.role = ?
+       ORDER BY abs(s.reputation - coalesce(
+                      (SELECT reputation FROM club WHERE id = ?), 50))
+                - 8 * (s.country_id IS NOT NULL
+                       AND s.country_id = (SELECT country_id FROM club WHERE id = ?)) ASC`,
     );
 
     const rows = opts.db
@@ -173,9 +252,13 @@ export class DbRosterProvider implements RosterProvider {
 
   /** Piramidi `competition` tablosundan okur -- `LeagueModel` bunu bekler. */
   leagues(): readonly LeagueInfo[] {
+    // ULKE DE OKUNUR: terfi/dusme piramidi ulke icinde kalmali. Bu kolon
+    // sorguya alinmadigi surece `LeagueModel` butun ulkeleri tek piramit
+    // sanar ve dunya birkac sezonda iki lige cokerdi (bkz. LeagueInfo.country).
     const rows = this.opts.db
       .prepare(
-        `SELECT id, name_masked, level, promoted, relegated FROM competition ORDER BY level, id`,
+        `SELECT id, name_masked, level, promoted, relegated, country_id
+         FROM competition ORDER BY level, id`,
       )
       .all() as unknown as {
       id: number;
@@ -183,6 +266,7 @@ export class DbRosterProvider implements RosterProvider {
       level: number | null;
       promoted: number;
       relegated: number;
+      country_id: number | null;
     }[];
 
     return rows.map((r) => ({
@@ -191,6 +275,7 @@ export class DbRosterProvider implements RosterProvider {
       level: r.level ?? 9,
       promoted: r.promoted,
       relegated: r.relegated,
+      ...(r.country_id === null ? {} : { country: String(r.country_id) }),
     }));
   }
 
@@ -238,7 +323,21 @@ export class DbRosterProvider implements RosterProvider {
     const club = this.byId.get(clubId);
     if (!club) return [];
 
-    // Teknik heyet kaynakta YOK -- tohumdan uretilir.
+    // ONCE VERITABANI.
+    //
+    // `staff` tablosu geldiginde teknik heyet artik tohumdan uretilmiyor:
+    // kimlik gercek (male_coaches.csv), nitelikler import asamasinda
+    // deterministik olarak uretilmis ve KALICI. Ayni dunyada yirmi kariyer
+    // ayni hocalari gorur.
+    const fromDb = this.staffFromDb(clubId);
+    if (fromDb.length > 0) {
+      this.staffCache.set(clubId, fromDb);
+      for (const p of fromDb) this.personIndex.set(p.sourceId, p);
+      return fromDb;
+    }
+
+    // Tablo bossa (eski world.db, ya da oyuncu asamasi atlanmis import)
+    // eski tohum yoluna dusulur -- oyun calismaya devam eder.
     const rng = this.rngFor(`${clubId}:staff`);
     const roll = (): number => rng.next();
 
@@ -261,6 +360,89 @@ export class DbRosterProvider implements RosterProvider {
     this.staffCache.set(clubId, people);
     for (const p of people) this.personIndex.set(p.sourceId, p);
     return people;
+  }
+
+  /**
+   * Teknik heyeti veritabanindan okur.
+   *
+   * `staff_attributes` LEFT JOIN'dir: doktor, fizyoterapist ve baskan
+   * nitelik tasimaz (bir doktorun taktik bilgisi anlamsiz) ve o satirlar
+   * hic yazilmaz. Nitelik yoksa `attributes` alani KONULMAZ -- okuyan
+   * taraf yoklugunda notr davranir.
+   *
+   * Tablo bos donerse cagiran eski tohum yoluna duser.
+   */
+  /** Satir -> kisi. Atanmis ve bosta heyet ayni esleme kullanir. */
+  private staffPerson(r: StaffRow, sourceId: string, clubId: string): StaffPerson {
+    const first = r.first_masked === '' ? r.name_masked : r.first_masked;
+    const last = r.last_masked;
+    const attributes =
+      r.tactical === null
+        ? undefined
+        : {
+            tactical: r.tactical,
+            training: r.training ?? 50,
+            development: r.development ?? 50,
+            motivation: r.motivation ?? 50,
+            manManagement: r.man_management ?? 50,
+            discipline: r.discipline ?? 50,
+          };
+
+    return {
+      sourceId,
+      first,
+      last,
+      displayName: `${first} ${last}`.trim(),
+      age: r.birth_year === null ? 50 : clamp(CURRENT_YEAR - r.birth_year, 25, 80),
+      role: r.role as StaffRole,
+      origin: r.origin,
+      gender: 'male' as const,
+      clubId,
+      ...(attributes === undefined ? {} : { attributes }),
+      reputation: r.reputation,
+    };
+  }
+
+  /**
+   * BOSTA TEKNIK HEYET.
+   *
+   * KIMLIK DESENI FARKLI ve bu kasitli: atanmis heyet `db:<kulup>:s_<rol>`
+   * desenini kullanir -- yani KOLTUGU adlandirir, kisiyi degil. Kovulan
+   * hocanin yerine gelen kisi ayni deseni alsaydi aktor arsivi yeni hocayi
+   * eskisiyle AYNI kisi sanar ve kovulmayla biten iliskiyi geri yuklerdi.
+   * Bosta hocalar o yuzden `db:free:s_<id>` ile, yani KISI kimligiyle
+   * yasar; kulup degistirse de ayni kalir.
+   */
+  freeStaff(role: StaffRole, clubId?: string): readonly StaffPerson[] {
+    if (!this.freeStaffStmt) return [];
+    const cacheKey = `${role}:${clubId ?? ''}`;
+    const cached = this.freeStaffCache.get(cacheKey);
+    if (cached) return cached;
+
+    const club = clubId === undefined ? -1 : Number(clubId);
+    const rows = this.freeStaffStmt.all(role, club, club) as unknown as StaffRow[];
+
+    // KULUP ALANI: sorulan kulup yazilir. Bosta bir hocanin kulubu yoktur
+    // ama bu liste her zaman "su kulube kim gelebilir" diye sorulur ve
+    // `CastingDirector` aktoru baglarken `person.clubId`yi kullanir --
+    // yani gelecek kulup. Kulup verilmemisse alan bos kalir.
+    const people = rows.map((r) => this.staffPerson(r, `db:free:s_${r.id}`, clubId ?? ''));
+    this.freeStaffCache.set(cacheKey, people);
+    for (const p of people) this.personIndex.set(p.sourceId, p);
+    return people;
+  }
+
+  private staffFromDb(clubId: string): StaffPerson[] {
+    if (!this.staffStmt) return [];
+    const rows = this.staffStmt.all(Number(clubId)) as unknown as StaffRow[];
+    if (rows.length === 0) return [];
+
+    // Kimlik `db:<kulup>:s_<rol>` deseninde KALIR. Tohumdan uretilen
+    // heyetle ayni bicim: `lookup()` kimligi kuluple cozuyor ve arsiv
+    // kayitlari bu desene gore yazilmis durumda. Kaynak degisti diye
+    // kimlik bicimini degistirmek eski kariyerlerin aktor arsivini
+    // sahipsiz birakirdi.
+    return rows.map((r) => this.staffPerson(r, `db:${clubId}:s_${r.role}`, clubId));
   }
 
   private agentCache: readonly AgentProfile[] | undefined;
@@ -288,10 +470,22 @@ export class DbRosterProvider implements RosterProvider {
    */
   agents(): readonly AgentProfile[] {
     if (this.agentCache === undefined) {
+      // SIRKET ETKISI.
+      //
+      // Menajer bir KISI, arkasindaki sirket bir KURUM. Sirketin nufuzu
+      // menajerin acabilecegi kapiyi OLCEKLER -- ezmez. Wasserman'da
+      // calisan bir menajer ayni yetenekteki bagimsiz bir menajerden daha
+      // cok kapi acar, ama arketip carpani (0.2x-1.8x) hala baskin kalir.
+      //
+      // Sirket yoksa (eski world.db, ya da sirket asamasi atlanmis import)
+      // LEFT JOIN NULL doner ve etki sifir olur -- zarif bozulma.
       const rows = this.opts.db
         .prepare(
-          'SELECT id, name_masked, archetype, reach, negotiation, loyalty,' +
-            ' patience, commission, reputation FROM agent',
+          `SELECT g.id, g.name_masked, g.archetype, g.reach, g.negotiation,
+                  g.loyalty, g.patience, g.commission, g.reputation,
+                  a.influence AS agency_influence,
+                  a.negotiation_power AS agency_negotiation
+           FROM agent g LEFT JOIN agency a ON a.id = g.agency_id`,
         )
         .all() as unknown as {
         id: number;
@@ -303,13 +497,17 @@ export class DbRosterProvider implements RosterProvider {
         patience: number;
         commission: number;
         reputation: number;
+        agency_influence: number | null;
+        agency_negotiation: number | null;
       }[];
       this.agentCache = rows.map((r) => ({
         id: r.id,
         name: r.name_masked,
         archetype: r.archetype as AgentProfile['archetype'],
-        reach: r.reach,
-        negotiation: r.negotiation,
+        // Katsayilar DAR tutuldu: sirket bir menajeri bir kademe yukari
+        // tasir, sinif atlatmaz. 0.15 x 50 = en fazla +/-7.5 puan.
+        reach: blend(r.reach, r.agency_influence, 0.15),
+        negotiation: blend(r.negotiation, r.agency_negotiation, 0.12),
         loyalty: r.loyalty,
         patience: r.patience,
         commission: r.commission,
@@ -347,18 +545,51 @@ export class DbRosterProvider implements RosterProvider {
       displayName: `${row.first_masked} ${row.last_masked}`.trim(),
       age,
       position,
-      // Liderlik kaynakta yok: yas + seviye + kucuk bir dagilim.
-      // Kadronun en yaslisi ve en iyisi kaptan adayi olur.
-      leadership: clamp(20 + (age - 17) * 2.2 + (row.overall - 60) * 0.35 + spread, 5, 95),
+      // LIDERLIK.
+      //
+      // Kaynakta dogrudan yok ama FC26 `international_reputation` (1-5)
+      // tasiyor: milli takim ve kuresel taninirlik olcusu, kaptanlik
+      // adayligiyla dogrudan ilgili. Varsa yas ve seviyenin yaninda UCUNCU
+      // girdi olur; yoksa eski iki girdili tahmin surer.
+      leadership: clamp(
+        20 +
+          (age - 17) * 2.2 +
+          (row.overall - 60) * 0.35 +
+          (row.intl_reputation === null ? 0 : (row.intl_reputation - 1) * 6) +
+          spread,
+        5,
+        95,
+      ),
       // `quality` NITELIKLERDEN turer -- motorun sozlesmesi bu yonde.
       quality: overallFor(position, attributes),
-      aggression: clamp(aggressionFor(position, attributes) + spread * 0.5, 5, 95),
+      // SERTLIK -- artik GERCEK veriden.
+      //
+      // OLCULEN SORUN: `player.aggression` kolonu FC26'nin
+      // `mentality_aggression` degeriyle DOLUYDU ama sorguya hic
+      // alinmiyordu; motor `aggressionFor()` ile mevkiden TAHMIN
+      // uretiyordu (DF 62 / MF 52 / FW 44 / GK 36 tabani).
+      // `MatchSimulator` faul esigini `offender.aggression / 220` ile
+      // hesapladigi icin uydurulmus deger dogrudan maca giriyordu.
+      aggression:
+        row.aggression === null
+          ? clamp(aggressionFor(position, attributes) + spread * 0.5, 5, 95)
+          : clamp(row.aggression, 5, 95),
       attributes,
+      ...(row.composure === null ? {} : { composure: clamp(row.composure, 1, 99) }),
       origin: ORIGIN_BY_COUNTRY[row.nationality] ?? 'tr',
       gender: 'male',
       clubId: club.id,
-      // En iyi kaleci 1 numarayi alir; gerisi tohumlu.
-      shirtNumber: position === 'GK' && index === 0 ? 1 : shirt,
+      // FORMA NUMARASI -- gercegi varsa o.
+      //
+      // Eskiden tamami tohumdan cekiliyordu. Gercek numara kadroyu
+      // taninir kilar; yoksa eski davranis (en iyi kaleci 1, gerisi
+      // tohumlu) surer.
+      shirtNumber:
+        row.shirt_number !== null && row.shirt_number > 0
+          ? row.shirt_number
+          : position === 'GK' && index === 0
+            ? 1
+            : shirt,
     };
   }
 
@@ -417,6 +648,7 @@ export class DbRosterProvider implements RosterProvider {
       .prepare(
         `SELECT p.id, p.first_masked, p.last_masked, p.birth_year, p.nationality,
                 p.position, p.height_cm,
+                p.aggression, p.composure, p.intl_reputation, p.shirt_number,
                 a.pace, a.shooting, a.passing, a.defending, a.physical, a.goalkeeping, a.overall
          FROM player p JOIN player_attributes a ON a.player_id = p.id
          WHERE p.id IN (${placeholders})
@@ -531,4 +763,33 @@ function forgeAttributes(position: Position, level: number, roll: () => number):
 
 function clamp(v: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, Math.round(v)));
+}
+
+/**
+ * Sorguyu hazirlamayi dener; tablo yoksa `undefined` doner.
+ *
+ * Sema surumleri arasinda zarif bozulma: yeni bir tablo eklendiginde eski
+ * bir world.db ile acilan oyun patlamaz, o ozelligi kapali calistirir.
+ */
+function prepareOrUndefined(
+  db: DatabaseSyncType,
+  sql: string,
+): ReturnType<DatabaseSyncType['prepare']> | undefined {
+  try {
+    return db.prepare(sql);
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Menajer niteligini sirket degeriyle harmanlar.
+ *
+ * Sirket degeri yoksa nitelik AYNEN doner. 0-100 bandi her durumda korunur
+ * -- `reachFit()` bandin disindaki bir degerle cagrilirsa olasilik
+ * hesaplari bozulur.
+ */
+function blend(base: number, agencyValue: number | null, weight: number): number {
+  if (agencyValue === null) return base;
+  return clamp(base + (agencyValue - 50) * weight, 0, 100);
 }

@@ -8,7 +8,12 @@
  * dallar (personaAffinity), hangi sonlanmayi aldigin, rakibinin sana bakisi.
  */
 
-import { PERSONA_AXES, personaFlagKey, type PersonaAxis } from '../domain/axes.js';
+import {
+  PERSONA_AXES,
+  PERSONA_START,
+  personaFlagKey,
+  type PersonaAxis,
+} from '../domain/axes.js';
 import type { FlagValue } from '../domain/flags.js';
 import type { PersonaState } from '../domain/state.js';
 
@@ -53,8 +58,17 @@ export class PersonaAccumulator {
     return count === 0 ? 0 : total / count;
   }
 
+  /**
+   * Butun eksenler notr (50) baslar.
+   *
+   * Eksen listesi elle YAZILMAZ -- `PERSONA_AXES`ten turer. Onceden dort
+   * eksen sabit kodluydu; yeni bir eksen eklemek bu fonksiyonu sessizce
+   * eksik birakir ve o eksen `undefined` olarak birikmeye baslardi.
+   */
   static initial(): PersonaState {
-    return { sadakat: 50, mizac: 50, durus: 50, dogruluk: 50 };
+    const persona = {} as PersonaState;
+    for (const axis of PERSONA_AXES) persona[axis] = PERSONA_START;
+    return persona;
   }
 
   /** Persona degerlerini flag sozlugune yazar (kosullar bunlari okuyabilsin diye). */

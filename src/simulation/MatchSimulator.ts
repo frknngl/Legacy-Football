@@ -15,7 +15,7 @@
  */
 
 import type { ChanceContext, ChanceResolver } from '../domain/chance.js';
-import type { RosterPerson } from '../domain/actors.js';
+import type { RosterPerson, StaffAttributes } from '../domain/actors.js';
 import type {
   HeroProfile,
   HostMatch,
@@ -81,6 +81,15 @@ export interface SimulatorDeps {
   readonly refereeFor?: (fixture: Fixture) => Referee | undefined;
   /** Hero'nun bu hakemle kini (-100..+100). Motor doldurur. */
   readonly grudgeFor?: (refereeId: number) => number;
+  /**
+   * Kulubun teknik direktoru -- hat guclerine binen carpanin girdisi.
+   *
+   * Verilmezse carpan 1 olur ve mevcut davranis AYNEN surer. Mock dunyada
+   * ve nitelik tasimayan kadrolarda tam olarak bu olur.
+   */
+  readonly coachOf?: (clubId: string) =>
+    | { readonly attributes?: StaffAttributes; readonly preferredFormation?: string }
+    | undefined;
   /** Takimin canli lig baglami (sira, lig buyuklugu, dusme hatti). */
   readonly tableContextForClub?: (clubId: string) =>
     | {
@@ -215,6 +224,8 @@ export class MatchSimulator implements MatchHost {
    * ikisi de var olduktan SONRASI.
    */
   private chemistrySource: ((sourceId: string) => number | undefined) | undefined;
+  /** Sezon devrinde `useSchedule()` ile degistirilen takvim. */
+  private scheduleOverride: SeasonSchedule | undefined;
 
   constructor(private readonly deps: SimulatorDeps) {
     this.resolver = deps.chanceResolver ?? new MathChanceResolver();
@@ -224,6 +235,28 @@ export class MatchSimulator implements MatchHost {
   /** Motor kurulduktan sonra kimya kaynagini baglar. */
   useChemistrySource(source: (sourceId: string) => number | undefined): void {
     this.chemistrySource = source;
+  }
+
+  /**
+   * Takvimi DEGISTIRIR -- sezon devri icin.
+   *
+   * NEDEN GEC BAGLAMA:
+   *   Takvim kariyer basina bir kez kuruluyordu ve bu, dunyanin en buyuk
+   *   yapisal sinirlamasiydi: kupalar kariyer basina bir kez oynanabiliyor,
+   *   terfi/dusme sonrasi fikstur listesi eski lig uyeliklerini tasidigi
+   *   icin oynanan mac sayisi 38'den 32'ye dusuyordu.
+   *
+   *   Artik her sezon sonunda GUNCEL uyeliklerle yeni bir takvim kuruluyor.
+   *   Simulator onu buradan ogrenir. `useChemistrySource` ile ayni desen:
+   *   kompozisyon sirasi yuzunden bagi kurmanin tek dogru yeri sonrasidir.
+   */
+  useSchedule(schedule: SeasonSchedule): void {
+    this.scheduleOverride = schedule;
+  }
+
+  /** Gecerli takvim -- sezon devrinden sonra yenisi, once kurulustaki. */
+  private get schedule(): SeasonSchedule {
+    return this.scheduleOverride ?? this.deps.schedule;
   }
 
   /** Haftalik secimden once host'un kullanacagi, mutasyon yapmayan mac baglami. */
@@ -275,7 +308,7 @@ export class MatchSimulator implements MatchHost {
   // Haftanin BELIRTILEN maci. Eski `forClub` yalnizca birincisini
   // donuyordu ve ikinci mac hic oynanmiyordu.
   private fixtureFor(input: MatchBuildInput): Fixture | undefined {
-    return this.deps.schedule.fixturesFor(input.heroClubId, input.week)[input.slot ?? 0];
+    return this.schedule.fixturesFor(input.heroClubId, input.week)[input.slot ?? 0];
   }
 
   private buildContext(
@@ -349,7 +382,7 @@ export class MatchSimulator implements MatchHost {
 
   /** O hafta Hero'nun kulubunun kac maci var. */
   matchCount(input: MatchBuildInput): number {
-    return this.deps.schedule.fixturesFor(input.heroClubId, input.week).length;
+    return this.schedule.fixturesFor(input.heroClubId, input.week).length;
   }
 
   applyDelta(_match: HostMatch, delta: MatchOutcomeDelta): MatchResultReport {
@@ -403,6 +436,7 @@ export class MatchSimulator implements MatchHost {
       this.deps.squadOf(fixture.homeId),
       heroSide === 'home' ? heroOnPitch : undefined,
       heroSide === 'home' ? this.chemistrySource : undefined,
+      this.deps.coachOf?.(fixture.homeId),
     );
     const away = buildTeam(
       fixture.awayId,
@@ -410,6 +444,7 @@ export class MatchSimulator implements MatchHost {
       this.deps.squadOf(fixture.awayId),
       heroSide === 'away' ? heroOnPitch : undefined,
       heroSide === 'away' ? this.chemistrySource : undefined,
+      this.deps.coachOf?.(fixture.awayId),
     );
 
     const referee = this.deps.refereeFor?.(fixture);
@@ -684,7 +719,14 @@ export class MatchSimulator implements MatchHost {
       keeperQuality: defending.lines.keeper,
       shooter: {
         shooting: shooter.attributes.shooting,
-        composure: shooter.quality,
+        // SOGUKKANLILIK -- varsa GERCEK deger.
+        //
+        // OLCULEN SORUN: burada her zaman `quality` vekil olarak
+        // kullaniliyordu. `player.composure` kolonu FC26'nin
+        // `mentality_composure` degeriyle doluydu ama motora hic
+        // ulasmiyordu. `MathChanceResolver` bu alani %30-40 agirlikla
+        // okuyor -- yani vekil deger gol olasiligini dogrudan etkiliyordu.
+        composure: shooter.composure ?? shooter.quality,
         isHero: shooter.isHero,
       },
       importance: live.fixture.importance,

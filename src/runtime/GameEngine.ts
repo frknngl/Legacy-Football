@@ -123,7 +123,7 @@ import {
   type SatisfactionEvent,
 } from '../domain/agent.js';
 import type { ActorState } from '../domain/actors.js';
-import { valuePlayer } from '../domain/transfer.js';
+import { valuePlayer, windowAt } from '../domain/transfer.js';
 import { STATURES, statureIndex } from '../domain/axes.js';
 import { DEFAULT_THRESHOLD, latePenalty, loanOffers, type LoanOffer, type LoanState } from '../domain/loan.js';
 import { pressureAfterSack, sackChance, sackPressure } from './ManagerTenure.js';
@@ -1055,6 +1055,21 @@ export class GameEngine {
     this.syncSelectionMatchContext();
 
     const ending = this.checkEnding();
+    // UYGUNLUK EMEKLILIKTEN SONRA TAZELENIR.
+    //
+    // OLCULEN SORUN: `state.availability` onbelleklenmis bir alandir ve
+    // yukaridaki `syncDerived()` icinde hesaplanir. `checkEnding()` ise
+    // ONDAN SONRA calisip hayat durumunu `retired` yapar. Emeklilik
+    // turunda onbellek bayat kalir: `availability()` hala
+    // `available: true` doner ve host o hafta fikstur varsa emekli
+    // oyuncuyu sahaya surer.
+    //
+    // Olculdu: 100 kariyerde 27 mac; 27'sinin de `turn - retiredAtTurn`
+    // degeri TAM 0 -- istisnasiz emeklilik turunda.
+    //
+    // `suspensionAvailability()` zaten dogru calisiyordu
+    // (`canPlay('retired') === false`); eksik olan yalnizca SIRAYDI.
+    this.state.availability = this.suspensionAvailability();
     if (ending) return this.report(ending);
 
     const selection = this.selector.select(
@@ -1351,6 +1366,20 @@ export class GameEngine {
         break;
       }
       case 'transfer': {
+        // SON KAPI. `rollAgentOffer` zaten teklifi kesiyor, ama kural
+        // motorda durmali: olculen sorun host'larin (bot.ts ve play.ts)
+        // pencereyi yalnizca OLASILIK carpani olarak kullanip kapi olarak
+        // KULLANMAMASIYDI. Buradaki kontrol olmadan yeni bir host ayni
+        // hataya dusebilir.
+        //
+        // Icerik yolu (`transferToTier`, ClubTierEffect) bu kapiya TABI
+        // DEGIL ve bu kasitli: o bir anlati sonucu ("artik elit bir
+        // kulupte oynuyorsun"), piyasa hareketi degil. Olcum de bunu
+        // destekliyor: 123 kulup degisiminin yalnizca 2'si o yoldan.
+        const window = windowAt(this.state.week);
+        if (window === undefined || !this.canTransferNow()) return;
+        this.state.lastTransferAt = { season: this.state.season, window: window.kind };
+
         this.state.flags['kulup'] = event.toClubId;
         if (this.casting) {
           this.casting.transferTo(this.state, event.toClubId, this.castingContext(), this.rngCasting);
@@ -1532,8 +1561,40 @@ export class GameEngine {
    * menajerin o kapiyi acip acamayacagina karar verir. Menajersiz Hero
    * de teklif alabilir -- yalnizca dortte bir olasilikla.
    */
+  /**
+   * Hero SU AN kulup degistirebilir mi?
+   *
+   * Iki kosul, ikisi de gercek futboldan:
+   *   1. TRANSFER PENCERESI acik olacak (`DEFAULT_WINDOWS` -- NPC
+   *      piyasasinin kullandigi TANIMIN AYNISI; Hero'ya ayri bir pencere
+   *      uydurmak, denetimin buldugu asimetriyi tekrarlamak olurdu).
+   *   2. O pencerede HENUZ transfer olmamis olacak.
+   *
+   * Ikinci kosul sezonluk tavani da kendiliginden kuruyor: iki pencere
+   * var, yani sezonda en fazla iki transfer. FIFA'nin kurali da boyle.
+   *
+   * Host'lar bunu once sorabilir; ama sormak ZORUNDA degiller --
+   * `reportWorldEvent` ayni kapiyi kendi de uyguluyor. Kural motorda
+   * yasiyor cunku olculen sorun tam olarak host'larin uygulamamasiydi.
+   */
+  canTransferNow(): boolean {
+    this.requireStarted();
+    const window = windowAt(this.state.week);
+    if (window === undefined) return false;
+    const last = this.state.lastTransferAt;
+    if (last === undefined) return true;
+    return !(last.season === this.state.season && last.window === window.kind);
+  }
+
   rollAgentOffer(ctx: OfferContext): boolean {
     this.requireStarted();
+    // TEKLIF GELMEZ CUNKU TRANSFER OLAMAZ.
+    //
+    // Kapiyi teklife koymak, transfere koymaktan daha dogru: aksi halde
+    // menajer pencere disinda teklif getirir, Hero kabul eder ve hicbir
+    // sey olmaz -- ustelik `reportAgentOutcome` menajerin memnuniyetini
+    // bosuna yakar.
+    if (!this.canTransferNow()) return false;
     const current = this.currentAgent();
     const chance =
       current === undefined
@@ -3011,6 +3072,24 @@ export class GameEngine {
       this.state.lifeState = 'retired';
       this.state.flags['lifeState'] = 'retired';
     }
+
+    // UYGUNLUK HEMEN TAZELENIR.
+    //
+    // OLCULEN SORUN: `state.availability` onbelleklenmis bir alandir ve
+    // normalde `syncDerived()` icinde -- yani TUR BASINDA -- hesaplanir.
+    // Emeklilik ise tur ortasinda gerceklesir: oyuncu bir olayda "birak"
+    // secer, `beginRetirement()` calisir, ama onbellek o turun basindaki
+    // `available: true` degerini tasimaya devam eder. Host o hafta
+    // fikstur varsa emekli oyuncuyu sahaya surer.
+    //
+    // Olculdu: 100 kariyerde 27 mac; 27'sinin de `turn - retiredAtTurn`
+    // degeri TAM 0 -- istisnasiz emekliligin gerceklestigi turda.
+    //
+    // `suspensionAvailability()` zaten dogru sonucu uretiyordu
+    // (`canPlay('retired') === false`); eksik olan yalnizca NE ZAMAN
+    // cagrildigiydi. Kapi burada, cunku emekliligin TEK girisi burasi.
+    this.state.availability = this.suspensionAvailability();
+
     const epilogue = Math.max(0, this.registry.config.turn.retirementEpilogueTurns);
     if (epilogue > 0) {
       this.notices.push(`Kariyerin sona erdi. Veda donemi: ${epilogue} hafta.`);
@@ -3401,8 +3480,26 @@ export class GameEngine {
    * asamali tasarlanmisti -- eksik olan kabloydu, yeni bir sistem degil.
    */
   private checkEnding(): ResolvedEnding | undefined {
+    // ZATEN EMEKLIYSE YAS KAPISI ISLEMEZ.
+    //
+    // OLCULEN SORUN: burasi yalnizca `stage !== 'forced'` (yas < 41) diye
+    // cikiyordu. Ama `beginRetirement()` ikinci bir emeklilik yoludur --
+    // gonullu/olay kaynakli, `retirementChoiceMinAge`den (38) itibaren.
+    // O yol `retiredAtTurn` yazar ama kariyeri kapatamaz: `checkEnding`
+    // yas 41 olana kadar ILK SATIRDA cikip veda donemi kontroluna HIC
+    // ulasmazdi.
+    //
+    // Olculdu (100 kariyer): 82 kariyer 41 yasindan once emekli oldu ve
+    // kariyer kapanana kadar ortanca 116 tur (~3 sezon), en uctesi 728 tur
+    // (~18 sezon) `retired` durumunda asili kaldi. O sure boyunca
+    // `axes.json` mac/roportaj/transfer/milli kategorilerini kapatir --
+    // yani oyuncu ne oynar ne transfer olur, kariyer de bitmez.
+    //
+    // Kanit: seed=92664 yas 23'te emekli oldu (tur 306), kariyer tur
+    // 1010'da kapandi -- 704 tur olu donem.
+    const alreadyRetired = this.state.retiredAtTurn !== undefined;
     const stage = this.scheduler.retirementStage(this.state.age);
-    if (stage !== 'forced') return undefined;
+    if (!alreadyRetired && stage !== 'forced') return undefined;
 
     const epilogue = Math.max(0, this.registry.config.turn.retirementEpilogueTurns);
 
@@ -3457,6 +3554,10 @@ export class GameEngine {
       storyBeatTurns: this.state.storyBeatTurns,
       storyBeatCounts: this.state.storyBeatCounts,
       storySignatureTurns: this.state.storySignatureTurns,
+      // Hayat durumunun kapattigi kategoriler -- `axes.json` verisi.
+      // Filtre `runtime`i goremedigi icin cozum BURADA yapilip veri olarak
+      // gecirilir.
+      closedCategories: this.lifeStates.closedCategories(this.state.lifeState),
       cooldownState: {
         cooldowns: this.state.cooldowns,
         familyCooldowns: this.state.familyCooldowns,
@@ -3700,6 +3801,29 @@ export class GameEngine {
         });
       } else if (isLifeStateEffect(effect)) {
         if (LifeStateMachine.isLifeState(effect.to)) {
+          // EMEKLILIK TEK KAPIDAN GECER.
+          //
+          // OLCULEN SORUN: dort icerik olayi (`evt_life_prison_release`,
+          // `evt_legal_fixer_itiraf_orta`, `evt_media_journalist_golge_orta`,
+          // `evt_media_journalist_itiraf_orta`) `lifeState: 'retired'`
+          // efektini DOGRUDAN yaziyordu. Bu yol `beginRetirement()`i
+          // atliyor: `retired` bayragi ve `retiredAtTurn` HIC yazilmiyor.
+          //
+          // Sonucu: `checkEnding()` kariyeri kapatamiyor (ne yas kapisi
+          // gecilmis ne `retiredAtTurn` dolu) ve oyuncu `retired` hayat
+          // durumunda -- mac, roportaj, transfer ve milli kategorileri
+          // kapali halde -- yas 41 olana kadar asili kaliyor.
+          //
+          // Olculdu: 20 kariyerin 17'si 41 yasindan once bu yolla emekli
+          // oldu; kariyerin kapanmasi ortanca 108 tur, en uctesi 636 tur
+          // (~16 sezon) surdu. Yapilandirilmis veda donemi 12 tur.
+          //
+          // Kanit: seed=92664 `evt_life_prison_release` -> secim `c_quit`
+          // ile 23 yasinda emekli oldu, kariyer tur 1010'da kapandi.
+          if (effect.to === 'retired') {
+            this.beginRetirement();
+            continue;
+          }
           const moved = this.setLifeState(effect.to);
           if (moved && effect.forTurns !== undefined) {
             this.state.lifeStateUntil = this.state.turn + effect.forTurns;
@@ -3796,6 +3920,25 @@ export class GameEngine {
    * TEK bir sayi geciriyor: "bu oyuncuyla ne kadar iyi anlasiyorsun". Neden
    * iyi anlastigini (kac mac, hangi sezon, hangi olay) simulator bilmez.
    */
+  /**
+   * O KULUPTE GOREVDEKI TEKNIK DIREKTORUN KIMLIGI.
+   *
+   * Dunya katmani takim gucunu hesaplarken hocayi buradan sorar. Kovulma
+   * kadrolamada olur; `staff` tablosu degismez ve tek basina okunursa
+   * kovulan hoca sonsuza kadar takimi calistirmaya devam eder (olculdu:
+   * 17/17 kovulmada boyle oluyordu).
+   *
+   * Yalnizca HERO'NUN kulubu icin anlamlidir -- kovulma yalnizca orada
+   * modelleniyor. Diger kuluplerde `undefined` doner ve dunya katmani
+   * tabloya duser.
+   */
+  managerSourceIdFor(clubId: string): string | undefined {
+    if (clubId !== this.state.clubId) return undefined;
+    const actorId = this.state.casting['manager'];
+    if (actorId === undefined) return undefined;
+    return this.state.actors[actorId]?.sourceId;
+  }
+
   chemistryFor(sourceId: string): number | undefined {
     for (const actorId of Object.values(this.state.casting)) {
       const actor = this.state.actors[actorId];

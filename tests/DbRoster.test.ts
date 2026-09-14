@@ -30,13 +30,15 @@ const SLOTS: readonly SlotDefinition[] = [];
 const SCHEMA = `
 CREATE TABLE country(id INTEGER PRIMARY KEY, name_real TEXT, name_masked TEXT);
 CREATE TABLE competition(id INTEGER PRIMARY KEY, name_masked TEXT, level INTEGER,
-  promoted INTEGER DEFAULT 0, relegated INTEGER DEFAULT 0, matches_per_club INTEGER);
+  promoted INTEGER DEFAULT 0, relegated INTEGER DEFAULT 0, matches_per_club INTEGER,
+  country_id INTEGER);
 CREATE TABLE club(id INTEGER PRIMARY KEY, name_real TEXT, name_masked TEXT, short_masked TEXT,
   city TEXT DEFAULT '', stadium TEXT DEFAULT '', tier TEXT, competition_id INTEGER,
   country_id INTEGER, reputation INTEGER, rival_club_id INTEGER);
 CREATE TABLE player(id INTEGER PRIMARY KEY, first_real TEXT, last_real TEXT,
   first_masked TEXT, last_masked TEXT, birth_year INTEGER, nationality TEXT,
-  position TEXT, height_cm INTEGER, club_id INTEGER);
+  position TEXT, height_cm INTEGER, club_id INTEGER,
+  aggression INTEGER, composure INTEGER, intl_reputation INTEGER, shirt_number INTEGER);
 CREATE TABLE player_attributes(player_id INTEGER PRIMARY KEY, pace INTEGER, shooting INTEGER,
   passing INTEGER, defending INTEGER, physical INTEGER, goalkeeping INTEGER,
   overall INTEGER, potential INTEGER);
@@ -47,14 +49,17 @@ const open = (): any => {
   db.exec(SCHEMA);
   db.exec(`
     INSERT INTO country VALUES (1,'England','Albion');
-    INSERT INTO competition VALUES (1,'Premier Division',1,0,3,38);
+    INSERT INTO competition VALUES (1,'Premier Division',1,0,3,38,1);
     INSERT INTO club VALUES (1,'Manchester City','Manchester Blue','MAN BLU','','','elite',1,1,96,2);
     INSERT INTO club VALUES (2,'Tiny FC','Tiny Crown','TIN CRO','','','lower',1,1,30,1);
   `);
 
   // Manchester Blue: 20 gercek oyuncu. Tiny Crown: yalnizca 5 -> tamamlanmali.
+  // Dort FC26 kolonu NULL birakiliyor: bu fikstur Transfermarkt hattini
+  // temsil eder ve saglayicinin NULL'da eski tahmin yoluna dustugunu de
+  // dogrular (zarif bozulma).
   const p = db.prepare(
-    'INSERT INTO player VALUES (?,?,?,?,?,?,?,?,?,?)',
+    'INSERT INTO player VALUES (?,?,?,?,?,?,?,?,?,?,NULL,NULL,NULL,NULL)',
   );
   const a = db.prepare('INSERT INTO player_attributes VALUES (?,?,?,?,?,?,?,?,?)');
   const positions = ['GK', 'GK', 'DF', 'DF', 'DF', 'DF', 'MF', 'MF', 'MF', 'MF',
@@ -170,6 +175,9 @@ describe('DbRosterProvider', () => {
     expect(leagues).toHaveLength(1);
     expect(leagues[0]!.label).toBe('Premier Division');
     expect(leagues[0]!.relegated).toBe(3);
+    // ULKE de okunmali: terfi/dusme piramidi bunu kullanir. Okunmadigi
+    // surece cok ulkeli bir dunyada butun ligler tek piramit sanilir.
+    expect(leagues[0]!.country).toBe('1');
   });
 });
 

@@ -40,6 +40,14 @@ export interface GameWorld {
       }
     | undefined;
   /**
+   * GOREVDEKI TEKNIK DIREKTORU BILDIRIR -- opsiyonel.
+   *
+   * Yalnizca DB dunyasinda anlamli: orada takim gucu hocanin
+   * niteliklerini okur ve kovulmadan sonra kimin gorevde oldugunu
+   * bilmesi gerekir. Mock dunyada hoca niteligi yok, kanca da yok.
+   */
+  useManagerSource?(resolve: (clubId: string) => string | undefined): void;
+  /**
    * Haftayi ilerletir ve HERO'NUN KULUBUNUN bu hafta kazandigi kupalari
    * dondurur.
    *

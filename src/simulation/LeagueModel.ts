@@ -33,8 +33,32 @@ export interface SeasonOutcome {
   readonly relegated: readonly { clubId: string; from: string; to: string }[];
 }
 
-/** Ev sahibi avantaji -- gercek liglerde ~%55 puan payi uretir. */
-const HOME_EDGE = 0.25;
+/**
+ * EV SAHIBI AVANTAJI -- `Timeline.HOME_ADVANTAGE` ile AYNI deger.
+ *
+ * OLCULEN SORUN: bu ucuz cozucu NPC maclarini (yani lig tablosunun
+ * tamamini) belirler; `MatchSimulator` ise yalnizca Hero'nun macini. Ikisi
+ * AYRI kalibre edilmisti:
+ *
+ *   ucuz cozucu   : 1.60 / 1.35 -> 2.95 gol/mac · ev payi %54.2
+ *   simulator     : 0.94 / 0.90 -> 1.85 gol/mac · ev payi %51
+ *
+ * Yani Hero'nun macinda bir futbol, ligin geri kalaninda baska bir futbol
+ * oynaniyordu. Hero'nun takimi tabloya simulator skoruyla, rakipleri ucuz
+ * cozucu skoruyla yaziliyordu -- ayni ligde iki ayri gol rejimi.
+ *
+ * Ikisi de artik ayni hedefe kalibre: takim basi 1.33 gol, ev/deplasman
+ * +/-%14 (bkz. `Timeline.HOME_ADVANTAGE` analitik tablosu).
+ */
+const HOME_EDGE = 0.14;
+
+/** Denk takimlarda TAKIM BASI beklenen gol. Toplam ~2.66 -- gercek ~2.7. */
+const BASE_XG_PER_TEAM = 1.33;
+
+/** Kadro gucu kaymasinin itibara donusum carpani. Bkz. `strength()`. */
+const SQUAD_SHIFT_SCALE = 2.5;
+/** Kaymanin ust siniri -- transfer bir kulubu dunyanin en iyisi yapamaz. */
+const SQUAD_SHIFT_CAP = 20;
 
 export class LeagueModel {
   private readonly tables = new Map<string, Map<string, TableRow>>();
@@ -42,13 +66,30 @@ export class LeagueModel {
   /** Kulup lig degistirebilir; canli esleme burada tutulur. */
   private readonly leagueOf = new Map<string, string>();
 
+  /**
+   * Kadro gucu cozucusu -- OPSIYONEL.
+   *
+   * Verilmezse kulup gucu yalnizca `reputation`tan gelir (mock dunya ve
+   * testler boyle calisir). Verilirse itibar CIPA olarak kalir ve kadronun
+   * baslangicina gore ne kadar degistigi uzerine binder.
+   */
+  private readonly squadOverallOf: ((clubId: string) => number | undefined) | undefined;
+  /** Kulup basina baslangic kadro gucu -- kayma bunun uzerinden olculur. */
+  private readonly baselineSquad = new Map<string, number>();
+
   constructor(
     clubs: readonly ClubInfo[],
     private readonly leagues: readonly LeagueInfo[],
+    squadOverallOf?: (clubId: string) => number | undefined,
   ) {
+    this.squadOverallOf = squadOverallOf;
     for (const c of clubs) {
       this.clubById.set(c.id, c);
       this.leagueOf.set(c.id, c.league);
+      if (squadOverallOf) {
+        const base = squadOverallOf(c.id);
+        if (base !== undefined) this.baselineSquad.set(c.id, base);
+      }
     }
     this.resetSeason();
   }
@@ -71,9 +112,40 @@ export class LeagueModel {
     }
   }
 
-  /** Bir kulubun gucu: itibar + kadro kalitesi yerine tek eksen (ucuz cozum icin). */
+  /**
+   * Bir kulubun gucu -- ITIBAR CIPASI + KADRO KAYMASI.
+   *
+   * OLCULEN SORUN: burasi yalnizca `reputation` donduruyordu ve itibar
+   * kariyer boyunca SABITTI (terfi/dusmede +/-8 disinda hic degismiyor).
+   * Sonucu: transferler, kadro degisimi ve teknik direktor etkisi lig
+   * macina HIC girmiyordu. 100 sezonluk olcumde bir kulup ligi %99-100
+   * kazaniyordu -- kadrosu ne olursa olsun.
+   *
+   * NEDEN CIPA + KAYMA, DOGRUDAN KADRO GUCU DEGIL:
+   *   `reputation` 18-96 bandina yayilmis (kadro piyasa degerinden
+   *   yuzdelikle turetilmis), kadro gucu (`lines.overall`) ise 66-90
+   *   bandinda -- cok daha dar. Dogrudan kadro gucunu kullanmak guc
+   *   farkini ezer ve butun ligi yaziturasina cevirirdi. Itibari cipa
+   *   tutmak kalibre edilmis dagilimi korur; kayma ise kadronun
+   *   BASLANGICINA GORE ne kadar degistigini tasir.
+   *
+   *   Carpan 2.5: itibar bandi (~78) / kadro bandi (~24) oraninin altinda
+   *   secildi. Bes puanlik bir kadro iyilesmesi itibara ~12 puan katar --
+   *   sirayi degistirmeye yeter, tek basina belirlemeye yetmez.
+   *
+   * Kayma +/-20 ile SINIRLI: transferle bir kulubun dunyanin en iyisine
+   * donusmesine izin vermek, duzeltmek istedigimiz sorunun aynasi olurdu.
+   */
   strength(clubId: string): number {
-    return this.clubById.get(clubId)?.reputation ?? 40;
+    const reputation = this.clubById.get(clubId)?.reputation ?? 40;
+    if (!this.squadOverallOf) return reputation;
+
+    const base = this.baselineSquad.get(clubId);
+    const now = this.squadOverallOf(clubId);
+    if (base === undefined || now === undefined) return reputation;
+
+    const shift = Math.max(-SQUAD_SHIFT_CAP, Math.min(SQUAD_SHIFT_CAP, (now - base) * SQUAD_SHIFT_SCALE));
+    return clampReputation(reputation + shift);
   }
 
   leagueFor(clubId: string): string | undefined {
@@ -90,8 +162,10 @@ export class LeagueModel {
     // Guc farki gol beklentisine logaritmik olarak yansir: 40 puanlik fark
     // maci belirler ama garanti etmez.
     const edge = (home - away) / 100;
-    const homeXg = Math.max(0.15, 1.35 + edge * 1.6 + HOME_EDGE);
-    const awayXg = Math.max(0.15, 1.35 - edge * 1.6);
+    // SIMETRIK ev avantaji: toplam gol sabit kalir, fark acilir.
+    // Tek tarafli eklemek (eski hali) toplam golu sisiriyordu.
+    const homeXg = Math.max(0.15, (BASE_XG_PER_TEAM + edge * 1.6) * (1 + HOME_EDGE));
+    const awayXg = Math.max(0.15, (BASE_XG_PER_TEAM - edge * 1.6) * (1 - HOME_EDGE));
     return { homeGoals: poisson(homeXg, rng), awayGoals: poisson(awayXg, rng) };
   }
 
@@ -163,6 +237,24 @@ export class LeagueModel {
   }
 
   /**
+   * Bir basamak yukari (-1) ya da asagi (+1) komsu lig.
+   *
+   * Ulke bilinmiyorsa (mock dunya) eski davranis: o seviyedeki ilk lig.
+   * Ulke biliniyorsa AYNI ULKEDE aranir; o ulkede o basamak yoksa terfi ya
+   * da dusme OLMAZ -- kulubu baska bir ulkenin piramidine tasimaktansa
+   * yerinde birakmak dogru.
+   */
+  private neighbour(
+    byLevel: readonly LeagueInfo[],
+    league: LeagueInfo,
+    step: -1 | 1,
+  ): LeagueInfo | undefined {
+    const level = league.level + step;
+    if (league.country === undefined) return byLevel.find((l) => l.level === level);
+    return byLevel.find((l) => l.level === level && l.country === league.country);
+  }
+
+  /**
    * Sezonu kapatir: sampiyonlari belirler, yukselme/dusme uygular.
    *
    * Kulubun `tier` degeri de guncellenir -- amator ligden cikan bir kulup
@@ -179,8 +271,25 @@ export class LeagueModel {
       const champion = order[0]?.clubId;
       if (champion !== undefined) champions[league.id] = champion;
 
-      const above = byLevel.find((l) => l.level === league.level - 1);
-      const below = byLevel.find((l) => l.level === league.level + 1);
+      // KOMSU BASAMAK AYNI ULKEDE ARANIR.
+      //
+      // OLCULEN SORUN: burasi `byLevel.find((l) => l.level === ...)` idi ve
+      // `find` o seviyedeki ILK ligi donduruyordu -- ulkeden bagimsiz. Cok
+      // ulkeli bir dunyada butun 2. ligler ayni tek 1. lige terfi etti,
+      // butun 1. ligler ayni tek 2. lige dustu:
+      //
+      //   TERFI  English Division 2 -> Dutch Division 1
+      //   TERFI  French Division 2  -> Dutch Division 1
+      //   DUSME  German Division 1  -> English Division 2
+      //
+      // Dokuz sezonda 21 ligin 19'u bosaldi (Dutch D1 30 -> 96 kulup,
+      // English D2 45 -> 156, digerleri 0) ve dunya iki lige coktu.
+      //
+      // Mock dunyada her seviyede TEK lig oldugu icin (tr_1 / tr_2 /
+      // tr_amateur) `country` tanimsizdir ve eski davranis korunur --
+      // hata orada zaten gorunmuyordu, testlerin kacirma sebebi buydu.
+      const above = this.neighbour(byLevel, league, -1);
+      const below = this.neighbour(byLevel, league, +1);
 
       if (above && league.promoted > 0) {
         for (const row of order.slice(0, league.promoted)) {

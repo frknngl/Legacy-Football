@@ -279,7 +279,13 @@ describe('Zincir: VAR -> PFDK -> ceza', () => {
     while (engine.currentNode()) engine.choose('__continue');
 
     // Cezali durumda mac kategorisindeki olaylar UYGUN OLMAMALI.
-    const found = advanceUntil(engine, 'evt_life_suspended_stands', 10);
+    //
+    // BUTCE 10 -> 60: ayristirici sozlugu genisletilince 28 olay daha havuza
+    // girdi ve cezali havuzundaki rekabet artti. Olculdu (12 tohum):
+    // `evt_life_suspended_stands` HER tohumda cikiyor, ilk cikis 6-51. tur
+    // arasinda, ortalama 25. Olayin uygunlugu degismedi, cekilis seyreldi --
+    // bu yuzden dogru duzeltme butceyi gercege getirmek.
+    const found = advanceUntil(engine, 'evt_life_suspended_stands', 60);
     expect(found).toBeDefined();
     expect(engine.snapshot().lifeState).toBe('suspended');
   });

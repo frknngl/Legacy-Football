@@ -76,12 +76,48 @@ function spread(
   };
 }
 
-/** Veritabanini acar; yoksa olusturur ve semayi kurar. */
+/**
+ * Veritabanini acar; yoksa olusturur ve semayi kurar.
+ *
+ * SEMA SURUMU KAPISI:
+ *   `CREATE TABLE IF NOT EXISTS` var olan bir tabloyu GORMEZDEN GELIR --
+ *   yeni kolonlari eklemez. Yani eski surumlu bir world.db sessizce acilir
+ *   ve ilk INSERT'te "no such column" diye patlar; ya da daha kotusu,
+ *   okuma tarafinda eksik kolon NULL gibi davranir.
+ *
+ *   Bu yuzden surum ACIKCA karsilastirilir ve eskiyse anlasilir bir hata
+ *   verilir. Otomatik migration YAZILMADI: world.db bir TUREV urun --
+ *   kaynak CSV'lerden yeniden uretilir ve uretmek dakikalar surer. Bir
+ *   migration hatti bakim yuku olurdu ve karsiligi yok.
+ */
 export function openWorldDb(path: string): DatabaseSyncType {
   if (path !== ':memory:') mkdirSync(dirname(path), { recursive: true });
   const db = new DatabaseSync(path);
+  assertSchemaVersion(db, path);
   db.exec(WORLD_SCHEMA);
   return db;
+}
+
+/** Var olan bir veritabaninin semasi bu surumle uyumlu mu. */
+function assertSchemaVersion(db: DatabaseSyncType, path: string): void {
+  // Tablo henuz yoksa bu taze bir veritabani -- kontrol edilecek bir sey yok.
+  const exists = db
+    .prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name='source_dataset'`)
+    .get();
+  if (exists === undefined) return;
+
+  const row = db
+    .prepare('SELECT MAX(schema_version) AS v FROM source_dataset')
+    .get() as { v: number | null } | undefined;
+  const found = row?.v ?? null;
+  if (found === null || found === WORLD_SCHEMA_VERSION) return;
+
+  db.close();
+  throw new Error(
+    `${path} sema surumu ${found}, beklenen ${WORLD_SCHEMA_VERSION}.\n` +
+      `  world.db bir TUREV urundur -- migration yerine yeniden uretilir.\n` +
+      `  Silin ve yeniden ithal edin:  npm run roster -- import --data=<klasor>`,
+  );
 }
 
 /** Import gunlugunu veritabanina yazar. GUI bu tabloyu listeler. */
@@ -99,18 +135,22 @@ export interface ProvenanceInput {
   readonly repoUrl: string;
   readonly sourceSeason: number;
   readonly scope: unknown;
+  /** Hangi dataset besledi: 'fc26' | 'transfermarkt'. */
+  readonly sourceKind?: string;
 }
 
 /** Kokeni yazar: hangi anliktan, hangi filtreyle. */
 export function recordProvenance(db: DatabaseSyncType, input: ProvenanceInput): void {
   db.prepare(
-    `INSERT INTO source_dataset(repo_url, source_season, scope_json, schema_version, imported_at)
-     VALUES (?, ?, ?, ?, ?)`,
+    `INSERT INTO source_dataset(
+       repo_url, source_season, scope_json, schema_version, imported_at, source_kind)
+     VALUES (?, ?, ?, ?, ?, ?)`,
   ).run(
     input.repoUrl,
     input.sourceSeason,
     JSON.stringify(input.scope),
     WORLD_SCHEMA_VERSION,
     new Date().toISOString(),
+    input.sourceKind ?? 'transfermarkt',
   );
 }

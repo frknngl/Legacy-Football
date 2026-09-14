@@ -46,6 +46,51 @@ const REFERENCE_DISTANCE: Readonly<Record<string, number>> = {
   long_range: 28,
 };
 
+/**
+ * NOTR NOKTALAR -- carpanlarin TIPIK girdide 1.0 vermesini saglar.
+ *
+ * OLCULEN SORUN: dort carpan (geometri, sutor, baski, kaleci) tek tek
+ * makul gorunuyordu ama TIPIK girdilerde carpimlari 1.0 degil ~0.63
+ * ediyordu. Sonuc: `BASE_XG` tablosu "open_play = 0.11" diyordu, gercekte
+ * uretilen 0.068 idi. Her pozisyon turu ilan ettiginin ucte ikisine
+ * dusuyordu ve kimse bunu gormuyordu.
+ *
+ * Olculdu (denk takimlar, varsayilan taktik):
+ *   pozisyon/mac 24.9  (hedef ~24 -- DOGRU)
+ *   ort xG       0.078 (hedef ~0.11)
+ *   gol/mac      1.96  (gercek futbol ~2.7)
+ *
+ * Tur bazinda carpan: open_play 0.619 · header 0.665 · long_range 0.631
+ *                     one_on_one 0.666 · free_kick 0.678
+ *
+ * Carpanlarin EGIMI degismedi -- yalnizca tabanlari tipik girdide 1.0
+ * verecek sekilde kaydirildi. Boylece `BASE_XG` okunabilir bir sozlesme
+ * olur: bir sayiyi degistiren kisi sonucun ne olacagini bilir.
+ */
+const NEUTRAL_SHOOTER = 0.37; //   skill 70 -> 1.00
+const NEUTRAL_PRESSURE = 1.33; // pressure 60 -> 1.00
+const NEUTRAL_KEEPER = 1.3375; //  keeper 75 -> 1.00
+
+/**
+ * GLOBAL xG KALIBRASYONU.
+ *
+ * Carpanlar notr noktalarina oturtulduktan sonra bile geometri ORTALAMADA
+ * 1.0 vermiyor: `Timeline` pozisyonlari referans geometrinin biraz altinda
+ * uretiyor (aci U[12,72], ortalama 42 -- referans 45; mesafeler referansin
+ * ~2 m uzaginda). Bu bilincli bir tercih olabilir -- her pozisyon ideal
+ * noktadan gelmez -- ama sonucu `BASE_XG` tablosunu sessizce asagi cekmek.
+ *
+ * Bu sabit o farki ACIKCA kapatir. Degeri teorik degil OLCULMUSTUR:
+ * gercek futbolda mac basina ~2.7 gol duser; model denk takimlarda
+ * (seviye 75) bu degeri verecek sekilde ayarlandi.
+ *
+ * Olcum (tmp/audit/calib.ts):
+ *   duzeltme oncesi   gol/mac 1.96 · ort xG 0.078
+ *   notr noktalardan sonra  2.39 · 0.096
+ *   bu sabitle              ~2.7 · ~0.107
+ */
+const XG_CALIBRATION = 1.11;
+
 /** Sut isabetsizse hangi sonuca dagilir (toplamlari 1). */
 const MISS_SPLIT = { saved: 0.45, off_target: 0.35, blocked: 0.14, rebound: 0.06 } as const;
 
@@ -90,6 +135,7 @@ export class MathChanceResolver implements ChanceResolver {
 
     return clamp01(
       base *
+        XG_CALIBRATION *
         this.geometryFactor(context) *
         this.shooterFactor(context) *
         this.defenceFactor(context) *
@@ -110,20 +156,25 @@ export class MathChanceResolver implements ChanceResolver {
     return distanceFactor * angleFactor;
   }
 
-  /** Sut yetenegi ve soguk kanlilik. 50 = notr, 90 = yaklasik yarim kat artis. */
+  /**
+   * Sut yetenegi ve soguk kanlilik. TIPIK sutorde (70) tam 1.0.
+   *
+   * Egim korundu (0.9): 50 -> 0.82, 90 -> 1.18. Degisen yalnizca taban,
+   * boylece `BASE_XG` tablosu soyledigi seyi yapar (bkz. NEUTRAL notu).
+   */
   private shooterFactor(context: ChanceContext): number {
     const skill = context.shooter.shooting * 0.7 + context.shooter.composure * 0.3;
-    return 0.55 + (skill / 100) * 0.9;
+    return NEUTRAL_SHOOTER + (skill / 100) * 0.9;
   }
 
-  /** Uzerindeki baski. Baskisiz sut belirgin sekilde daha kolaydir. */
+  /** Uzerindeki baski. TIPIK baskida (60) tam 1.0; baskisiz sut daha kolay. */
   private defenceFactor(context: ChanceContext): number {
-    return 1.15 - (context.pressure / 100) * 0.55;
+    return NEUTRAL_PRESSURE - (context.pressure / 100) * 0.55;
   }
 
-  /** Kaleci kalitesi. Elit kaleci sansi ucte bir azaltir. */
+  /** Kaleci kalitesi. TIPIK kalecide (75) tam 1.0; elit kaleci sansi azaltir. */
   private keeperFactor(context: ChanceContext): number {
-    return 1.18 - (context.keeperQuality / 100) * 0.45;
+    return NEUTRAL_KEEPER - (context.keeperQuality / 100) * 0.45;
   }
 }
 

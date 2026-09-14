@@ -38,6 +38,23 @@ export interface EligibilityContext {
   readonly storyBeatCounts: Readonly<Record<string, number>>;
   readonly storySignatureTurns: Readonly<Record<string, number>>;
   readonly cooldownState: CooldownState;
+  /**
+   * Bu hayat durumunda KAPALI icerik kategorileri.
+   *
+   * `content/orchestrator/axes.json` -> `lifeStates[].closedCategories`.
+   * Host doldurur (`LifeStateMachine.closedCategories()`); bu katman
+   * `runtime`i import edemeyecegi icin veri DISARIDAN gelir -- simulatorun
+   * `chemistryOf` enjeksiyonuyla ayni desen.
+   *
+   * OLCULEN SORUN: bu tablo dokuz hayat durumu icin ozenle yazilmisti ama
+   * `isCategoryOpen()` HICBIR YERDEN cagrilmiyordu. Yani veri oluydu ve
+   * hapisteki oyuncuya `lifeStates` kapisi tasimayan bir mac olayi
+   * cikabiliyordu -- kapi olayin kendisine yazilmadikca hicbir sey
+   * engellemiyordu.
+   *
+   * Tanimsiz birakmak "hicbir kategori kapali degil" demektir.
+   */
+  readonly closedCategories?: readonly string[];
 }
 
 export type RejectReason =
@@ -82,6 +99,9 @@ export class EligibilityFilter {
     if (!allows(event.stature, ctx.stature)) return 'stature';
     if (!allows(event.clubTiers, ctx.clubTier)) return 'clubTier';
     if (!allows(event.lifeStates, ctx.lifeState)) return 'lifeState';
+    // Kategori kapisi olaya DEGIL hayat durumuna yazilir: hapisteki oyuncuya
+    // mac sahnesi cikmasini, olayin kendisi bir sey soylemese bile bu onler.
+    if (ctx.closedCategories?.includes(event.category) === true) return 'lifeState';
     if (!allows(event.mediaEras, ctx.mediaEra)) return 'mediaEra';
     if (!allows(event.archetypes, ctx.archetype)) return 'archetype';
 

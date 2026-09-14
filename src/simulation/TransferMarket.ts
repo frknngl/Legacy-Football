@@ -57,6 +57,23 @@ export interface MarketClub {
 
 export interface TransferMarketDeps {
   readonly clubs: readonly MarketClub[];
+  /**
+   * KULUP DEFTERI -- opsiyonel.
+   *
+   * Verilirse butce buradan okunur ve transfer parasi defterlere islenir;
+   * yani bir kulubun harcama gucu SEZON SONU EKONOMISINDEN gelir. Mock
+   * dunyada ve testlerde verilmez: o zaman piyasa kendi ic butce
+   * haritasini kullanir ve eski davranis aynen surer.
+   */
+  readonly finance?: ClubFinanceLike;
+  /**
+   * Oyuncuyu temsil eden sirketin pazarlik gucu (0-100).
+   *
+   * `world.db.player_agency` -> `agency.negotiation_power`. 2.697 oyuncunun
+   * gercek bir sirketi var; gerisi icin tanimsiz doner ve fiyat notr kalir.
+   * Verilmezse (mock dunya) butun oyuncular notr.
+   */
+  readonly agencyPowerOf?: (playerId: number) => number | undefined;
   readonly players: readonly MarketPlayer[];
   readonly overlay: TransferOverlay;
   readonly windows?: readonly TransferWindow[];
@@ -69,6 +86,12 @@ const MAX_PER_WEEK = 14;
 
 /** Kulup basina hafta basi en fazla transfer. */
 const MAX_PER_CLUB = 1;
+
+/** `ClubFinance`in piyasaya acik yuzeyi -- tam sinifa bagimlilik gerekmez. */
+export interface ClubFinanceLike {
+  budgetOf(clubId: string): number;
+  recordTransfer(fromClubId: string, toClubId: string, fee: number): void;
+}
 
 export class TransferMarket {
   private readonly budget = new Map<string, number>();
@@ -136,6 +159,10 @@ export class TransferMarket {
   /** Sezon donusunde cagrilir: transfer kilidi ve butceler tazelenir. */
   resetSeason(): void {
     this.movedThisSeason.clear();
+    // Defter varsa butceyi EZMEYIZ: gelecek sezonun butcesini sezon sonu
+    // ekonomisi belirledi (`ClubFinance.closeSeason`). Statik DB degerine
+    // geri donmek o hesabi cope atardi.
+    if (this.deps.finance) return;
     for (const club of this.deps.clubs) this.budget.set(club.id, club.budget);
   }
 
@@ -144,6 +171,8 @@ export class TransferMarket {
   }
 
   budgetOf(clubId: string): number {
+    const finance = this.deps.finance;
+    if (finance) return finance.budgetOf(clubId);
     return this.budget.get(clubId) ?? 0;
   }
 
@@ -234,7 +263,12 @@ export class TransferMarket {
           seasonsLeft: player.seasonsLeft,
         });
         const toRival = this.rivalOf.get(otherId) === club.id;
-        const price = askingPrice(value, this.keepDesire(player, otherSquad), toRival);
+        const price = askingPrice(
+          value,
+          this.keepDesire(player, otherSquad),
+          toRival,
+          this.deps.agencyPowerOf?.(player.id),
+        );
         if (price > budget) continue;
 
         candidates.push({ player, price, toRival });
@@ -319,8 +353,13 @@ export class TransferMarket {
 
     // Butceler: alan oder, satan kazanir. Satan kulup parayi HEMEN kullanabilir
     // -- gercek piyasada da satis geliri ayni pencerede harcanir.
-    this.budget.set(transfer.toClubId, this.budgetOf(transfer.toClubId) - transfer.fee);
-    this.budget.set(transfer.fromClubId, this.budgetOf(transfer.fromClubId) + transfer.fee);
+    const finance = this.deps.finance;
+    if (finance) {
+      finance.recordTransfer(transfer.fromClubId, transfer.toClubId, transfer.fee);
+    } else {
+      this.budget.set(transfer.toClubId, this.budgetOf(transfer.toClubId) - transfer.fee);
+      this.budget.set(transfer.fromClubId, this.budgetOf(transfer.fromClubId) + transfer.fee);
+    }
 
     // Kadro haritasini guncelle ki ayni pencerede tutarli kalsin.
     const from = squads.get(transfer.fromClubId);

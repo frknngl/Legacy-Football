@@ -98,9 +98,27 @@ export function valuePlayer(input: ValuationInput): number {
  * oyuncu icin piyasa degerine razi olur. Bu, "para verirsen herkesi alirsin"
  * durumunu engelleyen tek mekanizma.
  */
-export function askingPrice(value: number, keepDesire: number, toRival = false): number {
+export function askingPrice(
+  value: number,
+  keepDesire: number,
+  toRival = false,
+  /**
+   * Oyuncuyu temsil eden sirketin PAZARLIK GUCU (0-100). Tanimsiz = 50 (notr).
+   *
+   * Guclu bir sirket kulubun oyuncuyu TUTMA gucunu zayiflatir -- gercek
+   * futbolun bilinen dinamigi: cikisi menajer kurgular. Etki yalnizca
+   * `keepDesire` primine binder, taban degere degil; yani sirket oyuncuyu
+   * ucuzlatmaz, kulubun "satmam" diyebilme gucunu azaltir.
+   *
+   * Band DAR (+/-%15): sirket transferi kolaylastirir, tek basina
+   * belirlemez.
+   */
+  agencyPower?: number,
+): number {
+  const push = agencyPower === undefined ? 50 : Math.max(0, Math.min(100, agencyPower));
+  const keepFactor = 1 - ((push - 50) / 100) * 0.3;
   // keepDesire 0-100. 0 -> %85 (satmak istiyor), 100 -> %220 (satmak istemiyor)
-  const premium = 0.85 + (Math.max(0, Math.min(100, keepDesire)) / 100) * 1.35;
+  const premium = 0.85 + (Math.max(0, Math.min(100, keepDesire)) / 100) * 1.35 * keepFactor;
   // EZELI RAKIP PRIMI: gercek futbolda kulup en buyuk rakibine oyuncu SATMAZ.
   // Satarsa da fahis fiyata ve taraftar ayaklanir. Bu carpan olmadan piyasa
   // "en iyi teklif kazanir"a doner ve derbi anlamini yitirir.

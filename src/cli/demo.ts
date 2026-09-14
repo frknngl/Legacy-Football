@@ -90,6 +90,7 @@ async function main(): Promise<void> {
   // Kimya kablosu: motor kuruldu, simulator artik 'kim kiminle iyi
   // anlasiyor' sorusunu sorabilir. Motorun flag sozlugu yine kapali.
   sim.simulator.useChemistrySource((id) => engine.chemistryFor(id));
+  sim.useManagerSource?.((clubId: string) => engine.managerSourceIdFor(clubId));
   const rng = new Rng(seed ^ 0x5f3759df);
 
   console.log(`=== ${archetype} | tohum ${seed} | ${turns} hafta ===`);

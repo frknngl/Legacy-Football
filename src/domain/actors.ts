@@ -171,11 +171,77 @@ export interface RosterPerson {
   readonly aggression: number;
   /** 11v11 simulasyonunun okudugu ham nitelikler. */
   readonly attributes: PlayerAttributes;
+  /**
+   * SOGUKKANLILIK (0-100) -- gol aninda karar kalitesi.
+   *
+   * OPSIYONEL: yalnizca FC26 kaynakli dunyada dolu (`mentality_composure`).
+   * Tanimsizken tuketici `quality`ye duser -- eski davranis.
+   *
+   * `attributes` icine KONULMADI cunku `PlayerAttributes` motorun mevki
+   * agirliklandirma sozlesmesidir (`POSITION_WEIGHTS` tam olarak o alti
+   * alani agirliklandirir). Yedinci bir alan eklemek `overallFor()`
+   * sonucunu ve dolayisiyla butun kadro kalitesini kaydirirdi.
+   */
+  readonly composure?: number;
   /** Isim havuzu kokeni: tr, br, es, fr, rs... */
   readonly origin: string;
   readonly gender: Gender;
   readonly clubId: string;
   readonly shirtNumber: number;
+}
+
+/**
+ * TEKNIK HEYET NITELIKLERI (0-100).
+ *
+ * ALTI EKSEN, YIRMI DEGIL. Her birinin BUGUN bir tuketicisi var; olmayan
+ * eklenmedi. `set_pieces` ya da `goalkeeper_coaching` gibi alanlar taktik
+ * sistemi yazildiginda gelir -- o gune kadar hicbir sey hesaplamayan bir
+ * kolon olurlardi.
+ *
+ * `overall` BURADA YOK cunku TURETILMIS bir degerdir: `staffOverall()`
+ * bu altisindan hesaplar. Veritabaninda sorgu kolayligi icin saklanir ama
+ * dogruluk kaynagi her zaman nitelikler kalir.
+ */
+export interface StaffAttributes {
+  /** Saha ici taktik kalitesi -- hat guclerine binen carpan. */
+  readonly tactical: number;
+  /** Antrenman kalitesi -- oyuncunun sezon ici gelisim hizi. */
+  readonly training: number;
+  /** Genc gelistirme -- potansiyelin ne kadarinin gerceklestigi. */
+  readonly development: number;
+  /** Motivasyon -- soyunma odasi morali. */
+  readonly motivation: number;
+  /** Oyuncu yonetimi -- iliskinin nereden basladigi. */
+  readonly manManagement: number;
+  /** Disiplin -- forma sansinin liyakate mi keyfe mi bagli oldugu. */
+  readonly discipline: number;
+}
+
+export const STAFF_ATTRIBUTE_KEYS: readonly (keyof StaffAttributes)[] = [
+  'tactical',
+  'training',
+  'development',
+  'motivation',
+  'manManagement',
+  'discipline',
+];
+
+/**
+ * Teknik heyet uyesinin turetilmis genel degeri.
+ *
+ * Agirliklar taktigi one cikarir cunku maca giren tek eksen odur; disiplin
+ * en hafiftir cunku etkisi dolayli. `player`daki `overallFor()` ile ayni
+ * ilke: tek dogruluk kaynagi NITELIKLER, `overall` onlarin sonucu.
+ */
+export function staffOverall(a: StaffAttributes): number {
+  return Math.round(
+    a.tactical * 0.28 +
+      a.training * 0.18 +
+      a.development * 0.14 +
+      a.motivation * 0.16 +
+      a.manManagement * 0.14 +
+      a.discipline * 0.1,
+  );
 }
 
 export interface StaffPerson {
@@ -188,6 +254,17 @@ export interface StaffPerson {
   readonly origin: string;
   readonly gender: Gender;
   readonly clubId: string;
+  /**
+   * Teknik nitelikler -- OPSIYONEL.
+   *
+   * Mock dunyada yok (kadro tohumdan uretiliyor, nitelik tablosu yok) ve
+   * `doctor` / `physio` / `president` gibi rollerde de yok (bir doktorun
+   * taktik bilgisi anlamsiz). Okuyan taraf varligini kontrol eder ve
+   * yoklugunda notr davranir -- projenin her yerindeki zarif bozulma.
+   */
+  readonly attributes?: StaffAttributes;
+  /** 0-100. Hocanin kariyer itibari. Nitelikler gibi opsiyonel. */
+  readonly reputation?: number;
 }
 
 export type AnyPerson = RosterPerson | StaffPerson;

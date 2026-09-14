@@ -15,10 +15,10 @@
  * MASKE KILIDI: bir kere uretilen menajer adi ve ID'si degismez.
  */
 
-import { readFileSync, existsSync } from 'node:fs';
 import type { IssueLog } from '../db.js';
 import type { DatabaseSyncType } from '../sqlite.js';
 import { MaskBinder, hashString } from '../masking.js';
+import { readBands, readDistribution, readNamePool, readSetting, type BandTable } from './reference.js';
 
 export type AgentArchetype =
   | 'super_agent'
@@ -29,35 +29,9 @@ export type AgentArchetype =
 
 type Range = readonly [number, number];
 
-interface ArchetypeProfile {
-  readonly label: string;
-  readonly reach: Range;
-  readonly negotiation: Range;
-  readonly loyalty: Range;
-  readonly patience: Range;
-  readonly commission: Range;
-  readonly reputation: Range;
-}
 
-interface NamePool {
-  readonly first: readonly string[];
-  readonly last: readonly string[];
-}
 
-interface ManualAgent {
-  readonly name: string;
-  readonly country: string;
-  readonly archetype: AgentArchetype;
-  readonly attributes?: Partial<Record<string, number>>;
-}
 
-export interface AgentPool {
-  readonly agentsPerCountry: number;
-  readonly distribution: Readonly<Record<string, number>>;
-  readonly archetypes: Readonly<Record<string, ArchetypeProfile>>;
-  readonly namePools: Readonly<Record<string, NamePool>>;
-  readonly manual: readonly ManualAgent[];
-}
 
 /**
  * Havuz dosyasi yoksa oyun yine calissin diye asgari varsayilan.
@@ -65,72 +39,11 @@ export interface AgentPool {
  * Tek arketip degil BES: eksik havuzla acilan bir dunyada her menajerin
  * ayni olmasi, sistemi test ederken "calisiyor" izlenimi verirdi.
  */
-const FALLBACK_POOL: AgentPool = {
-  agentsPerCountry: 6,
-  distribution: {
-    journeyman: 0.34,
-    opportunist: 0.24,
-    developer: 0.2,
-    family: 0.12,
-    super_agent: 0.1,
-  },
-  archetypes: {
-    super_agent: {
-      label: 'Super Ajan',
-      reach: [85, 98], negotiation: [80, 95], loyalty: [15, 35],
-      patience: [20, 40], commission: [0.12, 0.18], reputation: [75, 99],
-    },
-    family: {
-      label: 'Aile Uyesi',
-      reach: [20, 40], negotiation: [30, 50], loyalty: [90, 99],
-      patience: [85, 95], commission: [0.03, 0.05], reputation: [10, 35],
-    },
-    developer: {
-      label: 'Gelisim Odakli',
-      reach: [45, 65], negotiation: [50, 70], loyalty: [65, 80],
-      patience: [70, 85], commission: [0.06, 0.09], reputation: [40, 65],
-    },
-    opportunist: {
-      label: 'Firsatci',
-      reach: [60, 80], negotiation: [65, 85], loyalty: [25, 45],
-      patience: [30, 50], commission: [0.09, 0.14], reputation: [45, 75],
-    },
-    journeyman: {
-      label: 'Siradan',
-      reach: [35, 55], negotiation: [40, 60], loyalty: [55, 70],
-      patience: [60, 75], commission: [0.05, 0.08], reputation: [20, 50],
-    },
-  },
-  namePools: {
-    default: {
-      first: ['Daniel', 'Marco', 'Peter', 'Victor'],
-      last: ['Brandt', 'Nowak', 'Keller', 'Duarte'],
-    },
-  },
-  manual: [],
-};
-
-export function loadAgentPool(path: string, log: IssueLog): AgentPool {
-  if (!existsSync(path)) {
-    log.warn('agents', `havuz dosyasi yok, varsayilana dusuluyor: ${path}`);
-    return FALLBACK_POOL;
-  }
-  const raw = JSON.parse(readFileSync(path, 'utf-8')) as Partial<AgentPool>;
-  return {
-    agentsPerCountry: raw.agentsPerCountry ?? FALLBACK_POOL.agentsPerCountry,
-    distribution: raw.distribution ?? FALLBACK_POOL.distribution,
-    archetypes: raw.archetypes ?? FALLBACK_POOL.archetypes,
-    namePools: raw.namePools ?? FALLBACK_POOL.namePools,
-    manual: raw.manual ?? [],
-  };
-}
-
 export interface AgentStageInput {
   readonly db: DatabaseSyncType;
   readonly binder: MaskBinder;
   readonly log: IssueLog;
   readonly seed: number;
-  readonly poolPath: string;
 }
 
 export interface AgentStageResult {
@@ -150,7 +63,13 @@ const AGENT_ID_OFFSET = 2_000_000;
 
 export function generateAgents(input: AgentStageInput): AgentStageResult {
   const { db, binder, log } = input;
-  const pool = loadAgentPool(input.poolPath, log);
+
+  // KURULUM VERISI VERITABANINDAN.
+  const perCountry = readSetting(db, 'agent', 'per_country', 6);
+  const distribution = readDistribution(db, 'agent', 'archetype');
+  const archetypeBands = new Map<string, BandTable>(
+    [...distribution.keys()].map((a) => [a, readBands(db, 'agent', a)]),
+  );
 
   const countries = db.prepare('SELECT id, name_real FROM country').all() as unknown as {
     id: number;
@@ -161,7 +80,6 @@ export function generateAgents(input: AgentStageInput): AgentStageResult {
     return { generated: 0, manual: 0, byArchetype: {} };
   }
 
-  const countryIdByName = new Map(countries.map((c) => [c.name_real, c.id]));
   const leaguesPerCountry = new Map(
     (
       db
@@ -194,7 +112,7 @@ export function generateAgents(input: AgentStageInput): AgentStageResult {
     realName: string,
     countryId: number,
     archetype: string,
-    profile: ArchetypeProfile,
+    bands: BandTable,
     roll: (i: number) => number,
     overrides: Partial<Record<string, number>> | undefined,
     strategy: 'manual' | 'pool',
@@ -203,8 +121,8 @@ export function generateAgents(input: AgentStageInput): AgentStageResult {
       name: strategy === 'manual' || salt === 0 ? realName : `${realName} ${salt}`,
       strategy,
     }));
-    const num = (name: string, index: number, range: Range): number =>
-      overrides?.[name] ?? span(roll(index), range);
+    const num = (name: string, index: number): number =>
+      overrides?.[name] ?? span(roll(index), bands.get(name));
 
     insert.run(
       bound.stableId + AGENT_ID_OFFSET,
@@ -212,19 +130,15 @@ export function generateAgents(input: AgentStageInput): AgentStageResult {
       realName,
       bound.name,
       archetype,
-      num('reach', 1, profile.reach),
-      num('negotiation', 2, profile.negotiation),
-      num('loyalty', 3, profile.loyalty),
-      num('patience', 4, profile.patience),
+      num('reach', 1),
+      num('negotiation', 2),
+      num('loyalty', 3),
+      num('patience', 4),
       // Komisyon ondalikli: nitelikler gibi tamsayi bandina yuvarlanamaz,
       // %12 ile %13 arasindaki fark kariyer boyunca milyonlar eder.
-      overrides?.['commission'] ??
-        Math.round(
-          (profile.commission[0] + roll(5) * (profile.commission[1] - profile.commission[0])) *
-            1000,
-        ) / 1000,
+      overrides?.['commission'] ?? commissionOf(bands.get('commission'), roll(5)),
       countryId,
-      num('reputation', 6, profile.reputation),
+      num('reputation', 6),
     );
 
     byArchetype[archetype] = (byArchetype[archetype] ?? 0) + 1;
@@ -237,30 +151,12 @@ export function generateAgents(input: AgentStageInput): AgentStageResult {
     //
     // Once bunlar: kullanicinin acikca istedigi menajer cekilisle uretilen
     // kalabaligin arasinda kaybolmasin.
-    pool.manual.forEach((entry, index) => {
-      const countryId = countryIdByName.get(entry.country);
-      if (countryId === undefined) {
-        log.warn(
-          'agents',
-          `elle menajer "${entry.name}" atlandi: "${entry.country}" ithal edilen ulkeler arasinda yok`,
-          'agent',
-          entry.name,
-        );
-        return;
-      }
-      const profile = pool.archetypes[entry.archetype] ?? FALLBACK_POOL.archetypes['journeyman']!;
-      write(
-        `agent-manual-${index}`,
-        entry.name,
-        countryId,
-        entry.archetype,
-        profile,
-        pseudo(input.seed, `agent-manual:${index}`),
-        entry.attributes,
-        'manual',
-      );
-      manualCount += 1;
-    });
+    // ELLE TANIMLI MENAJER YOK.
+    //
+    // `ref_manual_referee`in menajer karsiligi acilmadi: bugun elle
+    // tanimlanmis tek bir menajer bile yok ve tuketicisi olmayan bir tablo
+    // acmak bu calismanin acik kuralina aykiri. Gerekirse ayni desenle
+    // (`ref_manual_agent`) tek migrationla eklenir.
 
     // --- TOHUMDAN URETILENLER
     //
@@ -269,16 +165,16 @@ export function generateAgents(input: AgentStageInput): AgentStageResult {
     // bile Hero'nun secebilecegi birden fazla secenek olmali.
     for (const country of countries) {
       const leagues = leaguesPerCountry.get(country.id) ?? 1;
-      const count = Math.max(4, Math.round(leagues * pool.agentsPerCountry));
-      const names = pool.namePools[country.name_real] ?? pool.namePools['default'];
-      if (!names || names.first.length === 0 || names.last.length === 0) continue;
+      const count = Math.max(4, Math.round(leagues * perCountry));
+      const names = readNamePool(db, 'agent', country.name_real);
+      if (names.first.length === 0 || names.last.length === 0) continue;
 
       for (let i = 0; i < count; i += 1) {
         const roll = pseudo(input.seed, `agent:${country.id}:${i}`);
-        const archetype = pickArchetype(pool.distribution, roll(0));
-        const profile = pool.archetypes[archetype] ?? FALLBACK_POOL.archetypes['journeyman']!;
+        const archetype = pickArchetype(distribution, roll(0));
+        const bands = archetypeBands.get(archetype) ?? new Map();
         const name = `${pick(names.first, roll(7))} ${pick(names.last, roll(8))}`;
-        write(`agent-${country.id}-${i}`, name, country.id, archetype, profile, roll, undefined, 'pool');
+        write(`agent-${country.id}-${i}`, name, country.id, archetype, bands, roll, undefined, 'pool');
       }
     }
     db.exec('COMMIT');
@@ -300,10 +196,13 @@ export function generateAgents(input: AgentStageInput): AgentStageResult {
 }
 
 /** Kumulatif dagilimdan arketip seceri. Toplam 1'e ulasmazsa journeyman. */
-function pickArchetype(distribution: Readonly<Record<string, number>>, roll: number): string {
+/** Agirlikli secim. Toplam 1.0 olmak zorunda degil -- normalize edilir. */
+function pickArchetype(distribution: ReadonlyMap<string, number>, roll: number): string {
+  const total = [...distribution.values()].reduce((s, w) => s + w, 0);
+  if (total <= 0) return 'journeyman';
   let acc = 0;
-  for (const [key, share] of Object.entries(distribution)) {
-    acc += share;
+  for (const [key, share] of distribution) {
+    acc += share / total;
     if (roll <= acc) return key;
   }
   return 'journeyman';
@@ -313,8 +212,19 @@ function pick<T>(items: readonly T[], roll: number): T {
   return items[Math.min(items.length - 1, Math.floor(roll * items.length))]!;
 }
 
-function span(roll: number, range: Range): number {
-  return Math.round(range[0] + roll * (range[1] - range[0]));
+/** Banttan cekilis. Bant tanimli degilse notr 40-70 araligina duser. */
+function span(roll: number, range: Range | undefined): number {
+  const [min, max] = range ?? [40, 70];
+  return Math.round(min + roll * (max - min));
+}
+
+/**
+ * Komisyon -- ondalikli, nitelikler gibi tamsayiya yuvarlanamaz.
+ * %12 ile %13 arasindaki fark kariyer boyunca milyonlar eder.
+ */
+function commissionOf(range: Range | undefined, roll: number): number {
+  const [min, max] = range ?? [0.05, 0.1];
+  return Math.round((min + roll * (max - min)) * 1000) / 1000;
 }
 
 function pseudo(seed: number, key: string): (index: number) => number {

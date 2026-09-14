@@ -15,6 +15,7 @@ import {
   type PlayerAttributes,
   type Position,
   type RosterPerson,
+  type StaffAttributes,
 } from '../domain/actors.js';
 import type { HeroProfile } from '../domain/match.js';
 
@@ -28,6 +29,11 @@ export interface FieldPlayer {
   readonly aggression: number;
   /** Hero mu -- gol/asist Hero'ya yazilacaksa bu bayrak okunur. */
   readonly isHero: boolean;
+  /**
+   * Sogukkanlilik. Tanimsizsa sans cozucusu `quality`ye duser.
+   * Hero icin her zaman `quality`dir -- gunun formu zaten ona binmis olur.
+   */
+  readonly composure?: number;
   /**
    * Hero ile kimyasi (0-100). Yalnizca Hero'nun takiminda anlamli.
    *
@@ -65,6 +71,7 @@ const FORMATION: Readonly<Record<Position, number>> = { GK: 1, DF: 4, MF: 4, FW:
 function toFieldPlayer(p: RosterPerson, chemistry?: number): FieldPlayer {
   return {
     ...(chemistry === undefined ? {} : { chemistryWithHero: chemistry }),
+    ...(p.composure === undefined ? {} : { composure: p.composure }),
     sourceId: p.sourceId,
     name: p.displayName,
     position: p.position,
@@ -241,6 +248,64 @@ export function computeLines(eleven: readonly FieldPlayer[]): TeamLines {
   };
 }
 
+/**
+ * TEKNIK DIREKTOR ETKISI -- hat guclerine binen carpan.
+ *
+ * OLCULEN SORUN: teknik direktorun takim gucune etkisi TAM OLARAK SIFIRDI.
+ * Oyunda bir isim, bir yas ve bir iliski sayisindan ibaretti; iyi hoca ile
+ * kotu hoca arasinda sahada hicbir fark yoktu.
+ *
+ * TAVAN NEDEN DAR (+/-%7.5):
+ *   Bir hoca bir BASAMAK fark yaratmali, iki degil. Olculdu:
+ *     80 gucunde takim + 95 overall hoca -> 85.4
+ *     80 gucunde takim + 30 overall hoca -> 75.6
+ *   Daha genis bir band, 75 gucunde bir kadroyu hocayla sampiyon yapardi
+ *   ve kadro kurmanin anlami kalmazdi. Daha dar olsaydi hoca yine
+ *   gorunmez kalirdi -- ki duzeltmeye calistigimiz sey buydu.
+ *
+ * IKI BILESEN, CUNKU IKISI FARKLI SEY OLCUYOR:
+ *   tactical   -> sahada ne yapacagini bilmek        (+/-%5)
+ *   motivation -> takimi o gun oynatabilmek           (+/-%2.5)
+ *   Taktigi guclu ama takimi motive edemeyen hoca gercek bir arketiptir
+ *   ve tek sayiyla anlatilamaz.
+ *
+ * TAKTIK UYUMU:
+ *   `TeamModel` su an SABIT 4-4-2 diziliyor. Yani `preferredFormation`
+ *   bugun yalnizca "4-4-2 mi degil mi" ikili sorusuna cevap verebiliyor ve
+ *   uymayan hoca taktik katkisinin %40'ini kaybediyor. Formasyon sistemi
+ *   yazildiginda ayni alan tam matrisi besler -- veri hazir, kod yetisir.
+ */
+export function coachFactor(
+  attributes: StaffAttributes | undefined,
+  preferredFormation?: string,
+): number {
+  if (!attributes) return 1;
+  const fit = preferredFormation === undefined || preferredFormation === FORMATION_NAME ? 1 : 0.6;
+  const tactical = ((attributes.tactical - 50) / 1000) * fit; // -0.05 .. +0.05
+  const motivation = (attributes.motivation - 50) / 2000; //      -0.025 .. +0.025
+  return 1 + tactical + motivation;
+}
+
+/** Sahaya cikilan diziliş. `coachFactor` taktik uyumunu bununla olcer. */
+const FORMATION_NAME = '4-4-2';
+
+/** Hat guclerini bir carpanla olcekler. 0-100 bandi korunur. */
+function scaleLines(lines: TeamLines, factor: number): TeamLines {
+  if (factor === 1) return lines;
+  const one = (v: number): number => Math.max(1, Math.min(99, Math.round(v * factor)));
+  return {
+    keeper: one(lines.keeper),
+    defence: one(lines.defence),
+    midfield: one(lines.midfield),
+    attack: one(lines.attack),
+    overall: one(lines.overall),
+    // SERTLIK OLCEKLENMEZ: hocanin taktigi oyuncuyu daha sert yapmaz.
+    // Disiplin ekseninin faul uzerindeki etkisi ayri bir konu ve buraya
+    // sizarsa iyi hoca = cok faul gibi tersine bir sonuc uretirdi.
+    aggression: lines.aggression,
+  };
+}
+
 export function buildTeam(
   clubId: string,
   name: string,
@@ -248,13 +313,16 @@ export function buildTeam(
   hero?: FieldPlayer,
   /** Hero ile kimya cozucusu -- yalnizca Hero'nun takiminda dolu. */
   chemistryOf?: (sourceId: string) => number | undefined,
+  /** Kulubun teknik direktoru. Yoksa carpan 1 -- notr. */
+  coach?: { readonly attributes?: StaffAttributes; readonly preferredFormation?: string },
 ): TeamSquad {
   const eleven = pickEleven(squad, hero, chemistryOf);
+  const factor = coachFactor(coach?.attributes, coach?.preferredFormation);
   return {
     clubId,
     name,
     eleven,
-    lines: computeLines(eleven),
+    lines: scaleLines(computeLines(eleven), factor),
     heroOnPitch: eleven.some((p) => p.isHero),
   };
 }

@@ -45,7 +45,27 @@ export class SeasonRunner {
   /** fixtureKey -> skor. Eleme turlarinin kazananini buradan cikariyoruz. */
   private readonly results = new Map<string, MatchScore>();
   private readonly cups: ReadonlyMap<string, CupCompetition>;
+  /**
+   * Sezon basindan beri belli olan sampiyonlar. `cupChampion()` sorgular.
+   * DIKKAT: bu KUMULATIF bir haritadir; hafta raporuna DOGRUDAN verilmez.
+   */
   private readonly champions = new Map<string, string>();
+  /**
+   * YALNIZCA BU HAFTA tac giyenler.
+   *
+   * OLCULEN SORUN: hafta raporu `champions` haritasinin TAMAMINI
+   * donduruyordu -- alanin kendi dokumantasyonu "Bu hafta belli olan
+   * sampiyonlar" dedigi halde. Bir kupa kazanildiktan sonra sezonun kalan
+   * her haftasi ayni sampiyonlugu yeniden bildiriyor, host da her
+   * bildirimde `reportWorldEvent({kind:'trophy'})` cagiriyordu.
+   *
+   * Olculdu: tek bir kupa bir sezonda 10 KEZ sayildi; 100 kariyerde
+   * `kupa_sayisi` ortancasi 82, maksimumu 618 oldu (gercekci tavan ~40).
+   * Sohret formulunde kupanin agirligi 25 -- en agir girdi -- oldugu icin
+   * 100 kariyerin 85'i `legend` kademesine cikti ve yedi kademeli
+   * merdivenin ust ucu varsayilan hale geldi.
+   */
+  private crownedThisWeek: { competitionId: string; clubId: string }[] = [];
   /** Kupa basina: hangi tur indeksine kadar ilerledik. */
   private readonly cupRound = new Map<string, number>();
   private continentalPhase: 'group' | 'knockout' | 'done' = 'group';
@@ -63,6 +83,8 @@ export class SeasonRunner {
    */
   playWeek(week: number, skipClubId: string | undefined, rng: Rng): WeekReport {
     const fixtures = this.opts.schedule.byWeek(week);
+    // Her hafta sifirdan: rapor YALNIZCA bu hafta tac giyenleri tasir.
+    this.crownedThisWeek = [];
     let resolved = 0;
 
     for (const fixture of fixtures) {
@@ -82,10 +104,38 @@ export class SeasonRunner {
       week,
       resolved,
       opened,
-      champions: [...this.champions.entries()]
-        .filter(([, clubId]) => clubId !== '')
-        .map(([competitionId, clubId]) => ({ competitionId, clubId })),
+      champions: this.crownedThisWeek,
     };
+  }
+
+  /**
+   * Sezonu devreder -- LIG fiksturleri yeniden oynanabilir hale gelir.
+   *
+   * OLCULEN SORUN: `playWeek` bir fiksturu ikinci kez cozmemek icin
+   * `results` haritasina bakar (`if (this.results.has(...)) continue`).
+   * Bu harita sezonlar arasi HIC temizlenmiyordu. Sonuc: birinci sezonun
+   * sonunda butun fikstur anahtarlari haritada oluyor ve IKINCI SEZONDAN
+   * ITIBAREN DUNYADA HIC MAC OYNANMIYORDU.
+   *
+   * Olculdu (English Division 1):
+   *   Sezon 1  West London Blue O38 G19 B9 M10 P66   <- saglikli, rekabetci
+   *   Sezon 2  butun kulupler   O 0 G 0 B0 M 0 P 0   <- hic mac yok
+   *   Sezon 3  ayni
+   *
+   * Bu ayni zamanda "sampiyonluk yogunlasmasi" olarak gorunen seyin de
+   * sebebiydi: bos bir tabloda `standings()` butun kulupleri 0 puanla
+   * doner ve sirali kalan ilk kulup her sezon "sampiyon" sayilir. Yani
+   * bir kulubun ligi %99 kazanmasi bir denge sorunu DEGIL, hic mac
+   * oynanmamasinin belirtisiydi.
+   *
+   * KAPSAM SINIRI: kupa ve kita turnuvasi bracket'leri burada YENIDEN
+   * KURULMAZ. `materializeRound` takvim indeksine fikstur EKLER; yeniden
+   * tohumlamak ayni haftalara kopya mac yazardi. Kupalar bu yuzden hala
+   * kariyer basina bir kez oynanir -- ayri bir calisma konusu.
+   */
+  resetSeason(): void {
+    this.results.clear();
+    this.crownedThisWeek = [];
   }
 
   /** Hero'nun dakika dakika simule edilen macinin sonucunu isler. */
@@ -99,6 +149,20 @@ export class SeasonRunner {
 
   continentalChampion(): string | undefined {
     return this.opts.continental?.champion();
+  }
+
+  /**
+   * Bir turnuvaya sampiyon yazar -- YALNIZCA ILK KEZ.
+   *
+   * `advanceCup` / `advanceContinental` turnuva bittikten sonra da her
+   * hafta cagrilir ve ayni sampiyonu yeniden bulur. Tekrar yazmak zararsiz
+   * olurdu; tekrar RAPORLAMAK degil. Kapi burada.
+   */
+  private crown(competitionId: string, clubId: string | undefined): void {
+    if (clubId === undefined || clubId === '') return;
+    if (this.champions.has(competitionId)) return;
+    this.champions.set(competitionId, clubId);
+    this.crownedThisWeek.push({ competitionId, clubId });
   }
 
   private apply(fixture: Fixture, score: MatchScore): void {
@@ -141,7 +205,7 @@ export class SeasonRunner {
     const winners = round.ties.map((tie, i) => this.winner(tie, played[i]!, rng));
     const next = cup.advance(winners);
     if (!next) {
-      this.champions.set(id, cup.champion() ?? '');
+      this.crown(id, cup.champion());
       return [];
     }
 
@@ -183,7 +247,7 @@ export class SeasonRunner {
     const next = cl.advance(winners);
     if (!next) {
       this.continentalPhase = 'done';
-      this.champions.set(id, cl.champion() ?? '');
+      this.crown(id, cl.champion());
       return [];
     }
 

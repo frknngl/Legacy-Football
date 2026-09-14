@@ -29,8 +29,21 @@
  */
 
 import type { DatabaseSyncType } from './sqlite.js';
+import { readMaskRules } from './pipeline/reference.js';
 
-export type EntityKind = 'club' | 'player' | 'competition' | 'country';
+export type EntityKind =
+  | 'club'
+  | 'player'
+  | 'competition'
+  | 'country'
+  // v5: teknik heyet ve menajerlik sirketi kendi maske uzaylarini alir.
+  //
+  // Hakem ve menajer (agent) tarihsel olarak 'player' uzayini PAYLASIYOR
+  // (bkz. referees.ts / agents.ts) ve ID cakismasi ofsetle onleniyor.
+  // Yeni iki varlik icin ayni yol SECILMEDI: ayri uzay, cakisma denetimini
+  // kendi icinde net tutar ve ID ofsetlerini okunur birakir.
+  | 'staff'
+  | 'agency';
 export type MaskStrategyName = 'manual' | 'rule' | 'phonetic' | 'pool';
 
 export interface MaskResult {
@@ -231,34 +244,147 @@ const CLUB_DISTINCTIVES: readonly string[] = [
   'Highbridge',
 ];
 
-/** Havuzdan deterministik kulup maskesi. */
+/**
+ * Yer adi havuzu -- gercek adinda YER GECMEYEN kulupler icin.
+ *
+ * OLCULEN SORUN: eski surum, yer bulamadiginda gercek adin ILK KELIMESINI
+ * aynen kullaniyordu. Sonuc:
+ *   Arsenal            -> "Arsenal Eastfield"
+ *   Liverpool          -> "Liverpool Old Mill"
+ * Yani kulubun tescilli adi maskenin ICINDE hayatta kaliyordu ve maske
+ * islevini yitiriyordu. "Manchester City -> Manchester Northgate" sorun
+ * degil (Manchester bir SEHIR, tescilli degil); "Arsenal -> Arsenal ..."
+ * sorunun ta kendisi.
+ *
+ * Ayrim `CLUB_AFFIXES` ile yapilir: adinda FC/United/City gibi jenerik bir
+ * ek varsa geri kalan TOKEN yer sayilir ve korunur. Yoksa ad tumuyle
+ * tescilli kabul edilir ve yer havuzdan cekilir.
+ */
+const PLACE_POOL: readonly string[] = [
+  'Ashford', 'Barrow', 'Camden', 'Denbury', 'Eastmoor', 'Fairhaven',
+  'Greenock', 'Hallam', 'Irongate', 'Kelmore', 'Lyndale', 'Marlow',
+  'Northwick', 'Oakley', 'Pendle', 'Quarrow', 'Redmoor', 'Stanbridge',
+  'Thornby', 'Upton', 'Vale End', 'Westmere', 'Yarrow', 'Ashcombe',
+  'Brackley', 'Cranfield', 'Dunmore', 'Elmwood', 'Foxhall', 'Glenmore',
+];
+
+/**
+ * Havuzdan deterministik kulup maskesi.
+ *
+ * Iki yol:
+ *   adinda yer VAR  -> "Manchester City"  -> "Manchester Northgate"
+ *   adinda yer YOK  -> "Arsenal"          -> "Pendle Eastfield"
+ *
+ * Ikinci yolda taninabilirlik kaybolur -- bu bilincli bir takas. Kuratorlu
+ * esleme (`ref_mask_rule`) istenen kulup icin bunu EZER; editorun ilk isi
+ * odur.
+ */
 export function poolClubMask(realName: string, salt = 0): string {
   const { place } = splitClubName(realName);
   const pick = CLUB_DISTINCTIVES[hashString(realName, salt) % CLUB_DISTINCTIVES.length]!;
   if (place !== undefined && place.length > 0) return `${place} ${pick}`;
-  return `${realName.split(/\s+/)[0]} ${pick}`;
+  const generated = PLACE_POOL[hashString(realName, salt + 7) % PLACE_POOL.length]!;
+  return `${generated} ${pick}`;
 }
 
-/** Turnuva adi icin jenerik donusum. */
-export function poolCompetitionMask(realName: string, salt = 0): string {
-  const replacements: readonly (readonly [RegExp, string])[] = [
-    [/Premier League/i, 'Premier Division'],
-    [/Championship/i, 'Second Division'],
-    [/Bundesliga/i, 'Bundesklasse'],
-    [/LaLiga2/i, 'Liga Segunda'],
-    [/LaLiga/i, 'Liga Primera'],
-    [/Serie A/i, 'Serie Prima'],
-    [/Serie B/i, 'Serie Seconda'],
-    [/Ligue 1/i, 'Ligue Premiere'],
-    [/Ligue 2/i, 'Ligue Deuxieme'],
-    [/Eredivisie/i, 'Eerste Klasse'],
-    [/Süper Lig/i, 'Birinci Lig'],
-    [/Liga Portugal 2/i, 'Liga Lusa 2'],
-    [/Liga Portugal/i, 'Liga Lusa'],
-  ];
-  for (const [pattern, out] of replacements) {
-    if (pattern.test(realName)) return out;
+/**
+ * ULKE SIFATI -- "English", "Spanish", "Turkish".
+ *
+ * Lig adini ulkeden turetmek PES/eFootball deseni: "Premier League" yerine
+ * "English League 1". Tescilli lig markasi tamamen dusurulur, buna karsilik
+ * oyuncu hangi ulkenin kacinci ligi oldugunu ILK BAKISTA anlar -- ki lig
+ * adinin oyundaki tek islevi budur.
+ */
+const COUNTRY_ADJECTIVE: Readonly<Record<string, string>> = {
+  England: 'English',
+  Spain: 'Spanish',
+  Italy: 'Italian',
+  Germany: 'German',
+  France: 'French',
+  Portugal: 'Portuguese',
+  Netherlands: 'Dutch',
+  'Türkiye': 'Turkish',
+  Belgium: 'Belgian',
+  Scotland: 'Scottish',
+  Denmark: 'Danish',
+  Norway: 'Norwegian',
+  Sweden: 'Swedish',
+  Poland: 'Polish',
+  Austria: 'Austrian',
+  Switzerland: 'Swiss',
+  Greece: 'Greek',
+  Croatia: 'Croatian',
+  Czechia: 'Czech',
+  Romania: 'Romanian',
+  Ukraine: 'Ukrainian',
+  Brazil: 'Brazilian',
+  Argentina: 'Argentine',
+  Uruguay: 'Uruguayan',
+  Colombia: 'Colombian',
+  Chile: 'Chilean',
+  Peru: 'Peruvian',
+  Mexico: 'Mexican',
+  'United States': 'American',
+  Japan: 'Japanese',
+  'Korea Republic': 'Korean',
+  'China PR': 'Chinese',
+  Australia: 'Australian',
+  'Saudi Arabia': 'Saudi',
+  India: 'Indian',
+  Hungary: 'Hungarian',
+  Finland: 'Finnish',
+  Cyprus: 'Cypriot',
+  Azerbaijan: 'Azerbaijani',
+  'Republic of Ireland': 'Irish',
+  'United Arab Emirates': 'Emirati',
+  Bolivia: 'Bolivian',
+  Ecuador: 'Ecuadorian',
+  Venezuela: 'Venezuelan',
+  Paraguay: 'Paraguayan',
+};
+
+export function countryAdjective(country: string): string {
+  return COUNTRY_ADJECTIVE[country] ?? country;
+}
+
+/** Turnuvanin maskeleme baglami -- ulke ve basamak. */
+export interface CompetitionMaskContext {
+  readonly country: string;
+  readonly level?: number | undefined;
+  readonly kind?: string | undefined;
+}
+
+/**
+ * Turnuva adi maskesi -- PES mantigi.
+ *
+ * OLCULEN SORUN: eski surum sabit bir esleme tablosuydu ve tabloda olmayan
+ * her lig `Lig 7` gibi anlamsiz bir ada dusuyordu. Olculdu: "England Cup"
+ * -> "Lig 9". Ustelik tablodaki esleme de zayifti: "Premier League" ->
+ * "Premier Division", yani tescilli "Premier" sozcugu hayatta kaliyordu.
+ *
+ * Yeni kural ulke + basamaktan TURETIR:
+ *   England  lvl1 lig   -> "English Division 1"
+ *   Germany  lvl2 lig   -> "German Division 2"
+ *   England  kupa       -> "English Cup"
+ * Baglam verilmezse eski davranisa duser (geriye uyumluluk).
+ */
+export function poolCompetitionMask(
+  realName: string,
+  salt = 0,
+  context?: CompetitionMaskContext,
+): string {
+  if (context !== undefined && context.country !== '') {
+    const adjective = countryAdjective(context.country);
+    if (context.kind === 'domestic_cup') {
+      return salt === 0 ? `${adjective} Cup` : `${adjective} Cup ${salt + 1}`;
+    }
+    const level = context.level ?? 1;
+    return salt === 0
+      ? `${adjective} Division ${level}`
+      : `${adjective} Division ${level}-${salt}`;
   }
+
+  // Baglamsiz cagri -- eski hat (Transfermarkt) hala buradan geciyor.
   const n = (hashString(realName, salt) % 9) + 1;
   return `Lig ${n}`;
 }
@@ -278,10 +404,20 @@ export class MaskBinder {
   private readonly insert;
   private readonly nextId;
 
+  /**
+   * Kuratorlu esleme -- `ref_mask_rule` TABLOSUNDAN okunur.
+   *
+   * Once `mask-rules.json` dosyasindan geliyordu. Gercek veri veritabaninda
+   * yasar: editorden duzenlenebilmesi ve import hattiyla ayni kaynagi
+   * gormesi icin tabloya tasindi.
+   */
+  private readonly dbRules: ReadonlyMap<string, ReadonlyMap<string, string>>;
+
   constructor(
     private readonly db: DatabaseSyncType,
     private readonly rules: ManualRules = EMPTY_RULES,
   ) {
+    this.dbRules = readMaskRules(db);
     this.selectByKey = db.prepare(
       `SELECT stable_id, masked_name, strategy FROM mask_binding
        WHERE entity_kind = ? AND external_key = ?`,
@@ -352,6 +488,10 @@ export class MaskBinder {
           : kind === 'country'
             ? this.rules.country
             : undefined;
+    // Once VERITABANI kurallari, sonra (geriye uyumluluk icin) dosya.
+    const fromDb = this.dbRules.get(kind)?.get(realName);
+    if (fromDb !== undefined) return { name: fromDb, strategy: 'manual' };
+
     const hit = table?.[realName];
     return hit === undefined ? undefined : { name: hit, strategy: 'manual' };
   }

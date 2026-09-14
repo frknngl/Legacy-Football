@@ -261,7 +261,20 @@ export class CastingDirector {
       const found = this.roster
         .staff(ctx.clubId)
         .find((s) => s.role === slot.staffRole && !taken.has(s.sourceId));
-      return found;
+      if (found) return found;
+
+      // KULUPTE KALAN YOK -- BOSTA HAVUZA BAK.
+      //
+      // Bu yol pratikte yalnizca KOVULMADAN sonra calisir: bir kulubun her
+      // rolden tek kisisi vardir, giden kisi `taken` icindedir ve geriye
+      // kimse kalmaz. Havuz gelmeden once burasi `undefined` donuyordu ve
+      // `createActor` prosedurel bir isim uyduruyordu -- niteliksiz, ve
+      // `origin: 'tr'` varsayilani yuzunden Ingiliz kulubune Turk adiyla.
+      // Olculdu: 17 kovulmanin 17'sinde.
+      if (slot.staffRole === undefined) return undefined;
+      return this.roster
+        .freeStaff?.(slot.staffRole, ctx.clubId)
+        .find((s) => !taken.has(s.sourceId));
     }
     if (slot.source === 'squad') {
       return applyCastingRule(this.roster.squad(ctx.clubId), slot.castingRule, taken);

@@ -1,12 +1,8 @@
 @echo off
-title Football DB Engine Server
-echo ==================================================
-echo Football Simulation Data Engine
-echo ==================================================
-echo.
-echo Starting the engine... The editor will automatically open in your browser shortly.
-echo.
-echo (Keep this black window open while using the editor. Close this window to shut down the server.)
-echo.
-python -m streamlit run editor_app.py
-pause
+REM WORLD.DB EDITORU -- her tabloya erisim, her satira duzenleme.
+REM
+REM Eski `editor_app.py` fm_database.db'ye bakiyordu ve yalnizca dort tablo
+REM icin elle yazilmis sayfalar tasiyordu. Tek dogruluk kaynagi artik
+REM data/world.db ve editor tablolari semadan OKUR.
+cd /d "%~dp0\.."
+streamlit run football_db_engine/world_editor.py

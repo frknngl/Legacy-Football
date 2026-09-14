@@ -22,7 +22,7 @@
  */
 
 import type { ClubTier } from './axes.js';
-import type { AnyPerson, RosterPerson, StaffPerson } from './actors.js';
+import type { AnyPerson, RosterPerson, StaffPerson, StaffRole } from './actors.js';
 import type { AgentProfile } from './agent.js';
 
 export interface ClubInfo {
@@ -63,6 +63,21 @@ export interface LeagueInfo {
   readonly promoted: number;
   /** Sezon sonu kac kulup bir alt basamaga iner. */
   readonly relegated: number;
+  /**
+   * Bu ligin ULKESI -- terfi/dusme piramidini ulke icinde tutar.
+   *
+   * OLCULEN SORUN: bu alan yoktu ve `LeagueModel.finishSeason` bir ust/alt
+   * basamagi `byLevel.find(l => l.level === ...)` ile ariyordu. `find`
+   * o SEVIYEDEKI ILK ligi dondurur -- ulkeden bagimsiz. Sonuc: butun 2.
+   * ligler ayni tek 1. lige terfi etti, butun 1. ligler ayni tek 2. lige
+   * dustu. 100 sezonluk simulasyonda 21 ligin 19'u dokuz sezonda BOSALDI
+   * (Dutch D1 30 -> 96 kulup, English D2 45 -> 156, digerleri 0).
+   *
+   * OPSIYONEL: mock dunyada her seviyede TEK lig var (tr_1 / tr_2 /
+   * tr_amateur), yani orada ulke ayrimina gerek yok ve `undefined` kalir.
+   * Tanimsizken eski davranis korunur -- zarif bozulma.
+   */
+  readonly country?: string;
 }
 
 export interface RosterProvider {
@@ -80,6 +95,21 @@ export interface RosterProvider {
    * yalnizca teklif akisi menajersiz katsayiyla isler.
    */
   agents?(countryId?: string): readonly AgentProfile[];
+  /**
+   * BOSTA TEKNIK HEYET -- kulube atanmamis kisiler.
+   *
+   * NICIN VAR: teknik direktor kovuldugunda yerine gelecek GERCEK bir isim
+   * lazim. Havuz yokken motor prosedurel bir ad uyduruyordu ve o adin
+   * niteligi olmadigi icin takim gucu kovulan hocanin degerlerinde
+   * takiliyordu (olculdu: 17 kovulmanin 17'sinde).
+   *
+   * `clubId` verilirse once O KULUBUN ULKESINDEN hocalar doner -- Ingiliz
+   * kulubune once Ingiliz hoca. Havuz tukenirse yabanci isimlere dusulur.
+   *
+   * OPSIYONEL: mock dunyada boyle bir tablo yok; tanimsizken motor eski
+   * davranisa doner ve oyun calismaya devam eder.
+   */
+  freeStaff?(role: StaffRole, clubId?: string): readonly StaffPerson[];
   /** Host'un onbellegi isitmasi icin opsiyonel kanca (DB adaptorunde anlamli). */
   prefetch?(clubIds: readonly string[]): Promise<void>;
 }

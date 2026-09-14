@@ -33,8 +33,30 @@ export interface TimelineInput {
   readonly away: { readonly lines: TeamLines; readonly tactic: TacticProfile };
 }
 
-/** Ev sahibi avantaji -- gercek liglerde ~%55 puan payi uretir. */
-const HOME_ADVANTAGE = 4;
+/**
+ * EV SAHIBI AVANTAJI -- SIMETRIK uygulanir.
+ *
+ * OLCULEN SORUN: deger 4'tu ve YALNIZCA ev sahibinin hucumuna ekleniyordu.
+ * Iki sonucu vardi:
+ *   1. Etki cok kucuktu: 89.020 macta denk takimlar arasinda ev sahibi
+ *      avantaji 3.4 PUAN cikti (gercek futbolda ~18). Ev sahibi gol
+ *      ortalamasi 0.94, deplasman 0.90 -- neredeyse fark yok.
+ *   2. Tek tarafli oldugu icin buyutmek TOPLAM golu sisiriyordu; 18 puan
+ *      avantaj icin gol/mac 3.0'in uzerine cikiyordu.
+ *
+ * Gercek ev avantaji iki yonludur: ev sahibi daha cok uretir, deplasman
+ * daha AZ. Simetrik uygulama toplam golu sabit tutarken farki acar.
+ *
+ * GUC FARKINDAN BAGIMSIZ uygulanir -- hucum degerine eklenmez, orana
+ * carpilir. Gerekcesi asagida, `homeFactor` yaninda.
+ *
+ * Deger analitik olarak secildi (bagimsiz Poisson, denk takimlar):
+ *   h=4   ev %39.5 · ber %26.0 · dep %34.5  -> avantaj  4.9
+ *   h=14  ev %45.8 · ber %25.5 · dep %28.7  -> avantaj 17.2   <- secildi
+ *   h=20  ev %49.7 · ber %25.0 · dep %25.3  -> avantaj 24.4
+ * Gercek futbol: ev %46 · ber %26 · dep %28 -> avantaj ~18.
+ */
+const HOME_ADVANTAGE = 14;
 
 /**
  * Dakika basina taban sans olasiligi.
@@ -64,17 +86,33 @@ const OPEN_PLAY_MIX: readonly { kind: ChanceKind; weight: number }[] = [
 export function buildTimeline(input: TimelineInput, rng: Rng): readonly TimelineEvent[] {
   const events: TimelineEvent[] = [];
 
-  const homeAttack = input.home.lines.attack + HOME_ADVANTAGE;
+  const homeAttack = input.home.lines.attack;
   const awayAttack = input.away.lines.attack;
 
   // Hucum gucu ile rakip savunmasinin FARKI sans uretimini belirler.
   const homeEdge = (homeAttack - input.away.lines.defence) / 100;
   const awayEdge = (awayAttack - input.home.lines.defence) / 100;
 
+  // TABAN: (1 + edge) asiri guc farkinda sifirin altina inebilir; hicbir
+  // takim sifir pozisyonla oynamaz. 0.2 en zayif takima bile mac basina
+  // ~2-3 pozisyon birakir.
+  //
+  // EV AVANTAJI GUC FARKINDAN BAGIMSIZ bir carpandir.
+  //
+  // Ilk denemede avantaj hucum degerine eklenmisti (`attack + HOME_ADVANTAGE`)
+  // ve guc farkinin ICINE karisiyordu. Sonuc olculdu: zaten ucurum olan bir
+  // eslesmede (elit ev sahibi vs amator deplasman) deplasmanin oranini
+  // tabana yapistiriyor ve surprizi IMKANSIZ kiliyordu -- 60 tohumda
+  // sifir deplasman galibiyeti. Gercek futbolda ev avantaji takim gucuyle
+  // olceklenmez; sabit bir katkidir.
+  const homeFactor = 1 + HOME_ADVANTAGE / 100;
+  const awayFactor = 1 - HOME_ADVANTAGE / 100;
   const homeRate =
-    BASE_CHANCE_RATE * input.home.tactic.tempo * input.away.tactic.exposure * (1 + homeEdge);
+    BASE_CHANCE_RATE * input.home.tactic.tempo * input.away.tactic.exposure *
+    Math.max(0.2, 1 + homeEdge) * homeFactor;
   const awayRate =
-    BASE_CHANCE_RATE * input.away.tactic.tempo * input.home.tactic.exposure * (1 + awayEdge);
+    BASE_CHANCE_RATE * input.away.tactic.tempo * input.home.tactic.exposure *
+    Math.max(0.2, 1 + awayEdge) * awayFactor;
 
   const foulRate =
     0.012 * ((input.home.lines.aggression + input.away.lines.aggression) / 100) *

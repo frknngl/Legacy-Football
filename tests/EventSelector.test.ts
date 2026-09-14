@@ -15,6 +15,7 @@ import { ContentLoader } from '../src/loading/ContentLoader.js';
 import { FileSystemContentSource } from '../src/loading/FileSystemContentSource.js';
 import { EventSelector, type SelectionContext } from '../src/selection/EventSelector.js';
 import { Rng } from '../src/selection/Rng.js';
+import { PersonaAccumulator } from '../src/evaluation/PersonaAccumulator.js';
 
 let baseConfig: ContentRegistry['config'];
 
@@ -24,12 +25,9 @@ beforeAll(async () => {
   baseConfig = loaded.registry!.config;
 });
 
-const PERSONA: PersonaState = {
-  sadakat: 50,
-  mizac: 50,
-  durus: 50,
-  dogruluk: 50,
-};
+// Butun eksenler notr. Elle saymak yerine motorun kendi baslangicini
+// kullaniyoruz -- yeni bir eksen eklendiginde bu test sessizce eskimesin.
+const PERSONA: PersonaState = PersonaAccumulator.initial();
 
 function nodes(): Record<string, StoryNode> {
   return {

@@ -83,6 +83,7 @@ async function playCareer(
   // Kimya kablosu: motor kuruldu, simulator artik 'kim kiminle iyi
   // anlasiyor' sorusunu sorabilir. Motorun flag sozlugu yine kapali.
   sim.simulator.useChemistrySource((id) => engine.chemistryFor(id));
+  sim.useManagerSource?.((clubId: string) => engine.managerSourceIdFor(clubId));
   const rng = new Rng(seed ^ 0x5bf03635);
   const filter = new EligibilityFilter();
   const occurrences = new OccurrenceCollector();

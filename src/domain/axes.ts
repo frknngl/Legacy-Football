@@ -47,9 +47,62 @@ export type LifeState = (typeof LIFE_STATES)[number];
 export const MEDIA_ERAS = ['press', 'twitter', 'instagram', 'tiktok', 'deepfake'] as const;
 export type MediaEra = (typeof MEDIA_ERAS)[number];
 
-/** Kimlik eksenleri. Secimlerle BIRIKIR; icerik bunlari dogrudan set EDEMEZ. */
-export const PERSONA_AXES = ['sadakat', 'mizac', 'durus', 'dogruluk'] as const;
+/**
+ * Kimlik eksenleri. Secimlerle BIRIKIR; icerik bunlari dogrudan set EDEMEZ.
+ *
+ * CEKIRDEK DORT eksen once gelir -- `PersonaAccumulator.initial()` sirayi
+ * korur ve eski kayitlar bu dortluyle uyumlu kalir.
+ *
+ * GENIS EKSENLER (2026-09 genislemesi):
+ *   Olculdu: icerik 545 olayda 22 ayri eksen kullaniyordu; motor yalnizca
+ *   dordunu taniyordu. Kalan 18'i `parse.ts` "Bilinmeyen kimlik ekseni"
+ *   diye REDDEDIYOR ve o olaylari yukleyemiyordu -- 141 kullanim, 31 test
+ *   dosyasini kirmizi birakan zincirin basi.
+ *
+ *   Karar: SOZLUK GENISLETILDI, icerik DEGISMEDI. Bir senaryonun
+ *   "profesyonellik" demesi bir hata degil; motorun onu tanimamasi hataydi.
+ *
+ * NOT ('ozguven' / 'özgüven'):
+ *   Ikisi de icerikte gecerli olarak duruyor (9 + 1 kullanim) ve ayni
+ *   kavrami anlatiyor. Ikisi de TANINIYOR cunku tek bir icerik satirini bile
+ *   degistirmemek bu genislemenin sarti. Birlestirmek istenirse tek dosyalik
+ *   bir duzeltmedir -- ama bu motorun degil, yazarin karari.
+ */
+export const PERSONA_AXES = [
+  // --- cekirdek dortlu
+  'sadakat',
+  'mizac',
+  'durus',
+  'dogruluk',
+  // --- genis eksenler
+  'profesyonellik',
+  'zeka',
+  'ego',
+  'cesaret',
+  'merhamet',
+  'özgüven',
+  'liderlik',
+  'hırs',
+  'umursamazlik',
+  'sabır',
+  'cömertlik',
+  'disiplin',
+  'icekapaniklik',
+  'güven',
+  'icgoru',
+  'inat',
+  'ozguven',
+  'yetenek',
+] as const;
 export type PersonaAxis = (typeof PERSONA_AXES)[number];
+
+/**
+ * Baslangicta bir eksenin degeri.
+ *
+ * Notr 50: hicbir eksende basli basina iyi ya da kotu degilsin; kimlik
+ * secimlerle birikir.
+ */
+export const PERSONA_START = 50;
 
 /** Persona ekseninin flag adi: 'sadakat' -> 'persona_sadakat' */
 export type PersonaFlagKey = `persona_${PersonaAxis}`;

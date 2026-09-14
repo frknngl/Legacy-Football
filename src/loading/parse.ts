@@ -83,6 +83,104 @@ function oneOf<T extends string>(v: unknown, allowed: readonly T[]): T | undefin
   return typeof v === 'string' && (allowed as readonly string[]).includes(v) ? (v as T) : undefined;
 }
 
+/**
+ * EKSEN TAKMA ADLARI -- icerigin kullandigi ad, motorun tanidigi deger.
+ *
+ * OLCULEN SORUN: icerik bazi basamaklari baska adla aniyordu --
+ *   stature   "prospect"   (9 kullanim)
+ *   clubTiers "relegation" (10 kullanim)
+ *   clubTiers "midtable"   (10 kullanim)
+ * Ayristirici bunlari reddediyor ve o olaylari HIC yukleyemiyordu.
+ *
+ * NEDEN YENI BASAMAK DEGIL DE TAKMA AD:
+ *   `STATURES` ve `CLUB_TIERS` SIRALI merdivenlerdir; `statureIndex()` ve
+ *   `clubTierIndex()` esik karsilastirmalarini bu siraya gore yapar. Araya
+ *   yeni bir basamak sokmak butun indeksleri kaydirir ve 545 olayin
+ *   kapilamasini sessizce degistirirdi. Takma ad merdivene DOKUNMAZ.
+ *
+ * NEDEN ICERIK DUZELTILMEDI:
+ *   Bir senaryonun "dusme hatti" demesi hata degil; motorun onu tanimamasi
+ *   hataydi. Tek satir icerik degistirmeden ayni anlama baglaniyor.
+ *
+ * Yazar bu adlari gercekten ayri bir eksen olarak istiyorsa (ornegin lig
+ * siralamasi zaten `leagueContextForClub()` ile motorda VAR), dogru cozum
+ * ayri bir kapilama ekseni acmaktir -- bu tablo o gune kadarki koprudur.
+ */
+const AXIS_ALIASES: Readonly<Record<string, Readonly<Record<string, string>>>> = {
+  stature: {
+    // Genc umut: merdivenin en alt gercek basamagi.
+    prospect: 'local_talent',
+  },
+  clubTiers: {
+    // Dusme hatti takimi = alt seviye kulup.
+    relegation: 'lower',
+    // Orta sira = orta seviye kulup.
+    midtable: 'mid',
+  },
+};
+
+/** Bir eksen icin takma adi cozer; takma ad yoksa degeri aynen doner. */
+function resolveAlias(axis: string, value: unknown): unknown {
+  if (typeof value !== 'string') return value;
+  return AXIS_ALIASES[axis]?.[value] ?? value;
+}
+
+/**
+ * `eras` dizisini iki eksene ayirir.
+ *
+ * Yas evresi olanlar `eras`a, sohret degeri olanlar `stature`a gider.
+ * Ikisine de uymayan deger HATA olarak raporlanir -- ayrim gecerli
+ * degerleri kurtarmak icin, gecersiz olanlari gizlemek icin degil.
+ */
+function splitEraGate(
+  v: unknown,
+  ctx: ParseContext,
+): { eras: Era[] | undefined; stature: Stature[] | undefined } {
+  if (v === undefined) return { eras: undefined, stature: undefined };
+  if (!Array.isArray(v)) {
+    ctx.error('eras', 'Dizi bekleniyordu.');
+    return { eras: undefined, stature: undefined };
+  }
+
+  const eras: Era[] = [];
+  const stature: Stature[] = [];
+  for (const [i, item] of v.entries()) {
+    const era = oneOf(item, ERAS);
+    if (era !== undefined) {
+      eras.push(era);
+      continue;
+    }
+    const asStature = oneOf(resolveAlias('stature', item), STATURES);
+    if (asStature !== undefined) {
+      stature.push(asStature);
+      continue;
+    }
+    ctx.error(
+      `eras[${i}]`,
+      `Gecersiz deger: ${JSON.stringify(item)}`,
+      `Izin verilenler: ${ERAS.join(', ')} (yas evresi) veya ${STATURES.join(', ')} (sohret)`,
+    );
+  }
+
+  return {
+    eras,
+    stature: stature.length > 0 ? stature : undefined,
+  };
+}
+
+/** Iki listeyi sirasi korunarak, tekrarsiz birlestirir. */
+function mergeUnique<T extends string>(
+  a: readonly T[] | undefined,
+  b: readonly T[] | undefined,
+): T[] | undefined {
+  if (a === undefined && b === undefined) return undefined;
+  const out: T[] = [];
+  for (const item of [...(a ?? []), ...(b ?? [])]) {
+    if (!out.includes(item)) out.push(item);
+  }
+  return out;
+}
+
 function arrOf<T extends string>(
   v: unknown,
   allowed: readonly T[],
@@ -96,10 +194,14 @@ function arrOf<T extends string>(
   }
   const out: T[] = [];
   for (const [i, item] of v.entries()) {
-    const parsed = oneOf(item, allowed);
+    // Takma ad once cozulur; `path` eksen adinin kendisidir ('stature',
+    // 'clubTiers'...), bu yuzden tablo dogrudan onunla anahtarlanir.
+    const parsed = oneOf(resolveAlias(path, item), allowed);
     if (parsed === undefined) {
       ctx.error(`${path}[${i}]`, `Gecersiz deger: ${JSON.stringify(item)}`, `Izin verilenler: ${allowed.join(', ')}`);
-    } else {
+    } else if (!out.includes(parsed)) {
+      // Takma ad gercek degerle ayni basamaga dusebilir ('midtable' + 'mid'
+      // ayni olayda) -- tekrar YAZILMAZ, yoksa kapilama iki kez sayilir.
       out.push(parsed);
     }
   }
@@ -241,7 +343,16 @@ export function parseEffect(v: unknown, ctx: ParseContext, path: string): Effect
       const n = num(v[key]);
       if (n !== undefined) out[key] = n;
     }
-    if (v['redCard'] === true) out['redCard'] = true;
+    // KIRMIZI KART: motorda ikili (`redCard: true`), icerikte bazen sayi
+    // (`redCards: 1`) yaziliyor. Ikisi de ayni seyi anlatiyor -- bir macta
+    // bir oyuncu en fazla bir kirmizi gorur, sayinin bir bilgi fazlasi yok.
+    // Sayi bicimi SESSIZCE DUSUYORDU: `evt_match_hakem_saldirisi` ve
+    // `evt_match_kasitli_sakatlama` kirmizi kart yazdigini saniyordu,
+    // motor hicbir sey uygulamiyordu.
+    const redCards = num(v['redCards']);
+    if (v['redCard'] === true || (redCards !== undefined && redCards > 0)) {
+      out['redCard'] = true;
+    }
     const incident = str(v['incident']);
     if (incident !== undefined) out['incident'] = incident;
     return out as unknown as Effect;
@@ -590,9 +701,33 @@ export function parseEvent(v: unknown, ctx: ParseContext, sourceFile: string): S
     sourceFile,
   };
 
-  const eras = arrOf<Era>(v['eras'], ERAS, ctx, 'eras');
-  if (eras) out['eras'] = eras;
-  const stature = arrOf<Stature>(v['stature'], STATURES, ctx, 'stature');
+  // ERAS VE STATURE AYNI DIZIDEN GELEBILIR.
+  //
+  // OLCULEN SORUN: 28 olay `eras` dizisine sohret degeri yaziyordu --
+  // ornegin `"eras": ["prime", "star", "icon"]`. Ayristirici bunlari
+  // "Gecersiz deger" diye reddediyor ve o olaylari HIC yukleyemiyordu.
+  //
+  // Niyet acik: "zirve yasinda VE yildiz seviyesinde". Yazarin iki ekseni
+  // tek dizide belirtmesi bir hata degil; iki ekseni ayni sozlukte aramak
+  // hataydi. Bu yuzden dizi AYRISTIRILIR: yas evreleri `eras`a, sohret
+  // degerleri `stature` kapisina gider.
+  //
+  // `stature` ayrica kendi alaninda da yazilabilir; ikisi BIRLESTIRILIR.
+  const { eras, stature: statureFromEras } = splitEraGate(v['eras'], ctx);
+  if (eras && eras.length > 0) out['eras'] = eras;
+
+  // `stature` / `statures` -- icerik ikisini de kullaniyor.
+  //
+  // OLCULEN SORUN: `evt_sponsor_movie_cameo` cogul yazmisti. Ayristirici
+  // yalnizca tekili okudugu ve sema `additionalProperties: false` oldugu
+  // icin olay HIC yuklenmiyordu. Kapilama niyeti acikti, alan adi degildi.
+  const statureField = arrOf<Stature>(
+    v['stature'] ?? v['statures'],
+    STATURES,
+    ctx,
+    'stature',
+  );
+  const stature = mergeUnique(statureField, statureFromEras);
   if (stature) out['stature'] = stature;
   const clubTiers = arrOf<ClubTier>(v['clubTiers'], CLUB_TIERS, ctx, 'clubTiers');
   if (clubTiers) out['clubTiers'] = clubTiers;

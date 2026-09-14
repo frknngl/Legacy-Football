@@ -283,6 +283,7 @@ async function measure(
   // KIMYA KABLOSU -- simulate'te var, burada yoktu. Simulator "kim
   // kiminle iyi anlasiyor" sorusunu motora bu kanaldan sorar.
   world.simulator.useChemistrySource((id) => engine.chemistryFor(id));
+  world.useManagerSource?.((clubId: string) => engine.managerSourceIdFor(clubId));
   engine.start(archetype);
 
   const rng = new Rng(seed ^ 0x5eed);

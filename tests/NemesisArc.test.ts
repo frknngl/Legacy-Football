@@ -78,7 +78,21 @@ describe('rakip arki', () => {
 
   it('on asama SIRAYLA gelir ve hicbiri tekrar etmez', async () => {
     const { order } = await playCareer(8080);
-    const stages = order.filter((id) => !RESOLUTIONS.includes(id));
+
+    // YALNIZCA ARK ASAMALARI sayilir.
+    //
+    // Bu filtre eskiden "evt_rival_ ile baslayan ve final olmayan her sey"
+    // idi. Ama `content/events/rival/` altinda arkin PARCASI OLMAYAN 13 olay
+    // daha var (derbi basini, tunel kavgasi, forma degisimi...) ve bunlarin
+    // tekrar etmesi DOGRUDUR -- ark asamalari gibi bir kerelik degiller.
+    //
+    // Eski filtre yalnizca o 13 olay havuza HIC girmedigi icin calisiyordu;
+    // ayristirici sozlugu genisletilince girdiler ve testi dusurduler. Kusur
+    // arkta degil, filtredeydi.
+    const arcStageIds = registry.config.nemeses[0]!.stages.map((s) => s.eventId);
+    const stages = order.filter(
+      (id) => arcStageIds.includes(id) && !RESOLUTIONS.includes(id),
+    );
 
     expect(stages.length, 'hic asama gelmedi').toBeGreaterThan(0);
     expect(new Set(stages).size, 'bir asama tekrar etti').toBe(stages.length);

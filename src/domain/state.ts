@@ -127,6 +127,23 @@ export interface GameState {
    * "emekli olmamis" demektir ve dogru anlamdir.
    */
   retiredAtTurn?: number;
+  /**
+   * Hero'nun SON transferi: hangi sezon, hangi pencere.
+   *
+   * NICIN VAR (olculdu, 100 kariyer): Hero'nun kulup degistirmesinin ne
+   * penceresi ne de sezonluk siniri vardi. Sonuc: kariyer basina ortanca
+   * 22 kulup degisimi, 18 farkli kulup, bir sezonda en cok 10 transfer ve
+   * 109 kez A->B->A gidip gelme. Gercek bir kariyer 4-8 kuluptur.
+   *
+   * NPC piyasasinin penceresi zaten VARDI (TransferMarket.windows);
+   * eksik olan yalnizca Hero tarafiydi. Kural: pencere basina BIR
+   * transfer. Iki pencere oldugu icin sezonluk tavan kendiliginden iki
+   * olur -- ayri bir sayaca gerek yok.
+   *
+   * Optional oldugu icin ESKI KAYITLAR backfill gerektirmez: eksik olmasi
+   * "bu kariyerde henuz transfer olmadi" demektir ve dogru anlamdir.
+   */
+  lastTransferAt?: { season: number; window: 'summer' | 'winter' };
 
   stature: Stature;
   clubTier: ClubTier;

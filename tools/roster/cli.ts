@@ -12,10 +12,9 @@
 
 import { openWorldDb } from './db.js';
 import { DEFAULT_SCOPE, type ImportScope } from './scope.js';
-import { runImport, REPO_URL, DEFAULT_REFEREE_POOL } from './import.js';
+import { runImport, REPO_URL } from './import.js';
 
 const DEFAULT_DB = 'data/world.db';
-const DEFAULT_RULES = 'tools/roster/mask-rules.json';
 
 function arg(name: string, fallback: string): string {
   const found = process.argv.find((a) => a.startsWith(`--${name}=`));
@@ -37,8 +36,7 @@ Roster & Lisans Araci
 Secenekler
   --data=<yol>      Klonun 'datalake/transfermarkt' klasoru (import icin zorunlu)
   --db=<yol>        Hedef veritabani (varsayilan: ${DEFAULT_DB})
-  --rules=<yol>     Elle maske eslemesi (varsayilan: ${DEFAULT_RULES})
-  --referees=<yol>  Hakem havuzu (varsayilan: ${DEFAULT_REFEREE_POOL})
+  --source=<ad>     fc26 | transfermarkt (varsayilan: elde olan dosyaya gore)
   --season=<yil>    Kaynak sezon (varsayilan: ${DEFAULT_SCOPE.sourceSeason})
   --countries=a,b   Ulke filtresi (varsayilan: ${DEFAULT_SCOPE.countries.length} ulke)
   --levels=1,2      Seviye filtresi
@@ -75,8 +73,6 @@ async function cmdImport(): Promise<void> {
     dataDir,
     dbPath,
     scope,
-    rulesPath: arg('rules', DEFAULT_RULES),
-    refereePoolPath: arg('referees', DEFAULT_REFEREE_POOL),
   });
 
   console.log('');

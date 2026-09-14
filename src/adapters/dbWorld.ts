@@ -22,6 +22,7 @@ import type { RosterProvider, WorldFeed, WorldProvider } from '../domain/roster.
 import { Rng } from '../selection/Rng.js';
 import { LeagueModel } from '../simulation/LeagueModel.js';
 import { MatchSimulator } from '../simulation/MatchSimulator.js';
+import { buildTeam } from '../simulation/TeamModel.js';
 import {
   buildSeasonSchedule,
   type BuiltSeason,
@@ -31,8 +32,10 @@ import { SimulatedWorldProvider } from '../simulation/SimulatedWorldProvider.js'
 import { SeasonRunner } from '../simulation/SeasonRunner.js';
 import { RefereeAssigner } from '../simulation/RefereeAssigner.js';
 import { TransferMarket, type MarketPlayer } from '../simulation/TransferMarket.js';
+import { ClubFinance } from '../simulation/ClubFinance.js';
 import { TransferOverlay, type Transfer } from '../domain/transfer.js';
 import type { Referee } from '../domain/referee.js';
+import type { StaffAttributes } from '../domain/actors.js';
 import type { Fixture } from '../domain/calendar.js';
 import { qualify } from '../simulation/competitions/ContinentalCompetition.js';
 import {
@@ -71,6 +74,15 @@ export interface DbWorld {
   refereeFor(fixture: Fixture): Referee | undefined;
   /** Bir kulubun ezeli rakibi. */
   rivalOf(clubId: string): string | undefined;
+  /**
+   * GOREVDEKI TEKNIK DIREKTORU BILDIRIR.
+   *
+   * Host, kulup -> hocanin `sourceId` cozucusunu verir. Kovulma KARIYER
+   * katmaninda olur; dunya katmani kimin gorevde oldugunu baska turlu
+   * bilemez ve takim gucune kovulan hocayi beslemeye devam ederdi.
+   * `MatchSimulator.useChemistrySource` ile ayni gec baglama kalibi.
+   */
+  useManagerSource(resolve: (clubId: string) => string | undefined): void;
   /** Milli takimlar, ulke kimligine gore. */
   readonly nationalTeams: ReadonlyMap<number, NationalTeam>;
   readonly nationalFixtures: readonly NationalFixture[];
@@ -161,31 +173,74 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     .map(([country, clubIds]) => ({ id: `cup_${country}`, clubIds }))
     .filter((c) => c.clubIds.length >= 4);
 
-  // SAMPIYONLAR LIGI: her 1. seviye ligin ilk 4'u, en fazla 32 kulup.
-  // Ilk sezonda siralama yok -- itibar kullanilir (bkz. `qualify`).
-  const topFlight = new Map<string, { id: string; reputation: number }[]>();
-  for (const league of leagues.filter((l) => l.level === 1)) {
-    topFlight.set(
-      league.id,
-      clubs.filter((c) => c.league === league.id).map((c) => ({ id: c.id, reputation: c.reputation })),
-    );
-  }
-  const clQualified = qualify(topFlight, 4, 32);
-
   const weeks = options.weeks ?? 40;
-  const schedule = buildSeasonSchedule(
-    {
-      weeks,
-      clubs,
-      leagues,
-      competitions: shapes,
-      cups,
-      ...(clQualified.length >= 8
-        ? { continental: { id: 'ucl', clubIds: clQualified, groupSize: 4, advancePerGroup: 2 } }
-        : {}),
-    },
-    new Rng(options.seed),
-  );
+
+  /**
+   * BIR SEZONUN TAKVIMINI KURAR -- her sezon YENIDEN.
+   *
+   * OLCULEN SORUN: takvim kariyer basina BIR KEZ kuruluyordu ve bu,
+   * dunyanin en buyuk yapisal sinirlamasiydi:
+   *
+   *   - Kupa bracket'i bitince bir daha kurulmuyordu; bir kupa kariyer
+   *     basina YALNIZCA BIR KEZ oynanabiliyordu (20 kariyerde kupa
+   *     kaynagi: league 389, cup 0).
+   *   - Fikstur listesi birinci sezonun lig uyeliklerini tasiyordu.
+   *     Terfi/dusme sonrasi kulup baska ligde oluyor ama fiksturu eski
+   *     ligi gosteriyordu; `LeagueModel.record()` onu reddediyor ve
+   *     oynanan mac sayisi 38'den 32'ye dusuyordu.
+   *
+   * Artik her sezon sonunda GUNCEL uyeliklerle yeni bir takvim kuruluyor.
+   *
+   * `seasonIndex` tohuma karisir: ayni dunyada her sezon FARKLI bir
+   * fikstur sirasi cikar. Karismasaydi yirmi sezon boyunca ayni haftada
+   * ayni eslesme oynanirdi.
+   */
+  const buildFor = (seasonIndex: number, standings?: ReadonlyMap<string, readonly string[]>) => {
+    // Lig uyelikleri LeagueModel'den okunur -- terfi/dusme sonrasi
+    // `clubs` dizisindeki `league` alani BAYATTIR.
+    const leagueOf = (clubId: string): string =>
+      leagueModel?.leagueFor(clubId) ?? clubs.find((c) => c.id === clubId)?.league ?? '';
+
+    const seasonShapes: CompetitionShape[] = shapes.map((shape) => ({
+      ...shape,
+      clubIds: clubs.filter((c) => leagueOf(c.id) === shape.id).map((c) => c.id),
+    })).filter((shape) => shape.clubIds.length >= 2);
+
+    // SAMPIYONLAR LIGI: her 1. seviye ligin ilk 4'u, en fazla 32 kulup.
+    // Ilk sezonda siralama yok -- itibar kullanilir. Sonraki sezonlarda
+    // GECEN SEZONUN puan durumu gecilir (`qualify` bunu zaten destekliyor).
+    const topFlight = new Map<string, { id: string; reputation: number }[]>();
+    for (const league of leagues.filter((l) => l.level === 1)) {
+      topFlight.set(
+        league.id,
+        clubs
+          .filter((c) => leagueOf(c.id) === league.id)
+          .map((c) => ({ id: c.id, reputation: c.reputation })),
+      );
+    }
+    const clQualified = qualify(topFlight, 4, 32, standings);
+
+    return buildSeasonSchedule(
+      {
+        weeks,
+        clubs,
+        leagues,
+        competitions: seasonShapes,
+        cups,
+        ...(clQualified.length >= 8
+          ? { continental: { id: 'ucl', clubIds: clQualified, groupSize: 4, advancePerGroup: 2 } }
+          : {}),
+      },
+      new Rng((options.seed + seasonIndex * 0x9e3779b1) >>> 0),
+    );
+  };
+
+  let leagueModel: LeagueModel | undefined;
+  /** Kacinci sezondayiz -- takvim tohumuna karisir. */
+  let seasonIndex = 0;
+  /** Bu sezon kupa/kita sampiyonu olan kulupler -- sezon sonunda prim alirlar. */
+  const seasonTrophyWinners = new Set<string>();
+  let schedule = buildFor(0);
 
   // HAKEMLER -- world.db'den okunur, atayici fikstur bazinda karar verir.
   const referees: Referee[] = (
@@ -243,13 +298,106 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
   );
 
   const levelByCompetition = new Map(leagues.map((l) => [l.id, l.level]));
+
+  // TURNUVA BAZLI KOKART ZORUNLULUGU.
+  //
+  // OLCULEN SORUN: `referee_eligibility` tablosu semada vardi ama
+  // `requiredBadgeOf` callback'i HIC gecirilmiyordu. `RefereeAssigner`
+  // her seferinde `undefined` aliyor ve taban `requiredBadge()`
+  // fonksiyonuna dusuyordu -- yani tablo tamamen oluydu ve "yeni bir
+  // turnuva eklendiginde kod degismez, satir eklenir" vaadi calismiyordu.
+  const minBadge = new Map(
+    (
+      db
+        .prepare('SELECT competition_id, min_badge FROM referee_eligibility')
+        .all() as unknown as { competition_id: number; min_badge: string }[]
+    ).map((r) => [String(r.competition_id), r.min_badge as Referee['badge']]),
+  );
+
   const assigner = new RefereeAssigner({
     referees,
     countryOfClub: (clubId) => countryOf.get(clubId),
     leagueLevelOf: (competitionId) => levelByCompetition.get(competitionId) ?? 2,
+    requiredBadgeOf: (competitionId) => minBadge.get(competitionId),
   });
 
-  const league = new LeagueModel(clubs, leagues);
+  // TEKNIK DIREKTOR ETKISI.
+  //
+  // Kadro saglayicisi heyeti zaten onbellekliyor; burada yalnizca 'manager'
+  // rolunu suzup simulatore veriyoruz. Kulubun hocasi yoksa (eski world.db,
+  // nitelik tasimayan satir) `undefined` doner ve carpan 1 kalir.
+  //
+  // GOREVDEKI HOCA, VERITABANINDAKI HOCA DEGIL.
+  //
+  // OLCULEN SORUN: burasi her zaman `staff` tablosundaki satiri okuyordu.
+  // Teknik direktor kovulunca anlati yeni bir hoca tanitiyor ama takim
+  // gucu KOVULAN hocanin niteliklerinde kaliyordu -- kariyerin sonuna
+  // kadar. 12 kariyerde 17 kovulma olcusuldu ve hicbirinde takim gucune
+  // giren hoca degismedi.
+  //
+  // Cozum gec baglama: kimin gorevde oldugunu KARIYER KATMANI bilir
+  // (`GameEngine` kadrolamasi), dunya katmani degil. `useManagerSource`
+  // ile host o bilgiyi buraya verir; verilmezse tablo okunur ve eski
+  // davranis aynen surer.
+  let managerSource: ((clubId: string) => string | undefined) | undefined;
+  const useManagerSource = (resolve: (clubId: string) => string | undefined): void => {
+    managerSource = resolve;
+    strengthCache.clear();
+    managerSeen.clear();
+  };
+
+  const managerOf = (clubId: string) => {
+    const sourceId = managerSource?.(clubId);
+    if (sourceId !== undefined) {
+      const person = roster.lookup(sourceId);
+      if (person && 'role' in person && person.role === 'manager') return person;
+    }
+    return roster.staff(clubId).find((p) => p.role === 'manager');
+  };
+
+  const coachOf = (
+    clubId: string,
+  ): { attributes?: StaffAttributes; preferredFormation?: string } | undefined => {
+    const manager = managerOf(clubId);
+    if (!manager?.attributes) return undefined;
+    return { attributes: manager.attributes };
+  };
+
+  // KADRO GUCU COZUCUSU -- lig maci artik kadroyu GORUYOR.
+  //
+  // OLCULEN SORUN: `LeagueModel.strength()` yalnizca `club.reputation`
+  // okuyordu ve itibar kariyer boyunca sabitti. Transferler ve teknik
+  // direktor etkisi lig sonucuna HIC girmiyordu; 100 sezonluk olcumde
+  // bir kulup ligi %99-100 kazaniyordu.
+  //
+  // ONBELLEK ZORUNLU: `resolveCheap` her hafta her fikstur icin cagrilir
+  // (252 kulup x 40 hafta). Her cagride kadro kurmak kabul edilemez.
+  // Onbellek yalnizca transferde temizlenir -- kadro baska turlu degismez.
+  const strengthCache = new Map<string, number>();
+  // Onbellegi hoca degisiminde de tazelemek gerekir -- yoksa kovulma takim
+  // gucune hicbir zaman yansimaz. Disaridan cagrilacak bir gecersiz kilma
+  // kancasi yerine, kimin gorevde oldugu onbellekle birlikte tutuluyor:
+  // kendi kendini onaran ve cagiranin bir sey hatirlamasini gerektirmeyen
+  // bicim.
+  const managerSeen = new Map<string, string>();
+  const squadOverallOf = (clubId: string): number | undefined => {
+    const current = managerSource?.(clubId) ?? '';
+    const hit = strengthCache.get(clubId);
+    if (hit !== undefined && managerSeen.get(clubId) === current) return hit;
+    managerSeen.set(clubId, current);
+    const club = roster.club(clubId);
+    if (!club) return undefined;
+    const squad = roster.squad(clubId);
+    if (squad.length === 0) return undefined;
+    const overall = buildTeam(clubId, club.name, squad, undefined, undefined, coachOf(clubId))
+      .lines.overall;
+    strengthCache.set(clubId, overall);
+    return overall;
+  };
+
+  const league = new LeagueModel(clubs, leagues, squadOverallOf);
+  // `buildFor` guncel lig uyeliklerini buradan okur.
+  leagueModel = league;
   const relegatedByLeague = new Map(leagues.map((l) => [l.id, Math.max(0, l.relegated)]));
   const leagueContextForClub = (clubId: string):
     | {
@@ -289,6 +437,7 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
   const simulator = new MatchSimulator({
     clubs,
     squadOf: (id) => roster.squad(id),
+    coachOf,
     schedule,
     seed: options.seed,
     heroName: options.heroName ?? 'Sen',
@@ -296,7 +445,7 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     tableContextForClub: leagueContextForClub,
   });
 
-  const runner = new SeasonRunner({
+  let runner = new SeasonRunner({
     schedule,
     league,
     ...(schedule.continental === undefined ? {} : { continental: schedule.continental }),
@@ -377,7 +526,63 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     seasonsLeft: contractSeasonsLeft(r.contract_expires),
   }));
 
+  // KADRO DEGERI -- ekonominin girdisi. Gucten (overall) AYRI bir eksen:
+  // gelir ve maas para birimiyle olculur, hat gucuyle degil.
+  //
+  // Transfer ortusunu okur, yani kariyer ici transferlerden SONRAKI gercek
+  // kadroyu fiyatlar. Onbellek transferde temizlenir.
+  const valueCache = new Map<string, number>();
+  const squadValueOf = (clubId: string): number => {
+    const hit = valueCache.get(clubId);
+    if (hit !== undefined) return hit;
+    let total = 0;
+    for (const p of marketPlayers) {
+      if (overlay.clubOf(p.id, p.clubId) === clubId) total += p.baseValue;
+    }
+    valueCache.set(clubId, total);
+    return total;
+  };
+
+  const leagueRepOf = new Map(
+    (
+      db.prepare('SELECT id, reputation FROM competition').all() as unknown as {
+        id: number;
+        reputation: number;
+      }[]
+    ).map((r) => [String(r.id), r.reputation]),
+  );
+
+  const finance = new ClubFinance({
+    clubs: clubs.map((c) => ({
+      id: c.id,
+      budgetTransfer: budgetOf.get(c.id) ?? 0,
+      reputation: c.reputation,
+    })),
+    squadValueOf,
+    leagueReputationOf: (clubId) =>
+      leagueRepOf.get(league.leagueFor(clubId) ?? roster.club(clubId)?.league ?? '') ?? 40,
+  });
+
+  // OYUNCU -> MENAJERLIK SIRKETI -> PAZARLIK GUCU.
+  //
+  // `player_agency` tablosu 2.697 gercek iliski tasiyor ama motor onu HIC
+  // okumuyordu (denetim: UNUSED). Artik satis fiyatina giriyor: guclu bir
+  // sirket kulubun oyuncuyu tutma gucunu zayiflatir.
+  const agencyPower = new Map(
+    (
+      db
+        .prepare(
+          `SELECT pa.player_id, a.negotiation_power
+           FROM player_agency pa JOIN agency a ON a.id = pa.agency_id
+           WHERE pa.is_current = 1`,
+        )
+        .all() as unknown as { player_id: number; negotiation_power: number }[]
+    ).map((r) => [r.player_id, r.negotiation_power]),
+  );
+
   const market = new TransferMarket({
+    finance,
+    agencyPowerOf: (playerId) => agencyPower.get(playerId),
     clubs: clubs.map((c) => ({
       id: c.id,
       reputation: c.reputation,
@@ -400,10 +605,17 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     worldFeed: new MockWorldFeed(world, clubs, options.seed),
     league,
     simulator,
-    schedule,
+    // GETTER: sezon devrinde takvim DEGISIR. Sabit bir deger donmek
+    // host'a birinci sezonun fiksturlerini gostermeye devam ederdi.
+    get schedule() {
+      return schedule;
+    },
     leagueContextForClub,
+    useManagerSource,
     db,
-    runner,
+    get runner() {
+      return runner;
+    },
     market,
     overlay,
     runTransferWeek: (week) => {
@@ -412,6 +624,11 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
       for (const t of done) {
         roster.invalidate(t.fromClubId);
         roster.invalidate(t.toClubId);
+        // Kadro degisti -> lig gucu de degisti. Onbellek bayatlamasin.
+        strengthCache.delete(t.fromClubId);
+        strengthCache.delete(t.toClubId);
+        valueCache.delete(t.fromClubId);
+        valueCache.delete(t.toClubId);
       }
       return done;
     },
@@ -419,6 +636,10 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
       // Artik yalnizca lig degil TURNUVALAR da ilerliyor: kupa turu bitince
       // kazananlar toplaniyor ve bir sonraki tur rezerve slota yaziliyor.
       const report = runner.playWeek(week, heroClubId, leagueRng);
+      // EKONOMI: kupa/kita sampiyonlugu prim getirir. Hero'nunki degil
+      // BUTUN kuluplerinki toplanir -- dunyanin ekonomisi Hero'ya bagli
+      // degildir.
+      for (const c of report.champions) seasonTrophyWinners.add(c.clubId);
       // Hero'nun kulubu bu hafta bir kupa kaldirdiysa host'a soyle.
       // Bu bilgi zaten uretiliyordu ama atiliyordu.
       return report.champions
@@ -437,7 +658,50 @@ export function createDbWorld(options: DbWorldOptions): DbWorld {
     },
     finishSeason: () => {
       simulator.resetSeason();
-      return league.finishSeason();
+      // TRANSFER PIYASASI DA SIFIRLANIR.
+      //
+      // OLCULEN SORUN: `TransferMarket.resetSeason()` yazilmis ve
+      // dokumantasyonu "sezon donusunde cagrilir" diyordu -- ama HICBIR
+      // YERDEN cagrilmiyordu. Iki sonucu vardi:
+      //   1. `movedThisSeason` hicbir zaman temizlenmiyor; bir oyuncu
+      //      dunya omru boyunca YALNIZCA BIR KEZ transfer olabiliyordu.
+      //   2. Butceler hicbir zaman tazelenmiyor; harcanan para geri
+      //      gelmiyordu.
+      // 100 sezonluk olcumde piyasa ilk on sezonda 79,5 transfer/sezon
+      // yapip sonra KALICI OLARAK oluyordu (son on sezon: 0,0).
+      market.resetSeason();
+      // GECEN SEZONUN PUAN DURUMU -- Sampiyonlar Ligi elemesi icin.
+      // Tabloyu `league.finishSeason()` sifirladigi icin ONCE okunur.
+      const standings = new Map<string, readonly string[]>();
+      for (const l of leagues) {
+        const rows = league.standings(l.id);
+        if (rows.length > 0) standings.set(l.id, rows.map((r) => r.clubId));
+      }
+
+      // EKONOMI: prim sezon sonu SIRASINDAN gelir, yani tablo
+      // sifirlanmadan ONCE kapanmali.
+      finance.closeSeason({ standings, trophyWinners: [...seasonTrophyWinners] });
+      seasonTrophyWinners.clear();
+
+      const outcome = league.finishSeason();
+      seasonIndex += 1;
+
+      // SEZON DEVRI: takvim GUNCEL uyeliklerle yeniden kurulur.
+      //
+      // Terfi/dusme `league.finishSeason()` icinde uygulandi; `buildFor`
+      // lig uyeliklerini `LeagueModel`den okudugu icin yeni takvim dogru
+      // kadrolarla cikar. Kupa bracket'leri de sifirdan kurulur -- kupalar
+      // artik her sezon oynanir.
+      schedule = buildFor(seasonIndex, standings);
+      runner = new SeasonRunner({
+        schedule,
+        league,
+        ...(schedule.continental === undefined ? {} : { continental: schedule.continental }),
+        ...(schedule.continentalId === undefined ? {} : { continentalId: schedule.continentalId }),
+      });
+      simulator.useSchedule(schedule);
+
+      return outcome;
     },
     refereeFor,
     rivalOf: (clubId: string) => rivalOf.get(clubId),

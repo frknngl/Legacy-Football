@@ -36,7 +36,7 @@
     },
     "id": {
       "type": "string",
-      "pattern": "^evt_[a-z0-9_]+$",
+      "pattern": "^evt_[a-zçğıöşü0-9_]+$",
       "description": "Benzersiz olay kimligi."
     },
     "family": {
@@ -76,14 +76,11 @@
     "eras": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/era"
+        "$ref": "#/definitions/eraGate"
       }
     },
     "stature": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/stature"
-      }
+      "$ref": "#/definitions/statureList"
     },
     "clubTiers": {
       "type": "array",
@@ -185,6 +182,10 @@
           "minLength": 1
         }
       }
+    },
+    "statures": {
+      "$ref": "#/definitions/statureList",
+      "description": "'stature' ile ayni; ayristirici ikisini de kabul eder."
     }
   },
   "definitions": {
@@ -205,8 +206,10 @@
         "star",
         "superstar",
         "icon",
-        "legend"
-      ]
+        "legend",
+        "prospect"
+      ],
+      "description": "Takma adlar da kabul edilir (bkz. parse.ts AXIS_ALIASES); ayristirici gercek basamaga cevirir."
     },
     "clubTier": {
       "enum": [
@@ -214,8 +217,11 @@
         "lower",
         "mid",
         "contender",
-        "elite"
-      ]
+        "elite",
+        "relegation",
+        "midtable"
+      ],
+      "description": "Takma adlar da kabul edilir (bkz. parse.ts AXIS_ALIASES); ayristirici gercek basamaga cevirir."
     },
     "lifeState": {
       "enum": [
@@ -284,6 +290,60 @@
         },
         "dogruluk": {
           "type": "number"
+        },
+        "profesyonellik": {
+          "type": "number"
+        },
+        "zeka": {
+          "type": "number"
+        },
+        "ego": {
+          "type": "number"
+        },
+        "cesaret": {
+          "type": "number"
+        },
+        "merhamet": {
+          "type": "number"
+        },
+        "özgüven": {
+          "type": "number"
+        },
+        "liderlik": {
+          "type": "number"
+        },
+        "hırs": {
+          "type": "number"
+        },
+        "umursamazlik": {
+          "type": "number"
+        },
+        "sabır": {
+          "type": "number"
+        },
+        "cömertlik": {
+          "type": "number"
+        },
+        "disiplin": {
+          "type": "number"
+        },
+        "icekapaniklik": {
+          "type": "number"
+        },
+        "güven": {
+          "type": "number"
+        },
+        "icgoru": {
+          "type": "number"
+        },
+        "inat": {
+          "type": "number"
+        },
+        "ozguven": {
+          "type": "number"
+        },
+        "yetenek": {
+          "type": "number"
         }
       }
     },
@@ -301,7 +361,7 @@
         "beat": {
           "type": "string",
           "minLength": 1,
-          "pattern": "^[a-z0-9_]+$"
+          "pattern": "^[a-zçğıöşü0-9_]+$"
         },
         "slot": {
           "type": "string",
@@ -633,6 +693,10 @@
             },
             "incident": {
               "type": "string"
+            },
+            "redCards": {
+              "type": "number",
+              "description": "'redCard: true' ile ayni; ayristirici sayiyi ikiliye cevirir."
             }
           }
         },
@@ -859,6 +923,30 @@
       "minProperties": 1,
       "additionalProperties": {
         "$ref": "#/definitions/node"
+      }
+    },
+    "eraGate": {
+      "enum": [
+        "rookie",
+        "rise",
+        "prime",
+        "veteran",
+        "twilight",
+        "nobody",
+        "local_talent",
+        "starter",
+        "star",
+        "superstar",
+        "icon",
+        "legend",
+        "prospect"
+      ],
+      "description": "Yas evresi ya da sohret degeri. Ayristirici ikisini ayirir (bkz. parse.ts splitEraGate)."
+    },
+    "statureList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/stature"
       }
     }
   }
